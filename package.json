@@ -7,10 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit && npx eslint src",
-    "lint.fix": "npm run lint -- --fix"
+    "lint": "tsc --noEmit && eslint --cache . --ext .js,.ts,.tsx",
+    "lint.fix": "eslint --cache --fix . --ext .js,.ts,.tsx"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@mantine/core": "^5.10.0",
+    "@mantine/hooks": "^5.10.0",
+    "@mantine/modals": "^5.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1"

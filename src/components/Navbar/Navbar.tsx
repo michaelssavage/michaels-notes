@@ -6,10 +6,10 @@ export const Navbar = () => {
     <div className={styles.container}>
       <nav>
         <div className={styles.navItems}>
-          <Link href="#about-me">Home</Link>
-          <Link href="#interests">Interests</Link>
-          <Link href="#projects">Projects</Link>
-          <Link href="/">CV</Link>
+          <Link to="/#about-me">Home</Link>
+          <Link to="/#interests">Interests</Link>
+          <Link to="/#projects">Projects</Link>
+          <Link to="/cv">CV</Link>
         </div>
       </nav>
     </div>
