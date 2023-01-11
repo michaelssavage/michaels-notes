@@ -1,18 +1,11 @@
 .container {
-  padding: 2rem 10%;
-  background-color: rgb(205, 236, 239);
+  padding: 2.4rem 0.2rem 3.6rem;
 }
 
 .navItems {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  a {
-    color: #555555;
-    &:hover {
-      color: #419989;
-    }
-  }
 }
 
 .navActive {
@@ -32,4 +25,8 @@
   &:hover {
     color: #419989;
   }
+}
+
+.spotifyListening {
+  text-align: center;
 }
