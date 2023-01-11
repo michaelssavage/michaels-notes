@@ -1,0 +1,35 @@
+.container {
+  padding: 2rem 10%;
+  background-color: rgb(205, 236, 239);
+}
+
+.navItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  a {
+    color: #555555;
+    &:hover {
+      color: #419989;
+    }
+  }
+}
+
+.navActive {
+  padding: 0 1rem;
+  margin: 0 1rem;
+  color: #000000;
+  flex-grow: 2;
+  border-bottom: 2px solid #70ffa7;
+  &:hover {
+    border-bottom: 2px solid #70ffe5;
+  }
+}
+
+.navItem {
+  flex-grow: 1;
+  color: #555555;
+  &:hover {
+    color: #419989;
+  }
+}
