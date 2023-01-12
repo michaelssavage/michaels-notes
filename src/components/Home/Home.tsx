@@ -1,3 +1,5 @@
+import { NowPlaying } from "components/Spotify";
+
 export const Home = () => {
   return (
     <div>
@@ -47,6 +49,7 @@ export const Home = () => {
           series.
         </li>
       </ul>
+      <NowPlaying />
     </div>
   );
 };

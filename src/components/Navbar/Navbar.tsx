@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import { Card } from "@mantine/core";
 import styles from "./navbar.module.scss";
 
 interface NavItemProps {
@@ -10,7 +9,7 @@ interface NavItemProps {
 const NavItem = ({ href, name }: NavItemProps) => {
   const router = useLocation();
   return (
-    <Link href={href} className={router.pathname === href ? styles.navActive : styles.navItem}>
+    <Link to={href} className={router.pathname === href ? styles.navActive : styles.navItem}>
       {name}
     </Link>
   );
@@ -26,9 +25,6 @@ export const Navbar = () => {
           <NavItem href="/projects" name="Projects" />
           <NavItem href="/cv" name="CV" />
         </div>
-        <Card shadow="sm" p="lg" radius="md" withBorder className={styles.spotifyListening}>
-          What am I listening too?
-        </Card>
       </nav>
     </div>
   );
