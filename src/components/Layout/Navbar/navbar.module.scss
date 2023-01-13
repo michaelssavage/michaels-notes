@@ -1,0 +1,27 @@
+@use "sass:color";
+@use "src/styling/vars" as *;
+
+.container {
+  padding: 2.4rem 0.2rem 3.6rem;
+}
+
+.navActive {
+  color: $black;
+  flex-grow: 2;
+  border-bottom: 2px solid $paleGreen;
+  &:hover {
+    border-bottom: 2px solid $aquaMarine;
+  }
+}
+
+.navItem {
+  flex-grow: 1;
+  color: $darkGray;
+  &:hover {
+    color: $darkCyan;
+  }
+}
+
+.spotifyListening {
+  text-align: center;
+}

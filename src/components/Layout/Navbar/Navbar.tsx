@@ -1,3 +1,4 @@
+import { Group } from "@mantine/core";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./navbar.module.scss";
 
@@ -17,15 +18,13 @@ const NavItem = ({ href, name }: NavItemProps) => {
 
 export const Navbar = () => {
   return (
-    <div className={styles.container}>
-      <nav>
-        <div className={styles.navItems}>
-          <NavItem href="/" name="Home" />
-          <NavItem href="/interests" name="Interests" />
-          <NavItem href="/projects" name="Projects" />
-          <NavItem href="/cv" name="CV" />
-        </div>
-      </nav>
-    </div>
+    <nav className={styles.container}>
+      <Group position="apart">
+        <NavItem href="/" name="Home" />
+        <NavItem href="/interests" name="Interests" />
+        <NavItem href="/projects" name="Projects" />
+        <NavItem href="/cv" name="CV" />
+      </Group>
+    </nav>
   );
 };

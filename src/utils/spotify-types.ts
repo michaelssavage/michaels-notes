@@ -9,6 +9,7 @@ export interface NowPlayingProps {
 
 export interface TopTracksProps {
   artist: string;
+  albumImageUrl: string;
   songUrl: string;
   title: string;
 }

@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import { Image, SimpleGrid, Text } from "@mantine/core";
 import { TOP_TRACKS_ENDPOINT } from "utils/constants";
 import { getTopTracks } from "api/spotify";
 import { TopTracksProps } from "utils/spotify-types";
@@ -9,12 +10,26 @@ export const TopTracks = () => {
   return (
     <section>
       <h2 className="header3">What Are My Favourite Tracks?</h2>
-      {data &&
-        data.map((track: TopTracksProps) => (
-          <li key={track.songUrl}>
-            {track.artist} - {track.title}
-          </li>
-        ))}
+
+      <SimpleGrid cols={3} style={{ margin: "1rem 0" }}>
+        {data &&
+          data.map((track: TopTracksProps) => (
+            <div
+              key={track.songUrl}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+            >
+              <Image
+                radius="md"
+                src={track.albumImageUrl}
+                alt={`${track.title} album art`}
+                width={200}
+              />
+              <Text style={{ marginTop: "1rem" }}>
+                {track.artist} - {track.title}
+              </Text>
+            </div>
+          ))}
+      </SimpleGrid>
     </section>
   );
 };
