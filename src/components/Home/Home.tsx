@@ -1,28 +1,45 @@
 import { showNotification } from "@mantine/notifications";
+import { IconCheck } from "@tabler/icons";
 import { NowPlaying } from "components/Spotify";
 
 export const Home = () => {
+  const github = "github.com/michaelssavage";
+  const linkedIn = "linkedin.com/in/michaelssavage";
+  const emailAddress = "michaelsavage940@gmail.com";
+  const copyEmail = (ev) => {
+    ev.preventDefault();
+    navigator.clipboard.writeText(emailAddress);
+    showNotification({
+      color: "teal",
+      icon: <IconCheck size={16} />,
+      message: "Email Address Copied",
+    });
+  };
   return (
     <div>
       <h1>Michael Savage</h1>
 
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+        <a className="hoverLink" data-replace={emailAddress} href="" onClick={copyEmail}>
+          <span>{emailAddress}</span>
+        </a>
         <a
-          href=""
-          onClick={() =>
-            showNotification({
-              title: "Default notification",
-              message: "Hey there, your code is awesome! 🤥",
-            })
-          }
+          className="hoverLink"
+          data-replace={github}
+          href={`https://${github}`}
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          michaelsavage940@gmail.com
+          <span>{github}</span>
         </a>
-        <a href="https://github.com/michaelssavage" rel="noopener noreferrer" target="_blank">
-          github.com/michaelssavage
-        </a>
-        <a href="https://linkedin.com/in/michaelssavage" rel="noopener noreferrer" target="_blank">
-          linkedin.com/in/michaelssavage
+        <a
+          className="hoverLink"
+          data-replace={linkedIn}
+          href={`https://${linkedIn}`}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span>{linkedIn}</span>
         </a>
       </div>
 

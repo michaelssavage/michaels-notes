@@ -16,6 +16,7 @@
     "@mantine/hooks": "^5.10.0",
     "@mantine/modals": "^5.10.0",
     "@mantine/notifications": "^5.10.0",
+    "@tabler/icons": "^1.119.0",
     "axios": "^1.2.2",
     "buffer": "^6.0.3",
     "motion": "^10.15.5",
