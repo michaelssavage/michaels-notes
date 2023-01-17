@@ -1,6 +1,15 @@
 @use "sass:color";
 @use "vars" as *;
 
+// Import the functions/mixins
+@import "@animxyz/core";
+
+// Add all the core/utilities selectors
+@include xyz-all;
+// --- Or for more control and granularity ---
+@include xyz-core;
+@include xyz-utilities;
+
 /*
   1. Use a more-intuitive box-sizing model.
 */

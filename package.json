@@ -11,6 +11,8 @@
     "lint.fix": "eslint --cache --fix . --ext .js,.ts,.tsx"
   },
   "dependencies": {
+    "@animxyz/core": "^0.6.6",
+    "@animxyz/react": "^0.6.7",
     "@emotion/react": "^11.10.5",
     "@mantine/core": "^5.10.0",
     "@mantine/hooks": "^5.10.0",
