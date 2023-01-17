@@ -5,7 +5,7 @@ export const Layout = () => {
   return (
     <>
       <Navbar />
-      <main style={{ margin: "0 5%" }}>
+      <main style={{ margin: "0 10%" }}>
         <Outlet />
       </main>
     </>

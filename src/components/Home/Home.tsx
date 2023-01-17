@@ -1,6 +1,7 @@
 import { showNotification } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons";
 import { MouseEvent } from "react";
+import { Title } from "@mantine/core";
 import { NowPlaying } from "components/Spotify";
 
 export const Home = () => {
@@ -18,7 +19,7 @@ export const Home = () => {
   };
   return (
     <div>
-      <h1>Michael Savage</h1>
+      <Title order={1}>Michael Savage</Title>
 
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
         <a className="hoverLink" data-replace={emailAddress} href="" onClick={copyEmail}>

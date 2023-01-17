@@ -1,4 +1,4 @@
-import { Group } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./navbar.module.scss";
 
@@ -11,7 +11,7 @@ const NavItem = ({ href, name }: NavItemProps) => {
   const router = useLocation();
   return (
     <Link to={href} className={router.pathname === href ? styles.navActive : styles.navItem}>
-      {name}
+      <Text fz="lg">{name}</Text>
     </Link>
   );
 };

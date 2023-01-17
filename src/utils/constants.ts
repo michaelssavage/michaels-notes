@@ -14,3 +14,5 @@ const user = import.meta.env.VITE_GITHUB_USER;
 const repo = import.meta.env.VITE_GITHUB_REPO;
 export const token = import.meta.env.VITE_GITHUB_TOKEN;
 export const GITHUB_CONTENT = `https://api.github.com/repos/${user}/${repo}/contents`;
+
+export const LETTERBOXD_URI = "https://letterboxd.com/ottobio/list/my-favourites-1/";

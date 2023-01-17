@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from "axios";
 import { GITHUB_CONTENT, token } from "utils/constants";
 import { GithubProps, GraphicsProps } from "utils/github-types";
@@ -9,30 +10,36 @@ const config = {
   },
 };
 
-const getAllGraphics = async (dirURL: string, arrFiles?: GraphicsProps[]) => {
-  const res = await axios.get(dirURL, config);
-  const files = res.data;
-  const allImages = arrFiles || [];
+const getAllGraphics = async (url: string, lstOfFiles?: GraphicsProps[]) => {
+  try {
+    const res = await axios.get(url, config);
+    if (res.status !== 200) throw new Error("HTTP error");
 
-  files.forEach((file: GithubProps) => {
-    if (file.type == "file" && file.name !== "README.md") {
-      const graphic = {
-        name: file.name.replace(/\.[^/.]+$/, ""),
-        img: file.download_url,
-        key: file.git_url,
-      };
-      allImages.push(graphic);
-    } else if (file.type === "dir") {
-      // If this is a directory, then recursively call function
-      return getAllGraphics(file.url, allImages);
-    } else {
-      return;
+    let allFiles = lstOfFiles || [];
+
+    let idx = 0;
+    const content: GithubProps[] = res.data;
+
+    while (idx < content.length) {
+      const file = content[idx];
+      if (file.type === "dir") {
+        allFiles = await getAllGraphics(file.url, allFiles);
+      } else if (file.type === "file" && file.name !== "README.md") {
+        allFiles.push({
+          name: file.name.replace(/\.[^/.]+$/, ""),
+          img: file.download_url,
+          key: file.git_url,
+        });
+      }
+      idx++;
     }
-  });
-  return allImages;
+    return allFiles;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
 
-export const getGithubContent = async () => {
-  const graphics = await getAllGraphics(GITHUB_CONTENT);
-  return graphics;
+export const getGithubContent = () => {
+  return getAllGraphics(GITHUB_CONTENT);
 };

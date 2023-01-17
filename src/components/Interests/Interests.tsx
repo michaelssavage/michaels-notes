@@ -1,16 +1,16 @@
-import { Text } from "@mantine/core";
+import { Title } from "@mantine/core";
 import { Github } from "components/Github";
+import { Letterboxd } from "components/Letterboxd";
 import { TopTracks } from "components/Spotify";
 
 export const Interests = () => {
   return (
     <>
-      <h1>My Interests</h1>
+      <Title order={1}>My Interests</Title>
+
+      <Letterboxd />
 
       <Github />
-
-      <h2>Movies & TV</h2>
-      <Text>My favourite movies pulled from Letterboxd</Text>
 
       <TopTracks />
     </>

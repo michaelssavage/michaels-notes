@@ -12,7 +12,7 @@ export const TopTracks = () => {
     <section>
       <h2>Music</h2>
 
-      <Text>My Favourite Tracks pulled from Spotify</Text>
+      <Text>My Current Favourite Tracks on Spotify</Text>
 
       <XyzTransitionGroup
         appearVisible
