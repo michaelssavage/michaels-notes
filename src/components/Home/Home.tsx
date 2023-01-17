@@ -1,12 +1,13 @@
 import { showNotification } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons";
+import { MouseEvent } from "react";
 import { NowPlaying } from "components/Spotify";
 
 export const Home = () => {
   const github = "github.com/michaelssavage";
   const linkedIn = "linkedin.com/in/michaelssavage";
   const emailAddress = "michaelsavage940@gmail.com";
-  const copyEmail = (ev) => {
+  const copyEmail = (ev: MouseEvent) => {
     ev.preventDefault();
     navigator.clipboard.writeText(emailAddress);
     showNotification({

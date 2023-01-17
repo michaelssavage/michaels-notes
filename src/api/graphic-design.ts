@@ -1,25 +1,38 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getContent } from "lib/github";
-/* eslint-disable-next-line */
-const path = require("path");
+import axios from "axios";
+import { GITHUB_CONTENT, token } from "utils/constants";
+import { GithubProps, GraphicsProps } from "utils/github-types";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const response = await getContent();
+const config = {
+  headers: {
+    Authorization: `token ${token}`,
+    accept: "application/vnd.github+json",
+  },
+};
 
-  const graphics = response
-    .map((pic) => ({
-      name: path.parse(pic.name).name,
-      img: pic.download_url,
-    }))
-    .filter((pic) => pic.name !== "README");
+const getAllGraphics = async (dirURL: string, arrFiles?: GraphicsProps[]) => {
+  const res = await axios.get(dirURL, config);
+  const files = res.data;
+  const allImages = arrFiles || [];
 
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=60, stale-while-revalidate=30"
-  );
+  files.forEach((file: GithubProps) => {
+    if (file.type == "file" && file.name !== "README.md") {
+      const graphic = {
+        name: file.name.replace(/\.[^/.]+$/, ""),
+        img: file.download_url,
+        key: file.git_url,
+      };
+      allImages.push(graphic);
+    } else if (file.type === "dir") {
+      // If this is a directory, then recursively call function
+      return getAllGraphics(file.url, allImages);
+    } else {
+      return;
+    }
+  });
+  return allImages;
+};
 
-  return res.status(200).json({ graphics });
-}
+export const getGithubContent = async () => {
+  const graphics = await getAllGraphics(GITHUB_CONTENT);
+  return graphics;
+};

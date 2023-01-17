@@ -9,9 +9,11 @@ export const TopTracks = () => {
 
   return (
     <section>
-      <h2 className="header3">What Are My Favourite Tracks?</h2>
+      <h2>Music</h2>
 
-      <SimpleGrid cols={3} style={{ margin: "1rem 0" }}>
+      <Text>My Favourite Tracks pulled from Spotify</Text>
+
+      <SimpleGrid cols={6} style={{ margin: "1rem 0" }}>
         {data &&
           data.map((track: TopTracksProps) => (
             <div

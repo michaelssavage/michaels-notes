@@ -17,13 +17,11 @@ const getAccessToken = async () => {
     },
   };
   const res = await axios.post(TOKEN_ENDPOINT, data, config);
-
-  return res.data;
+  return { headers: { Authorization: `Bearer ${res.data.access_token}` } };
 };
 
 export const getNowPlaying = async () => {
-  const { access_token } = await getAccessToken();
-  const config = { headers: { Authorization: `Bearer ${access_token}` } };
+  const config = await getAccessToken();
 
   const res = await axios.get(NOW_PLAYING_ENDPOINT, config);
   const song = await res.data;
@@ -39,8 +37,7 @@ export const getNowPlaying = async () => {
 };
 
 export const getTopTracks = async () => {
-  const { access_token } = await getAccessToken();
-  const config = { headers: { Authorization: `Bearer ${access_token}` } };
+  const config = await getAccessToken();
 
   const res = await axios.get(TOP_TRACKS_ENDPOINT, config);
   const { items } = await res.data;
