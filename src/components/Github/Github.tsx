@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { Image, SimpleGrid, Text } from "@mantine/core";
 import { XyzTransitionGroup } from "@animxyz/react";
-import { getGithubContent } from "api/graphic-design";
+import { getGithubContent } from "api/github";
 import { GITHUB_CONTENT } from "utils/constants";
 import { GraphicsProps } from "utils/github-types";
 
