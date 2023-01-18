@@ -1,9 +1,9 @@
 export const IrelandIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12">
-      <rect fill="#169b62" width="24" height="12" />
-      <rect fill="#fff" x="8" width="16" height="24" />
-      <rect fill="#ff883e" x="16" width="8" height="24" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="15">
+      <rect fill="#169b62" width="30" height="15" />
+      <rect fill="#fff" x="10" width="20" height="30" />
+      <rect fill="#ff883e" x="20" width="10" height="30" />
     </svg>
   );
 };

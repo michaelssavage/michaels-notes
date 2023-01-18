@@ -1,8 +1,8 @@
-import { Card, Flex, Group, Image, Text } from "@mantine/core";
+import { Flex, Group, Image, Paper, Text, Title } from "@mantine/core";
 import useSWR from "swr";
 import { NOW_PLAYING_ENDPOINT } from "utils/constants";
 import { getNowPlaying } from "api/spotify";
-import { AnimatedBars } from "components/Spotify";
+import { AnimatedBars } from "components/Interests/Spotify";
 import { NowPlayingProps } from "utils/spotify-types";
 import { SpotifyIcon } from "components/Icons";
 
@@ -10,27 +10,31 @@ export const NowPlaying = () => {
   const { data } = useSWR<NowPlayingProps>(NOW_PLAYING_ENDPOINT, getNowPlaying);
 
   return (
-    <section>
-      <h2>What Am I Listening To?</h2>
-      <Card shadow="sm" p="xs" withBorder>
+    <Paper shadow="md" p="md" withBorder>
+      <Title order={2}>What Am I Listening To?</Title>
+      <Group style={{ marginTop: "0.5rem" }}>
         {data?.songUrl ? (
-          <Group>
+          <Flex justify="center" gap="xs">
             <Image radius="md" src={data.albumImageUrl} alt="spotify logo" width={100} />
-            <AnimatedBars />
-            <Flex direction="column" wrap="wrap">
-              <Text weight={800}>
-                {data.artist} - {data.title}
-              </Text>
-              <Text>Album: {data.album}</Text>
+            <Flex direction="row" align="center" gap="xs">
+              <AnimatedBars />
+              <Flex direction="column" wrap="wrap">
+                <Text weight={800} size="sm" lineClamp={1}>
+                  {data.artist} - {data.title}
+                </Text>
+                <Text size="sm" lineClamp={1}>
+                  {data.album}
+                </Text>
+              </Flex>
             </Flex>
-          </Group>
+          </Flex>
         ) : (
-          <Group>
+          <>
             <SpotifyIcon />
             <Text weight={800}>Nothing Currently </Text>
-          </Group>
+          </>
         )}
-      </Card>
-    </section>
+      </Group>
+    </Paper>
   );
 };

@@ -51,22 +51,6 @@ export const AnimatedBars = () => {
         easing: ["ease-in-out"],
       }
     );
-    animate(
-      "#bar4",
-      {
-        transform: [
-          "scaleY(1.0)  translateY(0rem)",
-          "scaleY(0.5) translateY(0.5rem)",
-          "scaleY(1.0)  translateY(0rem)",
-        ],
-      },
-      {
-        delay: 0.1,
-        duration: 1.2,
-        repeat: Infinity,
-        easing: ["ease-in-out"],
-      }
-    );
   }, []);
 
   return (
@@ -74,7 +58,6 @@ export const AnimatedBars = () => {
       <span id="bar1" className={styles.bar1} />
       <span id="bar2" className={styles.bar2} />
       <span id="bar3" className={styles.bar3} />
-      <span id="bar4" className={styles.bar4} />
     </div>
   );
 };

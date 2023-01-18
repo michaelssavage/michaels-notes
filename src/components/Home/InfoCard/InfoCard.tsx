@@ -1,4 +1,4 @@
-import { Button, Card, Flex, List, Text, Title } from "@mantine/core";
+import { Button, Flex, List, Paper, Text, Title } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { IconBrandGithub, IconBrandLinkedin, IconCheck, IconMail } from "@tabler/icons";
 import { MouseEvent } from "react";
@@ -19,7 +19,7 @@ export const InfoCard = () => {
   };
 
   return (
-    <Card shadow="sm" p="lg" radius="md" withBorder>
+    <Paper shadow="md" p="md" withBorder>
       <Flex direction="column" wrap="wrap" gap="xs">
         <div>
           <Title order={2}>Location</Title>
@@ -52,7 +52,7 @@ export const InfoCard = () => {
         <div>
           <Title order={2}>Education</Title>
           <p>Bsc. Computer Applications from DCU (2017 - 2021) studying:</p>
-          <Flex direction="row" wrap="wrap" gap="xs">
+          <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.25rem", flexWrap: "wrap" }}>
             <Button compact radius="xl" className={styles.infoBtn}>
               Web Design
             </Button>
@@ -71,7 +71,7 @@ export const InfoCard = () => {
             <Button compact radius="xl" className={styles.infoBtn}>
               Concurrent Programming
             </Button>
-          </Flex>
+          </div>
         </div>
         <div>
           <Title order={2}>Achievements & Awards</Title>
@@ -83,7 +83,7 @@ export const InfoCard = () => {
               for Plant Bass'd events.
             </List.Item>
             <List.Item>Earned the Professional Scrum Master™ I (PSM I) certificate.</List.Item>
-            <List.Item>Successfully completed the Jaguar Land Rover Graduate program.</List.Item>
+            <List.Item>Successfully completed the Jaguar Land Rover Graduate Program.</List.Item>
             <Text weight={800}>2021</Text>
             <List.Item>Graduated with a First-Class Honours.</List.Item>
             <List.Item>
@@ -114,6 +114,6 @@ export const InfoCard = () => {
           </List>
         </div>
       </Flex>
-    </Card>
+    </Paper>
   );
 };
