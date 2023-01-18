@@ -10,10 +10,6 @@ export const Github = () => {
 
   return (
     <section>
-      <h2>Graphic Design</h2>
-
-      <Text>Artwork created using Adobe Illustrator</Text>
-
       <XyzTransitionGroup
         appearVisible
         xyz="fade up in-left in-rotate-left out-right out-rotate-right"

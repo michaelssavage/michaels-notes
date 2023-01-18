@@ -10,12 +10,19 @@ export const NowPlaying = () => {
   const { data } = useSWR<NowPlayingProps>(NOW_PLAYING_ENDPOINT, getNowPlaying);
 
   return (
-    <Paper shadow="md" p="md" withBorder>
-      <Title order={2}>What Am I Listening To?</Title>
+    <Paper shadow="sm" p="sm" withBorder>
+      <Title order={3}>What Am I Listening To?</Title>
       <Group style={{ marginTop: "0.5rem" }}>
-        {data?.songUrl ? (
-          <Flex justify="center" gap="xs">
-            <Image radius="md" src={data.albumImageUrl} alt="spotify logo" width={100} />
+        {data?.isPlaying ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "0.75rem",
+              alignItems: "center",
+            }}
+          >
+            <Image src={data.albumImageUrl} alt="spotify logo" width={90} />
             <Flex direction="row" align="center" gap="xs">
               <AnimatedBars />
               <Flex direction="column" wrap="wrap">
@@ -27,10 +34,10 @@ export const NowPlaying = () => {
                 </Text>
               </Flex>
             </Flex>
-          </Flex>
+          </div>
         ) : (
           <>
-            <SpotifyIcon />
+            <SpotifyIcon size={90} />
             <Text weight={800}>Nothing Currently </Text>
           </>
         )}

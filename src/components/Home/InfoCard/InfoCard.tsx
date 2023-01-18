@@ -4,7 +4,6 @@ import { IconBrandGithub, IconBrandLinkedin, IconCheck, IconMail } from "@tabler
 import { MouseEvent } from "react";
 import { IrelandIcon } from "components/Icons";
 import { ExternalLink } from "components/ExternalLink";
-import styles from "./infocard.module.scss";
 
 export const InfoCard = () => {
   const emailAddress = "michaelsavage940@gmail.com";
@@ -53,22 +52,22 @@ export const InfoCard = () => {
           <Title order={2}>Education</Title>
           <p>Bsc. Computer Applications from DCU (2017 - 2021) studying:</p>
           <div style={{ marginTop: "0.5rem", display: "flex", gap: "0.25rem", flexWrap: "wrap" }}>
-            <Button compact radius="xl" className={styles.infoBtn}>
+            <Button compact radius="xl" className="infoBtn">
               Web Design
             </Button>
-            <Button compact radius="xl" className={styles.infoBtn}>
+            <Button compact radius="xl" className="infoBtn">
               OOP Analysis & Design
             </Button>
-            <Button compact radius="xl" className={styles.infoBtn}>
+            <Button compact radius="xl" className="infoBtn">
               Cryptography
             </Button>
-            <Button compact radius="xl" className={styles.infoBtn}>
+            <Button compact radius="xl" className="infoBtn">
               Advanced Algorithms
             </Button>
-            <Button compact radius="xl" className={styles.infoBtn}>
+            <Button compact radius="xl" className="infoBtn">
               Software Testing
             </Button>
-            <Button compact radius="xl" className={styles.infoBtn}>
+            <Button compact radius="xl" className="infoBtn">
               Concurrent Programming
             </Button>
           </div>

@@ -89,7 +89,7 @@ a:hover {
 }
 
 .inlineLink {
-  margin-bottom: -0.5rem;
+  margin-bottom: -0.46rem;
   @extend .hoverLink;
 }
 
@@ -135,5 +135,13 @@ a:hover {
   }
   &:hover span {
     transform: translate3d(-200%, 0, 0);
+  }
+}
+
+.infoBtn {
+  color: $white;
+  background-color: $lightSlateBlue;
+  &:hover {
+    background-color: $mediumSlateBlue;
   }
 }

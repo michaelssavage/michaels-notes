@@ -10,10 +10,6 @@ export const TopTracks = () => {
 
   return (
     <section>
-      <h2>Music</h2>
-
-      <Text>My Current Favourite Tracks on Spotify</Text>
-
       <XyzTransitionGroup
         appearVisible
         xyz="fade up in-left in-rotate-left out-right out-rotate-right"

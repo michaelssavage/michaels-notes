@@ -83,9 +83,6 @@ const data = [
 export const Letterboxd = () => {
   return (
     <section>
-      <h2>Movies & TV</h2>
-      <Text>My Favourite Movies</Text>
-
       <XyzTransitionGroup
         appearVisible
         xyz="fade up in-left in-rotate-left out-right out-rotate-right"
