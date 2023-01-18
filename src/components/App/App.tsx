@@ -1,11 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import { CV } from "components/CV";
+import { Resume } from "components/Resume";
 import { Home } from "components/Home";
 import { Layout } from "components/Layout";
 import { Interests } from "components/Interests";
-import { Projects } from "components/Projects";
 
 export const App = () => (
   <BrowserRouter>
@@ -21,9 +20,8 @@ export const App = () => (
         <Routes>
           <Route element={<Layout />} path="/">
             <Route element={<Home />} index />
-            <Route element={<CV />} path="cv" />
             <Route element={<Interests />} path="interests" />
-            <Route element={<Projects />} path="projects" />
+            <Route element={<Resume />} path="resume" />
           </Route>
         </Routes>
       </NotificationsProvider>

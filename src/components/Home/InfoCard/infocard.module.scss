@@ -1,0 +1,10 @@
+@use "sass:color";
+@use "src/styling/vars" as *;
+
+.infoBtn {
+  color: $white;
+  background-color: $lightSlateBlue;
+  &:hover {
+    background-color: $mediumSlateBlue;
+  }
+}

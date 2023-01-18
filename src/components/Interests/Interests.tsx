@@ -1,7 +1,6 @@
 import { Title } from "@mantine/core";
-import { Github } from "components/Github";
-import { Letterboxd } from "components/Letterboxd";
-import { TopTracks } from "components/Spotify";
+import { Github, Letterboxd } from "components/Interests";
+import { TopTracks } from "./Spotify";
 
 export const Interests = () => {
   return (

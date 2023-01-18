@@ -21,7 +21,7 @@ export const NowPlaying = () => {
               <Text weight={800}>
                 {data.artist} - {data.title}
               </Text>
-              <Text weight={500}>Album: {data.album}</Text>
+              <Text>Album: {data.album}</Text>
             </Flex>
           </Group>
         ) : (

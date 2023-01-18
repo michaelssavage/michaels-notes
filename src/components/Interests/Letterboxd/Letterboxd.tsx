@@ -97,7 +97,7 @@ export const Letterboxd = () => {
               style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
             >
               <Image radius="md" src={movie.imgSrc} alt={`${movie.name} album art`} width={200} />
-              <Text style={{ marginTop: "1rem" }}>
+              <Text weight={800} style={{ marginTop: "1rem" }}>
                 {movie.name} - {movie.year}
               </Text>
               <Text>Directed by {movie.director}</Text>
