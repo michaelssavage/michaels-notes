@@ -1,4 +1,4 @@
-import { Flex, Group, Image, Paper, Text, Title } from "@mantine/core";
+import { Badge, Flex, Group, Image, Paper, Text, Title } from "@mantine/core";
 import useSWR from "swr";
 import { NOW_PLAYING_ENDPOINT } from "utils/constants";
 import { getNowPlaying } from "api/spotify";
@@ -11,7 +11,12 @@ export const NowPlaying = () => {
 
   return (
     <Paper shadow="sm" p="sm" withBorder>
-      <Title order={3}>What Am I Listening To?</Title>
+      <Group position="apart">
+        <Title order={3}>What Am I Listening To?</Title>
+        <Badge color="pink" variant="light">
+          Spotify API
+        </Badge>
+      </Group>
       <Group style={{ marginTop: "0.5rem" }}>
         {data?.isPlaying ? (
           <div

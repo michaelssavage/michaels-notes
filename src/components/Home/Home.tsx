@@ -1,6 +1,7 @@
 import { Badge, Grid, Group, Image, Paper, Text, Title } from "@mantine/core";
 import { NowPlaying } from "components/Interests/Spotify";
 import { InfoCard } from "components/InfoCard";
+import { Dogs } from "components/Dogs";
 
 export const Home = () => {
   return (
@@ -132,6 +133,7 @@ export const Home = () => {
       </Grid.Col>
       <Grid.Col span={4}>
         <InfoCard />
+        <Dogs />
       </Grid.Col>
     </Grid>
   );
