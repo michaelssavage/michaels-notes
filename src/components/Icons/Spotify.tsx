@@ -1,4 +1,4 @@
-export const SpotifyIcon = ({ size = 24 }: number) => {
+export const SpotifyIcon = ({ size = 24 }: { size: number }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" height={size} width={size} viewBox="0 0 168 168">
       <path

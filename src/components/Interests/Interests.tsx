@@ -1,26 +1,19 @@
 import { Collapse, Grid, Paper, Text, Title } from "@mantine/core";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Github, Letterboxd } from "components/Interests";
 import { TopTracks } from "./Spotify";
 import styles from "./interests.module.scss";
 
-type ShowProps = "letterboxd" | "github" | "spotify";
-
-const showItems = (show) => {
-  switch (show) {
-    case "letterboxd":
-      return <Letterboxd />;
-    case "github":
-      return <Github />;
-    case "spotify":
-      return <TopTracks />;
-    default:
-      return null;
-  }
-};
+type ShowProps = "letterboxd" | "github" | "spotify" | "";
 
 interface CardItemProps {
-  (title: string, text: string, interest: string, show: string, openCard: (v: string) => void);
+  (
+    title: string,
+    text: string,
+    interest: ShowProps,
+    show: string,
+    openCard: (v: ShowProps) => void
+  ): ReactNode;
 }
 
 const CardItem: CardItemProps = (title, text, interest, show, openCard) => {
@@ -40,11 +33,24 @@ const CardItem: CardItemProps = (title, text, interest, show, openCard) => {
   );
 };
 
+const showItems = (show: string) => {
+  switch (show) {
+    case "letterboxd":
+      return <Letterboxd />;
+    case "github":
+      return <Github />;
+    case "spotify":
+      return <TopTracks />;
+    default:
+      return null;
+  }
+};
+
 export const Interests = () => {
   const [show, setShow] = useState<ShowProps>("");
   const [opened, setOpened] = useState(false);
 
-  const openCard = (card: string) => {
+  const openCard = (card: ShowProps) => {
     if (card !== show) {
       setShow(card);
       setOpened(true);
