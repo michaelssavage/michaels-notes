@@ -1,6 +1,6 @@
 import { Badge, Grid, Group, Image, Paper, Text, Title } from "@mantine/core";
 import { NowPlaying } from "components/Interests/Spotify";
-import { InfoCard } from "./InfoCard/InfoCard";
+import { InfoCard } from "components/InfoCard";
 
 export const Home = () => {
   return (

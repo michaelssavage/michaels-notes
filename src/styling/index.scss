@@ -139,9 +139,12 @@ a:hover {
 }
 
 .infoBtn {
-  color: $white;
-  background-color: $lightSlateBlue;
+  color: $lightSlateBlue;
+  background-color: $white;
+  border-color: $lightSlateBlue;
   &:hover {
+    color: $white;
     background-color: $mediumSlateBlue;
+    border-color: $mediumSlateBlue;
   }
 }
