@@ -65,7 +65,7 @@ export const Interests = () => {
     else setOpened(!opened);
   };
   return (
-    <>
+    <div style={{ marginBottom: "1rem" }}>
       <Title order={1}>My Interests</Title>
 
       <Grid mt="xs">
@@ -83,6 +83,6 @@ export const Interests = () => {
       </Grid>
 
       <Collapse in={opened}>{loading ? <Loading /> : showItems(show)}</Collapse>
-    </>
+    </div>
   );
 };

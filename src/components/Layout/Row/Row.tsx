@@ -3,9 +3,10 @@ import { ReactNode } from "react";
 interface RowProps {
   children: ReactNode;
   gap?: string;
+  justify?: string;
 }
 
-export const Row = ({ children, gap = "1rem" }: RowProps) => {
+export const Row = ({ children, gap = "1rem", justify = "flex-start" }: RowProps) => {
   return (
     <div
       style={{
@@ -14,6 +15,7 @@ export const Row = ({ children, gap = "1rem" }: RowProps) => {
         gap: gap,
         alignItems: "center",
         flexWrap: "wrap",
+        justifyContent: justify,
       }}
     >
       {children}

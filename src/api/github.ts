@@ -13,8 +13,6 @@ const config = {
 const getAllGraphics = async (url: string, lstOfFiles?: GraphicsProps[]) => {
   try {
     const res = await axios.get(url, config);
-    if (res.status !== 200) throw new Error("HTTP error");
-
     let allFiles = lstOfFiles || [];
 
     let idx = 0;
@@ -36,7 +34,7 @@ const getAllGraphics = async (url: string, lstOfFiles?: GraphicsProps[]) => {
     return allFiles;
   } catch (error) {
     console.log(error);
-    return [];
+    return [] as GraphicsProps[];
   }
 };
 

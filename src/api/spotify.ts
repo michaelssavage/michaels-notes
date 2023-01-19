@@ -41,7 +41,7 @@ export const getTopTracks = async () => {
   const res = await axios.get(TOP_TRACKS_ENDPOINT, config);
   const { items } = res.data;
 
-  const tracks = items.slice(0, 12).map((track: TrackProp) => ({
+  const tracks = items.map((track: TrackProp) => ({
     artist: track.artists.map((_artist: ArtistProp) => _artist.name).join(", "),
     albumImageUrl: track.album.images[0].url,
     songUrl: track.external_urls.spotify,

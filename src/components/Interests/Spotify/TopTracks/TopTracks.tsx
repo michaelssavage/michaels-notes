@@ -4,9 +4,14 @@ import { XyzTransitionGroup } from "@animxyz/react";
 import { TOP_TRACKS_ENDPOINT } from "utils/constants";
 import { getTopTracks } from "api/spotify";
 import { TopTracksProps } from "utils/spotify-types";
+import { usePagination } from "hooks/use-pagination.hook";
+import { Pagination } from "components/Pagination";
 
 export const TopTracks = () => {
   const { data } = useSWR<TopTracksProps[]>(TOP_TRACKS_ENDPOINT, getTopTracks);
+
+  const { page, setPage, rowsPerPage, setRowsPerPage, handlePageChange, total } =
+    usePagination(data);
 
   return (
     <section>
@@ -14,9 +19,10 @@ export const TopTracks = () => {
         appearVisible
         xyz="fade up in-left in-rotate-left out-right out-rotate-right"
       >
-        <SimpleGrid cols={6} style={{ margin: "1rem 0" }}>
-          {data &&
-            data.map((track: TopTracksProps) => (
+        <SimpleGrid cols={5} style={{ margin: "1rem 0" }}>
+          {data
+            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((track: TopTracksProps) => (
               <div
                 key={track.songUrl}
                 style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -34,6 +40,14 @@ export const TopTracks = () => {
             ))}
         </SimpleGrid>
       </XyzTransitionGroup>
+      <Pagination
+        handlePageChange={handlePageChange}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        setPage={setPage}
+        setRowsPerPage={setRowsPerPage}
+        total={total || 0}
+      />
     </section>
   );
 };
