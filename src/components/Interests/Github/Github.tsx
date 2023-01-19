@@ -19,26 +19,33 @@ export const Github = () => {
         appearVisible
         xyz="fade up in-left in-rotate-left out-right out-rotate-right"
       >
+        <Pagination
+          handlePageChange={handlePageChange}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          setPage={setPage}
+          setRowsPerPage={setRowsPerPage}
+          total={total || 0}
+        />
         <SimpleGrid cols={5} style={{ margin: "1rem 0" }}>
           {data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((graphic) => (
             <div
               key={graphic.key}
               style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
             >
-              <Image radius="md" src={graphic.img} width={200} alt={`${graphic.name} image`} />
+              <Image
+                radius="md"
+                src={graphic.img}
+                width={200}
+                alt={`${graphic.name} image`}
+                withPlaceholder
+                placeholder={<Text align="center">{`${graphic.name} image`}</Text>}
+              />
               <Text> {graphic.name} </Text>
             </div>
           ))}
         </SimpleGrid>
       </XyzTransitionGroup>
-      <Pagination
-        handlePageChange={handlePageChange}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        setPage={setPage}
-        setRowsPerPage={setRowsPerPage}
-        total={total || 0}
-      />
     </section>
   );
 };

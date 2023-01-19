@@ -4,6 +4,7 @@
 
 import { Button } from "@mantine/core";
 import { useState } from "react";
+import { IconChevronsLeft, IconChevronsRight } from "@tabler/icons";
 import { Row } from "components/Layout";
 
 interface PaginationProps {
@@ -30,8 +31,14 @@ export const Pagination = (props: PaginationProps) => {
     setPage(0);
   };
   return (
-    <nav>
+    <nav style={{ marginTop: "1rem" }}>
       <Row justify="center">
+        <IconChevronsLeft
+          style={page <= 0 ? { color: "gray" } : { cursor: "pointer" }}
+          size={40}
+          onClick={() => setPage(0)}
+        />
+
         <Button color="teal" radius="md" size="md" onClick={() => handleShowAll()}>
           Show {showingAll ? "Less" : "All"}
         </Button>
@@ -50,11 +57,21 @@ export const Pagination = (props: PaginationProps) => {
           variant="default"
           radius="md"
           size="md"
-          disabled={page * rowsPerPage + rowsPerPage > total || rowsPerPage === total}
+          disabled={page * rowsPerPage + rowsPerPage >= total || rowsPerPage === total}
           onClick={() => handlePageChange(1)}
         >
           Next
         </Button>
+
+        <IconChevronsRight
+          style={
+            page * rowsPerPage + rowsPerPage >= total || rowsPerPage === total
+              ? { color: "gray" }
+              : { cursor: "pointer" }
+          }
+          size={40}
+          onClick={() => setPage(total / (page * rowsPerPage + rowsPerPage) - 1)}
+        />
       </Row>
     </nav>
   );
