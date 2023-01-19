@@ -1,6 +1,7 @@
 import { Collapse, Grid, Paper, Text, Title } from "@mantine/core";
 import { ReactNode, useState } from "react";
 import { Github, Letterboxd } from "components/Interests";
+import { Loading } from "components/Loading/Loading";
 import { TopTracks } from "./Spotify";
 import styles from "./interests.module.scss";
 
@@ -49,16 +50,20 @@ const showItems = (show: string) => {
 export const Interests = () => {
   const [show, setShow] = useState<ShowProps>("");
   const [opened, setOpened] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const openCard = (card: ShowProps) => {
-    if (card !== show) {
-      setShow(card);
-      setOpened(true);
-    } else {
-      setOpened(!opened);
-    }
-  };
+    setShow(card);
+    setLoading(true);
 
+    // adding a delay for the Github API to catchup.
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    // open the card if it isn't already open, otherwise close it.
+    if (card !== show) setOpened(true);
+    else setOpened(!opened);
+  };
   return (
     <>
       <Title order={1}>My Interests</Title>
@@ -77,7 +82,7 @@ export const Interests = () => {
         {CardItem("Music", "My Current Favourite Tracks on Spotify", "spotify", show, openCard)}
       </Grid>
 
-      <Collapse in={opened}>{showItems(show)}</Collapse>
+      <Collapse in={opened}>{loading ? <Loading /> : showItems(show)}</Collapse>
     </>
   );
 };

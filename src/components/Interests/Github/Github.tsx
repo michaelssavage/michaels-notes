@@ -15,16 +15,15 @@ export const Github = () => {
         xyz="fade up in-left in-rotate-left out-right out-rotate-right"
       >
         <SimpleGrid cols={6} style={{ margin: "1rem 0" }}>
-          {data &&
-            data.map((graphic) => (
-              <div
-                key={graphic.key}
-                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-              >
-                <Image radius="md" src={graphic.img} width={200} alt={`${graphic.name} image`} />
-                <Text> {graphic.name} </Text>
-              </div>
-            ))}
+          {data?.map((graphic) => (
+            <div
+              key={graphic.key}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+            >
+              <Image radius="md" src={graphic.img} width={200} alt={`${graphic.name} image`} />
+              <Text> {graphic.name} </Text>
+            </div>
+          ))}
         </SimpleGrid>
       </XyzTransitionGroup>
     </section>
