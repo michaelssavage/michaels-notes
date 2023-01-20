@@ -3,7 +3,6 @@ import { ReactNode, useState } from "react";
 import { Github, Letterboxd } from "components/Interests";
 import { Loading } from "components/Loading/Loading";
 import { TopTracks } from "./Spotify";
-import styles from "./interests.module.scss";
 
 type ShowProps = "letterboxd" | "github" | "spotify" | "";
 
@@ -24,7 +23,7 @@ const CardItem: CardItemProps = (title, text, interest, show, openCard) => {
         shadow="md"
         p="sm"
         withBorder
-        className={show === interest ? styles.activeCard : styles.cardClick}
+        className={show === interest ? "activeCard" : "card"}
         onClick={() => openCard(interest)}
       >
         <Title order={3}>{title}</Title>

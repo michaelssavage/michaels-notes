@@ -148,3 +148,21 @@ a:hover {
     border-color: $mediumSlateBlue;
   }
 }
+
+.activeCard {
+  h3 {
+    text-decoration: underline;
+  }
+  @extend .card;
+}
+
+.card {
+  cursor: pointer;
+  &:hover {
+    color: $mediumSlateBlue;
+  }
+}
+
+.openCard {
+  cursor: pointer;
+}

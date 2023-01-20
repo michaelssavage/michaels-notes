@@ -1,30 +1,29 @@
-import { CSSProperties, ReactNode } from "react";
+import { ReactNode } from "react";
 
-interface RowProps {
+interface ColProps {
   children: ReactNode;
+  align?: string;
   gap?: string;
   justify?: string;
   wrap?: "nowrap" | "wrap" | "wrap-reverse";
-  styles?: CSSProperties;
 }
 
-export const Row = ({
+export const Col = ({
   children,
+  align = "normal",
   gap = "1rem",
   justify = "flex-start",
   wrap = "wrap",
-  styles,
-}: RowProps) => {
+}: ColProps) => {
   return (
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         gap: gap,
-        alignItems: "center",
+        alignItems: align,
         justifyContent: justify,
         flexWrap: wrap,
-        ...styles,
       }}
     >
       {children}

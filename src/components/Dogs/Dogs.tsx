@@ -20,14 +20,16 @@ export const Dogs = () => {
         </Badge>
       </Group>
       <Text>Here, have a free picture of a dog</Text>
-      {data && (
-        <Image
-          src={data.url}
-          height={200}
-          alt="Dog API"
-          placeholder={<Text align="center">There's supposed to be a cute dog here</Text>}
-        />
-      )}
+      <div style={{ marginLeft: "auto", marginRight: "auto", width: "60%" }}>
+        {data && (
+          <Image
+            src={data.url}
+            width="100%"
+            alt="Dog API"
+            placeholder={<Text align="center">There's supposed to be a cute dog here</Text>}
+          />
+        )}
+      </div>
     </Card>
   );
 };
