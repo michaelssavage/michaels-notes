@@ -26,13 +26,14 @@ export const getNowPlaying = async () => {
   const { data } = await axios.get(NOW_PLAYING_ENDPOINT, config);
 
   const isPlaying = data.is_playing;
+  const year = data.item.album.release_date.split("-")[0];
   const title = data.item.name;
   const artist = data.item.artists.map((_artist: ArtistProp) => _artist.name).join(", ");
   const album = data.item.album.name;
   const albumImageUrl = data.item.album.images[0].url;
   const songUrl = data.item.external_urls.spotify;
 
-  return { isPlaying, title, artist, album, albumImageUrl, songUrl };
+  return { isPlaying, year, title, artist, album, albumImageUrl, songUrl };
 };
 
 export const getTopTracks = async () => {

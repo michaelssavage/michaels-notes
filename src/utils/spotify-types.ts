@@ -3,6 +3,7 @@ export interface NowPlayingProps {
   albumImageUrl: string;
   artist: string;
   isPlaying: boolean;
+  year: number;
   songUrl: string;
   title: string;
 }

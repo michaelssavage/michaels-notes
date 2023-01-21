@@ -42,6 +42,7 @@
     "react/no-danger": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": "off",
+    "react/no-unknown-property": ["warning", { "ignore": ["xyz"] }],
     "react/require-default-props": "off",
     "sort-imports": ["error", { "ignoreCase": true, "ignoreDeclarationSort": true }]
   },

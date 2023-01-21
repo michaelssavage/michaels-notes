@@ -1,10 +1,11 @@
-import { Badge, Flex, Group, Image, Paper, Text, Title } from "@mantine/core";
+import { Badge, Group, Image, Paper, Text, Title } from "@mantine/core";
 import useSWR from "swr";
 import { NOW_PLAYING_ENDPOINT } from "utils/constants";
 import { getNowPlaying } from "api/spotify";
 import { AnimatedBars } from "components/Interests/Spotify";
 import { NowPlayingProps } from "utils/spotify-types";
 import { SpotifyIcon } from "components/Icons";
+import { Col, Row } from "components/Layout";
 
 export const NowPlaying = () => {
   const { data } = useSWR<NowPlayingProps>(NOW_PLAYING_ENDPOINT, getNowPlaying);
@@ -28,17 +29,17 @@ export const NowPlaying = () => {
             }}
           >
             <Image src={data.albumImageUrl} alt="spotify logo" width={90} />
-            <Flex direction="row" align="center" gap="xs">
+            <Row>
               <AnimatedBars />
-              <Flex direction="column" wrap="wrap">
+              <Col gap="0.1rem">
                 <Text weight={800} size="sm" lineClamp={1}>
                   {data.artist} - {data.title}
                 </Text>
                 <Text size="sm" lineClamp={1}>
-                  {data.album}
+                  {data.year} - {data.album}
                 </Text>
-              </Flex>
-            </Flex>
+              </Col>
+            </Row>
           </div>
         ) : (
           <>

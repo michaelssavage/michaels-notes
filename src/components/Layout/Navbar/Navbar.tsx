@@ -22,7 +22,6 @@ export const Navbar = () => {
       <Group position="apart">
         <NavItem href="/" name="Home" />
         <NavItem href="/interests" name="Interests" />
-        <NavItem href="/resume" name="Resume" />
       </Group>
     </nav>
   );

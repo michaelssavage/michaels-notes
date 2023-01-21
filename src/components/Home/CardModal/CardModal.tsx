@@ -33,7 +33,7 @@ export const CardModal = (props: ModalProps) => {
           <div
             style={imgSrc.includes("savage") ? { textAlign: "center", width: "60%" } : undefined}
           >
-            <Image src={imgSrc} width="100%" alt="that's savage logo" />
+            <Image src={imgSrc} width="100%" alt={imgSrc} />
           </div>
           <Text>{description}</Text>
         </Row>

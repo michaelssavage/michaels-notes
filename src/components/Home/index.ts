@@ -5,3 +5,4 @@ export { Rekordbox } from "./Rekordbox/Rekordbox";
 export { CommonMovies } from "./CommonMovies/CommonMovies";
 export { Emot } from "./Emot/Emot";
 export { CardModal } from "./CardModal/CardModal";
+export { OrderSystem } from "./OrderSystem/OrderSystem";
