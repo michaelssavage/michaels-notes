@@ -33,7 +33,14 @@
     "import/order": [
       "warn",
       {
-        "groups": ["external", "builtin", "internal", "sibling", "parent", "index"]
+        "groups": [
+          "external",
+          "builtin",
+          "internal",
+          "sibling",
+          "parent",
+          "index"
+        ]
       }
     ],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
@@ -42,9 +49,12 @@
     "react/no-danger": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": "off",
-    "react/no-unknown-property": ["warning", { "ignore": ["xyz"] }],
+    "react/no-unknown-property": ["warn", { "ignore": ["xyz"] }],
     "react/require-default-props": "off",
-    "sort-imports": ["error", { "ignoreCase": true, "ignoreDeclarationSort": true }]
+    "sort-imports": [
+      "error",
+      { "ignoreCase": true, "ignoreDeclarationSort": true }
+    ]
   },
   "ignorePatterns": ["node_modules", "vite.config.js", "build", "public"]
 }
