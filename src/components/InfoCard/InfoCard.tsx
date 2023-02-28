@@ -3,7 +3,11 @@ import { IrelandIcon } from "components/Icons";
 import { Row } from "components/Layout";
 import { Achievements, Contact, Education } from "./";
 
-export const InfoCard = () => {
+interface InfoCardProps {
+  show: boolean;
+}
+
+export const InfoCard = ({ show }: InfoCardProps) => {
   return (
     <Paper shadow="md" p="md" withBorder>
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -15,8 +19,12 @@ export const InfoCard = () => {
           </Row>
         </div>
         <Contact />
-        <Education />
-        <Achievements />
+        {show && (
+          <>
+            <Education />
+            <Achievements />
+          </>
+        )}
       </div>
     </Paper>
   );

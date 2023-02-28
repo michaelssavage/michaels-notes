@@ -3,23 +3,25 @@
 # abort on errors
 set -e
 
-# build
+# Run the build command
 npm run build
 
-# navigate into the build output directory
-cd build
+# Run following command
+#     to push "dist" folder to gh-pages subtree
+#     use "-f" flag, since the default vite project ignores the dist folder while pushing code to github.
+git add dist -f
 
-# place .nojekyll to bypass Jekyll processing
-echo > .nojekyll
+# Commit changes
+git commit -m "adding build folder"
 
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
+# Run the following command, the command will
+#     create gh-pages subtree
+#     pushes changes to gh-pages
+#     The "--prefix dist" will specify the dist folder for gh-pages subtree
+git subtree push --prefix dist origin gh-pages
 
-git init
-git checkout -B main
-git add -A
-git commit -m 'deploy'
+# Note gh-pages branch
+#     Dedicated for github pages site
+#     Contains the "/dist" folder contents
 
-# git push -f git@github.com:michaelssavage/michaelssavage.github.io.git main
-
-cd -
+read -rn1
