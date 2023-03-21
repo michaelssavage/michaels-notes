@@ -1,5 +1,5 @@
-import { Grid, Paper, Text, Title } from "@mantine/core";
-import { useState } from "react";
+import { createStyles, Grid, Paper, Text, Title } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { NowPlaying } from "components/Interests/Spotify";
 import { InfoCard } from "components/InfoCard";
 import { Dogs } from "components/Dogs";
@@ -11,25 +11,35 @@ import {
   Plantbassd,
   Rekordbox,
   ThatsSavage,
-} from "./";
+} from "components/Home";
+
+const useStyles = createStyles((theme) => ({
+  myResponsiveText: {
+    fontSize: "6rem",
+
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: "3rem",
+    },
+  },
+}));
 
 export const Home = () => {
   const [show, setShow] = useState(false);
+  const { classes } = useStyles();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 1000);
+  }, []);
 
   return (
     <Grid
       style={show ? undefined : { display: "flex", alignItems: "flex-end" }}
     >
-      <Grid.Col span={8}>
-        <Title size="6rem">Michael Savage</Title>
-        <Paper
-          shadow="md"
-          p="md"
-          withBorder
-          mt="xs"
-          onClick={() => setShow(!show)}
-          className="card"
-        >
+      <Grid.Col sm={12} md={8}>
+        <Title className={classes.myResponsiveText}>Michael Savage</Title>
+        <Paper shadow="md" p="md" withBorder mt="xs">
           <Text>
             Hey, I'm Michael, a Software Developer at Jaguar Land Rover,
             Ireland. I'm passionate about all things music, movies, sports, and
@@ -40,12 +50,12 @@ export const Home = () => {
           </Text>
         </Paper>
         {show && (
-          <>
+          <div className="animatedShow">
             <Grid mt="xs">
-              <Grid.Col span={7}>
+              <Grid.Col sm={12} md={7}>
                 <Plantbassd />
               </Grid.Col>
-              <Grid.Col span={5}>
+              <Grid.Col sm={12} md={5}>
                 <ThatsSavage />
               </Grid.Col>
 
@@ -56,25 +66,25 @@ export const Home = () => {
                 </Col>
               </Grid.Col>
 
-              <Grid.Col span={6}>
+              <Grid.Col sm={12} md={6}>
                 <Emot />
               </Grid.Col>
 
               <Grid.Col span={12}>
                 <NowPlaying />
               </Grid.Col>
-              <Grid.Col span={5}>
+              <Grid.Col sm={12} md={5}>
                 <Dogs />
               </Grid.Col>
 
-              <Grid.Col span={7}>
+              <Grid.Col sm={12} md={7}>
                 <OrderSystem />
               </Grid.Col>
             </Grid>
-          </>
+          </div>
         )}
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col sm={12} md={4}>
         <InfoCard show={show} />
       </Grid.Col>
     </Grid>

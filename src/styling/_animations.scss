@@ -1,0 +1,29 @@
+@use "sass:string";
+
+@mixin slide-in-animation(
+  $from,
+  $direction: "vertical",
+  $duration: 0.25s,
+  $fill-mode: none
+) {
+  $transform: translateY;
+  @if $direction == "horizontal" {
+    $transform: translateX;
+  }
+
+  $keyframeName: unique-id();
+
+  // Only works if @keyframe has unique name.
+  @keyframes #{$keyframeName} {
+    from {
+      opacity: 0;
+      transform: #{$transform }(#{$from}); // e.g transform: translateY(100px);
+    }
+    to {
+      opacity: 1;
+      transform: #{$transform }(0px);
+    }
+  }
+
+  animation: $keyframeName $duration $fill-mode;
+}

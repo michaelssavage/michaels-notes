@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import { XyzTransition } from "@animxyz/react";
-import { Home } from "components/Home";
+import { Home } from "pages/Home";
 import { Layout } from "components/Layout";
-import { Interests } from "components/Interests";
+import { Interests } from "pages/Interests";
 
 export const App = () => (
   <BrowserRouter>

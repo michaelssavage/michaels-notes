@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Badge, Group, Paper, Text, Title } from "@mantine/core";
-import { CardModal } from "../CardModal/CardModal";
+import { CardModal } from "./CardModal";
 
 const badges = ["Next.js", "TypeScript", "SCSS", "NPM", "Bootstrap"];
 
@@ -24,7 +24,13 @@ export const Plantbassd = () => {
         setOpened={setOpened}
       />
 
-      <Paper shadow="sm" p="sm" withBorder className="card" onClick={() => setOpened(true)}>
+      <Paper
+        shadow="sm"
+        p="sm"
+        withBorder
+        className="card"
+        onClick={() => setOpened(true)}
+      >
         <Group position="apart">
           <Title order={3}>Plant Bass'd</Title>
           <Badge color="pink" variant="light">
@@ -40,8 +46,9 @@ export const Plantbassd = () => {
           }}
         >
           <Text>
-            A lockdown project that started as a way to share music interests but evolved into an
-            electronic music blog sharing news about new music, events, and gigs
+            A lockdown project that started as a way to share music interests
+            but evolved into an electronic music blog sharing news about new
+            music, events, and gigs
           </Text>
         </div>
       </Paper>

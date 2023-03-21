@@ -1,8 +1,7 @@
-export { Home } from "./Home";
-export { Plantbassd } from "./Plantbassd/Plantbassd";
-export { ThatsSavage } from "./ThatsSavage/ThatsSavage";
-export { Rekordbox } from "./Rekordbox/Rekordbox";
-export { CommonMovies } from "./CommonMovies/CommonMovies";
-export { Emot } from "./Emot/Emot";
-export { CardModal } from "./CardModal/CardModal";
-export { OrderSystem } from "./OrderSystem/OrderSystem";
+export { Plantbassd } from "./Plantbassd";
+export { ThatsSavage } from "./ThatsSavage";
+export { Rekordbox } from "./Rekordbox";
+export { CommonMovies } from "./CommonMovies";
+export { Emot } from "./Emot";
+export { CardModal } from "./CardModal";
+export { OrderSystem } from "./OrderSystem";

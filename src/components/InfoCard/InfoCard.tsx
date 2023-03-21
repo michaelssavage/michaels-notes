@@ -20,10 +20,10 @@ export const InfoCard = ({ show }: InfoCardProps) => {
         </div>
         <Contact />
         {show && (
-          <>
+          <div className="animatedShow">
             <Education />
             <Achievements />
-          </>
+          </div>
         )}
       </div>
     </Paper>

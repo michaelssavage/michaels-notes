@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "vars" as *;
+@use "animations" as *;
 
 // Import the functions/mixins
 @import "@animxyz/core";
@@ -150,9 +151,7 @@ a:hover {
 }
 
 .activeCard {
-  h3 {
-    text-decoration: underline;
-  }
+  background-color: $lightSlateBlue2;
   @extend .card;
 }
 
@@ -165,4 +164,8 @@ a:hover {
 
 .openCard {
   cursor: pointer;
+}
+
+.animatedShow {
+  @include slide-in-animation($duration: 0.5s, $from: 100px);
 }

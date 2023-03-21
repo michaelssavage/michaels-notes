@@ -10,8 +10,14 @@ import { Pagination } from "components/Pagination";
 export const Github = () => {
   const { data } = useSWR<GraphicsProps[]>(GITHUB_CONTENT, getGithubContent);
 
-  const { page, setPage, rowsPerPage, setRowsPerPage, handlePageChange, total } =
-    usePagination(data);
+  const {
+    page,
+    setPage,
+    rowsPerPage,
+    setRowsPerPage,
+    handlePageChange,
+    total,
+  } = usePagination(data);
 
   return (
     <section>
@@ -28,22 +34,30 @@ export const Github = () => {
           total={total || 0}
         />
         <SimpleGrid cols={5} style={{ margin: "1rem 0" }}>
-          {data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((graphic) => (
-            <div
-              key={graphic.key}
-              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-            >
-              <Image
-                radius="md"
-                src={graphic.img}
-                width={200}
-                alt={`${graphic.name} image`}
-                withPlaceholder
-                placeholder={<Text align="center">{`${graphic.name} image`}</Text>}
-              />
-              <Text> {graphic.name} </Text>
-            </div>
-          ))}
+          {data
+            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((graphic) => (
+              <div
+                key={graphic.key}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  radius="md"
+                  src={graphic.img}
+                  width={200}
+                  alt={`${graphic.name} image`}
+                  withPlaceholder
+                  placeholder={
+                    <Text align="center">{`${graphic.name} image`}</Text>
+                  }
+                />
+                <Text> {graphic.name} </Text>
+              </div>
+            ))}
         </SimpleGrid>
       </XyzTransitionGroup>
     </section>

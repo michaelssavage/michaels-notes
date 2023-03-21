@@ -76,7 +76,8 @@ const data = [
     name: "WALL·E",
     director: "Andrew Stanton",
     year: "2008",
-    imgSrc: "https://a.ltrbxd.com/resized/film-poster/4/5/9/9/4/45994-walle-0-230-0-345-crop.jpg",
+    imgSrc:
+      "https://a.ltrbxd.com/resized/film-poster/4/5/9/9/4/45994-walle-0-230-0-345-crop.jpg",
   },
 ];
 
@@ -87,13 +88,22 @@ export const Letterboxd = () => {
         appearVisible
         xyz="fade up in-left in-rotate-left out-right out-rotate-right"
       >
-        <SimpleGrid cols={5} style={{ margin: "1rem 0" }}>
+        <SimpleGrid cols={5} style={{ margin: "1rem 0.25rem" }}>
           {data.map((movie: MovieProps) => (
             <div
               key={`${movie.name}-${movie.director}`}
-              style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
             >
-              <Image radius="md" src={movie.imgSrc} alt={`${movie.name} album art`} width={200} />
+              <Image
+                radius="md"
+                src={movie.imgSrc}
+                alt={`${movie.name} album art`}
+                width={200}
+              />
               <Text weight={800} style={{ marginTop: "1rem" }}>
                 {movie.name} - {movie.year}
               </Text>
