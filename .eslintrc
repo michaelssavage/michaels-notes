@@ -28,6 +28,7 @@
     "plugin:import/typescript"
   ],
   "rules": {
+    "@typescript-eslint/no-var-requires": "off",
     "id-length": ["error", { "exceptionPatterns": ["a|b"] }],
     "import/no-unresolved": "error",
     "import/order": [

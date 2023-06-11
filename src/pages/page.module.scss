@@ -1,0 +1,34 @@
+.main {
+  h1 {
+    white-space: nowrap;
+    font-size: 6.5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    h1 {
+      font-size: 9vw;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .main {
+    h1 {
+      font-size: 11vw;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .main {
+    h1 {
+      font-size: 10vw;
+    }
+  }
+}
+
+.spacer {
+  margin: 1rem 0;
+}

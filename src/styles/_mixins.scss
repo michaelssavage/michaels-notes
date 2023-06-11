@@ -1,0 +1,16 @@
+@mixin rotateAndTranslate($name, $rotateFrom, $translateY, $translateX) {
+  @keyframes #{$name} {
+    0% {
+      transform: rotate(#{$rotateFrom}deg) translateY(0) translateY(0);
+    }
+    50% {
+      transform: rotate(0) translateY(#{$translateY}) translateX(#{$translateX});
+    }
+    100% {
+      transform: rotate(0) translateY(#{$translateY}) translateX(#{$translateX});
+    }
+  }
+  &:hover > a text {
+    animation: #{$name} 0.4s ease-in-out forwards;
+  }
+}

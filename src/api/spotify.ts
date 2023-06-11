@@ -28,7 +28,9 @@ export const getNowPlaying = async () => {
   const isPlaying = data.is_playing;
   const year = data.item.album.release_date.split("-")[0];
   const title = data.item.name;
-  const artist = data.item.artists.map((_artist: ArtistProp) => _artist.name).join(", ");
+  const artist = data.item.artists
+    .map((_artist: ArtistProp) => _artist.name)
+    .join(", ");
   const album = data.item.album.name;
   const albumImageUrl = data.item.album.images[0].url;
   const songUrl = data.item.external_urls.spotify;

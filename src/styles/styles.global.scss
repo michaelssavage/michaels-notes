@@ -1,0 +1,14 @@
+@use "defaults";
+
+h1,
+h2 {
+  color: #00539c;
+}
+
+a {
+  text-decoration: none;
+  color: #00539c;
+  &:hover {
+    transform: scale(1.04);
+  }
+}

@@ -1,0 +1,52 @@
+// Now Playing
+
+.container {
+  margin-top: 0.5rem;
+  .itemsInRow {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .textAndMeta {
+    display: flex;
+    flex-direction: column;
+  }
+  .songInfo {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+}
+
+// Animated Bars
+
+.animatedBars {
+  width: auto;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  height: 1.5rem;
+}
+
+.bar1 {
+  width: 0.5rem;
+  margin-right: 0.25rem;
+  height: 0.9rem;
+  background-color: grey;
+  opacity: 75%;
+}
+
+.bar2 {
+  height: 0.5rem;
+  @extend .bar1;
+}
+
+.bar3 {
+  height: 1.2rem;
+  @extend .bar1;
+}
+
+.bar4 {
+  height: 0.75rem;
+  @extend .bar1;
+}

@@ -1,0 +1,91 @@
+@use "styles/mixins" as *;
+
+$defaultSize: clamp(5rem, 14vw, 8rem);
+
+.mainContainer {
+  margin: 20vh 25vw 2rem;
+  padding: 1rem 2rem 2rem;
+  background-color: #eea47f;
+  border-radius: 0.375rem;
+  min-height: 100vh;
+}
+
+.triangle {
+  position: fixed;
+  top: 0;
+  width: $defaultSize;
+  height: $defaultSize;
+  a text {
+    fill: rgba(63, 94, 251, 1);
+    font-weight: bold;
+  }
+}
+
+.topLeftTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate("topLeft", -10, -12px, -20px);
+  left: 5%;
+  top: 5vh;
+}
+
+.middleLeftTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate("middleLeft", 20, 30px, 10px);
+  position: absolute;
+  left: 30%;
+}
+
+.middleRightTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate("middleRight", -5, -15px, 0px);
+  position: absolute;
+  right: 30%;
+}
+
+.topRightTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate("topRight", 10, 5px, 5px);
+  right: 5%;
+  top: 5vh;
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
+    margin: 20vh 15vw 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .mainContainer {
+    margin: 17vh 5vw 0;
+  }
+  .topLeftTriangle {
+    left: 2%;
+    top: 7vh;
+  }
+  .middleLeftTriangle {
+    left: 25%;
+  }
+  .middleRightTriangle {
+    right: 25%;
+  }
+  .topRightTriangle {
+    right: 2%;
+    top: 7vh;
+  }
+}
+
+@media (max-width: 400px) {
+  .topLeftTriangle {
+    top: 8vh;
+  }
+  .middleLeftTriangle {
+    left: 20%;
+  }
+  .middleRightTriangle {
+    right: 20%;
+  }
+  .topRightTriangle {
+    top: 8vh;
+  }
+}
