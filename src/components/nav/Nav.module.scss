@@ -1,0 +1,106 @@
+@use "styles/mixins" as *;
+
+$defaultSize: clamp(10rem, 14vw, 15rem);
+
+$mobileSize: 8rem;
+
+.navContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .menuButton {
+    width: 12rem;
+    background-color: cyan;
+    border: 0;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    svg {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.nav {
+  opacity: 0;
+  &.show {
+    opacity: 1;
+  }
+}
+
+.triangle {
+  position: fixed;
+  width: $defaultSize;
+  height: $defaultSize;
+  a text {
+    fill: rgba(63, 94, 251, 1);
+    font-weight: bold;
+  }
+}
+
+.aboutTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate(-10, -12px, -20px);
+  left: 23vw;
+  top: 60vh;
+}
+
+.interestsTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate(-5, -15px, 0px);
+  top: 25vh;
+  right: 28vw;
+}
+
+.homeTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate(10, -2px, -25px);
+  left: 30vw;
+  top: 15vh;
+}
+
+.projectsTriangle {
+  @extend .triangle;
+  @include rotateAndTranslate(10, 5px, 5px);
+  right: 38vw;
+  top: 60vh;
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
+    margin: 2rem 15vw 0;
+  }
+  .aboutTriangle {
+    left: 15vw;
+  }
+  .interestsTriangle {
+    left: 20vw;
+  }
+  .homeTriangle {
+    left: 45vw;
+    top: 5vh;
+  }
+  .projectsTriangle {
+    right: 25vw;
+    top: 45vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .triangle {
+    width: $mobileSize;
+    height: $mobileSize;
+  }
+  .aboutTriangle {
+    left: 15vw;
+  }
+  .interestsTriangle {
+    left: 20vw;
+  }
+  .homeTriangle {
+    left: 45vw;
+  }
+  .projectsTriangle {
+    right: 20vw;
+  }
+}

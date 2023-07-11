@@ -1,10 +1,6 @@
-export const TopLeft = () => {
+export const About = () => {
   return (
-    <svg
-      id="sw-js-blob-svg"
-      viewBox="0 0 100 100"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="tlGradient" x1="0" x2="1" y1="1" y2="0">
           <stop id="stop1" stopColor="#da5c47" offset="0%"></stop>

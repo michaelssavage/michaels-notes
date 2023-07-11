@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageTitle from "components/PageTitle";
 import { Contacts } from "components/contacts";
 import { NowPlaying } from "components/SpotifyUtils";
-import styles from "./page.module.scss";
+import styles from "styles/page.module.scss";
 
 export default function Home() {
   return (

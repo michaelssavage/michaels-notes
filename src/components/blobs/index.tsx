@@ -1,4 +1,4 @@
-export { TopLeft } from "./TopLeft";
-export { TopRight } from "./TopRight";
-export { MiddleLeft } from "./MiddleLeft";
-export { MiddleRight } from "./MiddleRight";
+export { About } from "./About";
+export { Projects } from "./Projects";
+export { Interests } from "./Interests";
+export { Home } from "./Home";

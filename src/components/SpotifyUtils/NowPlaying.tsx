@@ -1,14 +1,15 @@
 import useSWR from "swr";
 import Image from "next/image";
-import { NOW_PLAYING_ENDPOINT } from "utils/constants";
-import { getNowPlaying } from "api/spotify";
 import { NowPlayingProps } from "utils/spotify-types";
 import styles from "./spotify.module.scss";
 import { Spotify } from "../icons";
 import { AnimatedBars } from ".";
 
 export const NowPlaying = () => {
-  const { data } = useSWR<NowPlayingProps>(NOW_PLAYING_ENDPOINT, getNowPlaying);
+  const { data, isLoading } = useSWR<NowPlayingProps>("/api/now-playing");
+  console.log(data);
+
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <div className={styles.container}>
