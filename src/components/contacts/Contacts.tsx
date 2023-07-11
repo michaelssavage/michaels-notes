@@ -1,7 +1,6 @@
 import { MouseEvent } from "react";
-import Link from "next/link";
 import { Github, LinkedIn, Mail } from "components/icons";
-import styles from "./contacts.module.scss";
+import styles from "./Contacts.module.scss";
 
 const emailAddress = "michaelsavage940@gmail.com";
 
@@ -13,24 +12,34 @@ const copyEmail = (ev: MouseEvent) => {
 export const Contacts = () => {
   return (
     <div className={styles.socials}>
-      <Link href="" onClick={copyEmail} className={styles.iconAndText}>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href=""
+        onClick={copyEmail}
+        className={styles.iconAndText}
+      >
         <Mail />
         <p>Email Me</p>
-      </Link>
-      <Link
+      </a>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
         href="https://github.com/michaelssavage"
         className={styles.iconAndText}
       >
         <Github />
         <p>Github</p>
-      </Link>
-      <Link
+      </a>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
         href="https://linkedin.com/in/michaelssavage"
         className={styles.iconAndText}
       >
         <LinkedIn />
         <p>LinkedIn</p>
-      </Link>
+      </a>
     </div>
   );
 };

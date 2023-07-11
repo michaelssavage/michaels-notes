@@ -1,3 +1,20 @@
+export interface SpotifyData {
+  is_playing: boolean;
+  item: {
+    name: string;
+    album: {
+      name: string;
+      artists: Array<{ name: string }>;
+      images: [{ url: string }];
+      release_date: string;
+    };
+    external_urls: {
+      spotify: string;
+    };
+  };
+  currently_playing_type: string;
+}
+
 export interface NowPlayingProps {
   album: string;
   albumImageUrl: string;
@@ -6,6 +23,10 @@ export interface NowPlayingProps {
   year: number;
   songUrl: string;
   title: string;
+}
+
+export interface SpotifyTopItems {
+  items: TrackProp[];
 }
 
 export interface TopTracksProps {

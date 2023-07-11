@@ -1,6 +1,6 @@
 import { animate } from "motion";
 import { useEffect } from "react";
-import styles from "./spotify.module.scss";
+import styles from "./AnimatedBars.module.scss";
 
 export const AnimatedBars = () => {
   useEffect(() => {

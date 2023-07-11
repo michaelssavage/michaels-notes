@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import styles from "./layout.module.scss";
-import { Nav } from "./nav";
+import styles from "./Layout.module.scss";
+import { Nav } from "../nav";
 
 interface LayoutProps {
   children: ReactNode;
