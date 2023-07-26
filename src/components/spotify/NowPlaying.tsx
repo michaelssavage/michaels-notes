@@ -1,10 +1,10 @@
 import useSWR from "swr";
 import Image from "next/image";
 import axios from "axios";
-import styles from "./spotify.module.scss";
+import { Spotify } from "components/icons";
+import { NowPlayingProps } from "types/spotify";
+import styles from "./NowPlaying.module.scss";
 import { AnimatedBars } from "./AnimatedBars";
-import { NowPlayingProps } from "../../../types/spotify";
-import { Spotify } from "../icons";
 
 export const NowPlaying = () => {
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -38,8 +38,8 @@ export const NowPlaying = () => {
       );
 
     return (
-      <div className={styles.nowPlayingCard}>
-        <Spotify size={120} />
+      <div className={styles.notPlaying}>
+        <Spotify size={50} />
         <p>Nothing Currently </p>
       </div>
     );

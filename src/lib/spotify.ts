@@ -1,6 +1,6 @@
 import axios from "axios";
 import querystring from "querystring";
-import { SpotifyData, SpotifyTopItems } from "../../types/spotify";
+import { SpotifyData, SpotifyTopItems } from "../types/spotify";
 
 const {
   SPOTIFY_CLIENT_ID: client_id,

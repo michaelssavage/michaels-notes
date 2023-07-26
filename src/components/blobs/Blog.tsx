@@ -1,4 +1,4 @@
-export const Interests = () => {
+export const Blog = () => {
   return (
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -17,12 +17,12 @@ export const Interests = () => {
         strokeWidth="0"
       ></path>
       <text
-        x="7"
-        y="75"
+        x="25"
+        y="85"
         fill="rgba(251, 83, 31, 1)"
         transform="rotate(-5,40,40)"
       >
-        INTERESTS
+        BLOG
       </text>
     </svg>
   );

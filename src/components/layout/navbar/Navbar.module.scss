@@ -1,0 +1,56 @@
+@use "styles/mixins" as *;
+@use "styles/vars" as *;
+
+.container {
+  padding: 2.4rem 3rem;
+  width: 100vh;
+  height: 45px;
+  -webkit-transform-origin: left top;
+  position: fixed;
+  transform-origin: left top;
+  -webkit-transform: rotate(-90deg) translateX(-100%);
+  transform: rotate(-90deg) translateX(-100%);
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    a p {
+      float: left;
+      height: 100%;
+      line-height: 45px;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.navActive {
+  color: $black;
+  flex-grow: 2;
+  border-bottom: 3px solid $paleGreen;
+  &:hover {
+    border-bottom: 3px solid $aquaMarine;
+  }
+}
+
+.navItem {
+  flex-grow: 1;
+  color: $darkGray;
+  &:hover {
+    color: $darkCyan;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.2rem 1.6rem;
+    div a p {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0.4rem 2rem;
+  }
+}

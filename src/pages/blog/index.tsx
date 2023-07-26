@@ -1,10 +1,10 @@
 import { Layout } from "components/layout";
 
-export default function Projects() {
+export default function Blog() {
   return (
-    <Layout title="Projects">
+    <Layout title="Michael Savage Blog">
       <section>
-        <h1>Projects</h1>
+        <h1>Blog</h1>
       </section>
     </Layout>
   );

@@ -1,11 +1,19 @@
 import { AppProps } from "next/app";
 import "../styles/styles.global.scss";
-import { Layout } from "components/layout";
+import { AnimatePresence } from "framer-motion";
+import { Navbar } from "components/layout";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <Navbar />
+      <AnimatePresence
+        mode="wait"
+        initial={false}
+        onExitComplete={() => window.scrollTo(0, 0)}
+      >
+        <Component {...pageProps} />
+      </AnimatePresence>
+    </>
   );
 }

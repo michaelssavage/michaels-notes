@@ -1,12 +1,15 @@
 .main {
   h1 {
-    white-space: nowrap;
-    font-size: calc(4vw + 2vh + 2vmin);
-    margin-left: auto;
-    margin-right: auto;
+    font-size: calc(3vw + 2vh + 1.5vmin);
+  }
+  .opener {
+    font-size: 1.4rem;
+  }
+  .aboutText {
+    font-size: 1rem;
   }
 }
 
-.spacer {
-  margin: 1rem 0;
+.sectionSpace {
+  margin: 4rem 0;
 }

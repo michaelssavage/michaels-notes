@@ -1,16 +1,36 @@
+/* eslint-disable id-length */
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import Head from "next/head";
 import styles from "./Layout.module.scss";
-import { Nav } from "../nav";
 
 interface LayoutProps {
   children: ReactNode;
+  title: string;
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+const variants = {
+  hidden: { opacity: 0, x: -200, y: 0 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 0, y: -100 },
+};
+
+export const Layout = ({ children, title }: LayoutProps) => {
   return (
-    <main>
-      <Nav />
-      <div className={styles.mainContainer}>{children}</div>
-    </main>
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <motion.main
+        initial="hidden"
+        animate="enter"
+        exit="exit"
+        variants={variants}
+        transition={{ type: "linear" }}
+        className={styles.mainContainer}
+      >
+        {children}
+      </motion.main>
+    </>
   );
 };

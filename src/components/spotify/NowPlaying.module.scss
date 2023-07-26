@@ -2,12 +2,16 @@
 
 .container {
   margin-top: 0.5rem;
-  border: 1px solid black;
-  border-radius: 0.375rem;
   .nowPlayingCard {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    align-items: center;
+  }
+  .notPlaying {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
     align-items: center;
   }
   .textAndMeta {

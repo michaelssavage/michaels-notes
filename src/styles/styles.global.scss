@@ -1,14 +1,13 @@
 @use "defaults";
 
 h1,
-h2 {
+h2,
+h3 {
   color: #00539c;
+  text-transform: uppercase;
 }
 
 a {
   text-decoration: none;
   color: #00539c;
-  &:hover {
-    transform: scale(1.04);
-  }
 }
