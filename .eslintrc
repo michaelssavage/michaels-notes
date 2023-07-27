@@ -25,9 +25,11 @@
     "plugin:react-hooks/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "next"
   ],
   "rules": {
+    "import/no-anonymous-default-export": "off",
     "@typescript-eslint/no-var-requires": "off",
     "id-length": "off",
     "import/no-unresolved": "error",
