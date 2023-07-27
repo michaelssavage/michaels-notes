@@ -3,28 +3,28 @@
   display: inline-flex;
   align-items: flex-end;
   overflow: hidden;
-  height: 1.5rem;
+  height: 2rem;
 }
 
 .bar1 {
   width: 0.5rem;
   margin-right: 0.25rem;
-  height: 0.9rem;
+  height: 1rem;
   background-color: grey;
   opacity: 75%;
 }
 
 .bar2 {
-  height: 0.5rem;
+  height: 0.6rem;
   @extend .bar1;
 }
 
 .bar3 {
-  height: 1.2rem;
+  height: 1.3rem;
   @extend .bar1;
 }
 
 .bar4 {
-  height: 0.75rem;
+  height: 0.8rem;
   @extend .bar1;
 }

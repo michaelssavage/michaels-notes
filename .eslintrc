@@ -29,7 +29,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-var-requires": "off",
-    "id-length": ["error", { "exceptionPatterns": ["a|b"] }],
+    "id-length": "off",
     "import/no-unresolved": "error",
     "import/order": [
       "warn",

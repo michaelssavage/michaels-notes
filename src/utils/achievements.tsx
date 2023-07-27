@@ -40,7 +40,10 @@ export const achievements: AchievementsProp[] = [
   {
     year: 2021,
     group: [
-      { id: 20211, val: "Graduated with a First-Class Honours." },
+      {
+        id: 20211,
+        val: "Graduated with a 1.1 in Bsc. in Computer Applications from Dublin City University.",
+      },
       {
         id: 20212,
         val: "Won best group research paper in 4th year on the topic of Global Software Engineering.",

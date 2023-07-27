@@ -1,4 +1,3 @@
-/* eslint-disable id-length */
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import Head from "next/head";

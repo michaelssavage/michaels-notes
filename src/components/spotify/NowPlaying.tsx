@@ -1,10 +1,12 @@
 import useSWR from "swr";
 import Image from "next/image";
 import axios from "axios";
+import { useState } from "react";
 import { Spotify } from "components/icons";
 import { NowPlayingProps } from "types/spotify";
 import styles from "./NowPlaying.module.scss";
-import { AnimatedBars } from "./AnimatedBars";
+import { AnimatedBars } from "./animatedBars";
+import { SongModal } from "./songModal/SongModal";
 
 export const NowPlaying = () => {
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -13,39 +15,44 @@ export const NowPlaying = () => {
     fetcher
   );
 
+  const [show, setShow] = useState(false);
+
   if (isLoading) return <div>loading...</div>;
 
-  const showIsPlaying = (isPlaying?: boolean) => {
-    if (data && isPlaying)
-      return (
-        <div className={styles.nowPlayingCard}>
-          <Image
-            src={data.albumImageUrl}
-            alt="spotify logo"
-            width={120}
-            height={120}
-          />
-          <div className={styles.textAndMeta}>
-            <p className={styles.yearAlbum}>
-              {data.album} ({data.year})
-            </p>
-            <p className={styles.artist}>{data.artist}</p>
-            <p className={styles.song}>
-              <AnimatedBars /> {data.title}
-            </p>
-          </div>
-        </div>
-      );
-
+  if (data && data.isPlaying)
     return (
+      <>
+        <SongModal show={show} setShow={setShow} data={data} />
+        <div className={styles.container}>
+          <button
+            className={styles.card}
+            onClick={() => setShow(!show)}
+            role="button"
+          >
+            <div className={styles.nowPlayingCard}>
+              <Image
+                src={data.albumImageUrl}
+                alt="spotify logo"
+                width={120}
+                height={120}
+              />
+              <AnimatedBars />
+              <div className={styles.textAndMeta}>
+                <p className={styles.song}>{data.title}</p>
+                <p className={styles.artist}>{data.artist}</p>
+              </div>
+            </div>
+          </button>
+        </div>
+      </>
+    );
+
+  return (
+    <div className={styles.container}>
       <div className={styles.notPlaying}>
         <Spotify size={50} />
         <p>Nothing Currently </p>
       </div>
-    );
-  };
-
-  return (
-    <div className={styles.container}>{showIsPlaying(data?.isPlaying)}</div>
+    </div>
   );
 };

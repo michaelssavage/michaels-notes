@@ -1,13 +1,14 @@
 @use "defaults";
+@use "styles/vars" as *;
 
 h1,
 h2,
 h3 {
-  color: #00539c;
+  color: $linkColor;
   text-transform: uppercase;
 }
 
 a {
   text-decoration: none;
-  color: #00539c;
+  color: $linkColor;
 }
