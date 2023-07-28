@@ -1,5 +1,5 @@
 import { MouseEvent } from "react";
-import { Github, LinkedIn, Mail } from "components/icons";
+import { Github, LinkedIn, Mail } from "components/Icons";
 import styles from "./Contacts.module.scss";
 
 const emailAddress = "michaelsavage940@gmail.com";
@@ -19,8 +19,10 @@ export const Contacts = () => {
         onClick={copyEmail}
         className={styles.iconAndText}
       >
-        <Mail />
-        <p>Email Me</p>
+        <>
+          <Mail />
+          <p>Email Me</p>
+        </>
       </a>
       <a
         target="_blank"
@@ -28,8 +30,10 @@ export const Contacts = () => {
         href="https://github.com/michaelssavage"
         className={styles.iconAndText}
       >
-        <Github />
-        <p>Github</p>
+        <>
+          <Github />
+          <p>Github</p>
+        </>
       </a>
       <a
         target="_blank"
@@ -37,8 +41,10 @@ export const Contacts = () => {
         href="https://linkedin.com/in/michaelssavage"
         className={styles.iconAndText}
       >
-        <LinkedIn />
-        <p>LinkedIn</p>
+        <>
+          <LinkedIn />
+          <p>LinkedIn</p>
+        </>
       </a>
     </div>
   );

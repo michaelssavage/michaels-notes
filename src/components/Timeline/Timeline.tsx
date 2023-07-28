@@ -13,6 +13,9 @@ interface TimelineProps {
   };
 }
 
+const techColor = "#419989";
+const sportColor = "#4045b4";
+
 const data: TimelineProps[] = [
   {
     text: "Received 4 Resident Advisor Top Picks for Plant Bass'd events.",
@@ -27,7 +30,7 @@ const data: TimelineProps[] = [
     date: "2022",
     category: {
       tag: "Tech",
-      color: "#018f69",
+      color: techColor,
     },
   },
   {
@@ -35,7 +38,7 @@ const data: TimelineProps[] = [
     date: "December 2022",
     category: {
       tag: "Tech",
-      color: "#018f69",
+      color: techColor,
     },
   },
   {
@@ -47,7 +50,7 @@ const data: TimelineProps[] = [
     date: "2021",
     category: {
       tag: "Tech",
-      color: "#018f69",
+      color: techColor,
     },
   },
   {
@@ -59,7 +62,7 @@ const data: TimelineProps[] = [
     date: "2019",
     category: {
       tag: "Sport",
-      color: "#62018f",
+      color: sportColor,
     },
   },
   {
@@ -71,7 +74,7 @@ const data: TimelineProps[] = [
     date: "2017",
     category: {
       tag: "Sport",
-      color: "#62018f",
+      color: sportColor,
     },
   },
   {
@@ -83,7 +86,7 @@ const data: TimelineProps[] = [
     date: "2015",
     category: {
       tag: "Sport",
-      color: "#62018f",
+      color: sportColor,
     },
   },
 ];

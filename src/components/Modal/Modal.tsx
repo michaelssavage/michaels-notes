@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
-import { Close } from "components/icons";
+import { Close } from "components/Icons";
 import styles from "./Modal.module.scss";
 
 interface ModalProps {

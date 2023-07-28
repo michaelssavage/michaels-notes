@@ -2,11 +2,11 @@ import useSWR from "swr";
 import Image from "next/image";
 import axios from "axios";
 import { useState } from "react";
-import { Spotify } from "components/icons";
+import { Spotify } from "components/Icons";
 import { NowPlayingProps } from "types/spotify";
 import styles from "./NowPlaying.module.scss";
-import { AnimatedBars } from "./animatedBars";
-import { SongModal } from "./songModal/SongModal";
+import { AnimatedBars } from "./AnimatedBars";
+import { SongModal } from "./SongModal/SongModal";
 
 export const NowPlaying = () => {
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);

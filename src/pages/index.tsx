@@ -1,8 +1,8 @@
-import { Contacts } from "components/contacts";
-import { NowPlaying } from "components/spotify";
+import { Contacts } from "components/Contacts";
+import { NowPlaying } from "components/Spotify";
 import styles from "styles/page.module.scss";
-import { Layout } from "components/layout";
-import { Timeline } from "components/timeline";
+import { Layout } from "components/Layout";
+import { Timeline } from "components/Timeline";
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Modal } from "components/modal";
+import { Modal } from "components/Modal";
 import { NowPlayingProps } from "types/spotify";
 import styles from "../NowPlaying.module.scss";
 

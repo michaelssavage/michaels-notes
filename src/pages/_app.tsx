@@ -1,7 +1,7 @@
 import { AppProps } from "next/app";
 import "../styles/styles.global.scss";
 import { AnimatePresence } from "framer-motion";
-import { Navbar } from "components/layout";
+import { Navbar } from "components/Navbar";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (

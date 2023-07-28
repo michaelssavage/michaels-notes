@@ -49,6 +49,7 @@
   border: 1px solid $linkColor;
   border-radius: 0.375rem;
   background-color: $white;
+  transition: 0.25s ease;
   cursor: pointer;
   &:hover {
     background-color: $button;
