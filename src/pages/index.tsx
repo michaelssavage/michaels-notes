@@ -10,9 +10,8 @@ export default function Home() {
       <section className={styles.main}>
         <h1>Michael Savage</h1>
         <p className={styles.opener}>
-          Hey, I'm a Software Developer with Jaguar Land Rover, Ireland. I love
-          to learn new and exciting technologies and want to pursue full stack
-          development.
+          Hey, I'm a Software Developer with Jaguar Land Rover, Ireland. I love to learn new and
+          exciting technologies and want to pursue full stack development.
         </p>
 
         <Contacts />
@@ -20,10 +19,9 @@ export default function Home() {
         <div className={styles.sectionSpace}>
           <h2>About</h2>
           <p className={styles.aboutText}>
-            I love to work with NextJS, ReactJS and Typescript for frontend
-            development and Java/ Spring Boot for backend work. I've experience
-            with CI/CD, Python, APIs and UI/UX that I hope to develop over my
-            career. Outside of work, I'm passionate about all things music,
+            I love to work with NextJS, ReactJS and Typescript for frontend development and Java/
+            Spring Boot for backend work. I've experience with CI/CD, Python, APIs and UI/UX that I
+            hope to develop over my career. Outside of work, I'm passionate about all things music,
             movies, sports, and travelling.
           </p>
         </div>
