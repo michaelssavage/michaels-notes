@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Layout } from "components/Layout";
 import styles from "styles/page.module.scss";
 import { Contacts } from "components/Contacts";
@@ -28,9 +29,7 @@ export default function Projects() {
             </p>
 
             <p className={styles.readMore}>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.plantbassd.com/">
-                Read More
-              </a>
+              <Link href="/projects/plant-bassd">Read More</Link>
             </p>
           </div>
         </div>

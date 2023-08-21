@@ -7,14 +7,14 @@ import { H1, H2, NextImage, P } from "components/MDX";
 import { Layout } from "components/Layout";
 import styles from "styles/blog.module.scss";
 
-export default function BlogSlug({ source }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function ProjectsSlug({ source }: InferGetStaticPropsType<typeof getStaticProps>) {
   if (source == null) {
     return (
-      <Layout title="Michael's Blog">
+      <Layout title="Michael's Projects">
         <h1>This page does not exist</h1>
-        <Link href="/blog">
+        <Link href="/projects">
           <button className={styles.buttonLink} role="button">
-            Blog Page
+            Projects Page
           </button>
         </Link>
       </Layout>
@@ -25,11 +25,10 @@ export default function BlogSlug({ source }: InferGetStaticPropsType<typeof getS
 
   return (
     <Layout title={frontmatter.title as string}>
-      <p>{frontmatter.date as string}</p>
-      <h1>{frontmatter.title as string}</h1>
       <div className={styles.mainImg}>
         <NextImage src={frontmatter.image as string} alt={frontmatter.title as string} />
       </div>
+      <p className={styles.slugDate}>{frontmatter.date as string}</p>
       <MDXRemote
         {...source}
         // specifying the custom MDX components
@@ -54,7 +53,7 @@ export async function getStaticProps(
   }>
 ) {
   const { slug } = ctx.params!;
-  const postFile = fs.readFileSync(`src/_posts/blog/${slug}.mdx`);
+  const postFile = fs.readFileSync(`src/_posts/projects/${slug}.mdx`);
 
   const mdxSource = await serialize(postFile, { parseFrontmatter: true });
 

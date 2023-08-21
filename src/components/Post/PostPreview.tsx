@@ -1,26 +1,26 @@
+import Link from "next/link";
 import { BlogPost } from "types/blog-post";
 import styles from "styles/blog.module.scss";
-import Link from "next/link";
 
 interface PreviewProps {
   post: BlogPost;
 }
 
-export const PostPreview = ({ post }: PreviewProps) => {
-  const Post = () => (
-    <>
-      <h3 className={styles.blogTitle}>{post.title}</h3>
-      <span className={styles.reviewTag}>{post.tags.toString()}</span>
-      <p className={styles.blogDate}>Posted on {post.date}</p>
-      <p className={styles.blogText}>{post.description}</p>
-    </>
-  );
+const Post = ({ external, title, tags, date, description }: BlogPost) => (
+  <>
+    <h3 className={styles.blogTitle}>{title}</h3>
+    <span className={`${external ? styles.reviewTag : styles.blogTag}`}>{tags.toString()}</span>
+    <p className={styles.blogDate}>Posted on {date}</p>
+    <p className={styles.blogText}>{description}</p>
+  </>
+);
 
+export const PostPreview = ({ post }: PreviewProps) => {
   if (post.external) {
     return (
       <div className={styles.blogPost}>
         <a href={post.external} target="_blank" rel="noopener noreferrer">
-          <Post />
+          <Post {...post} />
         </a>
       </div>
     );
@@ -28,7 +28,7 @@ export const PostPreview = ({ post }: PreviewProps) => {
   return (
     <div className={styles.blogPost}>
       <Link href={`blog/${post.slug}`}>
-        <Post />
+        <Post {...post} />
       </Link>
     </div>
   );

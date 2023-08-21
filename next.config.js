@@ -11,7 +11,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ["source.unsplash.com"],
+    domains: ["images.unsplash.com"],
     remotePatterns: [
       {
         protocol: "https",
