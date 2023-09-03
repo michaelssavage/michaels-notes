@@ -1,7 +1,7 @@
 import { TimelineProps } from "components/Timeline/data";
-import { BlogPost } from "types/blog-post";
+import { Post } from "types/post";
 
-export const sortBlogPostByDate = (a: BlogPost, b: BlogPost) => {
+export const sortBlogPostByDate = (a: Post, b: Post) => {
   return new Date(b.date).valueOf() - new Date(a.date).valueOf();
 };
 

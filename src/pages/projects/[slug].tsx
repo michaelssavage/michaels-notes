@@ -5,7 +5,7 @@ import Link from "next/link";
 import fs from "fs";
 import { H1, H2, NextImage, P } from "components/MDX";
 import { Layout } from "components/Layout";
-import styles from "styles/blog.module.scss";
+import styles from "styles/projects.module.scss";
 
 export default function ProjectsSlug({ source }: InferGetStaticPropsType<typeof getStaticProps>) {
   if (source == null) {
@@ -26,7 +26,11 @@ export default function ProjectsSlug({ source }: InferGetStaticPropsType<typeof 
   return (
     <Layout title={frontmatter.title as string}>
       <div className={styles.mainImg}>
-        <NextImage src={frontmatter.image as string} alt={frontmatter.title as string} />
+        <NextImage
+          height="25vh"
+          src={frontmatter.image as string}
+          alt={frontmatter.title as string}
+        />
       </div>
       <p className={styles.slugDate}>{frontmatter.date as string}</p>
       <MDXRemote

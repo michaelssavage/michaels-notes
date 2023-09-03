@@ -5,9 +5,9 @@ import path from "path";
 import { Contacts } from "components/Contacts";
 import { Layout } from "components/Layout";
 import styles from "styles/page.module.scss";
-import { BlogPost } from "types/blog-post";
 import { PostPreview } from "components/Post";
 import { filterPosts } from "utils/filterPosts";
+import { BlogPost } from "types/post";
 
 export default function Blog({ postPreviews }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (

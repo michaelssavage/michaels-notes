@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { BlogPost } from "types/blog-post";
 import styles from "styles/blog.module.scss";
+import { BlogPost } from "types/post";
 
 interface PreviewProps {
   post: BlogPost;
