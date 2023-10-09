@@ -16,6 +16,14 @@ const sportColor = "#4045b4";
 
 export const data: TimelineProps[] = [
   {
+    text: "Organised and DJ'd a Plant Bass'd gig in Galway.",
+    date: "2023",
+    link: {
+      url: "https://ra.co/events/1774670",
+      text: "Read more",
+    },
+  },
+  {
     text: "Received 4 Resident Advisor Top Picks for Plant Bass'd events.",
     date: "2022",
     link: {

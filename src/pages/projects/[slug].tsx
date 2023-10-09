@@ -3,7 +3,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import Link from "next/link";
 import fs from "fs";
-import { H1, H2, NextImage, P } from "components/MDX";
+import { Button, H1, H2, NextImage, P } from "components/MDX";
 import { Layout } from "components/Layout";
 import styles from "styles/projects.module.scss";
 
@@ -40,6 +40,7 @@ export default function ProjectsSlug({ source }: InferGetStaticPropsType<typeof 
           h1: H1,
           h2: H2,
           p: P,
+          Button,
           NextImage,
         }}
       />

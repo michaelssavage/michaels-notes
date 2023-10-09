@@ -1,9 +1,9 @@
 @use "sass:color";
 
-$black: #000000;
-$white: #fff;
+$black: rgb(16, 15, 15);
+$white: rgb(255, 252, 240);
 
-$darkGray: #777;
+$darkGray: rgb(111, 110, 105);
 $dateBlack: #212121;
 
 $lightSlateBlue: #646cff;
@@ -16,9 +16,9 @@ $darkCyan: #419989;
 $darkCyanHover: #317165;
 
 $linkColor: #00539c;
-$pageWhite: #f6f4f2;
+$pageWhite: rgb(255, 252, 240);
 
 // timelines
 $timelineBar: #e17b77;
 
-$button: #e9e9ed;
+$button: rgb(242, 240, 229);
