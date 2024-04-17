@@ -1,17 +1,7 @@
 {
-  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
-  "scss.lint.validProperties": ["composes"],
-  "editor.formatOnSave": true,
-  "editor.tabSize": 2,
-  "editor.detectIndentation": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll": "explicit"
   },
-  "eslint.enable": true,
-  "eslint.format.enable": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.printWidth": 100,
-  "[mdx]": {
-    "editor.wordWrap": "on"
-  }
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

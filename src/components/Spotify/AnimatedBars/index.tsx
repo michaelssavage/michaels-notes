@@ -1,1 +1,0 @@
-export { AnimatedBars } from "./AnimatedBars";
