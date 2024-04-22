@@ -18,18 +18,21 @@ const sortByDate = (posts: PostI[]) => {
 <template>
   <div class="postItem" v-for="post in sortByDate(list)" :key="post._path">
     <div class="card">
-      <div>
-        <h2 class="title">{{ post.title }}</h2>
-        <p class="date">{{ post.date }}</p>
+      <div class="cardInfo">
+        <div>
+          <h2 class="title">{{ post.title }}</h2>
+          <p class="date">{{ post.date }}</p>
+        </div>
+        <div>
+          <a v-if="post.external" :href="post.external">
+            <button class="btn external">Read More<IconsExternalLink /></button
+          ></a>
+          <button v-else class="btn" @click="$router.push(post._path)">
+            Read More
+          </button>
+        </div>
       </div>
-      <div>
-        <a v-if="post.external" :href="post.external">
-          <button class="btn external">Read More<IconsExternalLink /></button
-        ></a>
-        <button v-else class="btn" @click="$router.push(post._path)">
-          Read More
-        </button>
-      </div>
+      <p class="description">{{ post.description }}</p>
     </div>
   </div>
 </template>
@@ -44,6 +47,11 @@ const sortByDate = (posts: PostI[]) => {
   border: 1px solid var(--color-text);
   border-radius: 1rem;
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cardInfo {
+  display: flex;
   flex-direction: row;
   align-items: center;
   gap: 2rem;
@@ -56,7 +64,12 @@ const sortByDate = (posts: PostI[]) => {
   font-size: 0.85rem;
   color: var(--color-header);
 }
-
+.description {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .btn {
   font-size: 0.85rem;
   padding: 0.25rem 1rem;

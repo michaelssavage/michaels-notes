@@ -6,7 +6,7 @@ const search = ref("");
 const results = await searchContent(search);
 </script>
 
-<template>
+<template class="page">
   <main class="container">
     <form class="formSearch" autocomplete="off">
       <label for="search-blogs" class>Search blogs: </label>
@@ -36,6 +36,9 @@ const results = await searchContent(search);
 </template>
 
 <style scoped lang="scss">
+.page {
+  position: relative;
+}
 .container {
   margin: 2rem 5%;
   display: flex;
@@ -45,9 +48,10 @@ const results = await searchContent(search);
 .formSearch {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
   input {
-    border-radius: 0.375rem;
+    border-radius: 0.25rem;
     &:focus {
       outline: solid 2px var(--color-aqua);
     }
@@ -73,6 +77,7 @@ const results = await searchContent(search);
   top: 10%;
   right: -10%;
   z-index: -1;
+  overflow-x: hidden;
   @include for-tablet-only {
     visibility: hidden;
   }

@@ -1,5 +1,6 @@
 ---
 date: november 21, 2023
+description: "Checking what movies me and my friends both had in our watchlist so that we could narrow down the choices"
 ---
 
 # Letterboxd Common Movies

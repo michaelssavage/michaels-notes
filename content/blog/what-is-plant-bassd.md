@@ -1,5 +1,6 @@
 ---
 date: february 10, 2024
+description: Showcasing artists, releases, and club nights in the experimental dance music world.
 ---
 
 # What is Plant Bass’d?

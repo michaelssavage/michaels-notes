@@ -21,7 +21,7 @@ const processString = (input: string, link?: string) => {
   const linkRegex = /<<([^>]+)>>/g;
 
   return changedYear.replace(linkRegex, (match, text) => {
-    return `<a class="extLink" link="${link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+    return `<a class="extLink" href="${link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
   });
 };
 
