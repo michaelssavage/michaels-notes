@@ -36,18 +36,17 @@ nav {
   padding: 3rem 20%;
   text-transform: uppercase;
   font-style: italic;
-}
-
-nav a {
-  text-decoration: none;
-  color: var(--color-text);
-  &:hover {
-    color: var(--color-grey);
-    transform: scale(1.08);
+  a {
+    text-decoration: none;
+    color: var(--color-text);
+    &:hover {
+      color: var(--color-grey);
+      transform: scale(1.08);
+    }
   }
 }
 
-nav a.router-link-active {
+.router-link-active {
   font-weight: bold;
 }
 </style>

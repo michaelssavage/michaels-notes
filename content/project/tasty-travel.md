@@ -6,6 +6,8 @@ image: "/images/travel.jpg"
 
 # TastyTravel
 
+<img src="/images/96.png" width="20%" alt="tastytravel icon" align="right" />
+
 Android app that let users search for meeting places between two locations based on equitravelling time.
 
 TastyTravel is an Android app built with Android Studio 3.6.1. The app allows one person to search for places for two parties to meet and the given results depend on their chosen mode of transport. The aim of the app is to return locations on an interactive Google Map that each party can arrive at roughly at the same time. They can choose to search for either Bars, Cafes, or Restaurants.
@@ -16,4 +18,4 @@ The app finds recommended locations by using Mapbox isochrones and the Spherical
 
 By default, the app does not draw the isochrone onto the app but a toggle can be switched on. This switch will add a Google GeoJsonLayer to the map using the coordinates list.
 
-[Github Link](https://github.com/michaelssavage/TastyTravel-3rdYearProject)
+:pretty-link{ link="https://github.com/michaelssavage/TastyTravel-3rdYearProject" text="Github Link" external isBig }

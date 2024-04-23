@@ -1,16 +1,20 @@
 <script setup lang="ts"></script>
 
 <template>
-	<main class="container">
-		<ContentDoc />
-	</main>
+	<article class="container">
+		<ContentDoc v-slot="{ doc }">
+			<p class="date">
+				{{ doc.date }}
+			</p>
+			<div class="content">
+				<ContentRenderer :value="doc" />
+			</div>
+		</ContentDoc>
+	</article>
 </template>
 
 <style lang="scss" scoped>
 .container {
   margin: 2rem 10%;
-  p {
-    margin: 1rem;
-  }
 }
 </style>

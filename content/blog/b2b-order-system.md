@@ -12,4 +12,4 @@ As well as the front, I used Python's Flask micro web framework for the backend.
 
 Looking back at it now, it's a pretty small project that would take me a week to complete. But at the time it was a mammoth task. An important lesson that learning all the theory and best practices don't mean much until you apply them.
 
-More here on [Github](https://github.com/michaelssavage/b2b-react-flask)
+:pretty-link{ link="https://github.com/michaelssavage/b2b-react-flask" text="Github Link" external isBig }

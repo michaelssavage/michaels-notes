@@ -6,6 +6,8 @@ image: "/images/coffee.jpg"
 
 # Coffee Site
 
+<img src="/images/coffee.jpg" width="20%" alt="coffee icon" align="right" />
+
 A coding interview challenge I completed using PostgreSQL, Nest.js backend, and a Next.js frontend. I used SCSS for styling and I learned how to use Nest.js and the new app router in Next.js for the first time.
 
 ## features
@@ -15,4 +17,4 @@ A coding interview challenge I completed using PostgreSQL, Nest.js backend, and 
 - I added nice animations to the navbar as you scroll and animations for displaying the modal.
 - I added a filter so that you could change between the different coffee types; Robusta and Arabic.
 
-[Github Link](https://github.com/michaelssavage/coffee-site)
+:pretty-link{ link="https://github.com/michaelssavage/coffee-site" text="Github Link" external isBig }

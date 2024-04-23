@@ -18,11 +18,10 @@ useHead({
 			</p>
 			<p>
 				Co-created Plant Bass'd, an electronic music blog and underground club
-				night. <br>
-				<NuxtLink
-					class="extLink"
-					to="/blog/what-is-plant-bassd"
-				>What is Plant Bass'd?</NuxtLink>
+				night.<PrettyLink
+					text="What is Plant Bass'd?"
+					link="/blog/what-is-plant-bassd"
+				/>
 			</p>
 			<div class="horizon" />
 		</div>

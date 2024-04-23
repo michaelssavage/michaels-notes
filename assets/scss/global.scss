@@ -12,7 +12,7 @@ $color-red: #ca1551;
   --color-text: #191919;
   --color-grey: #515151;
   --color-background: #ebd894;
-  --color-aqua: #03cea4;
+  --color-aqua: #009a7b;
   --color-header: #ca1551;
   --color-orange: #fb4d3d;
   --color-blue: #3d89fb;
@@ -103,4 +103,11 @@ body {
       height: 100%;
     }
   }
+}
+
+.date {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-grey);
+  font-weight: bold;
 }
