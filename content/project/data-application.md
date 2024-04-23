@@ -6,4 +6,4 @@ image: "/images/data.jpg"
 
 # Data Application
 
-Full stack application for creating data products using React, Typescript, React Query, Spring Boot, MongoDB
+Full stack application for creating data products using React, Typescript, React Query, Spring Boot, and MongoDB
