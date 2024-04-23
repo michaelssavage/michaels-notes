@@ -1,44 +1,45 @@
 <script setup lang="ts">
+import jsonData from 'lists/bites.json';
+
 useHead({
-  title: "My Bites",
+	title: 'My Bites',
 });
-import jsonData from "lists/bites.json";
 
 interface BiteI {
-  id: number;
-  title: string;
-  link?: string;
+	id: number;
+	title: string;
+	link?: string;
 }
 
 const processString = (input: string, link?: string) => {
-  const yearRegex = /{{(\d+)}}/g;
+	const yearRegex = /{{(\d+)}}/g;
 
-  const changedYear = input.replace(yearRegex, (match, number) => {
-    return `<span class="yearColor">${number}</span>`;
-  });
-  if (!link) return changedYear;
+	const changedYear = input.replace(yearRegex, (match, number) => {
+		return `<span class="yearColor">${number}</span>`;
+	});
+	if (!link) return changedYear;
 
-  const linkRegex = /<<([^>]+)>>/g;
+	const linkRegex = /<<([^>]+)>>/g;
 
-  return changedYear.replace(linkRegex, (match, text) => {
-    return `<a class="extLink" href="${link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
-  });
+	return changedYear.replace(linkRegex, (match, text) => {
+		return `<a class="extLink" href="${link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+	});
 };
 
 const bites = jsonData as BiteI[];
 </script>
 
 <template>
-  <main class="container">
-    <ul>
-      <li
-        class="listItem"
-        v-for="bite in bites"
-        :key="bite.id"
-        v-html="processString(bite.title, bite.link)"
-      ></li>
-    </ul>
-  </main>
+	<main class="container">
+		<ul>
+			<li
+				v-for="bite in bites"
+				:key="bite.id"
+				class="listItem"
+				v-html="processString(bite.title, bite.link)"
+			/>
+		</ul>
+	</main>
 </template>
 
 <style lang="scss" scoped>

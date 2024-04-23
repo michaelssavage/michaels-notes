@@ -1,38 +1,52 @@
 <script setup lang="ts">
 useHead({
-  title: "My Blog",
+	title: 'My Blog',
 });
-const search = ref("");
+const search = ref('');
 const results = await searchContent(search);
 </script>
 
 <template class="page">
-  <main class="container">
-    <form class="formSearch" autocomplete="off">
-      <label for="search-blogs" class>Search blogs: </label>
-      <input
-        id="search-blogs"
-        v-model="search"
-        type="text"
-        placeholder="Enter text..."
-      />
-    </form>
+	<main>
+		<div class="container">
+			<form
+				class="formSearch"
+				autocomplete="off"
+			>
+				<label
+					for="search-blogs"
+					class
+				>Search blogs: </label>
+				<input
+					id="search-blogs"
+					v-model="search"
+					type="text"
+					placeholder="Enter text..."
+				>
+			</form>
 
-    <div class="colorKey">
-      <p><IconsCircle color="#3d89fb" /> = Plant Bass'd</p>
-      <p><IconsCircle color="#fb4d3d" /> = On site</p>
-    </div>
-    <ContentList path="/blog">
-      <template #default="{ list }">
-        <PostItems v-if="results.length > 0" :list="results" />
-        <PostItems v-else :list="list" />
-      </template>
-      <template #not-found>
-        <p>No articles found.</p>
-      </template>
-    </ContentList>
-  </main>
-  <div class="circle"></div>
+			<div class="colorKey">
+				<p><IconsCircle color="#3d89fb" /> = Plant Bass'd</p>
+				<p><IconsCircle color="#fb4d3d" /> = On site</p>
+			</div>
+			<ContentList path="/blog">
+				<template #default="{ list }">
+					<PostItems
+						v-if="results.length > 0"
+						:list="results"
+					/>
+					<PostItems
+						v-else
+						:list="list"
+					/>
+				</template>
+				<template #not-found>
+					<p>No articles found.</p>
+				</template>
+			</ContentList>
+		</div>
+		<div class="circle" />
+	</main>
 </template>
 
 <style scoped lang="scss">

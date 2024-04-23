@@ -1,13 +1,23 @@
 <template>
-  <header>
-    <nav>
-      <NuxtLink to="/">Home</NuxtLink>
-      <NuxtLink to="/about">About</NuxtLink>
-      <NuxtLink to="/blog">Blog</NuxtLink>
-      <NuxtLink to="/bites">Bites</NuxtLink>
-      <NuxtLink to="/projects">Projects</NuxtLink>
-    </nav>
-  </header>
+	<header>
+		<nav>
+			<NuxtLink to="/">
+				Home
+			</NuxtLink>
+			<NuxtLink to="/about">
+				About
+			</NuxtLink>
+			<NuxtLink to="/blog">
+				Blog
+			</NuxtLink>
+			<NuxtLink to="/bites">
+				Bites
+			</NuxtLink>
+			<NuxtLink to="/projects">
+				Projects
+			</NuxtLink>
+		</nav>
+	</header>
 </template>
 
 <style lang="scss">

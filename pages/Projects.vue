@@ -1,44 +1,49 @@
 <script setup lang="ts">
 useHead({
-  title: "My Projects",
+	title: 'My Projects',
 });
 
 interface ProjectI {
-  _path: string;
-  id: number;
-  image: string;
-  title: string;
+	_path: string;
+	id: number;
+	image: string;
+	title: string;
 }
 
 const sortedItems = (projects: ProjectI[]) => {
-  return projects.slice().sort((a, b) => a.id - b.id);
+	return projects.slice().sort((a, b) => a.id - b.id);
 };
 </script>
 
 <template>
-  <main class="container">
-    <ContentList path="/project">
-      <template #default="{ list }">
-        <div class="row">
-          <div
-            class="col"
-            v-for="project in sortedItems(list)"
-            :key="project.id"
-          >
-            <NuxtLink :to="project._path" class="projectImg">
-              <img :src="project.image" :alt="project.title" />
-              <p class="title">
-                {{ project.id }}. {{ project.title }}
-              </p></NuxtLink
-            >
-          </div>
-        </div>
-      </template>
-      <template #not-found>
-        <p>No articles found.</p>
-      </template>
-    </ContentList>
-  </main>
+	<main class="container">
+		<ContentList path="/project">
+			<template #default="{ list }">
+				<div class="row">
+					<div
+						v-for="project in sortedItems(list)"
+						:key="project.id"
+						class="col"
+					>
+						<NuxtLink
+							:to="project._path"
+							class="projectImg"
+						>
+							<img
+								:src="project.image"
+								:alt="project.title"
+							>
+							<p class="title">
+								{{ project.id }}. {{ project.title }}
+							</p></NuxtLink>
+					</div>
+				</div>
+			</template>
+			<template #not-found>
+				<p>No articles found.</p>
+			</template>
+		</ContentList>
+	</main>
 </template>
 
 <style lang="scss" scoped>

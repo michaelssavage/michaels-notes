@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main class="container">
-    <ContentDoc />
-  </main>
+	<main class="container">
+		<ContentDoc />
+	</main>
 </template>
 
 <style lang="scss" scoped>

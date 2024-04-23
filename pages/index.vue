@@ -1,26 +1,30 @@
 <script setup lang="ts">
 useHead({
-  title: "Michael Savage",
+	title: 'Michael Savage',
 });
 </script>
 
 <template>
-  <main class="container">
-    <h1>Hey, <span>I am Michael!</span></h1>
-    <p>
-      I'm a Full Stack Developer from Ireland that enjoys React.js, Typescript,
-      Python, and Spring Boot. My world revolves around electronic music,
-      movies, rugby, and travelling.
-    </p>
-    <div class="icons">
-      <Icon link="https://github.com/michaelssavage"><IconsGithubIcon /></Icon>
-      <Icon link="https://www.linkedin.com/in/michaelssavage"
-        ><IconsLinkedinIcon
-      /></Icon>
-      <Icon link="mailto:michaelsavage940@gmail.com"><IconsMailIcon /></Icon>
-    </div>
-    <div class="homeLine"></div>
-  </main>
+	<main class="container">
+		<h1>Hey, <span>I am Michael!</span></h1>
+		<p>
+			I'm a Full Stack Developer from Ireland that enjoys React.js, Typescript,
+			Python, and Spring Boot. My world revolves around electronic music,
+			movies, rugby, and travelling.
+		</p>
+		<div class="icons">
+			<Icon link="https://github.com/michaelssavage">
+				<IconsGithubIcon />
+			</Icon>
+			<Icon link="https://www.linkedin.com/in/michaelssavage">
+				<IconsLinkedinIcon />
+			</Icon>
+			<Icon link="mailto:michaelsavage940@gmail.com">
+				<IconsMailIcon />
+			</Icon>
+		</div>
+		<div class="homeLine" />
+	</main>
 </template>
 
 <style lang="scss" scoped>
