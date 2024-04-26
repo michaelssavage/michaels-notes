@@ -14,14 +14,14 @@ interface BiteI {
 const processString = (input: string, link?: string) => {
 	const yearRegex = /{{(\d+)}}/g;
 
-	const changedYear = input.replace(yearRegex, (match, number) => {
+	const changedYear = input.replace(yearRegex, (_match, number) => {
 		return `<span class="yearColor">${number}</span>`;
 	});
 	if (!link) return changedYear;
 
 	const linkRegex = /<<([^>]+)>>/g;
 
-	return changedYear.replace(linkRegex, (match, text) => {
+	return changedYear.replace(linkRegex, (_match, text) => {
 		return `<a class="extLink" href="${link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
 	});
 };
@@ -29,9 +29,10 @@ const processString = (input: string, link?: string) => {
 const bites = jsonData as BiteI[];
 </script>
 
+<!-- eslint-disable vue/no-v-html -->
 <template>
 	<main class="container">
-		<ul>
+		<ul class="biteList">
 			<li
 				v-for="bite in bites"
 				:key="bite.id"
@@ -41,6 +42,7 @@ const bites = jsonData as BiteI[];
 		</ul>
 	</main>
 </template>
+<!-- eslint-enable -->
 
 <style lang="scss" scoped>
 .container {
@@ -50,10 +52,17 @@ const bites = jsonData as BiteI[];
   }
 }
 
+.biteList {
+  margin: 0 15% 2rem 15%;
+}
+
 .listItem {
   list-style-type: none;
-  border-bottom: 1px solid var(--color-text);
-  margin: 0 15% 2rem 15%;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-text);
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
   font-size: 1.2rem;
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
 }
 </style>

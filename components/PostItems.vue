@@ -1,15 +1,10 @@
 <script setup lang="ts">
-interface PostI {
-	_path: string;
-	title: string;
-	date: string;
-	external?: string;
-	description: string;
-}
+import type { BlogContent } from '~/types/Post';
+
 defineProps<{
-	list: PostI[];
+	list: BlogContent[];
 }>();
-const sortByDate = (posts: PostI[]) => {
+const sortByDate = (posts: BlogContent[]) => {
 	return posts.sort(
 		(a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf(),
 	);
@@ -62,6 +57,7 @@ const sortByDate = (posts: PostI[]) => {
 .card {
   padding: 1rem;
   border: 1px solid var(--color-text);
+  background-color: var(--color-card);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;

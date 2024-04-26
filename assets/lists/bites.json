@@ -2,47 +2,56 @@
   {
     "id": 9,
     "title": "In March {{2024}}, I moved to Barcelona!",
-    "tag": "general"
+    "tag": "general",
+    "year": 2024
   },
   {
     "id": 8,
     "title": "Organised and DJ'd two electronic gigs with Plant Bass'd in Galway in {{2024}}",
-    "tag": "hobby"
+    "tag": "hobby",
+    "year": 2024
   },
   {
     "id": 7,
     "title": "Plant Bass'd events in Scotland received 11 <<Resident Advisor Top Picks>>",
     "link": "https://ra.co/promoters/103854/past-events",
-    "tag": "hobby"
+    "tag": "hobby",
+    "year": 2024
   },
   {
     "id": 6,
     "title": "Earned the Professional Scrum Master™ I (PSM I) certificate in {{2022}}",
-    "tag": "achievement"
+    "tag": "achievement",
+    "year": 2022
   },
   {
     "id": 5,
     "title": "Graduated with a 1.1 in Bsc. in Computer Applications from Dublin City University in {{2021}}",
-    "tag": "achievement"
+    "tag": "achievement",
+    "year": 2021
   },
   {
     "id": 4,
     "title": "Awarded best group research paper in {{2021}} in 4th year on the topic of Global Software Engineering",
-    "tag": "achievement"
+    "tag": "achievement",
+    "year": 2021
   },
   {
     "id": 3,
     "title": "The world came to a halt during {{2020}}. So I climbed Carrauntoohil, Croagh Patrick, and cycled from Monaghan to Galway (200km)",
-    "tag": "achievement"
+    "tag": "achievement",
+    "year": 2020
   },
   {
     "id": 2,
     "title": "Winners of the Nutty Crust Tournament, and Ulster Rugby Divison 1. League & Cup with Armagh Rugby Club u18's in {{2017}}",
-    "tag": "achievement"
+    "tag": "achievement",
+    "year": 2017
   },
   {
     "id": 1,
     "title": "Represented Ulster Club Rugby u18s by starting at no.11 in the Inter-Provincial series in {{2015}}",
-    "tag": "achievement"
+    "tag": "achievement",
+    "year": 2015
   }
 ]

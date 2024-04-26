@@ -1,16 +1,11 @@
 <script setup lang="ts">
+import type { ProjectContent } from '~/types/Post';
+
 useHead({
 	title: 'My Projects',
 });
 
-interface ProjectI {
-	_path: string;
-	id: number;
-	image: string;
-	title: string;
-}
-
-const sortedItems = (projects: ProjectI[]) => {
+const sortedItems = (projects: ProjectContent[]) => {
 	return projects.slice().sort((a, b) => a.id - b.id);
 };
 </script>
@@ -21,7 +16,7 @@ const sortedItems = (projects: ProjectI[]) => {
 			<template #default="{ list }">
 				<div class="row">
 					<div
-						v-for="project in sortedItems(list)"
+						v-for="project in sortedItems(list as ProjectContent[])"
 						:key="project.id"
 						class="col"
 					>
