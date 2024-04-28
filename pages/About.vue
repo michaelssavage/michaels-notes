@@ -7,31 +7,34 @@ useHead({
 </script>
 
 <template>
-	<main class="container">
-		<div class="paragraph">
-			<p>Born in Ireland and currently based in Barcelona.</p>
-			<p>
-				I studied Computer Applications in DCU and got my first software
-				development job with JLR, Shannon in 2021. Played sports all my life
-				including Gaelic Football and rugby for teams like Ulster Club u18s,
-				Monaghan RFC, Ennis RFC, Corinthians RFC, and Barcelona Gaels.
-			</p>
-			<p>
-				Co-created Plant Bass'd, an electronic music blog and underground club
-				night.<PrettyLink
-					text="What is Plant Bass'd?"
-					link="/blog/what-is-plant-bassd"
-				/>
-			</p>
-			<div class="horizon" />
+	<main>
+		<div class="container">
+			<div class="paragraph">
+				<p>Born in Ireland and currently based in Barcelona.</p>
+				<p>
+					I studied Computer Applications in DCU and got my first software
+					development job with JLR, Shannon in 2021. Played sports all my life
+					including Gaelic Football and rugby for teams like Ulster Club u18s,
+					Monaghan RFC, Ennis RFC, Corinthians RFC, and Barcelona Gaels.
+				</p>
+				<p>
+					Co-created Plant Bass'd, an electronic music blog and underground club
+					night.<PrettyLink
+						text="What is Plant Bass'd?"
+						link="/blog/what-is-plant-bassd"
+					/>
+				</p>
+				<div class="horizon" />
+			</div>
+			<div class="image">
+				<img
+					:src="imageUrl"
+					alt="Picture of Me"
+				>
+				<div class="square" />
+			</div>
 		</div>
-		<div class="image">
-			<img
-				:src="imageUrl"
-				alt="Picture of Me"
-			>
-			<div class="square" />
-		</div>
+		<NowSpotify />
 	</main>
 </template>
 

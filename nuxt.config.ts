@@ -10,20 +10,6 @@ export default defineNuxtConfig({
 		pageTransition: { name: 'page', mode: 'out-in' },
 	},
 
-	devtools: { enabled: true },
-
-	vite: {
-		css: {
-			preprocessorOptions: {
-				scss: {
-					additionalData: '@use "~/assets/scss/global.scss" as *;',
-				},
-			},
-		},
-	},
-
-	modules: ['@nuxt/eslint', '@nuxt/content'],
-
 	content: {
 		experimental: {
 			search: {
@@ -40,4 +26,26 @@ export default defineNuxtConfig({
 			},
 		},
 	},
+
+	devtools: { enabled: true },
+
+	modules: ['@nuxt/eslint', '@nuxt/content', '@nuxt/image'],
+
+	runtimeConfig: {
+		spotifyClientId: process.env.SPOTIFY_CLIENT_ID ?? '',
+		spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET ?? '',
+		spotifyRefreshToken: process.env.SPOTIFY_REFRESH_TOKEN ?? '',
+
+	},
+
+	vite: {
+		css: {
+			preprocessorOptions: {
+				scss: {
+					additionalData: '@use "~/assets/scss/global.scss" as *;',
+				},
+			},
+		},
+	},
+
 });

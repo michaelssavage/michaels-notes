@@ -14,13 +14,13 @@ useHead({
 		</p>
 		<div class="icons">
 			<Icon link="https://github.com/michaelssavage">
-				<IconsGithubIcon />
+				<IconsGithub />
 			</Icon>
 			<Icon link="https://www.linkedin.com/in/michaelssavage">
-				<IconsLinkedinIcon />
+				<IconsLinkedin />
 			</Icon>
 			<Icon link="mailto:michaelsavage940@gmail.com">
-				<IconsMailIcon />
+				<IconsMail />
 			</Icon>
 		</div>
 		<div class="homeLine" />
