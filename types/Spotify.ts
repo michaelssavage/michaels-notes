@@ -2,6 +2,8 @@ export interface AccessTokenI {
 	access_token: string;
 }
 
+export interface NoTracksI { hasTracks: false }
+
 export interface NotPlayingI { isPlaying: false }
 
 interface SongImage {

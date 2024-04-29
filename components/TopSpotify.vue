@@ -4,36 +4,45 @@ const { data } = await useFetch('/api/top-tracks');
 
 <template>
 	<div class="comp">
+		<h2>What are my top tracks?</h2>
 		<div v-if="!data">
 			No tracks available
 		</div>
-		<ul v-else>
+		<ol
+			v-else
+			class="trackNames"
+		>
 			<li
-				v-for="track in data"
+				v-for="track, index in data.items"
 				:key="track.name"
 			>
-				{{ track.name }} by {{ track.artists.map(artist => artist.name).join(', ') }}
+				<PrettyLink
+					:link="track.href"
+					:text="`${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`"
+					external
+				/>
+				<span v-if="index !== data.items.length - 1"> // </span>
 			</li>
-		</ul>
+		</ol>
 	</div>
 </template>
 
 <style scoped lang="scss">
 .comp {
-  margin: 0 4rem 2rem 4rem;
-}
-
-.nowPlaying {
   display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-}
-.songInfo {
-  display:flex;
+  align-items: center;
   flex-direction: column;
-  justify-content: center;
-  a, p {
-    font-size: 1.6rem;
+  padding: 0 1rem;
+}
+.trackNames {
+  > li {
+    display: inline;
+    padding: 0;
+  }
+  > li:nth-child(even) {
+    a {
+      color: var(--color-blue);
+    }
   }
 }
 </style>

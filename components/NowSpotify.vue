@@ -4,7 +4,7 @@ const { data } = await useFetch('/api/now-playing');
 
 <template>
 	<div class="comp">
-		<h1>What am I listening to?</h1>
+		<h2>What am I listening to?</h2>
 		<div
 			v-if="!data?.isPlaying"
 			class="nowPlaying"
@@ -19,15 +19,14 @@ const { data } = await useFetch('/api/now-playing');
 			<NuxtImg
 				:src="data?.albumArtUrl"
 				alt="Album art cover pic"
-				height="100"
-				width="100"
+				height="80"
+				width="80"
 			/>
 			<div class="songInfo">
 				<PrettyLink
 					:text="data?.trackTitle"
 					:link="data?.trackUrl"
 					external
-					is-big
 				/>
 
 				<p>{{ data?.artist }}</p>
@@ -40,24 +39,19 @@ const { data } = await useFetch('/api/now-playing');
 <style scoped lang="scss">
 .comp {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 2rem;
 }
 
 .nowPlaying {
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .songInfo {
   display:flex;
   flex-direction: column;
   justify-content: center;
-  a, p {
-    font-size: 1.6rem;
-  }
 }
 </style>

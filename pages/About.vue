@@ -12,13 +12,14 @@ useHead({
 			<div class="paragraph">
 				<p>Born in Ireland and currently based in Barcelona.</p>
 				<p>
-					I studied Computer Applications in DCU and got my first software
-					development job with JLR, Shannon in 2021. Played sports all my life
-					including Gaelic Football and rugby for teams like Ulster Club u18s,
-					Monaghan RFC, Ennis RFC, Corinthians RFC, and Barcelona Gaels.
+					Studied Computer Applications in DCU and started working with JLR, Shannon in 2021 where I learned to work with REST APIs using Spring Boot and React.js early on.
 				</p>
 				<p>
-					Co-created Plant Bass'd, an electronic music blog and underground club
+					I've played sports all my life including Gaelic Football for Clontibret O'Neills GFC and rugby for teams like Ulster Club u18s,
+					Monaghan RFC, Ennis RFC, and Corinthians RFC. More recently I've joined Barcelona Gaels and a local running club!
+				</p>
+				<p>
+					I co-created Plant Bass'd, an electronic music blog and underground club
 					night.<PrettyLink
 						text="What is Plant Bass'd?"
 						link="/blog/what-is-plant-bassd"
@@ -34,11 +35,25 @@ useHead({
 				<div class="square" />
 			</div>
 		</div>
-		<NowSpotify />
+		<div class="spotify">
+			<NowSpotify />
+			<TopSpotify />
+		</div>
 	</main>
 </template>
 
 <style lang="scss" scoped>
+.spotify {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 1rem;
+  width: 60%;
+  @include for-phone-only {
+    width: 100%;
+  }
+}
+
 .container {
   display: flex;
   flex-direction: row;

@@ -44,8 +44,7 @@ useHead({
 }
 .formSearch {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  place-items: center;
   gap: 0.5rem;
   input {
     border-radius: 0.25rem;

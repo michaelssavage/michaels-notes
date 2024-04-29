@@ -1,3 +1,4 @@
+import { useFetch } from 'nuxt/app';
 import { transformNowPlaying } from '~/composables/transformNowPlaying';
 import type { AccessTokenI, GetNowPlayingResponse, GetNowPlayingTransformed, NotPlayingI } from '~/types/Spotify';
 
@@ -11,7 +12,7 @@ export default defineEventHandler(async (_event) => {
 	};
 
 	const getAccessToken = async () => {
-		const data = await $fetch<AccessTokenI>('https://accounts.spotify.com/api/token', {
+		const { data } = await useFetch<AccessTokenI>('https://accounts.spotify.com/api/token', {
 			method: 'POST',
 			headers: headers,
 			body: new URLSearchParams({
@@ -23,15 +24,20 @@ export default defineEventHandler(async (_event) => {
 	};
 
 	const getNowPlaying = async (): Promise<GetNowPlayingTransformed | NotPlayingI> => {
-		const { access_token } = await getAccessToken();
-		const res = await $fetch<GetNowPlayingResponse>('https://api.spotify.com/v1/me/player/currently-playing', {
-			headers: {
-				Authorization: `Bearer ${access_token}`,
-			},
-		});
+		try {
+			const { value } = await getAccessToken();
+			const { data: res } = await useFetch<GetNowPlayingResponse>('https://api.spotify.com/v1/me/player/currently-playing', {
+				headers: {
+					Authorization: `Bearer ${value?.access_token}`,
+				},
+			});
 
-		if (!res || !res.item) return { isPlaying: false };
-		return transformNowPlaying(res);
+			if (!res || !res.value?.item) return { isPlaying: false };
+			return transformNowPlaying(res.value);
+		}
+		catch (err) {
+			return { isPlaying: false };
+		}
 	};
 
 	return getNowPlaying();

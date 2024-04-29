@@ -34,11 +34,11 @@ defineProps<{
 .icon {
   display: flex;
   justify-content: space-between;
-  width: 2rem;
-  height: 2rem;
+  width: 1.6rem;
+  height: 1.6rem;
 
   span {
-    width: 0.5rem;
+    width: 0.4rem;
     height: 100%;
     background-color: var(--color-header);
     border-radius: 3px;
