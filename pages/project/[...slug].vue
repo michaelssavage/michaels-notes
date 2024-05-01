@@ -15,6 +15,11 @@
 
 <style lang="scss" scoped>
 .container {
-  margin: 2rem 10%;
+  margin: 2rem auto;
+  width: 40%;
+
+  @include for-phone-only {
+    width: 90%;
+  }
 }
 </style>

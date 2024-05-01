@@ -43,17 +43,6 @@ useHead({
 </template>
 
 <style lang="scss" scoped>
-.spotify {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin: 2rem 1rem;
-  width: 60%;
-  @include for-phone-only {
-    width: 100%;
-  }
-}
-
 .container {
   display: flex;
   flex-direction: row;
@@ -91,8 +80,8 @@ useHead({
       top: 0;
       left: 0;
       z-index: -1;
-      height: 12rem;
-      width: 12rem;
+      height: 30vh;
+      width: 15vw;
       background-color: var(--color-orange);
     }
   }
@@ -105,6 +94,27 @@ useHead({
         margin-right: 5%;
       }
     }
+    .image {
+      margin: 0 5%;
+      img {
+        max-width: 70%;
+        min-width: 70%;
+      }
+      .square {
+        height: 30vh;
+        width: 60vw;
+      }
+    }
+  }
+}
+.spotify {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 1rem;
+  @include for-phone-only {
+    margin: 2rem 0.5rem;
+    gap: 1rem;
   }
 }
 </style>

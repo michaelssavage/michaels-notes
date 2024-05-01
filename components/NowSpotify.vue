@@ -41,6 +41,10 @@ const { data } = await useFetch('/api/now-playing');
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 60%;
+  @include for-phone-only {
+    width: 95%;
+  }
 }
 
 .nowPlaying {

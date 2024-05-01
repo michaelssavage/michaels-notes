@@ -4,7 +4,7 @@ const { data } = await useFetch('/api/top-tracks');
 
 <template>
 	<div class="comp">
-		<h2>What are my top tracks?</h2>
+		<h2>Favourite Tracks:</h2>
 		<div v-if="!data">
 			No tracks available
 		</div>
@@ -30,19 +30,15 @@ const { data } = await useFetch('/api/top-tracks');
 <style scoped lang="scss">
 .comp {
   display: flex;
-  align-items: center;
   flex-direction: column;
   padding: 0 1rem;
+  padding-left: 2rem;
 }
 .trackNames {
+    padding-left: 0;
   > li {
     display: inline;
     padding: 0;
-  }
-  > li:nth-child(even) {
-    a {
-      color: var(--color-blue);
-    }
   }
 }
 </style>
