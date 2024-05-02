@@ -1,36 +1,34 @@
 <script setup lang="ts">
-import type { BlogContent } from '~/types/Post';
+import type { BlogContent } from "~/types/Post";
 
 useHead({
-	title: 'My Blog',
+  title: "My Blog",
 });
 </script>
 
 <template class="page">
-	<main>
-		<div class="container">
-			<div class="colorKey">
-				<p><IconsCircle color="#3d89fb" /> = Plant Bass'd</p>
-				<p><IconsCircle color="#fb4d3d" /> = On site</p>
-			</div>
-			<ContentList path="/blog">
-				<template #default="{ list }">
-					<PostItems
-						:list="list as BlogContent[]"
-					/>
-				</template>
-				<template #not-found>
-					<p>No articles found.</p>
-				</template>
-			</ContentList>
-		</div>
-		<div class="circle" />
-	</main>
+  <main>
+    <div class="container">
+      <div class="colorKey">
+        <p><IconsCircle color="#3d89fb" /> = Plant Bass'd</p>
+        <p><IconsCircle color="#fb4d3d" /> = On site</p>
+      </div>
+      <ContentList path="/blog">
+        <template #default="{ list }">
+          <PostItems :list="list as BlogContent[]" />
+        </template>
+        <template #not-found>
+          <p>No articles found.</p>
+        </template>
+      </ContentList>
+    </div>
+    <div class="circle" />
+  </main>
 </template>
 
 <style scoped lang="scss">
 .resultItem {
-  background-color: pink
+  background-color: pink;
 }
 
 .page {

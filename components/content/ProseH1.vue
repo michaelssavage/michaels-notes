@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useRuntimeConfig } from '#imports';
+import { computed, useRuntimeConfig } from "#imports";
 
 const props = defineProps<{ id?: string }>();
 
@@ -8,18 +8,12 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h1);
 </script>
 
 <template>
-	<h1
-		:id="id"
-		class="tag"
-	>
-		<a
-			v-if="generate"
-			:href="`#${id}`"
-		>
-			<slot />
-		</a>
-		<slot v-else />
-	</h1>
+  <h1 :id="id" class="tag">
+    <a v-if="generate" :href="`#${id}`">
+      <slot />
+    </a>
+    <slot v-else />
+  </h1>
 </template>
 
 <style lang="scss" scoped>

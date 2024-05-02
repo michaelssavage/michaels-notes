@@ -1,16 +1,16 @@
 <script setup lang="ts"></script>
 
 <template>
-	<article class="container">
-		<ContentDoc v-slot="{ doc }">
-			<p class="date">
-				{{ doc.date }}
-			</p>
-			<div class="content">
-				<ContentRenderer :value="doc" />
-			</div>
-		</ContentDoc>
-	</article>
+  <article class="container">
+    <ContentDoc v-slot="{ doc }">
+      <p class="date">
+        {{ doc.date }}
+      </p>
+      <div class="content">
+        <ContentRenderer :value="doc" />
+      </div>
+    </ContentDoc>
+  </article>
 </template>
 
 <style lang="scss" scoped>

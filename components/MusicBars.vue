@@ -1,17 +1,17 @@
 <script setup lang="ts">
 defineProps<{
-	animate: boolean;
+  animate: boolean;
 }>();
 </script>
 
 <template>
-	<div class="container">
-		<div :class="animate ? 'icon animate': 'icon'">
-			<span />
-			<span />
-			<span />
-		</div>
-	</div>
+  <div class="container">
+    <div :class="animate ? 'icon animate' : 'icon'">
+      <span />
+      <span />
+      <span />
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -20,7 +20,7 @@ defineProps<{
   align-items: center;
 }
 .animate {
-    span {
+  span {
     animation: bounce 2.2s ease infinite alternate;
     &:nth-of-type(2) {
       animation-delay: -2.2s; /* Start at the end of animation */
@@ -29,8 +29,8 @@ defineProps<{
     &:nth-of-type(3) {
       animation-delay: -3.7s; /* Start mid-way of return of animation */
     }
-    }
   }
+}
 .icon {
   display: flex;
   justify-content: space-between;
@@ -43,9 +43,8 @@ defineProps<{
     background-color: var(--color-header);
     border-radius: 3px;
     transform-origin: bottom;
-    content: '';
+    content: "";
   }
-
 }
 
 @keyframes bounce {

@@ -1,39 +1,29 @@
 <script setup lang="ts">
-const { data } = await useFetch('/api/now-playing');
+const { data } = await useFetch("/api/now-playing");
 </script>
 
 <template>
-	<div class="comp">
-		<h2>What am I listening to?</h2>
-		<div
-			v-if="!data?.isPlaying"
-			class="nowPlaying"
-		>
-			<p>Nothing currently</p>
-			<IconsSpotify />
-		</div>
-		<div
-			v-if="data?.isPlaying"
-			class="nowPlaying"
-		>
-			<NuxtImg
-				:src="data?.albumArtUrl"
-				alt="Album art cover pic"
-				height="80"
-				width="80"
-			/>
-			<div class="songInfo">
-				<PrettyLink
-					:text="data?.trackTitle"
-					:link="data?.trackUrl"
-					external
-				/>
+  <div class="comp">
+    <h2>What am I listening to?</h2>
+    <div v-if="!data?.isPlaying" class="nowPlaying">
+      <p>Nothing currently</p>
+      <IconsSpotify />
+    </div>
+    <div v-if="data?.isPlaying" class="nowPlaying">
+      <NuxtImg
+        :src="data?.albumArtUrl"
+        alt="Album art cover pic"
+        height="80"
+        width="80"
+      />
+      <div class="songInfo">
+        <PrettyLink :text="data?.trackTitle" :link="data?.trackUrl" external />
 
-				<p>{{ data?.artist }}</p>
-			</div>
-			<MusicBars animate />
-		</div>
-	</div>
+        <p>{{ data?.artist }}</p>
+      </div>
+      <MusicBars animate />
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -54,7 +44,7 @@ const { data } = await useFetch('/api/now-playing');
 }
 
 .songInfo {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
 }

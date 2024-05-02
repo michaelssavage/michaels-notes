@@ -14,4 +14,3 @@ The team shares a common goal and passion, and we aspire to create unforgettable
 Oisín has been a pioneering voice in Scotland with the shows he has put on, with more than 30 shows across Glasgow and Edinburgh providing a safe dance space for all. At the end of 2023, I threw my first party in Galway before adding another to my belt in early 2024. Throwing parties involves a lot of planning, with the wheels starting to turn months before the eventual date. You need to organise the DJs playing, the sound system, the venue, the social media campaign, the flyers! There's a lot, but the satisfaction of the big lights turning on at the end is unrivalled. It is always worth it. You can see all our previous guests here which I find fun to view now and again: :pretty-link{link="https://www.plantbassd.com/previous-guests" text="Previous Guests" external }
 
 Read about the technologies used here: :pretty-link{link="/project/plant-bassd" text="Plant Bass'd" isBig }
-
