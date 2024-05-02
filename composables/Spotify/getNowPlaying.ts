@@ -1,7 +1,15 @@
-import type {
-  GetNowPlayingResponse,
-  GetNowPlayingTransformed,
-} from "~/types/Spotify";
+import type { GetNowPlayingResponse, GetNowPlayingTransformed } from "./Types";
+
+export const getNowPlaying = async (accessToken: string) => {
+  return await $fetch<GetNowPlayingResponse>(
+    "https://api.spotify.com/v1/me/player/currently-playing",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
 
 export const transformNowPlaying = (res: GetNowPlayingResponse) => {
   const data: GetNowPlayingTransformed = {

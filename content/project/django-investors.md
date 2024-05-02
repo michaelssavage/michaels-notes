@@ -1,12 +1,12 @@
 ---
 id: 8
 date: april 24, 2024
-image: "/images/invest.jpg"
+image: "/images/project/invest.jpg"
 ---
 
 # Django Investors
 
-<img src="/images/coffee.jpg" width="20%" alt="coffee icon" align="right" />
+:pic{ src="/images/project/invest.jpg" alt="coffee icon" }
 
 This project was a coding interview challenge I completed in a week. It is a Django application that automated the creation of bills and cash calls for an investor. A cash call is an invoice consisting of a group bills. Generated bills and cash calls were stored in PostgreSQL. Once cash calls were validated in the GUI, a PDF invoice could be generated.
 

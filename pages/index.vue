@@ -22,6 +22,9 @@ useHead({
       <Icon link="mailto:michaelsavage940@gmail.com">
         <IconsMail />
       </Icon>
+      <Icon link="https://open.spotify.com/user/1156402021?si=e72693546a9240ac">
+        <IconsSpotify />
+      </Icon>
     </div>
     <div class="homeLine" />
   </main>
@@ -35,6 +38,8 @@ useHead({
   margin-bottom: 2rem;
   h1 {
     font-size: 4rem;
+    text-align: center;
+    margin: 0 1rem;
     span {
       color: var(--color-header);
     }
@@ -67,6 +72,7 @@ useHead({
   flex-direction: row;
   justify-content: center;
   gap: 1rem;
+  margin: 0 1rem;
   svg {
     width: 5rem;
     height: 5rem;

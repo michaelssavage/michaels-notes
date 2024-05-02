@@ -1,14 +1,14 @@
 ---
 id: 1
 date: february 3, 2024
-image: "/images/plants.jpg"
+image: "/images/project/plants.jpg"
 ---
 
 # Plant Bass'd
 
-<img src="/images/plantbassd.png" width="20%" alt="plant bass'd icon" align="right" />
-
 ## Technologies
+
+:pic{ src="/images/blog/plantbassd.png" alt="plant bass'd icon" }
 
 The site is created using :pretty-link{link="https://nextjs.org/" text="Next.js" external } (a React framework) and Typescript. In it's early days the application was JavaScript-only, css styled, and the blogs were written in markdown. The site is constantly being refactored and I store a list of 'to-dos' on Trello.
 

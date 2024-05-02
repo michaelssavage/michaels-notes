@@ -1,12 +1,12 @@
 ---
 id: 5
 date: march 5, 2024
-image: "/images/coffee.jpg"
+image: "/images/project/coffee.jpg"
 ---
 
 # Coffee Site
 
-<img src="/images/coffee.jpg" width="20%" alt="coffee icon" align="right" />
+:pic{ src="/images/project/coffee.jpg" alt="coffee icon" }
 
 This project was a coding interview challenge I completed. It used PostgreSQL, a Nest.js backend, and a Next.js frontend. I used SCSS for styling and I learned how to use Nest.js and the new app router in Next.js for the first time.
 

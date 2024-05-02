@@ -6,8 +6,8 @@ const { data } = await useFetch("/api/now-playing");
   <div class="comp">
     <h2>What am I listening to?</h2>
     <div v-if="!data?.isPlaying" class="nowPlaying">
-      <p>Nothing currently</p>
       <IconsSpotify />
+      <p>Nothing currently</p>
     </div>
     <div v-if="data?.isPlaying" class="nowPlaying">
       <NuxtImg
@@ -29,12 +29,7 @@ const { data } = await useFetch("/api/now-playing");
 <style scoped lang="scss">
 .comp {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  width: 60%;
-  @include for-phone-only {
-    width: 95%;
-  }
 }
 
 .nowPlaying {

@@ -1,12 +1,12 @@
 ---
 id: 7
 date: february 1, 2024
-image: "/images/travel.jpg"
+image: "/images/project/travel.jpg"
 ---
 
 # TastyTravel
 
-<img src="/images/96.png" width="20%" alt="tastytravel icon" align="right" />
+:pic{ src="/images/project/tastytravel.png" alt="tastytravel icon" }
 
 Android app that let users search for meeting places between two locations based on equitravelling time.
 

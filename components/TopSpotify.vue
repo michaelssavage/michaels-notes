@@ -23,11 +23,13 @@ const { data } = await useFetch("/api/top-tracks");
 .comp {
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
-  padding-left: 2rem;
+  padding: 0;
 }
 .trackNames {
-  padding-left: 0;
+  padding: 0;
+  @include for-phone-only {
+    padding-right: 5%;
+  }
   > li {
     display: inline;
     padding: 0;

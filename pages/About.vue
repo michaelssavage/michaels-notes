@@ -10,11 +10,15 @@ useHead({
   <main>
     <div class="container">
       <div class="paragraph">
-        <p>Born in Ireland and currently based in Barcelona.</p>
+        <p>Born in Ireland and currently based in Barcelona, Spain.</p>
         <p>
-          Studied Computer Applications in DCU and started working with JLR,
+          I studied Computer Applications in DCU and started working with JLR,
           Shannon in 2021 where I learned to work with REST APIs using Spring
           Boot and React.js early on.
+        </p>
+        <p>
+          I'm a big movie enthusiast! I love tracking and sharing movies on
+          Letterboxd.
         </p>
         <p>
           I've played sports all my life including Gaelic Football for
@@ -24,18 +28,19 @@ useHead({
         </p>
         <p>
           I co-created Plant Bass'd, an electronic music blog and underground
-          club night.<PrettyLink
+          club night.(<PrettyLink
             text="What is Plant Bass'd?"
             link="/blog/what-is-plant-bassd"
-          />
+          />). Music is definitely a large part of my identity and I love trying
+          to make music in Ableton too!
         </p>
-        <div class="horizon" />
       </div>
       <div class="image">
         <img :src="imageUrl" alt="Picture of Me" />
         <div class="square" />
       </div>
     </div>
+    <div class="horizon" />
     <div class="spotify">
       <NowSpotify />
       <TopSpotify />
@@ -53,16 +58,9 @@ useHead({
 
   .paragraph {
     font-size: 1.2rem;
+    margin-left: 15%;
     p {
-      margin-left: 20%;
       margin-bottom: 1rem;
-    }
-    .horizon {
-      margin-top: 2rem;
-      border-bottom: 1rem solid var(--color-aqua);
-      width: 90%;
-      z-index: -1;
-      margin-right: auto;
     }
   }
 
@@ -76,6 +74,7 @@ useHead({
       max-width: 100%;
       height: auto;
     }
+
     .square {
       position: absolute;
       top: 0;
@@ -89,9 +88,9 @@ useHead({
 
   @include for-phone-only {
     flex-direction: column;
+    margin-left: 5%;
     .paragraph {
       p {
-        margin-left: 5%;
         margin-right: 5%;
       }
     }
@@ -108,13 +107,24 @@ useHead({
     }
   }
 }
+
+.horizon {
+  margin-top: -2rem;
+  border-bottom: 1rem solid var(--color-aqua);
+  width: 80%;
+  z-index: -1;
+  margin-right: auto;
+}
 .spotify {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin: 2rem 1rem;
+  width: 60%;
+  margin: 2rem 2rem;
+  margin-left: 15%;
   @include for-phone-only {
-    margin: 2rem 0.5rem;
+    width: 95%;
+    margin: 2rem 5%;
     gap: 1rem;
   }
 }

@@ -1,14 +1,14 @@
 ---
 id: 6
 date: march 3, 2023
-image: "/images/shirts.jpg"
+image: "/images/project/shirts.jpg"
 ---
 
 # That's Savage
 
-<img src="/images/savage.jpg" width="20%" alt="thats savage icon" align="right" />
-
 ## About
+
+:pic{ src="/images/project/savage.jpg" alt="thats savage icon" }
 
 That's Savage specialise in high quality, custom print garments and logo design. With over 10 years experience in design and garment printing, there are no minimum order requirements meaning that we can print special one off garments while also catering for much larger orders.
 

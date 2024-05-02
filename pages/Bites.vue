@@ -46,14 +46,18 @@ const bites = jsonData as BiteI[];
 
 <style lang="scss" scoped>
 .container {
-  margin: 2rem 0;
+  margin: 2rem auto;
+  width: 60%;
+  @include for-phone-only {
+    width: 90%;
+  }
   ul {
     padding: 0;
   }
 }
 
 .biteList {
-  margin: 0 15% 2rem 15%;
+  margin: 0 0 2rem 0;
 }
 
 .listItem {
@@ -64,5 +68,8 @@ const bites = jsonData as BiteI[];
   margin-bottom: 1.5rem;
   font-size: 1.2rem;
   box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+  @include for-phone-only {
+    font-size: 1rem;
+  }
 }
 </style>

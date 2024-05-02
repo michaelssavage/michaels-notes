@@ -43,6 +43,9 @@ const sortByDate = (posts: BlogContent[]) => {
 .postItem {
   display: flex;
   align-items: flex-start;
+  @include for-phone-only {
+    display: block;
+  }
 }
 .card {
   padding: 1rem;
@@ -52,12 +55,16 @@ const sortByDate = (posts: BlogContent[]) => {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin: 0 1rem;
 }
 .cardInfo {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 2rem;
+  @include for-phone-only {
+    justify-content: space-between;
+  }
 }
 .title {
   font-size: 1rem;
@@ -72,6 +79,13 @@ const sortByDate = (posts: BlogContent[]) => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  @include for-phone-only {
+    font-size: 0.9rem;
+    white-space: wrap;
+    text-overflow: unset;
+    overflow: unset;
+    width: 100%;
+  }
 }
 .btn {
   font-size: 0.85rem;

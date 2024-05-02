@@ -5,7 +5,7 @@ description: Showcasing artists, releases, and club nights in the experimental d
 
 # What is Plant Bass’d?
 
-<img src="/images/plantbassd.png" width="20%" alt="plant bass'd logo" align="right" />
+:pic{ src="/images/blog/plantbassd.png" alt="plant bass'd icon" }
 
 In early 2020, Oisín Campbell, Peter Toal, and I, from Co. Monaghan, Ireland, came together to form Plant Bass'd. Initially, the collective's main focus was sharing our love for music and throwing parties. However, it soon developed into something bigger, with a mission to showcase artists, releases, and club nights in the experimental dance music world. Electronic music is not a major thing in our part of the world, especially Bass/ Drum/ LATAM music.
 

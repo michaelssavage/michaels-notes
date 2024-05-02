@@ -1,12 +1,12 @@
 ---
 id: 4
 date: february 1, 2024
-image: "/images/news.jpg"
+image: "/images/project/news.jpg"
 ---
 
 # eMot
 
-<img src="/images/emot.png" width="20%" alt="emot icon" align="right" />
+:pic{ src="/images/project/emot.png" alt="emot icon" }
 
 My final year project was a customisable client based emotion classifier built using PYQT5 and QT Designer. The Python GUI application used data extraction, natural language processing, emotion classification, and machine learning to judge the sentiment of textual material being read online by a user.
 
