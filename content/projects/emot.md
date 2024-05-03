@@ -1,12 +1,13 @@
 ---
 id: 4
 date: february 1, 2024
-image: "/images/project/news.jpg"
+image: "images/project/news.jpg"
+github: "https://github.com/michaelssavage/eMot"
 ---
 
 # eMot
 
-:pic{ src="/images/project/emot.png" alt="emot icon" }
+:pic{ src="images/project/emot.png" alt="emot icon" }
 
 My final year project was a customisable client based emotion classifier built using PYQT5 and QT Designer. The Python GUI application used data extraction, natural language processing, emotion classification, and machine learning to judge the sentiment of textual material being read online by a user.
 
@@ -21,5 +22,3 @@ Using PYQT5 and Plotly, we could display emotion data graphically using a select
 ## Technologies used
 
 Python, Git, PYQT5, SciKit-Learn, Docker, SpaCy, BeautifulSoup.
-
-:pretty-link{ link="https://github.com/michaelssavage/eMot" text="Github Link" external isBig }

@@ -1,7 +1,7 @@
 ---
 id: 2
 date: march 5, 2024
-image: "/images/project/cars.jpg"
+image: "images/project/cars.jpg"
 ---
 
 # Config Center GUI

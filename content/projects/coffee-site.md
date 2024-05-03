@@ -1,12 +1,13 @@
 ---
 id: 5
 date: march 5, 2024
-image: "/images/project/coffee.jpg"
+image: "images/project/coffee.jpg"
+github: "https://github.com/michaelssavage/coffee-site"
 ---
 
 # Coffee Site
 
-:pic{ src="/images/project/coffee.jpg" alt="coffee icon" }
+:pic{ src="images/project/coffee.jpg" alt="coffee icon" }
 
 This project was a coding interview challenge I completed. It used PostgreSQL, a Nest.js backend, and a Next.js frontend. I used SCSS for styling and I learned how to use Nest.js and the new app router in Next.js for the first time.
 
@@ -16,5 +17,3 @@ This project was a coding interview challenge I completed. It used PostgreSQL, a
 - I created a form that appeared in a modal for creating new coffee items that saved to the backend.
 - I added nice animations to the navbar as you scroll and animations for displaying the modal.
 - I added a filter so that you could change between the different coffee types; Robusta and Arabic.
-
-:pretty-link{ link="https://github.com/michaelssavage/coffee-site" text="Github Link" external isBig }

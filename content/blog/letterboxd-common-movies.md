@@ -5,7 +5,7 @@ description: "Checking what movies me and my friends both had in our watchlist s
 
 # Letterboxd Common Movies
 
-:pic{ src="/images/blog/letterboxd.png" alt="letterboxd icon" }
+:pic{ src="images/blog/letterboxd.png" alt="letterboxd icon" }
 
 I'm a big fan of using Letterboxd to track the movies I've watched and see what my friends have been watching. It's the best social media out there. You can view my page here :pretty-link{ link="https://letterboxd.com/ottobio/" text="on Letterboxd" external } .
 

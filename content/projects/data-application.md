@@ -1,7 +1,7 @@
 ---
 id: 3
 date: march 5, 2024
-image: "/images/project/data.jpg"
+image: "images/project/data.jpg"
 ---
 
 # Data Application

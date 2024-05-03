@@ -1,14 +1,15 @@
 ---
 id: 1
 date: february 3, 2024
-image: "/images/project/plants.jpg"
+image: "images/project/plants.jpg"
+github: "https://github.com/michaelssavage/plantbassd"
 ---
 
 # Plant Bass'd
 
 ## Technologies
 
-:pic{ src="/images/blog/plantbassd.png" alt="plant bass'd icon" }
+:pic{ src="images/blog/plantbassd.png" alt="plant bass'd icon" }
 
 The site is created using :pretty-link{link="https://nextjs.org/" text="Next.js" external } (a React framework) and Typescript. In it's early days the application was JavaScript-only, css styled, and the blogs were written in markdown. The site is constantly being refactored and I store a list of 'to-dos' on Trello.
 
@@ -24,6 +25,6 @@ Plant Bass'd has allowed me to access my 'creative side' by gaining an understan
 
 I've also learned how to use Adobe Premiere Pro to create videos to display on projectors at some of the parties. By far the most time consuming hobby, I created a 20 minute video for a Valentine's themed party consisting of colourful and romantic movie snippets. I searched in close to 200 movies for clips ranging in 2 to 8 seconds long.
 
-:pretty-link{link="/blog/what-is-plant-bassd" text="what is plant bass'd?" isBig }
+:pretty-link{link="/blog/what-is-plant-bassd" text="What is Plant Bass'd?" }
 
-:pretty-link{ link="https://github.com/michaelssavage/plantbassd" text="Github Link" external isBig }
+<br />

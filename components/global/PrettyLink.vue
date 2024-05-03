@@ -9,9 +9,10 @@ defineProps({
 
 <template>
   <NuxtLink
-    :class="{ isBig: isBig, extLink: true }"
+    :class="{ extLink: true, isBig: isBig }"
     :to="link"
     :external="external"
+    :target="external ? '_blank' : null"
   >
     {{ text }}
   </NuxtLink>

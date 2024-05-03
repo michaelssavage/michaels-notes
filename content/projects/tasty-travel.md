@@ -1,12 +1,13 @@
 ---
 id: 7
 date: february 1, 2024
-image: "/images/project/travel.jpg"
+image: "images/project/travel.jpg"
+github: "https://github.com/michaelssavage/TastyTravel-3rdYearProject"
 ---
 
 # TastyTravel
 
-:pic{ src="/images/project/tastytravel.png" alt="tastytravel icon" }
+:pic{ src="images/project/tastytravel.png" alt="tastytravel icon" }
 
 Android app that let users search for meeting places between two locations based on equitravelling time.
 
@@ -17,5 +18,3 @@ When users of the app successfully search using all the parameters, they can loo
 The app finds recommended locations by using Mapbox isochrones and the SphericalUtil class from Google. When the user presses search, the app builds a URL that takes in the mode of transport (Walk, Car, or Bike) and requests the JSONObject from MapBox. The JSONObject contains information on the properties and geometry of the isochrone, but most importantly we parse the coordinates from the URL into a list and use our algorithm to find suitable meeting places. We do this by iterating through the coordinates list of your location and finding the shortest distance to their location. Then we do the vice versa until we end up with two locations. We then use interpolation to get a midpoint between those locations where the midpoint is a given score that is influenced by the modes of transport. The score is a fraction between 0 and 1. The score favours people who walk, then cycle, and finally driving. If the modes of transport are the same then the fraction will be neutral at 0.5.
 
 By default, the app does not draw the isochrone onto the app but a toggle can be switched on. This switch will add a Google GeoJsonLayer to the map using the coordinates list.
-
-:pretty-link{ link="https://github.com/michaelssavage/TastyTravel-3rdYearProject" text="Github Link" external isBig }
