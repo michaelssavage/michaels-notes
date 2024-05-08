@@ -13,16 +13,19 @@ useHead({
       movies, rugby, and travelling.
     </p>
     <div class="icons">
-      <Icon link="https://github.com/michaelssavage">
+      <Icon external link="https://github.com/michaelssavage">
         <IconsGithub />
       </Icon>
-      <Icon link="https://www.linkedin.com/in/michaelssavage">
+      <Icon external link="https://www.linkedin.com/in/michaelssavage">
         <IconsLinkedin />
       </Icon>
-      <Icon link="mailto:michaelsavage940@gmail.com">
+      <Icon external link="mailto:michaelsavage940@gmail.com">
         <IconsMail />
       </Icon>
-      <Icon link="https://open.spotify.com/user/1156402021?si=e72693546a9240ac">
+      <Icon
+        external
+        link="https://open.spotify.com/user/1156402021?si=e72693546a9240ac"
+      >
         <IconsSpotify />
       </Icon>
     </div>

@@ -1,9 +1,17 @@
 <script setup lang="ts">
-defineProps<{
-  link: string;
-}>();
+defineProps({
+  link: { type: String },
+  external: { type: Boolean, default: false },
+});
 </script>
 
 <template>
-  <a :href="link" class="icon-link"><slot /></a>
+  <NuxtLink
+    :to="link"
+    :external="external"
+    :target="external ? '_blank' : null"
+    class="icon-link"
+  >
+    <slot />
+  </NuxtLink>
 </template>

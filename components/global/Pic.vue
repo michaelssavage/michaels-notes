@@ -3,7 +3,7 @@ defineProps({
   src: { type: String },
   alt: { type: String },
   isFloat: { type: Boolean, default: true },
-  sizes: { type: String, default: "100px md:100px" },
+  sizes: { type: String, default: "100px md:200px" },
 });
 </script>
 
