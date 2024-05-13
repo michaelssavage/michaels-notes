@@ -4,23 +4,43 @@ import type { BlogContent } from "~/types/Post";
 useHead({
   title: "My Blog",
 });
+
+const external = ref(true);
+const toggleExternal = () => {
+  external.value = !external.value;
+};
+const onSite = ref(true);
+const toggleOnSite = () => {
+  onSite.value = !onSite.value;
+};
+
+const filteredItems = (list: BlogContent[]) => {
+  if (external.value && onSite.value) {
+    return list;
+  } else if (!external.value && onSite.value) {
+    return list.filter((item) => !item.external);
+  } else if (!onSite.value && external.value) {
+    return list.filter((item) => item.external);
+  } else {
+    return [];
+  }
+};
 </script>
 
 <template class="page">
   <main>
     <div class="container">
       <div class="colorKey">
-        <p><IconsCircle color="#3d89fb" /> = Plant Bass'd</p>
-        <p><IconsCircle color="#fb4d3d" /> = On site</p>
+        <p :class="{ unused: !onSite }" @click="toggleOnSite">
+          <IconsCircle color="#fb4d3d" /> = On site
+        </p>
+        <p :class="{ unused: !external }" @click="toggleExternal">
+          <IconsCircle color="#3d89fb" /> = Plant Bass'd
+        </p>
       </div>
-      <ContentList path="/blog">
-        <template #default="{ list }">
-          <PostItems :list="list as BlogContent[]" />
-        </template>
-        <template #not-found>
-          <p>No articles found.</p>
-        </template>
-      </ContentList>
+      <LazyContentList v-slot="{ list }" path="/blog">
+        <Post :list="filteredItems(list as BlogContent[])" />
+      </LazyContentList>
     </div>
     <div class="circle" />
   </main>
@@ -60,8 +80,17 @@ useHead({
   p {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
   }
 }
+.unused {
+  svg {
+    stroke-width: 1;
+    stroke: grey;
+    fill: transparent;
+  }
+}
+
 .circle {
   width: 25rem;
   height: 25rem;

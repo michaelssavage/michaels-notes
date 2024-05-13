@@ -3,12 +3,23 @@
 <template>
   <article class="container">
     <ContentDoc v-slot="{ doc }">
-      <PagePath :page="doc._path.split('/')[1]" />
+      <PagePath
+        v-if="doc._path"
+        :page="doc._path.split('/')[1]"
+        :style="{ color: '#ca1551' }"
+      />
       <p class="date">
         {{ doc.date }}
       </p>
       <div class="content">
         <ContentRenderer :value="doc" />
+        <Btn
+          v-if="doc.github"
+          :link="doc.github"
+          text="GitHub Link"
+          external
+          aqua
+        />
       </div>
     </ContentDoc>
   </article>

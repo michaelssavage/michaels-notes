@@ -1,19 +1,23 @@
 <script setup lang="ts">
-const { data } = await useFetch("/api/top-tracks");
+import type { SpotifyTopTracksI } from "~/composables/Spotify/Types";
+
+defineProps<{
+  topdata?: SpotifyTopTracksI | null;
+}>();
 </script>
 
 <template>
   <div class="comp">
-    <h2>Favourite Tracks:</h2>
-    <div v-if="!data">No tracks available</div>
+    <h2 class="title">Favourite Tracks:</h2>
+    <div v-if="!topdata">No tracks available</div>
     <ol v-else class="trackNames">
-      <li v-for="(track, index) in data.items" :key="track.name">
+      <li v-for="(track, index) in topdata.items" :key="track.name">
         <PrettyLink
           :link="track.href"
           :text="`${track.name} by ${track.artists.map((artist) => artist.name).join(', ')}`"
           external
         />
-        <span v-if="index !== data.items.length - 1"> // </span>
+        <span v-if="index !== topdata.items.length - 1"> // </span>
       </li>
     </ol>
   </div>
@@ -24,6 +28,14 @@ const { data } = await useFetch("/api/top-tracks");
   display: flex;
   flex-direction: column;
   padding: 0;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  svg {
+    color: var(--color-blue);
+  }
 }
 .trackNames {
   padding: 0;

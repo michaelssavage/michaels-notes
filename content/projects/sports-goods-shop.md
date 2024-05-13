@@ -19,12 +19,12 @@ Each ad consists of 1 or more pictures, a description, a headline, and a CTA (ca
 
 ## Home page
 
-:pic{ src="images/project/goods-store-home.png" alt="Home page of the app" :isFloat=false sizes="1200px" }
+:pic{ src="/images/project/goods-store-home.png" alt="Home page of the app" :isFloat=false sizes="1200px" }
 
 ## View page
 
-:pic{ src="images/project/goods-store-view.png" alt="View page of the app" :isFloat=false sizes="1200px" }
+:pic{ src="/images/project/goods-store-view.png" alt="View page of the app" :isFloat=false sizes="1200px" }
 
 ## Create Modal
 
-:pic{ src="images/project/goods-store-create.png" alt="Create page of the app" :isFloat=false sizes="1200px" }
+:pic{ src="/images/project/goods-store-create.png" alt="Create page of the app" :isFloat=false sizes="1200px" }

@@ -1,25 +1,36 @@
 <script setup lang="ts">
-const { data } = await useFetch("/api/now-playing");
+import type {
+  GetNowPlayingTransformed,
+  NotPlayingI,
+} from "~/composables/Spotify/Types";
+
+defineProps<{
+  nowdata?: GetNowPlayingTransformed | NotPlayingI | null;
+}>();
 </script>
 
 <template>
   <div class="comp">
     <h2>What am I listening to?</h2>
-    <div v-if="!data?.isPlaying" class="nowPlaying">
+    <div v-if="!nowdata?.isPlaying" class="nowPlaying">
       <IconsSpotify />
       <p>Nothing currently</p>
     </div>
-    <div v-if="data?.isPlaying" class="nowPlaying">
+    <div v-if="nowdata?.isPlaying" class="nowPlaying">
       <NuxtImg
-        :src="data?.albumArtUrl"
+        :src="nowdata?.albumArtUrl"
         alt="Album art cover pic"
         height="80"
         width="80"
       />
       <div class="songInfo">
-        <PrettyLink :text="data?.trackTitle" :link="data?.trackUrl" external />
+        <PrettyLink
+          :text="nowdata?.trackTitle"
+          :link="nowdata?.trackUrl"
+          external
+        />
 
-        <p>{{ data?.artist }}</p>
+        <p>{{ nowdata?.artist }}</p>
       </div>
       <MusicBars animate />
     </div>

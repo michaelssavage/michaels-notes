@@ -1,7 +1,7 @@
 <template>
   <article class="container">
     <ContentDoc v-slot="{ doc }">
-      <PagePath :page="doc._path.split('/')[1]" />
+      <PagePath v-if="doc._path" :page="doc._path.split('/')[1]" />
       <p class="date">
         {{ doc.date }}
       </p>

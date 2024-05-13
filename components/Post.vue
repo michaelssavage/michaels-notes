@@ -12,6 +12,9 @@ const sortByDate = (posts: BlogContent[]) => {
 </script>
 
 <template>
+  <div v-if="list.length == 0" class="postItem">
+    <div class="card">No posts to display</div>
+  </div>
   <div v-for="post in sortByDate(list)" :key="post._path" class="postItem">
     <div class="card">
       <div class="cardInfo">
@@ -24,12 +27,8 @@ const sortByDate = (posts: BlogContent[]) => {
           </p>
         </div>
         <div>
-          <a v-if="post.external" :href="post.external">
-            <button class="btn external">Read More<IconsExternalLink /></button>
-          </a>
-          <button v-else class="btn" @click="$router.push(post._path)">
-            Read More
-          </button>
+          <SkinnyBtn v-if="post.external" :external-link="post.external" />
+          <SkinnyBtn v-else :internal-link="post._path" />
         </div>
       </div>
       <p class="description">

@@ -4,6 +4,7 @@ defineProps({
   text: { type: String },
   external: { type: Boolean, default: false },
   isBig: { type: Boolean, default: true },
+  isSmall: { type: Boolean, default: false },
   aqua: { type: Boolean, default: false },
 });
 </script>

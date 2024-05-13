@@ -16,5 +16,6 @@ export default withNuxt({
     "@stylistic/comma-dangle": "off",
     "@stylistic/brace-style": ["error", "1tbs"],
     "vue/singleline-html-element-content-newline": "off",
+    "@stylistic/arrow-parens": ["error", "always"],
   },
 });

@@ -4,6 +4,9 @@ import imageUrl from "/images/cover.jpg";
 useHead({
   title: "About Me",
 });
+
+const { data: topdata } = await useLazyFetch("/api/top-tracks");
+const { data: nowdata } = await useLazyFetch("/api/now-playing");
 </script>
 
 <template>
@@ -42,8 +45,8 @@ useHead({
     </div>
     <div class="horizon" />
     <div class="spotify">
-      <NowSpotify />
-      <TopSpotify />
+      <NowSpotify :nowdata="nowdata" />
+      <TopSpotify :topdata="topdata" />
     </div>
   </main>
 </template>
@@ -90,6 +93,7 @@ useHead({
     flex-direction: column;
     margin-left: 5%;
     .paragraph {
+      margin: auto 0;
       p {
         margin-right: 5%;
       }

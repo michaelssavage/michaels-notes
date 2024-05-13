@@ -1,15 +1,18 @@
 <script setup lang="ts">
-defineProps({
-  page: { type: String },
-});
+import type { CSSProperties } from "vue";
+
+defineProps<{
+  page: string;
+  style?: CSSProperties;
+}>();
 </script>
 
 <template>
   <div class="navigator">
     <IconsRight />
-    <NuxtLink to="/" class="extLink pageLink"> home </NuxtLink>
+    <NuxtLink to="/" class="extLink pageLink" :style="style"> home </NuxtLink>
     <IconsRight />
-    <NuxtLink :to="`/${page}`" class="extLink pageLink">
+    <NuxtLink :to="`/${page}`" class="extLink pageLink" :style="style">
       {{ page }}
     </NuxtLink>
   </div>
