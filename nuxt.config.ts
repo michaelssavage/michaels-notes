@@ -43,6 +43,10 @@ export default defineNuxtConfig({
         indexed: true,
       },
     },
+    highlight: {
+      langs: ["bash"],
+      theme: "github-dark",
+    },
   },
 
   devtools: { enabled: true },

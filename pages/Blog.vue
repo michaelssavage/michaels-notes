@@ -15,6 +15,7 @@ const toggleOnSite = () => {
 };
 
 const filteredItems = (list: BlogContent[]) => {
+  list = list.filter((item) => !item.draft);
   if (external.value && onSite.value) {
     return list;
   } else if (!external.value && onSite.value) {

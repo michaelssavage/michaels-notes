@@ -14,7 +14,7 @@ defineProps({
     :external="external"
     :target="external ? '_blank' : null"
   >
-    {{ text }}
+    {{ text ? text : link }}
   </NuxtLink>
 </template>
 

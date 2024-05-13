@@ -74,7 +74,7 @@ const sortByDate = (posts: BlogContent[]) => {
   color: var(--color-header);
 }
 .description {
-  width: 250px;
+  width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
