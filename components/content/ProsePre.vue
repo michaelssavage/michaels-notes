@@ -31,7 +31,7 @@ defineProps({
 });
 </script>
 
-<style>
+<style scoped lang="scss">
 pre {
   margin-top: -1rem;
   margin-bottom: 2rem;

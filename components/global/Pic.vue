@@ -4,12 +4,13 @@ defineProps({
   alt: { type: String },
   isFloat: { type: Boolean, default: true },
   sizes: { type: String, default: "100px md:200px" },
+  inPost: { type: Boolean, default: false },
 });
 </script>
 
 <template>
   <NuxtImg
-    :class="{ isFloat: isFloat, imgStyle: true }"
+    :class="{ isFloat: isFloat, imgStyle: !inPost, inPost: inPost }"
     :src="src"
     :alt="alt"
     :sizes="sizes"
@@ -22,5 +23,10 @@ defineProps({
 }
 .imgStyle {
   padding: 0 0 0.5rem 0.5rem;
+}
+.inPost {
+  padding: 0;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
 }
 </style>
