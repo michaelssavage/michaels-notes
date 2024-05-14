@@ -32,6 +32,7 @@ const filteredItems = (list: BlogContent[]) => {
   <main>
     <div class="container">
       <div class="colorKey">
+        <div class="hand"><IconsHand />Click me</div>
         <p :class="{ unused: !onSite }" @click="toggleOnSite">
           <IconsCircle color="#fb4d3d" /> = On site
         </p>
@@ -43,7 +44,7 @@ const filteredItems = (list: BlogContent[]) => {
         <Post :list="filteredItems(list as BlogContent[])" />
       </LazyContentList>
     </div>
-    <div class="circle" />
+    <div class="circle expandAndAppear" />
   </main>
 </template>
 
@@ -78,10 +79,29 @@ const filteredItems = (list: BlogContent[]) => {
   justify-content: center;
   width: 100%;
   gap: 1rem;
+  position: relative;
+  .hand {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+    transition: opacity 1.25s ease-in-out;
+  }
   p {
     display: flex;
     flex-direction: row;
     cursor: pointer;
+  }
+  &:hover {
+    .hand {
+      opacity: 1;
+      transition: opacity 0.25s ease-in-out;
+    }
   }
 }
 .unused {

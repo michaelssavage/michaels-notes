@@ -31,11 +31,12 @@ const { data: nowdata } = await useLazyFetch("/api/now-playing");
         </p>
         <p>
           I co-created Plant Bass'd, an electronic music blog and underground
-          club night.(<PrettyLink
+          club night. Music is definitely a large part of my identity and I love
+          trying to make music in Ableton too!
+          <PrettyLink
             text="What is Plant Bass'd?"
             link="/blog/what-is-plant-bassd"
-          />). Music is definitely a large part of my identity and I love trying
-          to make music in Ableton too!
+          />
         </p>
       </div>
       <div class="image">
@@ -118,6 +119,7 @@ const { data: nowdata } = await useLazyFetch("/api/now-playing");
   width: 80%;
   z-index: -1;
   margin-right: auto;
+  @include slide-in-animation(200px, $direction: "horizontal");
 }
 .spotify {
   display: flex;

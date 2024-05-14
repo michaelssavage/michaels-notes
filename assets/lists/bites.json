@@ -1,56 +1,56 @@
 [
   {
     "id": 9,
-    "title": "In March {{2024}}, I moved to Barcelona!",
+    "title": "In March, I moved to Barcelona!",
     "tag": "general",
     "year": 2024
   },
   {
     "id": 8,
-    "title": "Organised and DJ'd two electronic gigs with Plant Bass'd in Galway in {{2024}}",
+    "title": "I organised two Plant Bass'd gigs in Galway and DJ'd the opening slots",
     "tag": "hobby",
     "year": 2024
   },
   {
     "id": 7,
-    "title": "Plant Bass'd events in Scotland received 11 <<Resident Advisor Top Picks>>",
+    "title": "Plant Bass'd received 11 <<Resident Advisor Top Picks>> for the gigs in Scotland",
     "link": "https://ra.co/promoters/103854/past-events",
     "tag": "hobby",
     "year": 2024
   },
   {
     "id": 6,
-    "title": "Earned the Professional Scrum Master™ I (PSM I) certificate in {{2022}}",
+    "title": "I earned the Professional Scrum Master™ I (PSM I) certificate",
     "tag": "achievement",
     "year": 2022
   },
   {
     "id": 5,
-    "title": "Graduated with a 1.1 in Bsc. in Computer Applications from Dublin City University in {{2021}}",
+    "title": "I graduated with a 1.1 in Bsc. in Computer Applications from Dublin City University",
     "tag": "achievement",
     "year": 2021
   },
   {
     "id": 4,
-    "title": "Awarded best group research paper in {{2021}} in 4th year on the topic of Global Software Engineering",
+    "title": "My team in 4th year of Uni was awarded best group research paper on the topic of Global Software Engineering",
     "tag": "achievement",
     "year": 2021
   },
   {
     "id": 3,
-    "title": "The world came to a halt during {{2020}}. So I climbed Carrauntoohil, Croagh Patrick, and cycled from Monaghan to Galway (200km)",
+    "title": "The world came to a halt. So I climbed Carrauntoohil, Croagh Patrick, and cycled from Monaghan to Galway (200km)",
     "tag": "achievement",
     "year": 2020
   },
   {
     "id": 2,
-    "title": "Winners of the Nutty Crust Tournament, and Ulster Rugby Divison 1. League & Cup with Armagh Rugby Club u18's in {{2017}}",
+    "title": "I won the Ulster Rugby Divison 1. League & Cup and Nutty Crust Tournament with Armagh Rugby Club u18's",
     "tag": "achievement",
     "year": 2017
   },
   {
     "id": 1,
-    "title": "Represented Ulster Club Rugby u18s by starting at no.11 in the Inter-Provincial series in {{2015}}",
+    "title": "I represented Ulster Club Rugby u18s by starting at no.11 in the Inter-Provincial series",
     "tag": "achievement",
     "year": 2015
   }

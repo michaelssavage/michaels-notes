@@ -1,3 +1,4 @@
+@forward "animations";
 @forward "reset";
 @forward "mixins";
 
@@ -70,11 +71,6 @@ body {
       transform: scale(1.08);
     }
   }
-}
-
-.yearColor {
-  color: var(--color-aqua);
-  font-weight: bold;
 }
 
 .extLink {

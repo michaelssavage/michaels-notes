@@ -9,19 +9,13 @@ interface BiteI {
   id: number;
   title: string;
   link?: string;
+  year: number;
 }
 
 const processString = (input: string, link?: string) => {
-  const yearRegex = /{{(\d+)}}/g;
-
-  const changedYear = input.replace(yearRegex, (_match, number) => {
-    return `<span class="yearColor">${number}</span>`;
-  });
-  if (!link) return changedYear;
-
   const linkRegex = /<<([^>]+)>>/g;
 
-  return changedYear.replace(linkRegex, (_match, text) => {
+  return input.replace(linkRegex, (_match, text) => {
     return `<a class="extLink" href="${link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
   });
 };
@@ -33,12 +27,10 @@ const bites = jsonData as BiteI[];
 <template>
   <main class="container">
     <ul class="biteList">
-      <li
-        v-for="bite in bites"
-        :key="bite.id"
-        class="listItem"
-        v-html="processString(bite.title, bite.link)"
-      />
+      <li v-for="bite in bites" :key="bite.id" class="bite">
+        <p class="yearColor">{{ bite.year }}</p>
+        <p class="biteText" v-html="processString(bite.title, bite.link)" />
+      </li>
     </ul>
   </main>
 </template>
@@ -58,16 +50,39 @@ const bites = jsonData as BiteI[];
 
 .biteList {
   margin: 0 0 2rem 0;
+  li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  @include for-phone-only {
+    p:first-of-type {
+      transform: rotate(-90deg);
+    }
+    li {
+      gap: 0;
+    }
+  }
 }
 
-.listItem {
+.yearColor {
+  font-weight: bold;
+}
+
+.biteText {
   list-style-type: none;
   background-color: var(--color-card);
-  border: 1px solid var(--color-text);
   padding: 0.5rem 1rem;
-  margin-bottom: 1.5rem;
+  border-radius: 0.25rem;
+  width: 100%;
   font-size: 1.2rem;
-  box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+  box-shadow:
+    #009a7b66 5px 5px,
+    #009a7b4d 10px 10px,
+    #009a7b33 15px 15px,
+    #009a7b1a 20px 20px;
   @include for-phone-only {
     font-size: 1rem;
   }

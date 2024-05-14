@@ -88,5 +88,6 @@ useHead({
   width: 75%;
   z-index: -1;
   margin-left: auto;
+  @include slide-in-animation(100px);
 }
 </style>
