@@ -21,7 +21,11 @@ const sortedItems = (projects: ProjectContent[]) => {
             class="col"
           >
             <NuxtLink :to="project._path" class="projectImg">
-              <img :src="project.image" :alt="project.title" />
+              <NuxtImg
+                :src="project.image"
+                :alt="project.title"
+                placeholder="[500, 250]"
+              />
               <p class="title">
                 {{ project.id }}. {{ project.title }}
               </p></NuxtLink

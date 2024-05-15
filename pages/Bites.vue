@@ -50,41 +50,46 @@ const bites = jsonData as BiteI[];
 
 .biteList {
   margin: 0 0 2rem 0;
-  li {
+  .bite {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0rem;
     margin-bottom: 2rem;
-  }
-  @include for-phone-only {
-    p:first-of-type {
+
+    .yearColor {
+      font-weight: bold;
+      transition: 0.3s ease-in-out;
       transform: rotate(-90deg);
     }
-    li {
-      gap: 0;
+
+    .biteText {
+      list-style-type: none;
+      background-color: var(--color-card);
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      width: 100%;
+      font-size: 1.2rem;
+      box-shadow:
+        #009a7b66 5px 5px,
+        #009a7b4d 10px 10px,
+        #009a7b33 15px 15px,
+        #009a7b1a 20px 20px;
+      transition: 0.3s ease-in-out;
+      @include for-phone-only {
+        font-size: 1rem;
+      }
     }
-  }
-}
 
-.yearColor {
-  font-weight: bold;
-}
+    &:hover {
+      .yearColor {
+        transform: rotate(0deg);
+      }
 
-.biteText {
-  list-style-type: none;
-  background-color: var(--color-card);
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  width: 100%;
-  font-size: 1.2rem;
-  box-shadow:
-    #009a7b66 5px 5px,
-    #009a7b4d 10px 10px,
-    #009a7b33 15px 15px,
-    #009a7b1a 20px 20px;
-  @include for-phone-only {
-    font-size: 1rem;
+      .biteText {
+        box-shadow: #009a7b66 5px 5px;
+      }
+    }
   }
 }
 </style>

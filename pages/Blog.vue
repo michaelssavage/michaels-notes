@@ -6,12 +6,20 @@ useHead({
 });
 
 const external = ref(true);
-const toggleExternal = () => {
-  external.value = !external.value;
-};
 const onSite = ref(true);
-const toggleOnSite = () => {
-  onSite.value = !onSite.value;
+const backgroundColor = ref("#009a7b");
+
+const getRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+const changeColor = () => {
+  backgroundColor.value = getRandomColor();
 };
 
 const filteredItems = (list: BlogContent[]) => {
@@ -33,10 +41,10 @@ const filteredItems = (list: BlogContent[]) => {
     <div class="container">
       <div class="colorKey">
         <div class="hand"><IconsHand />Click me</div>
-        <p :class="{ unused: !onSite }" @click="toggleOnSite">
+        <p :class="{ unused: !onSite }" @click="onSite = !onSite">
           <IconsCircle color="#fb4d3d" /> = On site
         </p>
-        <p :class="{ unused: !external }" @click="toggleExternal">
+        <p :class="{ unused: !external }" @click="external = !external">
           <IconsCircle color="#3d89fb" /> = Plant Bass'd
         </p>
       </div>
@@ -44,7 +52,11 @@ const filteredItems = (list: BlogContent[]) => {
         <Post :list="filteredItems(list as BlogContent[])" />
       </LazyContentList>
     </div>
-    <div class="circle expandAndAppear" />
+    <div
+      class="circle expandAndAppear"
+      :style="{ backgroundColor: backgroundColor }"
+      @click="changeColor"
+    />
   </main>
 </template>
 
@@ -85,7 +97,7 @@ const filteredItems = (list: BlogContent[]) => {
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
-    top: 3rem;
+    top: -1rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -100,7 +112,7 @@ const filteredItems = (list: BlogContent[]) => {
   &:hover {
     .hand {
       opacity: 1;
-      transition: opacity 0.25s ease-in-out;
+      transition: opacity 0.1s ease-in-out;
     }
   }
 }
@@ -115,12 +127,11 @@ const filteredItems = (list: BlogContent[]) => {
 .circle {
   width: 25rem;
   height: 25rem;
-  background-color: var(--color-aqua);
   border-radius: 50%;
   position: absolute;
   top: 10%;
   right: -10%;
-  z-index: -1;
+  z-index: 2;
   overflow-x: hidden;
   @include for-tablet-only {
     visibility: hidden;

@@ -40,7 +40,7 @@ const { data: nowdata } = await useLazyFetch("/api/now-playing");
         </p>
       </div>
       <div class="image">
-        <img :src="imageUrl" alt="Picture of Me" />
+        <NuxtImg :src="imageUrl" alt="Picture of Me" />
         <div class="square" />
       </div>
     </div>
@@ -73,9 +73,8 @@ const { data: nowdata } = await useLazyFetch("/api/now-playing");
     position: relative;
     img {
       margin-left: 2rem;
-      margin-top: 2rem;
-      min-width: 100%;
-      max-width: 100%;
+      margin-top: 3rem;
+      width: 700px;
       height: auto;
     }
 
@@ -84,7 +83,7 @@ const { data: nowdata } = await useLazyFetch("/api/now-playing");
       top: 0;
       left: 0;
       z-index: -1;
-      height: 30vh;
+      height: 25vh;
       width: 15vw;
       background-color: var(--color-orange);
     }
@@ -100,10 +99,9 @@ const { data: nowdata } = await useLazyFetch("/api/now-playing");
       }
     }
     .image {
-      margin: 0 5%;
+      margin: -2rem 5% 2rem;
       img {
-        max-width: 70%;
-        min-width: 70%;
+        max-width: 180px;
       }
       .square {
         height: 30vh;
