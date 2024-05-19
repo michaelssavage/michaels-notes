@@ -48,8 +48,7 @@ const sortByDate = (posts: BlogContent[]) => {
 }
 .card {
   padding: 1rem;
-  border: 1px solid var(--color-text);
-  background-color: var(--color-card);
+  background-color: $card;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -71,7 +70,7 @@ const sortByDate = (posts: BlogContent[]) => {
 .date {
   font-style: italic;
   font-size: 0.85rem;
-  color: var(--color-header);
+  color: $mint;
 }
 .description {
   width: 300px;
@@ -90,12 +89,12 @@ const sortByDate = (posts: BlogContent[]) => {
   font-size: 0.85rem;
   padding: 0.25rem 1rem;
   border-radius: 0.75rem;
-  color: var(--color-white);
+  color: $white;
   text-transform: uppercase;
-  background-color: var(--color-orange);
+  background-color: $btn-bg;
 
   &:hover {
-    background-color: var(--color-header);
+    background-color: $header;
     transform: scale(1.05);
   }
 }
@@ -103,13 +102,13 @@ a {
   text-decoration: none;
 }
 .external {
-  background-color: var(--color-blue);
+  background-color: $ext-btn-bg;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
   &:hover {
-    background-color: var(--color-dark-blue);
+    background-color: $ext-btn-bg-hover;
     transform: scale(1.05);
   }
 }

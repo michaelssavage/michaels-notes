@@ -34,9 +34,9 @@ defineProps<{
   font-size: 1.2rem;
   text-decoration: none;
   font-style: italic;
-  color: var(--color-aqua);
+  color: $mint;
   &:hover {
-    color: var(--color-dark-blue);
+    color: $ext-btn-bg-hover;
   }
 }
 </style>

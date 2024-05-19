@@ -10,7 +10,10 @@ useHead({
   <main>
     <div class="container">
       <div class="paragraph">
-        <p>Born in Ireland and currently based in Barcelona, Spain.</p>
+        <p>
+          Born in Ireland and currently based in
+          <span class="underline">Barcelona, Spain.</span>
+        </p>
         <p>
           I studied Computer Applications in DCU and started working with JLR,
           Shannon in 2021 where I learned to work with REST APIs using Spring
@@ -37,7 +40,11 @@ useHead({
         </p>
       </div>
       <div class="image">
-        <NuxtImg :src="imageUrl" alt="Picture of Me" />
+        <NuxtImg
+          :src="imageUrl"
+          alt="Picture of Me"
+          :placeholder="[100, 100, 10]"
+        />
         <div class="square" />
       </div>
     </div>
@@ -82,7 +89,7 @@ useHead({
       z-index: -1;
       height: 25vh;
       width: 15vw;
-      background-color: var(--color-orange);
+      background-color: $btn-bg;
     }
   }
 
@@ -110,7 +117,7 @@ useHead({
 
 .horizon {
   margin-top: -2rem;
-  border-bottom: 1rem solid var(--color-aqua);
+  border-bottom: 1rem solid $mint;
   width: 80%;
   z-index: -1;
   margin-right: auto;

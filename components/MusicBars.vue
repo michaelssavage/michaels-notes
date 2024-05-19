@@ -29,7 +29,7 @@ defineProps<{
   span {
     width: 0.4rem;
     height: 100%;
-    background-color: var(--color-header);
+    background-color: $btn-bg;
     border-radius: 3px;
     transform-origin: bottom;
     content: "";

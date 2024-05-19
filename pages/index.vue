@@ -8,9 +8,11 @@ useHead({
   <main class="container">
     <h1>Hey, <span>I am Michael!</span></h1>
     <p>
-      I'm a Full Stack Developer from Ireland that enjoys React.js, Typescript,
-      Python, and Spring Boot. My world revolves around electronic music,
-      movies, rugby, and travelling.
+      I'm a Software Developer from Ireland that enjoys React.js, Typescript,
+      Python, and Spring Boot. My world revolves around
+      <span class="underline">
+        electronic music, movies, rugby, and travelling </span
+      >.
     </p>
     <div class="icons">
       <Icon external link="https://github.com/michaelssavage">
@@ -44,7 +46,7 @@ useHead({
     text-align: center;
     margin: 0 1rem;
     span {
-      color: var(--color-header);
+      color: $header;
     }
   }
   p {
@@ -84,7 +86,7 @@ useHead({
 
 .homeLine {
   margin-top: -2rem;
-  border-bottom: 2rem solid var(--color-aqua);
+  border-bottom: 2rem solid $mint;
   width: 75%;
   z-index: -1;
   margin-left: auto;

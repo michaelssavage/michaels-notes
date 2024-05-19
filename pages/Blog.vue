@@ -81,7 +81,7 @@ const filteredItems = (list: BlogContent[]) => {
   input {
     border-radius: 0.25rem;
     &:focus {
-      outline: solid 2px var(--color-aqua);
+      outline: solid 2px $mint;
     }
   }
 }

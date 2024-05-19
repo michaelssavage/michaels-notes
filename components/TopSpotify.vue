@@ -13,7 +13,7 @@ const { data } = await useLazyFetch<TopTracksI>(
 
 <template>
   <div class="comp">
-    <h2 class="title">Most Played Tracks:</h2>
+    <h2 class="title">Most played tracks:</h2>
     <div v-if="!data?.body">No tracks available</div>
     <ol v-else class="trackNames">
       <li v-for="(track, index) in data?.body" :key="track.name">
@@ -39,7 +39,7 @@ const { data } = await useLazyFetch<TopTracksI>(
   display: flex;
   flex-direction: row;
   svg {
-    color: var(--color-blue);
+    color: $ext-btn-bg;
   }
 }
 .trackNames {

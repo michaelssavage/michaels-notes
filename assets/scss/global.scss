@@ -4,28 +4,26 @@
 
 @use "sass:color";
 
-$color-red: #ca1551;
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  --color-text: #191919;
-  --color-grey: #515151;
-  --color-white: #f5f5f5;
-  --color-background: #ebd894;
-  --color-card: #e2e4e6;
-  --color-aqua: #009a7b;
-  --color-header: #ca1551;
-  --color-orange: #fb4d3d;
-  --color-blue: #3d89fb;
-  --color-dark-blue: #173737;
-}
+$white: #f5f5f5;
+$background: #f5f5f5;
+$header: #c7483f;
+$code: #c11717;
+$btn-bg: #d36708;
+
+$link: #5305c0;
+$ext-btn-bg: #009fd1;
+$ext-btn-bg-hover: #173737;
+$text: #191919;
+$hover-text: #515151;
+$banana: #ffe26d;
+$card: #cbe7e1;
+$mint: #009a7b;
 
 body {
   overflow-x: hidden;
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: $text;
+  background: $background;
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -51,19 +49,18 @@ body {
 
 .icon-link {
   svg {
-    color: var(--color-text);
+    color: $text;
     &:hover {
-      color: var(--color-grey);
+      color: $hover-text;
       transform: scale(1.08);
     }
   }
 }
 
 .extLink {
-  color: var(--color-header);
+  color: $link;
   text-decoration: underline;
-  text-decoration-color: $color-red;
-  display: inline-block;
+  text-decoration-color: $link;
   position: relative;
   transition: all 0.25s;
   z-index: 10;
@@ -72,7 +69,7 @@ body {
     z-index: -1;
     width: 100%;
     height: 0%;
-    background: rgba(lighten($color-red, 20%), 0.4);
+    background: rgba(lighten($link, 30%), 0.4);
     bottom: 0;
     left: 0;
     position: absolute;
@@ -91,12 +88,12 @@ body {
   font-size: 0.85rem;
   padding: 0.25rem 1rem;
   border-radius: 0.75rem;
-  color: var(--color-white);
+  color: $white;
   text-transform: uppercase;
-  background-color: var(--color-orange);
+  background-color: $btn-bg;
 
   &:hover {
-    background-color: var(--color-header);
+    background-color: $header;
     transform: scale(1.05);
   }
 }
@@ -104,10 +101,18 @@ body {
 .date {
   font-size: 0.9rem;
   font-style: italic;
-  color: var(--color-grey);
+  color: $hover-text;
   font-weight: bold;
 }
-
-.router-link-active {
-  font-weight: bold;
+.underline {
+  background-image: linear-gradient(
+    transparent calc(100% - 0.15em),
+    $banana 0.15em
+  );
+  background-position: left bottom 0.18em;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: inline;
+  font-weight: inherit;
+  transition: background-size 0.6s cubic-bezier(0.45, 0, 0.55, 1);
 }

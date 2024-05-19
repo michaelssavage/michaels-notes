@@ -33,9 +33,9 @@ defineProps({
 
 <style scoped lang="scss">
 pre {
-  margin-top: -1rem;
-  margin-bottom: 2rem;
-  background-color: var(--color-text);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  background-color: $text;
   padding: 0.5rem;
   border-radius: 0.25rem;
   white-space: pre-wrap;

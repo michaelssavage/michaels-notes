@@ -14,6 +14,7 @@ defineProps({
     :src="src"
     :alt="alt"
     :sizes="sizes"
+    :placeholder="[100, 50, 10]"
   />
 </template>
 
@@ -26,7 +27,7 @@ defineProps({
 }
 .inPost {
   padding: 0;
-  margin-top: -1rem;
+  margin-top: 0;
   margin-bottom: 1rem;
 }
 </style>

@@ -29,11 +29,19 @@ nav {
   a {
     z-index: 3;
     text-decoration: none;
-    color: var(--color-text);
+    color: $text;
+    transition:
+      color 0.3s cubic-bezier(0.45, 0, 0.55, 1),
+      background 0.3s cubic-bezier(0.45, 0, 0.55, 1),
+      outline-color 0.4s cubic-bezier(0.45, 0, 0.55, 1);
     &:hover {
-      color: var(--color-grey);
-      transform: scale(1.08);
+      color: $ext-btn-bg;
     }
   }
+}
+
+.router-link-active {
+  color: $ext-btn-bg;
+  font-weight: bold;
 }
 </style>

@@ -22,12 +22,12 @@ defineProps({
   font-size: 0.85rem;
   padding: 0.25rem 1rem;
   border-radius: 0.75rem;
-  color: var(--color-white);
+  color: $white;
   text-transform: uppercase;
-  background-color: var(--color-orange);
+  background-color: $btn-bg;
 
   &:hover {
-    background-color: var(--color-header);
+    background-color: $header;
     transform: scale(1.05);
   }
 }
@@ -35,13 +35,13 @@ a {
   text-decoration: none;
 }
 .isExternal {
-  background-color: var(--color-blue);
+  background-color: $ext-btn-bg;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
   &:hover {
-    background-color: var(--color-dark-blue);
+    background-color: $ext-btn-bg-hover;
     transform: scale(1.05);
   }
 }

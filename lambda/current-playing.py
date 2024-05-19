@@ -40,7 +40,6 @@ def refreshTheToken():
         raise Exception("Failed to refresh token")
 
 def lambda_handler(event, context):
-
     dbResponse = table.get_item(Key={'spotify': 'prod'})
     item = dbResponse.get('Item', {})
     
@@ -88,7 +87,7 @@ def lambda_handler(event, context):
     return {
         'statusCode': 200,  
         'headers': {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, Authorization'
         },

@@ -35,9 +35,9 @@ defineProps({
 }
 
 .aqua {
-  background-color: var(--color-aqua);
+  background-color: $mint;
   &:hover {
-    background-color: var(--color-dark-blue);
+    background-color: $ext-btn-bg-hover;
   }
 }
 </style>

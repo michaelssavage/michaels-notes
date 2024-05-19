@@ -11,6 +11,6 @@
   border-radius: 0.5rem;
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   width: 100%;
-  background-color: var(--color-card);
+  background-color: $card;
 }
 </style>

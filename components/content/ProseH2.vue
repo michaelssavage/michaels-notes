@@ -22,7 +22,7 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h2);
   font-style: italic;
   position: relative;
   a {
-    color: var(--color-text);
+    color: $text;
     text-decoration: none;
   }
   &::after {
@@ -30,7 +30,7 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h2);
     position: absolute;
     top: -0.25rem;
     left: -2rem;
-    color: var(--color-text);
+    color: $text;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 1.6rem;

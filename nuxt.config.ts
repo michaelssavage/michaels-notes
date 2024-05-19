@@ -49,7 +49,7 @@ export default defineNuxtConfig({
       },
     },
     highlight: {
-      langs: ["bash"],
+      langs: ["bash", "tex", "json"],
       theme: "github-dark",
     },
   },
