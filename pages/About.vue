@@ -4,9 +4,6 @@ import imageUrl from "/images/cover.jpg";
 useHead({
   title: "About Me",
 });
-
-const { data: topdata } = await useLazyFetch("/api/top-tracks");
-const { data: nowdata } = await useLazyFetch("/api/now-playing");
 </script>
 
 <template>
@@ -46,8 +43,8 @@ const { data: nowdata } = await useLazyFetch("/api/now-playing");
     </div>
     <div class="horizon" />
     <div class="spotify">
-      <NowSpotify :nowdata="nowdata" />
-      <TopSpotify :topdata="topdata" />
+      <NowSpotify />
+      <TopSpotify />
     </div>
   </main>
 </template>

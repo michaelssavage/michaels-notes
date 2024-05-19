@@ -1,23 +1,28 @@
 <script setup lang="ts">
-import type { SpotifyTopTracksI } from "~/composables/Spotify/Types";
+import type { TopTracksI } from "~/types/Spotify";
 
-defineProps<{
-  topdata?: SpotifyTopTracksI | null;
-}>();
+const { data } = await useLazyFetch<TopTracksI>(
+  "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api",
+  {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
 </script>
 
 <template>
   <div class="comp">
-    <h2 class="title">Favourite Tracks:</h2>
-    <div v-if="!topdata">No tracks available</div>
+    <h2 class="title">Most Played Tracks:</h2>
+    <div v-if="!data?.body">No tracks available</div>
     <ol v-else class="trackNames">
-      <li v-for="(track, index) in topdata.items" :key="track.name">
+      <li v-for="(track, index) in data?.body" :key="track.name">
         <PrettyLink
-          :link="track.href"
-          :text="`${track.name} by ${track.artists.map((artist) => artist.name).join(', ')}`"
-          external
+          :link="track.url"
+          :text="`${track.name} by ${track.artists}`"
+          externals
         />
-        <span v-if="index !== topdata.items.length - 1"> // </span>
+        <span v-if="index !== data?.body.length - 1"> // </span>
       </li>
     </ol>
   </div>

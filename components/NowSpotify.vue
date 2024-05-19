@@ -1,38 +1,44 @@
 <script setup lang="ts">
-import type {
-  GetNowPlayingTransformed,
-  NotPlayingI,
-} from "~/composables/Spotify/Types";
+import type { GetNowPlayingI } from "~/types/Spotify";
 
-defineProps<{
-  nowdata?: GetNowPlayingTransformed | NotPlayingI | null;
-}>();
+interface CurrentTrackI {
+  body: GetNowPlayingI;
+}
+
+const { data } = await useLazyFetch<CurrentTrackI>(
+  "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api/current",
+  {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
 </script>
 
 <template>
   <div class="comp">
-    <h2>What am I listening to?</h2>
-    <div v-if="!nowdata?.isPlaying" class="nowPlaying">
+    <h2 v-if="data?.body.isPlaying">Current song I'm listening to:</h2>
+    <h2 v-else>Last track I listened to:</h2>
+    <div v-if="!data?.body" class="nowPlaying">
       <IconsSpotify />
-      <p>Nothing currently</p>
+      <p>No info available</p>
     </div>
-    <div v-if="nowdata?.isPlaying" class="nowPlaying">
+    <div class="nowPlaying">
       <NuxtImg
-        :src="nowdata?.albumArtUrl"
+        :src="data?.body.albumArtUrl"
         alt="Album art cover pic"
-        height="80"
-        width="80"
+        height="50"
+        width="50"
       />
-      <div class="songInfo">
+      <p class="songInfo">
         <PrettyLink
-          :text="nowdata?.trackTitle"
-          :link="nowdata?.trackUrl"
+          :text="data?.body.trackTitle"
+          :link="data?.body.trackUrl"
           external
         />
-
-        <p>{{ nowdata?.artist }}</p>
-      </div>
-      <MusicBars animate />
+        by {{ data?.body.artist }}
+      </p>
+      <MusicBars v-if="data?.body.isPlaying" animate />
     </div>
   </div>
 </template>
@@ -46,12 +52,7 @@ defineProps<{
 .nowPlaying {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 0.75rem;
-}
-
-.songInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 </style>

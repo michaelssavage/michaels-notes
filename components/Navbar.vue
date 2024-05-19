@@ -27,6 +27,7 @@ nav {
   text-transform: uppercase;
   font-style: italic;
   a {
+    z-index: 3;
     text-decoration: none;
     color: var(--color-text);
     &:hover {

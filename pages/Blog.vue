@@ -108,6 +108,7 @@ const filteredItems = (list: BlogContent[]) => {
     display: flex;
     flex-direction: row;
     cursor: pointer;
+    z-index: 3;
   }
   &:hover {
     .hand {
