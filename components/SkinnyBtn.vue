@@ -25,10 +25,14 @@ defineProps({
   color: $background;
   text-transform: uppercase;
   background-color: $btn-bg;
+  white-space: nowrap;
 
   &:hover {
     background-color: $header;
     transform: scale(1.05);
+  }
+  svg {
+    min-width: 0.5rem;
   }
 }
 a {

@@ -17,7 +17,7 @@ const { data } = await useLazyFetch<CurrentTrackI>(
 
 <template>
   <div class="comp">
-    <h2 v-if="data?.body.isPlaying">Currently listening to:</h2>
+    <h2 v-if="data?.body?.isPlaying">Currently listening to:</h2>
     <h2 v-else>Last track listened to:</h2>
     <div v-if="!data?.body" class="nowPlaying">
       <IconsSpotify />
@@ -25,19 +25,19 @@ const { data } = await useLazyFetch<CurrentTrackI>(
     </div>
     <div v-else class="nowPlaying">
       <NuxtImg
-        :src="data?.body.albumArtUrl"
+        :src="data?.body?.albumArtUrl"
         alt="Album art cover pic"
         height="50"
         width="50"
       />
-      <MusicBars v-if="data?.body.isPlaying" animate />
+      <MusicBars v-if="data?.body?.isPlaying" animate />
       <p class="songInfo">
         <PrettyLink
-          :text="data?.body.trackTitle"
-          :link="data?.body.trackUrl"
+          :text="data?.body?.trackTitle"
+          :link="data?.body?.trackUrl"
           external
         />
-        by {{ data?.body.artist }}
+        by {{ data?.body?.artist }}
       </p>
     </div>
   </div>

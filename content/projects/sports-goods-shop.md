@@ -11,7 +11,7 @@ github: "https://github.com/michaelssavage/Sports-Goods-Shop"
 
 CRUD app focused on the frontend which is used for managing social ads on Facebook. Starting from a JSON array of products, I can create many new ads based off of these products. The focus wasn't on backend work or database but I still wanted data to persist so I opted for Firestore. It is a NoSQL db that can be queried pretty simply.
 
-Each ad consists of 1 or more pictures, a description, a headline, and a CTA (call to action). The ad is supposed to look like: https://admockups.com/facebook-ad-mockup
+Each ad consists of 1 or more pictures, a description, a headline, and a CTA (call to action). The ad is supposed to look like: :pretty-link{ link="https://admockups.com/facebook-ad-mockup" external }
 
 - New ads can be created for a product.
 - Ads for a specific product can be viewed, edited, and deleted.

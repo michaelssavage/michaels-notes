@@ -17,3 +17,11 @@ This project was a coding interview challenge I completed. It used PostgreSQL, a
 - I created a form that appeared in a modal for creating new coffee items that saved to the backend.
 - I added nice animations to the navbar as you scroll and animations for displaying the modal.
 - I added a filter so that you could change between the different coffee types; Robusta and Arabic.
+
+## Landing Page
+
+:pic{ src="/images/project/coffee-home.png" alt="Home page of the coffee app" :isFloat=false sizes="1200px" }
+
+## Filterable Products
+
+:pic{ src="/images/project/coffee-list.png" alt="A list of coffee cards" :isFloat=false sizes="1200px" }

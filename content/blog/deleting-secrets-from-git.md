@@ -12,15 +12,13 @@ Aaah I did it. I'm guilty. I accidentally committed sensitive data to Github. Oo
 
 ## Guide
 
-I used this guide to help me: :pretty-link{ link="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository" text="Github Docs" external }
-
-I'm working on Windows, so I used pip to install git-filter-repo:
+I used the :pretty-link{ link="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository" text="Github Docs" external } to help me through the process. I'm working on Windows, so I used pip to install git-filter-repo:
 
 ```bash
 pip install git-filter-repo --user
 ```
 
-I didn’t have a fresh clone of my project so I force pushed the changes:
+The guide advises you to have a fresh clone of your project but I didn't have one so I force pushed the changes:
 
 ```bash
 git filter-repo --invert-paths --path "src/folder/TheAffectedFile.jsx" --force
@@ -37,3 +35,7 @@ Finally, I could push the changes and the commit would be wiped!
 ```bash
 git push origin --force --all
 ```
+
+## Conclusion
+
+This wipes the file from your history. Hooray! But if you didn't save it temporarily then you might have a bad time trying to recreate it from memory.

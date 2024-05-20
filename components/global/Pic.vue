@@ -21,6 +21,7 @@ defineProps({
 <style scoped>
 .isFloat {
   float: right;
+  border-radius: 30%;
 }
 .imgStyle {
   padding: 0 0 0.5rem 0.5rem;

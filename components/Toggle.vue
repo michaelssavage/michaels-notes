@@ -1,9 +1,14 @@
 <script setup lang="ts">
+const theme = ref("light");
 onMounted(() => {
-  const localTheme = localStorage.getItem("theme") ?? "";
+  const localTheme = localStorage.getItem("theme") ?? "light";
   document.documentElement.setAttribute("data-theme", localTheme);
+  theme.value = localTheme;
 });
-const theme = ref("dark");
+const isChecked = computed(() => {
+  return theme.value === "light";
+});
+
 const toggleTheme = () => {
   theme.value = theme.value == "dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", theme.value);
@@ -12,7 +17,12 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <input id="toggle_checkbox" type="checkbox" @click="toggleTheme" />
+  <input
+    id="toggle_checkbox"
+    type="checkbox"
+    :checked="isChecked"
+    @click="toggleTheme"
+  />
   <label for="toggle_checkbox">
     <IconsSun id="star" />
     <IconsMoon id="moon" />
@@ -26,7 +36,6 @@ const toggleTheme = () => {
     background-color: $text;
     #star {
       top: -52px;
-      transform: scale(0.3);
       background-color: $underlined;
     }
 
@@ -44,20 +53,19 @@ const toggleTheme = () => {
 
 label {
   display: block;
-  position: absolute;
-  top: 3rem;
-  left: 2rem;
+  position: fixed;
+  bottom: 0;
+  right: 2rem;
   width: 56px;
   height: 56px;
   margin: 0 auto;
   border-radius: 50%;
   transform: translateY(-50%);
+  z-index: 5;
   cursor: pointer;
   transition: 0.3s ease background-color;
   overflow: hidden;
   @include for-phone-only {
-    top: 2rem;
-    left: 0.5rem;
     width: 46px;
     height: 46px;
   }
@@ -79,8 +87,8 @@ label {
     0.3s ease background-color;
   z-index: 1;
   @include for-phone-only {
-    top: 9px;
-    left: 9px;
+    top: 10px;
+    left: 6px;
   }
 }
 

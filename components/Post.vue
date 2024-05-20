@@ -18,7 +18,7 @@ const sortByDate = (posts: BlogContent[]) => {
   <div v-for="post in sortByDate(list)" :key="post._path" class="postItem">
     <div class="card">
       <div class="cardInfo">
-        <div>
+        <div class="o-1">
           <h2 class="title">
             {{ post.title }}
           </h2>
@@ -26,7 +26,7 @@ const sortByDate = (posts: BlogContent[]) => {
             {{ post.date }}
           </p>
         </div>
-        <div>
+        <div class="o-2">
           <SkinnyBtn v-if="post.external" :external-link="post.external" />
           <SkinnyBtn v-else :internal-link="post._path" />
         </div>
@@ -61,7 +61,16 @@ const sortByDate = (posts: BlogContent[]) => {
   align-items: center;
   gap: 2rem;
   @include for-phone-only {
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.5rem;
+    .o-1 {
+      order: 2;
+      margin-right: auto;
+    }
+    .o-2 {
+      order: 1;
+      margin-left: auto;
+    }
   }
 }
 .title {
