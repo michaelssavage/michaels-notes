@@ -21,7 +21,9 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: "@use '~/assets/scss/global.scss' as *;",
+          additionalData: `
+            @use '~/assets/scss/global.scss' as *;
+            `,
         },
       },
     },
@@ -39,6 +41,7 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", type: "image/png", href: "/images/project/emot.png" },
       ],
+      htmlAttrs: { "data-theme": "light" },
     },
   },
 

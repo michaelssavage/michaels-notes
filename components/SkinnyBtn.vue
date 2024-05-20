@@ -22,7 +22,7 @@ defineProps({
   font-size: 0.85rem;
   padding: 0.25rem 1rem;
   border-radius: 0.75rem;
-  color: $white;
+  color: $background;
   text-transform: uppercase;
   background-color: $btn-bg;
 

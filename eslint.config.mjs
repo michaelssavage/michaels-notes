@@ -12,7 +12,7 @@ export default withNuxt({
     "vue/max-attributes-per-line": "off",
     "vue/html-self-closing": "off",
     "vue/html-closing-bracket-newline": "off",
-    "@stylistic/operator-linebreak": ["error", "after"],
+    "@stylistic/operator-linebreak": "off",
     "@stylistic/comma-dangle": "off",
     "@stylistic/brace-style": ["error", "1tbs"],
     "vue/singleline-html-element-content-newline": "off",

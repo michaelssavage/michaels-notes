@@ -24,7 +24,7 @@ const sortedItems = (projects: ProjectContent[]) => {
               <NuxtImg
                 :src="project.image"
                 :alt="project.title"
-                :placeholder="[400, 200, 10]"
+                :placeholder="[500, 300, 10]"
               />
               <p class="title">
                 {{ project.id }}. {{ project.title }}
@@ -68,7 +68,7 @@ const sortedItems = (projects: ProjectContent[]) => {
 
 .projectImg {
   text-decoration: none;
-  color: $text;
+  color: var(--text);
   img {
     cursor: pointer;
     &:hover {

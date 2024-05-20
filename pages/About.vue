@@ -89,7 +89,7 @@ useHead({
       z-index: -1;
       height: 25vh;
       width: 15vw;
-      background-color: $btn-bg;
+      background-color: var(--square);
     }
   }
 

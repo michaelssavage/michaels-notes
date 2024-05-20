@@ -48,7 +48,7 @@ const sortByDate = (posts: BlogContent[]) => {
 }
 .card {
   padding: 1rem;
-  background-color: $card;
+  background-color: var(--card);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -83,33 +83,6 @@ const sortByDate = (posts: BlogContent[]) => {
     text-overflow: unset;
     overflow: unset;
     width: 100%;
-  }
-}
-.btn {
-  font-size: 0.85rem;
-  padding: 0.25rem 1rem;
-  border-radius: 0.75rem;
-  color: $white;
-  text-transform: uppercase;
-  background-color: $btn-bg;
-
-  &:hover {
-    background-color: $header;
-    transform: scale(1.05);
-  }
-}
-a {
-  text-decoration: none;
-}
-.external {
-  background-color: $ext-btn-bg;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  &:hover {
-    background-color: $ext-btn-bg-hover;
-    transform: scale(1.05);
   }
 }
 </style>

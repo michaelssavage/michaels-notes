@@ -4,7 +4,7 @@
 
 <style scoped lang="scss">
 code {
-  color: $code;
+  color: $header;
   font-weight: bold;
   font-style: italic;
 }

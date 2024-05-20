@@ -65,7 +65,6 @@ const bites = jsonData as BiteI[];
 
     .biteText {
       list-style-type: none;
-      background-color: $card;
       padding: 0.5rem 1rem;
       border-radius: 0.25rem;
       width: 100%;
