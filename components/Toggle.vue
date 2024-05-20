@@ -92,7 +92,7 @@ label {
   z-index: 1;
   @include for-phone-only {
     top: 10px;
-    left: 6px;
+    left: 7px;
   }
 }
 
