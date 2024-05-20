@@ -5,6 +5,7 @@ onMounted(() => {
   document.documentElement.setAttribute("data-theme", localTheme);
   theme.value = localTheme;
 });
+
 const isChecked = computed(() => {
   return theme.value === "light";
 });

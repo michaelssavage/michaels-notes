@@ -1,5 +1,11 @@
 [
   {
+    "id": 10,
+    "title": "I deployed michaelsavage.ie gaining an understanding of AWS Amplify, Lambda, Gateway, DynamoDb, and Route 53.",
+    "tag": "general",
+    "year": 2024
+  },
+  {
     "id": 9,
     "title": "In March, I moved to Barcelona!",
     "tag": "general",
