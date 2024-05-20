@@ -3,6 +3,7 @@ id: 9
 date: may 2, 2024
 image: "images/project/gym.jpg"
 github: "https://github.com/michaelssavage/Sports-Goods-Shop"
+technology: ["React.js", "FireStore", "React Query"]
 ---
 
 # Max's Sports Goods Shop

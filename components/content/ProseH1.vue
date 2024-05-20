@@ -22,5 +22,6 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h1);
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 1rem;
+  color: var(--text);
 }
 </style>

@@ -35,7 +35,7 @@ defineProps({
 pre {
   margin-top: 0;
   margin-bottom: 1rem;
-  background-color: $text;
+  background-color: var(--code);
   padding: 0.5rem;
   border-radius: 0.25rem;
   white-space: pre-wrap;

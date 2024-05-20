@@ -12,25 +12,27 @@ $ext-btn-bg-hover: #027a9e;
 $text: #191919;
 $hover-text: #515151;
 $underlined: #ffe26d;
-$card: #dee8e6;
-$dark-card: #303433;
 $mint: #009a7b;
 
 [data-theme="light"] {
-  --background: #ebd894;
   --text: #191919;
   --icon: #191919;
+  --code: #191919;
+  --lists: #191919;
   --card: #dee8e6;
-  --square: #ca1551;
+  --background: #ebd894;
   --underlined: #827957;
+  --square: #ca1551;
   --lighten-link: rgba(162, 99, 251, 0.3);
 }
 
 [data-theme="dark"] {
+  --icon: #d4d4d4;
+  --lists: #d4d4d4;
+  --code: #303433;
+  --card: #303433;
   --background: #191919;
   --text: #ebd894;
-  --icon: #d4d4d4;
-  --card: #303433;
   --underlined: #9c0630;
   --square: #9b113f;
   --lighten-link: rgba(228, 217, 242, 0.7);

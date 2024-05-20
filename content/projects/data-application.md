@@ -2,6 +2,7 @@
 id: 3
 date: march 5, 2024
 image: "images/project/data.jpg"
+technology: ["React.js", "TypeScript", "Spring Boot", "MongoDb"]
 ---
 
 # Data Application

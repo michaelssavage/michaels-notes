@@ -3,6 +3,7 @@ id: 8
 date: april 24, 2024
 image: "images/project/invest.jpg"
 github: "https://github.com/michaelssavage/django-investors"
+technology: ["Django", "PostgreSQL"]
 ---
 
 # Django Investors

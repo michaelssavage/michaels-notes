@@ -10,6 +10,12 @@ const sortedItems = (projects: ProjectContent[]) => {
 };
 </script>
 
+<script lang="ts">
+export const joinTags = (tags: Array<string>) => {
+  return tags.map((tag) => `#${tag}`).join(" ");
+};
+</script>
+
 <template>
   <main class="container">
     <ContentList path="/project">
@@ -21,15 +27,18 @@ const sortedItems = (projects: ProjectContent[]) => {
             class="col"
           >
             <NuxtLink :to="project._path" class="projectImg">
-              <NuxtImg
-                :src="project.image"
-                :alt="project.title"
-                :placeholder="[500, 300, 10]"
-              />
-              <p class="title">
-                {{ project.id }}. {{ project.title }}
-              </p></NuxtLink
-            >
+              <div class="overlay">
+                <NuxtImg
+                  :src="project.image"
+                  :alt="project.title"
+                  :placeholder="[500, 300, 10]"
+                />
+                <p class="tech">
+                  {{ joinTags(project.technology) }}
+                </p>
+              </div>
+              <p class="title">{{ project.id }}. {{ project.title }}</p>
+            </NuxtLink>
           </div>
         </div>
       </template>
@@ -58,6 +67,18 @@ const sortedItems = (projects: ProjectContent[]) => {
   flex: 0 0 auto;
   width: 33.333%;
   padding: 1rem 0.75rem 0 0.75rem;
+  &:hover {
+    img {
+      filter: blur(2px);
+      -webkit-filter: blur(2px);
+    }
+    .title {
+      font-weight: bold;
+    }
+    .tech {
+      opacity: 1;
+    }
+  }
   @include for-tablet-only {
     width: 50%;
   }
@@ -71,13 +92,30 @@ const sortedItems = (projects: ProjectContent[]) => {
   color: var(--text);
   img {
     cursor: pointer;
-    &:hover {
-      filter: blur(1px);
-      -webkit-filter: blur(2px);
-      &:hover + .title {
-        font-weight: bold;
-      }
-    }
+    transition: filter 0.3s;
+  }
+}
+
+.overlay {
+  position: relative;
+  width: 99%;
+}
+
+.tech {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  opacity: 0;
+  font-size: 1.2rem;
+  padding: 1rem 0.5rem;
+  transition: opacity 0.25s;
+  color: $background;
+  background-color: rgb(25, 25, 25, 0.4);
+  height: 100%;
+  @include for-phone-only {
+    font-size: 1rem;
   }
 }
 

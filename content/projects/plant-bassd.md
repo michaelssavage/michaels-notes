@@ -3,6 +3,7 @@ id: 1
 date: february 3, 2024
 image: "images/project/plants.jpg"
 github: "https://github.com/michaelssavage/plantbassd"
+technology: ["Next.js", "TypeScript", "SCSS", "MDX"]
 ---
 
 # Plant Bass'd
@@ -11,7 +12,7 @@ github: "https://github.com/michaelssavage/plantbassd"
 
 :pic{ src="images/blog/plantbassd.png" alt="plant bass'd icon" }
 
-The site is created using :pretty-link{link="https://nextjs.org/" text="Next.js" external } (a React framework) and Typescript. In it's early days the application was JavaScript-only, css styled, and the blogs were written in markdown. The site is constantly being refactored and I store a list of 'to-dos' on Trello.
+The site is created using :pretty-link{link="https://nextjs.org/" text="Next.js" external } (a React framework) and TypeScript. In it's early days the application was JavaScript-only, css styled, and the blogs were written in markdown. The site is constantly being refactored and I store a list of 'to-dos' on Trello.
 
 The site has had many mini victories and lessons for me over the three years I've built it.
 

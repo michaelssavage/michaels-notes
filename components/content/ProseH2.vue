@@ -22,7 +22,7 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h2);
   font-style: italic;
   position: relative;
   a {
-    color: $text;
+    color: var(--text);
     text-decoration: none;
   }
   &::after {

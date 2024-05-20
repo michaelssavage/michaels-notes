@@ -3,6 +3,7 @@ id: 4
 date: february 1, 2024
 image: "images/project/news.jpg"
 github: "https://github.com/michaelssavage/eMot"
+technology: ["Python", "PYQT5", "BeautifulSoup", "SpaCy"]
 ---
 
 # eMot

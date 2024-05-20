@@ -33,11 +33,14 @@ const toggleTheme = () => {
 <style scoped lang="scss">
 #toggle_checkbox {
   display: none;
+  &:not(:checked) + label {
+    background-color: #009fd1;
+  }
+
   &:checked + label {
     background-color: $text;
     #star {
       top: -52px;
-      background-color: $underlined;
     }
 
     #moon {

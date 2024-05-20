@@ -3,6 +3,7 @@ id: 7
 date: february 1, 2024
 image: "images/project/travel.jpg"
 github: "https://github.com/michaelssavage/TastyTravel-3rdYearProject"
+technology: ["Android", "Mapbox API", "Google Maps API", "Firebase"]
 ---
 
 # TastyTravel

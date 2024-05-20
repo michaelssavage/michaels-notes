@@ -3,6 +3,7 @@ id: 5
 date: march 5, 2024
 image: "images/project/coffee.jpg"
 github: "https://github.com/michaelssavage/coffee-site"
+technology: ["Next.js", "Nest.js", "PostgreSQL"]
 ---
 
 # Coffee Site

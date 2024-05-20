@@ -13,4 +13,5 @@ export interface ProjectContent extends ParsedContent {
   id: number;
   image: string;
   title: string;
+  technology: Array<string>;
 }

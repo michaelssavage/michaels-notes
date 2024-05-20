@@ -24,10 +24,7 @@ useHead({
       <Icon external link="mailto:michaelsavage940@gmail.com">
         <IconsMail />
       </Icon>
-      <Icon
-        external
-        link="https://open.spotify.com/user/1156402021?si=e72693546a9240ac"
-      >
+      <Icon external link="https://open.spotify.com/user/1156402021">
         <IconsSpotify />
       </Icon>
     </div>

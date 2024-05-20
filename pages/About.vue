@@ -20,8 +20,8 @@ useHead({
           Boot and React.js early on.
         </p>
         <p>
-          I'm a big movie enthusiast! I love tracking and sharing movies on
-          Letterboxd.
+          I'm passionate about films, and I love sharing and keeping track of
+          them on Letterboxd (the best social media platform).
         </p>
         <p>
           I've played sports all my life including Gaelic Football for
