@@ -91,8 +91,8 @@ label {
     0.3s ease background-color;
   z-index: 1;
   @include for-phone-only {
-    top: 10px;
-    left: 6px;
+    top: 9px;
+    left: 8px;
   }
 }
 
