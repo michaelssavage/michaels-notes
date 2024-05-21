@@ -28,6 +28,9 @@ nav {
   padding: 3rem 20%;
   text-transform: uppercase;
   font-style: italic;
+  @include for-phone-only {
+    padding: 2rem 10%;
+  }
   a {
     z-index: 3;
     text-decoration: none;

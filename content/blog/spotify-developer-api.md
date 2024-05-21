@@ -4,7 +4,7 @@ date: may 19, 2024
 
 # Spotify Developer API
 
-On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was a fun challenge to implement, helped by this blog :pretty-link{ link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" external } . Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up.
+On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was a fun challenge to implement, helped by this blog :pretty-link{ link="https://navidanindya.info/writing/spotify-now-playing-nuxt/." external } Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up.
 
 ## Create an App on the Spotify Developer Dashboard
 
@@ -38,7 +38,7 @@ http://localhost:3000/callback?code=AQC7P..gBoDU
 
 ## Get Refresh Token
 
-The `client_id:client_secret` combination needs to be encoded in Base64 format. You can use a function or a site like :pretty-link{ link="https://www.base64encode.org/" external } .
+The `client_id:client_secret` combination needs to be encoded in Base64 format. You can use a function or a site like :pretty-link{ link="https://www.base64encode.org/." external }
 
 :pic{ src="images/blog/base64.png" alt="base64 of client id and client secret" :isFloat="false" :inPost="true" sizes="1200px" }
 

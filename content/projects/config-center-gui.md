@@ -2,7 +2,7 @@
 id: 2
 date: march 5, 2024
 image: "images/project/cars.jpg"
-technology: ["React.js", "TypeScript", "React Query"]
+technology: ["React.js", "TypeScript", "ReactQuery"]
 ---
 
 # Config Center GUI

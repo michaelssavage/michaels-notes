@@ -11,7 +11,7 @@ useHead({
       I'm a Software Developer from Ireland that enjoys React.js, Typescript,
       Python, and Spring Boot. My world revolves around
       <span class="underline">
-        electronic music, movies, rugby, and travelling </span
+        electronic music, movies, rugby, and travelling</span
       >.
     </p>
     <div class="icons">
@@ -78,6 +78,10 @@ useHead({
   svg {
     width: 5rem;
     height: 5rem;
+  }
+
+  @include for-phone-only {
+    margin: 0 10%;
   }
 }
 
