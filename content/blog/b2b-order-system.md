@@ -1,6 +1,7 @@
 ---
 date: march 13, 2024
 github: "https://github.com/michaelssavage/b2b-react-flask"
+description: "A 4th Year project I completed in 2021 focused on a concurrent client/ server model using a clean interface and backend. There's even a short YouTube video going through the walkthrough."
 ---
 
 # B2B Order System

@@ -15,9 +15,9 @@ useHead({
           <span class="underline">Barcelona, Spain.</span>
         </p>
         <p>
-          I studied Computer Applications in DCU and started working with JLR,
-          Shannon in 2021 where I learned to work with REST APIs using Spring
-          Boot and React.js early on.
+          I studied Computer Applications in DCU and started working with Jaguar
+          Land Rover, Shannon in 2021 where I learned to work with REST APIs
+          using Spring Boot and React.js early on.
         </p>
         <p>
           I'm passionate about films, and I love sharing and keeping track of
@@ -103,9 +103,11 @@ useHead({
       }
     }
     .image {
-      margin: -2rem 5% 2rem;
+      margin: -2rem 5% 2rem 0;
       img {
-        max-width: 180px;
+        width: 240px;
+        min-width: 140px;
+        padding-right: 2.5rem;
       }
       .square {
         height: 30vh;

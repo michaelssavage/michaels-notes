@@ -1,5 +1,6 @@
 ---
 date: may 19, 2024
+description: "On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up."
 ---
 
 # Spotify Developer API

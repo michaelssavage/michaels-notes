@@ -1,6 +1,6 @@
 ---
 date: november 21, 2023
-description: "Finding what movies me and my friends both had on our watchlists so that we could narrow down the choices"
+description: "I wanted to find movie both my friends and I both had on our watchlists, so that we could narrow down the choices on movie night. I never got access to the elusive Letterboxd API, so I forked a CLI project that returned common movies from Letterboxd users watchlists and I updated it to be object-oriented."
 github: "https://github.com/michaelssavage/common-movies"
 ---
 

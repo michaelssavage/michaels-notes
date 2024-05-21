@@ -88,7 +88,7 @@ const sortByDate = (posts: BlogContent[]) => {
   text-overflow: ellipsis;
   @include for-phone-only {
     font-size: 0.9rem;
-    white-space: wrap;
+    white-space: normal;
     text-overflow: unset;
     overflow: unset;
     width: 100%;

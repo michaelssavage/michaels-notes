@@ -54,6 +54,9 @@ export const joinTags = (tags: Array<string>) => {
   display: flex;
   flex-flow: row wrap;
   margin: 0 15% 2rem 15%;
+  @include for-phone-only {
+    margin: 0 5% 2rem 5%;
+  }
 }
 
 .row {
