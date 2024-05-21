@@ -9,12 +9,12 @@ defineProps<{
 
 <template>
   <div class="navigator">
-    <IconsRight />
     <NuxtLink to="/" class="extLink pageLink" :style="style"> home </NuxtLink>
     <IconsRight />
     <NuxtLink :to="`/${page}`" class="extLink pageLink" :style="style">
       {{ page }}
     </NuxtLink>
+    <IconsRight />
   </div>
 </template>
 

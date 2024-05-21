@@ -19,9 +19,9 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h1);
 <style lang="scss" scoped>
 .tag {
   font-size: 2rem;
-  text-align: center;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
   color: var(--text);
 }
 </style>

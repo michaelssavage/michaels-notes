@@ -5,8 +5,8 @@
 
 $background: #f5f5f5;
 $header: #ca1551;
-$btn-bg: #e26d07;
-$link: #b2068a;
+$link: #ca1551;
+$btn-bg: #e35103;
 $ext-btn-bg: #009fd1;
 $ext-btn-bg-hover: #027a9e;
 $text: #191919;
@@ -15,27 +15,27 @@ $underlined: #ffe26d;
 $mint: #009a7b;
 
 [data-theme="light"] {
+  --lighten-link: rgba(162, 99, 251, 0.3);
+  --card: #dee8e6;
   --text: #191919;
   --icon: #191919;
   --code: #191919;
   --lists: #191919;
-  --card: #dee8e6;
   --background: #ebd894;
   --underlined: #827957;
   --square: #ca1551;
-  --lighten-link: rgba(162, 99, 251, 0.3);
 }
 
 [data-theme="dark"] {
-  --icon: #d4d4d4;
-  --lists: #d4d4d4;
+  --lighten-link: rgba(228, 217, 242, 0.7);
+  --icon: #bbbbbb;
+  --lists: #cccccc;
+  --text: #cccccc;
   --code: #303433;
   --card: #303433;
   --background: #191919;
-  --text: #ebd894;
-  --underlined: #9c0630;
+  --underlined: #ebd894;
   --square: #9b113f;
-  --lighten-link: rgba(228, 217, 242, 0.7);
 }
 
 body {
@@ -122,6 +122,7 @@ body {
   color: $hover-text;
   font-weight: bold;
 }
+
 .underline {
   background-image: linear-gradient(
     transparent calc(100% - 0.15rem),

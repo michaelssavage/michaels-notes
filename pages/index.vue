@@ -42,6 +42,7 @@ useHead({
     font-size: 4rem;
     text-align: center;
     margin: 0 1rem;
+    color: var(--icon);
     span {
       color: $header;
     }

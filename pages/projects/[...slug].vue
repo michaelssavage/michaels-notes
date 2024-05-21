@@ -5,15 +5,19 @@ import { joinTags } from "../Projects.vue";
 <template>
   <article class="container">
     <ContentDoc v-slot="{ doc }">
-      <PagePath v-if="doc._path" :page="doc._path.split('/')[1]" />
       <p class="date">
         {{ doc.date }}
       </p>
-      <p class="tags">
-        {{ joinTags(doc.technology) }}
-      </p>
       <div class="content">
+        <PagePath
+          v-if="doc._path"
+          :page="doc._path.split('/')[1]"
+          class="paths"
+        />
         <ContentRenderer :value="doc" />
+        <p class="tags">
+          {{ joinTags(doc.technology) }}
+        </p>
         <Btn
           v-if="doc.github"
           :link="doc.github"
@@ -35,8 +39,27 @@ import { joinTags } from "../Projects.vue";
     width: 90%;
   }
 }
+
 .tags {
+  text-align: right;
   font-size: 0.9rem;
-  color: var(--square);
+  color: var(--text);
+}
+
+.content {
+  position: relative;
+}
+
+.paths {
+  position: absolute;
+  top: 0.6rem;
+  left: -12rem;
+  @include for-tablet-only {
+    left: -9rem;
+  }
+  @include for-phone-only {
+    width: 90%;
+    position: static;
+  }
 }
 </style>
