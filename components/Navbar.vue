@@ -3,8 +3,18 @@
     <nav>
       <NuxtLink to="/"> Home </NuxtLink>
       <NuxtLink to="/about"> About </NuxtLink>
-      <NuxtLink to="/blog"> Blog </NuxtLink>
-      <NuxtLink to="/projects"> Projects </NuxtLink>
+      <NuxtLink
+        to="/blog"
+        :class="{ 'router-link-active': $route.path.startsWith('/blog') }"
+      >
+        Blog
+      </NuxtLink>
+      <NuxtLink
+        to="/projects"
+        :class="{ 'router-link-active': $route.path.startsWith('/projects') }"
+      >
+        Projects
+      </NuxtLink>
       <NuxtLink to="/bites"> Bites </NuxtLink>
     </nav>
     <Toggle />

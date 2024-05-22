@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { joinTags } from "../Projects.vue";
+import { joinTags } from "./index.vue";
 </script>
 
 <template>

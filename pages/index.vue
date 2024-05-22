@@ -92,6 +92,6 @@ useHead({
   width: 75%;
   z-index: -1;
   margin-left: auto;
-  @include slide-in-animation(100px);
+  @include slide-in-animation(100px, "horizontal", $duration: 0.75s);
 }
 </style>

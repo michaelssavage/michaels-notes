@@ -46,7 +46,7 @@ const toggleTheme = () => {
     #moon {
       bottom: 13px;
       @include for-phone-only {
-        bottom: 7px;
+        bottom: 8px;
       }
       &:before {
         background-color: $text;
@@ -92,7 +92,7 @@ label {
   z-index: 1;
   @include for-phone-only {
     top: 9px;
-    left: 8px;
+    left: 9px;
   }
 }
 
@@ -106,7 +106,7 @@ label {
   border-radius: 50%;
   transition: 0.3s ease bottom;
   @include for-phone-only {
-    left: 9px;
+    left: 10px;
   }
   &:before {
     content: "";
