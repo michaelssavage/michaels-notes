@@ -15,7 +15,7 @@ const { data } = await useLazyFetch<CurrentTrackI>(
 );
 </script>
 
-<template>
+<template v-if="data">
   <div class="comp">
     <h2 v-if="data?.body?.isPlaying">Currently listening to:</h2>
     <h2 v-else>Last track listened to:</h2>

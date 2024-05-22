@@ -18,7 +18,7 @@ export const joinTags = (tags: Array<string>) => {
 
 <template>
   <main class="container">
-    <ContentList path="/project">
+    <LazyContentList path="/project">
       <template #default="{ list }">
         <div class="row">
           <div
@@ -45,7 +45,7 @@ export const joinTags = (tags: Array<string>) => {
       <template #not-found>
         <p>No articles found.</p>
       </template>
-    </ContentList>
+    </LazyContentList>
   </main>
 </template>
 
