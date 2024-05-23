@@ -46,6 +46,7 @@ const sortByDate = (posts: BlogContent[]) => {
     display: block;
   }
 }
+
 .card {
   padding: 1rem;
   background-color: var(--card);
@@ -55,6 +56,7 @@ const sortByDate = (posts: BlogContent[]) => {
   gap: 0.5rem;
   margin: 0 1rem;
 }
+
 .cardInfo {
   display: flex;
   flex-direction: row;
@@ -73,16 +75,19 @@ const sortByDate = (posts: BlogContent[]) => {
     }
   }
 }
+
 .title {
   font-size: 1rem;
 }
+
 .date {
   font-style: italic;
   font-size: 0.85rem;
   color: $mint;
 }
+
 .description {
-  width: 300px;
+  width: 350px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -7,32 +7,15 @@ useHead({
 
 const external = ref(true);
 const onSite = ref(true);
-const backgroundColor = ref("#009a7b");
-
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
-
-const changeColor = () => {
-  backgroundColor.value = getRandomColor();
-};
 
 const filteredItems = (list: BlogContent[]) => {
-  list = list.filter((item) => !item.draft);
-  if (external.value && onSite.value) {
-    return list;
-  } else if (!external.value && onSite.value) {
-    return list.filter((item) => !item.external);
-  } else if (!onSite.value && external.value) {
-    return list.filter((item) => item.external);
-  } else {
-    return [];
-  }
+  return list.filter((item) => {
+    if (item.draft) return false;
+    if (external.value && onSite.value) return true;
+    if (onSite.value) return !item.external;
+    if (external.value) return item.external;
+    return false;
+  });
 };
 </script>
 
@@ -52,11 +35,7 @@ const filteredItems = (list: BlogContent[]) => {
         <Post :list="filteredItems(list as BlogContent[])" />
       </LazyContentList>
     </div>
-    <div
-      class="circle expandAndAppear"
-      :style="{ backgroundColor: backgroundColor }"
-      @click="changeColor"
-    />
+    <LazyBall />
   </main>
 </template>
 
@@ -122,20 +101,6 @@ const filteredItems = (list: BlogContent[]) => {
     stroke-width: 1;
     stroke: grey;
     fill: transparent;
-  }
-}
-
-.circle {
-  width: 25rem;
-  height: 25rem;
-  border-radius: 50%;
-  position: absolute;
-  top: 10%;
-  right: -10%;
-  z-index: 2;
-  overflow-x: hidden;
-  @include for-tablet-only {
-    visibility: hidden;
   }
 }
 </style>
