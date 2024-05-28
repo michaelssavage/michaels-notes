@@ -16,7 +16,7 @@ const fetcher = async () =>
     }
   );
 
-const { data, suspense } = useQuery({
+const { data, isLoading, suspense } = useQuery({
   queryKey: ["currently-playing"],
   queryFn: fetcher,
 });
@@ -30,6 +30,7 @@ onServerPrefetch(async () => {
   <div class="comp">
     <h2 v-if="data?.body?.isPlaying">Currently listening to:</h2>
     <h2 v-else>Last track listened to:</h2>
+    <div v-if="isLoading">Loading...</div>
     <div v-if="!data?.body" class="nowPlaying">
       <IconsSpotify />
       <p>No info available</p>

@@ -75,3 +75,21 @@
 
   animation: $keyframeName $duration $fill-mode;
 }
+
+@mixin flash-animation() {
+  $keyframeName: unique-id();
+
+  @keyframes #{$keyframeName} {
+    0% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  animation: $keyframeName 1.25s ease-in-out;
+}

@@ -12,7 +12,7 @@ const fetcher = async () =>
     }
   );
 
-const { data, suspense } = useQuery({
+const { data, isLoading, suspense } = useQuery({
   queryKey: ["top-spotify"],
   queryFn: fetcher,
   refetchOnMount: false,
@@ -27,6 +27,7 @@ onServerPrefetch(async () => {
 <template>
   <div class="comp">
     <h2 class="title">Most played tracks:</h2>
+    <div v-if="isLoading">Loading...</div>
     <div v-if="!data?.body">No tracks available</div>
     <ol v-else class="trackNames">
       <li v-for="(track, index) in data?.body" :key="track.name">

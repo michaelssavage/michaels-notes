@@ -69,7 +69,7 @@ export const joinTags = (tags: Array<string>) => {
 .col {
   flex: 0 0 auto;
   width: 33.333%;
-  padding: 1rem 0.75rem 0 0.75rem;
+  padding: 1rem 0.25rem 0 0.25rem;
   &:hover {
     img {
       filter: blur(2px);

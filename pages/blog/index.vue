@@ -47,12 +47,14 @@ const filteredItems = (list: BlogContent[]) => {
 .page {
   position: relative;
 }
+
 .container {
   margin: 2rem 5%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
 .formSearch {
   display: flex;
   place-items: center;
@@ -64,6 +66,7 @@ const filteredItems = (list: BlogContent[]) => {
     }
   }
 }
+
 .colorKey {
   display: flex;
   flex-direction: row;
@@ -71,6 +74,7 @@ const filteredItems = (list: BlogContent[]) => {
   width: 100%;
   gap: 1rem;
   position: relative;
+
   .hand {
     opacity: 0;
     position: absolute;
@@ -83,19 +87,22 @@ const filteredItems = (list: BlogContent[]) => {
     font-weight: bold;
     transition: opacity 1.25s ease-in-out;
   }
+
   p {
     display: flex;
     flex-direction: row;
     cursor: pointer;
     z-index: 3;
   }
-  &:hover {
+
+  &:hover:not(:focus) {
     .hand {
       opacity: 1;
       transition: opacity 0.1s ease-in-out;
     }
   }
 }
+
 .unused {
   svg {
     stroke-width: 1;
