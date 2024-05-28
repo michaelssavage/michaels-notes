@@ -1,8 +1,36 @@
 <script setup lang="ts">
 import imageUrl from "/images/cover.jpg";
+import { useQuery } from "@tanstack/vue-query";
+import { fetchTopTracks } from "~/api/fetch-top-tracks";
+import { fetchCurrentTrack } from "~/api/fetch-current-track";
 
 useHead({
   title: "About Me",
+});
+
+const {
+  data: cData,
+  isLoading: cIsLoading,
+  suspense: cSuspense,
+} = useQuery({
+  queryKey: ["currently-playing"],
+  queryFn: fetchCurrentTrack,
+});
+
+const {
+  data: tData,
+  isLoading: tIsLoading,
+  suspense: tSuspense,
+} = useQuery({
+  queryKey: ["top-spotify"],
+  queryFn: fetchTopTracks,
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
+});
+
+onServerPrefetch(async () => {
+  await cSuspense();
+  await tSuspense();
 });
 </script>
 
@@ -50,8 +78,8 @@ useHead({
     </div>
     <div class="horizon" />
     <div class="spotify">
-      <NowSpotify />
-      <TopSpotify />
+      <NowSpotify :data="cData" :is-loading="cIsLoading" />
+      <TopSpotify :data="tData" :is-loading="tIsLoading" />
     </div>
   </main>
 </template>

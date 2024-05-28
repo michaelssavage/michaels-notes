@@ -4,6 +4,7 @@ import type { BlogContent } from "~/types/Post";
 defineProps<{
   list: BlogContent[];
 }>();
+
 const sortByDate = (posts: BlogContent[]) => {
   return posts.sort(
     (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()

@@ -1,27 +1,10 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
 import type { TopTracksI } from "~/types/Spotify";
 
-const fetcher = async () =>
-  await $fetch<TopTracksI>(
-    "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api",
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-const { data, isLoading, suspense } = useQuery({
-  queryKey: ["top-spotify"],
-  queryFn: fetcher,
-  refetchOnMount: false,
-  refetchOnWindowFocus: false,
-});
-
-onServerPrefetch(async () => {
-  await suspense();
-});
+defineProps<{
+  data?: TopTracksI;
+  isLoading: boolean;
+}>();
 </script>
 
 <template>

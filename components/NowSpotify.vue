@@ -1,37 +1,22 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
-import type { GetNowPlayingI } from "~/types/Spotify";
+import type { CurrentTrackI } from "~/types/Spotify";
 
-interface CurrentTrackI {
-  body: GetNowPlayingI;
-}
-
-const fetcher = async () =>
-  await $fetch<CurrentTrackI>(
-    "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api/current",
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-const { data, isLoading, suspense } = useQuery({
-  queryKey: ["currently-playing"],
-  queryFn: fetcher,
-});
-
-onServerPrefetch(async () => {
-  await suspense();
-});
-
-if (!isLoading) console.log(data);
+defineProps<{
+  data?: CurrentTrackI;
+  isLoading: boolean;
+}>();
 </script>
 
 <template v-if="data">
   <div class="comp">
-    <h2 v-if="data?.body?.isPlaying">Currently listening to:</h2>
-    <h2 v-else>Last track listened to:</h2>
+    <h2>
+      {{
+        data?.body?.isPlaying
+          ? "Currently listening to:"
+          : "Last track listened to:"
+      }}
+    </h2>
+
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="!data?.body" class="nowPlaying">
       <IconsSpotify />
