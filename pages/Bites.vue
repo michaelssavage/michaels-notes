@@ -59,8 +59,9 @@ const bites = jsonData as BiteI[];
 
     .yearColor {
       font-weight: bold;
-      transition: 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
       transform: rotate(-90deg);
+      margin-left: -1rem;
     }
 
     .biteText {
@@ -84,6 +85,8 @@ const bites = jsonData as BiteI[];
     &:hover {
       .yearColor {
         transform: rotate(0deg);
+        margin-left: 0;
+        margin-right: 0.25rem;
       }
 
       .biteText {
