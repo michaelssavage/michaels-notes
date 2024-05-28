@@ -23,7 +23,7 @@ const filteredItems = (list: BlogContent[]) => {
   <main>
     <div class="container">
       <div class="colorKey">
-        <div class="hand"><IconsHand />Click me</div>
+        <IconsHand class="hand" />
         <p :class="{ unused: !onSite }" @click="onSite = !onSite">
           <IconsCircle color="#fb4d3d" /> = On site
         </p>
@@ -57,7 +57,8 @@ const filteredItems = (list: BlogContent[]) => {
 
 .formSearch {
   display: flex;
-  place-items: center;
+  justify-content: center;
+  align-items: center;
   gap: 0.5rem;
   input {
     border-radius: 0.25rem;
@@ -78,9 +79,9 @@ const filteredItems = (list: BlogContent[]) => {
   .hand {
     opacity: 0;
     position: absolute;
-    left: 50%;
+    left: 49%;
     transform: translate(-50%, -50%);
-    top: -1rem;
+    top: 2.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;

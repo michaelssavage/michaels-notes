@@ -9,7 +9,6 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
-    transform="rotate(180 0 0)"
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" />

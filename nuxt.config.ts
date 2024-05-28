@@ -48,7 +48,7 @@ export default defineNuxtConfig({
   content: {
     experimental: {
       search: {
-        indexed: true,
+        indexed: false,
       },
     },
     highlight: {
