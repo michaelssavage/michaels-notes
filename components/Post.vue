@@ -60,6 +60,7 @@ const sortByDate = (posts: BlogContent[]) => {
 .cardInfo {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
   @include for-phone-only {
@@ -87,15 +88,9 @@ const sortByDate = (posts: BlogContent[]) => {
 }
 
 .description {
-  width: 350px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 500px;
   @include for-phone-only {
     font-size: 0.9rem;
-    white-space: normal;
-    text-overflow: unset;
-    overflow: unset;
     width: 100%;
   }
 }

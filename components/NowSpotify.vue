@@ -24,6 +24,8 @@ const { data, isLoading, suspense } = useQuery({
 onServerPrefetch(async () => {
   await suspense();
 });
+
+if (!isLoading) console.log(data);
 </script>
 
 <template v-if="data">
@@ -31,7 +33,7 @@ onServerPrefetch(async () => {
     <h2 v-if="data?.body?.isPlaying">Currently listening to:</h2>
     <h2 v-else>Last track listened to:</h2>
     <div v-if="isLoading">Loading...</div>
-    <div v-if="!data?.body" class="nowPlaying">
+    <div v-else-if="!data?.body" class="nowPlaying">
       <IconsSpotify />
       <p>No info available</p>
     </div>

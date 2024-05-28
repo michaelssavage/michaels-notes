@@ -28,7 +28,7 @@ onServerPrefetch(async () => {
   <div class="comp">
     <h2 class="title">Most played tracks:</h2>
     <div v-if="isLoading">Loading...</div>
-    <div v-if="!data?.body">No tracks available</div>
+    <div v-else-if="!data?.body">No tracks available</div>
     <ol v-else class="trackNames">
       <li v-for="(track, index) in data?.body" :key="track.name">
         <PrettyLink

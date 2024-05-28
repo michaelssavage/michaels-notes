@@ -1,6 +1,12 @@
 import { resolve } from "path";
 
 export default defineNuxtConfig({
+  routeRules: {
+    "/": { ssr: false },
+    "/blog": { ssr: false },
+    "/projects": { ssr: false },
+    "/bites": { ssr: false },
+  },
   alias: {
     styles: resolve(__dirname, "./assets/styles"),
     lists: resolve(__dirname, "./assets/lists"),
