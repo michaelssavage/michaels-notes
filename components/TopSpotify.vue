@@ -1,14 +1,27 @@
 <script setup lang="ts">
+import { useQuery } from "@tanstack/vue-query";
 import type { TopTracksI } from "~/types/Spotify";
 
-const { data } = await useLazyFetch<TopTracksI>(
-  "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api",
-  {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }
-);
+const fetcher = async () =>
+  await $fetch<TopTracksI>(
+    "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api",
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+const { data, suspense } = useQuery({
+  queryKey: ["top-spotify"],
+  queryFn: fetcher,
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
+});
+
+onServerPrefetch(async () => {
+  await suspense();
+});
 </script>
 
 <template>

@@ -1,18 +1,29 @@
 <script setup lang="ts">
+import { useQuery } from "@tanstack/vue-query";
 import type { GetNowPlayingI } from "~/types/Spotify";
 
 interface CurrentTrackI {
   body: GetNowPlayingI;
 }
 
-const { data } = await useLazyFetch<CurrentTrackI>(
-  "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api/current",
-  {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }
-);
+const fetcher = async () =>
+  await $fetch<CurrentTrackI>(
+    "https://kp4w175kk5.execute-api.eu-north-1.amazonaws.com/prod-api/current",
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+const { data, suspense } = useQuery({
+  queryKey: ["currently-playing"],
+  queryFn: fetcher,
+});
+
+onServerPrefetch(async () => {
+  await suspense();
+});
 </script>
 
 <template v-if="data">

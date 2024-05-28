@@ -16,6 +16,7 @@
     "@nuxt/eslint": "^0.3.8",
     "@nuxt/image": "^1.6.0",
     "@nuxt/ui": "^2.16.0",
+    "@tanstack/vue-query": "^5.40.0",
     "buffer": "^6.0.3",
     "nuxt": "^3.11.2",
     "vue": "^3.4.21",

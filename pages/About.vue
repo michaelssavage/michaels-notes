@@ -123,7 +123,7 @@ useHead({
   width: 80%;
   z-index: -1;
   margin-right: auto;
-  @include slide-in-animation(200px, $direction: "horizontal");
+  @include slide-in-animation(200px, $direction: "horizontal", $duration: 0.5s);
 }
 .spotify {
   display: flex;
