@@ -1,7 +1,7 @@
 [
   {
     "id": 10,
-    "title": "I deployed michaelsavage.ie gaining an understanding of AWS Amplify, Lambda, Gateway, DynamoDB, and Route 53.",
+    "title": "I deployed michaelsavage.ie gaining an understanding of AWS services like Amplify, Lambda, Gateway, DynamoDB, and Route 53",
     "tag": "general",
     "year": 2024
   },
@@ -22,7 +22,7 @@
     "title": "Plant Bass'd received 11 <<Resident Advisor Top Picks>> for the gigs in Scotland",
     "link": "https://ra.co/promoters/103854/past-events",
     "tag": "hobby",
-    "year": 2024
+    "year": 2023
   },
   {
     "id": 6,
@@ -38,7 +38,7 @@
   },
   {
     "id": 4,
-    "title": "My team in 4th year of Uni was awarded best group research paper on the topic of Global Software Engineering",
+    "title": "My team in 4th year of university was awarded best group research paper on the topic of Global Software Engineering",
     "tag": "achievement",
     "year": 2021
   },

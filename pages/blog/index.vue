@@ -6,26 +6,38 @@ useHead({
 });
 
 const searchQuery = ref("");
-const blogs = ref<BlogContent[]>([]);
 const external = ref(true);
 const onSite = ref(true);
 
-const filtered = computed(() => {
-  const search = blogs.value.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
+const filterPosts = (list: BlogContent[]) => {
+  const searchLowercase = searchQuery.value.toLowerCase();
 
-  return search.filter((item) => {
-    if (item.draft) return false;
-    if (external.value && onSite.value) return true;
-    if (onSite.value) return !item.external;
-    if (external.value) return item.external;
+  return list.filter((item) => {
+    if (
+      !item.title.toLowerCase().includes(searchLowercase) ||
+      !item.description.toLowerCase().includes(searchLowercase)
+    ) {
+      return false;
+    }
+
+    if (item.draft) {
+      return false;
+    }
+
+    if (external.value && onSite.value) {
+      return true;
+    }
+
+    if (onSite.value) {
+      return !item.external;
+    }
+
+    if (external.value) {
+      return item.external;
+    }
+
     return false;
   });
-});
-
-const setList = (list: BlogContent[]) => {
-  blogs.value = list;
 };
 </script>
 
@@ -55,10 +67,7 @@ const setList = (list: BlogContent[]) => {
       </div>
       <LazyContentList path="/blog">
         <template #default="{ list }">
-          <Post :list="filtered" />
-          <div v-if="list.length" v-cloak>
-            {{ setList(list as BlogContent[]) }}
-          </div>
+          <Post :list="filterPosts(list as BlogContent[])" />
         </template>
         <template #not-found>
           <p>No articles found.</p>

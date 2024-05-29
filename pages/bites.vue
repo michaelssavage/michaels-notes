@@ -12,24 +12,32 @@ interface BiteI {
   year: number;
 }
 
-const processString = (input: string, link?: string) => {
-  const linkRegex = /<<([^>]+)>>/g;
+const bites = jsonData as BiteI[];
 
+const processString = (input: string, link?: string) => {
+  if (!link) return input;
+
+  const linkRegex = /<<([^>]+)>>/g;
   return input.replace(linkRegex, (_match, text) => {
     return `<a class="extLink" href="${link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
   });
 };
 
-const bites = jsonData as BiteI[];
+const processedBites = computed(() => {
+  return bites.map((bite) => ({
+    ...bite,
+    processedTitle: processString(bite.title, bite.link),
+  }));
+});
 </script>
 
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <main class="container">
     <ul class="biteList">
-      <li v-for="bite in bites" :key="bite.id" class="bite">
+      <li v-for="bite in processedBites" :key="bite.id" class="bite">
         <p class="yearColor">{{ bite.year }}</p>
-        <p class="biteText" v-html="processString(bite.title, bite.link)" />
+        <p class="biteText" v-html="bite.processedTitle" />
       </li>
     </ul>
   </main>
