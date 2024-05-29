@@ -2,7 +2,7 @@
 defineProps({
   src: { type: String },
   alt: { type: String },
-  isFloat: { type: Boolean, default: true },
+  center: { type: Boolean, default: false },
   sizes: { type: String, default: "100px md:200px" },
   inPost: { type: Boolean, default: false },
 });
@@ -10,7 +10,7 @@ defineProps({
 
 <template>
   <NuxtImg
-    :class="{ isFloat: isFloat, imgStyle: !inPost, inPost: inPost }"
+    :class="{ center: center, imgStyle: !inPost, inPost: inPost }"
     :src="src"
     :alt="alt"
     :sizes="sizes"
@@ -19,9 +19,8 @@ defineProps({
 </template>
 
 <style scoped>
-.isFloat {
-  float: right;
-  border-radius: 30%;
+.center {
+  margin: 0 auto;
 }
 .imgStyle {
   padding: 0 0 0.5rem 0.5rem;

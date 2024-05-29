@@ -8,9 +8,9 @@ technology: ["Android", "MapboxAPI", "GoogleMapsAPI", "Firebase"]
 
 # TastyTravel
 
-:pic{ src="images/project/tastytravel.png" alt="tastytravel icon" }
+This Android app that users search for meeting places between two locations based on equitravelling time. It was a pair programmed third year project that I was extremely proud of.
 
-Android app that let users search for meeting places between two locations based on equitravelling time.
+:pic{ src="images/project/tastytravel.png" alt="tastytravel icon" :center=true }
 
 TastyTravel is an Android app built with Android Studio 3.6.1. The app allows one person to search for places for two parties to meet and the given results depend on their chosen mode of transport. The aim of the app is to return locations on an interactive Google Map that each party can arrive at roughly at the same time. They can choose to search for either Bars, Cafes, or Restaurants.
 

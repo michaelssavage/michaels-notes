@@ -41,7 +41,7 @@ http://localhost:3000/callback?code=AQC7P..gBoDU
 
 The `client_id:client_secret` combination needs to be encoded in Base64 format. You can use a function or a site like :pretty-link{ link="https://www.base64encode.org/." external }
 
-:pic{ src="images/blog/base64.png" alt="base64 of client id and client secret" :isFloat="false" :inPost="true" sizes="1200px" }
+:pic{ src="images/blog/base64.png" alt="base64 of client id and client secret" :inPost="true" sizes="1200px" }
 
 I used Postman for sending the requests but here is the URL, Headers, and Body. You can also view the :pretty-link{ link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" text="linked blog" external } for the `curl` request method.
 

@@ -6,7 +6,7 @@ description: "A 4th Year project I completed in 2021 focused on a concurrent cli
 
 # B2B Order System
 
-A 4th Year project I completed in 2021 focused on a concurrent client/ server model using a clean interface and backend. There's even a short :pretty-link{ link="https://www.youtube.com/watch?v=QR2c3D1hUAM" text="YouTube video" external } going through the walkthrough.
+A 4th Year project I completed in 2021 focused on a concurrent client/ server model using a clean interface and backend.
 
 It was one of the more difficult assignments I undertook in University, but the most rewarding. When I finally turned the corner and got to grips with React.js, I started to really enjoy frontend development. The learning curve was big and there was many stressful moments early on, but it has since allowed me to learn Next.js, make use of Typescript, and pick up other frameworks like Nuxt.js faster.
 

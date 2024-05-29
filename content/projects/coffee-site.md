@@ -8,9 +8,9 @@ technology: ["Next.js", "Nest.js", "PostgreSQL"]
 
 # Coffee Site
 
-:pic{ src="images/project/coffee.jpg" alt="coffee icon" }
+This project was completed for a coding interview challenge. It used PostgreSQL, a Nest.js backend, and a Next.js frontend. I used SCSS for styling and I learned how to use Nest.js and the new app router in Next.js for the first time.
 
-This project was a coding interview challenge I completed. It used PostgreSQL, a Nest.js backend, and a Next.js frontend. I used SCSS for styling and I learned how to use Nest.js and the new app router in Next.js for the first time.
+:pic{ src="images/project/coffee.jpg" alt="coffee icon" :center=true }
 
 ## Features
 
@@ -21,8 +21,8 @@ This project was a coding interview challenge I completed. It used PostgreSQL, a
 
 ## Landing Page
 
-:pic{ src="/images/project/coffee-home.png" alt="Home page of the coffee app" :isFloat=false sizes="1200px" }
+:pic{ src="/images/project/coffee-home.png" alt="Home page of the coffee app" sizes="1200px" }
 
 ## Filterable Products
 
-:pic{ src="/images/project/coffee-list.png" alt="A list of coffee cards" :isFloat=false sizes="1200px" }
+:pic{ src="/images/project/coffee-list.png" alt="A list of coffee cards" sizes="1200px" }

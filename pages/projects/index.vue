@@ -23,11 +23,8 @@ useHead({
                   :alt="project.title"
                   :placeholder="[500, 300, 10]"
                 />
-                <p class="tech">
-                  {{ joinTags(project.technology) }}
-                </p>
+                <p class="view">View More</p>
               </div>
-              <p class="title">{{ project.id }}. {{ project.title }}</p>
             </NuxtLink>
           </div>
         </div>
@@ -60,18 +57,6 @@ useHead({
   flex: 0 0 auto;
   width: 33.333%;
   padding: 1rem 0.25rem 0 0.25rem;
-  &:hover {
-    img {
-      filter: blur(2px);
-      -webkit-filter: blur(2px);
-    }
-    .title {
-      font-weight: bold;
-    }
-    .tech {
-      opacity: 1;
-    }
-  }
   @include for-tablet-only {
     width: 50%;
   }
@@ -92,28 +77,34 @@ useHead({
 .overlay {
   position: relative;
   width: 99%;
-}
-
-.tech {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 4;
-  opacity: 0;
-  font-size: 1.2rem;
-  padding: 1rem 0.5rem;
-  transition: opacity 0.25s;
-  color: $background;
-  background-color: rgb(25, 25, 25, 0.4);
   height: 100%;
-  @include for-phone-only {
-    font-size: 1rem;
-  }
-}
 
-.title {
-  text-align: center;
-  font-style: italic;
+  .view {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    opacity: 0;
+    font-size: 1.2rem;
+    padding: 2rem 0.5rem;
+    transition: opacity 0.25s;
+    color: $background;
+    text-shadow: 3px 2px 4px #191919;
+    height: 100%;
+    @include for-phone-only {
+      font-size: 1rem;
+    }
+  }
+
+  &:hover {
+    img {
+      filter: blur(3px);
+      -webkit-filter: blur(3px);
+    }
+    .view {
+      opacity: 1;
+    }
+  }
 }
 </style>

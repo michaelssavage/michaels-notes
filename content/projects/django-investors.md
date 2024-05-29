@@ -8,9 +8,9 @@ technology: ["Django", "PostgreSQL"]
 
 # Django Investors
 
-:pic{ src="images/project/invest.jpg" alt="coffee icon" }
-
 This project was a coding interview challenge I completed in a week. It is a Django application that automated the creation of bills and cash calls for an investor. A cash call is an invoice consisting of a group bills. Generated bills and cash calls were stored in PostgreSQL. Once cash calls were validated in the GUI, a PDF invoice could be generated.
+
+:pic{ src="images/project/invest.jpg" alt="coffee icon" :center=true }
 
 An initial CSV of investors and investments was given. I gave two options for creating the cash calls.
 

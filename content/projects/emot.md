@@ -8,9 +8,9 @@ technology: ["Python", "PYQT5", "BeautifulSoup", "SpaCy", "SciKit-Learn"]
 
 # eMot
 
-:pic{ src="images/project/emot.png" alt="emot icon" }
-
 My final year project was a customisable client based emotion classifier built using PYQT5 and QT Designer. The Python GUI application used data extraction, natural language processing, emotion classification, and machine learning to judge the sentiment of textual material being read online by a user.
+
+:pic{ src="images/project/emot.png" alt="emot icon" :center=true }
 
 ## Technical Steps
 
