@@ -4,16 +4,6 @@ import type { ProjectContent } from "~/types/Post";
 useHead({
   title: "My Projects",
 });
-
-const sortedItems = (projects: ProjectContent[]) => {
-  return projects.slice().sort((a, b) => a.id - b.id);
-};
-</script>
-
-<script lang="ts">
-export const joinTags = (tags: Array<string>) => {
-  return tags.map((tag) => `#${tag}`).join(" ");
-};
 </script>
 
 <template>
@@ -22,7 +12,7 @@ export const joinTags = (tags: Array<string>) => {
       <template #default="{ list }">
         <div class="row">
           <div
-            v-for="project in sortedItems(list as ProjectContent[])"
+            v-for="project in sortById(list as ProjectContent[])"
             :key="project.id"
             class="col"
           >

@@ -5,23 +5,45 @@ useHead({
   title: "My Blog",
 });
 
+const searchQuery = ref("");
+const blogs = ref<BlogContent[]>([]);
 const external = ref(true);
 const onSite = ref(true);
 
-const filteredItems = (list: BlogContent[]) => {
-  return list.filter((item) => {
+const filtered = computed(() => {
+  const search = blogs.value.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+
+  return search.filter((item) => {
     if (item.draft) return false;
     if (external.value && onSite.value) return true;
     if (onSite.value) return !item.external;
     if (external.value) return item.external;
     return false;
   });
+});
+
+const setList = (list: BlogContent[]) => {
+  blogs.value = list;
 };
 </script>
 
 <template class="page">
   <main>
     <div class="container">
+      <div class="searchWrapper">
+        <label class="sr-only" for="search-item">Search</label>
+        <div class="searchBox">
+          <input
+            id="search-item"
+            v-model="searchQuery"
+            placeholder="Search Blogs..."
+            type="search"
+          />
+          <IconsSearch class="searchIcon" />
+        </div>
+      </div>
       <div class="colorKey">
         <IconsHand class="hand" />
         <p :class="{ unused: !onSite }" @click="onSite = !onSite">
@@ -31,8 +53,16 @@ const filteredItems = (list: BlogContent[]) => {
           <IconsCircle color="#3d89fb" /> = Plant Bass'd
         </p>
       </div>
-      <LazyContentList v-slot="{ list }" path="/blog">
-        <Post :list="filteredItems(list as BlogContent[])" />
+      <LazyContentList path="/blog">
+        <template #default="{ list }">
+          <Post :list="filtered" />
+          <div v-if="list.length" v-cloak>
+            {{ setList(list as BlogContent[]) }}
+          </div>
+        </template>
+        <template #not-found>
+          <p>No articles found.</p>
+        </template>
       </LazyContentList>
     </div>
     <LazyBall />
@@ -55,15 +85,49 @@ const filteredItems = (list: BlogContent[]) => {
   gap: 1rem;
 }
 
-.formSearch {
+.searchWrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  input {
-    border-radius: 0.25rem;
-    &:focus {
-      outline: solid 2px $mint;
+  width: 100%;
+
+  .sr-only {
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    clip: rect(0, 0, 0, 0);
+    border-width: 0;
+    white-space: nowrap;
+  }
+
+  .searchBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      border-color: $text;
+      border-width: 2px;
+      border-radius: 9999px;
+      width: 100%;
+      &:focus {
+        outline: solid 2px $mint;
+      }
+    }
+
+    .searchIcon {
+      color: $text;
+      position: absolute;
+      left: 0.5rem;
+      height: 1.5rem;
+      width: 1.5rem;
+      background-color: transparent;
+      color: $hover-text;
     }
   }
 }

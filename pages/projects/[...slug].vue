@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { joinTags } from "./index.vue";
+const route = useRoute();
+
+useHead({
+  title: route.meta.title || "My Projects",
+});
 </script>
 
 <template>

@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const route = useRoute();
+
+useHead({
+  title: route.meta.title || "My Blog",
+});
+</script>
 
 <template>
   <article class="container">

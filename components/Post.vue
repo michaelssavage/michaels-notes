@@ -4,18 +4,9 @@ import type { BlogContent } from "~/types/Post";
 defineProps<{
   list: BlogContent[];
 }>();
-
-const sortByDate = (posts: BlogContent[]) => {
-  return posts.sort(
-    (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
-  );
-};
 </script>
 
 <template>
-  <div v-if="list.length == 0" class="postItem">
-    <div class="card">No posts to display</div>
-  </div>
   <div v-for="post in sortByDate(list)" :key="post._path" class="postItem">
     <div class="card">
       <div class="cardInfo">
