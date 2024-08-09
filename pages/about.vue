@@ -45,7 +45,9 @@ onServerPrefetch(async () => {
         <p>
           I studied Computer Applications in DCU and started working with Jaguar
           Land Rover, Shannon in 2021 where I learned to work with REST APIs
-          using Spring Boot and React.js early on.
+          using Spring Boot and React.js early on. I'm currently working with a
+          startup in the heart of Barcelona, TalentBait, as a frontend
+          developer.
         </p>
         <p>
           I'm passionate about films, and I love sharing and keeping track of
