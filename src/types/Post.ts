@@ -1,6 +1,4 @@
-import type { ParsedContent } from "@nuxt/content/dist/runtime/types";
-
-export interface BlogContent extends ParsedContent {
+export interface BlogContent {
   _path: string;
   title: string;
   date: string;
@@ -8,10 +6,13 @@ export interface BlogContent extends ParsedContent {
   description: string;
 }
 
-export interface ProjectContent extends ParsedContent {
-  _path: string;
+export interface ProjectContent {
   id: number;
+  slug: string;
   image: string;
   title: string;
+  date: string;
   technology: Array<string>;
+  github?: string;
+  code: string;
 }

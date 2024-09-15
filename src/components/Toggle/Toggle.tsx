@@ -21,17 +21,18 @@ export const Toggle = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <input
         id="toggle_checkbox"
         type="checkbox"
         checked={isChecked}
         onChange={toggleTheme}
+        className={styles.toggler}
       />
-      <label htmlFor="toggle_checkbox">
+      <label htmlFor="toggle_checkbox" className={styles.icon}>
         <SunIcon id="star" />
         <MoonIcon id="moon" />
       </label>
-    </div>
+    </>
   );
 };

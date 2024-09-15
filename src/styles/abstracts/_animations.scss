@@ -1,16 +1,20 @@
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+@mixin expand-and-appear() {
+  $keyframeName: unique-id();
 
-.expandAndAppear {
-  animation: appear 0.5s ease-in-out forwards;
+  @keyframes #{$keyframeName} {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  & {
+    animation: $keyframeName 0.5s ease-in-out forwards;
+  }
 }
 
 @keyframes bounce {
@@ -73,7 +77,9 @@
     }
   }
 
-  animation: $keyframeName $duration $fill-mode;
+  & {
+    animation: $keyframeName $duration $fill-mode;
+  }
 }
 
 @mixin flash-animation() {
@@ -91,5 +97,35 @@
     }
   }
 
-  animation: $keyframeName 1.25s ease-in-out;
+  & {
+    animation: $keyframeName 1.25s ease-in-out;
+  }
+}
+
+@mixin shimmer-animation() {
+  $keyframeName: unique-id();
+
+  @keyframes #{$keyframeName} {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  & {
+    animation: $keyframeName 1.5s infinite;
+  }
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.1s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
 }

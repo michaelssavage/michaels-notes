@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Icon from "../components/Icon";
+import Icon from "@/components/Icon";
 import {
   GithubIcon,
   LinkedInIcon,
   MailIcon,
   SpotifyIcon,
-} from "../components/icons";
-import styles from "../styles/home.module.scss";
+} from "@/components/icons";
+import styles from "@/styles/home.module.scss";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -20,7 +20,7 @@ function Home() {
       </h1>
       <p>
         I'm a Software Developer from Ireland that enjoys React.js, Typescript,
-        Python, and Spring Boot. My world revolves around
+        Python, and Spring Boot. My world revolves around{" "}
         <span className="underline">
           electronic music, movies, rugby, and travelling
         </span>
