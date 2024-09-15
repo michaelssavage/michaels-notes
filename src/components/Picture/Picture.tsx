@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { type CSSProperties, useState } from "react";
 import styles from "./Picture.module.scss";
 
 interface Props {
@@ -12,7 +12,7 @@ export const Picture = ({ src, alt, style }: Props) => {
 
   return (
     <div className={`${styles.wrapper} ${style}`}>
-      {!loaded && <div className={styles.placeholder}></div>}
+      {!loaded && <div className={styles.placeholder} />}
       <img
         src={src}
         alt={alt}

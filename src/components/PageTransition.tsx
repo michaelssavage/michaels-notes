@@ -1,5 +1,5 @@
 import { useLocation } from "@tanstack/react-router";
-import { ReactNode, useRef } from "react";
+import { type ReactNode, useRef } from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 interface Props {

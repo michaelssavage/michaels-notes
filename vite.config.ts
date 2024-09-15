@@ -1,54 +1,35 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import path from "node:path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import matter from "gray-matter";
-import fs from "fs";
-import path from "path";
+import react from "@vitejs/plugin-react";
+import { type Plugin, defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { bundleMDX } from "mdx-bundler";
+import { getContentPosts } from "./src/lib/getPosts";
 
-const globals = {
-  "@mdx-js/react": {
-    varName: "MdxJsReact",
-    namedExports: ["useMDXComponents"],
-    defaultExport: false,
-  },
-};
+async function getPostsData() {
+  const contentDir = path.resolve(__dirname, "src/content");
+  return await getContentPosts(contentDir);
+}
 
-const projectPosts = await Promise.all(
-  fs
-    .readdirSync(path.resolve(__dirname, "src/content/projects"))
-    .filter((file) => file.endsWith(".mdx"))
-    .map(async (file) => {
-      const filePath = path.resolve(__dirname, "src/content/projects", file);
-      const source = fs.readFileSync(filePath, "utf-8");
-      const { data, content } = matter(source);
-
-      const { code } = await bundleMDX({
-        source: content,
-        cwd: path.resolve(__dirname, "src"),
-        globals,
-        mdxOptions(options: Record<string, any>) {
-          return {
-            ...options,
-            providerImportSource: "@mdx-js/react",
-          };
-        },
-      });
-
+function postsPlugin(): Plugin {
+  return {
+    name: "posts-plugin",
+    async config() {
+      const postsData = await getPostsData();
       return {
-        ...data,
-        slug: file.replace(".mdx", ""),
-        code,
+        define: {
+          "import.meta.env.POSTS": JSON.stringify(postsData),
+        },
       };
-    })
-);
+    },
+  };
+}
 
 export default defineConfig({
   plugins: [
     TanStackRouterVite({}),
     react({ include: /\.(mdx|tsx|ts)$/ }),
     tsconfigPaths(),
+    postsPlugin(),
   ],
   build: {
     rollupOptions: {
@@ -56,9 +37,6 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
       },
     },
-  },
-  define: {
-    "import.meta.env.BLOG_POSTS": JSON.stringify(projectPosts),
   },
   css: {
     preprocessorOptions: {

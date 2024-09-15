@@ -6,6 +6,8 @@ interface IconProps {
 export const CircleIcon = ({ color, size = "24" }: IconProps) => {
   return (
     <svg
+      role="img"
+      aria-label="circle icon"
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}

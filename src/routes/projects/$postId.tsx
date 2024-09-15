@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PagePath } from "@/components/PagePath";
-import { Button } from "@/components/Button";
-import { ProjectContent } from "@/types/Post";
 import { joinTags } from "@/assets/utils";
-import styles from "@/styles/projects.module.scss";
-import { Suspense } from "react";
+import { Button } from "@/components/Button";
 import { Markdown } from "@/components/Markdown";
+import { PagePath } from "@/components/PagePath";
+import styles from "@/styles/projects.module.scss";
+import type { IPosts } from "@/types/Post";
+import { createFileRoute } from "@tanstack/react-router";
+import { Suspense } from "react";
 
 export const Route = createFileRoute("/projects/$postId")({
   component: Slug,
@@ -13,9 +13,8 @@ export const Route = createFileRoute("/projects/$postId")({
 
 function Slug() {
   const { postId } = Route.useParams();
-  const doc: ProjectContent = import.meta.env.BLOG_POSTS.find(
-    (post: ProjectContent) => post.slug === postId
-  );
+  const { projects }: IPosts = import.meta.env.POSTS;
+  const doc = projects.find((post) => post.slug === postId);
 
   if (!doc) {
     return <div>Blog post not found</div>;

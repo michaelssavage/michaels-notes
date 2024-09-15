@@ -1,9 +1,10 @@
-import { Picture } from "./Picture";
-import { ReactNode } from "@tanstack/react-router";
-import { MDXComponents } from "node_modules/@mdx-js/react/lib";
-import { getMDXComponent } from "mdx-bundler/client";
-import { useMemo } from "react";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
+import type { ReactNode } from "@tanstack/react-router";
+import { getMDXComponent } from "mdx-bundler/client";
+import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
+import { useMemo } from "react";
+import { BlogLink } from "./BlogLink/BlogLink";
+import { Picture } from "./Picture";
 
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
@@ -13,6 +14,7 @@ const MDX_GLOBAL_CONFIG = {
 
 const components: MDXComponents = {
   Picture,
+  BlogLink,
 };
 
 interface MarkdownProps {

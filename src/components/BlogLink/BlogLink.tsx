@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import type { CSSProperties } from "react";
 import styles from "./BlogLink.module.scss";
-import { CSSProperties } from "react";
 
 interface Props {
   link: string;

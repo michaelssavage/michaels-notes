@@ -1,9 +1,11 @@
-import { SVGProps } from "react";
+import type { SVGProps } from "react";
 
 export const MoonIcon = ({ id }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       id={id}
+      role="img"
+      aria-label="moon icon"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

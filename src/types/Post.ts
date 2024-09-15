@@ -1,4 +1,4 @@
-export interface BlogContent {
+export interface IBlog {
   _path: string;
   title: string;
   date: string;
@@ -6,7 +6,7 @@ export interface BlogContent {
   description: string;
 }
 
-export interface ProjectContent {
+export interface IProject {
   id: number;
   slug: string;
   image: string;
@@ -15,4 +15,9 @@ export interface ProjectContent {
   technology: Array<string>;
   github?: string;
   code: string;
+}
+
+export interface IPosts {
+  projects: IProject[];
+  blog: IBlog[];
 }
