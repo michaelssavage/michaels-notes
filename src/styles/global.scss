@@ -41,9 +41,10 @@ h6 {
 .container {
   display: flex;
   flex-flow: row wrap;
-  margin: 0 15% 2rem 15%;
+  margin: 0 15% 2rem;
+  padding-bottom: 1rem;
   @include for-phone-only {
-    margin: 0 5% 2rem 5%;
+    margin: 0 5% 2rem;
   }
 }
 

@@ -1,6 +1,6 @@
 import { Toggle } from "../Toggle";
-import styles from "./Navbar.module.scss";
 import { NavLink } from "./NavLink";
+import styles from "./Navbar.module.scss";
 
 export const Navbar = () => {
   return (
@@ -9,16 +9,8 @@ export const Navbar = () => {
         <NavLink to="/" text="Home" />
         <NavLink to="/about" text="About" />
         <NavLink to="/projects" text="Projects" />
-        {/* <Link
-          to="/blog"
-          activeProps={{
-            className: "router-link-active",
-          }}
-        >
-          Blog
-        </Link>
-        
-        <Link to="/bites"> Bites </Link> */}
+        <NavLink to="/blog" text="Blog" />
+        {/* <Link to="/bites"> Bites </Link> */}
       </nav>
       <Toggle />
     </header>

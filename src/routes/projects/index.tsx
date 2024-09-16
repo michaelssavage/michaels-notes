@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 export const Route = createFileRoute("/projects/")({
   component: Projects,
 });
+
 const { projects }: IPosts = import.meta.env.POSTS;
 
 function Projects() {

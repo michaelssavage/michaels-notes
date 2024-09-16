@@ -1,4 +1,4 @@
-export const HandIcon = () => {
+export const HandIcon = ({ ...rest }) => {
   return (
     <svg
       role="img"
@@ -12,6 +12,7 @@ export const HandIcon = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      {...rest}
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" />

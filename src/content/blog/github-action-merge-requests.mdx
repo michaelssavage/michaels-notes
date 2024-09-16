@@ -1,8 +1,10 @@
 ---
+title: Merge requests with Github Actions
 date: august 9, 2024
+description: "Managing dependencies across multiple repositories can be challenging and so so time-consuming. In our project, we have four private Github repositories, with one of these serving as a shared package, called 'shared-components'."
 ---
 
-# Merge requests with Github Actions
+# {props.title}
 
 Managing dependencies across multiple repositories can be challenging and so so time-consuming. In our project, we have four private Github repositories, with one of these serving as a shared package, called "shared-components". This package is published to NPM and installed as a dependency in the other projects.
 
@@ -93,8 +95,6 @@ Here's a breakdown of the workflow:
 7. **Pull Request Creation**: The peter-evans/create-pull-request action is used to create a pull request with a descriptive title and body, targeting the main branch.
 8. **Security**: The workflow uses GitHub secrets (GITHUB_TOKEN and NPM_TOKEN) to securely handle authentication for both GitHub and NPM operations.
 
-```tex
-💡 Note: If your NPM package is private, you'll need to set up an NPM_TOKEN secret in your GitHub repository to allow the action to access the private registry.
-```
+> 💡 Note: If your NPM package is private, you'll need to set up an NPM_TOKEN secret in your GitHub repository to allow the action to access the private registry.
 
 By leveraging this GitHub Action, you can maintain consistency across your repositories more efficiently, allowing your team to focus on developing features rather than managing dependencies manually.

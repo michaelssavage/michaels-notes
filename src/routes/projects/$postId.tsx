@@ -1,5 +1,5 @@
 import { joinTags } from "@/assets/utils";
-import { Button } from "@/components/Button";
+import { Anchor } from "@/components/Anchor";
 import { Markdown } from "@/components/Markdown";
 import { PagePath } from "@/components/PagePath";
 import { Picture } from "@/components/Picture";
@@ -23,12 +23,6 @@ function Slug() {
   }
 
   const imageSrc = new URL(`../../assets/${doc.image}`, import.meta.url).href;
-
-  const handleClick = () => {
-    if (doc.github) {
-      window.open(doc.github, "_blank", "noopener,noreferrer");
-    }
-  };
 
   return (
     <AnimatePresence mode="wait">
@@ -56,11 +50,7 @@ function Slug() {
             <Markdown content={doc} />
             <p className={styles.tags}>{joinTags(doc.technology)}</p>
             {doc.github && (
-              <Button
-                text="GitHub Link"
-                variant="primary"
-                onClick={handleClick}
-              />
+              <Anchor text="GitHub Link" link={doc.github} external />
             )}
           </div>
         </Suspense>

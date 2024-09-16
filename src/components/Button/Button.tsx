@@ -1,21 +1,26 @@
+import type { CSSProperties, ReactElement } from "react";
 import styles from "./Button.module.scss";
 
 interface Props {
+  text: string;
   disabled?: boolean;
   type?: "submit" | "button";
-  text: string;
-  variant: string;
+  variant?: "primary" | "secondary" | "ghost";
+  icon?: ReactElement;
   onClick?: () => void;
+  style?: string;
 }
 
 export const Button = ({
+  text,
   disabled,
   type = "button",
-  text,
-  variant,
+  variant = "primary",
+  icon,
   onClick,
+  style = "",
 }: Props) => {
-  const buttonClasses = `${styles.button} ${styles[variant]}`;
+  const buttonClasses = `${styles.button} ${styles[variant]} ${style}`;
 
   return (
     <button
@@ -24,7 +29,7 @@ export const Button = ({
       onClick={onClick}
       className={buttonClasses}
     >
-      {text}
+      {text} {icon}
     </button>
   );
 };

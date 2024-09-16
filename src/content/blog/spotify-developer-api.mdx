@@ -1,21 +1,20 @@
 ---
+title: Spotify Developer API
 date: may 19, 2024
 description: "On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up."
 ---
 
-# Spotify Developer API
+# {props.title}
 
-On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was a fun challenge to implement, helped by this blog <BlogLink  link="https://navidanindya.info/writing/spotify-now-playing-nuxt/." external /> Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up.
+On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was a fun challenge to implement, helped by this blog <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/." variant="blog" external /> Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up.
 
 ## Create an App on the Spotify Developer Dashboard
 
-Visit the <BlogLink link="https://developer.spotify.com/dashboard/" text="Spotify Developer Dashboard" external /> and log in with your Spotify credentials to create a new app.
+Visit the <Anchor link="https://developer.spotify.com/dashboard/" text="Spotify Developer Dashboard" variant="blog" external /> and log in with your Spotify credentials to create a new app.
 
 This generates a `Client ID` and `Client Secret` and which you'll want to save. Set the redirect URI to the local version of your site. It might be something like `http:localhost:3000` for you.
 
-```tex
-💡 If you deploy your site later, you will need to update the redirect URI to match the deployed site's URL.
-```
+> 💡 If you deploy your site later, you will need to update the redirect URI to match the deployed site's URL.
 
 ## Get an Auth Code
 
@@ -25,7 +24,7 @@ To authorize your account, you need to create a URL that logs into Spotify and g
 - The `redirect_uri`.
 - The appropriate scopes for the information you want. I needed the current playing track and my top tracks, so I included all three scopes below.
 
-```bash
+```shell
 https://accounts.spotify.com/authorize?client_id=<CLIENT_ID_HERE>&
 response_type=code&redirect_uri=<REDIRECT_URI_HERE>&
 scope=user-read-currently-playing,user-read-playback-state,user-read-recently-played,user-top-read
@@ -33,22 +32,22 @@ scope=user-read-currently-playing,user-read-playback-state,user-read-recently-pl
 
 After authorization, you will be redirected back to your site with a code query parameter in the URL. This code is needed to obtain the refresh token.
 
-```bash
+```shell
 http://localhost:3000/callback?code=AQC7P..gBoDU
 ```
 
 ## Get Refresh Token
 
-The `client_id:client_secret` combination needs to be encoded in Base64 format. You can use a function or a site like <BlogLink link="https://www.base64encode.org/." external />
+The `client_id:client_secret` combination needs to be encoded in Base64 format. You can use a function or a site like <Anchor link="https://www.base64encode.org/." variant="blog" external />
 
 <Picture
   src="images/blog/base64.png"
   alt="base64 of client id and client secret"
 />
 
-I used Postman for sending the requests but here is the URL, Headers, and Body. You can also view the <BlogLink link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" text="linked blog" external /> for the `curl` request method.
+I used Postman for sending the requests but here is the URL, Headers, and Body. You can also view the <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" text="linked blog" variant="blog" external /> for the `curl` request method.
 
-```bash
+```shell
 POST: https://accounts.spotify.com/api/token
 
 Headers: {
@@ -69,7 +68,7 @@ The important field here is the `refresh_token`. This token doesn’t expire, so
 
 Obtaining the access token follows the same process as getting the refresh token. Simply replace the code with the `refresh_token`.
 
-```bash
+```shell
 POST: https://accounts.spotify.com/api/token
 
 Headers: {
@@ -99,7 +98,7 @@ The important field this time is the `access_token`. This token expires in one h
 
 To get the currently playing track, send a GET request using the `access_token` you received.
 
-```bash
+```shell
 GET: https://api.spotify.com/v1/me/player/currently-playing
 
 Headers: {
@@ -130,7 +129,7 @@ If successful, a large JSON object will be returned with extensive information. 
 
 To get the top tracks you've listened to, send a GET request using the same `access_token` you received. There are two optional query parameters I've included. The long term `time_range` looks at listening history over the past year and the `limit` is set to return 5 items only.
 
-```bash
+```shell
 GET: https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5
 
 Headers: {

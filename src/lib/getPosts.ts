@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { bundleMDX } from "mdx-bundler";
 import rehypeMdxImportMedia from "rehype-mdx-import-media";
+import rehypeStarryNight from "rehype-starry-night";
 
 const globals = {
   "@mdx-js/react": {
@@ -29,6 +30,7 @@ async function processMDXFiles(directory: string) {
           options.rehypePlugins = [
             ...(options.rehypePlugins ?? []),
             rehypeMdxImportMedia,
+            rehypeStarryNight,
           ];
           return {
             ...options,
