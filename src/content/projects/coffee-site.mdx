@@ -1,16 +1,19 @@
 ---
 id: 5
+title: Coffee Site
 date: march 5, 2024
 image: "images/project/coffee.jpg"
 github: "https://github.com/michaelssavage/coffee-site"
 technology: ["Next.js", "Nest.js", "PostgreSQL"]
 ---
 
-# Coffee Site
+import home from "src/assets/images/project/coffee-home.png";
+
+import cards from "src/assets/images/project/coffee-list.png";
+
+# {props.title}
 
 This project was completed for a coding interview challenge. It used PostgreSQL, a Nest.js backend, and a Next.js frontend. I used SCSS for styling and I learned how to use Nest.js and the new app router in Next.js for the first time.
-
-<Picture src="images/project/coffee.jpg" alt="coffee icon" />
 
 ## Features
 
@@ -21,11 +24,8 @@ This project was completed for a coding interview challenge. It used PostgreSQL,
 
 ## Landing Page
 
-<Picture
-  src="/images/project/coffee-home.png"
-  alt="Home page of the coffee app"
-/>
+<Picture src={home} alt="Home page of the coffee app" />
 
 ## Filterable Products
 
-<Picture src="/images/project/coffee-list.png" alt="A list of coffee cards" />
+<Picture src={cards} alt="A list of coffee cards" />

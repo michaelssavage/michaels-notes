@@ -5,12 +5,14 @@
   color: var(--text);
   img {
     cursor: pointer;
-    transition: filter 0.3s;
+    will-change: transform;
   }
 }
 
 .wrap {
   display: grid;
+  overflow: hidden;
+  will-change: transform;
 
   & > * {
     grid-column: 1;
@@ -36,6 +38,7 @@
     img {
       filter: blur(3px);
       -webkit-filter: blur(3px);
+      transform: scale(1.05);
     }
     .view {
       opacity: 1;
@@ -75,4 +78,11 @@
     width: 90%;
     position: static;
   }
+}
+
+.projectDetailImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  will-change: transform;
 }

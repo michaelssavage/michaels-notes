@@ -18,18 +18,24 @@ const components: MDXComponents = {
 };
 
 interface MarkdownProps {
-  content: ReactNode;
+  content: {
+    code: ReactNode;
+    title: string;
+  };
 }
 
 export const Markdown = ({ content }: MarkdownProps) => {
-  console.log("!!!", content);
   const Component = useMemo(() => {
-    return getMDXComponent(content, MDX_GLOBAL_CONFIG);
+    return getMDXComponent(content.code, MDX_GLOBAL_CONFIG);
   }, [content]);
+
+  console.log("!!!", {
+    content,
+  });
 
   return (
     <MDXProvider components={components}>
-      <Component />
+      <Component title={content.title} />
     </MDXProvider>
   );
 };

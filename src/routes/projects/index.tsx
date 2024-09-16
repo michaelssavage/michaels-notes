@@ -3,6 +3,7 @@ import { Picture } from "@/components/Picture";
 import styles from "@/styles/projects.module.scss";
 import type { IPosts } from "@/types/Post";
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/projects/")({
   component: Projects,
@@ -14,17 +15,25 @@ function Projects() {
     <main className="container">
       <div className="row">
         {projects.sort(sortById).map((project) => (
-          <div className="col" key={project.id}>
-            <Link to={project.slug} className={styles.projectImg}>
-              <div className={styles.wrap}>
-                <Picture
-                  src={`src/assets/${project.image}`}
-                  alt={project.title}
-                />
-                <p className={styles.view}>View More</p>
-              </div>
+          <motion.div
+            key={project.id}
+            className="col"
+            layoutId={`project-image-${project.id}`}
+          >
+            <Link
+              to={project.slug}
+              className={`${styles.wrap} ${styles.projectImg}`}
+            >
+              <Picture
+                src={
+                  new URL(`../../assets/${project.image}`, import.meta.url).href
+                }
+                alt={project.title}
+                loading="eager"
+              />
+              <p className={styles.view}>View More</p>
             </Link>
-          </div>
+          </motion.div>
         ))}
       </div>
     </main>

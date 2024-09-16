@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 import rehypeMdxImportMedia from "rehype-mdx-import-media";
 
@@ -20,10 +19,9 @@ async function processMDXFiles(directory: string) {
     files.map(async (file) => {
       const filePath = path.resolve(directory, file);
       const source = fs.readFileSync(filePath, "utf-8");
-      const { data, content } = matter(source);
 
-      const { code } = await bundleMDX({
-        source: content,
+      const { code, frontmatter } = await bundleMDX({
+        source: source,
         cwd: path.resolve(__dirname),
         globals,
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -48,7 +46,7 @@ async function processMDXFiles(directory: string) {
       });
 
       return {
-        ...data,
+        ...frontmatter,
         slug: file.replace(".mdx", ""),
         code,
       };

@@ -15,8 +15,9 @@ export const PageTransition = ({ children }: Props) => {
         key={location.pathname}
         nodeRef={nodeRef}
         classNames="page"
-        timeout={100}
-        unmountOnExit
+        addEndListener={(node, done) =>
+          node.addEventListener("transitionend", done, false)
+        }
       >
         <div ref={nodeRef}>{children}</div>
       </CSSTransition>

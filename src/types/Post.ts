@@ -1,5 +1,4 @@
 export interface IBlog {
-  _path: string;
   title: string;
   date: string;
   external?: string;

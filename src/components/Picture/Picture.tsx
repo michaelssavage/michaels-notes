@@ -5,9 +5,10 @@ interface Props {
   src: string;
   alt: string;
   style?: CSSProperties;
+  loading?: "lazy" | "eager";
 }
 
-export const Picture = ({ src, alt, style }: Props) => {
+export const Picture = ({ src, alt, style, loading = "lazy" }: Props) => {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -16,8 +17,8 @@ export const Picture = ({ src, alt, style }: Props) => {
       <img
         src={src}
         alt={alt}
-        className={`${styles.image} ${loaded ? styles.loaded : styles.loading}`}
-        loading="lazy"
+        className={`${styles.image} ${loaded ? styles.loaded : undefined}`}
+        loading={loading}
         onLoad={() => setLoaded(true)}
         style={style}
       />
