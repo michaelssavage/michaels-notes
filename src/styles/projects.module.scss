@@ -48,9 +48,9 @@
 
 // slug
 
-.container {
+.article {
   margin: 2rem auto;
-  width: 40%;
+  width: 50%;
 
   @include for-phone-only {
     width: 90%;
@@ -71,9 +71,6 @@
 }
 
 .paths {
-  position: absolute;
-  top: 0.6rem;
-  left: -12rem;
   @include for-tablet-only {
     left: -9rem;
   }

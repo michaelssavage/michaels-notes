@@ -1,6 +1,5 @@
 import type { IBlog } from "@/types/Post";
 import { Anchor } from "../Anchor";
-import { ExternalLinkIcon } from "../icons";
 import styles from "./Post.module.scss";
 
 export const Post = ({ title, date, description, external, slug }: IBlog) => {
@@ -15,7 +14,6 @@ export const Post = ({ title, date, description, external, slug }: IBlog) => {
           {external ? (
             <Anchor
               link={external}
-              icon={<ExternalLinkIcon />}
               text="Read More"
               style={{ width: "10rem" }}
               external

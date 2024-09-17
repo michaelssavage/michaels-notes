@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactElement } from "react";
+import type { ReactElement } from "react";
 import styles from "./Button.module.scss";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
   variant?: "primary" | "secondary" | "ghost";
   icon?: ReactElement;
   onClick?: () => void;
+  flex?: string;
   style?: string;
 }
 
@@ -18,9 +19,10 @@ export const Button = ({
   variant = "primary",
   icon,
   onClick,
+  flex = "",
   style = "",
 }: Props) => {
-  const buttonClasses = `${styles.button} ${styles[variant]} ${style}`;
+  const buttonClasses = `${styles.button} ${styles[variant]} ${flex} ${style}`;
 
   return (
     <button

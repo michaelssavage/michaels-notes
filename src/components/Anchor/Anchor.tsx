@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
+import { ExternalLinkIcon } from "../icons";
 import styles from "./Anchor.module.scss";
 
 interface Props {
@@ -19,7 +20,7 @@ export const Anchor = ({
   icon,
   style = {},
 }: Props) => {
-  const anchorClasses = `${styles.link} ${styles[variant]}`;
+  const anchorClasses = `${styles.link} ${styles[variant]} ${external ? styles.external : ""}`;
 
   return (
     <Link
@@ -29,7 +30,7 @@ export const Anchor = ({
       target={external ? "_blank" : undefined}
       style={style}
     >
-      {text ? text : link} {icon}
+      {text ? text : link} {external ? <ExternalLinkIcon /> : icon}
     </Link>
   );
 };

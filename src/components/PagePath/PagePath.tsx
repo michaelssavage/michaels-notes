@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { RightIcon } from "@/components/icons";
+import { Link } from "@tanstack/react-router";
 import styles from "./PagePath.module.scss";
 
 interface Props {

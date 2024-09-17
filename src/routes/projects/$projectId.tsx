@@ -9,17 +9,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Suspense } from "react";
 
-export const Route = createFileRoute("/projects/$postId")({
+export const Route = createFileRoute("/projects/$projectId")({
   component: Slug,
 });
 
 function Slug() {
-  const { postId } = Route.useParams();
+  const { projectId } = Route.useParams();
   const { projects }: IPosts = import.meta.env.POSTS;
-  const doc = projects.find((post) => post.slug === postId);
+  const doc = projects.find((post) => post.slug === projectId);
 
   if (!doc) {
-    return <div>Blog post not found</div>;
+    return <div>Project post not found</div>;
   }
 
   const imageSrc = new URL(`../../assets/${doc.image}`, import.meta.url).href;
@@ -27,8 +27,8 @@ function Slug() {
   return (
     <AnimatePresence mode="wait">
       <motion.article
-        key={postId}
-        className={styles.container}
+        key={projectId}
+        className={styles.article}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

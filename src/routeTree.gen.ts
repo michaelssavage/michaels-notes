@@ -15,7 +15,8 @@ import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProjectsIndexImport } from './routes/projects/index'
 import { Route as BlogIndexImport } from './routes/blog/index'
-import { Route as ProjectsPostIdImport } from './routes/projects/$postId'
+import { Route as ProjectsProjectIdImport } from './routes/projects/$projectId'
+import { Route as BlogBlogIdImport } from './routes/blog/$blogId'
 
 // Create/Update Routes
 
@@ -39,8 +40,13 @@ const BlogIndexRoute = BlogIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ProjectsPostIdRoute = ProjectsPostIdImport.update({
-  path: '/projects/$postId',
+const ProjectsProjectIdRoute = ProjectsProjectIdImport.update({
+  path: '/projects/$projectId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BlogBlogIdRoute = BlogBlogIdImport.update({
+  path: '/blog/$blogId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -62,11 +68,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/projects/$postId': {
-      id: '/projects/$postId'
-      path: '/projects/$postId'
-      fullPath: '/projects/$postId'
-      preLoaderRoute: typeof ProjectsPostIdImport
+    '/blog/$blogId': {
+      id: '/blog/$blogId'
+      path: '/blog/$blogId'
+      fullPath: '/blog/$blogId'
+      preLoaderRoute: typeof BlogBlogIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/projects/$projectId': {
+      id: '/projects/$projectId'
+      path: '/projects/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof ProjectsProjectIdImport
       parentRoute: typeof rootRoute
     }
     '/blog/': {
@@ -91,7 +104,8 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/projects/$postId': typeof ProjectsPostIdRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexRoute
 }
@@ -99,7 +113,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/projects/$postId': typeof ProjectsPostIdRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexRoute
 }
@@ -108,21 +123,35 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/projects/$postId': typeof ProjectsPostIdRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/projects/$postId' | '/blog' | '/projects'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/blog/$blogId'
+    | '/projects/$projectId'
+    | '/blog'
+    | '/projects'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/projects/$postId' | '/blog' | '/projects'
+  to:
+    | '/'
+    | '/about'
+    | '/blog/$blogId'
+    | '/projects/$projectId'
+    | '/blog'
+    | '/projects'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/projects/$postId'
+    | '/blog/$blogId'
+    | '/projects/$projectId'
     | '/blog/'
     | '/projects/'
   fileRoutesById: FileRoutesById
@@ -131,7 +160,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ProjectsPostIdRoute: typeof ProjectsPostIdRoute
+  BlogBlogIdRoute: typeof BlogBlogIdRoute
+  ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
@@ -139,7 +169,8 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ProjectsPostIdRoute: ProjectsPostIdRoute,
+  BlogBlogIdRoute: BlogBlogIdRoute,
+  ProjectsProjectIdRoute: ProjectsProjectIdRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }
@@ -158,7 +189,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/projects/$postId",
+        "/blog/$blogId",
+        "/projects/$projectId",
         "/blog/",
         "/projects/"
       ]
@@ -169,8 +201,11 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
-    "/projects/$postId": {
-      "filePath": "projects/$postId.tsx"
+    "/blog/$blogId": {
+      "filePath": "blog/$blogId.tsx"
+    },
+    "/projects/$projectId": {
+      "filePath": "projects/$projectId.tsx"
     },
     "/blog/": {
       "filePath": "blog/index.tsx"

@@ -16,7 +16,7 @@
   }
 
   &.primary {
-    color: white;
+    color: var(--card);
     background-color: $mint;
     &:hover {
       background-color: $ext-btn-bg-hover;
@@ -25,10 +25,13 @@
 
   &.secondary {
     background-color: #6c757d;
-    color: white;
+    color: var(--card);
   }
 
   &.ghost {
+    padding: 0;
     background-color: transparent;
+    color: var(--text);
+    flex-direction: row-reverse;
   }
 }

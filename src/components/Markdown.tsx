@@ -5,7 +5,7 @@ import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
 import { useMemo } from "react";
 import { Anchor } from "./Anchor/Anchor";
 import { Picture } from "./Picture";
-import { H1 } from "./content/H1";
+import { BlockQuote, Code, H1 } from "./content";
 
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
@@ -17,6 +17,8 @@ const components: MDXComponents = {
   Picture,
   Anchor,
   h1: H1,
+  blockquote: BlockQuote,
+  code: Code,
 };
 
 interface MarkdownProps {

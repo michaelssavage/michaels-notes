@@ -5,6 +5,7 @@ export interface IBlog {
   date: string;
   description: string;
   external?: string;
+  github?: string;
   draft?: boolean;
 }
 
