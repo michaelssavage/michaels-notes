@@ -35,6 +35,21 @@ function Slug() {
           <div className={styles.content}>
             <PagePath page="blog" style={styles.paths} />
 
+            <div className={styles.sidebar}>
+              {blog
+                .filter((item) => !item.external)
+                .map(({ title, id, slug }) => {
+                  return (
+                    <Anchor
+                      key={id}
+                      text={title}
+                      link={`../${slug}`}
+                      variant="blog"
+                    />
+                  );
+                })}
+            </div>
+
             <motion.h1
               className={styles.header}
               layoutId={`blog-title-${doc.id}`}

@@ -6,8 +6,11 @@
   align-items: center;
   margin-bottom: 1rem;
   position: fixed;
-  top: 12rem;
-  left: 4rem;
+  top: 9rem;
+  left: 2rem;
+  @include for-phone-only() {
+    position: static;
+  }
 
   svg {
     margin-bottom: -0.25rem;

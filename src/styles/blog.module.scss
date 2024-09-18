@@ -86,11 +86,12 @@
 }
 
 .article {
-  margin: 2rem auto;
+  margin: 2rem auto 2rem 40%;
   width: 50%;
 
   @include for-phone-only {
     width: 90%;
+    margin: 2rem auto;
   }
 }
 
@@ -115,4 +116,15 @@
     width: 90%;
     position: static;
   }
+}
+
+.sidebar {
+  position: fixed;
+  top: 12rem;
+  left: 2rem;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
 }
