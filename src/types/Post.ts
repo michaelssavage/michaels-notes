@@ -1,3 +1,5 @@
+import type { ReactNode } from "@tanstack/react-router";
+
 export interface IBlog {
   code: string;
   slug: string;
@@ -25,4 +27,12 @@ export interface IProject {
 export interface IPosts {
   projects: IProject[];
   blog: IBlog[];
+}
+
+export interface IBite {
+  id: number;
+  title: ReactNode;
+  year: number;
+  tag: string;
+  link?: string;
 }

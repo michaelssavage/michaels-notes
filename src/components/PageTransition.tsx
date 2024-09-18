@@ -7,7 +7,7 @@ interface Props {
 }
 export const PageTransition = ({ children }: Props) => {
   const location = useLocation();
-  const nodeRef = useRef(null);
+  const nodeRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <SwitchTransition>
@@ -15,9 +15,11 @@ export const PageTransition = ({ children }: Props) => {
         key={location.pathname}
         nodeRef={nodeRef}
         classNames="page"
-        addEndListener={(node, done) =>
-          node.addEventListener("transitionend", done, false)
-        }
+        addEndListener={(done) => {
+          if (nodeRef.current) {
+            nodeRef.current.addEventListener("transitionend", done, false);
+          }
+        }}
       >
         <div ref={nodeRef}>{children}</div>
       </CSSTransition>

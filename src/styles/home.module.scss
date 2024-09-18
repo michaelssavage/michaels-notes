@@ -5,6 +5,7 @@
   align-items: center;
   flex-direction: column;
   margin-bottom: 2rem;
+  height: 80vh;
   h1 {
     font-size: 4rem;
     text-align: center;
@@ -51,13 +52,4 @@
   @include for-phone-only {
     margin: 0 10%;
   }
-}
-
-.homeLine {
-  margin-top: -2rem;
-  border-bottom: 2rem solid $mint;
-  width: 75%;
-  z-index: -1;
-  margin-left: auto;
-  @include slide-in-animation(100px, "horizontal", $duration: 0.75s);
 }

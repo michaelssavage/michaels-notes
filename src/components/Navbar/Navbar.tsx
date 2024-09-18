@@ -7,10 +7,9 @@ export const Navbar = () => {
     <header className={styles.navbar}>
       <nav>
         <NavLink to="/" text="Home" />
-        <NavLink to="/about" text="About" />
         <NavLink to="/projects" text="Projects" />
         <NavLink to="/blog" text="Blog" />
-        {/* <Link to="/bites"> Bites </Link> */}
+        <NavLink to="/about" text="About" />
       </nav>
       <Toggle />
     </header>
