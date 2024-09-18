@@ -88,7 +88,7 @@ function Blog() {
           />
         </div>
         {filterPosts(blog).map((post) => {
-          return <Post key={post.title} {...post} />;
+          return <Post key={post.id} {...post} />;
         })}
       </div>
       <Ball />

@@ -33,10 +33,6 @@ export const Markdown = ({ content }: MarkdownProps) => {
     return getMDXComponent(content.code, MDX_GLOBAL_CONFIG);
   }, [content]);
 
-  console.log("!!!", {
-    content,
-  });
-
   return (
     <MDXProvider components={components}>
       <Component title={content.title} />

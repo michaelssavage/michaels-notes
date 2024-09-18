@@ -35,6 +35,13 @@ function Slug() {
           <div className={styles.content}>
             <PagePath page="blog" style={styles.paths} />
 
+            <motion.h1
+              className={styles.header}
+              layoutId={`blog-title-${doc.id}`}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              {doc.title}
+            </motion.h1>
             <Markdown content={doc} />
             {doc.github && (
               <Anchor text="GitHub Link" link={doc.github} external />

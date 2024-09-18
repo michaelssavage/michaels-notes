@@ -1,13 +1,27 @@
 import type { IBlog } from "@/types/Post";
+import { motion } from "framer-motion";
 import { Anchor } from "../Anchor";
 import styles from "./Post.module.scss";
 
-export const Post = ({ title, date, description, external, slug }: IBlog) => {
+export const Post = ({
+  title,
+  date,
+  description,
+  external,
+  slug,
+  id,
+}: IBlog) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardInfo}>
         <div className={styles.o1}>
-          <h2 className={styles.title}>{title}</h2>
+          <motion.h2
+            className={styles.title}
+            layoutId={`blog-title-${id}`}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            {title}
+          </motion.h2>
           <p className={styles.date}>{date}</p>
         </div>
         <div className={styles.o2}>
