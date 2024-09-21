@@ -2,6 +2,7 @@ import { Bite } from "@/components/Bite";
 import { HomeLine } from "@/components/HomeLine";
 import Icon from "@/components/Icon";
 import {
+  ArrowDown,
   GithubIcon,
   LinkedInIcon,
   MailIcon,
@@ -21,37 +22,31 @@ function Home() {
         <h1>
           Hey, <span>I am Michael!</span>
         </h1>
-        <p>
-          I'm a Software Developer from Ireland that enjoys React.js,
-          Typescript, Python, and Spring Boot. My world revolves around{" "}
-          <span className="underline">
-            electronic music, movies, rugby, and travelling
-          </span>
-          .
-        </p>
         <div className={styles.icons}>
           <Icon
-            external
             link="https://github.com/michaelssavage"
             icon={<GithubIcon />}
+            external
           />
           <Icon
-            external
             link="https://www.linkedin.com/in/michaelssavage"
             icon={<LinkedInIcon />}
+            external
           />
           <Icon
-            external
             link="mailto:michaelsavage940@gmail.com"
             icon={<MailIcon />}
+            external
           />
           <Icon
-            external
             link="https://open.spotify.com/user/1156402021"
             icon={<SpotifyIcon />}
+            external
           />
         </div>
         <HomeLine />
+
+        <ArrowDown className={styles.arrowDown} />
       </main>
 
       <Bite />

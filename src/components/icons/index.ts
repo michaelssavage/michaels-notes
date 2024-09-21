@@ -1,3 +1,4 @@
+export { ArrowDown } from "./ArrowDown";
 export { CircleIcon } from "./Circle";
 export { ExternalLinkIcon } from "./ExternalLink";
 export { GithubIcon } from "./Github";

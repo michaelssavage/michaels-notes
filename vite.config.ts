@@ -25,6 +25,9 @@ function postsPlugin(): Plugin {
 }
 
 export default defineConfig({
+  server: {
+    port: 3000,
+  },
   plugins: [
     TanStackRouterVite({}),
     react({ include: /\.(mdx|tsx|ts)$/ }),

@@ -5,13 +5,12 @@ export const HomeLine = () => {
   const controls = useAnimation();
   const { scrollY } = useScroll();
 
-  const rotate = useTransform(scrollY, [0, 500], [0, 90]);
-  const translateX = useTransform(scrollY, [0, 700], [0, 800]);
+  const rotate = useTransform(scrollY, [100, 1000], [0, 90]);
+  const translateX = useTransform(scrollY, [200, 1000], [0, 800]);
 
-  const transform = useTransform(
-    [rotate, translateX],
-    ([r, y]) => `rotate(${r}deg) translateX(${y}px)`
-  );
+  const transform = useTransform([rotate, translateX], ([r = 0, y = 0]) => {
+    return `rotate(${r}deg) translateX(${y}px)`;
+  });
 
   return (
     <motion.div

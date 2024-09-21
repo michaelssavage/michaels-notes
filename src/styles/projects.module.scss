@@ -6,6 +6,9 @@
   img {
     cursor: pointer;
     will-change: transform;
+    transition:
+      filter 0.25s ease,
+      transform 0.25s ease;
   }
 }
 
@@ -21,7 +24,9 @@
 
   .view {
     z-index: 4;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     opacity: 0;
     font-size: 1.2rem;
     padding: 2rem 0.5rem;
@@ -29,6 +34,9 @@
     color: $background;
     text-shadow: 3px 2px 4px #191919;
     height: 100%;
+    span:first-child {
+      font-size: 1.5rem;
+    }
     @include for-phone-only {
       font-size: 1rem;
     }
@@ -36,8 +44,8 @@
 
   &:hover {
     img {
-      filter: blur(3px);
-      -webkit-filter: blur(3px);
+      filter: blur(5px) brightness(0.5);
+      -webkit-filter: blur(5px) brightness(0.5);
       transform: scale(1.05);
     }
     .view {

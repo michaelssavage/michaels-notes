@@ -30,6 +30,7 @@ const BiteItem = ({ bite, index }: Props) => {
 export const Bite = () => {
   return (
     <main className={styles.container}>
+      <h2>Bites</h2>
       <ul className={styles.biteList}>
         {bites.map((bite, index) => (
           <BiteItem key={bite.id} bite={bite} index={index} />

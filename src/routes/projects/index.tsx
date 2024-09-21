@@ -18,7 +18,7 @@ function Projects() {
         {projects.sort(sortById).map((project) => (
           <motion.div
             key={project.id}
-            className="col"
+            className="col-md"
             layoutId={`project-image-${project.id}`}
           >
             <Link
@@ -32,7 +32,10 @@ function Projects() {
                 alt={project.title}
                 loading="eager"
               />
-              <p className={styles.view}>View More</p>
+              <p className={styles.view}>
+                <span>{project.title}</span>
+                <span>{project.description}</span>
+              </p>
             </Link>
           </motion.div>
         ))}

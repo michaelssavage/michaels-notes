@@ -1,0 +1,25 @@
+@use "@/styles/abstracts" as *;
+
+.comp {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  svg {
+    color: $ext-btn-bg;
+  }
+}
+.trackNames {
+  padding: 0;
+  @include for-phone-only {
+    padding-right: 5%;
+  }
+  > li {
+    display: inline;
+    padding: 0;
+  }
+}

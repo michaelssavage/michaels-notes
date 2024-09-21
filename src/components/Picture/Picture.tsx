@@ -1,10 +1,10 @@
-import { type CSSProperties, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Picture.module.scss";
 
 interface Props {
   src: string;
   alt: string;
-  style?: CSSProperties;
+  style?: string;
   loading?: "lazy" | "eager";
 }
 
@@ -49,7 +49,6 @@ export const Picture: React.FC<Props> = ({
           alt={alt}
           className={`${styles.image} ${styles.loaded}`}
           loading={loading}
-          style={style}
         />
       )}
     </div>

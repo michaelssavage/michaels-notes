@@ -30,7 +30,7 @@ export const Anchor = ({
       target={external ? "_blank" : undefined}
       style={style}
     >
-      {text ? text : link} {external ? <ExternalLinkIcon /> : icon}
+      {text ? text : link} {external && !icon ? <ExternalLinkIcon /> : icon}
     </Link>
   );
 };

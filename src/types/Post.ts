@@ -19,6 +19,7 @@ export interface IProject {
   image: string;
   title: string;
   date: string;
+  description: string;
   technology: Array<string>;
   github?: string;
   draft?: boolean;

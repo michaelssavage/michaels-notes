@@ -1,14 +1,24 @@
 @use "@/styles/abstracts" as *;
 
+.ball {
+  > * {
+    border-radius: 50%;
+    position: absolute;
+    top: 5%;
+    right: -10%;
+  }
+}
+
+.clickableLayer {
+  background: transparent;
+  pointer-events: auto;
+}
+
 .circle {
-  width: 25rem;
-  height: 25rem;
-  border-radius: 50%;
-  position: absolute;
-  top: 0%;
-  right: -10%;
   z-index: -2;
   overflow-x: hidden;
+  filter: blur(20px);
+
   @include expand-and-appear();
 
   @include for-tablet-only {

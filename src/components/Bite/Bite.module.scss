@@ -6,13 +6,15 @@
   @include for-phone-only {
     width: 90%;
   }
-  ul {
-    padding: 0;
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
   }
 }
 
 .biteList {
   margin: 0 0 2rem 0;
+  padding: 0;
   .bite {
     display: flex;
     flex-direction: row;
