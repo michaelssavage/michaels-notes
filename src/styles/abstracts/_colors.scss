@@ -12,6 +12,7 @@ $on: #fb4d3d;
 $off: #3d89fb;
 
 [data-theme="light"] {
+  --toggle: #070f06;
   --lighten-link: #7995fa8e;
   --link: #1747e1;
   --card: #ffffff;
@@ -22,6 +23,7 @@ $off: #3d89fb;
 }
 
 [data-theme="dark"] {
+  --toggle: #009fd1;
   --lighten-link: rgba(217, 242, 219, 0.2);
   --link: #c1d2d7;
   --icon: #bbbbbb;

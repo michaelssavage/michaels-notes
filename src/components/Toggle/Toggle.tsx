@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { MoonIcon, SunIcon } from "../icons";
 import styles from "./Toggle.module.scss";
-import { SunIcon, MoonIcon } from "../icons";
 
 export const Toggle = () => {
   const [theme, setTheme] = useState("light");
@@ -11,8 +11,6 @@ export const Toggle = () => {
     setTheme(localTheme);
   }, []);
 
-  const isChecked = theme === "light";
-
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
@@ -21,18 +19,15 @@ export const Toggle = () => {
   };
 
   return (
-    <>
+    <label className={styles.icon}>
       <input
-        id="toggle_checkbox"
         type="checkbox"
-        checked={isChecked}
+        checked={theme === "light"}
         onChange={toggleTheme}
         className={styles.toggler}
       />
-      <label htmlFor="toggle_checkbox" className={styles.icon}>
-        <SunIcon id="star" />
-        <MoonIcon id="moon" />
-      </label>
-    </>
+      <SunIcon id="star" />
+      <MoonIcon id="moon" />
+    </label>
   );
 };

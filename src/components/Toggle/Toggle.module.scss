@@ -1,91 +1,64 @@
 @use "@/styles/abstracts" as *;
 
-.toggler {
-  display: none;
-  &:not(:checked) + .icon {
-    background-color: #009fd1;
-  }
-
-  &:checked + .icon {
-    background-color: $text;
-    svg[id="star"] {
-      top: -52px;
-    }
-
-    svg[id="moon"] {
-      bottom: 13px;
-      @include for-phone-only {
-        bottom: 8px;
-      }
-      &:before {
-        background-color: $text;
-      }
-    }
-  }
-}
-
 .icon {
-  display: block;
   position: fixed;
   bottom: 0;
-  right: 2rem;
-  width: 56px;
-  height: 56px;
-  margin: 0 auto;
+  left: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
   transform: translateY(-50%);
   z-index: 5;
   cursor: pointer;
   transition: 0.3s ease background-color;
+  background-color: var(--toggle);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   overflow: hidden;
-  @include for-phone-only {
-    width: 46px;
-    height: 46px;
+
+  .toggler {
+    display: none;
+
+    &:not(:checked) ~ svg[id="moon"] {
+      bottom: -100%;
+    }
+
+    &:checked ~ svg[id="star"] {
+      top: -100%;
+    }
+
+    &:checked ~ svg[id="moon"] {
+      bottom: 25%;
+    }
+  }
+
+  svg {
+    height: 80%;
+    width: auto;
+    position: relative;
   }
 
   svg[id="star"] {
-    position: absolute;
-    top: 13px;
-    left: 13px;
-    width: 30px;
-    height: 30px;
+    top: 25%;
     color: $underlined;
-    transform: scale(1);
-    border-radius: 50%;
     transition:
       0.3s ease top,
       0.3s ease left,
       0.3s ease transform,
       0.3s ease background-color;
-    z-index: 1;
-    @include for-phone-only {
-      top: 9px;
-      left: 9px;
-    }
   }
 
   svg[id="moon"] {
-    position: absolute;
-    bottom: -52px;
-    left: 15px;
-    width: 30px;
-    height: 30px;
+    bottom: 25%;
     fill: $background;
-    border-radius: 50%;
     transition: 0.3s ease bottom;
-    @include for-phone-only {
-      left: 10px;
-    }
-    &:before {
-      content: "";
-      position: absolute;
-      top: -12px;
-      left: -17px;
-      width: 40px;
-      height: 40px;
-      background-color: $ext-btn-bg;
-      border-radius: 50%;
-      transition: 0.3s ease background-color;
-    }
+  }
+
+  @include for-phone-only {
+    width: 2.8rem;
+    height: 2.8rem;
   }
 }

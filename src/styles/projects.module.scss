@@ -1,6 +1,10 @@
 @use "./abstracts" as *;
 
-.projectImg {
+.wrap {
+  display: grid;
+  overflow: hidden;
+  will-change: transform;
+  border-radius: 0.2rem;
   text-decoration: none;
   color: var(--text);
   img {
@@ -10,12 +14,6 @@
       filter 0.25s ease,
       transform 0.25s ease;
   }
-}
-
-.wrap {
-  display: grid;
-  overflow: hidden;
-  will-change: transform;
 
   & > * {
     grid-column: 1;
