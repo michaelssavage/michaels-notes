@@ -1,72 +1,94 @@
-import { createStitches, globalCss } from "@stitches/react";
+/** @jsxImportSource @emotion/react */
+import { pageTransitions } from "@/styles/abstracts/animations.styled";
+import type { MyTheme } from "@/styles/abstracts/colors.styled";
+import { resetStyles } from "@/styles/abstracts/reset.styled";
+import { css } from "@emotion/react";
 
-export const { styled, css, theme, createTheme, getCssText } = createStitches({
-  theme: {
-    colors: {
-      background: "#f5f5f5",
-      header: "#ca1551",
-      btnBg: "#e35103",
-      extBtnBg: "#009fd1",
-      extBtnBgHover: "#027a9e",
-      text: "#070f06",
-      hoverText: "#515151",
-      underlined: "#ffe26d",
-      mint: "#329a51",
-      on: "#fb4d3d",
-      off: "#3d89fb",
+export const globalStyles = (theme: MyTheme) => css`
+  ${resetStyles}
+  ${pageTransitions}
 
-      lightenLink: "var(--lighten-link)",
-      link: "var(--link)",
-      card: "var(--card)",
-      themeText: "var(--text)",
-      icon: "var(--icon)",
-      themeBackground: "var(--background)",
-      themeUnderlined: "var(--underlined)",
-    },
-  },
-});
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif";
+    background-color: ${theme.colors.background};
+    color: ${theme.colors.text};
+    overflow-x: hidden;
+    min-height: 100vh;
+    transition:
+      color 0.5s,
+      background-color 0.5s;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-export const lightTheme = createTheme("light-theme", {
-  colors: {
-    lightenLink: "#7995fa8e",
-    link: "#1747e1",
-    card: "#ffffff",
-    themeText: "#070f06",
-    icon: "#070f06",
-    themeBackground: "#e6c79c",
-    themeUnderlined: "#7b9ea8",
-  },
-});
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
 
-export const darkTheme = createTheme("dark-theme", {
-  colors: {
-    lightenLink: "rgba(217, 242, 219, 0.2)",
-    link: "#c1d2d7",
-    icon: "#bbbbbb",
-    themeText: "#f1f9f0",
-    card: "#303433",
-    themeBackground: "#523d4c",
-    themeUnderlined: "#cddfa0",
-  },
-});
+  .container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 15% 2rem;
+    padding-bottom: 1rem;
 
-export const globalStyles = globalCss({
-  ":root": {
-    "--lighten-link": "$colors$lightenLink",
-    "--link": "$colors$link",
-    "--card": "$colors$card",
-    "--text": "$colors$themeText",
-    "--icon": "$colors$icon",
-    "--background": "$colors$themeBackground",
-    "--underlined": "$colors$themeUnderlined",
-  },
-  body: {
-    margin: 0,
-    padding: 0,
-    fontFamily: "system-ui, sans-serif",
-    backgroundColor: "$themeBackground",
-    color: "$themeText",
-  },
-});
+    @media (max-width: 599px) {
+      margin: 0 5% 2rem;
+    }
+  }
 
-globalStyles();
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col {
+    flex: 1 1 calc(33.33% - 0.25rem);
+    padding: 1rem 0.25rem;
+
+    @media (max-width: 768px) {
+      width: 50%;
+    }
+
+    @media (max-width: 599px) {
+      width: 100%;
+    }
+  }
+
+  .icon-link {
+    color: ${theme.colors.icon};
+
+    svg {
+      &:hover {
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  .date {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: ${theme.colors.hoverText};
+    font-weight: bold;
+  }
+
+  .underline {
+    background-image: linear-gradient(
+      transparent calc(100% - 0.15rem),
+      ${theme.colors.underlined} 0.15rem
+    );
+    background-position: left bottom 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: inline;
+    font-weight: inherit;
+    transition: background-size 0.6s cubic-bezier(0.45, 0, 0.55, 1);
+  }
+`;

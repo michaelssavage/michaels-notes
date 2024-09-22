@@ -1,6 +1,8 @@
 import { MetaData } from "@/components/MetaData";
 import { Navbar } from "@/components/Navbar";
 import { PageTransition } from "@/components/PageTransition";
+import { Toggle } from "@/components/Toggle";
+import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -21,12 +23,15 @@ function RootComponent() {
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <MetaData />
-        <Navbar />
-        <PageTransition>
-          <ScrollRestoration />
-          <Outlet />
-        </PageTransition>
-        <TanStackRouterDevtools position="bottom-right" />
+        <ThemeProvider>
+          <Navbar />
+          <Toggle />
+          <PageTransition>
+            <ScrollRestoration />
+            <Outlet />
+          </PageTransition>
+          <TanStackRouterDevtools position="bottom-right" />
+        </ThemeProvider>
       </QueryClientProvider>
     </HelmetProvider>
   );

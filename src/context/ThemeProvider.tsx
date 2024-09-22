@@ -1,40 +1,52 @@
-import { darkTheme, lightTheme } from "@/styles/global.styled";
-import type React from "react";
+import {
+  type MyTheme,
+  darkTheme,
+  lightTheme,
+} from "@/styles/abstracts/colors.styled";
+import { globalStyles } from "@/styles/global.styled";
+import { ThemeProvider as EmotionThemeProvider, Global } from "@emotion/react";
+import type { ReactNode } from "@tanstack/react-router";
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "light" | "dark";
+type modeType = "light" | "dark";
 
-interface ThemeContextType {
-  theme: Theme;
+interface ITC {
+  mode: modeType;
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+interface ITP {
+  children: ReactNode;
+}
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [theme, setTheme] = useState<Theme>("light");
+const ThemeContext = createContext<ITC | undefined>(undefined);
+
+export const ThemeProvider = ({ children }: ITP) => {
+  const [mode, setMode] = useState<modeType>("light");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
+    const savedTheme = localStorage.getItem("theme") as modeType | null;
     if (savedTheme) {
-      setTheme(savedTheme);
+      setMode(savedTheme);
     }
   }, []);
 
   useEffect(() => {
-    document.body.className = theme === "light" ? lightTheme : darkTheme;
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    localStorage.setItem("theme", mode);
+  }, [mode]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setMode((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+  const theme: MyTheme = mode === "light" ? lightTheme : darkTheme;
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ mode, toggleTheme }}>
+      <EmotionThemeProvider theme={theme}>
+        <Global styles={globalStyles(theme)} />
+        {children}
+      </EmotionThemeProvider>
     </ThemeContext.Provider>
   );
 };

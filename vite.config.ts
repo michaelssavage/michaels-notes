@@ -30,7 +30,13 @@ export default defineConfig({
   },
   plugins: [
     TanStackRouterVite({}),
-    react({ include: /\.(mdx|tsx|ts)$/ }),
+    react({
+      include: /\.(mdx|tsx|ts)$/,
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"],
+      },
+    }),
     tsconfigPaths(),
     postsPlugin(),
   ],

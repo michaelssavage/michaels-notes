@@ -1,15 +1,16 @@
+import { ButtonStyled } from "@/components/Button/Button.styled";
 import type { ReactElement } from "react";
-import styles from "./Button.module.scss";
 
-interface Props {
+export type ButtonVariants = "primary" | "secondary" | "ghost";
+
+export interface ButtonProps {
   text: string;
   disabled?: boolean;
   type?: "submit" | "button";
-  variant?: "primary" | "secondary" | "ghost";
   icon?: ReactElement;
+  variant?: ButtonVariants;
   onClick?: () => void;
-  flex?: string;
-  style?: string;
+  active?: boolean;
 }
 
 export const Button = ({
@@ -19,19 +20,17 @@ export const Button = ({
   variant = "primary",
   icon,
   onClick,
-  flex = "",
-  style = "",
-}: Props) => {
-  const buttonClasses = `${styles.button} ${styles[variant]} ${flex} ${style}`;
-
+  active = false,
+}: ButtonProps) => {
   return (
-    <button
+    <ButtonStyled
       disabled={disabled}
       type={type}
       onClick={onClick}
-      className={buttonClasses}
+      variant={variant}
+      active={active}
     >
       {text} {icon}
-    </button>
+    </ButtonStyled>
   );
 };

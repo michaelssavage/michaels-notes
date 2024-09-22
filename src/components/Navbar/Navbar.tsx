@@ -1,4 +1,3 @@
-import { Toggle } from "../Toggle";
 import { NavLink } from "./NavLink";
 import styles from "./Navbar.module.scss";
 
@@ -11,7 +10,6 @@ export const Navbar = () => {
         <NavLink to="/blog" text="Blog" />
         <NavLink to="/about" text="About" />
       </nav>
-      <Toggle />
     </header>
   );
 };

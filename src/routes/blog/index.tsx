@@ -76,7 +76,7 @@ function Blog() {
             text="= On site"
             variant="ghost"
             onClick={() => setOnSite(!onSite)}
-            style={onSite ? "" : styles.unused}
+            active={onSite}
           />
 
           <Button
@@ -84,7 +84,7 @@ function Blog() {
             text="= Plant Bass'd"
             variant="ghost"
             onClick={() => setExternal(!external)}
-            style={external ? "" : styles.unused}
+            active={external}
           />
         </div>
         {filterPosts(blog).map((post) => {
