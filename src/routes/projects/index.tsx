@@ -13,7 +13,7 @@ const { projects }: IPosts = import.meta.env.POSTS;
 
 function Projects() {
   return (
-    <main className="container">
+    <section className="container">
       <div className="row">
         {projects.sort(sortById).map((project) => (
           <motion.div
@@ -40,6 +40,6 @@ function Projects() {
           </motion.div>
         ))}
       </div>
-    </main>
+    </section>
   );
 }

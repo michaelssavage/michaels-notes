@@ -1,5 +1,5 @@
-import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
-import styles from "./HomeLine.module.scss";
+import { AnimatedLine } from "@/components/HomeLine/HomeLine.styled";
+import { useAnimation, useScroll, useTransform } from "framer-motion";
 
 export const HomeLine = () => {
   const controls = useAnimation();
@@ -12,11 +12,5 @@ export const HomeLine = () => {
     return `rotate(${r}deg) translateX(${y}px)`;
   });
 
-  return (
-    <motion.div
-      className={styles.homeLine}
-      style={{ transform }}
-      animate={controls}
-    />
-  );
+  return <AnimatedLine style={{ transform }} animate={controls} />;
 };

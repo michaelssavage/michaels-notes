@@ -37,9 +37,9 @@ export const bites: IBite[] = [
         {
           <Anchor
             text="Resident Advisor Top Picks"
-            variant="blog"
+            variant="link"
             link="https://ra.co/promoters/103854/past-events"
-            external
+            isExternal
           />
         }{" "}
         for the gigs in Scotland

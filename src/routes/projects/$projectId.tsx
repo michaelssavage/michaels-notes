@@ -1,8 +1,8 @@
 import { joinTags } from "@/assets/utils";
 import { Anchor } from "@/components/Anchor";
-import { Markdown } from "@/components/Markdown";
 import { PagePath } from "@/components/PagePath";
 import { Picture } from "@/components/Picture";
+import { Markdown } from "@/components/atoms";
 import styles from "@/styles/projects.module.scss";
 import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
@@ -37,7 +37,7 @@ function Slug() {
         <Suspense fallback={<div>Loading...</div>}>
           <p className="date">{doc.date}</p>
           <div className={styles.content}>
-            <PagePath page="projects" style={styles.paths} />
+            <PagePath page="projects" />
 
             <motion.div
               layoutId={`project-image-${doc.id}`}
@@ -50,7 +50,7 @@ function Slug() {
             <Markdown content={doc} />
             <p className={styles.tags}>{joinTags(doc.technology)}</p>
             {doc.github && (
-              <Anchor text="GitHub Link" link={doc.github} external />
+              <Anchor text="GitHub Link" link={doc.github} isExternal />
             )}
           </div>
         </Suspense>

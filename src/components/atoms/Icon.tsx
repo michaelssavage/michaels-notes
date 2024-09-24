@@ -3,11 +3,11 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 
 interface IconLinkProps {
   link: string;
-  external?: boolean;
+  isExternal?: boolean;
   icon: ReactNode;
 }
 
-const Icon = ({ link, external = false, icon }: IconLinkProps) => {
+export const Icon = ({ link, isExternal = false, icon }: IconLinkProps) => {
   const [transform, setTransform] = useState({ x: 0, y: 0 });
   const iconRef = useRef<HTMLAnchorElement>(null);
 
@@ -47,8 +47,8 @@ const Icon = ({ link, external = false, icon }: IconLinkProps) => {
       to={link}
       ref={iconRef}
       className="icon-link"
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       style={{
         transform: `translate(${transform.x}px, ${transform.y}px)`,
         transition: "transform 0.1s ease-out",
@@ -58,5 +58,3 @@ const Icon = ({ link, external = false, icon }: IconLinkProps) => {
     </Link>
   );
 };
-
-export default Icon;

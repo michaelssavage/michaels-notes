@@ -1,13 +1,14 @@
-import { Link } from "@tanstack/react-router";
+import { LinkStyle } from "@/components/Anchor/Anchor.styled";
 import type { CSSProperties, ReactElement } from "react";
 import { ExternalLinkIcon } from "../icons";
-import styles from "./Anchor.module.scss";
+
+export type AnchorVariants = "button" | "link";
 
 interface Props {
   link: string;
   text?: string;
-  external?: boolean;
-  variant?: "button" | "blog";
+  isExternal?: boolean;
+  variant?: AnchorVariants;
   icon?: ReactElement;
   style?: CSSProperties;
 }
@@ -15,22 +16,21 @@ interface Props {
 export const Anchor = ({
   link,
   text,
-  external = false,
-  variant = "button",
   icon,
+  isExternal = false,
+  variant = "button",
   style = {},
 }: Props) => {
-  const anchorClasses = `${styles.link} ${styles[variant]} ${external ? styles.external : ""}`;
-
   return (
-    <Link
+    <LinkStyle
       to={link}
-      className={anchorClasses}
-      rel={external ? "noopener noreferrer" : undefined}
-      target={external ? "_blank" : undefined}
+      variant={variant}
+      isExternal={isExternal}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      target={isExternal ? "_blank" : undefined}
       style={style}
     >
-      {text ? text : link} {external && !icon ? <ExternalLinkIcon /> : icon}
-    </Link>
+      {text ? text : link} {isExternal && !icon ? <ExternalLinkIcon /> : icon}
+    </LinkStyle>
   );
 };

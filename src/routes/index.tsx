@@ -1,14 +1,13 @@
 import { Bite } from "@/components/Bite";
 import { HomeLine } from "@/components/HomeLine";
-import Icon from "@/components/Icon";
+import { Icon } from "@/components/atoms";
 import {
-  ArrowDown,
   GithubIcon,
   LinkedInIcon,
   MailIcon,
   SpotifyIcon,
 } from "@/components/icons";
-import styles from "@/styles/home.module.scss";
+import { Arrow, Container, Icons } from "@/styles/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -18,36 +17,35 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <>
-      <main className={styles.container}>
+      <Container>
         <h1>
           Hey, <span>I am Michael!</span>
         </h1>
-        <div className={styles.icons}>
+        <Icons>
           <Icon
             link="https://github.com/michaelssavage"
             icon={<GithubIcon />}
-            external
+            isExternal
           />
           <Icon
             link="https://www.linkedin.com/in/michaelssavage"
             icon={<LinkedInIcon />}
-            external
+            isExternal
           />
           <Icon
             link="mailto:michaelsavage940@gmail.com"
             icon={<MailIcon />}
-            external
+            isExternal
           />
           <Icon
             link="https://open.spotify.com/user/1156402021"
             icon={<SpotifyIcon />}
-            external
+            isExternal
           />
-        </div>
+        </Icons>
         <HomeLine />
-
-        <ArrowDown className={styles.arrowDown} />
-      </main>
+        <Arrow />
+      </Container>
 
       <Bite />
     </>

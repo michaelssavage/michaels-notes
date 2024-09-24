@@ -3,9 +3,9 @@ import type { ReactNode } from "@tanstack/react-router";
 import { getMDXComponent } from "mdx-bundler/client";
 import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
 import { useMemo } from "react";
-import { Anchor } from "./Anchor/Anchor";
-import { Picture } from "./Picture";
-import { BlockQuote, Code, H1 } from "./content";
+import { Anchor } from "../Anchor/Anchor";
+import { Picture } from "../Picture";
+import { BlockQuote, Code, H1 } from "../content";
 
 const MDX_GLOBAL_CONFIG = {
   MdxJsReact: {
@@ -25,6 +25,7 @@ interface MarkdownProps {
   content: {
     code: ReactNode;
     title: string;
+    description: string;
   };
 }
 
@@ -35,7 +36,7 @@ export const Markdown = ({ content }: MarkdownProps) => {
 
   return (
     <MDXProvider components={components}>
-      <Component title={content.title} />
+      <Component title={content.title} description={content.description} />
     </MDXProvider>
   );
 };

@@ -1,23 +1,22 @@
 import { RightIcon } from "@/components/icons";
-import { Link } from "@tanstack/react-router";
-import styles from "./PagePath.module.scss";
+import { Navigator, PageLink } from "./PagePath.styled";
 
 interface Props {
   page: string;
-  style: string;
+  color?: string;
 }
 
-export const PagePath = ({ page, style }: Props) => {
+export const PagePath = ({ page, color }: Props) => {
   return (
-    <div className={`${styles.navigator} ${style}`}>
-      <Link to="/" className={`extLink ${styles.pageLink}`}>
+    <Navigator>
+      <PageLink to="/" color={color}>
         home
-      </Link>
+      </PageLink>
       <RightIcon />
-      <Link to={`/${page}`} className={`extLink ${styles.pageLink}`}>
+      <PageLink to={`/${page}`} color={color}>
         {page}
-      </Link>
+      </PageLink>
       <RightIcon />
-    </div>
+    </Navigator>
   );
 };

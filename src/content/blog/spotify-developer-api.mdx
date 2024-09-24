@@ -5,11 +5,11 @@ date: may 19, 2024
 description: "On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up."
 ---
 
-On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was a fun challenge to implement, helped by this blog <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/." variant="blog" external /> Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up.
+On my About Page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was a fun challenge to implement, helped by this blog <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/." variant="link" isExternal /> Setting up the API, retrieving the desired data via Postman requests, and then calling the Spotify API using fetch requests took a bit of time. Here, I just go through briefly how I set it all up.
 
 ## Create an App on the Spotify Developer Dashboard
 
-Visit the <Anchor link="https://developer.spotify.com/dashboard/" text="Spotify Developer Dashboard" variant="blog" external /> and log in with your Spotify credentials to create a new app.
+Visit the <Anchor link="https://developer.spotify.com/dashboard/" text="Spotify Developer Dashboard" variant="link" isExternal /> and log in with your Spotify credentials to create a new app.
 
 This generates a `Client ID` and `Client Secret` and which you'll want to save. Set the redirect URI to the local version of your site. It might be something like `http:localhost:3000` for you.
 
@@ -37,14 +37,14 @@ http://localhost:3000/callback?code=AQC7P..gBoDU
 
 ## Get Refresh Token
 
-The `client_id:client_secret` combination needs to be encoded in Base64 format. You can use a function or a site like <Anchor link="https://www.base64encode.org/." variant="blog" external />
+The `client_id:client_secret` combination needs to be encoded in Base64 format. You can use a function or a site like <Anchor link="https://www.base64encode.org/." variant="link" isExternal />
 
 <Picture
   src="images/blog/base64.png"
   alt="base64 of client id and client secret"
 />
 
-I used Postman for sending the requests but here is the URL, Headers, and Body. You can also view the <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" text="linked blog" variant="blog" external /> for the `curl` request method.
+I used Postman for sending the requests but here is the URL, Headers, and Body. You can also view the <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" text="linked blog" variant="link" isExternal /> for the `curl` request method.
 
 ```shell
 POST: https://accounts.spotify.com/api/token
@@ -154,7 +154,7 @@ All going well again, the following will be returned:
         "name": "Relax My Eyes",
         "release_date": "2022-11-04"
       },
-      "external_urls": {
+      "isExternal_urls": {
         "spotify": "https://open.spotify.com/track/5u4hhtZ7f4rWkMZEZcTKrH"
       },
       "name": "Relax My Eyes",

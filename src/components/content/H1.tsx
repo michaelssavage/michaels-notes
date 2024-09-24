@@ -1,6 +1,14 @@
+import styled from "@emotion/styled";
 import type { HTMLAttributes } from "react";
-import styles from "./content.module.scss";
+
+const Style = styled.h1`
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.text};
+`;
 
 export const H1 = (props: HTMLAttributes<HTMLHeadingElement>) => {
-  return <h1 className={styles.h1} {...props} />;
+  return <Style {...props} />;
 };

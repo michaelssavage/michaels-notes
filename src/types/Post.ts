@@ -7,9 +7,10 @@ export interface IBlog {
   title: string;
   date: string;
   description: string;
-  external?: string;
+  isExternal?: string;
   github?: string;
   draft?: boolean;
+  isFirst: boolean;
 }
 
 export interface IProject {

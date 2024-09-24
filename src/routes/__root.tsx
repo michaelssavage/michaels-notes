@@ -1,7 +1,6 @@
-import { MetaData } from "@/components/MetaData";
 import { Navbar } from "@/components/Navbar";
-import { PageTransition } from "@/components/PageTransition";
 import { Toggle } from "@/components/Toggle";
+import { MetaData, PageTransition } from "@/components/atoms";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {

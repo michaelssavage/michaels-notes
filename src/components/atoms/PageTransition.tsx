@@ -21,7 +21,7 @@ export const PageTransition = ({ children }: Props) => {
           }
         }}
       >
-        <div ref={nodeRef}>{children}</div>
+        <main ref={nodeRef}>{children}</main>
       </CSSTransition>
     </SwitchTransition>
   );

@@ -1,8 +1,9 @@
 import { Anchor } from "@/components/Anchor";
-import { Markdown } from "@/components/Markdown";
 import { PagePath } from "@/components/PagePath";
+import { Markdown } from "@/components/atoms";
 import styles from "@/styles/blog.module.scss";
 import type { IPosts } from "@/types/Post";
+import { useTheme } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Suspense } from "react";
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/blog/$blogId")({
 });
 
 function Slug() {
+  const { colors } = useTheme();
   const { blogId } = Route.useParams();
   const { blog }: IPosts = import.meta.env.POSTS;
   const doc = blog.find((post) => post.slug === blogId);
@@ -33,18 +35,19 @@ function Slug() {
         <Suspense fallback={<div>Loading...</div>}>
           <p className="date">{doc.date}</p>
           <div className={styles.content}>
-            <PagePath page="blog" style={styles.paths} />
+            <PagePath page="blog" color={colors.link} />
 
             <div className={styles.sidebar}>
               {blog
-                .filter((item) => !item.external)
+                .filter((item) => !item.isExternal)
+                .filter((current) => current.id !== doc.id)
                 .map(({ title, id, slug }) => {
                   return (
                     <Anchor
                       key={id}
                       text={title}
                       link={`../${slug}`}
-                      variant="blog"
+                      variant="link"
                     />
                   );
                 })}
@@ -59,7 +62,7 @@ function Slug() {
             </motion.h1>
             <Markdown content={doc} />
             {doc.github && (
-              <Anchor text="GitHub Link" link={doc.github} external />
+              <Anchor text="GitHub Link" link={doc.github} isExternal />
             )}
           </div>
         </Suspense>

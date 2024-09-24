@@ -3,7 +3,13 @@ import { Anchor } from "@/components/Anchor";
 import { Picture } from "@/components/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
 import { TopTracks } from "@/components/spotify/TopTracks";
-import styles from "@/styles/about.module.scss";
+import {
+  Container,
+  Horizon,
+  Paragraphs,
+  Spotify,
+  imageWrapperStyle,
+} from "@/styles/about.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/about")({
@@ -12,11 +18,11 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   return (
-    <main>
-      <div className={styles.container}>
-        <Picture src={imageUrl} alt="Picture of Me" style={styles.image} />
-        <div className={styles.paragraph}>
-          <p className={styles.title}>
+    <>
+      <Container>
+        <Picture src={imageUrl} alt="Picture of Me" style={imageWrapperStyle} />
+        <Paragraphs>
+          <p>
             From Ireland and currently based in{" "}
             <span className="underline">Barcelona, Spain.</span> I'm a developer
             that enjoys React.js, Typescript, Python, and Spring Boot. My world
@@ -43,7 +49,7 @@ function About() {
           <p>
             I co-created{" "}
             <Anchor
-              variant="blog"
+              variant="link"
               text="Plant Bass'd"
               link="/blog/what-is-plant-bassd"
             />
@@ -51,13 +57,14 @@ function About() {
             in Ireland and Scotland. Music is definitely a large part of my
             identity and I'm trying my hand at producing music on Ableton.
           </p>
-        </div>
-      </div>
-      <div className={styles.horizon} />
-      <div className={styles.spotify}>
+        </Paragraphs>
+      </Container>
+      <Horizon />
+
+      <Spotify>
         <CurrentPlay />
         <TopTracks />
-      </div>
-    </main>
+      </Spotify>
+    </>
   );
 }

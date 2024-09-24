@@ -1,6 +1,10 @@
-@use "./abstracts" as *;
+import { ArrowDown } from "@/components/icons";
+import { hoverVertically } from "@/styles/abstracts/animations.styled";
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
-.container {
+export const Container = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -11,19 +15,19 @@
     font-size: clamp(4rem, 0.5692rem + 8.5vw, 13.75rem);
     text-align: center;
     margin: 0 2rem;
-    color: var(--icon);
+    color: ${({ theme }) => theme.colors.icon};
     span {
-      color: $header;
+      color: ${({ theme }) => theme.colors.header};
     }
   }
-  @include for-phone-only {
+  ${forPhoneOnly(css`
     h1 {
       font-size: clamp(2rem, 0.5692rem + 8.5vw, 13.75rem);
     }
-  }
-}
+  `)}
+`;
 
-.icons {
+export const Icons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -34,16 +38,15 @@
     height: 7rem;
   }
 
-  @include for-phone-only {
+  ${forPhoneOnly(css`
     margin: 0 10%;
-  }
-}
+  `)}
+`;
 
-.arrowDown {
-  @include hover-vertically;
+export const Arrow = styled(ArrowDown)`
+  ${hoverVertically()}
   width: 4rem;
   height: 4rem;
-
   position: absolute;
   bottom: 5%;
-}
+`;

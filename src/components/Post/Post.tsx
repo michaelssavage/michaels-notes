@@ -1,43 +1,49 @@
+import {
+  Card,
+  CardInfo,
+  DateText,
+  Description,
+  Title,
+} from "@/components/Post/Post.styled";
 import type { IBlog } from "@/types/Post";
-import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import { Anchor } from "../Anchor";
-import styles from "./Post.module.scss";
 
 export const Post = ({
   title,
   date,
   description,
-  external,
+  isExternal,
   slug,
   id,
+  isFirst,
 }: IBlog) => {
   return (
-    <div className={styles.card}>
-      <div className={styles.cardInfo}>
-        <div className={styles.o1}>
-          <motion.h2
-            className={styles.title}
+    <Card>
+      <CardInfo>
+        <Link to={isExternal ? isExternal : slug}>
+          <Title
             layoutId={`blog-title-${id}`}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
             {title}
-          </motion.h2>
-          <p className={styles.date}>{date}</p>
-        </div>
-        <div className={styles.o2}>
-          {external ? (
-            <Anchor
-              link={external}
-              text="Read More"
-              style={{ width: "10rem" }}
-              external
-            />
-          ) : (
-            <Anchor text="Read More" link={slug} style={{ width: "10rem" }} />
-          )}
-        </div>
-      </div>
-      <p className={styles.description}>{description}</p>
-    </div>
+          </Title>
+        </Link>
+        <DateText>{date}</DateText>
+      </CardInfo>
+      <Description isFirst={isFirst}>
+        {description}{" "}
+        {isExternal ? (
+          <Anchor
+            link={isExternal}
+            variant="link"
+            text="Read More"
+            isExternal
+          />
+        ) : (
+          <Anchor text="Read More" variant="link" link={slug} />
+        )}
+      </Description>
+    </Card>
   );
 };

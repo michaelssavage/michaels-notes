@@ -1,11 +1,13 @@
+import type { SerializedStyles } from "@emotion/react";
 import { useEffect, useState } from "react";
-import styles from "./Picture.module.scss";
+import { ImageStyle, Placeholder, Wrapper } from "./Picture.styled";
 
 interface Props {
   src: string;
   alt: string;
-  style?: string;
+  style?: SerializedStyles;
   loading?: "lazy" | "eager";
+  ar?: string;
 }
 
 export const Picture: React.FC<Props> = ({
@@ -13,6 +15,7 @@ export const Picture: React.FC<Props> = ({
   alt,
   style,
   loading = "lazy",
+  ar = "3/2",
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,16 +44,17 @@ export const Picture: React.FC<Props> = ({
   }, [src]);
 
   return (
-    <div className={`${styles.wrapper} ${style}`}>
-      {isLoading && <div className={styles.placeholder} />}
+    <Wrapper css={style}>
+      {isLoading && <Placeholder ar={ar} />}
       {imageLoaded && (
-        <img
+        <ImageStyle
           src={src}
           alt={alt}
-          className={`${styles.image} ${styles.loaded}`}
+          loaded={imageLoaded}
           loading={loading}
+          ar={ar}
         />
       )}
-    </div>
+    </Wrapper>
   );
 };

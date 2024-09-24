@@ -9,6 +9,7 @@ const common = {
   off: "#3d89fb",
   moon: "#ffffff",
   sun: "#ffe26d",
+  code: "#d63384",
 };
 
 export const lightTheme = {

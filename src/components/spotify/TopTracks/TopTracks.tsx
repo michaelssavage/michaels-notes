@@ -30,9 +30,9 @@ export const TopTracks = () => {
             <li key={track.name}>
               <Anchor
                 text={`${track.name} by ${track.artists}`}
-                variant="blog"
+                variant="link"
                 link={track.url}
-                external
+                isExternal
               />
               {index !== data.length - 1 ? <span> // </span> : null}
             </li>

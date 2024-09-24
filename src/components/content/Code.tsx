@@ -1,6 +1,15 @@
+import styled from "@emotion/styled";
 import type { HTMLAttributes } from "react";
-import styles from "./content.module.scss";
+
+const Style = styled.code`
+  &:not(pre > code) {
+    font-family: monospace;
+    color: ${({ theme }) => theme.colors.code};
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+`;
 
 export const Code = (props: HTMLAttributes<HTMLElement>) => {
-  return <code className={styles.code} {...props} />;
+  return <Style {...props} />;
 };

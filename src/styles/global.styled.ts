@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
 import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
@@ -11,7 +10,18 @@ export const globalStyles = (theme: MyTheme) => css`
   body {
     margin: 0;
     padding: 0;
-    font-family: "Inter, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif";
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+      sans-serif;
     background-color: ${theme.colors.background};
     color: ${theme.colors.text};
     overflow-x: hidden;
@@ -56,6 +66,15 @@ export const globalStyles = (theme: MyTheme) => css`
     @media (max-width: 768px) {
       width: 50%;
     }
+
+    @media (max-width: 599px) {
+      width: 100%;
+    }
+  }
+
+  .col-md {
+    flex: 1 1 calc(50% - 0.25rem);
+    padding: 1rem 0.25rem;
 
     @media (max-width: 599px) {
       width: 100%;

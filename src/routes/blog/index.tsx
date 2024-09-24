@@ -3,7 +3,13 @@ import { Ball } from "@/components/Ball";
 import { Button } from "@/components/Button";
 import { Post } from "@/components/Post";
 import { CircleIcon, SearchIcon } from "@/components/icons";
-import styles from "@/styles/blog.module.scss";
+import {
+  ColorKey,
+  Container,
+  Page,
+  SearchBox,
+  SearchWrapper,
+} from "@/styles/blog.styled";
 import type { IBlog, IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -16,7 +22,7 @@ const { blog }: IPosts = import.meta.env.POSTS;
 
 function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [external, setExternal] = useState(true);
+  const [isExternal, setIsExternal] = useState(true);
   const [onSite, setOnSite] = useState(true);
 
   const filterPosts = (list: IBlog[]) => {
@@ -35,16 +41,16 @@ function Blog() {
           return false;
         }
 
-        if (external && onSite) {
+        if (isExternal && onSite) {
           return true;
         }
 
         if (onSite) {
-          return !item.external;
+          return !item.isExternal;
         }
 
-        if (external) {
-          return item.external;
+        if (isExternal) {
+          return item.isExternal;
         }
 
         return false;
@@ -53,10 +59,10 @@ function Blog() {
   };
 
   return (
-    <main className={styles.page}>
-      <div className={styles.container}>
-        <div className={styles.searchWrapper}>
-          <div className={styles.searchBox}>
+    <Page>
+      <Container>
+        <SearchWrapper>
+          <SearchBox>
             <label htmlFor="search-item">
               <input
                 id="search-item"
@@ -67,10 +73,10 @@ function Blog() {
               />
             </label>
 
-            <SearchIcon className={styles.searchIcon} />
-          </div>
-        </div>
-        <div className={styles.colorKey}>
+            <SearchIcon />
+          </SearchBox>
+        </SearchWrapper>
+        <ColorKey>
           <Button
             icon={<CircleIcon color="#fb4d3d" />}
             text="= On site"
@@ -83,15 +89,16 @@ function Blog() {
             icon={<CircleIcon color="#3d89fb" />}
             text="= Plant Bass'd"
             variant="ghost"
-            onClick={() => setExternal(!external)}
-            active={external}
+            onClick={() => setIsExternal(!isExternal)}
+            active={isExternal}
           />
-        </div>
-        {filterPosts(blog).map((post) => {
-          return <Post key={post.id} {...post} />;
+        </ColorKey>
+
+        {filterPosts(blog).map((post, index) => {
+          return <Post key={post.id} {...post} isFirst={index === 0} />;
         })}
-      </div>
+      </Container>
       <Ball />
-    </main>
+    </Page>
   );
 }
