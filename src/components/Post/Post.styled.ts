@@ -10,8 +10,7 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin: 0 1rem;
-  width: 50%;
+  width: 100%;
   -webkit-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
@@ -43,6 +42,7 @@ export const Title = styled(motion.h2)`
   font-size: 1.2rem;
   will-change: transform;
   color: ${({ theme }) => theme.colors.text};
+  text-wrap: initial;
 `;
 
 export const DateText = styled.p`

@@ -5,7 +5,7 @@ import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
-export const Route = createFileRoute("/projects")({
+export const Route = createFileRoute("/projects/")({
   component: Projects,
 });
 
@@ -24,7 +24,7 @@ function Projects() {
             <Wrap to={project.slug}>
               <Picture
                 src={
-                  new URL(`../assets/${project.image}`, import.meta.url).href
+                  new URL(`../../assets/${project.image}`, import.meta.url).href
                 }
                 alt={project.title}
                 loading="eager"

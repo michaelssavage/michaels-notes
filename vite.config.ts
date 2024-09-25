@@ -47,16 +47,4 @@ export default defineConfig({
       },
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        importer: (url: string) => {
-          if (url.startsWith("@/")) {
-            return { file: path.resolve(__dirname, "src", url.slice(2)) };
-          }
-          return null;
-        },
-      },
-    },
-  },
 });

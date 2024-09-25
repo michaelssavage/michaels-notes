@@ -1,11 +1,7 @@
+import { getRandomColor } from "@/lib/colors";
 import { useScroll, useTransform } from "framer-motion";
 import { memo, useCallback, useMemo, useState } from "react";
 import { BallWrapper, Circle, Clickable } from "./Ball.styled";
-
-const getRandomColor = () =>
-  `#${Math.floor(Math.random() * 0xffffff)
-    .toString(16)
-    .padStart(6, "0")}`;
 
 export const Ball = memo(() => {
   const [bgColor, setBgColor] = useState("#009a7b");

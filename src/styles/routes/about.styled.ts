@@ -1,4 +1,3 @@
-import { slideInAnimation } from "@/styles/abstracts/animations.styled";
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -22,30 +21,6 @@ export const Paragraphs = styled.div`
   p {
     margin-bottom: 1rem;
   }
-`;
-
-export const Horizon = styled.div`
-  margin-top: -2rem;
-  border-bottom: 2rem solid ${({ theme }) => theme.colors.mint};
-  width: 80%;
-  z-index: -1;
-  margin-right: auto;
-  ${slideInAnimation("200px", "horizontal", "0.5s")}
-`;
-
-export const Spotify = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  width: 60%;
-  margin: 2rem 2rem;
-  margin-left: 15%;
-
-  ${forPhoneOnly(css`
-    width: 95%;
-    margin: 2rem 5%;
-    gap: 1rem;
-  `)}
 `;
 
 export const imageWrapperStyle = css`

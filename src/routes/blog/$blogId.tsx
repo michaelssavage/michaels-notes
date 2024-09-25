@@ -25,7 +25,7 @@ function Slug() {
   return (
     <AnimatePresence mode="wait">
       <Article
-        key={blogId}
+        key={1}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

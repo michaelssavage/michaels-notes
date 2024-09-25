@@ -1,7 +1,9 @@
 import { fetchCurrentTrack, fetchRecentTrack } from "@/api/fetch-current-track";
+import { Picture } from "@/components/Picture";
 import type { IPlayTrack } from "@/types/Spotify";
+import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
-import { Comp, NowPlaying } from "./CurrentPlay.styled";
+import { Comp, NowPlaying, Title } from "./CurrentPlay.styled";
 
 export const CurrentPlay = () => {
   const currentTrack = useQuery<IPlayTrack>({
@@ -25,14 +27,21 @@ export const CurrentPlay = () => {
 
   return (
     <Comp>
-      <h2>{trackData?.isPlaying ? "Now Playing" : "Recently Played"}</h2>
+      <Title>
+        {trackData?.isPlaying ? "Now Playing:" : "Recently Played:"}
+      </Title>
       {trackData && (
         <NowPlaying>
-          <img
-            src={trackData.albumArtUrl}
-            alt="Album Art"
-            style={{ width: "200px", height: "200px" }}
-          />
+          {trackData.albumArtUrl ? (
+            <Picture
+              src={trackData.albumArtUrl}
+              alt="Album Art"
+              ar="1"
+              style={css`
+                width: 120px;
+              `}
+            />
+          ) : null}
           <div>
             <h3>{trackData.trackTitle}</h3>
             <p>{trackData.artist}</p>

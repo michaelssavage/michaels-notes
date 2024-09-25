@@ -81,6 +81,33 @@ export const Header = styled(motion.h1)`
   will-change: transform;
 `;
 
+export const MainSection = styled.div`
+  width: 100%;
+  padding: 0 0.5rem;
+
+  .col-md {
+    width: calc(50% - 0.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+export const Spotify = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 2rem;
+  width: 100%;
+  margin: 0 2rem;
+
+  ${forPhoneOnly(css`
+    width: 95%;
+    margin: 2rem 5%;
+    gap: 1rem;
+  `)}
+`;
+
 // Article styling
 
 export const Article = styled(motion.article)`

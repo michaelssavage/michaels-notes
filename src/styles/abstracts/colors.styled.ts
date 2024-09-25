@@ -4,6 +4,7 @@ const common = {
   extBtnBg: "#009fd1",
   extBtnBgHover: "#027a9e",
   hoverText: "#515151",
+  secondaryText: "#333",
   mint: "#329a51",
   on: "#fb4d3d",
   off: "#3d89fb",

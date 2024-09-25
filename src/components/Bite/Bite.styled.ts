@@ -33,7 +33,7 @@ export const Text = styled.p`
   border-radius: 0.25rem;
   width: 100%;
   font-size: 1.2rem;
-  background-color: var(--card);
+  background-color: ${({ theme }) => theme.colors.card};
   box-shadow:
     #009a7b66 5px 5px,
     #009a7b4d 10px 10px,
