@@ -7,7 +7,7 @@ import {
   MailIcon,
   SpotifyIcon,
 } from "@/components/icons";
-import { Arrow, Container, Icons } from "@/styles/home.styled";
+import { Arrow, Container, Icons } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({

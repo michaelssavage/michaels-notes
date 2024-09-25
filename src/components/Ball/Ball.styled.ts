@@ -9,11 +9,9 @@ export const BallWrapper = styled.div`
     border-radius: 50%;
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-
-    margin-left: auto;
-    margin-right: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+    overflow: hidden;
     transform-origin: 50% 50%;
   }
 `;

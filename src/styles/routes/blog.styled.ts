@@ -1,13 +1,12 @@
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
-// Page styling
 export const Page = styled.section`
   position: relative;
 `;
 
-// Container styling
 export const Container = styled.div`
   margin: 2rem 5%;
   display: flex;
@@ -15,7 +14,6 @@ export const Container = styled.div`
   gap: 1rem;
 `;
 
-// Search wrapper and search box styling
 export const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -50,7 +48,6 @@ export const SearchBox = styled.div`
   }
 `;
 
-// Color key styling
 export const ColorKey = styled.div`
   display: flex;
   flex-direction: row;
@@ -67,7 +64,6 @@ export const ColorKey = styled.div`
   }
 `;
 
-// Unused item styling
 export const Unused = styled.div`
   svg {
     stroke-width: 1;
@@ -76,8 +72,7 @@ export const Unused = styled.div`
   }
 `;
 
-// Header styling
-export const Header = styled.h1`
+export const Header = styled(motion.h1)`
   font-size: 2rem;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -87,7 +82,8 @@ export const Header = styled.h1`
 `;
 
 // Article styling
-export const Article = styled.div`
+
+export const Article = styled(motion.article)`
   margin: 2rem auto 2rem 40%;
   width: 50%;
 
@@ -97,14 +93,12 @@ export const Article = styled.div`
   `)}
 `;
 
-// Tags styling
-export const Tags = styled.div`
+export const Tags = styled.p`
   text-align: right;
   font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.text};
 `;
 
-// Content styling
 export const Content = styled.div`
   position: relative;
   display: flex;
@@ -112,7 +106,6 @@ export const Content = styled.div`
   gap: 1rem;
 `;
 
-// Paths styling
 export const Paths = styled.div`
   ${forTabletOnly(css`
     left: -9rem;
@@ -124,7 +117,6 @@ export const Paths = styled.div`
   `)}
 `;
 
-// Sidebar styling
 export const Sidebar = styled.div`
   position: fixed;
   top: 12rem;

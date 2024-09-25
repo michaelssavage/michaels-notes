@@ -1,11 +1,11 @@
 import { sortById } from "@/assets/utils";
 import { Picture } from "@/components/Picture";
-import styles from "@/styles/projects.module.scss";
+import { View, Wrap } from "@/styles/routes/projects.styled";
 import type { IPosts } from "@/types/Post";
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
-export const Route = createFileRoute("/projects/")({
+export const Route = createFileRoute("/projects")({
   component: Projects,
 });
 
@@ -21,22 +21,19 @@ function Projects() {
             className="col-md"
             layoutId={`project-image-${project.id}`}
           >
-            <Link
-              to={project.slug}
-              className={`${styles.wrap} ${styles.projectImg}`}
-            >
+            <Wrap to={project.slug}>
               <Picture
                 src={
-                  new URL(`../../assets/${project.image}`, import.meta.url).href
+                  new URL(`../assets/${project.image}`, import.meta.url).href
                 }
                 alt={project.title}
                 loading="eager"
               />
-              <p className={styles.view}>
+              <View>
                 <span>{project.title}</span>
                 <span>{project.description}</span>
-              </p>
-            </Link>
+              </View>
+            </Wrap>
           </motion.div>
         ))}
       </div>

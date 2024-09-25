@@ -9,7 +9,7 @@ import {
   Paragraphs,
   Spotify,
   imageWrapperStyle,
-} from "@/styles/about.styled";
+} from "@/styles/routes/about.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/about")({

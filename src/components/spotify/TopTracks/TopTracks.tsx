@@ -2,7 +2,7 @@ import { fetchTopTracks } from "@/api/fetch-top-tracks";
 import { Anchor } from "@/components/Anchor";
 import type { ITopTrack } from "@/types/Spotify";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./TopTracks.module.scss";
+import { Comp, Title, TrackNames } from "./TopTracks.styled";
 
 export const TopTracks = () => {
   const { data, isLoading } = useQuery<Array<ITopTrack>>({
@@ -21,10 +21,10 @@ export const TopTracks = () => {
   }
 
   return (
-    <div className={styles.comp}>
-      <h2 className={styles.title}>Most played tracks:</h2>
+    <Comp>
+      <Title>Most played tracks:</Title>
 
-      <ol className={styles.trackNames}>
+      <TrackNames>
         {data.map((track, index) => {
           return (
             <li key={track.name}>
@@ -38,7 +38,7 @@ export const TopTracks = () => {
             </li>
           );
         })}
-      </ol>
-    </div>
+      </TrackNames>
+    </Comp>
   );
 };

@@ -1,5 +1,4 @@
 import { sortByDate } from "@/assets/utils";
-import { Ball } from "@/components/Ball";
 import { Button } from "@/components/Button";
 import { Post } from "@/components/Post";
 import { CircleIcon, SearchIcon } from "@/components/icons";
@@ -9,12 +8,12 @@ import {
   Page,
   SearchBox,
   SearchWrapper,
-} from "@/styles/blog.styled";
+} from "@/styles/routes/blog.styled";
 import type { IBlog, IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-export const Route = createFileRoute("/blog/")({
+export const Route = createFileRoute("/blog")({
   component: Blog,
 });
 
@@ -98,7 +97,6 @@ function Blog() {
           return <Post key={post.id} {...post} isFirst={index === 0} />;
         })}
       </Container>
-      <Ball />
     </Page>
   );
 }

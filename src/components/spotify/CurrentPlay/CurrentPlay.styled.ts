@@ -1,13 +1,13 @@
-@use "@/styles/abstracts" as *;
+import styled from "@emotion/styled";
 
-.comp {
+export const Comp = styled.div`
   display: flex;
   flex-direction: column;
-}
+`;
 
-.nowPlaying {
+export const NowPlaying = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.75rem;
-}
+`;

@@ -46,13 +46,14 @@ export const Title = styled(motion.h2)`
 `;
 
 export const DateText = styled.p`
+  white-space: nowrap;
   font-style: italic;
   font-size: 0.85rem;
   color: ${({ theme }) => theme.colors.header};
   font-weight: bold;
 `;
 
-export const Description = styled.p<{ isFirst: boolean }>`
+export const Description = styled.p<{ isFirst?: boolean }>`
   width: 100%;
 
   ${forPhoneOnly(css`
@@ -65,11 +66,11 @@ export const Description = styled.p<{ isFirst: boolean }>`
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      max-height: 1.5rem;
+      max-height: 1.4rem;
       opacity: 1;
       transition:
-        max-height 0.2s ease-out,
-        opacity 0.2s ease-out;
+        max-height 0.25s ease-out,
+        opacity 0.25s ease-out;
 
       ${Card}:hover & {
         max-height: 100px;
