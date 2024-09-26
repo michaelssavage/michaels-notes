@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export const AnimatedLine = styled(motion.div)`
   margin-top: -2rem;
-  border-bottom: 2rem solid $mint;
+  border-bottom: 2rem solid ${({ theme }) => theme.colors.mint};
   width: 75%;
   z-index: -1;
   margin-left: auto;

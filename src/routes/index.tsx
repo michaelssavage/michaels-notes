@@ -7,7 +7,7 @@ import {
   MailIcon,
   SpotifyIcon,
 } from "@/components/icons";
-import { Arrow, Container, Icons } from "@/styles/routes/home.styled";
+import { Arrow, Icons, Panel } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <>
-      <Container>
+      <Panel>
         <h1>
           Hey, <span>I am Michael!</span>
         </h1>
@@ -45,7 +45,7 @@ function Home() {
         </Icons>
         <HomeLine />
         <Arrow />
-      </Container>
+      </Panel>
 
       <Bite />
     </>

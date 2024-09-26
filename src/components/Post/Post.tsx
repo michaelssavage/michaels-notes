@@ -1,13 +1,8 @@
-import {
-  Card,
-  CardInfo,
-  DateText,
-  Description,
-  Title,
-} from "@/components/Post/Post.styled";
+import { Description } from "@/components/Post/Description";
+import { Card, CardInfo, DateText, Title } from "@/components/Post/Post.styled";
 import type { IBlog } from "@/types/Post";
 import { Link } from "@tanstack/react-router";
-import { Anchor } from "../Anchor";
+import { useState } from "react";
 
 export const Post = ({
   title,
@@ -18,8 +13,13 @@ export const Post = ({
   id,
   isFirst,
 }: IBlog) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <Card>
+    <Card
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <CardInfo>
         <Link to={isExternal ? isExternal : slug}>
           <Title
@@ -31,19 +31,13 @@ export const Post = ({
         </Link>
         <DateText>{date}</DateText>
       </CardInfo>
-      <Description isFirst={isFirst}>
-        {description}{" "}
-        {isExternal ? (
-          <Anchor
-            link={isExternal}
-            variant="link"
-            text="Read More"
-            isExternal
-          />
-        ) : (
-          <Anchor text="Read More" variant="link" link={slug} />
-        )}
-      </Description>
+      <Description
+        isFirst={isFirst}
+        description={description}
+        isExternal={isExternal}
+        slug={slug}
+        isHovered={isHovered}
+      />
     </Card>
   );
 };

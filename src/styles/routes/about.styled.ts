@@ -2,12 +2,15 @@ import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+export const Page = styled.div`
+  width: 60%;
+  margin: 1rem auto 2rem auto;
+`;
+
+export const Panel = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5rem;
-  width: 60%;
-  margin: 1rem auto 2rem auto;
 
   ${forPhoneOnly(css`
     flex-direction: column;

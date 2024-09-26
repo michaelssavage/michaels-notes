@@ -1,7 +1,7 @@
 import type { IBite } from "@/types/Post";
 import { motion, useInView } from "framer-motion";
 import { memo, useMemo, useRef } from "react";
-import { AnimatedBite, Container, Text, Year } from "./Bite.styled";
+import { AnimatedBite, Panel, Text, Year } from "./Bite.styled";
 import { bites } from "./items";
 
 interface Props {
@@ -33,13 +33,13 @@ const BiteItem = memo(({ bite, index }: Props) => {
 
 export const Bite = () => {
   return (
-    <Container>
+    <Panel>
       <h2>Bites</h2>
       <motion.ul>
         {bites.map((bite, index) => (
           <BiteItem key={bite.id} bite={bite} index={index} />
         ))}
       </motion.ul>
-    </Container>
+    </Panel>
   );
 };

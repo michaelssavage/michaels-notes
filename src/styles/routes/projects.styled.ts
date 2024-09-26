@@ -13,7 +13,7 @@ export const View = styled.p`
   font-size: 1.2rem;
   padding: 2rem 0.5rem;
   transition: opacity 0.25s;
-  color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.moon};
   text-shadow: 3px 2px 4px #191919;
   height: 100%;
 

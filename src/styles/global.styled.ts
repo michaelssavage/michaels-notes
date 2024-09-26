@@ -43,44 +43,6 @@ export const globalStyles = (theme: MyTheme) => css`
     text-wrap: balance;
   }
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    margin: 0 15% 2rem;
-    padding-bottom: 1rem;
-
-    @media (max-width: 599px) {
-      margin: 0 5% 2rem;
-    }
-  }
-
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .col {
-    flex: 1 1 calc(33.33% - 0.25rem);
-    padding: 1rem 0.25rem;
-
-    @media (max-width: 768px) {
-      width: 50%;
-    }
-
-    @media (max-width: 599px) {
-      width: 100%;
-    }
-  }
-
-  .col-md {
-    flex: 1 1 calc(50% - 0.25rem);
-    padding: 1rem 0.25rem;
-
-    @media (max-width: 599px) {
-      width: 100%;
-    }
-  }
-
   .icon-link {
     color: ${theme.colors.icon};
 

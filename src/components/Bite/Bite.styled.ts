@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
-export const Container = styled.section`
+export const Panel = styled.section`
   margin: 2rem auto;
   width: 60%;
   ${forPhoneOnly(css`

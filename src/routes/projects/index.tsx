@@ -1,9 +1,9 @@
 import { sortById } from "@/assets/utils";
 import { Picture } from "@/components/Picture";
+import { Container, MotionCol, Row } from "@/styles/abstracts/layout.styled";
 import { View, Wrap } from "@/styles/routes/projects.styled";
 import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/projects/")({
   component: Projects,
@@ -13,12 +13,12 @@ const { projects }: IPosts = import.meta.env.POSTS;
 
 function Projects() {
   return (
-    <section className="container">
-      <div className="row">
+    <Container>
+      <Row>
         {projects.sort(sortById).map((project) => (
-          <motion.div
+          <MotionCol
+            size="md"
             key={project.id}
-            className="col-md"
             layoutId={`project-image-${project.id}`}
           >
             <Wrap to={project.slug}>
@@ -34,9 +34,9 @@ function Projects() {
                 <span>{project.description}</span>
               </View>
             </Wrap>
-          </motion.div>
+          </MotionCol>
         ))}
-      </div>
-    </section>
+      </Row>
+    </Container>
   );
 }

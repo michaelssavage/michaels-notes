@@ -53,33 +53,15 @@ export const DateText = styled.p`
   font-weight: bold;
 `;
 
-export const Description = styled.p<{ isFirst?: boolean }>`
+export const DescriptionWrapper = styled(motion.div)`
   width: 100%;
-
+  overflow: hidden;
   ${forPhoneOnly(css`
     font-size: 0.9rem;
   `)}
+`;
 
-  ${({ isFirst }) =>
-    !isFirst &&
-    css`
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      max-height: 1.4rem;
-      opacity: 1;
-      transition:
-        max-height 0.25s ease-out,
-        opacity 0.25s ease-out;
-
-      ${Card}:hover & {
-        max-height: 100px;
-        opacity: 1;
-        white-space: normal;
-        text-overflow: initial;
-        transition:
-          max-height 0.25s ease-in,
-          opacity 0.25s ease-in;
-      }
-    `}
+export const DescriptionText = styled.p`
+  margin: 0;
+  padding: 0;
 `;

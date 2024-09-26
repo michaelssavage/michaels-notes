@@ -1,3 +1,4 @@
+import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -7,69 +8,27 @@ export const Page = styled.section`
   position: relative;
 `;
 
-export const Container = styled.div`
+export const Panel = styled.div`
   margin: 2rem 5%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
 
-export const SearchWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`;
-
-export const SearchBox = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  input {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    padding: 0.5rem 1rem 0.5rem 2.5rem;
-    border: 2px solid ${({ theme }) => theme.colors.text};
-    border-radius: 9999px;
-    width: 100%;
-
-    &:focus {
-      outline: solid 2px ${({ theme }) => theme.colors.mint};
-    }
-  }
-
-  svg {
-    position: absolute;
-    left: 0.5rem;
-    height: 1.5rem;
-    width: 1.5rem;
-    background-color: transparent;
-    color: ${({ theme }) => theme.colors.hoverText};
-  }
-`;
-
-export const ColorKey = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  gap: 1rem;
-  position: relative;
-
-  p {
+  ${Col}:first-child {
     display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    z-index: 3;
+    flex-direction: column;
+    gap: 1rem;
   }
 `;
 
-export const Unused = styled.div`
-  svg {
-    stroke-width: 1;
-    stroke: grey;
-    fill: transparent;
-  }
+export const Filter = styled.div`
+  position: sticky;
+  top: 2rem;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0 2rem;
 `;
 
 export const Header = styled(motion.h1)`
@@ -82,30 +41,11 @@ export const Header = styled(motion.h1)`
 `;
 
 export const MainSection = styled.div`
-  width: 100%;
-  padding: 0 0.5rem;
-
-  .col-md {
-    width: calc(50% - 0.25rem);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-`;
-
-export const Spotify = styled.div`
+  width: 70%;
   display: flex;
+  gap: 1rem;
   flex-direction: column;
-  position: sticky;
-  top: 2rem;
-  width: 100%;
-  margin: 0 2rem;
-
-  ${forPhoneOnly(css`
-    width: 95%;
-    margin: 2rem 5%;
-    gap: 1rem;
-  `)}
+  padding: 0 0.5rem;
 `;
 
 // Article styling
