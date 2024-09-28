@@ -95,4 +95,5 @@ export const RightScrollButton = styled(ScrollButton)`
 
 export const ComponentWrapper = styled.div`
   position: relative;
+  margin: 0 3rem;
 `;

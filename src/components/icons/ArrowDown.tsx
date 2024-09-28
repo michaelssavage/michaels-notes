@@ -1,19 +1,24 @@
 import type { SVGProps } from "react";
 import type { JSX } from "react/jsx-runtime";
 
+interface Props {
+  color?: string;
+  size?: number;
+}
+
 export const ArrowDown = (
-  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement> & Props
 ) => {
   return (
     <svg
       role="img"
       aria-label="arrow down icon"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width={props.size ?? 24}
+      height={props.size ?? 24}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={props.color ?? "currentColor"}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

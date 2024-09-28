@@ -33,6 +33,7 @@ export const Wrap = styled(Link)`
   border-radius: 0.2rem;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.text};
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
 
   & > * {
     grid-column: 1;
@@ -98,4 +99,18 @@ export const ProjectImage = styled(motion.div)`
   height: auto;
   object-fit: cover;
   will-change: transform;
+`;
+
+export const SpotifyContent = styled.div`
+  margin: 2rem 0 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+`;
+
+export const Header = styled.div`
+  margin-bottom: 2rem;
+  ${forPhoneOnly(css`
+    margin: 0 5% 2rem;
+  `)}
 `;

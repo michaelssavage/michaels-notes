@@ -1,21 +1,36 @@
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
-export const Page = styled.div`
-  width: 60%;
-  margin: 1rem auto 2rem auto;
+export const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 12rem);
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
 `;
 
-export const Panel = styled.div`
+export const Section = styled(motion.div)`
+  min-height: calc(60vh - 12rem);
   display: flex;
-  flex-direction: row;
-  gap: 5rem;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+`;
 
-  ${forPhoneOnly(css`
-    flex-direction: column;
-    margin-left: 5%;
-  `)}
+export const Paragraph = styled.div`
+  font-size: 1.5rem;
+  width: 60%;
+  text-align: center;
+  padding: 2rem;
+`;
+
+export const ArrowContainer = styled(motion.div)`
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 export const Paragraphs = styled.div`
@@ -30,7 +45,8 @@ export const imageWrapperStyle = css`
   overflow: hidden;
   border-top-left-radius: 5rem;
   border-top-right-radius: 5rem;
-  width: 100%;
+  min-width: 12rem;
+  max-width: 12rem;
 
   img {
     aspect-ratio: unset;

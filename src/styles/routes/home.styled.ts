@@ -4,6 +4,10 @@ import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const Content = styled.div`
+  position: relative;
+`;
+
 export const Panel = styled.section`
   display: flex;
   align-items: center;

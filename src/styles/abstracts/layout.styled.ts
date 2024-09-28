@@ -23,7 +23,7 @@ interface IGroup {
 export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
-  margin: ${({ margin }) => margin ?? "0 15% 2rem"};
+  margin: ${({ margin }) => margin ?? "0 20% 2rem"};
   padding-bottom: ${({ pb }) => pb ?? "1rem"};
 
   ${forPhoneOnly(css`

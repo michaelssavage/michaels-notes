@@ -3,7 +3,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
-export const Panel = styled.section`
+export const BitePanel = styled.section`
+  z-index: 2;
   margin: 2rem auto;
   width: 60%;
   ${forPhoneOnly(css`

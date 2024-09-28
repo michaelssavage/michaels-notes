@@ -1,3 +1,5 @@
+export { PauseIcon } from "./Pause";
+export { PlayIcon } from "./Play";
 export { ArrowDown } from "./ArrowDown";
 export { CircleIcon } from "./Circle";
 export { ExternalLinkIcon } from "./ExternalLink";
