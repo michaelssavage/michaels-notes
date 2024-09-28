@@ -4,8 +4,7 @@ import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
 export const Header = styled.header`
-  line-height: 1.5;
-  max-height: 100vh;
+  line-height: 1;
   position: relative;
 
   nav {
@@ -28,6 +27,7 @@ export const Header = styled.header`
 export const StyledLink = styled(Link)`
   z-index: 3;
   text-decoration: none;
+  font-family: "Rawest";
   color: ${({ theme }) => theme.colors.text};
   transition:
     color 0.3s cubic-bezier(0.45, 0, 0.55, 1),

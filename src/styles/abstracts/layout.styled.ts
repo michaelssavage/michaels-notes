@@ -41,8 +41,9 @@ const getColStyle = ({ size }: ICol) => {
     case "md":
       return css`
         flex: 1 1 calc(50% - 0.25rem);
-        ${forPhoneOnly(css`
-          width: 100%;
+
+        ${forTabletOnly(css`
+          flex: 1 1 calc(100% - 0.25rem);
         `)}
       `;
     default:
@@ -50,23 +51,21 @@ const getColStyle = ({ size }: ICol) => {
         flex: 1 1 calc(33.33% - 0.25rem);
 
         ${forPhoneOnly(css`
-          width: 50%;
+          flex: 1 1 calc(50% - 0.25rem);
         `)}
 
         ${forTabletOnly(css`
-          width: 100%;
+          flex: 1 1 calc(100% - 0.25rem);
         `)}
       `;
   }
 };
 
 export const Col = styled.div<ICol>`
-  padding: 1rem 0.25rem;
   ${({ size, gap }) => getColStyle({ size, gap })}
 `;
 
 export const MotionCol = styled(motion.div)<ICol>`
-  padding: 1rem 0.25rem;
   ${({ size, gap }) => getColStyle({ size, gap })}
 `;
 

@@ -9,12 +9,19 @@ import {
 } from "@/components/icons";
 import { Arrow, Content, Icons, Panel } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
+import { useRef } from "react";
 
 export const Route = createFileRoute("/")({
   component: Home,
 });
 
 function Home() {
+  const biteRef = useRef<HTMLHeadingElement>(null);
+
+  const scrollToBites = () => {
+    biteRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <Content>
       <Panel>
@@ -44,10 +51,10 @@ function Home() {
           />
         </Icons>
         <HomeLine />
-        <Arrow />
+        <Arrow onClick={scrollToBites} />
       </Panel>
 
-      <Bite />
+      <Bite biteRef={biteRef} />
     </Content>
   );
 }

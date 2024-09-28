@@ -5,6 +5,7 @@ interface IGroup {
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   align?: "flex-start" | "flex-end" | "center";
   justify?: "flex-start" | "flex-end" | "center";
+  wrap?: "wrap" | "nowrap";
   gap?: string;
   children: ReactNode;
 }
@@ -15,12 +16,9 @@ const GroupStyle = styled.div<IGroup>`
   justify-content: ${({ justify }) => justify ?? "flex-start"};
   align-items: ${({ align }) => align ?? "flex-start"};
   gap: ${({ gap }) => gap ?? "0.5rem"};
+  flex-wrap: ${({ wrap }) => wrap ?? "nowrap"};
 `;
 
-export const Group = ({ direction, align, justify, gap, children }: IGroup) => {
-  return (
-    <GroupStyle direction={direction} align={align} justify={justify} gap={gap}>
-      {children}
-    </GroupStyle>
-  );
+export const Group = (props: IGroup) => {
+  return <GroupStyle {...props}>{props.children}</GroupStyle>;
 };

@@ -1,3 +1,4 @@
+import { ButtonStyled } from "@/components/Button/Button.styled";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
@@ -21,6 +22,21 @@ export const Panel = styled.div`
   }
 `;
 
+export const RowStyle = css`
+  ${forTabletOnly(css`
+    flex-direction: column;
+
+    & > ${Col}:first-of-type {
+      order: 2;
+    }
+
+    & > ${Col}:last-of-type {
+      order: 1;
+      padding: 0;
+    }
+  `)}
+`;
+
 export const Filter = styled.div`
   position: sticky;
   top: 2rem;
@@ -29,6 +45,16 @@ export const Filter = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   padding: 0 2rem;
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
+
+  ${ButtonStyled} {
+    white-space: nowrap;
+  }
 `;
 
 export const Header = styled(motion.h1)`

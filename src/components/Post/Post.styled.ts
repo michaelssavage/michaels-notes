@@ -15,10 +15,6 @@ export const Card = styled.div`
   -moz-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
   z-index: 2;
-
-  ${forPhoneOnly(css`
-    width: 90%;
-  `)}
 `;
 
 export const CardInfo = styled.div`

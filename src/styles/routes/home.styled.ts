@@ -16,7 +16,7 @@ export const Panel = styled.section`
   margin-bottom: 2rem;
   position: relative;
   h1 {
-    font-size: clamp(4rem, 0.5692rem + 8.5vw, 13.75rem);
+    font-size: clamp(4rem, 0.5692rem + 7.5vw, 13.75rem);
     text-align: center;
     margin: 0 2rem;
     color: ${({ theme }) => theme.colors.icon};
@@ -53,4 +53,5 @@ export const Arrow = styled(ArrowDown)`
   height: 4rem;
   position: absolute;
   bottom: 5%;
+  cursor: pointer;
 `;

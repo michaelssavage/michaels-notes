@@ -1,8 +1,12 @@
 import type { IBite } from "@/types/Post";
 import { motion, useInView } from "framer-motion";
-import { memo, useMemo, useRef } from "react";
+import { type Ref, memo, useMemo, useRef } from "react";
 import { AnimatedBite, BitePanel, Text, Year } from "./Bite.styled";
 import { bites } from "./items";
+
+interface IB {
+  biteRef?: Ref<HTMLHeadingElement>;
+}
 
 interface Props {
   bite: IBite;
@@ -31,10 +35,10 @@ const BiteItem = memo(({ bite, index }: Props) => {
   );
 });
 
-export const Bite = () => {
+export const Bite = ({ biteRef }: IB) => {
   return (
     <BitePanel>
-      <h2>Bites</h2>
+      <h2 ref={biteRef}>Bites</h2>
       <motion.ul>
         {bites.map((bite, index) => (
           <BiteItem key={bite.id} bite={bite} index={index} />

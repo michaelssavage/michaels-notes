@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export const BitePanel = styled.section`
   z-index: 2;
-  margin: 2rem auto;
+  margin: 2rem auto 4rem;
   width: 60%;
   ${forPhoneOnly(css`
     width: 90%;

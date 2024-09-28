@@ -2,9 +2,16 @@ import { sortByDate } from "@/assets/utils";
 import { Button } from "@/components/Button";
 import { Post } from "@/components/Post";
 import { SearchBox } from "@/components/SearchBox";
+import { Group } from "@/components/atoms/Group";
 import { CircleIcon } from "@/components/icons";
-import { Col, Group, Row } from "@/styles/abstracts/layout.styled";
-import { Filter, Page, Panel } from "@/styles/routes/blog.styled";
+import { Col, Row } from "@/styles/abstracts/layout.styled";
+import {
+  ButtonGroup,
+  Filter,
+  Page,
+  Panel,
+  RowStyle,
+} from "@/styles/routes/blog.styled";
 import type { IBlog, IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -56,7 +63,7 @@ function Blog() {
   return (
     <Page>
       <Panel>
-        <Row>
+        <Row css={RowStyle}>
           <Col size="md" gap="1rem">
             {filterPosts(blog).length > 0 ? (
               filterPosts(blog).map((post, index) => {
@@ -75,24 +82,26 @@ function Blog() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Spotify..."
               />
-              <div css={Group()}>
+              <Group wrap="wrap">
                 <p>Filters posts:</p>
-                <Button
-                  icon={<CircleIcon color="#fb4d3d" />}
-                  text="On site"
-                  variant="ghost"
-                  onClick={() => setOnSite(!onSite)}
-                  active={onSite}
-                />
+                <ButtonGroup>
+                  <Button
+                    icon={<CircleIcon color="#fb4d3d" />}
+                    text="On site"
+                    variant="ghost"
+                    onClick={() => setOnSite(!onSite)}
+                    active={onSite}
+                  />
 
-                <Button
-                  icon={<CircleIcon color="#3d89fb" />}
-                  text="Plant Bass'd"
-                  variant="ghost"
-                  onClick={() => setIsExternal(!isExternal)}
-                  active={isExternal}
-                />
-              </div>
+                  <Button
+                    icon={<CircleIcon color="#3d89fb" />}
+                    text="Plant Bass'd"
+                    variant="ghost"
+                    onClick={() => setIsExternal(!isExternal)}
+                    active={isExternal}
+                  />
+                </ButtonGroup>
+              </Group>
             </Filter>
           </Col>
         </Row>

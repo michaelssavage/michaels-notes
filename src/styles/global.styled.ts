@@ -1,26 +1,22 @@
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
 import type { MyTheme } from "@/styles/abstracts/colors.styled";
+import { fonts } from "@/styles/abstracts/fonts.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
 import { css } from "@emotion/react";
 
 export const globalStyles = (theme: MyTheme) => css`
   ${resetStyles}
   ${pageTransitions}
+  ${fonts}
 
   body {
     margin: 0;
     padding: 0;
     font-family:
+      "Nudica",
       Inter,
       -apple-system,
       BlinkMacSystemFont,
-      Roboto,
-      Oxygen,
-      Ubuntu,
-      Cantarell,
-      "Fira Sans",
-      "Droid Sans",
-      "Helvetica Neue",
       sans-serif;
     background-color: ${theme.colors.background};
     color: ${theme.colors.text};
@@ -40,6 +36,7 @@ export const globalStyles = (theme: MyTheme) => css`
   h4,
   h5,
   h6 {
+    font-family: "Rawest";
     text-wrap: balance;
   }
 

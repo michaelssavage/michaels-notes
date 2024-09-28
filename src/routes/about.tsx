@@ -48,14 +48,14 @@ const paragraphs = [
   {
     id: 3,
     value: `I'm passionate about films, and I love sharing and keeping track of them on
-    Letterboxd (the best social media platform).`,
+    Letterboxd (the best social media platform). Top picks from me include Amélie, Y Tu Mamá También, 
+    Aftersun, and Sexy Beast.`,
   },
   {
     id: 4,
-    value: `I've played sports all my life including Gaelic Football for Clontibret
-    O'Neills GFC and rugby for teams like Ulster Club u18s, Monaghan RFC, Ennis
-    RFC, and Corinthians RFC. More recently I've joined a local running club and
-    I'm preparing for the Barcelona half marathon!`,
+    value: `I like to keep fit and healthy, having played sports all my life including Gaelic Football and 
+    rugby for teams like Ulster Club u18s, Monaghan RFC, Ennis RFC, and Corinthians RFC. 
+    More recently I've joined a local running club and I'm preparing for the Barcelona half marathon!`,
   },
   {
     id: 5,
