@@ -1,4 +1,4 @@
-import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
@@ -24,6 +24,16 @@ export const Paragraph = styled.div`
   width: 60%;
   text-align: center;
   padding: 2rem;
+
+  ${forTabletOnly(css`
+    width: 85%;
+    font-size: 1.2rem;
+  `)}
+
+  ${forPhoneOnly(css`
+    width: 95%;
+    font-size: 1rem;
+  `)}
 `;
 
 export const ArrowContainer = styled(motion.div)`
@@ -58,11 +68,9 @@ export const imageWrapperStyle = css`
   }
 
   ${forPhoneOnly(css`
-    margin: -2rem 5% 2rem 0;
     img {
       width: 240px;
       min-width: 140px;
-      padding-right: 2.5rem;
     }
   `)}
 `;

@@ -23,7 +23,7 @@ export const Card = styled(Link)`
   background-color: ${({ color }) => color || "#f0f0f0"};
   color: ${({ color }) => getContrastYIQ(color || "#f0f0f0")};
   border-radius: 0.4rem;
-  padding: 0.6rem 0.8rem;
+  padding: 0.7rem 0.9rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,6 +55,7 @@ export const Title = styled.h3`
   display: flex;
   flex-direction: row;
   font-weight: 500;
+  margin: 0 -3rem;
   color: ${({ theme }) => theme.colors.secondaryText};
 
   svg {
@@ -86,11 +87,11 @@ const ScrollButton = styled.button`
 `;
 
 export const LeftScrollButton = styled(ScrollButton)`
-  left: -1.5rem;
+  left: calc(-10px - 1.5rem);
 `;
 
 export const RightScrollButton = styled(ScrollButton)`
-  right: -1.5rem;
+  right: calc(-10px - 1.5rem);
 `;
 
 export const ComponentWrapper = styled.div`

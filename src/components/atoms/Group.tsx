@@ -1,3 +1,4 @@
+import type { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { ReactNode } from "@tanstack/react-router";
 
@@ -7,6 +8,7 @@ interface IGroup {
   justify?: "flex-start" | "flex-end" | "center";
   wrap?: "wrap" | "nowrap";
   gap?: string;
+  style?: SerializedStyles;
   children: ReactNode;
 }
 
@@ -20,5 +22,9 @@ const GroupStyle = styled.div<IGroup>`
 `;
 
 export const Group = (props: IGroup) => {
-  return <GroupStyle {...props}>{props.children}</GroupStyle>;
+  return (
+    <GroupStyle {...props} css={props.style}>
+      {props.children}
+    </GroupStyle>
+  );
 };

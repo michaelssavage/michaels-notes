@@ -29,7 +29,7 @@ export const PageLink = styled(Link)`
   `)}
 
   ${forPhoneOnly(css`
-    width: 90%;
+    width: auto;
     position: static;
   `)}
 

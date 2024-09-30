@@ -1,6 +1,7 @@
+import notFound from "@/assets/images/not-found.png";
 import type { SerializedStyles } from "@emotion/react";
 import { useEffect, useState } from "react";
-import { ImageStyle, Placeholder, Wrapper } from "./Picture.styled";
+import { ImageStyle, NotFound, Placeholder, Wrapper } from "./Picture.styled";
 
 interface Props {
   src: string;
@@ -42,6 +43,10 @@ export const Picture: React.FC<Props> = ({
       img.onerror = null;
     };
   }, [src]);
+
+  if (!src) {
+    return <NotFound src={notFound} alt="src not found" />;
+  }
 
   return (
     <Wrapper css={style}>

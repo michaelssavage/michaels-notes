@@ -7,7 +7,7 @@ const common = {
   mint: "#329a51",
   on: "#fb4d3d",
   off: "#3d89fb",
-  moon: "#ffffff",
+  moon: "#f0f0f0",
   sun: "#ffe26d",
   code: "#d63384",
 };

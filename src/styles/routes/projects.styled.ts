@@ -10,23 +10,42 @@ export const View = styled.p`
   flex-direction: column;
   justify-content: center;
   opacity: 0;
-  font-size: 1.2rem;
-  padding: 2rem 0.5rem;
+  padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
   transition: opacity 0.25s;
   color: ${({ theme }) => theme.colors.moon};
   text-shadow: 3px 2px 4px #191919;
   height: 100%;
 
   span:first-of-type {
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 1.5vi + 0.15rem, 1.5rem);
   }
 
+  span:last-of-type {
+    font-size: clamp(0.8rem, 0.9vi + 0.15rem, 1.2rem);
+  }
+
+  ${forTabletOnly(css`
+    span:first-of-type {
+      font-size: clamp(0.8rem, 1vi + 0.31rem, 1.13rem);
+    }
+
+    span:last-of-type {
+      font-size: clamp(0.72rem, 0.5vi + 0.45rem, 0.9rem);
+    }
+  `)}
+
   ${forPhoneOnly(css`
-    font-size: 1rem;
+    span:first-of-type {
+      font-size: 1.5rem;
+    }
+
+    span:last-of-type {
+      font-size: 1.2rem;
+    }
   `)}
 `;
 
-export const Wrap = styled(Link)`
+export const Card = styled(Link)`
   display: grid;
   overflow: hidden;
   will-change: transform;

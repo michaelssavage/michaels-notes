@@ -1,9 +1,10 @@
 import { fetchCurrentTrack, fetchRecentTrack } from "@/api/fetch-current-track";
-import { Picture } from "@/components/Picture";
+import { AudioPlayer } from "@/components/AudioPlayer/AudioPlayer";
+import { ExternalLinkIcon } from "@/components/icons";
 import useExtractColor from "@/lib/extractColor";
 import type { IPlayTrack } from "@/types/Spotify";
-import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { Comp, NowPlaying, Title } from "./CurrentPlay.styled";
 
@@ -26,13 +27,10 @@ export const CurrentPlay = () => {
 
   const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 
-  // Memoize the color extraction result
   const memoizedColor = useMemo(() => dominantColor, [dominantColor]);
 
   if (currentTrack?.isLoading || recentTrack?.isLoading)
     return <div>Loading...</div>;
-
-  console.log(memoizedColor);
 
   return (
     <Comp>
@@ -40,17 +38,16 @@ export const CurrentPlay = () => {
         {trackData?.isPlaying ? "Now Playing:" : "Recently Played:"}
       </Title>
       {trackData && (
-        <NowPlaying color={dominantColor ?? ""}>
-          {trackData.albumArtUrl ? (
-            <Picture
-              src={trackData.albumArtUrl}
-              alt="Album Art"
-              ar="1"
-              style={css`
-                width: 120px;
-              `}
+        <NowPlaying color={memoizedColor ?? ""}>
+          <Link to={trackData?.trackUrl}>
+            <ExternalLinkIcon />
+          </Link>
+          {trackData.preview && (
+            <AudioPlayer
+              pic={trackData.albumArtUrl || ""}
+              audioUrl={trackData.preview}
             />
-          ) : null}
+          )}
           <div>
             <h3>{trackData.trackTitle}</h3>
             <p>{trackData.artist}</p>

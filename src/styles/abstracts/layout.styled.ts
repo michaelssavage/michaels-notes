@@ -1,7 +1,6 @@
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 
 interface IContainer {
   margin?: string;
@@ -34,39 +33,38 @@ export const Container = styled.div<IContainer>`
 export const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin: 0 -15px;
 `;
-
-const getColStyle = ({ size }: ICol) => {
-  switch (size) {
-    case "md":
-      return css`
-        flex: 1 1 calc(50% - 0.25rem);
-
-        ${forTabletOnly(css`
-          flex: 1 1 calc(100% - 0.25rem);
-        `)}
-      `;
-    default:
-      return css`
-        flex: 1 1 calc(33.33% - 0.25rem);
-
-        ${forPhoneOnly(css`
-          flex: 1 1 calc(50% - 0.25rem);
-        `)}
-
-        ${forTabletOnly(css`
-          flex: 1 1 calc(100% - 0.25rem);
-        `)}
-      `;
-  }
-};
 
 export const Col = styled.div<ICol>`
-  ${({ size, gap }) => getColStyle({ size, gap })}
-`;
+  padding: 0 15px;
+  height: auto;
+  width: 100%;
+  margin-bottom: 30px;
+  ${({ size }) => {
+    switch (size) {
+      case "md":
+        return css`
+          width: 50%;
 
-export const MotionCol = styled(motion.div)<ICol>`
-  ${({ size, gap }) => getColStyle({ size, gap })}
+          ${forTabletOnly(css`
+            width: 100%;
+          `)}
+        `;
+      default:
+        return css`
+          width: 33.33%;
+
+          ${forTabletOnly(css`
+            width: 50%;
+          `)}
+
+          ${forPhoneOnly(css`
+            width: 100%;
+          `)}
+        `;
+    }
+  }}
 `;
 
 export const Group = (props?: IGroup) => css`

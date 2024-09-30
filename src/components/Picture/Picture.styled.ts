@@ -10,6 +10,12 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 
+export const NotFound = styled.img`
+  background-color: ${({ theme }) => theme.colors.card};
+  width: 120px;
+  border-radius: 0.4rem;
+`;
+
 export const ImageStyle = styled.img<{ loaded: boolean; ar?: string }>`
   aspect-ratio: ${({ ar }) => ar};
   width: 100%;

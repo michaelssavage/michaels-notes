@@ -3,15 +3,16 @@ import { Anchor } from "@/components/Anchor";
 import { Picture } from "@/components/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
 import { TopTracks } from "@/components/spotify/TopTracks";
-import { Container, MotionCol, Row } from "@/styles/abstracts/layout.styled";
+import { Col, Container, Row } from "@/styles/abstracts/layout.styled";
 import {
+  Card,
   Header,
   SpotifyContent,
   View,
-  Wrap,
 } from "@/styles/routes/projects.styled";
 import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/projects/")({
   component: Projects,
@@ -25,26 +26,24 @@ function Projects() {
       <Container>
         <Row>
           {projects.sort(sortById).map((project) => (
-            <MotionCol
-              size="md"
-              key={project.id}
-              layoutId={`project-image-${project.id}`}
-            >
-              <Wrap to={project.slug}>
-                <Picture
-                  src={
-                    new URL(`../../assets/${project.image}`, import.meta.url)
-                      .href
-                  }
-                  alt={project.title}
-                  loading="eager"
-                />
+            <Col size="md" key={project.id}>
+              <Card to={project.slug}>
+                <motion.div layoutId={`project-image-${project.id}`}>
+                  <Picture
+                    src={
+                      new URL(`../../assets/${project.image}`, import.meta.url)
+                        .href
+                    }
+                    alt={project.title}
+                    loading="eager"
+                  />
+                </motion.div>
                 <View>
                   <span>{project.title}</span>
                   <span>{project.description}</span>
                 </View>
-              </Wrap>
-            </MotionCol>
+              </Card>
+            </Col>
           ))}
         </Row>
         <SpotifyContent>
@@ -63,8 +62,8 @@ function Projects() {
               I'm currently listening to.
             </p>
           </Header>
-          <TopTracks />
           <CurrentPlay />
+          <TopTracks />
         </SpotifyContent>
       </Container>
     </>

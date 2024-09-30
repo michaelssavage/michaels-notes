@@ -1,8 +1,8 @@
 import { getContrastYIQ } from "@/lib/colors";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Comp = styled.div`
-  margin: 0 3rem;
   display: flex;
   flex-direction: column;
 `;
@@ -14,12 +14,34 @@ export const Title = styled.h3`
 
 export const NowPlaying = styled.div<{ color: string }>`
   display: flex;
+  position: relative;
   flex-direction: row;
   align-items: center;
   gap: 0.75rem;
   padding: 0.6rem 0.8rem;
   border-radius: 0.4rem;
-  background-color: ${({ color }) => color || "#f0f0f0"};
-  color: ${({ color }) => getContrastYIQ(color || "#f0f0f0")};
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+  ${({ color, theme }) => css`
+    background-color: ${color || theme.colors.moon};
+    color: ${getContrastYIQ(color || theme.colors.moon)};
+  `}
+
+  a {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 3rem;
+    height: 3rem;
+    transition: transform 0.3s ease;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      color: ${({ theme }) => theme.colors.moon};
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
 `;

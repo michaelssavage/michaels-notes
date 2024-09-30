@@ -28,7 +28,7 @@ export const TopTracks = () => {
 
   const handleScroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 300; // Adjust this value to change scroll distance
+      const scrollAmount = 300;
       const currentScroll = scrollContainerRef.current.scrollLeft;
       scrollContainerRef.current.scrollTo({
         left:

@@ -2,12 +2,14 @@ import imageUrl from "@/assets/images/cover.jpg";
 import { Anchor } from "@/components/Anchor";
 import { Picture } from "@/components/Picture";
 import { Group } from "@/components/atoms/Group";
+import { forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import {
   Container,
   Paragraph,
   Section,
   imageWrapperStyle,
 } from "@/styles/routes/about.styled";
+import { css } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence } from "framer-motion";
 import { createRef, useEffect, useRef, useState } from "react";
@@ -21,7 +23,12 @@ const paragraphs = [
     id: 0,
     value: (
       <Group direction="column" align="center">
-        <Group align="center">
+        <Group
+          align="center"
+          style={forTabletOnly(css`
+            flex-direction: column;
+          `)}
+        >
           <Picture
             src={imageUrl}
             alt="Picture of Me"
