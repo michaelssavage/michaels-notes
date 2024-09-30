@@ -1,0 +1,37 @@
+---
+id: 9
+title: Max's Sports Goods Shop
+date: may 2, 2024
+description: "CRUD app focused on displaying social media ads on Facebook"
+image: "images/project/gym.jpg"
+github: "https://github.com/michaelssavage/Sports-Goods-Shop"
+technology: ["React.js", "FireStore", "ReactQuery"]
+---
+
+import home from "src/assets/images/project/goods-store-home.png";
+
+import view from "src/assets/images/project/goods-store-view.png";
+
+import create from "src/assets/images/project/goods-store-create.png";
+
+# {props.title}
+
+CRUD app focused on the frontend which is used for managing social media ads on Facebook. Starting from a JSON array of products, I can create many new ads based off of these products. The focus wasn't on backend work or database but I still wanted data to persist so I opted for Firestore. It is a NoSQL db that can be queried pretty simply.
+
+Each ad consists of 1 or more pictures, a description, a headline, and a CTA (call to action). The ad is supposed to look like: <Anchor link="https://admockups.com/facebook-ad-mockup" variant="link" isExternal />
+
+- New ads can be created for a product.
+- Ads for a specific product can be viewed, edited, and deleted.
+- Navigation with react-router-dom.
+
+## Home page
+
+<Picture src={home} alt="Home page of the app" />
+
+## View page
+
+<Picture src={view} alt="View page of the app" />
+
+## Create Modal
+
+<Picture src={create} alt="Create page of the app" />

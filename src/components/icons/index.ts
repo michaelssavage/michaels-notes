@@ -1,0 +1,15 @@
+export { PauseIcon } from "./Pause";
+export { PlayIcon } from "./Play";
+export { ArrowDown } from "./ArrowDown";
+export { CircleIcon } from "./Circle";
+export { ExternalLinkIcon } from "./ExternalLink";
+export { GithubIcon } from "./Github";
+export { HandIcon } from "./Hand";
+export { InfoIcon } from "./Info";
+export { LinkedInIcon } from "./LinkedIn";
+export { MailIcon } from "./Mail";
+export { MoonIcon } from "./Moon";
+export { RightIcon } from "./Right";
+export { SearchIcon } from "./Search";
+export { SpotifyIcon } from "./Spotify";
+export { SunIcon } from "./Sun";
