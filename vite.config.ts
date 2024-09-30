@@ -47,4 +47,9 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      "./runtimeConfig": "./runtimeConfig.browser",
+    },
+  },
 });
