@@ -1,9 +1,9 @@
-import { sortByDate } from "@/assets/utils";
 import { Button } from "@/components/Button";
 import { Post } from "@/components/Post";
 import { SearchBox } from "@/components/SearchBox";
 import { Group } from "@/components/atoms/Group";
 import { CircleIcon } from "@/components/icons";
+import { sortByDate } from "@/lib/utils";
 import { Col, Row } from "@/styles/abstracts/layout.styled";
 import {
   ButtonGroup,

@@ -1,8 +1,8 @@
-import { joinTags } from "@/assets/utils";
 import { Anchor } from "@/components/Anchor";
 import { PagePath } from "@/components/PagePath";
 import { Picture } from "@/components/Picture";
 import { Markdown } from "@/components/atoms";
+import { joinTags } from "@/lib/utils";
 import {
   Article,
   Content,

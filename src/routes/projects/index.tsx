@@ -1,8 +1,8 @@
-import { sortById } from "@/assets/utils";
 import { Anchor } from "@/components/Anchor";
 import { Picture } from "@/components/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
 import { TopTracks } from "@/components/spotify/TopTracks";
+import { sortById } from "@/lib/utils";
 import { Col, Container, Row } from "@/styles/abstracts/layout.styled";
 import {
   Card,
