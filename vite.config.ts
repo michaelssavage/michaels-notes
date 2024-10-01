@@ -41,17 +41,12 @@ export default defineConfig({
     postsPlugin(),
   ],
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
       },
-    },
-  },
-  resolve: {
-    alias: {
-      "./runtimeConfig": "./runtimeConfig.browser",
     },
   },
 });
