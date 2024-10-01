@@ -1,5 +1,6 @@
 import { Button } from "@/components/Button";
 import { Post } from "@/components/Post";
+import { NoPost } from "@/components/Post/NoPost";
 import { SearchBox } from "@/components/SearchBox";
 import { Group } from "@/components/atoms/Group";
 import { CircleIcon } from "@/components/icons";
@@ -70,7 +71,7 @@ function Blog() {
                 return <Post key={post.id} {...post} isFirst={index === 0} />;
               })
             ) : (
-              <p>No posts found</p>
+              <NoPost />
             )}
           </Col>
           <Col size="md">

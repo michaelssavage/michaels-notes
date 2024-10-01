@@ -17,6 +17,16 @@ export const Card = styled.div`
   z-index: 2;
 `;
 
+export const EmptyCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  img {
+    width: 5rem;
+  }
+`;
+
 export const CardInfo = styled.div`
   display: flex;
   flex-direction: row;
@@ -41,11 +51,12 @@ export const Title = styled(motion.h2)`
   text-wrap: initial;
 `;
 
-export const DateText = styled.p`
+export const DateText = styled.p<{ isExternal?: string }>`
   white-space: nowrap;
   font-style: italic;
   font-size: 0.85rem;
-  color: ${({ theme }) => theme.colors.header};
+  color: ${({ isExternal, theme }) =>
+    isExternal ? theme.colors.off : theme.colors.on};
   font-weight: bold;
 `;
 

@@ -29,7 +29,7 @@ export const Post = ({
             {title}
           </Title>
         </Link>
-        <DateText>{date}</DateText>
+        <DateText isExternal={isExternal}>{date}</DateText>
       </CardInfo>
       <Description
         isFirst={isFirst}

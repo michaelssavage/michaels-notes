@@ -20,7 +20,6 @@ export interface IPlayTrackResponse {
   artist: string;
   albumArtUrl: string;
   trackUrl: string;
-  href: string;
 }
 
 interface ISpotifyArtist {
@@ -41,7 +40,7 @@ interface ISpotifyTrack {
   external_urls: {
     spotify: string;
   };
-  href: string;
+  preview_url: string;
 }
 
 export interface ITopTrackResponse {

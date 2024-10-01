@@ -1,5 +1,20 @@
 import { css, keyframes } from "@emotion/react";
 
+export const spinInfinitely = (duration = "3s") => {
+  const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+  return css`
+    animation: ${spin} ${duration} linear infinite;
+  `;
+};
+
 export const expandAndAppear = (duration = "0.5s") => {
   const expandAndAppearKeyframes = keyframes`
   from {

@@ -29,7 +29,7 @@ export const fetchCurrentTrack = async (): Promise<IPlayTrack> => {
     artist: data.item.artists.map((artist) => artist.name).join(", "),
     albumArtUrl: data.item.album.images[0].url,
     trackUrl: data.item.external_urls.spotify,
-    preview: data.item.href,
+    preview: data.item.preview_url,
   };
 };
 
@@ -55,6 +55,6 @@ export const fetchRecentTrack = async (): Promise<IPlayTrack> => {
     artist: lastPlayed.track.artists.map((artist) => artist.name).join(", "),
     albumArtUrl: lastPlayed.track.album.images[0].url,
     trackUrl: lastPlayed.track.external_urls.spotify,
-    preview: lastPlayed.track.href,
+    preview: lastPlayed.track.preview_url,
   };
 };

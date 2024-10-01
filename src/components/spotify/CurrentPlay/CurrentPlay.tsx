@@ -46,12 +46,13 @@ export const CurrentPlay = () => {
             <AudioPlayer
               pic={trackData.albumArtUrl || ""}
               audioUrl={trackData.preview}
-            />
+            >
+              <div>
+                <h3>{trackData.trackTitle}</h3>
+                <p>{trackData.artist}</p>
+              </div>
+            </AudioPlayer>
           )}
-          <div>
-            <h3>{trackData.trackTitle}</h3>
-            <p>{trackData.artist}</p>
-          </div>
         </NowPlaying>
       )}
     </Comp>
