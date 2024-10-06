@@ -2,12 +2,6 @@ import { getContrastYIQ } from "@/lib/colors";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
-export const CardContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  padding: 10px;
-`;
-
 export const Card = styled(Link)`
   flex: 0 0 auto;
   background-color: ${({ color }) => color || "#f0f0f0"};

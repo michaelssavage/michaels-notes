@@ -39,19 +39,18 @@ export const Player = styled.div<{ isPlaying?: boolean; color: string }>`
     transition: all 0.3s ease;
     border: 1px solid transparent;
     border-radius: 0%;
+    z-index: 2;
   }
 
-  ${Control} {
-    ${({ color, theme }) => css`
+  ${({ color, theme }) => css`
+    ${Control} {
       color: ${getContrastYIQ(color || theme.colors.moon)};
-    `}
-  }
+    }
 
-  ${Bar} {
-    ${({ color, theme }) => css`
+    ${Bar} {
       background-color: ${getContrastYIQ(color || theme.colors.moon)};
-    `}
-  }
+    }
+  `}
 
   ${({ isPlaying }) =>
     isPlaying
@@ -77,6 +76,10 @@ export const InteractWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  p {
+    font-size: 0.8rem;
+  }
 `;
 
 export const BarWrapper = styled(motion.div)`

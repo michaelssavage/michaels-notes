@@ -17,15 +17,14 @@ const BiteItem = memo(({ bite, index }: Props) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: "some" });
 
-  const animationProps = useMemo(
-    () => ({
-      initial: { opacity: 0, y: 50 },
-      animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 },
-      exit: { opacity: 0, y: 50 },
-      transition: { duration: 0.5, delay: index * 0.1 },
-    }),
-    [isInView, index]
-  );
+  const animationProps = useMemo(() => {
+    const initial = { opacity: 0, y: 50 };
+    const animate = isInView ? { opacity: 1, y: 0 } : initial;
+    const exit = initial;
+    const transition = { duration: 0.5, delay: index * 0.1 };
+
+    return { initial, animate, exit, transition };
+  }, [isInView, index]);
 
   return (
     <AnimatedBite ref={ref} {...animationProps}>

@@ -15,7 +15,7 @@ export const Panel = styled.div`
   flex-direction: column;
   gap: 1rem;
 
-  ${Col}:first-child {
+  ${Col}:first-of-type {
     display: flex;
     flex-direction: column;
     gap: 1rem;

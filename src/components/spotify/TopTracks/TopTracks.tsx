@@ -4,7 +4,7 @@ import { ExternalLinkIcon } from "@/components/icons";
 import { getRandomColor } from "@/lib/colors";
 import type { ITopTrack } from "@/types/Spotify";
 import { useQuery } from "@tanstack/react-query";
-import { ArtistName, Card, CardContainer, TrackName } from "./TopTracks.styled";
+import { ArtistName, Card, TrackName } from "./TopTracks.styled";
 
 export const TopTracks = () => {
   const { data, isLoading } = useQuery<Array<ITopTrack>>({
@@ -23,16 +23,14 @@ export const TopTracks = () => {
   }
 
   return (
-    <Scroll title="Most played tracks:">
-      <CardContainer>
-        {data.map((track) => (
-          <Card key={track.name} to={track.url} color={getRandomColor()}>
-            <ExternalLinkIcon />
-            <TrackName>{track.name}</TrackName>
-            <ArtistName>{track.artists}</ArtistName>
-          </Card>
-        ))}
-      </CardContainer>
+    <Scroll title="Most played tracks">
+      {data.map((track) => (
+        <Card key={track.name} to={track.url} color={getRandomColor()}>
+          <ExternalLinkIcon />
+          <TrackName>{track.name}</TrackName>
+          <ArtistName>{track.artists}</ArtistName>
+        </Card>
+      ))}
     </Scroll>
   );
 };

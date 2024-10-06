@@ -121,14 +121,14 @@ export const ProjectImage = styled(motion.div)`
 `;
 
 export const SpotifyContent = styled.div`
-  margin: 2rem 0 4rem;
+  margin: 1rem 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 `;
 
 export const Header = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   ${forPhoneOnly(css`
     margin: 0 5% 2rem;
   `)}

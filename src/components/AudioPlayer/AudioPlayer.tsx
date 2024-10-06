@@ -2,7 +2,7 @@ import { Picture } from "@/components/Picture";
 import { PauseIcon, PlayIcon } from "@/components/icons";
 import type { IPlayTrack } from "@/types/Spotify";
 import { css } from "@emotion/react";
-import { type FC, useRef, useState } from "react";
+import { type FC, useEffect, useRef, useState } from "react";
 import {
   Content,
   Control,
@@ -18,17 +18,47 @@ interface AudioPlayerProps {
 
 export const AudioPlayer: FC<AudioPlayerProps> = ({ data, color }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const animationFrameRef = useRef<number>();
+
+  useEffect(() => {
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+
+  const updateProgress = () => {
+    if (audioRef.current) {
+      const currentTime = audioRef.current.currentTime;
+      const duration = audioRef.current.duration || 30;
+      const progressPercentage = (currentTime / duration) * 100;
+      setProgress(progressPercentage);
+
+      animationFrameRef.current = requestAnimationFrame(updateProgress);
+    }
+  };
 
   const togglePlayPause = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
       } else {
         audioRef.current.play();
+        animationFrameRef.current = requestAnimationFrame(updateProgress);
       }
       setIsPlaying(!isPlaying);
     }
+  };
+
+  const resetAudio = () => {
+    setIsPlaying(false);
+    setProgress(0);
   };
 
   return (
@@ -47,11 +77,13 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ data, color }) => {
         <p>{data.artist}</p>
       </Content>
 
-      <audio ref={audioRef} src={data.preview}>
+      <audio ref={audioRef} src={data.preview} onEnded={resetAudio}>
         <track kind="captions" />
       </audio>
 
       <InteractWrapper>
+        {progress > 0 && isPlaying ? <p>{progress.toFixed(0)}%</p> : null}
+
         <Visualizer isPlaying={isPlaying} />
 
         <Control type="button" onClick={togglePlayPause}>

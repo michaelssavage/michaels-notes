@@ -1,5 +1,6 @@
+import { DateText } from "@/components/Post/Date";
 import { Description } from "@/components/Post/Description";
-import { Card, CardInfo, DateText, Title } from "@/components/Post/Post.styled";
+import { Card, CardInfo, Title } from "@/components/Post/Post.styled";
 import type { IBlog } from "@/types/Post";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";

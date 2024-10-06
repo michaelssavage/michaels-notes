@@ -13,7 +13,7 @@ import {
 import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import React from "react"; // Import React to use React.memo
+import { memo } from "react";
 
 export const Route = createFileRoute("/projects/")({
   component: Projects,
@@ -21,13 +21,31 @@ export const Route = createFileRoute("/projects/")({
 
 const { projects }: IPosts = import.meta.env.POSTS;
 
-// Memoize the CurrentPlay component to prevent unnecessary re-renders
-const MemoizedCurrentPlay = React.memo(CurrentPlay);
+const MemoizedCurrentPlay = memo(CurrentPlay);
 
 function Projects() {
   return (
     <>
       <Container>
+        <SpotifyContent>
+          <Header>
+            <h2>Consuming Spotify Data</h2>
+            <p>
+              I spent some time learning how to use the Spotify API and you can
+              read my{" "}
+              <Anchor
+                link="blog/spotify-developer-api"
+                text="words about it here"
+                variant="link"
+              />
+              . Below you can see the top 10 tracks I've listened to recently
+              and my last listened to song. If I'm online it will display what
+              I'm currently listening to.
+            </p>
+          </Header>
+          <MemoizedCurrentPlay />
+          <TopTracks />
+        </SpotifyContent>
         <Row>
           {projects.sort(sortById).map((project) => (
             <Col size="md" key={project.id}>
@@ -50,25 +68,6 @@ function Projects() {
             </Col>
           ))}
         </Row>
-        <SpotifyContent>
-          <Header>
-            <h2>Consuming Spotify Data</h2>
-            <p>
-              I spent some time learning how to use the Spotify API and you can
-              read my{" "}
-              <Anchor
-                link="blog/spotify-developer-api"
-                text="words about it here"
-                variant="link"
-              />
-              . Below you can see the top 10 tracks I've listened to recently
-              and my last listened to song. If I'm online it will display what
-              I'm currently listening to.
-            </p>
-          </Header>
-          <MemoizedCurrentPlay />
-          <TopTracks />
-        </SpotifyContent>
       </Container>
     </>
   );

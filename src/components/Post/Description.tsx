@@ -4,6 +4,7 @@ import {
   DescriptionWrapper,
 } from "@/components/Post/Post.styled";
 import { AnimatePresence } from "framer-motion";
+import { memo } from "react";
 
 interface IDesc {
   isFirst: boolean;
@@ -18,35 +19,31 @@ const variants = {
   expanded: { height: "auto", opacity: 1 },
 };
 
-export const Description = ({
-  isFirst,
-  description,
-  isExternal,
-  slug,
-  isHovered,
-}: IDesc) => {
-  return (
-    <DescriptionWrapper
-      initial="collapsed"
-      animate={isFirst || isHovered ? "expanded" : "collapsed"}
-      variants={variants}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-    >
-      <AnimatePresence mode="wait">
-        <DescriptionText>
-          {description}{" "}
-          {isExternal ? (
-            <Anchor
-              link={isExternal}
-              variant="link"
-              text="Read More"
-              isExternal
-            />
-          ) : (
-            <Anchor text="Read More" variant="link" link={slug} />
-          )}
-        </DescriptionText>
-      </AnimatePresence>
-    </DescriptionWrapper>
-  );
-};
+export const Description = memo(
+  ({ isFirst, description, isExternal, slug, isHovered }: IDesc) => {
+    return (
+      <DescriptionWrapper
+        initial="collapsed"
+        animate={isFirst || isHovered ? "expanded" : "collapsed"}
+        variants={variants}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <AnimatePresence mode="wait">
+          <DescriptionText>
+            {description}{" "}
+            {isExternal ? (
+              <Anchor
+                link={isExternal}
+                variant="link"
+                text="Read More"
+                isExternal
+              />
+            ) : (
+              <Anchor text="Read More" variant="link" link={slug} />
+            )}
+          </DescriptionText>
+        </AnimatePresence>
+      </DescriptionWrapper>
+    );
+  }
+);

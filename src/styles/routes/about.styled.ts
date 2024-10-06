@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export const Container = styled.div`
   position: relative;
   width: 100%;
-  height: calc(100vh - 12rem);
+  height: calc(100vh - 9rem);
   overflow-y: auto;
   scroll-snap-type: y mandatory;
 `;

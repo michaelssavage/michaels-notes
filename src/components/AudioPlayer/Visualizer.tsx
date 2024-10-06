@@ -1,12 +1,12 @@
 import { Bar, BarWrapper } from "@/components/AudioPlayer/AudioPlayer.styled";
 import { AnimatePresence } from "framer-motion";
-import type { FC } from "react";
+import { type FC, memo } from "react";
 
 interface MusicVisualizerProps {
   isPlaying?: boolean;
 }
 
-export const Visualizer: FC<MusicVisualizerProps> = ({ isPlaying }) => {
+export const Visualizer: FC<MusicVisualizerProps> = memo(({ isPlaying }) => {
   return (
     <AnimatePresence mode="wait">
       {isPlaying ? (
@@ -24,4 +24,4 @@ export const Visualizer: FC<MusicVisualizerProps> = ({ isPlaying }) => {
       ) : null}
     </AnimatePresence>
   );
-};
+});

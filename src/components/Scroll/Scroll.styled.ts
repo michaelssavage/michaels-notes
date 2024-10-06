@@ -11,6 +11,12 @@ export const ScrollContainer = styled.div`
   scrollbar-width: none;
 `;
 
+export const ItemContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding: 10px;
+`;
+
 export const Title = styled.h3`
   display: flex;
   flex-direction: row;

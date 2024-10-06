@@ -51,7 +51,7 @@ export const Title = styled(motion.h2)`
   text-wrap: initial;
 `;
 
-export const DateText = styled.p<{ isExternal?: string }>`
+export const StyledDateText = styled.p<{ isExternal?: string }>`
   white-space: nowrap;
   font-style: italic;
   font-size: 0.85rem;

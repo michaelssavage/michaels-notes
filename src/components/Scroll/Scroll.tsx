@@ -3,6 +3,7 @@ import type { ReactNode } from "@tanstack/react-router";
 import { useRef } from "react";
 import {
   ComponentWrapper,
+  ItemContainer,
   LeftScrollButton,
   RightScrollButton,
   ScrollContainer,
@@ -41,7 +42,8 @@ export const Scroll = ({ title, children, spacing, useNav = true }: Props) => {
     <ComponentWrapper css={spacing ? spacing : defaultSpace}>
       {title ? <Title>{title}:</Title> : null}
       <ScrollContainer ref={scrollContainerRef}>
-        {children}
+        <ItemContainer>{children}</ItemContainer>
+
         {useNav ? (
           <>
             <LeftScrollButton onClick={() => handleScroll("left")}>
