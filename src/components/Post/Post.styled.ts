@@ -49,6 +49,9 @@ export const Title = styled(motion.h2)`
   will-change: transform;
   color: ${({ theme }) => theme.colors.text};
   text-wrap: initial;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const StyledDateText = styled.p<{ isExternal?: string }>`

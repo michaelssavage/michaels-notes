@@ -16,7 +16,7 @@ export const Picture: React.FC<Props> = ({
   alt,
   style,
   loading = "lazy",
-  ar = "3/2",
+  ar,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

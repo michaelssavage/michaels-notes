@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { Header, StyledLink } from "./Navbar.styled";
 
 interface Props {
@@ -5,13 +6,15 @@ interface Props {
   text: string;
 }
 
-const NavLink = ({ to, text }: Props) => {
+const NavLink = memo(({ to, text }: Props) => {
+  const activeProps = useMemo(() => ({ className: "active" }), []);
+
   return (
-    <StyledLink to={to} activeProps={{ className: "active" }}>
+    <StyledLink to={to} activeProps={activeProps}>
       {text}
     </StyledLink>
   );
-};
+});
 
 export const Navbar = () => {
   return (

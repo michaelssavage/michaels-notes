@@ -30,11 +30,13 @@ export const StyledLink = styled(Link)`
   font-family: "Rawest";
   color: ${({ theme }) => theme.colors.text};
   transition:
+    transform 0.15s cubic-bezier(0.45, 0, 0.55, 1),
     color 0.3s cubic-bezier(0.45, 0, 0.55, 1),
     background 0.3s cubic-bezier(0.45, 0, 0.55, 1),
     outline-color 0.4s cubic-bezier(0.45, 0, 0.55, 1);
   &:hover {
     color: ${({ theme }) => theme.colors.extBtnBg};
+    transform: translateY(-5px);
   }
 
   &.active {

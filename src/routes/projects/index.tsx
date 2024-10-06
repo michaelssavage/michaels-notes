@@ -58,6 +58,7 @@ function Projects() {
                     }
                     alt={project.title}
                     loading="eager"
+                    ar="3/2"
                   />
                 </motion.div>
                 <View>

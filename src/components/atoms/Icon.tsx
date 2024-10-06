@@ -7,6 +7,8 @@ interface IconLinkProps {
   icon: ReactNode;
 }
 
+const proximityThreshold = 90;
+
 export const Icon = ({ link, isExternal = false, icon }: IconLinkProps) => {
   const [transform, setTransform] = useState({ x: 0, y: 0 });
   const iconRef = useRef<HTMLAnchorElement>(null);
@@ -20,8 +22,6 @@ export const Icon = ({ link, isExternal = false, icon }: IconLinkProps) => {
       const iconCenterY = rect.top + rect.height / 2;
       const distanceX = e.clientX - iconCenterX;
       const distanceY = e.clientY - iconCenterY;
-
-      const proximityThreshold = 60;
 
       if (
         Math.abs(distanceX) < proximityThreshold &&

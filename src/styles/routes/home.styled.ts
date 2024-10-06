@@ -18,7 +18,7 @@ export const Panel = styled.section`
   h1 {
     font-size: clamp(4rem, 0.5692rem + 7.5vw, 13.75rem);
     text-align: center;
-    margin: 0 2rem;
+    margin: 3rem 2rem 0;
     color: ${({ theme }) => theme.colors.icon};
     span {
       color: ${({ theme }) => theme.colors.header};
