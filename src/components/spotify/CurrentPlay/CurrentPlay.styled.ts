@@ -37,7 +37,9 @@ export const NowPlaying = styled.div<{ color: string }>`
     svg {
       width: 100%;
       height: 100%;
-      color: ${({ theme }) => theme.colors.moon};
+      ${({ color, theme }) => css`
+        color: ${getContrastYIQ(color || theme.colors.moon)};
+      `}
     }
 
     &:hover {

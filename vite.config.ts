@@ -1,3 +1,4 @@
+import MillionLint from "@million/lint";
 import path from "node:path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
@@ -28,18 +29,13 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  plugins: [
-    TanStackRouterVite({}),
-    react({
-      include: /\.(mdx|tsx|ts)$/,
-      jsxImportSource: "@emotion/react",
-      babel: {
-        plugins: ["@emotion/babel-plugin"],
-      },
-    }),
-    tsconfigPaths(),
-    postsPlugin(),
-  ],
+  plugins: [MillionLint.vite(), TanStackRouterVite({}), react({
+    include: /\.(mdx|tsx|ts)$/,
+    jsxImportSource: "@emotion/react",
+    babel: {
+      plugins: ["@emotion/babel-plugin"],
+    },
+  }), tsconfigPaths(), postsPlugin()],
   build: {
     outDir: "dist",
     emptyOutDir: true,

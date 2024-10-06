@@ -39,20 +39,13 @@ export const CurrentPlay = () => {
       </Title>
       {trackData && (
         <NowPlaying color={memoizedColor ?? ""}>
+          {trackData.preview && (
+            <AudioPlayer data={trackData} color={memoizedColor ?? ""} />
+          )}
+
           <Link to={trackData?.trackUrl}>
             <ExternalLinkIcon />
           </Link>
-          {trackData.preview && (
-            <AudioPlayer
-              pic={trackData.albumArtUrl || ""}
-              audioUrl={trackData.preview}
-            >
-              <div>
-                <h3>{trackData.trackTitle}</h3>
-                <p>{trackData.artist}</p>
-              </div>
-            </AudioPlayer>
-          )}
         </NowPlaying>
       )}
     </Comp>

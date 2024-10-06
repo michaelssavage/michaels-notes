@@ -1,4 +1,5 @@
 import { Wrapper } from "@/components/Picture/Picture.styled";
+import { getContrastYIQ } from "@/lib/colors";
 import {
   animateMusicBars,
   expandAndAppear,
@@ -8,7 +9,28 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
-export const Player = styled.div<{ isPlaying?: boolean }>`
+export const Bar = styled.span`
+  display: inline-block;
+  width: 4px;
+  height: 100%;
+`;
+
+export const Control = styled.button`
+  background: none;
+  border: none;
+  display: grid;
+  place-items: center;
+  svg {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+`;
+
+export const Content = styled.div`
+  margin-left: 1rem;
+`;
+
+export const Player = styled.div<{ isPlaying?: boolean; color: string }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -17,6 +39,18 @@ export const Player = styled.div<{ isPlaying?: boolean }>`
     transition: all 0.3s ease;
     border: 1px solid transparent;
     border-radius: 0%;
+  }
+
+  ${Control} {
+    ${({ color, theme }) => css`
+      color: ${getContrastYIQ(color || theme.colors.moon)};
+    `}
+  }
+
+  ${Bar} {
+    ${({ color, theme }) => css`
+      background-color: ${getContrastYIQ(color || theme.colors.moon)};
+    `}
   }
 
   ${({ isPlaying }) =>
@@ -35,16 +69,14 @@ export const Player = styled.div<{ isPlaying?: boolean }>`
         `}
 `;
 
-export const Control = styled.button`
-  background: none;
-  border: none;
-  color: ${({ theme }) => theme.colors.moon};
-  display: grid;
-  place-items: center;
-  svg {
-    height: 2.5rem;
-    width: 2.5rem;
-  }
+export const InteractWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const BarWrapper = styled(motion.div)`
@@ -55,11 +87,4 @@ export const BarWrapper = styled(motion.div)`
   gap: 4px;
   height: 2rem;
   ${animateMusicBars()}
-`;
-
-export const Bar = styled.span`
-  display: inline-block;
-  background-color: ${({ theme }) => theme.colors.extBtnBg};
-  width: 4px;
-  height: 100%;
 `;

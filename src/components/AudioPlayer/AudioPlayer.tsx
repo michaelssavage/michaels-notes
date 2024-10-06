@@ -1,22 +1,22 @@
 import { Picture } from "@/components/Picture";
 import { PauseIcon, PlayIcon } from "@/components/icons";
+import type { IPlayTrack } from "@/types/Spotify";
 import { css } from "@emotion/react";
-import type { ReactNode } from "@tanstack/react-router";
 import { type FC, useRef, useState } from "react";
-import { Control, Player } from "./AudioPlayer.styled";
+import {
+  Content,
+  Control,
+  InteractWrapper,
+  Player,
+} from "./AudioPlayer.styled";
 import { Visualizer } from "./Visualizer";
 
 interface AudioPlayerProps {
-  audioUrl: string;
-  pic: string;
-  children: ReactNode;
+  data: IPlayTrack;
+  color: string;
 }
 
-export const AudioPlayer: FC<AudioPlayerProps> = ({
-  pic,
-  audioUrl,
-  children,
-}) => {
+export const AudioPlayer: FC<AudioPlayerProps> = ({ data, color }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -32,9 +32,9 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
   };
 
   return (
-    <Player isPlaying={isPlaying}>
+    <Player isPlaying={isPlaying} color={color}>
       <Picture
-        src={pic}
+        src={data.albumArtUrl || ""}
         alt="Album Art"
         ar="1"
         style={css`
@@ -42,17 +42,22 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({
         `}
       />
 
-      <audio ref={audioRef} src={audioUrl}>
+      <Content>
+        <h3>{data.trackTitle}</h3>
+        <p>{data.artist}</p>
+      </Content>
+
+      <audio ref={audioRef} src={data.preview}>
         <track kind="captions" />
       </audio>
 
-      <Control type="button" onClick={togglePlayPause}>
-        {isPlaying ? <PauseIcon /> : <PlayIcon />}
-      </Control>
+      <InteractWrapper>
+        <Visualizer isPlaying={isPlaying} />
 
-      {children}
-
-      <Visualizer isPlaying={isPlaying} />
+        <Control type="button" onClick={togglePlayPause}>
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </Control>
+      </InteractWrapper>
     </Player>
   );
 };

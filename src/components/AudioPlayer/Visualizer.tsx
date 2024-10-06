@@ -16,11 +16,10 @@ export const Visualizer: FC<MusicVisualizerProps> = ({ isPlaying }) => {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          {Array(4)
-            .fill(null)
-            .map((bar) => (
-              <Bar key={bar} />
-            ))}
+          {Array.from({ length: 4 }, (_, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: Index doesn't matter here
+            <Bar key={index} />
+          ))}
         </BarWrapper>
       ) : null}
     </AnimatePresence>

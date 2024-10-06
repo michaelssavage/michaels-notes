@@ -13,12 +13,16 @@ import {
 import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import React from "react"; // Import React to use React.memo
 
 export const Route = createFileRoute("/projects/")({
   component: Projects,
 });
 
 const { projects }: IPosts = import.meta.env.POSTS;
+
+// Memoize the CurrentPlay component to prevent unnecessary re-renders
+const MemoizedCurrentPlay = React.memo(CurrentPlay);
 
 function Projects() {
   return (
@@ -62,7 +66,7 @@ function Projects() {
               I'm currently listening to.
             </p>
           </Header>
-          <CurrentPlay />
+          <MemoizedCurrentPlay />
           <TopTracks />
         </SpotifyContent>
       </Container>
