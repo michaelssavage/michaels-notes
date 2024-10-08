@@ -43,3 +43,15 @@ export const darkTheme = {
 };
 
 export type MyTheme = typeof lightTheme;
+
+// const projects = [
+//   { main: "#FC766AFF", bg: "#5B84B1FF" },
+//   { main: "#755139FF", bg: "#F2EDD7FF" },
+//   { main: "#2C5F2D", bg: "#97BC62FF" },
+//   { main: "#00203FFF", bg: "#ADEFD1FF" },
+//   { main: "#606060FF", bg: "#D6ED17FF" },
+//   { main: "#5F4B8BFF", bg: "#E69A8DFF" },
+//   { main: "#42EADDFF", bg: "#CDB599FF" },
+//   { main: "#435E55FF", bg: "#D64161FF" },
+//   { main: "#D198C5FF", bg: "#E0C568FF" },
+// ];

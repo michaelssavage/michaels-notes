@@ -10,7 +10,7 @@ export const Content = styled.div`
   justify-content: flex-end;
   align-items: center;
   font-size: 0.85rem;
-  color: ${({ theme }) => theme.colors.extBtnBg};
+  color: ${({ theme }) => theme.colors.text};
 
   a {
     color: inherit;
@@ -18,7 +18,7 @@ export const Content = styled.div`
     transition: color 0.2s ease;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.extBtnBgHover};
+      text-decoration: underline;
     }
   }
 `;

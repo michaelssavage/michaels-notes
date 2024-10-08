@@ -1,27 +1,57 @@
+import { getContrastYIQ } from "@/lib/colors";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
-export const View = styled.p`
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 0;
-  padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
-  transition: opacity 0.25s;
-  color: ${({ theme }) => theme.colors.moon};
-  text-shadow: 3px 2px 4px #191919;
-  height: 100%;
+interface ICard {
+  main: string;
+  bg: string;
+}
+
+export const CardWrapper = styled.div`
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    z-index: 20;
+  }
+`;
+
+export const Card = styled(Link)<ICard>`
+  display: grid;
+  overflow: hidden;
+  will-change: transform;
+  border-radius: 0.2rem;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.card};
+
+  border-radius: 0.4rem;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  ${CardWrapper}:hover & {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  span {
+    padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
+  }
 
   span:first-of-type {
     font-size: clamp(0.9rem, 1.5vi + 0.15rem, 1.5rem);
+    background-color: ${({ main }) => main};
+    color: ${({ main }) => getContrastYIQ(main)};
   }
 
   span:last-of-type {
     font-size: clamp(0.8rem, 0.9vi + 0.15rem, 1.2rem);
+    background-color: ${({ bg }) => bg};
+    color: ${({ bg }) => getContrastYIQ(bg)};
   }
 
   ${forTabletOnly(css`
@@ -45,40 +75,24 @@ export const View = styled.p`
   `)}
 `;
 
-export const Card = styled(Link)`
-  display: grid;
-  overflow: hidden;
-  will-change: transform;
-  border-radius: 0.2rem;
-  text-decoration: none;
-  color: ${({ theme }) => theme.colors.text};
-  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+export const ProjectGrid = css`
+  perspective: 1000px;
 
-  & > * {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  img {
-    cursor: pointer;
-    will-change: transform;
-    transition:
-      filter 0.25s ease,
-      transform 0.25s ease;
-  }
-
-  &:hover {
-    img {
-      filter: blur(5px) brightness(0.5);
-      -webkit-filter: blur(5px) brightness(0.5);
-      transform: scale(1.05);
-    }
-
-    ${View} {
-      opacity: 1;
-    }
+  &:hover ${CardWrapper}:not(:hover) {
+    filter: grayscale(50%) blur(2px);
+    opacity: 0.7;
+    transition: all 0.3s ease;
   }
 `;
+
+export const Header = styled.div`
+  margin-bottom: 1rem;
+  ${forPhoneOnly(css`
+    margin: 0 5% 2rem;
+  `)}
+`;
+
+// slug
 
 export const Article = styled(motion.article)`
   margin: 2rem auto;
@@ -127,9 +141,15 @@ export const SpotifyContent = styled.div`
   gap: 1.2rem;
 `;
 
-export const Header = styled.div`
+export const Title = styled(motion.h1)<ICard>`
+  font-size: 2rem;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  border-top-right-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
   margin-bottom: 1rem;
-  ${forPhoneOnly(css`
-    margin: 0 5% 2rem;
-  `)}
+  font-weight: bold;
+  background-color: ${({ main }) => main};
+  color: ${({ main }) => getContrastYIQ(main)};
+  will-change: transform;
 `;

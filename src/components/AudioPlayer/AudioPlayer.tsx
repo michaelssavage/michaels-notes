@@ -2,7 +2,7 @@ import { Picture } from "@/components/Picture";
 import { PauseIcon, PlayIcon } from "@/components/icons";
 import type { IPlayTrack } from "@/types/Spotify";
 import { css } from "@emotion/react";
-import { type FC, useEffect, useRef, useState } from "react";
+import { type FC, useCallback, useEffect, useRef, useState } from "react";
 import {
   Content,
   Control,
@@ -30,7 +30,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ data, color }) => {
     };
   }, []);
 
-  const updateProgress = () => {
+  const updateProgress = useCallback(() => {
     if (audioRef.current) {
       const currentTime = audioRef.current.currentTime;
       const duration = audioRef.current.duration || 30;
@@ -39,9 +39,9 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ data, color }) => {
 
       animationFrameRef.current = requestAnimationFrame(updateProgress);
     }
-  };
+  }, []);
 
-  const togglePlayPause = () => {
+  const togglePlayPause = useCallback(() => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
@@ -54,12 +54,12 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ data, color }) => {
       }
       setIsPlaying(!isPlaying);
     }
-  };
+  }, [isPlaying, updateProgress]);
 
-  const resetAudio = () => {
+  const resetAudio = useCallback(() => {
     setIsPlaying(false);
     setProgress(0);
-  };
+  }, []);
 
   return (
     <Player isPlaying={isPlaying} color={color}>

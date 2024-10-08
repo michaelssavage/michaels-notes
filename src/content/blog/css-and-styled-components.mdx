@@ -1,0 +1,83 @@
+---
+id: 13
+title: SCSS & Styled Components
+date: October 9, 2024
+description: "SCSS was my first choice to styling when I first starting web design. It's pretty good for styling, but as projects got bigger, it started to feel more like a chore to maintain."
+---
+
+SCSS was my first choice to styling when I first starting web design. It's pretty good for styling, but as projects got bigger, it started to feel more like a chore to maintain. Recently, I made the switch to [@emotion styled components](https://emotion.sh/docs/introduction). Not because it's trendy on the TwitterSphere, but because it just works better for what I'm building.
+
+### Why the Switch?
+
+With SCSS, I relied a lot on global files for colours, fonts, and media query mixins. That worked fine at the start, but once the app started growing, keeping track of all that became a nightmare. One little change could cause issues in places I didn't expect.
+With `@emotion`, I still keep a global file for colours, fonts, and [resetting styles](https://www.joshwcomeau.com/css/custom-css-reset/). The difference now is that styles are scoped to the component by default. It's way easier to manage, and I don't have to worry about style collisions. Here's an example of how I use global styles:
+
+```jsx
+// fonts.styled.ts
+export const fonts = css`
+  @font-face {
+    font-family: "Rawest";
+    src: url(${rawestFont}) format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
+
+// global.styled.ts
+export const globalStyles = (theme: MyTheme) => css`
+  ${resetStyles}
+  ${pageTransitions}
+  ${fonts}
+
+  body {
+    margin: 0;
+    ..
+  }
+  ....
+  ..
+`;
+```
+
+### Better for Bigger Projects
+
+As projects get larger, SCSS starts to feel a bit messy, especially when you've a few developers working on the same project. `@emotion` makes that easier because the styles live right next to the component they belong to. If you need to see how something's styled, you don't have to dig through a massive SCSS file. It's right there beside the JSX.
+Media queries become more manageable too. Instead of wrestling with various media breakpoints, you can handle it with a ‘mixin' approach within the component:
+
+```jsx
+// mixins.styled.ts
+export const forPhoneOnly = (styles: SerializedStyles | string) => css`
+  @media (max-width: 599px) {
+    ${styles}
+  }
+`;
+
+// navbar.styled.ts
+export const Header = styled.header`
+  line-height: 1;
+  ...
+
+  nav {
+    padding: 3rem 20%;
+    ....
+    ..
+    ${forPhoneOnly(css`
+      padding: 2rem 10%;
+    `)}
+  }
+`;
+```
+
+Having it all in one place keeps things neat, and it's much easier to maintain long-term.
+
+### A Nice Performance Boost
+
+Another benefit is performance. With SCSS, you can end up shipping unused styles unless you're careful. `@emotion` only loads what's being used, so there's less chance of bloat. It's a small but nice win when you're thinking about load times.
+In the end, switching to `@emotion` wasn't about jumping on some bandwagon. It's genuinely better for managing bigger projects and keeping things tidy. You can still keep the good bits from SCSS—like global styles for colours and fonts—but without the hassle of things getting out of hand.
+
+### The bigger picture
+
+While `@emotion` has been a game-changer for me, it's improved by critical eye on tech choices. Tailwind was all the hype for a while there last year and I'm glad I really never took it up. I'm starting to realise how dramatic the impact Software influencers can have with astroturfing. I assumed that I was never going to be lied to in the software development world, pffft, but here we are! Tailwind is a Vercel product that had a lot of push by their team and users. CSS-in-JS libraries don't work well with React Server Components as they generate styles at runtime so Tailwind was better with its static CSS at build time. Community trends seem to be pointing towards Tailwind as the best choice, but this direction hasn't been completely natural as large content creators on Twitter and YouTube push the narrative.
+
+I was fully onboard the Next.js train, but Vercel's drive to shape the development ecosystem feels a bit pushy. Vendor lock-in can happen with Tailwind and I don't think we should be pushing this as the no.1 solution. I say this, knowing that build tools like Vite are quite dominant in their corner.
+
+As we navigate the ever-changing landscape of web development, it's crucial to make informed decisions based on our specific needs rather than following the latest hype. Whether it's SCSS, `@emotion`, Tailwind, or something else entirely, the best choice is the one that aligns with your project requirements and team dynamics.

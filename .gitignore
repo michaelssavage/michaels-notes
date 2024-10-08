@@ -26,3 +26,6 @@ dist-ssr
 tsconfig.tsbuildinfo
 # Million Lint
 .million
+
+# Local Netlify folder
+.netlify

@@ -2,16 +2,6 @@ import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-interface IContainer {
-  margin?: string;
-  pb?: string;
-}
-
-type ICol = {
-  size?: "md" | "sm";
-  gap?: string;
-};
-
 interface IGroup {
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   align?: "flex-start" | "flex-end" | "center";
@@ -19,48 +9,95 @@ interface IGroup {
   gap?: string;
 }
 
+interface IContainer extends IGroup {
+  maxWidth?: string;
+  padding?: string;
+}
+
+type IRow = {
+  gap?: [string, string];
+  flex?: string;
+};
+
+type ICol = {
+  size?: "md" | "sm";
+  gap?: string;
+  flex?: string;
+};
+
 export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
-  margin: ${({ margin }) => margin ?? "0 20% 2rem"};
-  padding-bottom: ${({ pb }) => pb ?? "1rem"};
+  margin: 0 auto 2rem;
+  max-width: ${({ maxWidth }) => maxWidth ?? "60%"};
+  padding: ${({ padding }) => padding ?? "0 0 1rem"};
+  align-items: ${({ align }) => align ?? "stretch"};
+  justify-content: ${({ justify }) => justify ?? "flex-start"};
+  gap: ${({ gap }) => gap ?? "0"};
 
   ${forPhoneOnly(css`
-    margin: 0 5% 2rem;
+    max-width: 90%;
   `)}
 `;
 
-export const Row = styled.div`
+export const Row = styled.div<IRow>`
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
+  flex: ${({ flex }) => flex ?? "0 0 auto"};
+
+  gap: ${({ gap }) => css`
+    margin: 0 -${gap?.[0] ?? "0.5rem"};
+
+    ${Col} {
+      padding: 0 ${gap?.[0] ?? "0.5rem"};
+      margin-bottom: ${gap?.[1] ?? "0.5rem"};
+    }
+  `};
 `;
 
 export const Col = styled.div<ICol>`
-  padding: 0 15px;
   height: auto;
   width: 100%;
-  margin-bottom: 30px;
   ${({ size }) => {
     switch (size) {
-      case "md":
+      case "sm":
         return css`
-          width: 50%;
+          flex: 0 0 25%;
+          max-width: 25%;
 
           ${forTabletOnly(css`
-            width: 100%;
+            flex: 0 0 50%;
+            max-width: 50%;
+          `)}
+
+          ${forPhoneOnly(css`
+            flex: 0 0 100%;
+            max-width: 100%;
+          `)}
+        `;
+      case "md":
+        return css`
+          flex: 0 0 50%;
+          max-width: 50%;
+
+          ${forTabletOnly(css`
+            flex: 0 0 100%;
+            max-width: 100%;
           `)}
         `;
       default:
         return css`
-          width: 33.33%;
+          flex: 0 0 25%;
+          max-width: 25%;
 
           ${forTabletOnly(css`
-            width: 50%;
+            flex: 0 0 50%;
+            max-width: 50%;
           `)}
 
           ${forPhoneOnly(css`
-            width: 100%;
+            flex: 0 0 100%;
+            max-width: 100%;
           `)}
         `;
     }

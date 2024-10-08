@@ -22,6 +22,10 @@ export interface IProject {
   date: string;
   description: string;
   technology: Array<string>;
+  colors: {
+    main: string;
+    bg: string;
+  };
   github?: string;
   draft?: boolean;
 }
