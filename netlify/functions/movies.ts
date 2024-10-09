@@ -1,5 +1,5 @@
 import type { Handler } from "@netlify/functions";
-import jwt, { type Secret } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { MongoClient } from "mongodb";
 
 const handler: Handler = async (event, context) => {
@@ -7,6 +7,11 @@ const handler: Handler = async (event, context) => {
   if (!authResult.isValid) {
     return {
       statusCode: 401,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Authorization, Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+      },
       body: JSON.stringify({ error: authResult.error }),
     };
   }
@@ -49,11 +54,13 @@ const isValidAuth = (authHeader?: string) => {
 
   const token = tokenParts[1];
 
+  const secret = process.env.LETTERBOXD_JWT_SECRET;
+  if (!secret) {
+    throw new Error("Missing JWT secret");
+  }
+
   try {
-    const decoded = jwt.verify(
-      token,
-      process.env.LETTERBOXD_JWT_SECRET as Secret
-    );
+    const decoded = jwt.verify(token, secret);
     if (
       typeof decoded === "string" ||
       !decoded.username ||
@@ -63,7 +70,7 @@ const isValidAuth = (authHeader?: string) => {
     }
     return { isValid: true };
   } catch (error) {
-    return { isValid: false, error: "Invalid token" };
+    return { isValid: false, error };
   }
 };
 

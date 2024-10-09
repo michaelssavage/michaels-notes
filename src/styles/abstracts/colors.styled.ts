@@ -10,6 +10,7 @@ const common = {
   moon: "#f0f0f0",
   sun: "#ffe26d",
   code: "#d63384",
+  secondary: "#6c757d",
 };
 
 export const lightTheme = {

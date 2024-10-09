@@ -53,19 +53,14 @@ export const Player = styled.div<{ isPlaying?: boolean; color: string }>`
   `}
 
   ${({ isPlaying }) =>
-    isPlaying
-      ? css`
-          ${Wrapper} {
-            border-color: black;
-            border-radius: 50%;
-            ${spinInfinitely()}
-          }
-        `
-      : css`
-          ${Wrapper} {
-            ${expandAndAppear()}
-          }
-        `}
+    isPlaying &&
+    css`
+      ${Wrapper} {
+        border-color: black;
+        border-radius: 50%;
+        ${spinInfinitely()}
+      }
+    `}
 `;
 
 export const InteractWrapper = styled.div`

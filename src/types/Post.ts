@@ -13,6 +13,28 @@ export interface IBlog {
   isFirst: boolean;
 }
 
+export const TECHNOLOGIES = [
+  "BeautifulSoup",
+  "Django",
+  "Firestore",
+  "MDX",
+  "MongoDB",
+  "Next.js",
+  "Nest.js",
+  "PostgreSQL",
+  "Python",
+  "PYQT5",
+  "React.js",
+  "React Query",
+  "SciKit-Learn",
+  "SCSS",
+  "SpaCy",
+  "Spring Boot",
+  "TypeScript",
+] as const;
+
+export type ITechnology = (typeof TECHNOLOGIES)[number];
+
 export interface IProject {
   code: string;
   slug: string;
@@ -21,7 +43,7 @@ export interface IProject {
   title: string;
   date: string;
   description: string;
-  technology: Array<string>;
+  technology: Array<ITechnology>;
   colors: {
     main: string;
     bg: string;

@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 interface IStyle {
   variant?: ButtonVariants;
   active?: boolean;
+  selected?: boolean;
 }
 
 export const ButtonStyled = styled.button<IStyle>`
@@ -17,7 +18,7 @@ export const ButtonStyled = styled.button<IStyle>`
   gap: 4px;
   align-items: center;
 
-  ${({ variant, theme }) => {
+  ${({ variant, theme, selected }) => {
     switch (variant) {
       case "primary":
         return css`
@@ -29,7 +30,7 @@ export const ButtonStyled = styled.button<IStyle>`
         `;
       case "secondary":
         return css`
-          background-color: #6c757d;
+          background-color: ${theme.colors.secondary};
           color: ${theme.colors.card};
         `;
       case "ghost":
@@ -38,6 +39,28 @@ export const ButtonStyled = styled.button<IStyle>`
           background-color: transparent;
           color: ${theme.colors.text};
           flex-direction: row-reverse;
+        `;
+      case "pill":
+        return css`
+          background-color: ${selected
+            ? theme.colors.card
+            : theme.colors.secondary};
+          color: ${selected ? theme.colors.text : theme.colors.card};
+          padding: 7px 14px;
+          border-radius: 8px;
+          font-size: 0.8rem;
+          &:hover {
+            background-color: ${selected
+              ? theme.colors.extBtnBg
+              : theme.colors.extBtnBgHover};
+          }
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            &:hover {
+              background-color: ${theme.colors.secondary};
+            }
+          }
         `;
       default:
         return null;

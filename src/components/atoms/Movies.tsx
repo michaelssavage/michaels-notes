@@ -6,6 +6,7 @@ export const Movies = () => {
   const { data, isLoading, error } = useQuery<Array<IMovie>>({
     queryKey: ["favorites"],
     queryFn: fetchFavouriteMovies,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <div>Loading...</div>;

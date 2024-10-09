@@ -1,7 +1,7 @@
 import { ButtonStyled } from "@/components/Button/Button.styled";
 import type { ReactElement } from "react";
 
-export type ButtonVariants = "primary" | "secondary" | "ghost";
+export type ButtonVariants = "primary" | "secondary" | "ghost" | "pill";
 
 export interface ButtonProps {
   text: string;
@@ -11,6 +11,7 @@ export interface ButtonProps {
   variant?: ButtonVariants;
   onClick?: () => void;
   active?: boolean;
+  selected?: boolean;
 }
 
 export const Button = ({
@@ -21,6 +22,7 @@ export const Button = ({
   icon,
   onClick,
   active = false,
+  selected = false,
 }: ButtonProps) => {
   return (
     <ButtonStyled
@@ -29,6 +31,7 @@ export const Button = ({
       onClick={onClick}
       variant={variant}
       active={active}
+      selected={selected}
     >
       {text} {icon}
     </ButtonStyled>
