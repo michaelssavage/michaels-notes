@@ -5,7 +5,7 @@ date: October 9, 2024
 description: "SCSS was my first choice to styling when I first starting web design. It's pretty good for styling, but as projects got bigger, it started to feel more like a chore to maintain."
 ---
 
-SCSS was my preferred choice for styling when I first started putting webpages together. It's pretty good at everything really, but as projects got bigger, it started to feel more like a chore to maintain. Recently, I made the switch to [@emotion styled components](https://emotion.sh/docs/introduction). Not because it's trendy on the TwitterSphere, but because it just works better for what I'm building.
+SCSS was my preferred choice for styling when I first started putting webpages together. It's pretty good at everything really, but as projects got bigger, it started to feel more like a chore to maintain. Recently, I made the switch to [@emotion styled components](https://emotion.sh/docs/introduction). Not because it's trendy on the TwitterSphere, but because it just works better for what I'm building. It was a pragmatic choice.
 
 ### Why the Switch?
 
@@ -41,7 +41,7 @@ export const globalStyles = (theme: MyTheme) => css`
 ### Better for Bigger Projects
 
 As projects get larger, SCSS starts to feel a bit messy, especially when you've a few developers working on the same project. `@emotion` makes that easier because the styles live right next to the component they belong to. If you need to see how something's styled, you don't have to dig through a massive SCSS file. It's right there beside the JSX.
-Media queries become more manageable too. Instead of wrestling with various media breakpoints, you can handle it with a ‘mixin' approach within the component:
+One of my favourite parts? Integrating TypeScript with my styles so that I know what props I can pass to styled components. Creating my own Container, Row, and Col components are much easier knowing what props I could pass to them. Media queries become more manageable too. Instead of wrestling with various media breakpoints, you can handle it with a ‘mixin' approach within the component:
 
 ```jsx
 // mixins.styled.ts
@@ -76,8 +76,14 @@ In the end, switching to `@emotion` wasn't about jumping on some bandwagon. It's
 
 ### The bigger picture
 
-While `@emotion` has been a game-changer for me, it's sharpened my critical eye on tech choices. Tailwind was all the hype for a while there last year and I'm glad I didn't fully embrace it. I'm starting to realise how dramatic the impact Software influencers can have, often through astroturfing. I assumed that I was never going to be lied to in the software development world, pffft, but here we are! Tailwind is a Vercel product that had a lot of push by their team and users. CSS-in-JS libraries don't work well with React Server Components since they generate styles at runtime, so Tailwind was praised for its static CSS at build time. Community trends seem to be pointing towards Tailwind as the best choice, but this direction doesn't feel completely organic to me, as large content creators on Twitter and YouTube have played a role in pushing the narrative.
+While `@emotion` has been a game-changer for me, it's sharpened my critical eye on tech choices. Tailwind was all the hype for a while there last year and I'm glad I didn't fully embrace it. 
+I'm starting to realise how dramatic the impact Software influencers can have, often through astroturfing. I assumed that I was never going to be lied to in the software development world, pffft, but here we are! Tailwind is a Vercel backed-product that has increased in popularity for its simplicity and ease of integration. CSS-in-JS libraries don't work well with [React Server Components](https://react.dev/reference/rsc/server-components), in particular, since they generate styles at runtime, so Tailwind was praised for its static CSS at build time. Community trends seem to be pointing towards Tailwind as the best choice, but this direction doesn't feel completely organic to me, as large content creators on Twitter and YouTube have played a role in pushing the narrative. Their marketing is quite brilliant, to be fair.
+I was fully onboard the Next.js train, but Vercel's aggressive efforts to shape the development ecosystem feels a bit pushy. Vendor lock-in is going on when you choose Tailwind when learn to use hieroglyphic classes and a ['utility-first approach'](https://tailwindcss.com/docs/utility-first). I don't think we should be pushing this as the no.1 solution but I say this, knowing that build tools like Vite are quite dominant in their corner (and I'm kinda ok with that).
 
-I was fully onboard the Next.js train, but Vercel's drive to shape the development ecosystem feels a bit pushy. Vendor lock-in can happen with Tailwind and I don't think we should be pushing this as the no.1 solution. I say this, knowing that build tools like Vite are quite dominant in their corner.
+### Catalyst and the Return of Semantic Naming?
+
+Tailwind has introduced [Catalyst](https://catalyst.tailwindui.com/docs), a set of React-based UI components. While these are still rooted in Tailwind’s utility-first philosophy, they do seem to reintroduce some of the semantic conventions that Tailwind initially rejected. It’s like when a rebellious teenager comes home after a few years and realises the old folks were right about most things. Ironically, it feels like Tailwind’s component library is looping back to something not so far from traditional CSS architecture.
 
 It's crucial to make informed decisions based on our specific needs rather than following the latest hype. Whether it's SCSS, `@emotion`, Tailwind, or something else entirely, the best choice is the one that aligns with your project requirements and team dynamics. Let's refactor everything!
+
+Extra reading: https://nuejs.org/blog/tailwind-misinformation-engine/
