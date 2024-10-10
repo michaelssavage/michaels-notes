@@ -3,46 +3,41 @@ import {
   DescriptionText,
   DescriptionWrapper,
 } from "@/components/Post/Post.styled";
-import { AnimatePresence } from "framer-motion";
-import { memo } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 interface IDesc {
-  isFirst: boolean;
   description: string;
   isExternal?: string;
   slug: string;
-  isHovered: boolean;
+  isExpanded: boolean;
 }
 
-const variants = {
-  collapsed: { height: "1.4rem", opacity: 0.7 },
-  expanded: { height: "auto", opacity: 1 },
-};
-
 export const Description = memo(
-  ({ isFirst, description, isExternal, slug, isHovered }: IDesc) => {
+  ({ description, isExternal, slug, isExpanded }: IDesc) => {
+    const contentRef = useRef<HTMLParagraphElement>(null);
+    const [contentHeight, setContentHeight] = useState(0);
+
+    useEffect(() => {
+      if (contentRef.current) {
+        setContentHeight(contentRef.current.scrollHeight);
+      }
+    }, []);
+
     return (
-      <DescriptionWrapper
-        initial="collapsed"
-        animate={isFirst || isHovered ? "expanded" : "collapsed"}
-        variants={variants}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-      >
-        <AnimatePresence mode="wait">
-          <DescriptionText>
-            {description}{" "}
-            {isExternal ? (
-              <Anchor
-                link={isExternal}
-                variant="link"
-                text="Read More"
-                isExternal
-              />
-            ) : (
-              <Anchor text="Read More" variant="link" link={slug} />
-            )}
-          </DescriptionText>
-        </AnimatePresence>
+      <DescriptionWrapper isExpanded={isExpanded} contentHeight={contentHeight}>
+        <DescriptionText ref={contentRef}>
+          {description}{" "}
+          {isExternal ? (
+            <Anchor
+              link={isExternal}
+              variant="link"
+              text="Read More"
+              isExternal
+            />
+          ) : (
+            <Anchor text="Read More" variant="link" link={slug} />
+          )}
+        </DescriptionText>
       </DescriptionWrapper>
     );
   }

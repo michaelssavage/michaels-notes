@@ -3,7 +3,13 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
-export const Card = styled.div`
+export const Card = styled.div<{ inView: boolean }>`
+  opacity: ${({ inView }) => (inView ? 1 : 0)};
+  transform: translateY(${({ inView }) => (inView ? 0 : "20px")});
+  transition:
+    opacity 0.5s ease-in-out,
+    transform 0.5s ease-in-out;
+
   padding: 1rem;
   background-color: ${({ theme }) => theme.colors.card};
   border-radius: 0.4rem;
@@ -63,9 +69,19 @@ export const StyledDateText = styled.p<{ isExternal?: string }>`
   font-weight: bold;
 `;
 
-export const DescriptionWrapper = styled(motion.div)`
+export const DescriptionWrapper = styled(motion.div)<{
+  isExpanded: boolean;
+  contentHeight: number;
+}>`
   width: 100%;
   overflow: hidden;
+  max-height: ${({ isExpanded, contentHeight }) =>
+    isExpanded ? `${contentHeight}px` : "1.4rem"};
+  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0.7)};
+  transition:
+    max-height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+
   ${forPhoneOnly(css`
     font-size: 0.9rem;
   `)}

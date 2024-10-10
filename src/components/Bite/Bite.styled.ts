@@ -1,7 +1,6 @@
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 
 export const BitePanel = styled.section`
   z-index: 2;
@@ -46,7 +45,9 @@ export const Text = styled.p`
   `)}
 `;
 
-export const AnimatedBite = styled(motion.li)`
+export const AnimatedBite = styled.li<{ inView: boolean }>`
+  opacity: ${({ inView }) => (inView ? 1 : 0)};
+  transform: translateY(${({ inView }) => (inView ? 0 : "20px")});
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -33,7 +33,7 @@ export const darkTheme = {
     ...common,
     toggle: "#009fd1",
     lightenLink: "rgba(217, 242, 219, 0.2)",
-    link: "#c1d2d7",
+    link: "#75deb1",
     icon: "#bbbbbb",
     text: "#f1f9f0",
     secondaryText: "#D8E0D8",

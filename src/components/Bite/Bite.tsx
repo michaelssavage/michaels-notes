@@ -1,6 +1,7 @@
 import type { IBite } from "@/types/Post";
-import { motion, useInView } from "framer-motion";
-import { type Ref, memo, useRef } from "react";
+import { motion } from "framer-motion";
+import { type Ref, memo } from "react";
+import { useInView } from "react-intersection-observer";
 import { AnimatedBite, BitePanel, Text, Year } from "./Bite.styled";
 import { bites } from "./items";
 
@@ -10,28 +11,16 @@ interface IB {
 
 interface Props {
   bite: IBite;
-  index: number;
 }
 
-const BiteItem = memo(({ bite, index }: Props) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { amount: "some" });
-
-  const animationProps = {
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: 50 },
-    transition: { duration: 0.5, delay: index * 0.1 },
-  };
+const BiteItem = memo(({ bite }: Props) => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.5,
+  });
 
   return (
-    <AnimatedBite
-      ref={ref}
-      initial={animationProps.initial}
-      animate={isInView ? animationProps.animate : animationProps.initial}
-      exit={animationProps.exit}
-      transition={animationProps.transition}
-    >
+    <AnimatedBite ref={ref} inView={inView}>
       <Year>{bite.year}</Year>
       <Text>{bite.title}</Text>
     </AnimatedBite>
@@ -43,8 +32,8 @@ export const Bite = ({ biteRef }: IB) => {
     <BitePanel>
       <h2 ref={biteRef}>Bites</h2>
       <motion.ul>
-        {bites.map((bite, index) => (
-          <BiteItem key={bite.id} bite={bite} index={index} />
+        {bites.map((bite) => (
+          <BiteItem key={bite.id} bite={bite} />
         ))}
       </motion.ul>
     </BitePanel>
