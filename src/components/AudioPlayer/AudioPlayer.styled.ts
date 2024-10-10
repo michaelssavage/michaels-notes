@@ -2,7 +2,6 @@ import { Wrapper } from "@/components/Picture/Picture.styled";
 import { getContrastYIQ } from "@/lib/colors";
 import {
   animateMusicBars,
-  expandAndAppear,
   spinInfinitely,
 } from "@/styles/abstracts/animations.styled";
 import { css } from "@emotion/react";
