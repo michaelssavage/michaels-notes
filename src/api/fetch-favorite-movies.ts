@@ -1,10 +1,10 @@
-const LETTERBOXD_BEARER_TOKEN = import.meta.env.VITE_LETTERBOXD_BEARER_TOKEN;
-
 export const fetchFavouriteMovies = async () => {
+  const token = import.meta.env.VITE_LETTERBOXD_BEARER_TOKEN;
+
   const response = await fetch("/.netlify/functions/movies", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${LETTERBOXD_BEARER_TOKEN}`,
+      Authorization: `Bearer ${token ?? process.env.VITE_LETTERBOXD_BEARER_TOKEN}`,
     },
   });
   if (!response.ok) {
