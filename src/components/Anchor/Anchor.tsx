@@ -2,7 +2,7 @@ import { LinkStyle } from "@/components/Anchor/Anchor.styled";
 import { type CSSProperties, type ReactElement, memo } from "react";
 import { ExternalLinkIcon } from "../icons";
 
-export type AnchorVariants = "button" | "link";
+export type AnchorVariants = "button" | "link" | "text";
 
 interface Props {
   link: string;

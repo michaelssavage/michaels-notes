@@ -55,7 +55,6 @@ function Projects() {
   return (
     <Container>
       <Header>
-        <h2>Projects</h2>
         <p>
           Personal development, work, code challenges, and university projects.
         </p>
@@ -86,7 +85,7 @@ function Projects() {
             I spent some time learning how to use the Spotify API and you can
             read my{" "}
             <Anchor
-              link="blog/spotify-developer-api"
+              link="/blog/spotify-developer-api"
               text="words about it here"
               variant="link"
             />

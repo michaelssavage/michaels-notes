@@ -87,6 +87,9 @@ export const ProjectGrid = css`
 
 export const Header = styled.div`
   margin-bottom: 1rem;
+  p {
+    margin-bottom: 0.5rem;
+  }
   ${forPhoneOnly(css`
     margin: 0 5% 2rem;
   `)}

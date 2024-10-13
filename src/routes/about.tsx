@@ -1,15 +1,5 @@
-import imageUrl from "@/assets/images/cover.jpg";
-import { Anchor } from "@/components/Anchor";
-import { Picture } from "@/components/Picture";
-import { Group } from "@/components/atoms/Group";
-import { forTabletOnly } from "@/styles/abstracts/mixins.styled";
-import {
-  Container,
-  Paragraph,
-  Section,
-  imageWrapperStyle,
-} from "@/styles/routes/about.styled";
-import { css } from "@emotion/react";
+import { paragraphs } from "@/components/about/utils";
+import { Container, Paragraph, Section } from "@/styles/routes/about.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence } from "framer-motion";
 import { createRef, useEffect, useRef, useState } from "react";
@@ -17,70 +7,6 @@ import { createRef, useEffect, useRef, useState } from "react";
 export const Route = createFileRoute("/about")({
   component: About,
 });
-
-const paragraphs = [
-  {
-    id: 0,
-    value: (
-      <Group direction="column" align="center">
-        <Group
-          align="center"
-          style={forTabletOnly(css`
-            flex-direction: column;
-          `)}
-        >
-          <Picture
-            src={imageUrl}
-            alt="Picture of Me"
-            style={imageWrapperStyle}
-          />
-          <p>
-            From Ireland and currently based in{" "}
-            <span className="underline">Barcelona, Spain.</span> I'm a developer
-            that enjoys developing with React.js, Typescript, and Python. My
-            world revolves around electronic music, movies, rugby, and
-            travelling.
-          </p>
-        </Group>
-      </Group>
-    ),
-  },
-  {
-    id: 2,
-    value: `I studied Computer Applications in DCU and started working with Jaguar Land
-    Rover, Shannon in 2021 where I learned to work with REST APIs using Spring
-    Boot and React.js early on. I'm currently working with a startup in the
-    heart of Barcelona, TalentBait, as a frontend developer using React.js.`,
-  },
-  {
-    id: 3,
-    value: `I'm passionate about films, and I love sharing and keeping track of them on
-    Letterboxd (the best social media platform). Top picks from me include Amélie, Y Tu Mamá También, 
-    Aftersun, and Sexy Beast.`,
-  },
-  {
-    id: 4,
-    value: `I like to keep fit and healthy, having played sports all my life including Gaelic Football and 
-    rugby for teams like Ulster Club u18s, Monaghan RFC, Ennis RFC, and Corinthians RFC. 
-    More recently I've joined a local running club and I'm preparing for the Barcelona half marathon!`,
-  },
-  {
-    id: 5,
-    value: (
-      <>
-        I co-created{" "}
-        <Anchor
-          variant="link"
-          text="Plant Bass'd"
-          link="/blog/what-is-plant-bassd"
-        />
-        , an electronic music blog and underground club night that that took
-        hold in Ireland and Scotland. Music is definitely a large part of my
-        identity and I'm always trying my hand at producing music on Ableton.
-      </>
-    ),
-  },
-];
 
 function About() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -112,7 +38,7 @@ function About() {
   }, [activeIndex]);
 
   return (
-    <Container ref={containerRef}>
+    <Container>
       <AnimatePresence>
         {paragraphs.map(({ id, value }, index) => (
           <Section

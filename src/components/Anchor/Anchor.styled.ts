@@ -62,6 +62,10 @@ export const LinkStyle = styled(Link, {
             }
           }
         `;
+      case "text":
+        return css`
+          color: ${theme.colors.text};
+        `;
       default:
         return null;
     }

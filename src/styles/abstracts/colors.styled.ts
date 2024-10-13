@@ -11,6 +11,7 @@ const common = {
   sun: "#ffe26d",
   code: "#d63384",
   secondary: "#6c757d",
+  highlight: "#009fd199",
 };
 
 export const lightTheme = {

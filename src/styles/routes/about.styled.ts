@@ -1,4 +1,8 @@
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
+import {
+  forBelowOnly,
+  forPhoneOnly,
+  forTabletOnly,
+} from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
@@ -12,7 +16,7 @@ export const Container = styled.div`
 `;
 
 export const Section = styled(motion.div)`
-  min-height: calc(60vh - 12rem);
+  min-height: calc(80vh - 9rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +27,6 @@ export const Paragraph = styled.div`
   font-size: 1.5rem;
   width: 60%;
   text-align: center;
-  padding: 2rem;
 
   ${forTabletOnly(css`
     width: 85%;
@@ -51,15 +54,12 @@ export const Paragraphs = styled.div`
   }
 `;
 
-export const imageWrapperStyle = css`
+export const selfieStyle = css`
   overflow: hidden;
   border-top-left-radius: 5rem;
   border-top-right-radius: 5rem;
-  min-width: 12rem;
-  max-width: 12rem;
 
   img {
-    aspect-ratio: unset;
     transition: transform 0.2s ease-in-out;
 
     &:hover {
@@ -67,10 +67,29 @@ export const imageWrapperStyle = css`
     }
   }
 
-  ${forPhoneOnly(css`
-    img {
-      width: 240px;
-      min-width: 140px;
-    }
-  `)}
+  ${forBelowOnly(
+    900,
+    css`
+      width: 60%;
+    `
+  )}
+`;
+
+export const plantbassdStyle = css`
+  border-radius: 1rem;
+  transition:
+    transform 0.3s ease,
+    border-radius 0.3s ease;
+
+  ${forBelowOnly(
+    900,
+    css`
+      width: 60%;
+    `
+  )}
+
+  &:hover {
+    transform: rotate(15deg);
+    border-radius: 0;
+  }
 `;
