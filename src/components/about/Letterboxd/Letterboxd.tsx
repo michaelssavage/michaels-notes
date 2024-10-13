@@ -1,5 +1,6 @@
 import { fetchFavouriteMovies } from "@/api/fetch-favorite-movies";
 import { Anchor } from "@/components/Anchor";
+import { Picture } from "@/components/Picture";
 import { Group } from "@/components/atoms/Group";
 import type { IMovie } from "@/types/Movie";
 import { useQuery } from "@tanstack/react-query";
@@ -20,10 +21,10 @@ export const Letterboxd = () => {
     refetchOnWindowFocus: false,
   });
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [active, setActive] = useState(0);
 
   const handleButtonClick = (index: number) => {
-    setActiveIndex(index);
+    setActive(index);
   };
 
   if (!data || data.length === 0) {
@@ -42,13 +43,12 @@ export const Letterboxd = () => {
         <CardStack>
           {data.map((movie, index) => (
             <Card
-              key={movie.title}
+              key={`${movie.title}-${index}`}
               to={movie.movieurl}
-              isActive={index === activeIndex}
               index={index}
-              activeIndex={activeIndex}
+              active={active}
             >
-              <img src={movie.imageurl} alt={movie.title} />
+              <Picture src={movie.imageurl} alt={movie.title} />
             </Card>
           ))}
         </CardStack>
@@ -64,7 +64,7 @@ export const Letterboxd = () => {
                 key={movie.title}
                 link={movie.movieurl}
                 text={movie.title}
-                variant={index === activeIndex ? "link" : "text"}
+                variant={index === active ? "link" : "text"}
               />
               {index < data.length - 1 && ", "}
             </>
@@ -75,7 +75,7 @@ export const Letterboxd = () => {
           {data.map((movie, index) => (
             <Button
               key={movie.title}
-              isActive={index === activeIndex}
+              isActive={index === active}
               onClick={() => handleButtonClick(index)}
             >
               {index + 1}

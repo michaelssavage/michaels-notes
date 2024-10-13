@@ -1,6 +1,6 @@
 import notFoundImg from "@/assets/images/not-found.png";
 import type { SerializedStyles } from "@emotion/react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ImageStyle, NotFound, Placeholder, Wrapper } from "./Picture.styled";
 
 interface Props {
@@ -44,14 +44,12 @@ export const Picture: React.FC<Props> = ({
     };
   }, [src]);
 
-  const memoizedStyle = useMemo(() => style, [style]);
-
   if (!src) {
     return <NotFound src={notFoundImg} alt="src not found" />;
   }
 
   return (
-    <Wrapper css={memoizedStyle}>
+    <Wrapper css={style}>
       {isLoading && <Placeholder ar={ar} />}
       {imageLoaded && (
         <ImageStyle

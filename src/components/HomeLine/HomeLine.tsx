@@ -1,5 +1,5 @@
-import { AnimatedLine } from "@/components/HomeLine/HomeLine.styled";
 import { useAnimation, useScroll, useTransform } from "framer-motion";
+import { AnimatedLine } from "./HomeLine.styled";
 
 export const HomeLine = () => {
   const controls = useAnimation();

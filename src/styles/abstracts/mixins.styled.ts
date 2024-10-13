@@ -1,9 +1,11 @@
 import { type SerializedStyles, css } from "@emotion/react";
 
-export const forBelowOnly = (
-  breakpoint: number,
-  styles: SerializedStyles | string
-) => css`
+interface IBreak {
+  breakpoint: number;
+  styles: SerializedStyles | string;
+}
+
+export const forBreakAt = ({ breakpoint, styles }: IBreak) => css`
   @media (max-width: ${breakpoint}px) {
     ${styles}
   }

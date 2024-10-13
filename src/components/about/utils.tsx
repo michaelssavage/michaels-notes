@@ -4,16 +4,16 @@ import { Anchor } from "@/components/Anchor";
 import { Picture } from "@/components/Picture";
 import { Letterboxd } from "@/components/about/Letterboxd";
 import { Group } from "@/components/atoms/Group";
-import { forBelowOnly } from "@/styles/abstracts/mixins.styled";
+import { forBreakAt } from "@/styles/abstracts/mixins.styled";
 import { plantbassdStyle, selfieStyle } from "@/styles/routes/about.styled";
 import { css } from "@emotion/react";
 
-export const breakpoint = forBelowOnly(
-  900,
-  css`
+export const breakpoint = forBreakAt({
+  breakpoint: 900,
+  styles: css`
     flex-direction: column;
-  `
-);
+  `,
+});
 
 export const paragraphs = [
   {
@@ -33,13 +33,13 @@ export const paragraphs = [
   {
     id: 2,
     value: (
-      <h3>
+      <p>
         I studied Computer Applications in DCU and started working with Jaguar
         Land Rover, Shannon in 2021 where I learned to work with REST APIs using
         Spring Boot and React.js early on. I'm currently working with a startup
         in the heart of Barcelona, TalentBait, as a frontend developer using
         React.js.
-      </h3>
+      </p>
     ),
   },
   {
@@ -49,12 +49,12 @@ export const paragraphs = [
   {
     id: 4,
     value: (
-      <h3>
+      <p>
         I like to keep fit and healthy, having played sports all my life
         including Gaelic Football and rugby for teams like Ulster Club u18s,
         Monaghan RFC, Ennis RFC, and Corinthians RFC. More recently I've joined
         a local running club and I'm preparing for the Barcelona half marathon!
-      </h3>
+      </p>
     ),
   },
   {

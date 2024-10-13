@@ -1,5 +1,6 @@
 import { LinkStyle } from "@/components/Anchor/Anchor.styled";
-import { type CSSProperties, type ReactElement, memo } from "react";
+import type { SerializedStyles } from "@emotion/react";
+import { type ReactElement, memo } from "react";
 import { ExternalLinkIcon } from "../icons";
 
 export type AnchorVariants = "button" | "link" | "text";
@@ -10,7 +11,7 @@ interface Props {
   isExternal?: boolean;
   variant?: AnchorVariants;
   icon?: ReactElement;
-  style?: CSSProperties;
+  style?: SerializedStyles;
 }
 
 export const Anchor = memo(
@@ -20,7 +21,7 @@ export const Anchor = memo(
     icon,
     isExternal = false,
     variant = "button",
-    style = {},
+    style,
   }: Props) => {
     return (
       <LinkStyle
@@ -29,7 +30,7 @@ export const Anchor = memo(
         isExternal={isExternal}
         rel={isExternal ? "noopener noreferrer" : undefined}
         target={isExternal ? "_blank" : undefined}
-        style={style}
+        css={style}
       >
         {text ? text : link} {isExternal && !icon ? <ExternalLinkIcon /> : icon}
       </LinkStyle>

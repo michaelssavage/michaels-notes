@@ -1,5 +1,5 @@
 import {
-  forBelowOnly,
+  forBreakAt,
   forPhoneOnly,
   forTabletOnly,
 } from "@/styles/abstracts/mixins.styled";
@@ -16,11 +16,11 @@ export const Container = styled.div`
 `;
 
 export const Section = styled(motion.div)`
-  min-height: calc(80vh - 9rem);
+  min-height: calc(100vh - 9rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
 `;
 
 export const Paragraph = styled.div`
@@ -67,12 +67,12 @@ export const selfieStyle = css`
     }
   }
 
-  ${forBelowOnly(
-    900,
-    css`
+  ${forBreakAt({
+    breakpoint: 900,
+    styles: css`
       width: 60%;
-    `
-  )}
+    `,
+  })}
 `;
 
 export const plantbassdStyle = css`
@@ -81,12 +81,12 @@ export const plantbassdStyle = css`
     transform 0.3s ease,
     border-radius 0.3s ease;
 
-  ${forBelowOnly(
-    900,
-    css`
+  ${forBreakAt({
+    breakpoint: 900,
+    styles: css`
       width: 60%;
-    `
-  )}
+    `,
+  })}
 
   &:hover {
     transform: rotate(15deg);

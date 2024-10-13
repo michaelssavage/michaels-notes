@@ -1,12 +1,11 @@
-import { forBelowOnly } from "@/styles/abstracts/mixins.styled";
+import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
 interface ICard {
-  isActive: boolean;
   index: number;
-  activeIndex: number;
+  active: number;
 }
 
 export const StackContainer = styled.div`
@@ -15,12 +14,16 @@ export const StackContainer = styled.div`
   position: relative;
   overflow: hidden;
 
-  ${forBelowOnly(
-    900,
-    css`
+  ${forBreakAt({
+    breakpoint: 900,
+    styles: css`
       height: 300px;
-    `
-  )}
+    `,
+  })}
+
+  ${forPhoneOnly(css`
+    height: 150px;
+  `)}
 `;
 
 export const CardStack = styled.div`
@@ -37,14 +40,14 @@ export const CardStack = styled.div`
 export const Card = styled(Link)<ICard>`
   position: absolute;
   width: 75%;
-  min-width: 156px;
   border-radius: 16px;
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.highlight};
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-out;
-  ${({ isActive, index, activeIndex }) => {
-    const diff = index - activeIndex;
+  ${({ index, active }) => {
+    const isActive = index === active;
+    const diff = index - active;
     const translateX = isActive ? 0 : `${diff * 50}px`;
     const translateZ = isActive ? 0 : `${Math.abs(diff) * -100}px`;
     const rotateY = isActive ? 0 : `${diff * 10}deg`;
@@ -62,14 +65,14 @@ export const Card = styled(Link)<ICard>`
     height: 100%;
   }
 
-  ${forBelowOnly(
-    900,
-    css`
+  ${forBreakAt({
+    breakpoint: 900,
+    styles: css`
       height: 100%;
       aspect-ratio: 0.56;
       width: auto;
-    `
-  )}
+    `,
+  })}
 `;
 
 export const ButtonContainer = styled.div`
@@ -78,6 +81,10 @@ export const ButtonContainer = styled.div`
   width: 100%;
   line-height: 1rem;
   margin: 0.5rem 0;
+
+  ${forPhoneOnly(css`
+    line-height: 0.5rem;
+  `)}
 `;
 
 export const Button = styled.button<{ isActive: boolean }>`
@@ -94,4 +101,8 @@ export const Button = styled.button<{ isActive: boolean }>`
     background-color: ${({ isActive, theme }) =>
       isActive ? theme.colors.extBtnBg : "#e2e6ea"};
   }
+
+  ${forPhoneOnly(css`
+    padding: 0.5rem 1rem;
+  `)}
 `;
