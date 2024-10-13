@@ -1,4 +1,5 @@
 import { ButtonStyled } from "@/components/Button/Button.styled";
+import { Wrapper } from "@/components/Picture/Picture.styled";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
@@ -122,5 +123,24 @@ export const Sidebar = styled.div`
 
   ${forTabletOnly(css`
     visibility: hidden;
+  `)}
+`;
+
+export const ImgPositioner = styled.div`
+  position: absolute;
+  left: -6rem;
+
+  ${Wrapper} {
+    width: 90px;
+  }
+
+  ${forPhoneOnly(css`
+    left: unset;
+    right: 0;
+    top: -3rem;
+
+    ${Wrapper} {
+      width: 60px;
+    }
   `)}
 `;

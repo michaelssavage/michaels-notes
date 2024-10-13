@@ -2,7 +2,8 @@ import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import type { ReactNode } from "@tanstack/react-router";
 import { getMDXComponent } from "mdx-bundler/client";
 import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
+import { ImgPositioner } from "../../styles/routes/blog.styled";
 import { Anchor } from "../Anchor/Anchor";
 import { Picture } from "../Picture";
 import { BlockQuote, Code, H1 } from "../content";
@@ -19,6 +20,7 @@ const components: MDXComponents = {
   h1: H1,
   blockquote: BlockQuote,
   code: Code,
+  ImgPositioner,
 };
 
 interface MarkdownProps {
@@ -29,7 +31,7 @@ interface MarkdownProps {
   };
 }
 
-export const Markdown = ({ content }: MarkdownProps) => {
+export const Markdown = memo(({ content }: MarkdownProps) => {
   const Component = useMemo(() => {
     return getMDXComponent(content.code, MDX_GLOBAL_CONFIG);
   }, [content]);
@@ -39,4 +41,4 @@ export const Markdown = ({ content }: MarkdownProps) => {
       <Component title={content.title} description={content.description} />
     </MDXProvider>
   );
-};
+});

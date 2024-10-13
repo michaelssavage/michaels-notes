@@ -35,10 +35,8 @@ function RootComponent() {
         <ThemeProvider>
           <Navbar />
           <Toggle />
-          <PageTransition>
-            <ScrollRestoration />
-            <Outlet />
-          </PageTransition>
+          <ScrollRestoration />
+          <Outlet />
           <Footer />
           <Suspense>
             <TanStackRouterDevtools position="bottom-left" />

@@ -1,0 +1,129 @@
+---
+id: 14
+title: REST API with Go
+date: October 14, 2024
+description: "I recently built a REST API using Go, mostly because I wanted to scrape my favourite films from my Letterboxd account and save them into a MongoDB collection. In the process, I implemented JWT authentication, deployed the API to Fly.io, and even spun up a cheeky little serverless function to retrieve this data for my blog. You can spot the results on my About page, where a card stack shows my current movie favourites."
+---
+
+<ImgPositioner>
+  <Picture src="https://go.dev/images/gophers/ladder.svg" alt="gopher icon" />
+</ImgPositioner>
+
+I recently built a REST API using <Anchor link="https://go.dev/" text="Go" variant="link" />, mostly because I wanted to scrape my favourite films from my Letterboxd account and save them into a MongoDB collection. In the process, I implemented JWT authentication, deployed the API to <Anchor link="https://fly.io/" variant="link" />, and even spun up a cheeky little serverless function to retrieve this data for my blog. You can spot the results on my <Anchor link="/about" text="About" variant="link" /> page, where a card stack shows my current movie favourites. It was a fun project and, to be honest, a good excuse to mess around with Go.
+
+## Why go for Go?
+
+Go, or Golang, has been gaining traction in the developer community for being fast, efficient, and having syntax familiar to those coming from Java. I chose this project for a few reasons:
+
+- Letterboxd doesn't have a public API and their waiting list is very long.
+- The way the DOM elements are laid out is too good not to scrape.
+- I wasn't keen on using Java, and Go has a similar developer vibe to Node.js.
+- I just wanted an excuse to make a REST API.
+
+## Setting up Go
+
+Go was surprisingly intuitive to pick up, and the wealth of help available online allowed me to have mini victories one after the other. I primarily used a "4-tier Architecture" with a controller, service, model, and repository component to layout my code. The **controller** handled the HTTP requests with an auth middleware, I did all my business logic in the **service** layer like scraping and transforming image urls, the **repository** layer was responsible for data persistence and retrieval, and the **model** defined my data structure.
+
+### The trickiest bit:
+
+Letterboxd is a dynamic site, so traditional scraping wasn't an option. I ended up using `chromedp` to load the page and scrape the content I wanted from the, close to 50, HTML tags. The content I was interested in was a list with the id #favorites with each list item having a movie url and image url as well as important tags like `data-film-name="Amélie`, `data-film-release-year="2001"`.  
+I needed to wait for the page's content to load fully, so I had to implement some error handling and a mechanism to pause the scraping for a couple of seconds if the content wasn't available right away. I targeted the #favourites list element, which contains all the movies I wanted, then extracted details like the movie title, year, and URLs. Here's how I tackled it:
+
+```go
+err := chromedp.Run(ctx,
+			chromedp.Navigate(url),
+			chromedp.WaitVisible(`#favourites`),
+			chromedp.Sleep(2*time.Second),
+			chromedp.OuterHTML("html", &htmlContent),
+	)
+	if err != nil {
+			return nil, fmt.Errorf("failed to load page: %v", err)
+	}
+```
+
+Go's net/http package is brilliant for creating web servers, but I opted for the Gin framework since the brain load reading the endpoints was way less. My endpoints are straightforward and were easy to test locally using Postman. I added a health check, scraping and returning data, scraping and saving to the database, and retrieving from the database. The setup is really extendable if I decide to work on extra features.
+
+Here's a snippet of the routes:
+
+```go
+router.GET("/", controller.CheckHealth)
+
+	authorized := router.Group("/")
+	authorized.Use(middleware.Authenticate(config))
+	{
+		authorized.GET("/scrape", controller.ScrapeFavourites(config))
+    authorized.GET("/favourites", controller.GetFavourites(config, client))
+    authorized.POST("/favourites", controller.SaveFavourites(config, client))
+	}
+```
+
+### JWT authentication
+
+I wanted to make sure all the endpoints (aside from the health check) had authentication. JWT (JSON Web Tokens) tokens are included in the Authorization header, and I verify the token by checking the date, username, and a super secret word against a pre-configured JWT secret.
+
+### The saved data
+
+I wanted to keep it simple, so I just scraped the movie title, release year, image, and a link to the Letterboxd page. Here's the struct I used for my movie model:
+
+```go
+type Movie struct {
+    Title     string    `json:"title"`
+    Year      string    `json:"year"`
+    ImageURL  string    `json:"imageUrl"`
+    MovieURL  string    `json:"movieUrl"`
+    UpdatedAt time.Time `json:"updatedAt"`
+}
+```
+
+For Storage, <Anchor link="https://www.mongodb.com/" text="MongoDB" /> was the natural choice
+because, in my mind, JSON and MongoDB go together like popcorn and the cinema. Using a
+MongoDB URI, I connected the database and started saving movies right away. The
+code for saving the scraped favourites looks something like this:
+
+```go
+collection := client.Database("letterboxd").Collection("favorites")
+
+	favoriteMovies := models.FavoriteMovies{
+		ID:          "latest",
+		Movies:      movies,
+		LastUpdated: time.Now(),
+	}
+
+	opts := options.Replace().SetUpsert(true)
+	filter := bson.D{{Key: "_id", Value: favoriteMovies.ID}}
+
+	_, err := collection.ReplaceOne(ctx, filter, favoriteMovies, opts)
+	return err
+```
+
+## Deploying online
+
+For deployment, I wanted something free. But it didn't take long to realise that the free tiers would quickly run out and I'd have to resort to a paid subscription.... Yuck!!! I ended up using <Anchor link="https://fly.io/" variant="link" />, which worked well after some faffing about with `Docker` and a `fly.toml` file. I use the deployed urls to update the database whenever I change my favourite movies on Letterboxd, which is not quite often. So fly.io was a perfect use case here.
+
+### Netlify functions
+
+Since my site is hosted on <Anchor link="https://www.netlify.com/" text="Netlify" variant="link" />, I turned to their serverless functions as a way to fetch the data. The free tier on Netlify is way more forgiving than Fly.io's. I created a simple handler that checks the JWT and retrieves the favourites from the database. Here's the core of it:
+
+```js
+try {
+    await client.connect();
+    const database = client.db("letterboxd");
+    const collection = database.collection("favorites");
+
+    const movies = await collection.find().toArray();
+    const favourites = movies.flatMap((movie) => movie.movies);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(favourites),
+    };
+  }
+```
+
+## Potential Additions
+
+If you're looking to create a simple REST API, I'd say give it a Go! I learned a lot and hope to extend the API with some potential ideas like:
+
+- Movie Search Feature: I could expand the API to allow users to search for a specific movie and scrape details like the rating, director, and description.
+- Recommendation System: It'd be interesting to build a recommendation system that suggests movies based on my top-rated films.
+- Performance Improvements: For larger datasets, I'd need to learn more about handling performance issues, rate limiting, and dealing with timeouts to ensure the scraper doesn't overwhelm the site or fail with heavy loads.

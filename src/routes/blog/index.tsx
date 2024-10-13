@@ -40,7 +40,7 @@ function Blog() {
           return false;
         }
 
-        if (item.draft) {
+        if (import.meta.env.PROD && item.draft) {
           return false;
         }
 

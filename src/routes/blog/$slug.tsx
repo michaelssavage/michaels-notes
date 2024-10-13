@@ -22,10 +22,13 @@ function Slug() {
     return <div>Blog post not found</div>;
   }
 
+  const sidebar = blog
+    .filter((item) => !item.isExternal)
+    .filter((current) => current.id !== doc.id);
+
   return (
     <AnimatePresence mode="wait">
       <Article
-        key={1}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -37,19 +40,16 @@ function Slug() {
             <PagePath page="blog" color={colors.link} />
 
             <Sidebar>
-              {blog
-                .filter((item) => !item.isExternal)
-                .filter((current) => current.id !== doc.id)
-                .map(({ title, id, slug }) => {
-                  return (
-                    <Anchor
-                      key={id}
-                      text={title}
-                      link={`../${slug}`}
-                      variant="link"
-                    />
-                  );
-                })}
+              {sidebar.map(({ title, id, slug }) => {
+                return (
+                  <Anchor
+                    key={id}
+                    text={title}
+                    link={`../${slug}`}
+                    variant="link"
+                  />
+                );
+              })}
             </Sidebar>
 
             <Header
