@@ -1,6 +1,6 @@
 import { Anchor } from "@/components/Anchor";
 import { PagePath } from "@/components/PagePath";
-import { Markdown } from "@/components/atoms";
+import { Markdown, MetaData } from "@/components/atoms";
 import { Article, Content, Header, Sidebar } from "@/styles/routes/blog.styled";
 import type { IPosts } from "@/types/Post";
 import { useTheme } from "@emotion/react";
@@ -35,6 +35,7 @@ function Slug() {
         transition={{ duration: 0.5 }}
       >
         <Suspense fallback={<div>Loading...</div>}>
+          <MetaData title={doc.title} description={doc.description} />
           <p className="date">{doc.date}</p>
           <Content>
             <PagePath page="blog" color={colors.link} />

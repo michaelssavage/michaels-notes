@@ -1,6 +1,6 @@
 import { Anchor } from "@/components/Anchor";
 import { PagePath } from "@/components/PagePath";
-import { Markdown } from "@/components/atoms";
+import { Markdown, MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { joinTags } from "@/lib/utils";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
@@ -32,6 +32,7 @@ function Slug() {
         transition={{ duration: 0.5 }}
       >
         <Suspense fallback={<div>Loading...</div>}>
+          <MetaData title={doc.title} description={doc.description} />
           <p className="date">{doc.date}</p>
           <Content>
             <PagePath page="projects" />

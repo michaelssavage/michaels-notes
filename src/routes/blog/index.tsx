@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { Post } from "@/components/Post";
 import { NoPost } from "@/components/Post/NoPost";
 import { SearchBox } from "@/components/SearchBox";
+import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { CircleIcon } from "@/components/icons";
 import { sortByDate } from "@/lib/utils";
@@ -22,6 +23,8 @@ export const Route = createFileRoute("/blog/")({
 });
 
 const { blog }: IPosts = import.meta.env.POSTS;
+
+const description = "Learnings, mishaps, and articles about random things.";
 
 function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -63,19 +66,19 @@ function Blog() {
 
   return (
     <Page>
+      <MetaData title="My Blog" description={description} />
       <Panel>
         <Row css={RowStyle}>
           <Col size="md" gap="1rem">
-          <Suspense>
-            
-            {filterPosts(blog).length > 0 ? (
-              filterPosts(blog).map((post, index) => {
-                return <Post key={post.id} {...post} isFirst={index === 0} />;
-              })
-            ) : (
-              <NoPost />
-            )}
-          </Suspense>
+            <Suspense>
+              {filterPosts(blog).length > 0 ? (
+                filterPosts(blog).map((post, index) => {
+                  return <Post key={post.id} {...post} isFirst={index === 0} />;
+                })
+              ) : (
+                <NoPost />
+              )}
+            </Suspense>
           </Col>
           <Col size="md">
             <Filter>

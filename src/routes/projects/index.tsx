@@ -1,5 +1,6 @@
 import { Anchor } from "@/components/Anchor";
 import { Button } from "@/components/Button";
+import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { Project } from "@/components/atoms/Project";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
@@ -24,6 +25,9 @@ export const Route = createFileRoute("/projects/")({
 const { projects }: IPosts = import.meta.env.POSTS;
 
 const MemoizedCurrentPlay = memo(CurrentPlay);
+
+const description =
+  "Personal development, work, code challenges, and university projects.";
 
 function Projects() {
   const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
@@ -54,10 +58,9 @@ function Projects() {
 
   return (
     <Container>
+      <MetaData title="My Projects" description={description} />
       <Header>
-        <p>
-          Personal development, work, code challenges, and university projects.
-        </p>
+        <p>{description}</p>
         <Group wrap="wrap">
           {TECHNOLOGIES.map((tech) => (
             <Button

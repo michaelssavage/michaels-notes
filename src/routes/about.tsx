@@ -1,4 +1,5 @@
 import { paragraphs } from "@/components/about/utils";
+import { MetaData } from "@/components/atoms";
 import { Container, Paragraph, Section } from "@/styles/routes/about.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence } from "framer-motion";
@@ -7,6 +8,9 @@ import { createRef, useEffect, useRef, useState } from "react";
 export const Route = createFileRoute("/about")({
   component: About,
 });
+
+const description =
+  "I'm a developer that enjoys developing with React.js, Typescript, and Python. My world revolves around electronic music, movies, rugby, and travelling.";
 
 function About() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -39,6 +43,7 @@ function About() {
 
   return (
     <Container>
+      <MetaData title="About Me" description={description} />
       <AnimatePresence>
         {paragraphs.map(({ id, value }, index) => (
           <Section
