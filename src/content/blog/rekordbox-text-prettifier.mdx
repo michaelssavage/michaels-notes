@@ -8,8 +8,10 @@ github: https://github.com/michaelssavage/Rekordbox-Mix-Setlist
 
 import rekordbox from "src/assets/images/blog/rekordbox.jpg";
 
-{props.description}
+<ImgPositioner>
+  <Picture src={rekordbox} alt="rekordbox icon" />
+</ImgPositioner>
 
-<Picture src={rekordbox} alt="rekordbox icon" />
+{props.description}
 
 I needed a small script that would format the text in a nicer way for me. I opted for Python and created a really simple executable to get a setlist from a .txt file from Rekordbox. The exe was created using pyinstaller, and proved to be a small and nifty utility that I would come back to now and again.
