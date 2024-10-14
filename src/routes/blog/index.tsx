@@ -15,7 +15,7 @@ import {
 } from "@/styles/routes/blog.styled";
 import type { IBlog, IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 export const Route = createFileRoute("/blog/")({
   component: Blog,
@@ -66,6 +66,8 @@ function Blog() {
       <Panel>
         <Row css={RowStyle}>
           <Col size="md" gap="1rem">
+          <Suspense>
+            
             {filterPosts(blog).length > 0 ? (
               filterPosts(blog).map((post, index) => {
                 return <Post key={post.id} {...post} isFirst={index === 0} />;
@@ -73,6 +75,7 @@ function Blog() {
             ) : (
               <NoPost />
             )}
+          </Suspense>
           </Col>
           <Col size="md">
             <Filter>
