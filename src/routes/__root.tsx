@@ -1,7 +1,7 @@
 import { Footer } from "@/components/Footer/Footer";
 import { Navbar } from "@/components/Navbar";
 import { Toggle } from "@/components/Toggle";
-import { MetaData, PageTransition } from "@/components/atoms";
+import { MetaData } from "@/components/atoms";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
