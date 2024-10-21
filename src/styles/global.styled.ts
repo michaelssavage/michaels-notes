@@ -58,6 +58,7 @@ export const globalStyles = (theme: MyTheme) => css`
   }
 
   .underline {
+    cursor: pointer;
     background-image: linear-gradient(
       transparent calc(100% - 0.15rem),
       ${theme.colors.underlined} 0.15rem

@@ -1,4 +1,4 @@
-import { fetchFavouriteMovies } from "@/api/fetch-favorite-movies";
+import { fetchFavouriteMovies } from "@/api/favorite-movies";
 import { Anchor } from "@/components/Anchor";
 import { Picture } from "@/components/Picture";
 import { Group } from "@/components/atoms/Group";

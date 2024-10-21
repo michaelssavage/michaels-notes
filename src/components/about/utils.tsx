@@ -1,9 +1,12 @@
 import plantbassdImg from "@/assets/images/blog/plantbassd.png";
 import selfieImg from "@/assets/images/cover.jpg";
 import { Anchor } from "@/components/Anchor";
+import { CountdownClock } from "@/components/Countdown/Countdown";
+import { Floating } from "@/components/Floating/Floating";
 import { Picture } from "@/components/Picture";
 import { Letterboxd } from "@/components/about/Letterboxd";
 import { Group } from "@/components/atoms/Group";
+import { Weather } from "@/components/atoms/Weather";
 import { forBreakAt } from "@/styles/abstracts/mixins.styled";
 import { plantbassdStyle, selfieStyle } from "@/styles/routes/about.styled";
 import { css } from "@emotion/react";
@@ -23,9 +26,14 @@ export const paragraphs = [
         <Picture src={selfieImg} alt="Picture of Me" style={selfieStyle} />
         <p>
           From Ireland and currently based in{" "}
-          <span className="underline">Barcelona, Spain.</span> I'm a developer
-          that enjoys developing with React.js, Typescript, and Python. My world
-          revolves around electronic music, movies, rugby, and travelling.
+          <Floating
+            type="tooltip"
+            trigger={<span className="underline">Barcelona, Spain.</span>}
+            content={<Weather />}
+          />{" "}
+          I'm a developer that enjoys developing with React.js, Typescript, and
+          Python. My world revolves around electronic music, movies, rugby, and
+          travelling.
         </p>
       </Group>
     ),
@@ -49,12 +57,16 @@ export const paragraphs = [
   {
     id: 4,
     value: (
-      <p>
-        I like to keep fit and healthy, having played sports all my life
-        including Gaelic Football and rugby for teams like Ulster Club u18s,
-        Monaghan RFC, Ennis RFC, and Corinthians RFC. More recently I've joined
-        a local running club and I'm preparing for the Barcelona half marathon!
-      </p>
+      <Group direction="column" align="center">
+        <p>
+          I like to keep fit and healthy, having played sports all my life
+          including Gaelic Football and rugby for teams like Ulster Club u18s,
+          Monaghan RFC, Ennis RFC, and Corinthians RFC. More recently I've
+          joined a local running club and I'm preparing for the Barcelona half
+          marathon!
+        </p>
+        <CountdownClock targetDate="2025-02-16T00:00:00" />
+      </Group>
     ),
   },
   {

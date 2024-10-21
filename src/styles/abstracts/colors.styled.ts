@@ -12,6 +12,7 @@ const common = {
   code: "#d63384",
   secondary: "#6c757d",
   highlight: "#009fd199",
+  weather: "#75deb1",
 };
 
 export const lightTheme = {
