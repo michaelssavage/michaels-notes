@@ -9,6 +9,7 @@ export const ClockContainer = styled.div`
   color: ${({ theme }) => theme.colors.btnBg};
   padding: 20px;
   border-radius: 10px;
+  max-width: 100%;
 `;
 
 export const TimeUnit = styled.div`
@@ -19,7 +20,7 @@ export const TimeUnit = styled.div`
 `;
 
 export const Digits = styled.div`
-  font-size: 48px;
+  font-size: 4rem;
   font-weight: bold;
 `;
 
@@ -29,7 +30,7 @@ export const Label = styled.div`
 `;
 
 export const Separator = styled.div`
-  font-size: 48px;
+  font-size: 4rem;
   font-weight: bold;
   margin: 0 5px;
 `;
