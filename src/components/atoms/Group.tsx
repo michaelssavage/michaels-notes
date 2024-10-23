@@ -3,16 +3,16 @@ import styled from "@emotion/styled";
 import type { ReactNode } from "@tanstack/react-router";
 
 interface IGroup {
-  direction?: "row" | "column" | "row-reverse" | "column-reverse";
-  align?: "flex-start" | "flex-end" | "center";
-  justify?: "flex-start" | "flex-end" | "center";
-  wrap?: "wrap" | "nowrap";
-  gap?: string;
-  style?: SerializedStyles;
-  children: ReactNode;
+	direction?: "row" | "column" | "row-reverse" | "column-reverse";
+	align?: "flex-start" | "flex-end" | "center";
+	justify?: "flex-start" | "flex-end" | "center";
+	wrap?: "wrap" | "nowrap";
+	gap?: string;
+	css?: SerializedStyles;
+	children: ReactNode;
 }
 
-const GroupStyle = styled.div<IGroup>`
+const GroupStyle = styled.div<Omit<IGroup, "css">>`
   display: flex;
   flex-direction: ${({ direction }) => direction ?? "row"};
   justify-content: ${({ justify }) => justify ?? "flex-start"};
@@ -21,10 +21,10 @@ const GroupStyle = styled.div<IGroup>`
   flex-wrap: ${({ wrap }) => wrap ?? "nowrap"};
 `;
 
-export const Group = (props: IGroup) => {
-  return (
-    <GroupStyle {...props} css={props.style}>
-      {props.children}
-    </GroupStyle>
-  );
+export const Group = ({ css: cssStyle, ...props }: IGroup) => {
+	return (
+		<GroupStyle {...props} css={cssStyle}>
+			{props.children}
+		</GroupStyle>
+	);
 };

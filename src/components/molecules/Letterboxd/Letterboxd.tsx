@@ -27,7 +27,7 @@ export const Letterboxd = () => {
 		setActive(index);
 	};
 
-	if (!data || data.length === 0) {
+	if (!data || data.length === 0 || !Array.isArray(data)) {
 		return (
 			<p>
 				I love watching, sharing and keeping track of movies on Letterboxd (the
@@ -38,7 +38,7 @@ export const Letterboxd = () => {
 	}
 
 	return (
-		<Group align="center" gap="2rem" style={breakpoint}>
+		<Group align="center" gap="2rem" css={breakpoint}>
 			<StackContainer>
 				<CardStack>
 					{data.map((movie, index) => (

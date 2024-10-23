@@ -1,7 +1,5 @@
 import { MetaData } from "@/components/atoms";
-import { Footer } from "@/components/molecules/Footer";
-import { Navbar } from "@/components/molecules/Navbar";
-import { Toggle } from "@/components/molecules/Toggle";
+import { Loading } from "@/components/molecules/Loading";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -23,6 +21,24 @@ const TanStackRouterDevtools =
 				})),
 			);
 
+const Navbar = lazy(() =>
+	import("@/components/molecules/Toggle").then((module) => ({
+		default: module.Toggle,
+	})),
+);
+
+const Toggle = lazy(() =>
+	import("@/components/molecules/Navbar").then((module) => ({
+		default: module.Navbar,
+	})),
+);
+
+const Footer = lazy(() =>
+	import("@/components/molecules/Footer").then((module) => ({
+		default: module.Footer,
+	})),
+);
+
 export const Route = createRootRoute({
 	component: RootComponent,
 });
@@ -31,17 +47,17 @@ function RootComponent() {
 	return (
 		<HelmetProvider>
 			<QueryClientProvider client={queryClient}>
-				<MetaData />
-				<ThemeProvider>
-					<Navbar />
-					<Toggle />
-					<ScrollRestoration />
-					<Outlet />
-					<Footer />
-					<Suspense>
+				<Suspense fallback={<Loading />}>
+					<MetaData />
+					<ThemeProvider>
+						<Navbar />
+						<Toggle />
+						<ScrollRestoration />
+						<Outlet />
+						<Footer />
 						<TanStackRouterDevtools position="bottom-left" />
-					</Suspense>
-				</ThemeProvider>
+					</ThemeProvider>
+				</Suspense>
 			</QueryClientProvider>
 		</HelmetProvider>
 	);

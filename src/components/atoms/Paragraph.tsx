@@ -22,7 +22,7 @@ export const paragraphs = [
 	{
 		id: 0,
 		value: (
-			<Group align="center" gap="2rem" style={breakpoint}>
+			<Group align="center" gap="2rem" css={breakpoint}>
 				<Picture src={selfieImg} alt="Picture of Me" style={selfieStyle} />
 				<p>
 					From Ireland and currently based in{" "}
@@ -78,7 +78,7 @@ export const paragraphs = [
 	{
 		id: 5,
 		value: (
-			<Group align="center" gap="2rem" style={breakpoint}>
+			<Group align="center" gap="2rem" css={breakpoint}>
 				<Picture
 					src={plantbassdImg}
 					alt="Plant bass'd logo"

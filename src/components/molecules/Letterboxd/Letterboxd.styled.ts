@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
 interface ICard {
-  index: number;
-  active: number;
+	index: number;
+	active: number;
 }
 
 export const StackContainer = styled.div`
@@ -15,11 +15,11 @@ export const StackContainer = styled.div`
   overflow: hidden;
 
   ${forBreakAt({
-    breakpoint: 900,
-    styles: css`
+		breakpoint: 900,
+		styles: css`
       height: 300px;
     `,
-  })}
+	})}
 
   ${forPhoneOnly(css`
     height: 150px;
@@ -46,19 +46,19 @@ export const Card = styled(Link)<ICard>`
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-out;
   ${({ index, active }) => {
-    const isActive = index === active;
-    const diff = index - active;
-    const translateX = isActive ? 0 : `${diff * 50}px`;
-    const translateZ = isActive ? 0 : `${Math.abs(diff) * -100}px`;
-    const rotateY = isActive ? 0 : `${diff * 10}deg`;
-    const scale = isActive ? 1 : 1 - Math.abs(diff) * 0.1;
-    const opacity = isActive ? 1 : 1 - Math.abs(diff) * 0.2;
-    return `
+		const isActive = index === active;
+		const diff = index - active;
+		const translateX = isActive ? 0 : `${diff * 50}px`;
+		const translateZ = isActive ? 0 : `${Math.abs(diff) * -100}px`;
+		const rotateY = isActive ? 0 : `${diff * 10}deg`;
+		const scale = isActive ? 1 : 1 - Math.abs(diff) * 0.1;
+		const opacity = isActive ? 1 : 1 - Math.abs(diff) * 0.2;
+		return `
       transform: translateX(${translateX}) translateZ(${translateZ}) rotateY(${rotateY}) scale(${scale});
       opacity: ${opacity};
       z-index: ${10 - Math.abs(diff)};
     `;
-  }}
+	}}
   img {
     border-radius: 0.4rem;
     width: 100%;
@@ -66,13 +66,13 @@ export const Card = styled(Link)<ICard>`
   }
 
   ${forBreakAt({
-    breakpoint: 900,
-    styles: css`
+		breakpoint: 900,
+		styles: css`
       height: 100%;
       aspect-ratio: 0.56;
       width: auto;
     `,
-  })}
+	})}
 `;
 
 export const ButtonContainer = styled.div`
@@ -91,7 +91,7 @@ export const Button = styled.button<{ isActive: boolean }>`
   padding: 0.75rem 1.5rem;
   border: none;
   background-color: ${({ isActive, theme }) =>
-    isActive ? theme.colors.highlight : "transparent"};
+		isActive ? theme.colors.highlight : "transparent"};
   color: ${({ theme }) => theme.colors.icon};
   border-radius: 5px;
   cursor: pointer;
@@ -99,7 +99,7 @@ export const Button = styled.button<{ isActive: boolean }>`
 
   &:hover {
     background-color: ${({ isActive, theme }) =>
-      isActive ? theme.colors.extBtnBg : "#e2e6ea"};
+			isActive ? theme.colors.extBtnBg : "#e2e6ea"};
   }
 
   ${forPhoneOnly(css`

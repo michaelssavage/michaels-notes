@@ -2,6 +2,7 @@ import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { CircleIcon } from "@/components/icons";
 import { Button } from "@/components/molecules/Button";
+import { Loading } from "@/components/molecules/Loading";
 import { NoPost } from "@/components/molecules/Post/NoPost";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { sortByDate } from "@/lib/utils";
@@ -75,7 +76,7 @@ function Blog() {
 			<Panel>
 				<Row css={RowStyle}>
 					<Col size="md" gap="1rem">
-						<Suspense>
+						<Suspense fallback={<Loading />}>
 							{filterPosts(blog).length > 0 ? (
 								filterPosts(blog).map((post, index) => {
 									return <Post key={post.id} {...post} isFirst={index === 0} />;

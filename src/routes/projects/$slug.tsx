@@ -1,6 +1,7 @@
 import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
+import { Loading } from "@/components/molecules/Loading";
 import { PagePath } from "@/components/molecules/PagePath";
 import { joinTags } from "@/lib/utils";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
@@ -37,7 +38,7 @@ function Slug() {
 				exit={{ opacity: 0 }}
 				transition={{ duration: 0.5 }}
 			>
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Loading />}>
 					<MetaData title={doc.title} description={doc.description} />
 					<p className="date">{doc.date}</p>
 					<Content>

@@ -18,7 +18,7 @@ export const TopTracks = () => {
 		return <div>Loading...</div>;
 	}
 
-	if (!data) {
+	if (!data || data.length === 0 || !Array.isArray(data)) {
 		return <div>No tracks available</div>;
 	}
 

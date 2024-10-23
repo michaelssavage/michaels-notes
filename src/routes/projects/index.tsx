@@ -3,6 +3,7 @@ import { Group } from "@/components/atoms/Group";
 import { Project } from "@/components/atoms/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
+import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
 import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
@@ -84,7 +85,7 @@ function Projects() {
 				render={Project}
 				css={ProjectGrid}
 			/>
-			<Suspense fallback={<div>Loading content...</div>}>
+			<Suspense fallback={<Loading />}>
 				<SpotifyContent>
 					<Header>
 						<h2>Consuming Spotify Data</h2>

@@ -1,5 +1,6 @@
 import { MetaData } from "@/components/atoms";
 import { Anchor } from "@/components/molecules/Anchor";
+import { Loading } from "@/components/molecules/Loading";
 import { PagePath } from "@/components/molecules/PagePath";
 import { Article, Content, Header, Sidebar } from "@/styles/routes/blog.styled";
 import type { IPosts } from "@/types/Post";
@@ -40,7 +41,7 @@ function Slug() {
 				exit={{ opacity: 0 }}
 				transition={{ duration: 0.5 }}
 			>
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<Loading />}>
 					<MetaData title={doc.title} description={doc.description} />
 					<p className="date">{doc.date}</p>
 					<Content>

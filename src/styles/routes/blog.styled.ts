@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 export const Page = styled.section`
   position: relative;
+  min-height: 80vh;
 `;
 
 export const Panel = styled.div`

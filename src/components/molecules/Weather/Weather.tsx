@@ -15,8 +15,8 @@ export const Weather = () => {
 		return <div>Loading...</div>;
 	}
 
-	if (!data) {
-		return <div>No tracks available</div>;
+	if (!data || !data.current) {
+		return null;
 	}
 
 	const icon = WeatherIcon[data.current.condition.code];
