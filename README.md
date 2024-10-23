@@ -1,8 +1,21 @@
 # Michael Savage
 
-Live at https://main.d38g1njrhpymh3.amplifyapp.com
+Live at michaelsavage.ie
 
 ### History:
 
 1. Built in Nuxt.js and SCSS, using ESLint and Prettier for linting.
 2. Refactored with React, Typescript, Vite, and @emotion, using Biome for linting.
+
+## Running locally:
+
+`netlify dev`
+- to use the Letterboxd api that runs in netlify functions
+- view on localhost:8888
+
+`npm run dev`
+- run as normal
+- view on localhost:3000
+
+`npm run lint`
+- run biome linting.

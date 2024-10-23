@@ -1,7 +1,7 @@
 import {
-  forBreakAt,
-  forPhoneOnly,
-  forTabletOnly,
+	forBreakAt,
+	forPhoneOnly,
+	forTabletOnly,
 } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -21,6 +21,10 @@ export const Section = styled(motion.div)`
   align-items: center;
   justify-content: center;
   scroll-snap-align: center;
+
+  ${forPhoneOnly(css`
+    align-items: flex-start;
+  `)}
 `;
 
 export const Paragraph = styled.div`
@@ -68,11 +72,11 @@ export const selfieStyle = css`
   }
 
   ${forBreakAt({
-    breakpoint: 900,
-    styles: css`
+		breakpoint: 900,
+		styles: css`
       width: 60%;
     `,
-  })}
+	})}
 `;
 
 export const plantbassdStyle = css`
@@ -82,11 +86,11 @@ export const plantbassdStyle = css`
     border-radius 0.3s ease;
 
   ${forBreakAt({
-    breakpoint: 900,
-    styles: css`
+		breakpoint: 900,
+		styles: css`
       width: 60%;
     `,
-  })}
+	})}
 
   &:hover {
     transform: rotate(15deg);
