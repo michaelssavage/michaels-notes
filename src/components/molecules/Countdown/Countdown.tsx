@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-	ClockContainer,
-	Digits,
-	Label,
-	Separator,
-	TimeUnit,
-} from "./Countdown.styled";
+import { ClockContainer, Separator, TimeUnit } from "./Countdown.styled";
 
 interface TimeLeft {
 	days: number;
@@ -57,23 +51,23 @@ export const Countdown = ({ targetDate }: CountdownClockProps) => {
 	return (
 		<ClockContainer>
 			<TimeUnit>
-				<Digits>{addLeadingZero(timeLeft.days)}</Digits>
-				<Label>Days</Label>
+				<h3>{addLeadingZero(timeLeft.days)}</h3>
+				<p>Days</p>
 			</TimeUnit>
 			<Separator>:</Separator>
 			<TimeUnit>
-				<Digits>{addLeadingZero(timeLeft.hours)}</Digits>
-				<Label>Hours</Label>
+				<h3>{addLeadingZero(timeLeft.hours)}</h3>
+				<p>Hours</p>
 			</TimeUnit>
 			<Separator>:</Separator>
 			<TimeUnit>
-				<Digits>{addLeadingZero(timeLeft.minutes)}</Digits>
-				<Label>Minutes</Label>
+				<h3>{addLeadingZero(timeLeft.minutes)}</h3>
+				<p>Minutes</p>
 			</TimeUnit>
 			<Separator>:</Separator>
 			<TimeUnit>
-				<Digits>{addLeadingZero(timeLeft.seconds)}</Digits>
-				<Label>Seconds</Label>
+				<h3>{addLeadingZero(timeLeft.seconds)}</h3>
+				<p>Seconds</p>
 			</TimeUnit>
 		</ClockContainer>
 	);

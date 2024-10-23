@@ -3,6 +3,7 @@ import { Group } from "@/components/atoms/Group";
 import { Project } from "@/components/atoms/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
+import { CurrentPlay } from "@/components/spotify/CurrentPlay";
 import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
 import {
@@ -16,11 +17,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Masonry } from "masonic";
 import { Suspense, lazy, useMemo, useRef, useState } from "react";
 
-const CurrentPlay = lazy(() =>
-	import("@/components/spotify/CurrentPlay").then((module) => ({
-		default: module.CurrentPlay,
-	})),
-);
 const TopTracks = lazy(() =>
 	import("@/components/spotify/TopTracks").then((module) => ({
 		default: module.TopTracks,

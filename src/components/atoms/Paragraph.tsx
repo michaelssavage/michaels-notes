@@ -62,10 +62,16 @@ export const paragraphs = [
 					I like to keep fit and healthy, having played sports all my life
 					including Gaelic Football and rugby for teams like Ulster Club u18s,
 					Monaghan RFC, Ennis RFC, and Corinthians RFC. More recently I've
-					joined a local running club and I'm preparing for the Barcelona half
-					marathon!
+					joined a local running club and I'm preparing for the{" "}
+					<Floating
+						type="tooltip"
+						placement="top"
+						trigger={
+							<span className="underline">Barcelona half marathon!</span>
+						}
+						content={<Countdown targetDate="2025-02-16T00:00:00" />}
+					/>
 				</p>
-				<Countdown targetDate="2025-02-16T00:00:00" />
 			</Group>
 		),
 	},
