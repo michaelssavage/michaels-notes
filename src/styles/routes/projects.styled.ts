@@ -6,8 +6,8 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
 interface ICard {
-  main: string;
-  bg: string;
+	main: string;
+	bg: string;
 }
 
 export const CardWrapper = styled.div`

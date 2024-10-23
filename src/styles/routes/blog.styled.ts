@@ -1,5 +1,5 @@
-import { ButtonStyled } from "@/components/Button/Button.styled";
-import { Wrapper } from "@/components/Picture/Picture.styled";
+import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
+import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
