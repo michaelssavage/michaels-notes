@@ -3,15 +3,16 @@ import { Group } from "@/components/atoms/Group";
 import { CopyIcon, GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
+import { Checkbox } from "@/components/molecules/Form/Checkbox";
 import { Picture } from "@/components/molecules/Picture";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
+	AboutSection,
+	DragBanner,
 	Label,
 	StyledTextarea,
-	TextareaContainer,
 	TextareaWrapper,
 	Title,
-	ToggleContainer,
 	copyButtonStyles,
 	viewMoreButtonStyles,
 } from "@/styles/routes/rekordbox-prettifier.styled";
@@ -31,6 +32,7 @@ const description =
 function RekordboxPrettifier() {
 	const [inputText, setInputText] = useState("");
 	const [withBPM, setWithBPM] = useState(false);
+	const [isDragging, setIsDragging] = useState(false);
 
 	const formatText = useCallback((text: string, withBPM: boolean) => {
 		const lines = text.split("\n");
@@ -61,26 +63,76 @@ function RekordboxPrettifier() {
 		return formattedLines.join("\n");
 	}, []);
 
-	const handleCopy = () => {
+	const handleCopy = useCallback(() => {
 		navigator.clipboard.writeText(formatText(inputText, withBPM));
 		toast("Text copied to your clipboard");
-	};
+	}, [inputText, withBPM, formatText]);
 
-	const handlePaste = () => {
+	const handlePaste = useCallback(() => {
 		setInputText(exampleRekordboxText);
+	}, []);
+
+	const clearText = useCallback(() => {
+		setInputText("");
+	}, []);
+
+	const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		setIsDragging(true);
 	};
 
-	const clearText = () => {
-		setInputText("");
+	const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		setIsDragging(true);
+	};
+
+	const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		setIsDragging(false);
+	};
+
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		setIsDragging(false);
+
+		const file = e.dataTransfer.files[0];
+		if (file && file.type === "text/plain") {
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				setInputText(event.target?.result as string);
+			};
+			reader.readAsText(file);
+		} else {
+			toast.error("Please drop a valid .txt file");
+		}
 	};
 
 	return (
-		<Page>
+		<Page
+			onDragOver={handleDragOver}
+			onDragEnter={handleDragEnter}
+			onDragLeave={handleDragLeave}
+			onDrop={handleDrop}
+		>
+			{isDragging && (
+				<DragBanner>
+					<h1>Drop your .txt file here to format the Rekordbox setlist!</h1>
+				</DragBanner>
+			)}
 			<MetaData title="Rekordbox Prettifier" description={description} />
 			<Panel>
 				<Title>Rekordbox Text Formatter</Title>
+				<Group justify="flex-end">
+					<Anchor
+						link="https://github.com/michaelssavage/Rekordbox-Mix-Setlist"
+						icon={<GithubIcon />}
+						text="View on Github"
+						style={viewMoreButtonStyles}
+						isExternal
+					/>
+				</Group>
 
-				<TextareaContainer>
+				<Group wrap="wrap">
 					<TextareaWrapper>
 						<Label htmlFor="input">Input Text</Label>
 						<StyledTextarea
@@ -89,6 +141,19 @@ function RekordboxPrettifier() {
 							value={inputText}
 							onChange={(e) => setInputText(e.target.value)}
 						/>
+						<Group>
+							<Button
+								text="Paste example text"
+								onClick={handlePaste}
+								variant="primary"
+							/>
+
+							<Button
+								text="Clear text"
+								onClick={clearText}
+								variant="secondary"
+							/>
+						</Group>
 					</TextareaWrapper>
 					<TextareaWrapper>
 						<Button
@@ -104,43 +169,36 @@ function RekordboxPrettifier() {
 							readOnly
 							value={formatText(inputText, withBPM)}
 						/>
+						<Group justify="flex-end">
+							<Checkbox
+								id="bpm-mode"
+								onChange={() => setWithBPM(!withBPM)}
+								value={withBPM}
+								text="with BPM"
+							/>
+						</Group>
 					</TextareaWrapper>
-				</TextareaContainer>
-				<Group align="center">
-					<Button
-						text="Clear text"
-						onClick={clearText}
-						variant="pill"
-						selected
-					/>
-					<Button
-						text="Paste example text"
-						onClick={handlePaste}
-						variant="pill"
-					/>
-					<ToggleContainer
-						checked={withBPM}
-						onClick={() => setWithBPM(!withBPM)}
-					>
-						<Label htmlFor="bpm-mode">with BPM</Label>
-					</ToggleContainer>
 				</Group>
 
-				<Group align="center" justify="space-between">
+				<AboutSection>
+					<h2>About</h2>
+
+					<Picture src={rekordbox} alt="Rekordbox setting to export playlist" />
 					<p>
 						Prettify an exported setlist from Rekordbox after you're done
 						recording. Useful for adding better descriptions to SoundCloud,
 						MixCloud etc.
 					</p>
-					<Anchor
-						link="https://github.com/michaelssavage/Rekordbox-Mix-Setlist"
-						icon={<GithubIcon />}
-						text="View on Github"
-						style={viewMoreButtonStyles}
-					/>
-				</Group>
-
-				<Picture src={rekordbox} alt="Rekordbox setting to export playlist" />
+					<p>
+						Click the <b>Paste example text</b> button to see what the contents
+						of an exported .txt file look like. <b>Clear text</b> to start
+						entering your own .txt file.
+					</p>
+					<p>
+						You can copy the formatted text by clicking the icon in the top
+						right corner of the textarea.
+					</p>
+				</AboutSection>
 			</Panel>
 		</Page>
 	);

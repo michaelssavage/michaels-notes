@@ -7,18 +7,15 @@ export const Title = styled.h1`
   text-align: center;
 `;
 
-export const TextareaContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
 export const TextareaWrapper = styled.div`
   flex: 1;
   position: relative;
+  min-width: 210px;
 `;
 
 export const StyledTextarea = styled.textarea`
   width: 100%;
+  min-height: 200px;
   height: 300px;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -32,20 +29,13 @@ export const Label = styled.label`
   font-weight: bold;
 `;
 
-export const ToggleContainer = styled.div<{ checked: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 7px 14px;
-  font-size: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid black;
-  cursor: pointer;
-  color: ${({ checked, theme }) => (checked ? theme.colors.moon : "#000000")};
-  background-color: ${({ checked, theme }) => (checked ? theme.colors.mint : "transparent")};
+export const AboutSection = styled.div`
+  margin: 2rem auto;
+  max-width: 800px;
 
-  label {
-    cursor: pointer;
+  p {
+    margin: 1rem 0;
+    font-size: 1.2rem;
   }
 `;
 
@@ -81,5 +71,25 @@ export const viewMoreButtonStyles = css`
     svg {
       stroke: #2b3137;
     }
+  }
+`;
+
+export const DragBanner = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+
+  h1 {
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
   }
 `;
