@@ -1,10 +1,11 @@
+import type { SerializedStyles } from "@emotion/react";
 import type { ReactElement } from "react";
 import { ButtonStyled } from "./Button.styled";
 
 export type ButtonVariants = "primary" | "secondary" | "ghost" | "pill";
 
 export interface ButtonProps {
-	text: string;
+	text?: string;
 	disabled?: boolean;
 	type?: "submit" | "button";
 	icon?: ReactElement;
@@ -12,6 +13,7 @@ export interface ButtonProps {
 	onClick?: () => void;
 	active?: boolean;
 	selected?: boolean;
+	styles?: SerializedStyles;
 }
 
 export const Button = ({
@@ -23,6 +25,7 @@ export const Button = ({
 	onClick,
 	active = false,
 	selected = false,
+	styles,
 }: ButtonProps) => {
 	return (
 		<ButtonStyled
@@ -32,6 +35,7 @@ export const Button = ({
 			variant={variant}
 			active={active}
 			selected={selected}
+			styles={styles}
 		>
 			{text} {icon}
 		</ButtonStyled>

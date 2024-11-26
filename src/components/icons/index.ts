@@ -13,3 +13,4 @@ export { RightIcon } from "./Right";
 export { SearchIcon } from "./Search";
 export { SpotifyIcon } from "./Spotify";
 export { SunIcon } from "./Sun";
+export { CopyIcon } from "./Copy";

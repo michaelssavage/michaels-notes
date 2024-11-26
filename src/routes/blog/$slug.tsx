@@ -1,4 +1,5 @@
 import { MetaData } from "@/components/atoms";
+import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { PagePath } from "@/components/molecules/PagePath";
@@ -68,7 +69,14 @@ function Slug() {
 						</Header>
 						<Markdown content={doc} />
 						{doc.github && (
-							<Anchor text="GitHub Link" link={doc.github} isExternal />
+							<div>
+								<Anchor
+									text="GitHub Link"
+									link={doc.github}
+									icon={<GithubIcon />}
+									isExternal
+								/>
+							</div>
 						)}
 					</Content>
 				</Suspense>

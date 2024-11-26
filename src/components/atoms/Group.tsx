@@ -5,7 +5,7 @@ import type { ReactNode } from "@tanstack/react-router";
 interface IGroup {
 	direction?: "row" | "column" | "row-reverse" | "column-reverse";
 	align?: "flex-start" | "flex-end" | "center";
-	justify?: "flex-start" | "flex-end" | "center";
+	justify?: "flex-start" | "flex-end" | "center" | "space-between";
 	wrap?: "wrap" | "nowrap";
 	gap?: string;
 	css?: SerializedStyles;

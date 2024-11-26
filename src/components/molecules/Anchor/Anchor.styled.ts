@@ -18,6 +18,10 @@ export const LinkStyle = styled(Link, {
   flex-direction: row;
   gap: 4px;
 
+  svg {
+    flex-shrink: 0;
+  }
+
   ${({ variant, isExternal, theme }) => {
 		switch (variant) {
 			case "button":

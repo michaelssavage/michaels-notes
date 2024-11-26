@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { type SerializedStyles, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { ButtonVariants } from "./Button";
 
@@ -6,6 +6,7 @@ interface IStyle {
 	variant?: ButtonVariants;
 	active?: boolean;
 	selected?: boolean;
+	styles?: SerializedStyles;
 }
 
 export const ButtonStyled = styled.button<IStyle>`
@@ -17,6 +18,7 @@ export const ButtonStyled = styled.button<IStyle>`
   flex-direction: row;
   gap: 4px;
   align-items: center;
+  text-wrap: nowrap;
 
   ${({ variant, theme, selected }) => {
 		switch (variant) {
@@ -67,6 +69,11 @@ export const ButtonStyled = styled.button<IStyle>`
 		}
 	}}
 
+  svg {
+    flex-shrink: 0;
+  }
+
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -81,4 +88,6 @@ export const ButtonStyled = styled.button<IStyle>`
         fill: transparent;
       }
     `}
+  
+  ${({ styles }) => styles}
 `;

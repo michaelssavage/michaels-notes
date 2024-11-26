@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { Suspense, lazy } from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ function RootComponent() {
 			<QueryClientProvider client={queryClient}>
 				<Suspense fallback={<Loading />}>
 					<MetaData />
+					<ToastContainer />
 					<ThemeProvider>
 						<Navbar />
 						<Toggle />

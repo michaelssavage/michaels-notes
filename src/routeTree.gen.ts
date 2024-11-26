@@ -17,6 +17,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as ProjectsIndexImport } from './routes/projects/index'
 import { Route as BlogIndexImport } from './routes/blog/index'
 import { Route as ProjectsSlugImport } from './routes/projects/$slug'
+import { Route as BlogPrettyTextImport } from './routes/blog/pretty-text'
 import { Route as BlogSlugImport } from './routes/blog/$slug'
 
 // Create/Update Routes
@@ -48,6 +49,11 @@ const BlogIndexRoute = BlogIndexImport.update({
 
 const ProjectsSlugRoute = ProjectsSlugImport.update({
   path: '/projects/$slug',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BlogPrettyTextRoute = BlogPrettyTextImport.update({
+  path: '/blog/pretty-text',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,6 +94,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugImport
       parentRoute: typeof rootRoute
     }
+    '/blog/pretty-text': {
+      id: '/blog/pretty-text'
+      path: '/blog/pretty-text'
+      fullPath: '/blog/pretty-text'
+      preLoaderRoute: typeof BlogPrettyTextImport
+      parentRoute: typeof rootRoute
+    }
     '/projects/$slug': {
       id: '/projects/$slug'
       path: '/projects/$slug'
@@ -119,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/playground': typeof PlaygroundRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/pretty-text': typeof BlogPrettyTextRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexRoute
@@ -129,6 +143,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/playground': typeof PlaygroundRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/pretty-text': typeof BlogPrettyTextRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexRoute
@@ -140,6 +155,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/playground': typeof PlaygroundRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/pretty-text': typeof BlogPrettyTextRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -152,6 +168,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/playground'
     | '/blog/$slug'
+    | '/blog/pretty-text'
     | '/projects/$slug'
     | '/blog'
     | '/projects'
@@ -161,6 +178,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/playground'
     | '/blog/$slug'
+    | '/blog/pretty-text'
     | '/projects/$slug'
     | '/blog'
     | '/projects'
@@ -170,6 +188,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/playground'
     | '/blog/$slug'
+    | '/blog/pretty-text'
     | '/projects/$slug'
     | '/blog/'
     | '/projects/'
@@ -181,6 +200,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   PlaygroundRoute: typeof PlaygroundRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogPrettyTextRoute: typeof BlogPrettyTextRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
@@ -191,6 +211,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   PlaygroundRoute: PlaygroundRoute,
   BlogSlugRoute: BlogSlugRoute,
+  BlogPrettyTextRoute: BlogPrettyTextRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
@@ -212,6 +233,7 @@ export const routeTree = rootRoute
         "/about",
         "/playground",
         "/blog/$slug",
+        "/blog/pretty-text",
         "/projects/$slug",
         "/blog/",
         "/projects/"
@@ -228,6 +250,9 @@ export const routeTree = rootRoute
     },
     "/blog/$slug": {
       "filePath": "blog/$slug.tsx"
+    },
+    "/blog/pretty-text": {
+      "filePath": "blog/pretty-text.tsx"
     },
     "/projects/$slug": {
       "filePath": "projects/$slug.tsx"
