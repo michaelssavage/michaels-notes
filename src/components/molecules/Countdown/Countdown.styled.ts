@@ -9,7 +9,7 @@ export const ClockContainer = styled.div`
   font-family: "Arial", sans-serif;
   background-color: #1a1a1a;
   color: ${({ theme }) => theme.colors.btnBg};
-  padding: 20px;
+  padding: 1.4rem;
   border-radius: 10px;
   max-width: 100%;
 `;
@@ -21,18 +21,18 @@ export const TimeUnit = styled.div`
   margin: 0 10px;
 
   h3 {
-    font-size: 4rem;
+    font-size: 2rem;
     font-weight: bold;
   }
   
   p {
-    font-size: 14px;
+    font-size: 1rem;
     text-transform: uppercase;
   }
 
   ${forPhoneOnly(css`
     h3 {
-      font-size: 2rem;
+      font-size: 1rem;
     }
     p {
       font-size: 0.8rem;
@@ -41,11 +41,11 @@ export const TimeUnit = styled.div`
 `;
 
 export const Separator = styled.div`
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: bold;
   align-self: flex-start;
 
   ${forPhoneOnly(css`
-      font-size: 2rem;
+      font-size: 1rem;
   `)}
 `;

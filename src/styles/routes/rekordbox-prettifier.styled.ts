@@ -60,7 +60,7 @@ export const viewMoreButtonStyles = css`
   flex-direction: row-reverse;
   padding: 10px 20px;
   border-radius: 4px;
-  text-wrap: nowrap;
+  white-space: nowrap;
   svg {
     stroke: #fff;
   }
