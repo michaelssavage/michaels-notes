@@ -56,6 +56,7 @@ function RekordboxPrettifier() {
 				});
 			} else {
 				// If the expected headers are not found, return the original text
+				toast.warn("The expected headers weren't found, returning the original text");
 				return text;
 			}
 		}
