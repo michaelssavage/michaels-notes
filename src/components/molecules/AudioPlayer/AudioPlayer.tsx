@@ -1,3 +1,9 @@
+/**
+ * Spotify got rid of the preview audio feature!! >:(
+ * This does not work anymore. I will keep it here for reference.
+ *
+ */
+
 import { PauseIcon, PlayIcon } from "@/components/icons";
 import { Picture } from "@/components/molecules/Picture";
 import type { IPlayTrack } from "@/types/Spotify";

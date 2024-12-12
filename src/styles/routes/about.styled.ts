@@ -64,10 +64,11 @@ export const selfieStyle = css`
   border-top-right-radius: 5rem;
 
   img {
+    object-fit: cover;
     transition: transform 0.2s ease-in-out;
 
     &:hover {
-      transform: scale(1.2);
+      transform: scale(1.5);
     }
   }
 

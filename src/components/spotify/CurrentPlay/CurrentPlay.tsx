@@ -1,8 +1,13 @@
 import { fetchCurrentTrack, fetchRecentTrack } from "@/api/fetch-current-track";
 import { ExternalLinkIcon } from "@/components/icons";
-import { AudioPlayer } from "@/components/molecules/AudioPlayer";
+import {
+	Content,
+	Player,
+} from "@/components/molecules/AudioPlayer/AudioPlayer.styled";
+import { Picture } from "@/components/molecules/Picture";
 import useExtractColor from "@/lib/extractColor";
 import type { IPlayTrack } from "@/types/Spotify";
+import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
@@ -32,6 +37,8 @@ export const CurrentPlay = () => {
 	if (currentTrack?.isLoading || recentTrack?.isLoading)
 		return <div>Loading...</div>;
 
+	console.log("trackData", trackData);
+
 	return (
 		<Comp>
 			<Title>
@@ -39,7 +46,18 @@ export const CurrentPlay = () => {
 			</Title>
 			{trackData && (
 				<NowPlaying color={memoizedColor ?? ""}>
-					<AudioPlayer data={trackData} color={memoizedColor ?? ""} />
+					<Player color={memoizedColor ?? ""}>
+						<Picture
+							src={trackData.albumArtUrl || ""}
+							alt="Album Art"
+							ar="1"
+							style={css`width: 120px;`}
+						/>
+						<Content>
+							<h3>{trackData.trackTitle}</h3>
+							<p>{trackData.artist}</p>
+						</Content>
+					</Player>
 
 					<Link to={trackData?.trackUrl}>
 						<ExternalLinkIcon />

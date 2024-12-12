@@ -1,5 +1,5 @@
 import plantbassdImg from "@/assets/images/blog/plantbassd.png";
-import selfieImg from "@/assets/images/cover.jpg";
+import selfieImg from "@/assets/images/me.jpg";
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
