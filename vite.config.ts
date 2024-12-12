@@ -51,6 +51,9 @@ export default defineConfig(({ mode }) => ({
 			input: {
 				main: path.resolve(__dirname, "index.html"),
 			},
+			manualChunks: {
+				vendor: ["react", "react-dom"],
+			},
 		},
 		optimizeDeps: {
 			include: ["@emotion/react", "@emotion/styled"],
