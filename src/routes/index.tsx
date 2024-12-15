@@ -56,7 +56,7 @@ function Home() {
 					/>
 					<Icon
 						label="Download My CV"
-						link="https://drive.google.com/file/d/1BG6IDJEETr9BROh43ogFKctbXX-LehiG/view?usp=sharing"
+						link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/edit?utm_content=DAF5SupMjfo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
 						icon={<ResumeIcon />}
 						isExternal
 					/>
