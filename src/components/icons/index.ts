@@ -1,3 +1,4 @@
+export { ResumeIcon } from "./Resume";
 export { PauseIcon } from "./Pause";
 export { PlayIcon } from "./Play";
 export { ArrowDown } from "./ArrowDown";

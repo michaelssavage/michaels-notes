@@ -3,6 +3,7 @@ import {
 	GithubIcon,
 	LinkedInIcon,
 	MailIcon,
+	ResumeIcon,
 	SpotifyIcon,
 } from "@/components/icons";
 import { Bite } from "@/components/molecules/Bite";
@@ -30,23 +31,33 @@ function Home() {
 				</h1>
 				<Icons>
 					<Icon
+						label="GitHub Profile"
 						link="https://github.com/michaelssavage"
 						icon={<GithubIcon />}
 						isExternal
 					/>
 					<Icon
+						label="LinkedIn Profile"
 						link="https://www.linkedin.com/in/michaelssavage"
 						icon={<LinkedInIcon />}
 						isExternal
 					/>
 					<Icon
+						label="My Email"
 						link="mailto:michaelsavage940@gmail.com"
 						icon={<MailIcon />}
 						isExternal
 					/>
 					<Icon
+						label="Spotify Profile"
 						link="https://open.spotify.com/user/1156402021"
 						icon={<SpotifyIcon />}
+						isExternal
+					/>
+					<Icon
+						label="Download My CV"
+						link="https://drive.google.com/file/d/1BG6IDJEETr9BROh43ogFKctbXX-LehiG/view?usp=sharing"
+						icon={<ResumeIcon />}
 						isExternal
 					/>
 				</Icons>
