@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 import "highlight.js/styles/monokai.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import React from "react";
 
 // Set up a Router instance
 const router = createRouter({
@@ -22,5 +23,9 @@ const rootElement = document.getElementById("root")!;
 
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
-	root.render(<RouterProvider router={router} />);
+	root.render(
+		<React.StrictMode>
+			<RouterProvider router={router} />
+		</React.StrictMode>,
+	);
 }

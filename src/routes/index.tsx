@@ -27,7 +27,7 @@ function Home() {
 		<Content>
 			<Panel>
 				<h1>
-					Hey, <span>I am Michael!</span>
+					Michael <span>Savage</span>
 				</h1>
 				<Icons>
 					<Icon
