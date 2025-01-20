@@ -46,7 +46,7 @@ export const paragraphs = [
 				Land Rover, Shannon in 2021 where I learned to work with REST APIs using
 				Spring Boot and React.js early on. I'm currently working with a startup
 				in the heart of Barcelona, TalentBait, as a frontend developer using
-				React.js.
+				React.js, Reflux, and Firebase.
 			</p>
 		),
 	},

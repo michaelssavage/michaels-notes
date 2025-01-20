@@ -1,15 +1,17 @@
-import { Movies } from "@/components/atoms/Movies";
+import { Picture } from "@/components/molecules/Picture";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/playground")({
 	component: Playground,
 });
 
+import plantbassd from "src/assets/images/blog/plantbassd.png";
+
 function Playground() {
 	return (
-		<div>
+		<div style={{ maxWidth: "500px", margin: "0 auto" }}>
 			<h1>playground</h1>
-			<Movies />
+			<Picture src={plantbassd} alt="" caption="Hello" />
 		</div>
 	);
 }

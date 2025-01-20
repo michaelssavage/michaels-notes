@@ -2,12 +2,22 @@ import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.figure`
   display: grid;
   place-items: center;
   width: 100%;
   height: 100%;
   overflow: hidden;
+
+  figcaption {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    background-color: ${({ theme }) => theme.colors.card};
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: -1.4rem;
+  }
 `;
 
 export const NotFound = styled.img`
@@ -24,8 +34,8 @@ export const ImageStyle = styled.img<{ loaded: boolean; ar?: string }>`
   transition: opacity 0.3s ease-in-out;
 
   ${({ loaded }) =>
-    loaded &&
-    css`
+		loaded &&
+		css`
       opacity: 1;
     `}
 `;

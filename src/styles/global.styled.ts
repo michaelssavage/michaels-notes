@@ -70,4 +70,13 @@ export const globalStyles = (theme: MyTheme) => css`
     font-weight: inherit;
     transition: background-size 0.6s cubic-bezier(0.45, 0, 0.55, 1);
   }
+
+  .callout {
+    background-color: ${theme.colors.card};
+    padding: 1rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin: 0.5rem 0;
+  }
 `;

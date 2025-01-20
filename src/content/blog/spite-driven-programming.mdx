@@ -1,0 +1,28 @@
+---
+id: 15
+title: Spite Driven Programming
+date: January 20, 2025
+description: "A music discovery application I used became a paid service. I was annoyed but understood the developer's decision. I decided, out of spite more than anything, to build my own version of the using the Spotify API."
+draft: true
+---
+
+import programmer from "src/assets/images/blog/angry-programmer.png";
+
+<Picture src={programmer} alt="angry programmer" caption="Image generated from Stable Diffusion" />
+
+I was (am) a big fan of a music discovery application called <Anchor link="https://www.crabhands.com" text="crabhands" variant="link" />. It was an excellent mobile and web app built by a generous developer that used the Spotify API to notify users of new music releases. It was a great way for me to find new artists and songs that I wouldn't have come across otherwise.
+
+As with many good things, it became a paid service. I was annoyed but understood the developer's decision. It had to be costly! I decided, out of spite more than anything, to build my own version of the basic services using the Spotify API. I wanted to see if I could replicate the functionality of updating a playlist daily and learn more about the Spotify API in the process. The documentation is great, so why not give it a go.
+
+I set about creating a full-stack app using React.js, Typescript, and Vite for my the frontend, and choosing Express.js, and MongoDB on the backend. I focused mostly on the backend, using a well-structured code architecture to guide me. My end goal was to let me sign in with my Spotify account, and then have the app automatically update a playlist with new releases from my saved artists using a CRON job.
+
+<p className="callout">
+🏆 End goal achieved!
+</p>
+
+Right now, I have a working application deployed to Railway which hosts my server and the static frontend files, and updates a playlist if any of my saved artists release new tracks that day. I have a lot of ideas for this project, including adding notifications of new releases, but I'm happy with what I have so far.
+
+So even though I could get a superior service for a small fee, I have my own version that I can tinker with and improve. That's pretty cool. I'm also happy that I have a new project to add to my portfolio. "Why did you build this?" "Because I was annoyed at a paid service and wanted to see if I could do it myself."
+
+Project details and link to Github: <Anchor text="New Music Releases" link="/projects/new-music-releases" variant="link" />  
+Here's a link to the live demo: <Anchor link="https://new-music-releases-production.up.railway.app" variant="link" />
