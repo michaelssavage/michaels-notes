@@ -54,8 +54,8 @@ export interface IProject {
 }
 
 export interface IPosts {
-	projects: IProject[];
-	blog: IBlog[];
+	projects: Array<IProject>;
+	blog: Array<IBlog>;
 }
 
 export interface IBite {

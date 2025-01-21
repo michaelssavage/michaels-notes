@@ -1,3 +1,4 @@
+import { Paragraph } from "@/components/content/Paragraph";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
@@ -18,6 +19,7 @@ const MDX_GLOBAL_CONFIG = {
 const components: MDXComponents = {
 	Picture,
 	Anchor,
+	p: Paragraph,
 	h1: H1,
 	blockquote: BlockQuote,
 	code: Code,

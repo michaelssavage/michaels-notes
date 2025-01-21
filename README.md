@@ -2,9 +2,9 @@
 
 Live at michaelsavage.ie
 
-### History:
+### Changes:
 
-1. Built in Nuxt.js and SCSS, using ESLint and Prettier for linting.
+1. Originally built in Nuxt.js and SCSS, using ESLint and Prettier for linting.
 2. Refactored with React, Typescript, Vite, and @emotion, using Biome for linting.
 
 ## Running locally:

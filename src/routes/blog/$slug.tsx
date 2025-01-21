@@ -49,12 +49,12 @@ function Slug() {
 						<PagePath page="blog" color={colors.link} />
 
 						<Sidebar>
-							{sidebar.map(({ title, id, slug }) => {
+							{sidebar.map(({ title, id, slug }, index) => {
 								return (
 									<Anchor
 										key={id}
-										text={title}
-										link={`../${slug}`}
+										text={`${index + 1}. ${title}`}
+										link={`/blog/${slug}`}
 										variant="link"
 									/>
 								);

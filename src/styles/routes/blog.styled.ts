@@ -79,12 +79,11 @@ export const MainSection = styled.div`
 // Article styling
 
 export const Article = styled(motion.article)`
-  margin: 2rem auto 2rem 40%;
+  margin: 2rem auto;
   width: 50%;
 
   ${forPhoneOnly(css`
     width: 90%;
-    margin: 2rem auto;
   `)}
 `;
 
@@ -121,6 +120,11 @@ export const Sidebar = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   align-items: flex-start;
+  font-size: 0.7rem;
+
+  a:hover {
+    transform: scale(1.2);
+  }
 
   ${forTabletOnly(css`
     visibility: hidden;
