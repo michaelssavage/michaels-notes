@@ -1,3 +1,5 @@
+import { Board } from "@/components/atoms/Board";
+import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -20,6 +22,12 @@ function Playground() {
 					background: "#f1c9c9",
 				}}
 			>
+				<Group direction="column" gap="1rem">
+					<Board
+						title="Distributed"
+						text="Multiple independent processes with no shared memory, communicating only via message passing."
+					/>
+				</Group>
 				<Anchor
 					link="/blog/what-is-plant-bassd"
 					text="Blog - What is Plant Bass'd?"

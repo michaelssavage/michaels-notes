@@ -1,0 +1,74 @@
+---
+id: 16
+title: Executing Multiple Tasks
+date: January 31, 2025
+description: "Exploring how to execute multiple tasks with concurrency, parallelism, and multitasking."
+draft: true
+---
+
+I wanted to explore the differences between concurrency and parallelism. I know Concurrency ≠ parallelism but I wanted to refresh my memory and visualize each term. Basically, they refer to executing multiple tasks, but they represent different approaches.
+
+
+## Concurrency (Task management)
+
+Concurrency is about dealing with multiple tasks at the same time. In software, tasks communicate with each other by using a shared memory or by message passing. Concurrent tasks (or modules) come in two different kinds: processes and threads.
+
+- Threads are the smallest units of execution within a process. They share the same memory space and can communicate with each other.
+- Processes are independent execution units within their own memory space. Each process has its own memory. A process can contain one or more threads.
+
+<p className="callout">
+💡Example of concurrency
+- a chef preparing multiple dishes by switching between tasks
+- distributed computer systems (Email)
+</p>
+
+There are three main ways to achieve concurrency:
+
+<Group justify="center" wrap="wrap">
+  <Board
+    title="Distributed"
+    text="Multiple independent processes with no shared memory, communicating only via message passing."
+  />
+  <Board
+    title="Multi-Threaded"
+    text="Multiple threads share memory, so require locks. Generally, a single process can have multiple threads."
+  />
+  <Board
+    title="Event Queue"
+    text="Only a single thread exists! A single loop reads from the event queue and invokes the handlers."
+  />
+</Group>
+
+## Parallelism (Task execution)
+
+This is the ability to execute independent tasks of a program in the same instant of time. Tasks get separated into smaller parts to be performed independently and simultaneously using more than one processor. Its the truly simultaneous execution or evaluation of things. The two most common ways to achieve parallelism:
+
+
+<Group justify="center" wrap="wrap">
+  <Board
+    title="Data Parallelism"
+    text="Split data into chunks and process them simultaneously (e.g., rendering frames in a video)."
+  />
+  <Board
+    title="Task Parallelism"
+    text="Execute different tasks at the same time (e.g., downloading files while compressing others)."
+  />
+</Group>
+
+
+<p className="callout">
+💡Example of parallelism
+- multiple chefs each working on different dishes.
+- Streaming music and texting a friend at the same time on your phone.
+</p>
+
+## Multitasking
+
+JavaScript, and therefore React, is single-threaded. This means that it can only execute one task at a time. However, JavaScript can simulate concurrency by using asynchronous code. This is done by using callbacks, promises, and async/await.
+
+- Multiprogramming refers to running multiple programs concurrently on a single computer.
+- Multithreading refers to a single program executing multiple threads concurrently. 
+
+## Why Does This Matter?
+
+Understanding concurrency and parallelism is crucial for building efficient systems. Parallelism speeds up tasks by leveraging multiple processors to improve performance.Concurrency keeps systems responsive by managing multiple tasks efficiently. Distributed systems rely on concurrency to handle thousands of requests and scale.

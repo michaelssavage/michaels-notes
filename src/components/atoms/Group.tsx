@@ -9,6 +9,7 @@ interface IGroup {
 	wrap?: "wrap" | "nowrap";
 	gap?: string;
 	css?: SerializedStyles;
+	width?: string;
 	children: ReactNode;
 }
 
@@ -19,6 +20,7 @@ const GroupStyle = styled.div<Omit<IGroup, "css">>`
   align-items: ${({ align }) => align ?? "flex-start"};
   gap: ${({ gap }) => gap ?? "0.5rem"};
   flex-wrap: ${({ wrap }) => wrap ?? "nowrap"};
+	width: ${({ width }) => width && width};
 `;
 
 export const Group = ({ css: cssStyle, ...props }: IGroup) => {

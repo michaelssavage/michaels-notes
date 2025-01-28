@@ -11,6 +11,7 @@ import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
 import { memo, useMemo } from "react";
 import { ImgPositioner } from "../../styles/routes/blog.styled";
 import { BlockQuote, Code, H1 } from "../content";
+import { Board } from "./Board";
 import { Group } from "./Group";
 import { Player } from "./Player";
 
@@ -23,6 +24,7 @@ const MDX_GLOBAL_CONFIG = {
 const components: MDXComponents = {
 	Picture,
 	Anchor,
+	Board,
 	p: Paragraph,
 	ol: OrderedList,
 	ul: UnorderedList,
