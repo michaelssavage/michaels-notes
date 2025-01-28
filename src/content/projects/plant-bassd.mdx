@@ -15,20 +15,30 @@ colors:
   bg: "#5B84B1FF"
 ---
 
+import homePage from "src/assets/images/project/plantbassd_home-page.png";
+
+
+<Anchor link="/blog/what-is-plant-bassd" text="Blog - What is Plant Bass'd?" variant="button" />
+
 ## Technologies
 
-The site is created using <Anchor link="https://nextjs.org/" text="Next.js" variant="link" isExternal /> (a React framework) and TypeScript. In it's early days the application was JavaScript-only, css styled, and the blogs were written in markdown. The site is constantly being refactored and I store a list of 'to-dos' on Trello.
 
-The site has had many mini victories and lessons for me over the three years I've built it.
+<Anchor link="https://plantbassd.com" text="Plantbassd.com" variant="link" /> was created using <Anchor link="https://nextjs.org/" text="Next.js" variant="link" isExternal /> and TypeScript. In it's early days the app used JavaScript, CSS, and the blogs were written in markdown. But the site was constantly being refactored and I stored a list of 'to-dos' on Trello as I learned more about the technologies I was using.
 
-1. Adding TypeScript was essential and squashed a lot of bugs. I now swear by it, and I'd add it to any project I get my hands on.
-2. The lack of flexibility in markdown was a major hindrance until I successfully added MDX. It worked well with gray-matter and marked, and allowed me to add JSX components into the blog posts.
-3. Vercel, on the free tier, optimized images by using Webp and sped up my SSG app noticeably. But the limit of my given allowance was creeping up very quickly and I had to take action. I moved all the images out of the repository into Cloudinary, while still keeping the optimization in place. A key benefit to doing this was being able to swap images in and out without having to rebuild the whole Plant Bass'd site on Github.
-4. Directory structure was not a fully thought out plan in the early days. I didn't know Plant Bass'd would still be a thing today really, so being mindful of how it would expand over time wasn't planned well enough. After a certain while, it became too obvious to ignore and I had to sit down to reorganise the repository.
-5. To get the ball rolling, the app was styled with Bootstrap 5 and css. I eventually swapped the styling for SCSS and have gained a large understanding of its benefits. It's more flexible, more readable, more reusable, and the use of mixins and functions are amazing!
+The site gave me many mini victories and learning lessons over the three years I built it.
 
-Plant Bass'd has allowed me to access my 'creative side' by gaining an understanding in Adobe Photoshop and Adobe Illustrator. I create cover images for articles and try to keep consistency in the colours and shapes used. I'm in no means a good graphic designer but I get a lot of satisfaction from making these images.
+1. Adding TypeScript was essential and squashed a lot of bugs. I'd add it to any project I get my hands on.
+2. The lack of flexibility in markdown was a major hindrance until I successfully added MDX. It worked well with <Anchor link="https://www.npmjs.com/package/gray-matter" text="gray-matter" variant="link" isExternal /> and marked, and allowed me to add JSX components into the blog posts.
+3. Vercel, on the free tier, optimized images by using Webp and sped up my SSG app noticeably. But the limited allowance was creeping up very quickly and I had to take action. I moved all the images out of the repository into <Anchor link="https://cloudinary.com/" text="Cloudinary" variant="link" isExternal />, while still keeping the optimization in place. A key benefit to doing this was being able to swap images in and out without having to rebuild the whole Plant Bass'd site on Github.
+4. Directory structure was not a fully thought out plan in the early days. I didn't know how long Plant Bass'd would be used for really, so being mindful of how it would expand over time wasn't planned well enough. After a certain while, it became too obvious to ignore and I had to sit down to reorganise the repository.
+5. To get the ball rolling, the app was styled with Bootstrap 5 and CSS. I eventually swapped the styling for SCSS and have gained a large understanding of its benefits. It's more flexible, more readable, more reusable, and the use of mixins and functions are amazing!
 
-I've also learned how to use Adobe Premiere Pro to create videos to display on projectors at some of the parties. By far the most time consuming hobby, I created a 20 minute video for a Valentine's themed party consisting of colourful and romantic movie snippets. I searched in close to 200 movies for clips ranging in 2 to 8 seconds long. <Anchor link="/blog/what-is-plant-bassd" text="What is Plant Bass'd?" variant="link" />
+Plant Bass'd has allowed me to access my 'creative side' by gaining an understanding in Adobe Photoshop and Adobe Illustrator. I created cover images for articles and tried to keep consistency in the colours and shapes used. I'm in no means a good graphic designer but I get a lot of satisfaction from making these images.
+
+<Picture src={homePage} alt="Home page of the app" />
+
+I also learned how to use Adobe Premiere Pro to create videos to display on the projectors at some of the events. By far the most time consuming hobby, I created a 20 minute video for a Valentine's themed party consisting of colourful and romantic movie snippets. I searched in close to 200 movies for clips ranging in 2 to 8 seconds long.
+
+<Player videoId="zGB_YubjRN8?si=KcQIgf39cIy1UFI7" title="Valentine's movie snippets" />
 
 <br />

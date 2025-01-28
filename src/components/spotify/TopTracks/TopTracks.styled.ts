@@ -7,7 +7,7 @@ export const Card = styled(Link)`
   background-color: ${({ color }) => color || "#f0f0f0"};
   color: ${({ color }) => getContrastYIQ(color || "#f0f0f0")};
   border-radius: 0.4rem;
-  padding: 0.7rem 0.9rem;
+  padding: 0.7rem 1.4rem 0.7rem 0.9rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,8 +18,10 @@ export const Card = styled(Link)`
 
   svg {
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: 0.1rem;
+    right: 0.1rem;
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
   &:hover {

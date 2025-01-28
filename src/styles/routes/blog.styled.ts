@@ -115,7 +115,7 @@ export const Sidebar = styled.div`
   position: fixed;
   top: 12rem;
   left: 2rem;
-  width: 30%;
+  width: 22%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

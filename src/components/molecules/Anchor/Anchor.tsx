@@ -27,7 +27,6 @@ export const Anchor = memo(
 			<LinkStyle
 				to={link}
 				variant={variant}
-				isExternal={isExternal}
 				rel={isExternal ? "noopener noreferrer" : undefined}
 				target={isExternal ? "_blank" : undefined}
 				css={style}

@@ -13,8 +13,10 @@ colors:
   bg: "#F2EDD7FF"
 ---
 
-In my first job, I worked on a React Typescript app that displayed and interacted with multiple internal microservices. Authenticated users could log in using Keycloak and send requests if they had the correct roles in their JWT token.
+In JLR, I worked on a React Typescript app that displayed and interacted with multiple internal microservices. Authenticated users could log in using <Anchor link="https://www.keycloak.org/" text="Keycloak" variant="link" isExternal /> and send requests if they had the correct roles in their JWT token.
 
 User could view vehicle data and historical logs, and apply config files to vehicles among other things.
 
-When I first joined, this GUI was a JavaScript-only repository with no tests nor linting, and it over relied on dependencies. Over the course of two months, I migrated the substantial sized project to TypeScript, which highlighted a few bugs along the way. Over time, I added Vitest, MSW for mocking API calls, added DataDog monitoring, and removed dependencies like React Bootstrap.
+This GUI was initially JavaScript only with no tests nor linting, and it over relied on dependencies. It was a scratchpad for sending requests quick-and-dirty. I was able to to refactor this project and learn from it by introducing TypeScript, removing unnecessary NPM packages, and fixing bugs that TypeScript highlighted along the way. 
+
+Over time, I added Vitest, MSW for mocking API calls, added DataDog monitoring, and removed dependencies like React Bootstrap.

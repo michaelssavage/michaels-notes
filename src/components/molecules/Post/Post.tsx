@@ -1,5 +1,4 @@
 import type { IBlog } from "@/types/Post";
-import { Link } from "@tanstack/react-router";
 import { memo, useCallback, useMemo, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { DateText } from "./Date";
@@ -25,20 +24,19 @@ export const Post = memo(
 
 		return (
 			<Card
+				to={isExternal ? isExternal : slug}
 				ref={ref}
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 				inView={inView}
 			>
 				<CardInfo>
-					<Link to={isExternal ? isExternal : slug}>
-						<Title
-							layoutId={`blog-title-${id}`}
-							transition={{ type: "spring", stiffness: 300, damping: 30 }}
-						>
-							{title}
-						</Title>
-					</Link>
+					<Title
+						layoutId={`blog-title-${id}`}
+						transition={{ type: "spring", stiffness: 300, damping: 30 }}
+					>
+						{title}
+					</Title>
 					<DateText isExternal={isExternal}>{date}</DateText>
 				</CardInfo>
 				<Description

@@ -57,7 +57,7 @@ function RootComponent() {
 						<ScrollRestoration />
 						<Outlet />
 						<Footer />
-						<TanStackRouterDevtools position="bottom-left" />
+						<TanStackRouterDevtools position="bottom-right" />
 					</ThemeProvider>
 				</Suspense>
 			</QueryClientProvider>

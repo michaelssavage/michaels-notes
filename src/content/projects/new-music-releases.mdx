@@ -16,59 +16,40 @@ colors:
   bg: "#2A004E"
 ---
 
+import nmr from "src/assets/images/project/nmr_tanstack.png";
+
 import likedSongs from "src/assets/images/project/liked-songs.png";
 
 import playlistUpdates from "src/assets/images/project/playlist-updates.png";
 
 import savedArtists from "src/assets/images/project/saved-artists.png";
 
-A full-stack TypeScript application that automatically curates a Spotify playlist based on new releases from user-saved artists. Built with React and Express using a monorepo architecture and Clean Code principles.
+<Anchor link="https://new-music-releases-production.up.railway.app/" text="New Music Releases" variant="button" />
 
-Live demo: <Anchor link="https://new-music-releases-production.up.railway.app/" variant="link" />
+A full-stack TypeScript application that automatically creates a Spotify playlist and updates it with new releases from user-saved artists. Built with React and Express using a monorepo architecture and Clean Code principles. 
 
-## Technical Architecture
+## Frontend
 
-### Frontend
+I chose Vite as the underlying build tool for the frontend, as it provides a 'faster and leaner development experience' with hot module reloading and a lightning-fast production build. It takes 4-5 seconds to build the frontend for production, which is served sas static assets on the backend. The GUI is built with TypeScript and React, using Tanstack Query for server state management and 
+<Anchor link="https://tanstack.com/" text="Tanstack Router" variant="link" isExternal /> for secure Spotify OAuth integration.
 
-<hr />
+<Picture src={nmr} alt="tan stack apps" />
 
-**React + Vite**: Modern frontend built with TypeScript and Vite for the best development experience
+I created my endpoints using Axios, and Tanstack Query helped to manage server state, caching, and automatic data synchronization using mutations.
 
-**Authentication**: Secure Spotify OAuth integration with protected routes using Tanstack Router
+## Backend
 
-**State Management**: React Query for server state management, caching, and automatic data synchronization
+<Anchor link="https://expressjs.com/" text="Express.js" variant="link" isExternal /> is minimal and flexible compared to Nest.js, so I chose the simplest option for myself. I wanted to focus more on the backend, so this Node.js web app framework was the right choice with all the help and documentation online. I used TypeScript and MongoDB for data persistence. I focused on a Clean Architecture pattern and my layers were separated into Router, Controller, Service, and Repository.
 
-**Build**: Production build served as static assets through Express
+The router defined endpoints. The controller validated requests and formatted responses. The service contained core business logic and Spotify API integration. The repository handled MongoDB data access and persistence.
 
-### Backend
+I never really grasped Inversion of Control when I used Spring Boot, so it was a great opportunity to learn more about it. I used <Anchor link="https://en.wikipedia.org/wiki/Dependency_injection" text="dependency injection" variant="link" isExternal /> to manage the lifecycle of my services and repositories which was all managed from the index.ts file.
 
-<hr />
-
-**Express.js Server**: TypeScript-based REST API implementing a Clean Architecture pattern
-
-**Layer Separation**:
-- *Router*: Route definitions and request handling
-- *Controller*: Request validation and response formatting
-- *Service*: Core business logic and Spotify API integration
-- *Repository*: MongoDB data access and persistence
-
-**Dependency Injection**: Loose coupling between components for better testability and maintainability
-
-**Automated Updates**: Daily cron job scanning and processing new releases from tracked artists
-
-**Database**: MongoDB for artist data persistence
+The core feature I wanted was adding a daily cron job to scan and process new releases from tracked artists on MongoDB. The persistent data stores the ids of the Spotify artists, checks their releases daily, and adds them to the playlist if they are new.
 
 ## Infrastructure
 
-<hr />
-
-**Monorepo Structure**: Unified development workflow with shared configurations and types
-
-**Single Origin**: Consolidated deployment with the Express server handling both API requests and static asset serving
-
-**Type Safety**: End-to-end TypeScript implementation with shared type definitions
-
-**Initialization**: Centralized application bootstrap through index.ts with dependency injection container setup
+I used Railway for deployment, as it was a simple and easy way to deploy my app. I used a monorepo structure for the project, which allowed me to share configurations and models across the frontend and backend. The Express server handled both API requests and static asset serving, and the app was end-to-end TypeScript with shared type definitions.
 
 ### Liked songs
 

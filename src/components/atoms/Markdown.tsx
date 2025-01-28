@@ -1,4 +1,6 @@
+import { OrderedList } from "@/components/content/OrderedList";
 import { Paragraph } from "@/components/content/Paragraph";
+import { UnorderedList } from "@/components/content/UnorderedList";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
@@ -9,6 +11,8 @@ import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
 import { memo, useMemo } from "react";
 import { ImgPositioner } from "../../styles/routes/blog.styled";
 import { BlockQuote, Code, H1 } from "../content";
+import { Group } from "./Group";
+import { Player } from "./Player";
 
 const MDX_GLOBAL_CONFIG = {
 	MdxJsReact: {
@@ -20,11 +24,15 @@ const components: MDXComponents = {
 	Picture,
 	Anchor,
 	p: Paragraph,
+	ol: OrderedList,
+	ul: UnorderedList,
 	h1: H1,
 	blockquote: BlockQuote,
 	code: Code,
 	ImgPositioner,
 	CurrentPlay,
+	Player,
+	Group,
 };
 
 interface MarkdownProps {

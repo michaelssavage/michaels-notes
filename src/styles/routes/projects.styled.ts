@@ -150,9 +150,11 @@ export const Title = styled(motion.h1)<ICard>`
   padding: 0.5rem;
   border-top-right-radius: 0.4rem;
   border-bottom-right-radius: 0.4rem;
-  margin-bottom: 1rem;
   font-weight: bold;
   background-color: ${({ main }) => main};
   color: ${({ main }) => getContrastYIQ(main)};
   will-change: transform;
+
+  display: flex;
+  align-items: center;
 `;

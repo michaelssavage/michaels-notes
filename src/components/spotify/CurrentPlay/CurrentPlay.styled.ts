@@ -28,8 +28,8 @@ export const NowPlaying = styled.div<{ color: string }>`
 
   a {
     position: absolute;
-    top: -16px;
-    right: -16px;
+    top: 0.5rem;
+    right: 0.5rem;
     width: 3rem;
     height: 3rem;
     transition: transform 0.3s ease;

@@ -8,62 +8,48 @@ interface IStyle {
 	isExternal?: boolean;
 }
 
-export const LinkStyle = styled(Link, {
-	shouldForwardProp: (prop) => prop !== "isExternal",
-})<IStyle>`
+export const LinkStyle = styled(Link)<IStyle>`
   text-decoration: none;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: row;
-  gap: 4px;
+  gap: 2px;
+  transition: all 0.35s;
+  border-radius: 5px;
+  width: fit-content;
 
   svg {
     flex-shrink: 0;
+    width: 0.9rem;
+    height: 0.9rem;
   }
 
-  ${({ variant, isExternal, theme }) => {
+  ${({ variant, theme }) => {
 		switch (variant) {
 			case "button":
 				return css`
           padding: 4px;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          gap: 4px;
-          color: ${theme.colors.card};
-          background-color: ${isExternal ? theme.colors.off : theme.colors.on};
+          border: 1px solid;
+          border-color: ${theme.colors.button};
+          color: ${theme.colors.button};
           &:hover {
-            background-color: ${
-							isExternal ? theme.colors.extBtnBgHover : theme.colors.link
-						};
+            box-shadow: inset 0 0 0 2em ${theme.colors.link};
+            border-color: ${theme.colors.link};
+            color: #fff;
           }
         `;
 			case "link":
 				return css`
-          color: ${theme.colors.link};
+          padding: 0;
           text-decoration: underline;
-          text-decoration-color: ${theme.colors.link};
-          position: relative;
-          transition: all 0.25s;
-          z-index: 4;
-          &:before {
-            content: "";
-            z-index: -1;
-            width: 100%;
-            height: 0%;
-            background: ${theme.colors.lightenLink};
-            bottom: 0;
-            left: 0;
-            position: absolute;
-            transition: height 0.25s;
-          }
+          border: none;
+          color: ${theme.colors.button};
           &:hover {
-            border-color: transparent;
+            box-shadow: inset 0 0 0 2em ${theme.colors.link};
+            border-color: ${theme.colors.link};
+            color: #fff;
             text-decoration: none;
-            &:before {
-              height: 100%;
-            }
           }
         `;
 			case "text":
