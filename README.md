@@ -1,6 +1,6 @@
 # Michael Savage
 
-Live at [michaelsavage.ie](michaelsavage.ie)
+Live at [michaelsavage.ie](https://michaelsavage.ie)
 
 - Initially built in Nuxt.js and SCSS, using ESLint and Prettier for linting.
 - Refactored with React, Typescript, Vite, and @emotion, using Biome for linting.
