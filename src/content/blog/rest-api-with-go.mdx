@@ -9,7 +9,7 @@ description: "I recently built a REST API using Go, mostly because I wanted to s
   <Picture src="https://go.dev/images/gophers/ladder.svg" alt="gopher icon" />
 </ImgPositioner>
 
-I recently built a REST API using <Anchor link="https://go.dev/" text="Go" variant="link" />, mostly because I wanted to scrape my favourite films from my Letterboxd account and save them into a MongoDB collection. In the process, I implemented JWT authentication, deployed the API to <Anchor link="https://fly.io/" variant="link" />, and even spun up a cheeky little serverless function to retrieve this data for my blog. You can spot the results on my <Anchor link="/about" text="About" variant="link" /> page, where a card stack shows my current movie favourites. It was a fun project and, to be honest, a good excuse to mess around with Go.
+I recently built a REST API using <Anchor link="https://go.dev/" text="Go" variant="link" isExternal />, mostly because I wanted to scrape my favourite films from my Letterboxd account and save them into a MongoDB collection. In the process, I implemented JWT authentication, deployed the API to <Anchor link="https://fly.io/" text="fly.io" variant="link" isExternal />, and even spun up a cheeky little serverless function to retrieve this data for my blog. You can spot the results on my <Anchor link="/about" text="About" variant="link" /> page, where a card stack shows my current movie favourites. It was a fun project and, to be honest, a good excuse to mess around with Go.
 
 ## Why go for Go?
 
@@ -75,7 +75,7 @@ type Movie struct {
 }
 ```
 
-For Storage, <Anchor link="https://www.mongodb.com/" text="MongoDB" variant="link" /> was the natural choice
+For Storage, <Anchor link="https://www.mongodb.com/" text="MongoDB" variant="link" isExternal /> was the natural choice
 because, in my mind, JSON and MongoDB go together like popcorn and the cinema. Using a
 MongoDB URI, I connected the database and started saving movies right away. The
 code for saving the scraped favourites looks something like this:
@@ -98,11 +98,11 @@ return err
 
 ## Deploying online
 
-For deployment, I wanted something free. But it didn't take long to realise that the free tiers would quickly run out and I'd have to resort to a paid subscription.... Yuck!!! I ended up using <Anchor link="https://fly.io/" variant="link" />, which worked well after some faffing about with `Docker` and a `fly.toml` file. I use the deployed urls to update the database whenever I change my favourite movies on Letterboxd, which is not quite often. So fly.io was a perfect use case here.
+For deployment, I wanted something free. But it didn't take long to realise that the free tiers would quickly run out and I'd have to resort to a paid subscription.... Yuck!!! I ended up using <Anchor link="https://fly.io/" text="fly.io" variant="link" isExternal />, which worked well after some faffing about with `Docker` and a `fly.toml` file. I use the deployed urls to update the database whenever I change my favourite movies on Letterboxd, which is not quite often. So fly.io was a perfect use case here.
 
 ### Netlify functions
 
-Since my site is hosted on <Anchor link="https://www.netlify.com/" text="Netlify" variant="link" />, I turned to their serverless functions as a way to fetch the data. The free tier on Netlify is way more forgiving than Fly.io's. I created a simple handler that checks the JWT and retrieves the favourites from the database. Here's the core of it:
+Since my site is hosted on <Anchor link="https://www.netlify.com/" text="Netlify" variant="link" isExternal />, I turned to their serverless functions as a way to fetch the data. The free tier on Netlify is way more forgiving than Fly.io's. I created a simple handler that checks the JWT and retrieves the favourites from the database. Here's the core of it:
 
 ```js
 try {
