@@ -37,8 +37,6 @@ export const CurrentPlay = () => {
 	if (currentTrack?.isLoading || recentTrack?.isLoading)
 		return <div>Loading...</div>;
 
-	console.log("trackData", trackData);
-
 	return (
 		<Comp>
 			<Title>

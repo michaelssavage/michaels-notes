@@ -52,7 +52,7 @@ export const Filter = styled.div`
 export const ButtonGroup = styled.div`
   display: flex;
   gap: 1rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 
   ${ButtonStyled} {
     white-space: nowrap;
@@ -148,4 +148,9 @@ export const ImgPositioner = styled.div`
       width: 60px;
     }
   `)}
+`;
+
+export const Info = styled.p`
+  opacity: 0.7;
+  margin: 0.5rem 0;
 `;

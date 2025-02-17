@@ -1,4 +1,5 @@
 import { MetaData } from "@/components/atoms";
+import ErrorBoundary from "@/components/atoms/ErrorBoundary";
 import { Loading } from "@/components/molecules/Loading";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -55,7 +56,9 @@ function RootComponent() {
 						<Navbar />
 						<Toggle />
 						<ScrollRestoration />
-						<Outlet />
+						<ErrorBoundary>
+							<Outlet />
+						</ErrorBoundary>
 						<Footer />
 						<TanStackRouterDevtools position="bottom-right" />
 					</ThemeProvider>

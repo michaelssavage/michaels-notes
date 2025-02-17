@@ -24,15 +24,14 @@ export const PARAGRAPHS = [
 			<Group align="center" gap="2rem" css={breakpoint}>
 				<Picture src={selfieImg} alt="Picture of Me" style={selfieStyle} />
 				<p>
-					From Ireland and currently based in{" "}
+					I'm from Ireland and currently based in{" "}
 					<Floating
 						type="tooltip"
 						trigger={<span className="underline">Barcelona, Spain.</span>}
 						content={<Weather />}
 					/>{" "}
-					I'm a developer that enjoys developing with React.js, Typescript, and
-					Python. My world revolves around electronic music, movies, rugby, and
-					travelling.
+					My world revolves around electronic music, movies, rugby, and
+					travelling. I enjoy developing with React.js, Typescript, and Python.
 				</p>
 			</Group>
 		),
@@ -43,9 +42,9 @@ export const PARAGRAPHS = [
 			<p>
 				I studied Computer Applications in DCU and started working with Jaguar
 				Land Rover, Shannon in 2021 where I learned to work with REST APIs using
-				Spring Boot and React.js early on. I'm currently working with a startup
-				in the heart of Barcelona, TalentBait, as a frontend developer using
-				React.js, Reflux, and Firebase.
+				Spring Boot and React.js early on. I'm currently working with
+				Talentbait, a startup in the heart of Barcelona as a frontend developer
+				using React.js, Reflux, and Firebase.
 			</p>
 		),
 	},
@@ -61,7 +60,7 @@ export const PARAGRAPHS = [
 					I like to keep fit and healthy, having played sports all my life
 					including Gaelic Football and rugby for teams like Ulster Club u18s,
 					Monaghan RFC, Ennis RFC, and Corinthians RFC. Recently I've taken up
-					running and completed the Barcelona half marathon in 1.44.23.
+					running and completed the Barcelona Half Harathon in 01:44:23.
 				</p>
 			</Group>
 		),
@@ -83,8 +82,8 @@ export const PARAGRAPHS = [
 						link="/blog/what-is-plant-bassd"
 					/>
 					, an electronic music blog and underground club night that that took
-					hold in Ireland and Scotland. Music is definitely a large part of my
-					identity and I'm always trying my hand at producing music on Ableton.
+					hold in Ireland and Scotland. I learned to DJ, create events, design
+					posters, and I'm always trying my hand at producing music on Ableton.
 				</p>
 			</Group>
 		),

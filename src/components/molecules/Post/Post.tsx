@@ -39,12 +39,7 @@ export const Post = memo(
 					</Title>
 					<DateText isExternal={isExternal}>{date}</DateText>
 				</CardInfo>
-				<Description
-					description={description}
-					isExternal={isExternal}
-					slug={slug}
-					isExpanded={isExpanded}
-				/>
+				<Description description={description} isExpanded={isExpanded} />
 			</Card>
 		);
 	},

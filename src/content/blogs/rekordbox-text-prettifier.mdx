@@ -1,0 +1,51 @@
+---
+id: 7
+title: Rekordbox Text Prettifier
+date: november 25, 2024
+description: "Using Python and pyinstaller, I created a really simple executable to get the track setlist from a .txt file from Rekordbox after recording a mix."
+github: https://github.com/michaelssavage/Rekordbox-Mix-Setlist 
+type: blog
+---
+
+import rekordbox from "src/assets/images/blog/rekordbox.jpg";
+
+<ImgPositioner>
+  <Picture src={rekordbox} alt="rekordbox icon" />
+</ImgPositioner>
+
+{props.description}
+
+Edit (25th November 2024): I extended this small project and created a simple paste-and-copy webpage for more convenience. I just have to paste the text into a textarea and it will display the result immediately on the textarea beside it. View it here: <Anchor link="/blog/pretty-text" text="text prettifier" variant="link" />
+
+I needed a small script that would format the text in a nicer way for me. I opted for Python and created a really simple executable to get a setlist from a .txt file from Rekordbox. The exe was created using pyinstaller, and proved to be a small and nifty utility that I would come back to now and again.
+
+Rekordbox is a DJ software for preparing and managing your music library, recording and playing mixes, and loads of fancy AI-driven features.
+
+The Python class gets the file to edit from user input, and formats the text file based on whether you want to include the song BPM or not.
+
+The main work is handled in the updateContents file:
+
+```python
+def updateContents(self):
+  try:
+    fileInfo = open(self.filename, "r", encoding="utf-16").readlines()
+    songInfo = fileInfo[0].strip().split("\t")
+    artist = songInfo.index("Artist")
+    track = songInfo.index("Track Title")
+    bpm = songInfo.index("BPM")
+
+    if self.choice:
+        updated_content = self.withBPM(fileInfo[1:], artist, track, bpm)
+    else:
+        updated_content = self.noBPM(fileInfo[1:], artist, track)
+
+    with open("_" + self.filename, "w", encoding="utf-16") as file:
+        file.write(updated_content)
+        print("File updated!")
+```
+
+I then looped through the file saving a nicer formatted list so that I could add the setlist to the SoundCloud mix description. Each track would like this:
+
+```python
+song = f"{i+1}. {songInfo[artist].strip()} - {songInfo[track].strip()}\n"
+```

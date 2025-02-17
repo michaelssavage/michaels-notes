@@ -23,14 +23,14 @@ export const Route = createFileRoute("/blog/$slug")({
 function Slug() {
 	const { colors } = useTheme();
 	const { slug } = Route.useParams();
-	const { blog }: IPosts = import.meta.env.POSTS;
-	const doc = blog.find((post) => post.slug === slug);
+	const { blogs }: IPosts = import.meta.env.POSTS;
+	const doc = blogs.find((post) => post.slug === slug);
 
 	if (!doc) {
 		return <div>Blog post not found</div>;
 	}
 
-	const sidebar = blog
+	const sidebar = blogs
 		.filter((item) => !item.isExternal)
 		.filter((current) => current.id !== doc.id);
 

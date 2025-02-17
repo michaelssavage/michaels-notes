@@ -1,5 +1,3 @@
-import type { ReactNode } from "@tanstack/react-router";
-
 export interface IBlog {
 	code: string;
 	slug: string;
@@ -11,6 +9,15 @@ export interface IBlog {
 	github?: string;
 	draft?: boolean;
 	isFirst: boolean;
+	type: "blog";
+}
+
+export interface IBite {
+	id: number;
+	date: string;
+	description: string;
+	link?: string;
+	type: "bite";
 }
 
 export const TECHNOLOGIES = [
@@ -55,13 +62,6 @@ export interface IProject {
 
 export interface IPosts {
 	projects: Array<IProject>;
-	blog: Array<IBlog>;
-}
-
-export interface IBite {
-	id: number;
-	title: ReactNode;
-	year: number;
-	tag: string;
-	link?: string;
+	blogs: Array<IBlog>;
+	bites: Array<IBite>;
 }

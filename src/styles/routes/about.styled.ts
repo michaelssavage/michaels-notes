@@ -7,16 +7,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
-export const Container = styled.div`
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 9rem);
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-`;
-
 export const Section = styled(motion.div)`
-  min-height: calc(100vh - 9rem);
+  height: calc(100vh - 9rem);
   display: flex;
   align-items: center;
   justify-content: center;

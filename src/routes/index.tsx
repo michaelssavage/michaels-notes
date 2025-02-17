@@ -1,4 +1,5 @@
 import { Icon } from "@/components/atoms";
+import { PARAGRAPHS } from "@/components/atoms/Paragraph";
 import {
 	GithubIcon,
 	LinkedInIcon,
@@ -6,23 +7,16 @@ import {
 	ResumeIcon,
 	SpotifyIcon,
 } from "@/components/icons";
-import { Bite } from "@/components/molecules/Bite";
 import { HomeLine } from "@/components/molecules/HomeLine";
-import { Arrow, Content, Icons, Panel } from "@/styles/routes/home.styled";
+import { Paragraph, Section } from "@/styles/routes/about.styled";
+import { Content, Icons, Panel } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef } from "react";
 
 export const Route = createFileRoute("/")({
 	component: Home,
 });
 
 function Home() {
-	const biteRef = useRef<HTMLHeadingElement>(null);
-
-	const scrollToBites = () => {
-		biteRef.current?.scrollIntoView({ behavior: "smooth" });
-	};
-
 	return (
 		<Content>
 			<Panel>
@@ -62,10 +56,13 @@ function Home() {
 					/>
 				</Icons>
 				<HomeLine />
-				<Arrow onClick={scrollToBites} />
 			</Panel>
 
-			<Bite biteRef={biteRef} />
+			{PARAGRAPHS.map(({ id, value }) => (
+				<Section key={id}>
+					<Paragraph>{value}</Paragraph>
+				</Section>
+			))}
 		</Content>
 	);
 }
