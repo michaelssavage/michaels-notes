@@ -79,4 +79,12 @@ export const globalStyles = (theme: MyTheme) => css`
     width: 100%;
     margin: 0.5rem 0;
   }
+
+  .popover-card {
+    background-color: ${theme.colors.card};
+    max-width: 600px;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid  ${theme.colors.off};
+  }
 `;

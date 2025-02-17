@@ -12,6 +12,7 @@ import { memo, useMemo } from "react";
 import { ImgPositioner } from "../../styles/routes/blog.styled";
 import { BlockQuote, Code, H1 } from "../content";
 import { Board } from "./Board";
+import { Floating } from "./Floating";
 import { Group } from "./Group";
 import { Player } from "./Player";
 
@@ -35,6 +36,7 @@ const components: MDXComponents = {
 	CurrentPlay,
 	Player,
 	Group,
+	Floating,
 };
 
 interface MarkdownProps {

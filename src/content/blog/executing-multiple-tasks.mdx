@@ -1,25 +1,24 @@
 ---
 id: 16
 title: Executing Multiple Tasks
-date: January 31, 2025
+date: February 17, 2025
 description: "Exploring how to execute multiple tasks with concurrency, parallelism, and multitasking."
 draft: true
 ---
 
-I wanted to explore the differences between concurrency and parallelism. I know Concurrency ≠ parallelism but I wanted to refresh my memory and visualize each term. Basically, they refer to executing multiple tasks, but they represent different approaches.
+I wanted to explore the differences between concurrency and parallelism. I know Concurrency ≠ parallelism but I wanted to refresh my memory and visualize each term. They refer to executing multiple tasks, but they represent different approaches.
+- **Concurrency** is about managing multiple tasks by interleaving their execution.
+- **Parallelism** is the ability to execute independent tasks of a program in the same instant of time. 
 
+Tasks communicate with each other by using a shared memory or by message passing. It's about switching between tasks really quicky. Concurrent tasks (or modules) come in two different kinds: processes and threads.
 
-## Concurrency (Task management)
-
-Concurrency is about dealing with multiple tasks at the same time. In software, tasks communicate with each other by using a shared memory or by message passing. Concurrent tasks (or modules) come in two different kinds: processes and threads.
-
-- Threads are the smallest units of execution within a process. They share the same memory space and can communicate with each other.
-- Processes are independent execution units within their own memory space. Each process has its own memory. A process can contain one or more threads.
+- **Threads** are the smallest units of execution within a process. They share the same memory space and can communicate with each other.
+- **Processes** are independent execution units within their own memory space. Each process has its own memory. A process can contain one or more threads.
 
 <p className="callout">
 💡Example of concurrency
-- a chef preparing multiple dishes by switching between tasks
-- distributed computer systems (Email)
+- a chef preparing multiple dishes by switching between chopping, stirring, and plating.
+- A distributed system processing emails while handling database requests.
 </p>
 
 There are three main ways to achieve concurrency:
@@ -39,10 +38,7 @@ There are three main ways to achieve concurrency:
   />
 </Group>
 
-## Parallelism (Task execution)
-
-This is the ability to execute independent tasks of a program in the same instant of time. Tasks get separated into smaller parts to be performed independently and simultaneously using more than one processor. Its the truly simultaneous execution or evaluation of things. The two most common ways to achieve parallelism:
-
+Unlike concurrency, parallelism is about separating tasks into smaller parts to be performed independently and simultaneously using more than one processor. It's when tasks actually run at the same time, without just giving the illusion of it. The two most common ways to achieve parallelism:
 
 <Group justify="center" wrap="wrap">
   <Board
@@ -62,20 +58,16 @@ This is the ability to execute independent tasks of a program in the same instan
 - Streaming music and texting a friend at the same time on your phone.
 </p>
 
-## Multitasking
-
-JavaScript, and therefore React, is single-threaded. This means that it can only execute one task at a time. However, JavaScript can simulate concurrency by using asynchronous code. This is done by using callbacks, promises, and async/await.
+JavaScript, and anything built on it, like React, is single-threaded. This means that it can only execute one task at a time. However, JavaScript can simulate concurrency by using **non-blocking asynchronous operations** using an <Floating type="popover" trigger="event loop" content={<div className="popover-card">
+The event loop is like a `while` loop in Javascript. It's a way of synchronously processing asynchronous events one at a time until the queue is empty. A network request could be an async operation that is encountered in the call stack. It's sent to the Web APIs (handled outside the main thread) and once the async task is complete, the Callback Queue holds the result. The Event Loop checks if the Call Stack is empty and moves the next task from the Callback Queue into the Call Stack.
+</div>} />. This is done by using callbacks, promises, and async/await.
 
 - Multiprogramming refers to running multiple programs concurrently on a single computer.
 - Multithreading refers to a single program executing multiple threads concurrently. 
 
-## Why Does This Matter?
+Parallelism speeds up tasks by leveraging multiple processors to improve performance. Concurrency keeps systems responsive by managing multiple tasks efficiently. Distributed systems rely on concurrency to handle thousands of requests and scale.
 
-Understanding concurrency and parallelism is crucial for building efficient systems. Parallelism speeds up tasks by leveraging multiple processors to improve performance.Concurrency keeps systems responsive by managing multiple tasks efficiently. Distributed systems rely on concurrency to handle thousands of requests and scale.
-
-## How do you add multithreading?
-
-Find use cases that can benefit from multithreading. I/O bound tasks like reading files, network requests, and database queries can be parallelized. CPU-bound tasks like image processing, video encoding, and data analysis can be parallelized.
+I/O bound tasks like reading files, network requests, and database queries can be parallelized and can benefit from multithreading. They benefit more from concurrency than parallelism, while CPU-bound tasks like image processing, video encoding, and data analysis can be parallelized and benefit more from true parallelism.
 
 - In `React`, Web Workers can be used for CPU-intensive tasks. Web Workers run scripts in background threads. Promise/async/await can be used for asynchronous tasks.
 - `Java` has built-in support for multithreading using the Thread class or ExecutorService.
