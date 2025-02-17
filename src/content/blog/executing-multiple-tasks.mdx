@@ -72,3 +72,11 @@ JavaScript, and therefore React, is single-threaded. This means that it can only
 ## Why Does This Matter?
 
 Understanding concurrency and parallelism is crucial for building efficient systems. Parallelism speeds up tasks by leveraging multiple processors to improve performance.Concurrency keeps systems responsive by managing multiple tasks efficiently. Distributed systems rely on concurrency to handle thousands of requests and scale.
+
+## How do you add multithreading?
+
+Find use cases that can benefit from multithreading. I/O bound tasks like reading files, network requests, and database queries can be parallelized. CPU-bound tasks like image processing, video encoding, and data analysis can be parallelized.
+
+- In `React`, Web Workers can be used for CPU-intensive tasks. Web Workers run scripts in background threads. Promise/async/await can be used for asynchronous tasks.
+- `Java` has built-in support for multithreading using the Thread class or ExecutorService.
+- `Python` has the threading module for multithreading and the multiprocessing module for parallelism.

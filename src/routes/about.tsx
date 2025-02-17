@@ -1,5 +1,5 @@
 import { MetaData } from "@/components/atoms";
-import { paragraphs } from "@/components/atoms/Paragraph";
+import { PARAGRAPHS } from "@/components/atoms/Paragraph";
 import { Container, Paragraph, Section } from "@/styles/routes/about.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence } from "framer-motion";
@@ -16,7 +16,7 @@ function About() {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const sectionRefs = useRef<Array<React.RefObject<HTMLDivElement>>>(
-		paragraphs.map(() => createRef<HTMLDivElement>()),
+		PARAGRAPHS.map(() => createRef<HTMLDivElement>()),
 	);
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ function About() {
 			if (
 				newIndex !== activeIndex &&
 				newIndex >= 0 &&
-				newIndex < paragraphs.length
+				newIndex < PARAGRAPHS.length
 			) {
 				setActiveIndex(newIndex);
 			}
@@ -45,7 +45,7 @@ function About() {
 		<Container>
 			<MetaData title="About Me" description={description} />
 			<AnimatePresence>
-				{paragraphs.map(({ id, value }, index) => (
+				{PARAGRAPHS.map(({ id, value }, index) => (
 					<Section
 						key={id}
 						ref={sectionRefs.current[index]}

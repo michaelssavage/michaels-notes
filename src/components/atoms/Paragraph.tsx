@@ -3,7 +3,6 @@ import selfieImg from "@/assets/images/me.jpg";
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
-import { Countdown } from "@/components/molecules/Countdown";
 import { Letterboxd } from "@/components/molecules/Letterboxd";
 import { Picture } from "@/components/molecules/Picture";
 import { Weather } from "@/components/molecules/Weather";
@@ -18,7 +17,7 @@ export const breakpoint = forBreakAt({
   `,
 });
 
-export const paragraphs = [
+export const PARAGRAPHS = [
 	{
 		id: 0,
 		value: (
@@ -61,16 +60,8 @@ export const paragraphs = [
 				<p>
 					I like to keep fit and healthy, having played sports all my life
 					including Gaelic Football and rugby for teams like Ulster Club u18s,
-					Monaghan RFC, Ennis RFC, and Corinthians RFC. More recently I've
-					joined a local running club and I'm preparing for the{" "}
-					<Floating
-						type="tooltip"
-						placement="top"
-						trigger={
-							<span className="underline">Barcelona half marathon!</span>
-						}
-						content={<Countdown targetDate="2025-02-16T00:00:00" />}
-					/>
+					Monaghan RFC, Ennis RFC, and Corinthians RFC. Recently I've taken up
+					running and completed the Barcelona half marathon in 1.44.23.
 				</p>
 			</Group>
 		),
