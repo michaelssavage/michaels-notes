@@ -60,7 +60,7 @@ export const PARAGRAPHS = [
 					I like to keep fit and healthy, having played sports all my life
 					including Gaelic Football and rugby for teams like Ulster Club u18s,
 					Monaghan RFC, Ennis RFC, and Corinthians RFC. Recently I've taken up
-					running and completed the Barcelona Half Harathon in 01:44:23.
+					running and completed the Barcelona Half Marathon in 01:44:44.
 				</p>
 			</Group>
 		),
