@@ -47,6 +47,11 @@ export const Filter = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   padding: 0 2rem;
+
+  ${forTabletOnly(css`
+    width: 100%;
+    padding: 0 1rem;
+  `)}
 `;
 
 export const ButtonGroup = styled.div`
