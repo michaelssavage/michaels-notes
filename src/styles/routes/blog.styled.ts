@@ -1,5 +1,6 @@
 import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
+import type { FilterState } from "@/routes/blog";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
@@ -155,7 +156,33 @@ export const ImgPositioner = styled.div`
   `)}
 `;
 
-export const Info = styled.p`
+const colors = {
+	onSite: "#fb4d3d",
+	isPlantBassd: "#3d89fb",
+	isBite: "#f8af07",
+};
+
+export const Info = styled.p<{ filter: FilterState }>`
   opacity: 0.7;
   margin: 0.5rem 0;
+
+  span {
+    font-weight: normal;
+    color: inherit;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+  }
+
+  ${({ filter }) => {
+		const activeFilters = Object.values(filter).filter(Boolean).length;
+		if (activeFilters !== 1) return "";
+
+		return Object.keys(filter)
+			.map((key) => {
+				if (!filter[key as keyof FilterState]) return "";
+				return `span[id=${key}] { 
+        color: ${colors[key as keyof typeof colors]}; 
+      }`;
+			})
+			.join("\n");
+	}}
 `;

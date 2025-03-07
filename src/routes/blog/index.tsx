@@ -20,7 +20,7 @@ import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useCallback, useMemo, useState } from "react";
 
-type FilterState = {
+export type FilterState = {
 	isPlantBassd: boolean;
 	onSite: boolean;
 	isBite: boolean;
@@ -141,9 +141,12 @@ function Blog() {
 										active={filter.isBite}
 									/>
 								</ButtonGroup>
-								<Info>
-									Blog posts about learnings and mishaps, previous Plant Bass'd
-									articles, and bite-sized achievements about random things.
+								<Info filter={filter}>
+									<span id="onSite">Blog posts</span> about learnings and
+									mishaps, previous{" "}
+									<span id="isPlantBassd">Plant Bass'd articles</span>, and{" "}
+									<span id="isBite">bite-sized achievements</span> about my
+									journey.
 								</Info>
 							</Group>
 						</Filter>
