@@ -1,0 +1,198 @@
+---
+id: 17
+title: Memorizing memoizing
+date: March 8, 2025
+description: "In Spanish, Memo means Silly - because it would be silly not to try optimize your code."
+type: blog
+---
+
+Scrolling on LinkedIn, I came across a simple question asking how to implement a caching function similar enough to lodash.memoize. What is memoizing again?
+
+Memoization means storing a result so someone can reuse it the next time instead of calculating the same thing again and again and again..
+
+Spamming some functionality that involves calculations could be expensive. So instead, we can store a version the first time its calculated, and check ensuing requests to see if we can simply return the same result. 
+
+Here's a barebones example using Javascript. We store our results in a map, and if its the first time we use the function, we add the result to it, otherwise just return the result from the map.
+
+```javascript
+function memoizedFunc(fn) {
+  const cache = new Map();
+  
+  return function (...args) {
+    const key = JSON.stringify(args);
+    
+    if (cache.has(key)) {
+      console.log("Fetching from cache:", key);
+      return cache.get(key);
+    }
+    
+    console.log("Computing result for:", key);
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+function slowFunction(num) {
+  // Simulate a slow computation
+  for (let i = 0; i < 1e9; i++) {}
+  return num * 2;
+}
+
+// Memoized version of the function
+const fastFunction = memoize(slowFunction);
+```
+
+So using a Map for caching is good! Great, is that it then? Do we need to improve it or alter it? Here's 2 edge cases to consider.
+
+1. Unbounded Memory - The cache map could grow to huge sizes if the arguments were changing every single time (Memoizing probably wasn't the right call to add in the first place) but we can implement size limits.  
+Adding a size limit is a really basic cache called LRU (Least Recently Used). It stores a fixed number of items and discards the least recently used item when it is full and a new item needs to be added.
+
+```javascript
+function memoize(fn, options = {}) {
+  const cache = new Map();
+  const { maxSize } = options;
+  
+  return function(...args) {
+    const key = JSON.stringify(args);
+    
+    if (cache.has(key)) {
+      console.log("Fetching from cache:", key);
+      return cache.get(key);
+    }
+    
+    console.log("Computing result for:", key);
+    const result = fn(...args);
+    cache.set(key, result);
+    
+    if (maxSize && cache.size > maxSize) {
+      const firstKey = cache.keys().next().value;
+      cache.delete(firstKey);
+    }
+    
+    return result;
+  };
+}
+```
+
+Now with this basic LRU, we remove the oldest entries if maxSize is specified and the cache size has grown too big.
+
+2. Similar keys - Using `JSON.stringify` in Javascript doesn't distinguish between objects with the same properties but different structures. For example, these different structures would previously have generated the same key:
+    - `new Date()` vs `{time: [date timestamp]}`
+    - `[1, 2, 3]` vs `{0: 1, 1: 2, 2: 3}`
+  So we would need to update our function to focus on the varying structures of arguments.
+
+```javascript
+// Separate function to generate structure-aware keys
+function generateStructureAwareKey(arg) {
+  if (arg === null) return 'null';
+  if (arg === undefined) return 'undefined';
+  
+  // Handle objects and arrays with structure preservation
+  if (typeof arg === 'object') {
+    // Include constructor name to differentiate between types
+    const constructorPart = Object.getPrototypeOf(arg).constructor.name;
+    
+    // For arrays, include both structure and values
+    if (Array.isArray(arg)) {
+      return `Array:${constructorPart}:${JSON.stringify(arg)}`;
+    }
+    
+    // For objects, we'll sort keys but also include constructor information
+    const sortedProps = Object.entries(arg)
+      .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+      .map(([k, v]) => `${k}:${JSON.stringify(v)}`)
+      .join(',');
+      
+    return `Object:${constructorPart}:{${sortedProps}}`;
+  }
+  
+  // Handle primitive values
+  return `${typeof arg}:${String(arg)}`;
+}
+
+function memoize(fn) {
+  const cache = new Map();
+  
+  return function (...args) {
+    // Map each argument to its structure-aware key representation
+    const key = args.map(generateStructureAwareKey).join('|');
+    
+    if (cache.has(key)) {
+      console.log("Fetching from cache:", key);
+      return cache.get(key);
+    }
+    
+    console.log("Computing result for:", key);
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+``` 
+
+Now there's a bunch of checks going on here. This approach ensures that different combinations of arguments will always produce unique cache keys, preventing false cache hits that would return incorrect results.
+
+- We create keys with object type information by using `constructor.name` .
+- We treat arrays differently than plain objects.
+- We preserve the structure of different object types by including their constructor.
+- We still handle primitive values appropriately.
+- Finally, we join all arguments with a separator to prevent potential collisions.
+
+Here's some examples of what the keys would end up looking like:
+
+```javascript
+memoizedFunc(5, "hello");
+// Key: "number:5|string:hello"
+
+memoizedFunc(new Person("John", 30));
+// Key: "Object:Person:{age:30,name:"John"}"
+```
+
+So memoization is pretty great for optimization. It can improve performance but don't be silly! It isn't always the best choice and can actually lead to bugs and more overhead than benefit, some examples:
+
+- Simple, fast operations like like multiplication → `number * number`
+- Functions with unique inputs
+- Massive input objects
+- Functions with mutable input references
+
+React is my primary driver, so using memo and useMemo can end up being obsolete in cases too. For example, a useState in an internal state will always force re-renders or if the Parent component has a useState either.
+
+```javascript
+const Child = React.memo(({ value }) => {
+  console.log("Child render");
+  return <div>{value}</div>;
+});
+
+const Parent = () => {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <Child value="Static text" />
+    </div>
+  );
+};
+```
+
+Or if you pass functions as props, it will trigger re-renders. Below, the `() => console.log("Clicked")` will cause re-renders. It should be wrapped in a useCallback.
+
+```javascript
+const Child = React.memo(({ onClick }) => {
+  console.log("Child render");
+  return <button onClick={onClick}>Click me</button>;
+});
+
+const Parent = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Child onClick={() => console.log("Clicked")} />
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+```
+
+So that's my learning for this week. Try memorize when to use Memoize, and don't be silly and use it everywhere. Easy!
