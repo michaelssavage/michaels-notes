@@ -5,6 +5,12 @@ import "highlight.js/styles/monokai.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import React from "react";
 
+import { PostHogProvider } from "posthog-js/react";
+
+const options = {
+	api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+};
+
 // Set up a Router instance
 const router = createRouter({
 	routeTree,
@@ -25,7 +31,12 @@ if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<React.StrictMode>
-			<RouterProvider router={router} />
+			<PostHogProvider
+				apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY || ""}
+				options={options}
+			>
+				<RouterProvider router={router} />
+			</PostHogProvider>
 		</React.StrictMode>,
 	);
 }
