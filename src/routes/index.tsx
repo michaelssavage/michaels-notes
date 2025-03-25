@@ -11,12 +11,19 @@ import { HomeLine } from "@/components/molecules/HomeLine";
 import { Paragraph, Section } from "@/styles/routes/about.styled";
 import { Content, Icons, Panel } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
+import posthog from "posthog-js";
 
 export const Route = createFileRoute("/")({
 	component: Home,
 });
 
 function Home() {
+	const captureCvClick = () => {
+		posthog.capture("cv_download_clicked", {
+			source: "resume_button",
+		});
+	};
+
 	return (
 		<Content>
 			<Panel>
@@ -51,7 +58,7 @@ function Home() {
 					<Icon
 						label="Download My CV"
 						link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
-						icon={<ResumeIcon />}
+						icon={<ResumeIcon onClick={captureCvClick} />}
 						isExternal
 					/>
 				</Icons>

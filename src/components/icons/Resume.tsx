@@ -1,6 +1,12 @@
-export const ResumeIcon = () => {
+interface Props {
+	onClick: () => void;
+}
+
+export const ResumeIcon = ({ onClick }: Props) => {
 	return (
 		<svg
+			onClick={onClick}
+			onKeyDown={onClick}
 			role="img"
 			aria-label="resume icon"
 			xmlns="http://www.w3.org/2000/svg"
