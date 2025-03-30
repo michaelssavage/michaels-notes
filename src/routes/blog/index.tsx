@@ -143,9 +143,9 @@ function Blog() {
 								</ButtonGroup>
 								<Info filter={filter}>
 									<span id="onSite">Blog posts</span> about learnings and
-									mishaps, previous{" "}
+									mishaps, movies and music, previous{" "}
 									<span id="isPlantBassd">Plant Bass'd articles</span>, and{" "}
-									<span id="isBite">bite-sized achievements</span> about my
+									<span id="isBite">bite-sized achievements</span> along my
 									journey.
 								</Info>
 							</Group>
