@@ -10,15 +10,15 @@ Scrolling on LinkedIn, I came across a simple question asking how to implement a
 
 Memoization means storing a result so someone can reuse it the next time instead of calculating the same thing again and again and again..
 
-Spamming some functionality that involves calculations could be expensive. So instead, we can store a version the first time its calculated, and check ensuing requests to see if we can simply return the same result. 
+Spamming some functionality that involves calculations could be expensive. So instead, we can store a version the first time its calculated, and check ensuing requests to see if we can simply return the same result. We can create this using a **closure**, a function where the inner function has access to the outer function's scope.
 
-Here's a barebones example using Javascript. We store our results in a map, and if its the first time we use the function, we add the result to it, otherwise just return the result from the map.
+Here's a barebones example using Javascript. We store our results in a map, and if its the first time we use the function, we add the result to it, otherwise just return the result from the map. memoize is the outer function *closure*, which wraps the innner function and the the cache variable.
 
 ```javascript
-function memoizedFunc(fn) {
+function memoize(fn) {
   const cache = new Map();
   
-  return function (...args) {
+  const memoizedFunc = (...args) => {
     const key = JSON.stringify(args);
     
     if (cache.has(key)) {
@@ -31,6 +31,8 @@ function memoizedFunc(fn) {
     cache.set(key, result);
     return result;
   };
+
+  return memoizedFunc;
 }
 
 function slowFunction(num) {
@@ -39,8 +41,16 @@ function slowFunction(num) {
   return num * 2;
 }
 
+slowFunction(4);
+
 // Memoized version of the function
 const fastFunction = memoize(slowFunction);
+
+// call it for the first time, and it will take a while to compute
+fastFunction(4);
+
+// call it again, but get the cached value back
+fastFunction(4);
 ```
 
 So using a Map for caching is good! Great, is that it then? Do we need to improve it or alter it? Here's 2 edge cases to consider.
@@ -53,7 +63,7 @@ function memoize(fn, options = {}) {
   const cache = new Map();
   const { maxSize } = options;
   
-  return function(...args) {
+  const memoizedFunc = (...args) =>{
     const key = JSON.stringify(args);
     
     if (cache.has(key)) {
@@ -72,6 +82,8 @@ function memoize(fn, options = {}) {
     
     return result;
   };
+
+  return memoizedFunc;
 }
 ```
 
