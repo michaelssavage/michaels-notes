@@ -1,11 +1,27 @@
 import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
-import type { FilterState } from "@/routes/blog";
+import type { FilterState } from "@/routes";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+
+export const headerStyle = css`
+  margin: 1rem 0.5rem 2rem;
+`;
+
+export const Heading = styled.h1`
+  font-size: 3rem;
+  margin: 0;
+  color: ${({ theme }) => theme.colors.icon};
+  span {
+    color: ${({ theme }) => theme.colors.header};
+  }
+  ${forPhoneOnly(css`
+    font-size: 1.5rem;
+  `)}
+`;
 
 export const Page = styled.section`
   position: relative;
@@ -84,7 +100,7 @@ export const MainSection = styled.div`
 
 // Article styling
 
-export const Article = styled(motion.article)`
+export const Article = styled.article`
   margin: 2rem auto;
   width: 50%;
 
@@ -100,41 +116,9 @@ export const Tags = styled.p`
 `;
 
 export const Content = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
-
-export const Paths = styled.div`
-  ${forTabletOnly(css`
-    left: -9rem;
-  `)}
-
-  ${forPhoneOnly(css`
-    width: 90%;
-    position: static;
-  `)}
-`;
-
-export const Sidebar = styled.div`
-  position: fixed;
-  top: 12rem;
-  left: 2rem;
-  width: 22%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-start;
-  font-size: 0.7rem;
-
-  a:hover {
-    transform: scale(1.2);
-  }
-
-  ${forTabletOnly(css`
-    visibility: hidden;
-  `)}
 `;
 
 export const ImgPositioner = styled.div`

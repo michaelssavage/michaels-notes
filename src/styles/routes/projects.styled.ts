@@ -14,14 +14,17 @@ export const CardWrapper = styled.div`
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
+  min-width: 200px;
+  max-width: 200px;
 
-  &:hover {
-    transform: translateY(-5px);
-    z-index: 20;
-  }
+  ${forTabletOnly(css`
+  min-width: 150px;
+  max-width: 150px;
+  `)}
+
 `;
 
-export const Card = styled(Link)<ICard>`
+export const Card = styled(Link)`
   display: grid;
   overflow: hidden;
   will-change: transform;
@@ -32,57 +35,41 @@ export const Card = styled(Link)<ICard>`
 
   border-radius: 0.4rem;
   transition: box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 
-  ${CardWrapper}:hover & {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   }
+`;
 
-  span {
-    padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
-  }
-
-  span:first-of-type {
-    font-size: clamp(0.9rem, 1.5vi + 0.15rem, 1.5rem);
-    background-color: ${({ main }) => main};
-    color: ${({ main }) => getContrastYIQ(main)};
-  }
-
-  span:last-of-type {
-    font-size: clamp(0.8rem, 0.9vi + 0.15rem, 1.2rem);
-    background-color: ${({ bg }) => bg};
-    color: ${({ bg }) => getContrastYIQ(bg)};
-  }
+export const CardTitle = styled.span<{ main: string }>`
+  padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
+  font-size: clamp(0.9rem, 1.5vi + 0.1rem, 1.1rem);
+  background-color: ${({ main }) => main};
+  color: ${({ main }) => getContrastYIQ(main)};
 
   ${forTabletOnly(css`
-    span:first-of-type {
-      font-size: clamp(0.8rem, 1vi + 0.31rem, 1.13rem);
-    }
-
-    span:last-of-type {
-      font-size: clamp(0.72rem, 0.5vi + 0.45rem, 0.9rem);
-    }
+    font-size: clamp(0.8rem, 1vi + 0.31rem, 1.13rem);
   `)}
 
   ${forPhoneOnly(css`
-    span:first-of-type {
-      font-size: 1.5rem;
-    }
-
-    span:last-of-type {
-      font-size: 1.2rem;
-    }
+    font-size: 1rem;
   `)}
 `;
 
-export const ProjectGrid = css`
-  perspective: 1000px;
+export const CardBody = styled.div<{ bg: string }>`
+  padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
+  font-size: clamp(0.8rem, 0.9vi + 0.1rem, 1.1rem);
+  background-color: ${({ bg }) => bg};
+  color: ${({ bg }) => getContrastYIQ(bg)};
 
-  &:hover ${CardWrapper}:not(:hover) {
-    filter: grayscale(50%) blur(2px);
-    opacity: 0.7;
-    transition: all 0.3s ease;
-  }
+  ${forTabletOnly(css`
+    font-size: clamp(0.72rem, 0.5vi + 0.45rem, 0.9rem);
+  `)}
+
+  ${forPhoneOnly(css`
+      font-size: 0.9rem;
+  `)}
 `;
 
 export const Header = styled.div`
@@ -97,7 +84,7 @@ export const Header = styled.div`
 
 // slug
 
-export const Article = styled(motion.article)`
+export const Article = styled.article`
   margin: 2rem auto;
   width: 50%;
 
@@ -144,7 +131,7 @@ export const SpotifyContent = styled.div`
   gap: 1.2rem;
 `;
 
-export const Title = styled(motion.h1)<ICard>`
+export const Title = styled.h1<ICard>`
   font-size: 2rem;
   text-transform: uppercase;
   padding: 0.5rem;
@@ -153,7 +140,6 @@ export const Title = styled(motion.h1)<ICard>`
   font-weight: bold;
   background-color: ${({ main }) => main};
   color: ${({ main }) => getContrastYIQ(main)};
-  will-change: transform;
 
   display: flex;
   align-items: center;

@@ -24,7 +24,7 @@ export const Post = memo(
 
 		return (
 			<Card
-				to={isExternal ? isExternal : slug}
+				to={isExternal ? isExternal : `/blog/${slug}`}
 				ref={ref}
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}

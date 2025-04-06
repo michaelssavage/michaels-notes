@@ -26,7 +26,7 @@ const handler: Handler = async (event, context) => {
 		const collection = database.collection("favorites");
 
 		const movies = await collection.find().toArray();
-		const favourites = movies.flatMap((movie) => movie.movies);
+		const favourites = movies.flatMap(({ movies }) => movies);
 
 		return {
 			statusCode: 200,

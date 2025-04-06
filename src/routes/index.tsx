@@ -1,75 +1,177 @@
-import { Icon } from "@/components/atoms";
-import { PARAGRAPHS } from "@/components/atoms/Paragraph";
-import {
-	GithubIcon,
-	LinkedInIcon,
-	MailIcon,
-	ResumeIcon,
-	SpotifyIcon,
-} from "@/components/icons";
+import { MetaData } from "@/components/atoms";
+import { Floating } from "@/components/atoms/Floating";
+import { Group } from "@/components/atoms/Group";
+import { CircleIcon } from "@/components/icons";
+import { Bite } from "@/components/molecules/Bite";
+import { Button } from "@/components/molecules/Button";
 import { HomeLine } from "@/components/molecules/HomeLine";
-import { Paragraph, Section } from "@/styles/routes/about.styled";
-import { Content, Icons, Panel } from "@/styles/routes/home.styled";
+import { Loading } from "@/components/molecules/Loading";
+import { NoPost } from "@/components/molecules/Post/NoPost";
+import { SearchBox } from "@/components/molecules/SearchBox";
+import { Weather } from "@/components/molecules/Weather";
+import { sortByDate } from "@/lib/utils";
+import { Col, Row } from "@/styles/abstracts/layout.styled";
+import {
+	ButtonGroup,
+	Filter,
+	Heading,
+	Info,
+	Page,
+	Panel,
+	RowStyle,
+	headerStyle,
+} from "@/styles/routes/blog.styled";
+import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
-import posthog from "posthog-js";
+import { Suspense, lazy, useCallback, useMemo, useState } from "react";
+
+export type FilterState = {
+	isPlantBassd: boolean;
+	onSite: boolean;
+	isBite: boolean;
+};
+
+const Post = lazy(() =>
+	import("@/components/molecules/Post/Post").then((module) => ({
+		default: module.Post,
+	})),
+);
 
 export const Route = createFileRoute("/")({
-	component: Home,
+	component: Blog,
 });
 
-function Home() {
-	const captureCvClick = () => {
-		posthog.capture("cv_download_clicked", {
-			source: "resume_button",
-		});
-	};
+const { blogs, bites }: IPosts = import.meta.env.POSTS;
+const description = "Learnings, mishaps, and articles about random things.";
+
+function Blog() {
+	const [searchQuery, setSearchQuery] = useState("");
+	const [filter, setFilter] = useState<FilterState>({
+		isPlantBassd: true,
+		onSite: true,
+		isBite: true,
+	});
+
+	const handleFilter = useCallback(
+		(updates: Partial<FilterState>) => {
+			setFilter({ ...filter, ...updates });
+		},
+		[filter],
+	);
+
+	const posts = useMemo(() => {
+		const searchLowercase = searchQuery.toLowerCase();
+		const { onSite, isPlantBassd, isBite } = filter;
+
+		const filteredBlogs = blogs.filter(
+			({ title, description, draft, isExternal }) => {
+				const titleMatches = title.toLowerCase().includes(searchLowercase);
+				const descriptionMatches = description
+					.toLowerCase()
+					.includes(searchLowercase);
+
+				if (!titleMatches && !descriptionMatches) return false;
+				if (import.meta.env.PROD && draft) return false;
+
+				if (!onSite && !isPlantBassd) return false;
+				if (onSite && isPlantBassd) return true;
+				return onSite ? !isExternal : isExternal;
+			},
+		);
+
+		const filteredBites = isBite
+			? bites.filter(({ description }) =>
+					description.toLowerCase().includes(searchLowercase),
+				)
+			: [];
+
+		return [...filteredBlogs, ...filteredBites].sort(sortByDate);
+	}, [filter, searchQuery]);
 
 	return (
-		<Content>
+		<Page>
+			<MetaData title="My Blog" description={description} />
 			<Panel>
-				<h1>
-					Michael <span>Savage</span>
-				</h1>
-				<Icons>
-					<Icon
-						label="GitHub Profile"
-						link="https://github.com/michaelssavage"
-						icon={<GithubIcon />}
-						isExternal
-					/>
-					<Icon
-						label="LinkedIn Profile"
-						link="https://www.linkedin.com/in/michaelssavage"
-						icon={<LinkedInIcon />}
-						isExternal
-					/>
-					<Icon
-						label="My Email"
-						link="mailto:michaelsavage940@gmail.com"
-						icon={<MailIcon />}
-						isExternal
-					/>
-					<Icon
-						label="Spotify Profile"
-						link="https://open.spotify.com/user/1156402021"
-						icon={<SpotifyIcon />}
-						isExternal
-					/>
-					<Icon
-						label="Download My CV"
-						link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
-						icon={<ResumeIcon onClick={captureCvClick} />}
-						isExternal
-					/>
-				</Icons>
-				<HomeLine />
-			</Panel>
+				<Group direction="column" gap="0" css={headerStyle}>
+					<Heading>
+						Michael <span>Savage</span>
+					</Heading>
+					<p>
+						Frontend Developer from Ireland and currently based in{" "}
+						<Floating
+							type="tooltip"
+							trigger={<span className="underline">Barcelona, Spain</span>}
+							content={<Weather />}
+						/>
+					</p>
+					<HomeLine />
+				</Group>
+				<Row css={RowStyle}>
+					<Col size="md" gap="1rem">
+						<Suspense fallback={<Loading />}>
+							{posts.length > 0 ? (
+								posts.map((post, index) => {
+									return post.type === "bite" ? (
+										<Bite key={post.id} {...post} />
+									) : (
+										<Post key={post.id} {...post} isFirst={index === 0} />
+									);
+								})
+							) : (
+								<NoPost />
+							)}
+						</Suspense>
+					</Col>
+					<Col size="md">
+						<Filter>
+							<SearchBox
+								id="search-item"
+								label="Search posts:"
+								value={searchQuery}
+								onChange={(e) => setSearchQuery(e.target.value)}
+								placeholder="Spotify..."
+							/>
+							<Group wrap="wrap">
+								<p>Filters posts:</p>
+								<ButtonGroup>
+									<Button
+										icon={<CircleIcon color="#fb4d3d" />}
+										text="Posts"
+										variant="ghost"
+										onClick={() => handleFilter({ onSite: !filter.onSite })}
+										active={filter.onSite}
+									/>
 
-			{PARAGRAPHS.map(({ id, value }) => (
-				<Section key={id}>
-					<Paragraph>{value}</Paragraph>
-				</Section>
-			))}
-		</Content>
+									<Button
+										icon={<CircleIcon color="#3d89fb" />}
+										text="Plant Bass'd"
+										variant="ghost"
+										onClick={() =>
+											handleFilter({ isPlantBassd: !filter.isPlantBassd })
+										}
+										active={filter.isPlantBassd}
+									/>
+
+									<Button
+										icon={<CircleIcon color="#f8af07" />}
+										text="Bites"
+										variant="ghost"
+										onClick={() => handleFilter({ isBite: !filter.isBite })}
+										active={filter.isBite}
+									/>
+								</ButtonGroup>
+								<Info filter={filter}>
+									<span id="onSite">Blog posts</span> about learnings and
+									mishaps, movies and music, previous{" "}
+									<span id="isPlantBassd">Plant Bass'd articles</span>, and{" "}
+									<span id="isBite">bite-sized achievements</span> along my
+									journey.
+								</Info>
+							</Group>
+						</Filter>
+					</Col>
+				</Row>
+			</Panel>
+		</Page>
 	);
 }

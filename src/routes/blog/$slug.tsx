@@ -2,13 +2,11 @@ import { MetaData } from "@/components/atoms";
 import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
-import { PagePath } from "@/components/molecules/PagePath";
-import { Article, Content, Header, Sidebar } from "@/styles/routes/blog.styled";
-import type { IPosts } from "@/types/Post";
-import { useTheme } from "@emotion/react";
+import { Menu } from "@/components/molecules/Menu/Menu";
+import { Article, Content, Header } from "@/styles/routes/blog.styled";
+import type { IBlog, IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
-import { AnimatePresence } from "framer-motion";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState } from "react";
 
 const Markdown = lazy(() =>
 	import("@/components/atoms").then((module) => ({
@@ -21,7 +19,8 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function Slug() {
-	const { colors } = useTheme();
+	const [open, setOpen] = useState(true);
+
 	const { slug } = Route.useParams();
 	const { blogs }: IPosts = import.meta.env.POSTS;
 	const doc = blogs.find((post) => post.slug === slug);
@@ -35,52 +34,36 @@ function Slug() {
 		.filter((current) => current.id !== doc.id);
 
 	return (
-		<AnimatePresence mode="wait">
-			<Article
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				exit={{ opacity: 0 }}
-				transition={{ duration: 0.5 }}
-			>
-				<Suspense fallback={<Loading />}>
-					<MetaData title={doc.title} description={doc.description} />
-					<p className="date">{doc.date}</p>
-					<Content>
-						<PagePath page="blog" color={colors.link} />
-
-						<Sidebar>
-							{sidebar.map(({ title, id, slug }, index) => {
-								return (
-									<Anchor
-										key={id}
-										text={`${index + 1}. ${title}`}
-										link={`/blog/${slug}`}
-										variant="link"
-									/>
-								);
-							})}
-						</Sidebar>
-
-						<Header
-							layoutId={`blog-title-${doc.id}`}
-							transition={{ type: "spring", stiffness: 300, damping: 30 }}
-						>
-							{doc.title}
-						</Header>
-						<Markdown content={doc} />
-						{doc.github && (
-							<div>
-								<Anchor
-									text="GitHub Link"
-									link={doc.github}
-									icon={<GithubIcon />}
-									isExternal
-								/>
-							</div>
-						)}
-					</Content>
-				</Suspense>
-			</Article>
-		</AnimatePresence>
+		<Article>
+			<Suspense fallback={<Loading />}>
+				<MetaData title={doc.title} description={doc.description} />
+				<Menu<IBlog>
+					target="blog"
+					items={sidebar}
+					open={open}
+					setOpen={setOpen}
+				/>
+				<p className="date">{doc.date}</p>
+				<Content>
+					<Header
+						layoutId={`blog-title-${doc.id}`}
+						transition={{ type: "spring", stiffness: 300, damping: 30 }}
+					>
+						{doc.title}
+					</Header>
+					<Markdown content={doc} />
+					{doc.github && (
+						<div>
+							<Anchor
+								text="GitHub Link"
+								link={doc.github}
+								icon={<GithubIcon />}
+								isExternal
+							/>
+						</div>
+					)}
+				</Content>
+			</Suspense>
+		</Article>
 	);
 }

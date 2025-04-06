@@ -1,22 +1,30 @@
-import { Card, CardWrapper } from "@/styles/routes/projects.styled";
+import {
+	Card,
+	CardBody,
+	CardTitle,
+	CardWrapper,
+} from "@/styles/routes/projects.styled";
 import type { IProject } from "@/types/Post";
-import { motion } from "framer-motion";
-import { memo } from "react";
 
-export const Project = memo(
-  ({ data: { id, slug, title, description, colors } }: { data: IProject }) => {
-    return (
-      <CardWrapper>
-        <Card key={id} to={slug} main={colors.main} bg={colors.bg}>
-          <motion.span
-            layoutId={`project-title-${id}`}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            {title}
-          </motion.span>
-          <span>{description}</span>
-        </Card>
-      </CardWrapper>
-    );
-  }
-);
+interface Props {
+	data: IProject;
+	onMouseEnter?: () => void;
+	onMouseLeave?: () => void;
+}
+
+export const Project = ({ data, onMouseEnter, onMouseLeave }: Props) => {
+	const { id, slug, title, description, colors } = data;
+	return (
+		<CardWrapper>
+			<Card
+				key={id}
+				to={slug}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+			>
+				<CardTitle main={colors.main}>{title}</CardTitle>
+				<CardBody bg={colors.bg}>{description}</CardBody>
+			</Card>
+		</CardWrapper>
+	);
+};

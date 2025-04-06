@@ -2,10 +2,10 @@ import { fetchFavouriteMovies } from "@/api/favorite-movies";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
+import { breakpoint } from "@/styles/routes/home.styled";
 import type { IMovie } from "@/types/Movie";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { breakpoint } from "../../atoms/Paragraph";
 import {
 	Button,
 	ButtonContainer,
@@ -30,9 +30,9 @@ export const Letterboxd = () => {
 	if (!data || data.length === 0 || !Array.isArray(data)) {
 		return (
 			<p>
-				I love watching, sharing and keeping track of movies on Letterboxd (the
-				best social media platform). Some of my favourites include Amélie, Y Tu
-				Mamá También, Aftersun, and Sexy Beast.
+				I love movies! I watch a lot and keep track of every movie I've watched.
+				Some of my favourites include Amélie, Y Tu Mamá También, Aftersun, and
+				Sexy Beast.
 			</p>
 		);
 	}

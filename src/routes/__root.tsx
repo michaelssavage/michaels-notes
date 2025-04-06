@@ -1,5 +1,6 @@
 import { MetaData } from "@/components/atoms";
 import ErrorBoundary from "@/components/atoms/ErrorBoundary";
+import { NotFound } from "@/components/atoms/NotFound";
 import { Loading } from "@/components/molecules/Loading";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -23,13 +24,13 @@ const TanStackRouterDevtools =
 				})),
 			);
 
-const Navbar = lazy(() =>
+const Toggle = lazy(() =>
 	import("@/components/molecules/Toggle").then((module) => ({
 		default: module.Toggle,
 	})),
 );
 
-const Toggle = lazy(() =>
+const Navbar = lazy(() =>
 	import("@/components/molecules/Navbar").then((module) => ({
 		default: module.Navbar,
 	})),
@@ -43,6 +44,7 @@ const Footer = lazy(() =>
 
 export const Route = createRootRoute({
 	component: RootComponent,
+	notFoundComponent: NotFound,
 });
 
 function RootComponent() {

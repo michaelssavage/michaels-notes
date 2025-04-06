@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as PlaygroundImport } from './routes/playground'
+import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProjectsIndexImport } from './routes/projects/index'
 import { Route as BlogIndexImport } from './routes/blog/index'
@@ -23,6 +24,11 @@ import { Route as BlogSlugImport } from './routes/blog/$slug'
 
 const PlaygroundRoute = PlaygroundImport.update({
   path: '/playground',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutRoute = AboutImport.update({
+  path: '/about',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -65,6 +71,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
     '/playground': {
@@ -116,6 +129,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/playground': typeof PlaygroundRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextRoute
@@ -126,6 +140,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/playground': typeof PlaygroundRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextRoute
@@ -137,6 +152,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/playground': typeof PlaygroundRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextRoute
@@ -149,6 +165,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/playground'
     | '/blog/$slug'
     | '/blog/pretty-text'
@@ -158,6 +175,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/playground'
     | '/blog/$slug'
     | '/blog/pretty-text'
@@ -167,6 +185,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/playground'
     | '/blog/$slug'
     | '/blog/pretty-text'
@@ -178,6 +197,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   PlaygroundRoute: typeof PlaygroundRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogPrettyTextRoute: typeof BlogPrettyTextRoute
@@ -188,6 +208,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   PlaygroundRoute: PlaygroundRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogPrettyTextRoute: BlogPrettyTextRoute,
@@ -209,6 +230,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/about",
         "/playground",
         "/blog/$slug",
         "/blog/pretty-text",
@@ -219,6 +241,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/about": {
+      "filePath": "about.tsx"
     },
     "/playground": {
       "filePath": "playground.tsx"

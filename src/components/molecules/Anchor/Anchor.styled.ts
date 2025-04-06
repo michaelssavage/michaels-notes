@@ -46,10 +46,7 @@ export const LinkStyle = styled(Link)<IStyle>`
           border: none;
           color: ${theme.colors.button};
           &:hover {
-            box-shadow: inset 0 0 0 2em ${theme.colors.link};
-            border-color: ${theme.colors.link};
-            color: #fff;
-            text-decoration: none;
+            color: ${theme.colors.link};
           }
         `;
 			case "text":
