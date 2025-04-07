@@ -52,8 +52,14 @@ export default defineConfig(({ mode }) => ({
 				main: path.resolve(__dirname, "index.html"),
 			},
 			output: {
-				manualChunks: {
-					vendor: ["react", "react-dom"],
+				manualChunks(id) {
+					if (id.includes("node_modules")) {
+						return id
+							.toString()
+							.split("node_modules/")[1]
+							.split("/")[0]
+							.toString();
+					}
 				},
 			},
 		},
