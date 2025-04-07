@@ -7,8 +7,8 @@ export const Panel = styled.div<{ styles?: SerializedStyles }>`
   gap: 0.5rem;
 
   ${({ styles }) =>
-    styles &&
-    css`
+		styles &&
+		css`
       ${styles}
     `}
 `;
@@ -25,6 +25,8 @@ export const Box = styled.div`
     border: 2px solid ${({ theme }) => theme.colors.text};
     border-radius: 9999px;
     width: 100%;
+    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.card};
 
     &:focus {
       outline: solid 2px ${({ theme }) => theme.colors.mint};

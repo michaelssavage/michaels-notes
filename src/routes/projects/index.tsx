@@ -4,9 +4,10 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
+import { useContent } from "@/context/ContentProvider";
 import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
-import { Header, SpotifyContent } from "@/styles/routes/projects.styled";
+import { Header, Page, SpotifyContent } from "@/styles/routes/projects.styled";
 import { type IPosts, type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useMemo, useState } from "react";
@@ -20,16 +21,18 @@ export const Route = createFileRoute("/projects/")({
 	component: Projects,
 });
 
-const { projects }: IPosts = import.meta.env.POSTS;
-
 const description =
 	"Personal development, work, code challenges, and university projects.";
 
 function Projects() {
+	const { content, isLoading } = useContent();
+
 	const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
 	const handleTechClick = (tech: ITechnology) => {
 		setSelectedTech(tech === selectedTech ? null : tech);
 	};
+
+	const { projects } = content as IPosts;
 
 	const filteredProjects = useMemo(() => {
 		return projects
@@ -37,10 +40,22 @@ function Projects() {
 				selectedTech ? project.technology.includes(selectedTech) : true,
 			)
 			.sort(sortById);
-	}, [selectedTech]);
+	}, [selectedTech, projects]);
+
+	if (isLoading) {
+		return (
+			<Container>
+				<MetaData title="My Blog" description={description} />
+				<Header>
+					<Loading />
+				</Header>
+			</Container>
+		);
+	}
 
 	return (
-		<>
+		<Page>
+			<MetaData title="My Projects" description={description} />
 			<Container>
 				<Header>
 					<p>{description}</p>
@@ -60,7 +75,6 @@ function Projects() {
 			</Container>
 			<Carousel slides={filteredProjects} hasFiltered={selectedTech !== null} />
 			<Container>
-				<MetaData title="My Projects" description={description} />
 				<Suspense fallback={<Loading />}>
 					<SpotifyContent>
 						<Header>
@@ -83,6 +97,6 @@ function Projects() {
 					</SpotifyContent>
 				</Suspense>
 			</Container>
-		</>
+		</Page>
 	);
 }

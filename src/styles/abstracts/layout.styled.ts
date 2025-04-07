@@ -3,32 +3,32 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 interface IGroup {
-  direction?: "row" | "column" | "row-reverse" | "column-reverse";
-  align?: "flex-start" | "flex-end" | "center";
-  justify?: "flex-start" | "flex-end" | "center";
-  gap?: string;
+	direction?: "row" | "column" | "row-reverse" | "column-reverse";
+	align?: "flex-start" | "flex-end" | "center";
+	justify?: "flex-start" | "flex-end" | "center";
+	gap?: string;
 }
 
 interface IContainer extends IGroup {
-  maxWidth?: string;
-  padding?: string;
+	maxWidth?: string;
+	padding?: string;
 }
 
 type IRow = {
-  gap?: [string, string];
-  flex?: string;
+	gap?: [string, string];
+	flex?: string;
 };
 
 type ICol = {
-  size?: "md" | "sm";
-  gap?: string;
-  flex?: string;
+	size?: "md" | "sm";
+	gap?: string;
+	flex?: string;
 };
 
 export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
-  margin: 0 auto 2rem;
+  margin: 0 auto;
   max-width: ${({ maxWidth }) => maxWidth ?? "60%"};
   padding: ${({ padding }) => padding ?? "0 0 1rem"};
   align-items: ${({ align }) => align ?? "stretch"};
@@ -59,9 +59,9 @@ export const Col = styled.div<ICol>`
   height: auto;
   width: 100%;
   ${({ size }) => {
-    switch (size) {
-      case "sm":
-        return css`
+		switch (size) {
+			case "sm":
+				return css`
           flex: 0 0 25%;
           max-width: 25%;
 
@@ -75,8 +75,8 @@ export const Col = styled.div<ICol>`
             max-width: 100%;
           `)}
         `;
-      case "md":
-        return css`
+			case "md":
+				return css`
           flex: 0 0 50%;
           max-width: 50%;
 
@@ -85,8 +85,8 @@ export const Col = styled.div<ICol>`
             max-width: 100%;
           `)}
         `;
-      default:
-        return css`
+			default:
+				return css`
           flex: 0 0 25%;
           max-width: 25%;
 
@@ -100,8 +100,8 @@ export const Col = styled.div<ICol>`
             max-width: 100%;
           `)}
         `;
-    }
-  }}
+		}
+	}}
 `;
 
 export const Group = (props?: IGroup) => css`

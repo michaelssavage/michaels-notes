@@ -23,6 +23,7 @@ export const Header = styled.header`
     font-size: 1.4rem;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     gap: 2rem;
     padding: 0;
     text-transform: uppercase;

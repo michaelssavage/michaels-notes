@@ -22,13 +22,17 @@ export const Arrow = styled(ArrowDown)`
   cursor: pointer;
 `;
 
-export const Section = styled(motion.div)`
+export const Section = styled(motion.div)<{
+	main?: string;
+	bg?: string;
+}>`
   height: calc(100vh);
   display: flex;
   align-items: center;
   justify-content: center;
   scroll-snap-align: center;
-  background-color: ${({ color }) => color || "transparent"};
+  color: ${({ main, theme }) => main || theme.colors.text};
+  background-color: ${({ bg }) => bg || "transparent"};
 
   &:first-of-type {
     height: 85vh;

@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
 export const headerStyle = css`
-  margin: 1rem 0.5rem 2rem;
+  margin: 0 0.5rem 2rem;
 `;
 
 export const Heading = styled.h1`

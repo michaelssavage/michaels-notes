@@ -16,6 +16,7 @@ async function processMDXFiles(directory: string) {
 	const files = fs
 		.readdirSync(directory)
 		.filter((file) => file.endsWith(".mdx"));
+
 	return await Promise.all(
 		files.map(async (file) => {
 			const filePath = path.resolve(directory, file);

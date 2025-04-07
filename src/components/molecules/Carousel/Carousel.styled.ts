@@ -11,7 +11,6 @@ export const CarouselContainer = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
-  margin-bottom: 1rem;
   height: fit-content;
 `;
 

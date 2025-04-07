@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 import "highlight.js/styles/monokai.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import { ContentProvider } from "@/context/ContentProvider";
 import { PostHogProvider } from "posthog-js/react";
 import React from "react";
 
@@ -19,7 +20,6 @@ const options = {
 // Set up a Router instance
 const router = createRouter({
 	routeTree,
-	defaultPreload: "intent",
 });
 
 // Register things for typesafety
@@ -42,7 +42,9 @@ if (!rootElement.innerHTML) {
 				}
 				options={options}
 			>
-				<RouterProvider router={router} />
+				<ContentProvider>
+					<RouterProvider router={router} />
+				</ContentProvider>
 			</PostHogProvider>
 		</React.StrictMode>,
 	);

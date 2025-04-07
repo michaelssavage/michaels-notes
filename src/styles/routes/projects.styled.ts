@@ -10,6 +10,10 @@ interface ICard {
 	bg: string;
 }
 
+export const Page = styled.section`
+  margin: 2rem 0;
+  `;
+
 export const CardWrapper = styled.div`
   position: relative;
   transform-style: preserve-3d;

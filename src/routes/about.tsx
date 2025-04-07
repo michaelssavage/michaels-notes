@@ -12,6 +12,7 @@ import {
 	selfieStyle,
 } from "@/styles/routes/home.styled";
 import { Content } from "@/styles/routes/home.styled";
+import { useTheme } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/about")({
@@ -19,9 +20,10 @@ export const Route = createFileRoute("/about")({
 });
 
 function About() {
+	const theme = useTheme();
 	return (
 		<Content>
-			<Section color="#b8f2e6">
+			<Section main={theme.colors.moon} bg={theme.colors.section1}>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
 						<Picture src={selfieImg} alt="Picture of Me" style={selfieStyle} />
@@ -35,27 +37,7 @@ function About() {
 				</Paragraph>
 			</Section>
 
-			<Section color="#ffa69e">
-				<Paragraph>
-					<Group direction="column" align="center">
-						<p>
-							I've played sports like Gaelic Football and rugby all my life. I
-							represented the Ulster Club u18s rugby team, and have played for
-							Monaghan RFC, Ennis RFC, and Corinthians RFC. Recently I've taken
-							up running and completed the Barcelona Half Marathon 1 hour and 44
-							minutes.
-						</p>
-					</Group>
-				</Paragraph>
-			</Section>
-
-			<Section color="#aed9e0">
-				<Paragraph>
-					<Letterboxd />
-				</Paragraph>
-			</Section>
-
-			<Section>
+			<Section main={theme.colors.section2}>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
 						<Picture
@@ -74,6 +56,26 @@ function About() {
 							took hold in Ireland and Scotland. I learned to DJ, create events,
 							design posters, and I'm always trying my hand at producing music
 							on Ableton.
+						</p>
+					</Group>
+				</Paragraph>
+			</Section>
+
+			<Section main={theme.colors.section4} bg={theme.colors.section4b}>
+				<Paragraph>
+					<Letterboxd />
+				</Paragraph>
+			</Section>
+
+			<Section main={theme.colors.toggle} bg={theme.colors.card}>
+				<Paragraph>
+					<Group direction="column" align="center">
+						<p>
+							I've played sports like Gaelic Football and rugby all my life. I
+							represented the Ulster Club u18s rugby team, and have played for
+							Monaghan RFC, Ennis RFC, and Corinthians RFC. Recently I've taken
+							up running and completed the Barcelona Half Marathon 1 hour and 44
+							minutes.
 						</p>
 					</Group>
 				</Paragraph>

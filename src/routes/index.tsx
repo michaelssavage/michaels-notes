@@ -9,6 +9,7 @@ import { Loading } from "@/components/molecules/Loading";
 import { NoPost } from "@/components/molecules/Post/NoPost";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { Weather } from "@/components/molecules/Weather";
+import { useContent } from "@/context/ContentProvider";
 import { sortByDate } from "@/lib/utils";
 import { Col, Row } from "@/styles/abstracts/layout.styled";
 import {
@@ -37,10 +38,10 @@ export const Route = createFileRoute("/")({
 	component: Blog,
 });
 
-const { blogs, bites }: IPosts = import.meta.env.POSTS;
 const description = "Learnings, mishaps, and articles about random things.";
 
 function Blog() {
+	const { content, isLoading } = useContent();
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filter, setFilter] = useState<FilterState>({
 		isPlantBassd: true,
@@ -54,6 +55,8 @@ function Blog() {
 		},
 		[filter],
 	);
+
+	const { blogs, bites } = content as IPosts;
 
 	const posts = useMemo(() => {
 		const searchLowercase = searchQuery.toLowerCase();
@@ -82,7 +85,18 @@ function Blog() {
 			: [];
 
 		return [...filteredBlogs, ...filteredBites].sort(sortByDate);
-	}, [filter, searchQuery]);
+	}, [filter, searchQuery, blogs, bites]);
+
+	if (isLoading) {
+		return (
+			<Page>
+				<MetaData title="My Blog" description={description} />
+				<Panel>
+					<Loading />
+				</Panel>
+			</Page>
+		);
+	}
 
 	return (
 		<Page>

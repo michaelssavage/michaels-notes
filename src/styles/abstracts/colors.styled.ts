@@ -30,6 +30,10 @@ export const lightTheme = {
 		icon: "#655b52",
 		background: "#F5F1EA",
 		underlined: "#C4704F",
+		section1: "#b5422f",
+		section2: "#5f68cf",
+		section4: "#251E19",
+		section4b: "#fd92b4",
 	},
 };
 
@@ -44,6 +48,10 @@ export const darkTheme = {
 		icon: "#9C8E83",
 		background: "#0F0C0A",
 		underlined: "#E8916F",
+		section1: "#42160f",
+		section2: "#F2E9E1",
+		section4: "#fd92b4",
+		section4b: "#251E19",
 	},
 };
 

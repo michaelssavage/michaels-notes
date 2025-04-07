@@ -4,7 +4,15 @@ import {
 	CarouselTrack,
 } from "@/components/molecules/Carousel/Carousel.styled";
 import type { IProject } from "@/types/Post";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+	type MouseEvent as ReactMouseEvent,
+	type TouchEvent as ReactTouchEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 
 interface Props {
 	slides: Array<IProject>;
@@ -14,6 +22,10 @@ interface Props {
 const Carousel = ({ slides, hasFiltered }: Props) => {
 	const [translate, setTranslate] = useState(0);
 	const [isPaused, setIsPaused] = useState(false);
+	const [isDragging, setIsDragging] = useState(false);
+	const [dragStartX, setDragStartX] = useState(0);
+	const [dragOffset, setDragOffset] = useState(0);
+
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [width, setWidth] = useState(0);
 	const animationRef = useRef<number>();
@@ -110,9 +122,86 @@ const Carousel = ({ slides, hasFiltered }: Props) => {
 		setIsPaused(false);
 	}, []);
 
+	const handleDragStart = useCallback(
+		(e: ReactMouseEvent | ReactTouchEvent) => {
+			const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+
+			setIsDragging(true);
+			setIsPaused(true);
+			setDragStartX(clientX || 0);
+			setDragOffset(translate);
+		},
+		[translate],
+	);
+
+	const handleDragMove = useCallback(
+		(e: MouseEvent | TouchEvent) => {
+			if (!isDragging) return;
+
+			const clientX = "touches" in e ? e.touches[0]?.clientX : e.clientX;
+			if (typeof clientX !== "number") return;
+
+			const dragDistance = clientX - dragStartX;
+			setTranslate(dragOffset + dragDistance);
+		},
+		[isDragging, dragStartX, dragOffset],
+	);
+
+	const handleDragEnd = useCallback(() => {
+		setIsDragging(false);
+		setTimeout(() => {
+			if (!containerRef.current?.matches(":hover")) {
+				setIsPaused(false);
+			}
+		}, 100);
+	}, []);
+
+	useEffect(() => {
+		const handleMouseMove = (e: MouseEvent) => {
+			if (isDragging) {
+				handleDragMove(e);
+			}
+		};
+
+		const handleTouchMove = (e: TouchEvent) => {
+			if (isDragging) {
+				handleDragMove(e);
+			}
+		};
+
+		const handleMouseUp = () => {
+			if (isDragging) {
+				handleDragEnd();
+			}
+		};
+
+		const handleTouchEnd = () => {
+			if (isDragging) {
+				handleDragEnd();
+			}
+		};
+
+		document.addEventListener("mousemove", handleMouseMove);
+		document.addEventListener("mouseup", handleMouseUp);
+		document.addEventListener("touchmove", handleTouchMove);
+		document.addEventListener("touchend", handleTouchEnd);
+
+		return () => {
+			document.removeEventListener("mousemove", handleMouseMove);
+			document.removeEventListener("mouseup", handleMouseUp);
+			document.removeEventListener("touchmove", handleTouchMove);
+			document.removeEventListener("touchend", handleTouchEnd);
+		};
+	}, [isDragging, handleDragMove, handleDragEnd]);
+
 	return (
 		<CarouselContainer ref={containerRef}>
-			<CarouselTrack x={translate} isPaused={isPaused || hasFiltered}>
+			<CarouselTrack
+				x={translate}
+				isPaused={isPaused || hasFiltered}
+				onMouseDown={handleDragStart}
+				onTouchStart={handleDragStart}
+			>
 				{allSlides.map((slide, index) => (
 					<Project
 						key={`${slide.id}-${index}`}
