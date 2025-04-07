@@ -24,7 +24,7 @@ function Slug() {
 	const { slug } = Route.useParams();
 	const { projects }: IPosts = import.meta.env.POSTS;
 	const doc = projects.find((post) => post.slug === slug);
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 
 	if (!doc) {
 		return <div>Project post not found</div>;

@@ -10,19 +10,26 @@ interface IStyle {
 
 export const LinkStyle = styled(Link)<IStyle>`
   text-decoration: none;
-  display: inline-flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: row;
-  gap: 2px;
   transition: all 0.35s;
   border-radius: 5px;
   width: fit-content;
+  position: relative;
+  
+  &:hover {
+    svg {
+      opacity: 1;
+    }
+  }
 
   svg {
+    position: absolute;
+    top: 0;
+    right: -1.2rem;
     flex-shrink: 0;
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 1rem;
+    height: 1rem;
+    opacity: 0;
+    transition: opacity 0.25s;
   }
 
   ${({ variant, theme }) => {

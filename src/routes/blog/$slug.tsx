@@ -19,7 +19,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function Slug() {
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 
 	const { slug } = Route.useParams();
 	const { blogs }: IPosts = import.meta.env.POSTS;
