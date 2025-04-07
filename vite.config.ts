@@ -52,29 +52,8 @@ export default defineConfig(({ mode }) => ({
 				main: path.resolve(__dirname, "index.html"),
 			},
 			output: {
-				manualChunks: (id) => {
-					if (
-						id.includes("/react/") ||
-						id.includes("/react-dom/") ||
-						id.includes("main.tsx")
-					) {
-						return "critical";
-					}
-
-					if (
-						id.includes("PostsContext") ||
-						id.includes("getPosts") ||
-						id.includes("/content/")
-					) {
-						return "post-data";
-					}
-
-					if (id.includes("node_modules")) {
-						if (id.includes("@emotion")) return "vendor-emotion";
-						if (id.includes("react")) return "vendor-react";
-						if (id.includes("@tanstack")) return "vendor-tanstack";
-						return "vendor";
-					}
+				manualChunks: {
+					vendor: ["react", "react-dom"],
 				},
 			},
 		},
