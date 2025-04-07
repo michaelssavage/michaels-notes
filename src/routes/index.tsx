@@ -56,7 +56,7 @@ function Blog() {
 		[filter],
 	);
 
-	const { blogs, bites } = content as IPosts;
+	const { blogs = [], bites = [] } = content || ({} as IPosts);
 
 	const posts = useMemo(() => {
 		const searchLowercase = searchQuery.toLowerCase();

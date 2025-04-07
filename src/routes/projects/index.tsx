@@ -32,7 +32,7 @@ function Projects() {
 		setSelectedTech(tech === selectedTech ? null : tech);
 	};
 
-	const { projects } = content as IPosts;
+	const { projects = [] } = content || ({} as IPosts);
 
 	const filteredProjects = useMemo(() => {
 		return projects
