@@ -31,11 +31,7 @@ export type FilterState = {
 	isBite: boolean;
 };
 
-const Post = lazy(() =>
-	import("@/components/molecules/Post/Post").then((module) => ({
-		default: module.Post,
-	})),
-);
+const Post = lazy(() => import("@/components/molecules/Post/Post"));
 
 export const Route = createFileRoute("/")({
 	component: Blog,

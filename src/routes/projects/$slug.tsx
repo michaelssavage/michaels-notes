@@ -10,11 +10,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useState } from "react";
 import type { IProject } from "../../types/Post";
 
-const Markdown = lazy(() =>
-	import("@/components/atoms").then((module) => ({
-		default: module.Markdown,
-	})),
-);
+const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 
 export const Route = createFileRoute("/projects/$slug")({
 	component: Slug,

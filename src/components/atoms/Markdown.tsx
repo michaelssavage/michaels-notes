@@ -47,7 +47,7 @@ interface MarkdownProps {
 	};
 }
 
-export const Markdown = memo(({ content }: MarkdownProps) => {
+const Markdown = memo(({ content }: MarkdownProps) => {
 	const Component = useMemo(() => {
 		return getMDXComponent(content.code, MDX_GLOBAL_CONFIG);
 	}, [content]);
@@ -58,3 +58,6 @@ export const Markdown = memo(({ content }: MarkdownProps) => {
 		</MDXProvider>
 	);
 });
+
+Markdown.displayName = "Markdown";
+export default Markdown;

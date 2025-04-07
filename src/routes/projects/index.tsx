@@ -2,7 +2,6 @@ import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
-import { Carousel } from "@/components/molecules/Carousel/Carousel";
 import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay";
 import { sortById } from "@/lib/utils";
@@ -12,11 +11,10 @@ import { type IPosts, type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useMemo, useState } from "react";
 
-const TopTracks = lazy(() =>
-	import("@/components/spotify/TopTracks").then((module) => ({
-		default: module.TopTracks,
-	})),
+const TopTracks = lazy(
+	() => import("@/components/spotify/TopTracks/TopTracks"),
 );
+const Carousel = lazy(() => import("@/components/molecules/Carousel/Carousel"));
 
 export const Route = createFileRoute("/projects/")({
 	component: Projects,
@@ -43,9 +41,7 @@ function Projects() {
 
 	return (
 		<>
-			<Carousel slides={filteredProjects} hasFiltered={selectedTech !== null} />
 			<Container>
-				<MetaData title="My Projects" description={description} />
 				<Header>
 					<p>{description}</p>
 					<Group wrap="wrap">
@@ -61,6 +57,10 @@ function Projects() {
 						))}
 					</Group>
 				</Header>
+			</Container>
+			<Carousel slides={filteredProjects} hasFiltered={selectedTech !== null} />
+			<Container>
+				<MetaData title="My Projects" description={description} />
 				<Suspense fallback={<Loading />}>
 					<SpotifyContent>
 						<Header>

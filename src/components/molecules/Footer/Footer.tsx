@@ -1,6 +1,6 @@
 import { Content, Separator, Wrapper } from "./Footer.styled";
 
-export const Footer = () => {
+const Footer = () => {
 	return (
 		<Wrapper>
 			<Content>
@@ -19,3 +19,5 @@ export const Footer = () => {
 		</Wrapper>
 	);
 };
+
+export default Footer;

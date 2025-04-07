@@ -23,7 +23,7 @@ const NavLink = memo(({ to, text }: Props) => {
 	);
 });
 
-export const Navbar = () => {
+const Navbar = () => {
 	const captureCvClick = () => {
 		posthog.capture("cv_download_clicked", {
 			source: "resume_button",
@@ -74,3 +74,5 @@ export const Navbar = () => {
 		</Header>
 	);
 };
+
+export default Navbar;

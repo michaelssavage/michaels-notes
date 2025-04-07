@@ -6,7 +6,7 @@ import type { ITopTrack } from "@/types/Spotify";
 import { useQuery } from "@tanstack/react-query";
 import { ArtistName, Card, TrackName } from "./TopTracks.styled";
 
-export const TopTracks = () => {
+const TopTracks = () => {
 	const { data, isLoading } = useQuery<Array<ITopTrack>>({
 		queryKey: ["top-tracks"],
 		queryFn: fetchTopTracks,
@@ -34,3 +34,5 @@ export const TopTracks = () => {
 		</Scroll>
 	);
 };
+
+export default TopTracks;

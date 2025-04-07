@@ -8,11 +8,7 @@ import type { IBlog, IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useState } from "react";
 
-const Markdown = lazy(() =>
-	import("@/components/atoms").then((module) => ({
-		default: module.Markdown,
-	})),
-);
+const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 
 export const Route = createFileRoute("/blog/$slug")({
 	component: Slug,

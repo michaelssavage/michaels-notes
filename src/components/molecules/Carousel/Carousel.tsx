@@ -11,7 +11,7 @@ interface Props {
 	hasFiltered: boolean;
 }
 
-export const Carousel = ({ slides, hasFiltered }: Props) => {
+const Carousel = ({ slides, hasFiltered }: Props) => {
 	const [translate, setTranslate] = useState(0);
 	const [isPaused, setIsPaused] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -125,3 +125,5 @@ export const Carousel = ({ slides, hasFiltered }: Props) => {
 		</CarouselContainer>
 	);
 };
+
+export default Carousel;

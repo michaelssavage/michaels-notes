@@ -2,7 +2,7 @@ import { useTheme } from "@/context/ThemeProvider";
 import { MoonIcon, SunIcon } from "../../icons";
 import { ToggleIcon, ToggleInput } from "./Toggle.styled";
 
-export const Toggle = () => {
+const Toggle = () => {
 	const { mode, toggleTheme } = useTheme();
 
 	return (
@@ -17,3 +17,5 @@ export const Toggle = () => {
 		</ToggleIcon>
 	);
 };
+
+export default Toggle;

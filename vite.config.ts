@@ -52,8 +52,13 @@ export default defineConfig(({ mode }) => ({
 				main: path.resolve(__dirname, "index.html"),
 			},
 			output: {
-				manualChunks: {
-					vendor: ["react", "react-dom"],
+				manualChunks: (id) => {
+					if (id.includes("node_modules")) {
+						if (id.includes("@emotion")) return "vendor-emotion";
+						if (id.includes("react")) return "vendor-react";
+						if (id.includes("@tanstack")) return "vendor-tanstack";
+						return "vendor";
+					}
 				},
 			},
 		},

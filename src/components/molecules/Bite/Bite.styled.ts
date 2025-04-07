@@ -25,7 +25,7 @@ export const Text = styled.p`
   `)}
 `;
 
-export const BiteItem = styled.li`
+export const BiteItem = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;

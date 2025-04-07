@@ -24,23 +24,11 @@ const TanStackRouterDevtools =
 				})),
 			);
 
-const Toggle = lazy(() =>
-	import("@/components/molecules/Toggle").then((module) => ({
-		default: module.Toggle,
-	})),
-);
+const Toggle = lazy(() => import("@/components/molecules/Toggle/Toggle"));
 
-const Navbar = lazy(() =>
-	import("@/components/molecules/Navbar").then((module) => ({
-		default: module.Navbar,
-	})),
-);
+const Navbar = lazy(() => import("@/components/molecules/Navbar/Navbar"));
 
-const Footer = lazy(() =>
-	import("@/components/molecules/Footer").then((module) => ({
-		default: module.Footer,
-	})),
-);
+const Footer = lazy(() => import("@/components/molecules/Footer/Footer"));
 
 export const Route = createRootRoute({
 	component: RootComponent,
