@@ -8,6 +8,7 @@ export const fonts = css`
     src: url(${rawestFont}) format("woff2");
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
@@ -15,5 +16,6 @@ export const fonts = css`
     src: url(${nudicaFont}) format("woff2");
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
   }
 `;

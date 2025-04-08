@@ -7,6 +7,7 @@ import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog, IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useState } from "react";
+import "highlight.js/styles/monokai.css";
 
 const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 

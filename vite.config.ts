@@ -1,6 +1,7 @@
 import path from "node:path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
 import { type Plugin, defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { getContentPosts } from "./src/lib/getPosts";
@@ -30,7 +31,7 @@ export default defineConfig(({ mode }) => ({
 		open: true,
 	},
 	plugins: [
-		TanStackRouterVite({}),
+		TanStackRouterVite({ autoCodeSplitting: true }),
 		react({
 			include: /\.(mdx|tsx|ts)$/,
 			jsxImportSource: "@emotion/react",
@@ -40,6 +41,7 @@ export default defineConfig(({ mode }) => ({
 		}),
 		tsconfigPaths(),
 		postsPlugin(),
+		visualizer({ open: true }),
 	],
 	build: {
 		outDir: "dist",

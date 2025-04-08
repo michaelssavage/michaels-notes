@@ -13,9 +13,9 @@ import {
 } from "@/styles/routes/home.styled";
 import { Content } from "@/styles/routes/home.styled";
 import { useTheme } from "@emotion/react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/about")({
+export const Route = createLazyFileRoute("/about")({
 	component: About,
 });
 

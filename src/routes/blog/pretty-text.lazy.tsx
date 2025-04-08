@@ -17,12 +17,12 @@ import {
 	viewMoreButtonStyles,
 } from "@/styles/routes/rekordbox-prettifier.styled";
 import { exampleRekordboxText } from "@/utils";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import rekordbox from "src/assets/images/blog/export-playlist.jpg";
 
-export const Route = createFileRoute("/blog/pretty-text")({
+export const Route = createLazyFileRoute("/blog/pretty-text")({
 	component: RekordboxPrettifier,
 });
 

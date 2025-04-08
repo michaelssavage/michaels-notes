@@ -1,6 +1,6 @@
 import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
-import type { FilterState } from "@/routes";
+import type { FilterState } from "@/routes/index.lazy";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";

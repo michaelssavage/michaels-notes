@@ -47,7 +47,6 @@ export interface IProject {
 	code: string;
 	slug: string;
 	id: number;
-	image: string;
 	title: string;
 	date: string;
 	description: string;

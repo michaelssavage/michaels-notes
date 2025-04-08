@@ -9,6 +9,7 @@ import type { IPosts } from "@/types/Post";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useState } from "react";
 import type { IProject } from "../../types/Post";
+import "highlight.js/styles/monokai.css";
 
 const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 

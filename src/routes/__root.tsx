@@ -11,7 +11,6 @@ import {
 } from "@tanstack/react-router";
 import { Suspense, lazy } from "react";
 import { HelmetProvider } from "react-helmet-async";
-import { ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient();
 
@@ -25,10 +24,11 @@ const TanStackRouterDevtools =
 			);
 
 const Toggle = lazy(() => import("@/components/molecules/Toggle/Toggle"));
-
 const Navbar = lazy(() => import("@/components/molecules/Navbar/Navbar"));
-
 const Footer = lazy(() => import("@/components/molecules/Footer/Footer"));
+const LazyToastContainer = lazy(
+	() => import("@/components/atoms/ToastContainer"),
+);
 
 export const Route = createRootRoute({
 	component: RootComponent,
@@ -41,7 +41,7 @@ function RootComponent() {
 			<QueryClientProvider client={queryClient}>
 				<Suspense fallback={<Loading />}>
 					<MetaData />
-					<ToastContainer />
+					<LazyToastContainer />
 					<ThemeProvider>
 						<Navbar />
 						<Toggle />

@@ -23,7 +23,7 @@ import {
 	headerStyle,
 } from "@/styles/routes/blog.styled";
 import type { IPosts } from "@/types/Post";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useCallback, useMemo, useState } from "react";
 
 export type FilterState = {
@@ -34,7 +34,7 @@ export type FilterState = {
 
 const Post = lazy(() => import("@/components/molecules/Post/Post"));
 
-export const Route = createFileRoute("/")({
+export const Route = createLazyFileRoute("/")({
 	component: Blog,
 });
 

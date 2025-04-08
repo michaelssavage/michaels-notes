@@ -9,7 +9,7 @@ import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
 import { Header, Page, SpotifyContent } from "@/styles/routes/projects.styled";
 import { type IPosts, type ITechnology, TECHNOLOGIES } from "@/types/Post";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { Suspense, lazy, useMemo, useState } from "react";
 
 const TopTracks = lazy(
@@ -17,7 +17,7 @@ const TopTracks = lazy(
 );
 const Carousel = lazy(() => import("@/components/molecules/Carousel/Carousel"));
 
-export const Route = createFileRoute("/projects/")({
+export const Route = createLazyFileRoute("/projects/")({
 	component: Projects,
 });
 
