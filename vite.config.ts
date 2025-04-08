@@ -46,6 +46,7 @@ export default defineConfig(({ mode }) => ({
 	build: {
 		outDir: "dist",
 		cssCodeSplit: true,
+		cssMinify: true,
 		minify: "esbuild",
 		emptyOutDir: true,
 		sourcemap: mode === "development",
