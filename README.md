@@ -2,8 +2,7 @@
 
 Live at [michaelsavage.ie](https://michaelsavage.ie)
 
-- Initially built in Nuxt.js and SCSS, using ESLint and Prettier for linting.
-- Refactored with React, Typescript, Vite, and @emotion, using Biome for linting.
+Personal site built with React, Typescript, Vite, and @emotion, using Biome for linting. Blog posts written locally with MDX.
 
 ## Running locally:
 
@@ -17,3 +16,7 @@ Live at [michaelsavage.ie](https://michaelsavage.ie)
 
 `npm run lint`
 - run biome linting.
+
+## TODO:
+
+- re-add spotify previews: https://github.com/rexdotsh/spotify-preview-url-workaround
