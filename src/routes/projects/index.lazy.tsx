@@ -1,9 +1,10 @@
 import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
+import { Project } from "@/components/atoms/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { Loading } from "@/components/molecules/Loading";
-import { CurrentPlay } from "@/components/spotify/CurrentPlay";
+import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import { useContent } from "@/context/ContentProvider";
 import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
@@ -15,7 +16,6 @@ import { Suspense, lazy, useMemo, useState } from "react";
 const TopTracks = lazy(
 	() => import("@/components/spotify/TopTracks/TopTracks"),
 );
-const Carousel = lazy(() => import("@/components/molecules/Carousel/Carousel"));
 
 export const Route = createLazyFileRoute("/projects/")({
 	component: Projects,
@@ -34,13 +34,9 @@ function Projects() {
 
 	const { projects = [] } = content || ({} as IPosts);
 
-	const filteredProjects = useMemo(() => {
-		return projects
-			.filter((project) =>
-				selectedTech ? project.technology.includes(selectedTech) : true,
-			)
-			.sort(sortById);
-	}, [selectedTech, projects]);
+	const sortedProjects = useMemo(() => {
+		return projects.sort(sortById);
+	}, [projects]);
 
 	if (isLoading) {
 		return (
@@ -73,8 +69,16 @@ function Projects() {
 					</Group>
 				</Header>
 			</Container>
-			<Carousel slides={filteredProjects} hasFiltered={selectedTech !== null} />
-			<Container>
+			<Group wrap="wrap" justify="center">
+				{sortedProjects.map((project) => (
+					<Project
+						key={project.id}
+						data={project}
+						selectedTech={selectedTech}
+					/>
+				))}
+			</Group>
+			<Container maxWidth="70%">
 				<Suspense fallback={<Loading />}>
 					<SpotifyContent>
 						<Header>

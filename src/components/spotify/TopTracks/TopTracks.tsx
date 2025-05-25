@@ -1,4 +1,4 @@
-import { fetchTopTracks } from "@/api/top-tracks";
+import { fetchTopTracks } from "@/api/top-tracks.api";
 import { ExternalLinkIcon } from "@/components/icons";
 import { Scroll } from "@/components/molecules/Scroll";
 import { getRandomColor } from "@/lib/colors";

@@ -1,4 +1,4 @@
-import { fetchTheWeather } from "@/api/get-weather";
+import { fetchTheWeather } from "@/api/get-weather.api";
 import { Loading } from "@/components/molecules/Loading";
 import { type IWeather, WeatherIcon } from "@/types/Weather";
 import { useQuery } from "@tanstack/react-query";

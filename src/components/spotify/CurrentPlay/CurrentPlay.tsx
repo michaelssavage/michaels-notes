@@ -1,4 +1,7 @@
-import { fetchCurrentTrack, fetchRecentTrack } from "@/api/fetch-current-track";
+import {
+	fetchCurrentTrack,
+	fetchRecentTrack,
+} from "@/api/fetch-current-track.api";
 import { ExternalLinkIcon } from "@/components/icons";
 import {
 	Content,
@@ -29,6 +32,11 @@ export const CurrentPlay = () => {
 	const trackData = currentTrack?.data?.isPlaying
 		? currentTrack?.data
 		: recentTrack?.data;
+
+	console.log("!!!!", {
+		currentTrack,
+		recentTrack,
+	});
 
 	const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 

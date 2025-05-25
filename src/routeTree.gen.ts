@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as PlaygroundImport } from './routes/playground'
+import { Route as BlogIndexImport } from './routes/blog/index'
 import { Route as ProjectsSlugImport } from './routes/projects/$slug'
 import { Route as BlogSlugImport } from './routes/blog/$slug'
 
@@ -22,7 +23,6 @@ import { Route as BlogSlugImport } from './routes/blog/$slug'
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 const ProjectsIndexLazyImport = createFileRoute('/projects/')()
-const BlogIndexLazyImport = createFileRoute('/blog/')()
 const BlogPrettyTextLazyImport = createFileRoute('/blog/pretty-text')()
 
 // Create/Update Routes
@@ -49,10 +49,10 @@ const ProjectsIndexLazyRoute = ProjectsIndexLazyImport.update({
   import('./routes/projects/index.lazy').then((d) => d.Route),
 )
 
-const BlogIndexLazyRoute = BlogIndexLazyImport.update({
+const BlogIndexRoute = BlogIndexImport.update({
   path: '/blog/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/blog').then((d) => d.Route))
+} as any)
 
 const BlogPrettyTextLazyRoute = BlogPrettyTextLazyImport.update({
   path: '/blog/pretty-text',
@@ -121,7 +121,7 @@ declare module '@tanstack/react-router' {
       id: '/blog/'
       path: '/blog'
       fullPath: '/blog'
-      preLoaderRoute: typeof BlogIndexLazyImport
+      preLoaderRoute: typeof BlogIndexImport
       parentRoute: typeof rootRoute
     }
     '/projects/': {
@@ -143,7 +143,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
-  '/blog': typeof BlogIndexLazyRoute
+  '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
 
@@ -154,7 +154,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
-  '/blog': typeof BlogIndexLazyRoute
+  '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
 
@@ -166,7 +166,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
-  '/blog/': typeof BlogIndexLazyRoute
+  '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexLazyRoute
 }
 
@@ -211,7 +211,7 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   BlogPrettyTextLazyRoute: typeof BlogPrettyTextLazyRoute
-  BlogIndexLazyRoute: typeof BlogIndexLazyRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ProjectsIndexLazyRoute: typeof ProjectsIndexLazyRoute
 }
 
@@ -222,7 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   BlogPrettyTextLazyRoute: BlogPrettyTextLazyRoute,
-  BlogIndexLazyRoute: BlogIndexLazyRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ProjectsIndexLazyRoute: ProjectsIndexLazyRoute,
 }
 
@@ -267,7 +267,7 @@ export const routeTree = rootRoute
       "filePath": "blog/pretty-text.lazy.tsx"
     },
     "/blog/": {
-      "filePath": "blog/index.lazy.tsx"
+      "filePath": "blog/index.tsx"
     },
     "/projects/": {
       "filePath": "projects/index.lazy.tsx"

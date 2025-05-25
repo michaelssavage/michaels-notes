@@ -10,22 +10,26 @@ interface ICard {
 	bg: string;
 }
 
+interface CardWrapperProps {
+	$shouldDim: boolean | null;
+}
+
 export const Page = styled.section`
   margin: 2rem 0;
   `;
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled.div<CardWrapperProps>`
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
-  min-width: 200px;
-  max-width: 200px;
+  min-width: 250px;
+  max-width: 250px;
+  opacity: ${({ $shouldDim }) => ($shouldDim ? 0.5 : 1)};
 
   ${forTabletOnly(css`
   min-width: 150px;
   max-width: 150px;
   `)}
-
 `;
 
 export const Card = styled(Link)`
@@ -47,13 +51,13 @@ export const Card = styled(Link)`
 `;
 
 export const CardTitle = styled.span<{ main: string }>`
-  padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
-  font-size: clamp(0.9rem, 1.5vi + 0.1rem, 1.1rem);
+  padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
+  font-size: clamp(0.8rem, 1.4vi + 0.1rem, 1rem);
   background-color: ${({ main }) => main};
   color: ${({ main }) => getContrastYIQ(main)};
 
   ${forTabletOnly(css`
-    font-size: clamp(0.8rem, 1vi + 0.31rem, 1.13rem);
+    font-size: clamp(0.8rem, 1vi + 0.31rem, 0.95rem);
   `)}
 
   ${forPhoneOnly(css`
@@ -62,8 +66,8 @@ export const CardTitle = styled.span<{ main: string }>`
 `;
 
 export const CardBody = styled.div<{ bg: string }>`
-  padding: clamp(1rem, 1.5vi + 0.15rem, 2rem) 0.5rem;
-  font-size: clamp(0.8rem, 0.9vi + 0.1rem, 1.1rem);
+  padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
+  font-size: clamp(0.8rem, 0.8vi + 0.1rem, 1rem);
   background-color: ${({ bg }) => bg};
   color: ${({ bg }) => getContrastYIQ(bg)};
 
@@ -77,7 +81,7 @@ export const CardBody = styled.div<{ bg: string }>`
 `;
 
 export const Header = styled.div`
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   p {
     margin-bottom: 0.5rem;
   }

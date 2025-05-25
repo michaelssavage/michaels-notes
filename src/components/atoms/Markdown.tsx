@@ -3,7 +3,7 @@ import { Paragraph } from "@/components/content/Paragraph";
 import { UnorderedList } from "@/components/content/UnorderedList";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
-import { CurrentPlay } from "@/components/spotify/CurrentPlay";
+import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import type { ReactNode } from "@tanstack/react-router";
 import { getMDXComponent } from "mdx-bundler/client";

@@ -4,24 +4,20 @@ import {
 	CardTitle,
 	CardWrapper,
 } from "@/styles/routes/projects.styled";
-import type { IProject } from "@/types/Post";
+import type { IProject, ITechnology } from "@/types/Post";
 
 interface Props {
 	data: IProject;
-	onMouseEnter?: () => void;
-	onMouseLeave?: () => void;
+	selectedTech: ITechnology | null;
 }
 
-export const Project = ({ data, onMouseEnter, onMouseLeave }: Props) => {
+export const Project = ({ data, selectedTech }: Props) => {
 	const { id, slug, title, description, colors } = data;
+
+	const shouldDim = selectedTech && !data.technology.includes(selectedTech);
 	return (
-		<CardWrapper>
-			<Card
-				key={id}
-				to={slug}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
-			>
+		<CardWrapper $shouldDim={shouldDim}>
+			<Card key={id} to={slug}>
 				<CardTitle main={colors.main}>{title}</CardTitle>
 				<CardBody bg={colors.bg}>{description}</CardBody>
 			</Card>

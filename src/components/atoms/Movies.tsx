@@ -1,4 +1,4 @@
-import { fetchFavouriteMovies } from "@/api/favorite-movies";
+import { fetchFavouriteMovies } from "@/api/favorite-movies.api";
 import type { IMovie } from "@/types/Movie";
 import { useQuery } from "@tanstack/react-query";
 
