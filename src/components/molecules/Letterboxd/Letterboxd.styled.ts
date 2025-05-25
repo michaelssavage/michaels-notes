@@ -88,11 +88,11 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Button = styled.button<{ isActive: boolean }>`
-  padding: 0.75rem 1.5rem;
+  padding: 0.25rem 1.25rem;
   border: none;
   background-color: ${({ isActive, theme }) =>
-		isActive ? theme.colors.highlight : "transparent"};
-  color: ${({ theme }) => theme.colors.icon};
+		isActive ? theme.colors.button : "transparent"};
+  color: ${({ isActive, theme }) => (isActive ? theme.colors.moon : "#070f06")};
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
