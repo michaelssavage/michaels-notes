@@ -1,3 +1,5 @@
+export { MaximiseIcon } from "./Maximise";
+export { MinimiseIcon } from "./Minimise";
 export { ResumeIcon } from "./Resume";
 export { PauseIcon } from "./Pause";
 export { PlayIcon } from "./Play";
@@ -10,6 +12,7 @@ export { InfoIcon } from "./Info";
 export { LinkedInIcon } from "./LinkedIn";
 export { MailIcon } from "./Mail";
 export { MoonIcon } from "./Moon";
+export { LeftIcon } from "./Left";
 export { RightIcon } from "./Right";
 export { SearchIcon } from "./Search";
 export { SpotifyIcon } from "./Spotify";

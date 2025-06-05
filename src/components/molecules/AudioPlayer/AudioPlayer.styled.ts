@@ -26,6 +26,7 @@ export const Control = styled.button`
 `;
 
 export const Content = styled.div`
+  padding: 1rem 0;
   margin-left: 1rem;
 `;
 

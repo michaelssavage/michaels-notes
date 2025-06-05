@@ -7,7 +7,7 @@ export const Card = styled(Link)`
   background-color: ${({ color }) => color || "#f0f0f0"};
   color: ${({ color }) => getContrastYIQ(color || "#f0f0f0")};
   border-radius: 0.4rem;
-  padding: 0.7rem 1.4rem 0.7rem 0.9rem;
+  padding: 0.7rem 1.4rem 0.7rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -14,6 +14,7 @@ interface IFloating {
 	content: ReactNode;
 	placement?: "top" | "right" | "bottom" | "left";
 	asChild?: boolean;
+	enabled?: boolean;
 }
 
 export const Floating = ({
@@ -21,13 +22,14 @@ export const Floating = ({
 	trigger,
 	content,
 	asChild = true,
+	enabled = true,
 	...options
 }: IFloating) => {
 	if (type === "popover") {
 		return (
 			<Popover {...options}>
 				<PopoverTrigger asChild={asChild}>{trigger}</PopoverTrigger>
-				<PopoverContent>{content}</PopoverContent>
+				{enabled && <PopoverContent>{content}</PopoverContent>}
 			</Popover>
 		);
 	}
@@ -35,7 +37,7 @@ export const Floating = ({
 	return (
 		<Tooltip {...options}>
 			<TooltipTrigger asChild={asChild}>{trigger}</TooltipTrigger>
-			<TooltipContent>{content}</TooltipContent>
+			{enabled && <TooltipContent>{content}</TooltipContent>}
 		</Tooltip>
 	);
 };
