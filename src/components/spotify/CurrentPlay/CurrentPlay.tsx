@@ -61,9 +61,13 @@ export const CurrentPlay = () => {
 	const memoizedColor = useMemo(() => dominantColor, [dominantColor]);
 
 	const fact = useMemo(
-		() => DOMPurify.sanitize(trackFact.data ?? ""),
+		() => DOMPurify.sanitize(trackFact.data?.artist?.bio?.summary ?? ""),
 		[trackFact.data],
 	);
+
+	if (trackFact.error) {
+		console.log("Last fm error: ", trackFact.error);
+	}
 
 	if (currentTrack?.isLoading || recentTrack?.isLoading)
 		return <div>Loading...</div>;
@@ -90,32 +94,35 @@ export const CurrentPlay = () => {
 						</Content>
 					</Player>
 
-					<AnimatePresence initial={false}>
-						{trackFact.data && (
-							<motion.div
-								key="fact"
-								layout
-								initial={{ opacity: 0, height: 0 }}
-								animate={{ height: expanded ? "auto" : 12 }}
-								exit={{ opacity: 0, height: 0 }}
-								transition={{ duration: 0.3 }}
-								style={{ overflow: "hidden" }}
-							>
-								<FactContent
-									// biome-ignore lint/security/noDangerouslySetInnerHtml: dom sanitised
-									dangerouslySetInnerHTML={{ __html: fact }}
-								/>
-							</motion.div>
-						)}
-					</AnimatePresence>
+					{fact && (
+						<>
+							<AnimatePresence initial={false}>
+								<motion.div
+									key="fact"
+									layout
+									initial={{ opacity: 0, height: 0 }}
+									animate={{ height: expanded ? "auto" : 12 }}
+									exit={{ opacity: 0, height: 0 }}
+									transition={{ duration: 0.3 }}
+									style={{ overflow: "hidden" }}
+								>
+									<FactContent
+										color={memoizedColor ?? ""}
+										// biome-ignore lint/security/noDangerouslySetInnerHtml: dom sanitised
+										dangerouslySetInnerHTML={{ __html: fact }}
+									/>
+								</motion.div>
+							</AnimatePresence>
 
-					<ExpandButton
-						onClick={() => setExpanded((prev) => !prev)}
-						color={getRandomColor()}
-					>
-						{expanded ? <MinimiseIcon /> : <MaximiseIcon />}
-						{expanded ? "minimise" : "read more"}
-					</ExpandButton>
+							<ExpandButton
+								onClick={() => setExpanded((prev) => !prev)}
+								color={getRandomColor()}
+							>
+								{expanded ? <MinimiseIcon /> : <MaximiseIcon />}
+								{expanded ? "minimise" : "read more"}
+							</ExpandButton>
+						</>
+					)}
 
 					<Link id="external-track-url" to={trackData?.trackUrl}>
 						<ExternalLinkIcon />
