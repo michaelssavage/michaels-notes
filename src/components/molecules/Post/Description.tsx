@@ -4,9 +4,10 @@ import { DescriptionText, DescriptionWrapper } from "./Post.styled";
 interface IDesc {
 	description: string;
 	isExpanded: boolean;
+	label: string;
 }
 
-export const Description = memo(({ description, isExpanded }: IDesc) => {
+export const Description = memo(({ description, isExpanded, label }: IDesc) => {
 	const contentRef = useRef<HTMLParagraphElement>(null);
 	const [contentHeight, setContentHeight] = useState(0);
 
@@ -17,7 +18,7 @@ export const Description = memo(({ description, isExpanded }: IDesc) => {
 	}, []);
 
 	return (
-		<DescriptionWrapper isExpanded={isExpanded} contentHeight={contentHeight}>
+		<DescriptionWrapper aria-label={label} isExpanded={isExpanded} contentHeight={contentHeight}>
 			<DescriptionText ref={contentRef}>{description}</DescriptionText>
 		</DescriptionWrapper>
 	);

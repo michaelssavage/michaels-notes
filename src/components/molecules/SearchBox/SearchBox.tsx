@@ -28,6 +28,7 @@ export const SearchBox = ({
       <Box>
         <input
           id={id}
+          aria-label={label}
           value={value}
           onChange={onChange}
           placeholder={placeholder}

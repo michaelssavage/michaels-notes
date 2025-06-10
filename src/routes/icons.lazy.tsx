@@ -1,9 +1,9 @@
 import { Group } from "@/components/atoms/Group";
 import * as Icons from "@/components/icons";
 import styled from "@emotion/styled";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/icons")({
+export const Route = createLazyFileRoute("/icons")({
 	component: IconsPage,
 });
 

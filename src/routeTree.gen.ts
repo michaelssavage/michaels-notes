@@ -13,14 +13,14 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as PlaygroundImport } from './routes/playground'
-import { Route as IconsImport } from './routes/icons'
 import { Route as BlogIndexImport } from './routes/blog/index'
 import { Route as ProjectsSlugImport } from './routes/projects/$slug'
 import { Route as BlogSlugImport } from './routes/blog/$slug'
 
 // Create Virtual Routes
 
+const PlaygroundLazyImport = createFileRoute('/playground')()
+const IconsLazyImport = createFileRoute('/icons')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 const ProjectsIndexLazyImport = createFileRoute('/projects/')()
@@ -28,20 +28,20 @@ const BlogPrettyTextLazyImport = createFileRoute('/blog/pretty-text')()
 
 // Create/Update Routes
 
+const PlaygroundLazyRoute = PlaygroundLazyImport.update({
+  path: '/playground',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/playground.lazy').then((d) => d.Route))
+
+const IconsLazyRoute = IconsLazyImport.update({
+  path: '/icons',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/icons.lazy').then((d) => d.Route))
+
 const AboutLazyRoute = AboutLazyImport.update({
   path: '/about',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
-
-const PlaygroundRoute = PlaygroundImport.update({
-  path: '/playground',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IconsRoute = IconsImport.update({
-  path: '/icons',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -88,25 +88,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/icons': {
       id: '/icons'
       path: '/icons'
       fullPath: '/icons'
-      preLoaderRoute: typeof IconsImport
+      preLoaderRoute: typeof IconsLazyImport
       parentRoute: typeof rootRoute
     }
     '/playground': {
       id: '/playground'
       path: '/playground'
       fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+      preLoaderRoute: typeof PlaygroundLazyImport
       parentRoute: typeof rootRoute
     }
     '/blog/$slug': {
@@ -151,9 +151,9 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/icons': typeof IconsRoute
-  '/playground': typeof PlaygroundRoute
   '/about': typeof AboutLazyRoute
+  '/icons': typeof IconsLazyRoute
+  '/playground': typeof PlaygroundLazyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
@@ -163,9 +163,9 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/icons': typeof IconsRoute
-  '/playground': typeof PlaygroundRoute
   '/about': typeof AboutLazyRoute
+  '/icons': typeof IconsLazyRoute
+  '/playground': typeof PlaygroundLazyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
@@ -176,9 +176,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/icons': typeof IconsRoute
-  '/playground': typeof PlaygroundRoute
   '/about': typeof AboutLazyRoute
+  '/icons': typeof IconsLazyRoute
+  '/playground': typeof PlaygroundLazyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
@@ -190,9 +190,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/icons'
     | '/playground'
-    | '/about'
     | '/blog/$slug'
     | '/projects/$slug'
     | '/blog/pretty-text'
@@ -201,9 +201,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/icons'
     | '/playground'
-    | '/about'
     | '/blog/$slug'
     | '/projects/$slug'
     | '/blog/pretty-text'
@@ -212,9 +212,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/icons'
     | '/playground'
-    | '/about'
     | '/blog/$slug'
     | '/projects/$slug'
     | '/blog/pretty-text'
@@ -225,9 +225,9 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  IconsRoute: typeof IconsRoute
-  PlaygroundRoute: typeof PlaygroundRoute
   AboutLazyRoute: typeof AboutLazyRoute
+  IconsLazyRoute: typeof IconsLazyRoute
+  PlaygroundLazyRoute: typeof PlaygroundLazyRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   BlogPrettyTextLazyRoute: typeof BlogPrettyTextLazyRoute
@@ -237,9 +237,9 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  IconsRoute: IconsRoute,
-  PlaygroundRoute: PlaygroundRoute,
   AboutLazyRoute: AboutLazyRoute,
+  IconsLazyRoute: IconsLazyRoute,
+  PlaygroundLazyRoute: PlaygroundLazyRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   BlogPrettyTextLazyRoute: BlogPrettyTextLazyRoute,
@@ -260,9 +260,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/about",
         "/icons",
         "/playground",
-        "/about",
         "/blog/$slug",
         "/projects/$slug",
         "/blog/pretty-text",
@@ -273,14 +273,14 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/icons": {
-      "filePath": "icons.tsx"
-    },
-    "/playground": {
-      "filePath": "playground.tsx"
-    },
     "/about": {
       "filePath": "about.lazy.tsx"
+    },
+    "/icons": {
+      "filePath": "icons.lazy.tsx"
+    },
+    "/playground": {
+      "filePath": "playground.lazy.tsx"
     },
     "/blog/$slug": {
       "filePath": "blog/$slug.tsx"

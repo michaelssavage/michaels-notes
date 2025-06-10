@@ -27,24 +27,34 @@ const Post = ({
 	const isExpanded = useMemo(() => isFirst || isHovered, [isFirst, isHovered]);
 
 	return (
-		<Card
-			to={isExternal ? isExternal : `/blog/${slug}`}
+		<article
 			ref={ref}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
-			inView={inView}
+			aria-labelledby={`post-title-${id}`}
 		>
-			<CardInfo>
-				<Title
-					layoutId={`blog-title-${id}`}
-					transition={{ type: "spring", stiffness: 300, damping: 30 }}
-				>
-					{title}
-				</Title>
-				<DateText isExternal={isExternal}>{date}</DateText>
-			</CardInfo>
-			<Description description={description} isExpanded={isExpanded} />
-		</Card>
+			<Card
+				to={isExternal ? isExternal : `/blog/${slug}`}
+				inView={inView}
+				aria-label={`Read post: ${title}`}
+			>
+				<CardInfo>
+					<Title
+						id={`post-title-${id}`}
+						layoutId={`blog-title-${id}`}
+						transition={{ type: "spring", stiffness: 300, damping: 30 }}
+					>
+						{title}
+					</Title>
+					<DateText isExternal={isExternal}>{date}</DateText>
+				</CardInfo>
+				<Description 
+					description={description} 
+					isExpanded={isExpanded} 
+					label={`Description for ${title}`}
+				/>
+			</Card>
+		</article>
 	);
 };
 

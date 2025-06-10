@@ -1,9 +1,9 @@
 import { Board } from "@/components/atoms/Board";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/playground")({
+export const Route = createLazyFileRoute("/playground")({
 	component: Playground,
 });
 

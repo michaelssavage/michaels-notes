@@ -1,6 +1,21 @@
 import type { Handler } from "@netlify/functions";
 
+const corsHeaders = {
+	"Content-Type": "application/json",
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Headers": "Content-Type",
+	"Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
 const handler: Handler = async (event, context) => {
+	if (event.httpMethod === "OPTIONS") {
+		return {
+			statusCode: 200,
+			headers: corsHeaders,
+			body: "",
+		};
+	}
+
 	if (event.httpMethod !== "POST") {
 		return {
 			statusCode: 405,
@@ -20,20 +35,13 @@ const handler: Handler = async (event, context) => {
 	}
 
 	try {
-		// Check if we have a valid token in the request body
 		const body = JSON.parse(event.body || "{}");
 		const { currentToken, tokenExpiry } = body;
 
-		// If we have a valid token that hasn't expired, return it
 		if (currentToken && tokenExpiry && Date.now() < Number(tokenExpiry)) {
 			return {
 				statusCode: 200,
-				headers: {
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Origin": "*",
-					"Access-Control-Allow-Headers": "Content-Type",
-					"Access-Control-Allow-Methods": "POST, OPTIONS",
-				},
+				headers: corsHeaders,
 				body: JSON.stringify({
 					access_token: currentToken,
 					expires_at: tokenExpiry,
@@ -41,9 +49,7 @@ const handler: Handler = async (event, context) => {
 			};
 		}
 
-		const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
-			"base64",
-		);
+		const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");
 
 		const response = await fetch("https://accounts.spotify.com/api/token", {
 			method: "POST",
@@ -79,12 +85,7 @@ const handler: Handler = async (event, context) => {
 
 		return {
 			statusCode: 200,
-			headers: {
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Headers": "Content-Type",
-				"Access-Control-Allow-Methods": "POST, OPTIONS",
-			},
+			headers: corsHeaders,
 			body: JSON.stringify({
 				access_token: data.access_token,
 				expires_at: expiresAt,
@@ -97,22 +98,6 @@ const handler: Handler = async (event, context) => {
 			body: JSON.stringify({ error: "Internal server error" }),
 		};
 	}
-};
-
-exports.handler = async (event, context) => {
-	if (event.httpMethod === "OPTIONS") {
-		return {
-			statusCode: 200,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Headers": "Content-Type",
-				"Access-Control-Allow-Methods": "POST, OPTIONS",
-			},
-			body: "",
-		};
-	}
-
-	return exports.handler(event, context);
 };
 
 export { handler };

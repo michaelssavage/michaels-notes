@@ -9,23 +9,23 @@ export const Weather = () => {
 		queryKey: ["top-tracks"],
 		queryFn: fetchTheWeather,
 		refetchOnMount: false,
-		refetchOnWindowFocus: false,
+		refetchOnWindowFocus: true,
 	});
 
 	if (isLoading) {
 		return <Loading />;
 	}
 
-	if (!data) {
+	if (!data || !data.current) {
 		return null;
 	}
 
-	const icon = WeatherIcon[data?.current?.condition?.code];
+	const icon = WeatherIcon[data.current.condition?.code];
 
 	return (
 		<SpeechBubble>
 			{icon ? <img src={`/weather/${icon}.svg`} alt="" /> : null}
-			Today it's {data?.current?.temp_c}°C
+			Today it's {data.current.temp_c}°C
 		</SpeechBubble>
 	);
 };

@@ -1,17 +1,19 @@
 import type { Handler } from "@netlify/functions";
 import type { ITopTrackResponse } from "../../src/types/Spotify";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type, Accept",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Content-Type": "application/json",
+};
+
 const handler: Handler = async (event, context) => {
 	// Handle CORS preflight
 	if (event.httpMethod === "OPTIONS") {
 		return {
 			statusCode: 200,
-			headers: {
-				"Access-Control-Allow-Origin": "*", // Configure this for your domain in production
-				"Access-Control-Allow-Headers": "Content-Type, Authorization",
-				"Access-Control-Allow-Methods": "GET, OPTIONS",
-				"Content-Type": "text/plain",
-			},
+			headers: corsHeaders,
 			body: "",
 		};
 	}
@@ -20,12 +22,7 @@ const handler: Handler = async (event, context) => {
 	if (event.httpMethod !== "GET") {
 		return {
 			statusCode: 405,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
-			},
+			headers: corsHeaders,
 			body: JSON.stringify({ error: "Method not allowed" }),
 		};
 	}
@@ -37,12 +34,7 @@ const handler: Handler = async (event, context) => {
 	if (!REFRESH_TOKEN || !CLIENT_ID || !CLIENT_SECRET) {
 		return {
 			statusCode: 500,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
-			},
+			headers: corsHeaders,
 			body: JSON.stringify({ error: "Missing Spotify credentials" }),
 		};
 	}
@@ -54,7 +46,7 @@ const handler: Handler = async (event, context) => {
 		);
 
 		const tokenResponse = await fetch(
-			"https://accounts.spotify.com/api/token", // Corrected Spotify API endpoint
+			"https://accounts.spotify.com/api/token",
 			{
 				method: "POST",
 				headers: {
@@ -72,12 +64,7 @@ const handler: Handler = async (event, context) => {
 			console.error("Failed to refresh token:", await tokenResponse.text());
 			return {
 				statusCode: 500,
-				headers: {
-					"Access-Control-Allow-Origin": "*",
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Headers": "", // Add this
-					"Access-Control-Allow-Methods": "", // Add this
-				},
+				headers: corsHeaders,
 				body: JSON.stringify({ error: "Failed to refresh token" }),
 			};
 		}
@@ -87,12 +74,7 @@ const handler: Handler = async (event, context) => {
 		if (!tokenData.access_token) {
 			return {
 				statusCode: 500,
-				headers: {
-					"Access-Control-Allow-Origin": "*",
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Headers": "", // Add this
-					"Access-Control-Allow-Methods": "", // Add this
-				},
+				headers:corsHeaders,
 				body: JSON.stringify({ error: "No access token received" }),
 			};
 		}
@@ -112,12 +94,7 @@ const handler: Handler = async (event, context) => {
 			console.error("Failed to fetch top tracks:", errorData);
 			return {
 				statusCode: res.status,
-				headers: {
-					"Access-Control-Allow-Origin": "*",
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Headers": "", // Add this
-					"Access-Control-Allow-Methods": "", // Add this
-				},
+				headers: corsHeaders,
 				body: JSON.stringify({ error: "Failed to fetch top tracks" }),
 			};
 		}
@@ -133,24 +110,14 @@ const handler: Handler = async (event, context) => {
 
 		return {
 			statusCode: 200,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
-			},
+			headers: corsHeaders,
 			body: JSON.stringify(transformedTracks),
 		};
 	} catch (error) {
 		console.error("Error in get-top-tracks function:", error);
 		return {
 			statusCode: 500,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
-			},
+			headers: corsHeaders,
 			body: JSON.stringify({ error: "Internal server error" }),
 		};
 	}

@@ -38,7 +38,7 @@ export const Letterboxd = () => {
 	}
 
 	return (
-		<Group align="center" gap="2rem" css={breakpoint}>
+		<Group align="center" gap="2rem" css={breakpoint} data-testid="group">
 			<StackContainer>
 				<CardStack>
 					{data.map((movie, index) => (
@@ -47,6 +47,7 @@ export const Letterboxd = () => {
 							to={movie.movieurl}
 							index={index}
 							active={active}
+							data-testid="movie-card"
 						>
 							<Picture src={movie.imageurl} alt={movie.title} />
 						</Card>
@@ -77,6 +78,7 @@ export const Letterboxd = () => {
 							key={movie.title}
 							isActive={index === active}
 							onClick={() => handleButtonClick(index)}
+							data-active={index === active}
 						>
 							{index + 1}
 						</Button>

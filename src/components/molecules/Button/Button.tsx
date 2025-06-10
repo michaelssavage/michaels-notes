@@ -29,6 +29,8 @@ export const Button = ({
 }: ButtonProps) => {
 	return (
 		<ButtonStyled
+			role="button"
+			data-active={active}
 			disabled={disabled}
 			type={type}
 			onClick={onClick}
