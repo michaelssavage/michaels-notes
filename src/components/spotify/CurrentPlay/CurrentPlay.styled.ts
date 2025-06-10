@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
 interface FactContentProps {
-	expanded?: boolean;
+	color?: string;
 }
 
 export const Comp = styled.div`
@@ -61,7 +61,7 @@ export const Box = styled(motion.div)`
 
 export const FactContent = styled.p<FactContentProps>`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.secondaryText};
+  color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.colors.secondaryText};
 
   width: 90%;
   margin: 0 auto;

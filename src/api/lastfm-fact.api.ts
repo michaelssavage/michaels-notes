@@ -1,16 +1,20 @@
-const BASE_URL = "http://ws.audioscrobbler.com/2.0/";
+import type { LastFmArtistInfo } from "@/types/Lastfm";
 
-export const getFact = async (artist: string) => {
-	const API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
+export const getFact = async (artist: string): Promise<LastFmArtistInfo> => {
+	const response = await fetch(
+		`/.netlify/functions/get-lastfm-fact?artist=${encodeURIComponent(artist)}`,
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		},
+	);
 
-	const url = `${BASE_URL}?method=artist.getinfo&artist=${encodeURIComponent(
-		artist,
-	)}&api_key=${API_KEY}&format=json`;
+	if (!response.ok) {
+		throw new Error("Failed to fetch lastfm track");
+	}
 
-	const res = await fetch(url);
-	if (!res.ok) throw new Error("Failed to fetch artist info");
-
-	const data = await res.json();
-
-	return data.artist?.bio?.summary || "No bio found.";
+	const data = await response.json();
+	return data;
 };

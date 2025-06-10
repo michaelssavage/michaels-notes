@@ -88,10 +88,10 @@ function Projects() {
 								can read my{" "}
 								<Anchor
 									link="/blog/spotify-developer-api"
-									text="words about it here"
+									text="words about it here."
 									variant="link"
 								/>
-								. Below you can see the top 10 tracks I've listened to recently
+								Below you can see the top 10 tracks I've listened to recently
 								and my last listened to song. If I'm online it will display what
 								I'm currently listening to.
 							</p>
