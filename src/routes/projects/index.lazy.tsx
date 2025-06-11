@@ -54,7 +54,7 @@ function Projects() {
 			<MetaData title="My Projects" description={description} />
 			<Container>
 				<Header>
-					<p>{description}</p>
+					<p data-testid="projects-description">{description}</p>
 					<Group wrap="wrap">
 						{TECHNOLOGIES.map((tech) => (
 							<Button

@@ -66,12 +66,6 @@ export const StyledLink = styled(Link)`
   }
 `;
 
-export const Panel = styled.section`
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-`;
-
 export const Icons = styled.div`
   display: flex;
   flex-direction: row;

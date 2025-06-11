@@ -22,7 +22,7 @@ export const Arrow = styled(ArrowDown)`
   cursor: pointer;
 `;
 
-export const Section = styled(motion.div)<{
+export const Section = styled(motion.section)<{
 	main?: string;
 	bg?: string;
 }>`

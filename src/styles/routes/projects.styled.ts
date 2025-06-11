@@ -50,11 +50,12 @@ export const Card = styled(Link)`
   }
 `;
 
-export const CardTitle = styled.span<{ main: string }>`
+export const CardTitle = styled.h3<{ main: string }>`
   padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
   font-size: clamp(0.8rem, 1.4vi + 0.1rem, 1rem);
   background-color: ${({ main }) => main};
   color: ${({ main }) => getContrastYIQ(main)};
+  font-weight: 400;
 
   ${forTabletOnly(css`
     font-size: clamp(0.8rem, 1vi + 0.31rem, 0.95rem);

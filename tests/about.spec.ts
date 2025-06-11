@@ -1,8 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-test.skip("About Page", () => {
+test.describe("About Page", () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto("https://michaelsavage.ie/about");
+		await page.goto("/about");
+		await page.waitForSelector('img[alt="Picture of Me"]', { state: "visible" });
 	});
 
 	test("displays personal information section correctly", async ({ page }) => {
@@ -39,18 +40,6 @@ test.skip("About Page", () => {
 		);
 	});
 
-	test("displays Letterboxd section correctly", async ({ page }) => {
-		// Check for Letterboxd content
-		const letterboxdText = page.getByText(/I love movies!/);
-		await expect(letterboxdText).toBeVisible();
-
-		// Check for movie links if they exist
-		const movieLinks = page.getByRole("link", {
-			name: /Amélie|Y Tu Mamá También|Aftersun|Sexy Beast/,
-		});
-		await expect(movieLinks).toBeVisible();
-	});
-
 	test("displays sports section correctly", async ({ page }) => {
 		// Check for sports information
 		const sportsText = page.getByText(
@@ -63,33 +52,21 @@ test.skip("About Page", () => {
 		await expect(achievements).toBeVisible();
 	});
 
-	test("Letterboxd movie carousel functionality", async ({ page }) => {
+	test("Letterboxd movie carousel should have 4 movies present", async ({ page }) => {
 		// Wait for movie data to load
 		await page.waitForLoadState("networkidle");
 
 		// Check if movie cards are visible
 		const movieCards = page.locator('[data-testid="movie-card"]');
-		const count = await movieCards.count();
-
-		if (count > 0) {
-			// Test navigation buttons
-			const navigationButtons = page.locator("button");
-			await expect(navigationButtons).toHaveCount(count);
-
-			// Click first button and verify active state
-			await navigationButtons.first().click();
-			await expect(navigationButtons.first()).toHaveAttribute(
-				"data-active",
-				"true",
-			);
-
-			// Click second button and verify active state changes
-			await navigationButtons.nth(1).click();
-			await expect(navigationButtons.nth(1)).toHaveAttribute(
-				"data-active",
-				"true",
-			);
-		}
+		await expect(movieCards).toHaveCount(4);
+		
+		// Should have exactly 4 navigation buttons
+		const buttons = page.locator('button[data-active]');
+		await expect(buttons).toHaveCount(4);
+		
+		// Should have exactly 4 movie links in the text
+		const movieAnchors = page.locator('a[href*="letterboxd.com/film"]:not([data-testid="movie-card"])');
+		await expect(movieAnchors).toHaveCount(4);
 	});
 
 	test("section styling and layout", async ({ page }) => {

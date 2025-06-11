@@ -49,7 +49,6 @@ test.describe("Blog Page", () => {
 		const postsButton = page.getByRole("button", { name: /Posts/i });
 		await postsButton.click();
 		
-		// Wait for the filter to apply - you might need to adjust this based on your UI behavior
 		await page.waitForTimeout(100); // Small timeout for UI state change
 		await expect(postsButton).toHaveAttribute("data-active", "false");
 

@@ -10,7 +10,8 @@
 		"lint": "biome lint --error-on-warnings ./src",
 		"prepare": "husky",
 		"type-check": "tsc --noEmit",
-		"test": "playwright test"
+		"test": "playwright test",
+		"test:ui": "playwright test --ui"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.13.3",

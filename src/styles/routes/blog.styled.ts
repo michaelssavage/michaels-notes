@@ -23,7 +23,7 @@ export const Heading = styled.h1`
   `)}
 `;
 
-export const Page = styled.section`
+export const Page = styled.article`
   position: relative;
   min-height: 80vh;
 `;

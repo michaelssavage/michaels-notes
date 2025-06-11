@@ -8,7 +8,7 @@ import {
 } from "@/components/icons";
 import posthog from "posthog-js";
 import { memo } from "react";
-import { Header, Icons, Panel, StyledLink } from "./Navbar.styled";
+import { Header, Icons, StyledLink } from "./Navbar.styled";
 
 interface Props {
 	to: string;
@@ -37,7 +37,6 @@ const Navbar = () => {
 				<NavLink to="/projects" text="Projects" />
 				<NavLink to="/about" text="About" />
 			</nav>
-			<Panel>
 				<Icons>
 					<Icon
 						label="GitHub Profile"
@@ -70,7 +69,6 @@ const Navbar = () => {
 						isExternal
 					/>
 				</Icons>
-			</Panel>
 		</Header>
 	);
 };

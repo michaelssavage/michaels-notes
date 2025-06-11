@@ -30,13 +30,14 @@ export const Button = ({
 	return (
 		<ButtonStyled
 			role="button"
-			data-active={active}
 			disabled={disabled}
 			type={type}
 			onClick={onClick}
 			variant={variant}
 			active={active}
+			data-active={active}
 			selected={selected}
+			data-selected={selected}
 			styles={styles}
 		>
 			{text} {icon}

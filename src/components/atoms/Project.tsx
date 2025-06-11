@@ -16,7 +16,7 @@ export const Project = ({ data, selectedTech }: Props) => {
 
 	const shouldDim = selectedTech && !data.technology.includes(selectedTech);
 	return (
-		<CardWrapper $shouldDim={shouldDim}>
+		<CardWrapper $shouldDim={shouldDim} data-testid="project-card">
 			<Card key={id} to={slug}>
 				<CardTitle main={colors.main}>{title}</CardTitle>
 				<CardBody bg={colors.bg}>{description}</CardBody>
