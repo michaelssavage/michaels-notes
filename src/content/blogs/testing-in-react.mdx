@@ -1,0 +1,71 @@
+---
+id: 19
+title: "Testing in React: From Boring Chore to Code Confidence"
+date: July 1, 2025
+description: "Testing just shouldn't be skipped on. It confirms your inner thinking, and gives peace of mind when deploying new changes, especially when interacting with codebases that are considered legacy code. "
+type: blog
+---
+
+Testing is boring.. a chore.. but essential!
+
+## The good
+
+Testing just shouldn't be skipped on. It confirms your inner thinking, and gives peace of mind when deploying new changes, especially when interacting with codebases that are considered legacy code. For example, a fresh new developer came in with hot refactors off the press to deploy, but their changes ended up unintentionally impacting other code that they didn’t even know about. (This story is definitely not about me). But if you're fortunate, some previous developers might have put together some unit tests that triggered a failure in the pipeline. Phew! Crisis averted and hours of potential debugging saved. The majority of testing in JavaScript is still being created with Jest even though there’s a new kid in town, [Vitest](https://vitest.dev/). Jest is a ‘**delightful JavaScript Testing Framework’** but Vitest is just significantly faster and growing steadily because of its fast start up time and the fact it uses esbuild. Vitest has found some fans in Evan You (creator of Vue) and Rich Harris (creator of Svelte) which helped the JavaScript community embrace it faster.
+
+Linters, TypeScript, and code reviews aren’t foolproof. They are excellent roadblocks for bugs but faulty code can still make its way to production. Automatic testing is an extra safeguard against unnoticed errors and the CI pipeline should be your best friend. It’s the last stand against bugs that may have been bypassed or ignored.
+
+One of the best things I've started to learn and implement are e2e tests with [Playwright](https://playwright.dev/). It’s such a vital gadget in the toolbox now. Even the process of writing these tests uncovered some unfavourable practices like mislabeling buttons, inputs etc. It helped build consistency across the whole codebase and I feel like my code is measurably more reliable when using Playwright as the code starts to scale up. It’s very easy to get started with it since their install command will help you set it up with `npm init playwright@latest` . When building tests too, you’ll see that it has a pretty similar setup to Jest/Vitest anyway.
+
+```jsx
+import { expect, test } from "@playwright/test";
+
+test.describe("About Page", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/about");
+    await page.waitForSelector('img[alt="Picture of Me"]', {
+      state: "visible",
+    });
+  });
+
+  test("displays personal information section correctly", async ({ page }) => {
+    // Check for personal description
+    const personalText = page.getByText(/Studied Computer Applications in DCU/);
+    await expect(personalText).toBeVisible();
+  });
+});
+```
+
+## The bad
+
+Testing can seem like you're being productive, but instead it can be a procrastinating time-waster. If you just fire a prompt into ChatGPT saying, “write tests for this file, don't make mistakes” and then paste the response into your editor, you are more than likely going to have useless unit tests. Files can quickly become complex with multiple children components and unit tests just can't do it all alone.
+
+If you're working in a team that is prioritizing features-first, aiming for code coverage can slow down momentum. Parkinson's Law states that “Work expands to fill the time available for its completion”. If you start building out tests before all the acceptance criteria is met, you're fooling nobody but yourself. Recently, I worked on a feature that had a constantly changing data structure. If I were to create tests at the start of the development, I would have slowed down the iterations majorly and introduced tech debt.
+
+Getting 100% code coverage is sometimes unrealistic, and it's not even a good measure anyway. Sometimes writing unit tests just shows that, “yes!”, we did implement that function.
+
+```jsx
+// utils/math.ts
+export const add = (a: number, b: number) => a + b;
+
+// utils/math.test.ts
+import { describe, it, expect } from 'vitest';
+import { add } from './math';
+
+describe('add', () => {
+  it('should be defined', () => {
+    expect(add).toBeDefined();
+  });
+});
+```
+
+This test will help to increase the coverage but it doesn't test any logic. A more meaningful version would look like this:
+
+```jsx
+it('adds two numbers correctly', () => {
+  expect(add(2, 3)).toBe(5);
+});
+```
+
+## The ugly
+
+I know very little about testing and there's a whole landscape I haven't explored yet. I may know a bit about React Testing Library or `msw` for mocking network requests, but I don't know how to effectively use them. There are dozens of ways to test the same thing, and its still bit of a minefield to try figure out. The goal for now is to stay curious, and slowly build up good habits from there.
