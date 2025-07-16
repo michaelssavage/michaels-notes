@@ -196,7 +196,7 @@ function RekordboxPrettifier() {
 					</p>
 					<p>
 						For convenience you can drag-and-drop a text file onto the page to
-						fill the textarea. You can also copy the formatted text by clicking 
+						fill the textarea. You can also copy the formatted text by clicking
 						the icon in the top right corner of the textarea.
 					</p>
 				</AboutSection>

@@ -31,7 +31,7 @@ export const Anchor = memo(
 				target={isExternal ? "_blank" : undefined}
 				css={style}
 			>
-				{text ? text : link} {isExternal && !icon ? <ExternalLinkIcon /> : icon}
+				{text ? text : link} {icon || (isExternal && <ExternalLinkIcon />)}
 			</LinkStyle>
 		);
 	},
