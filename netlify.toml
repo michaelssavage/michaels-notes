@@ -1,2 +1,21 @@
 [build]
-  functions = "netlify/functions"
+  command = "npm run build && npm run build:storybook"
+  publish = "dist" # Or 'build', depending on your Vite build output directory
+  functions = "netlify/functions" # Your existing functions directory
+
+[[redirects]]
+  from = "/storybook/*"
+  to = "/storybook/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/storybook"
+  to = "/storybook/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
