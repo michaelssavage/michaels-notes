@@ -1,0 +1,57 @@
+---
+id: 19
+title: "Visualizing Components With Storybook"
+date: July 17, 2025
+description: "I added Storybook to my personal site—not because I needed it, but because it's a great way to test and visualize components. Overkill for one dev, but perfect for experimentation."
+type: blog
+---
+
+
+I added storybook to my site. It's absolutely overkill for my personal corner of the internet but it is also my playground for testing things. And test things I will!
+
+I have to say I like it! It gives me a clear visual of my main components at a glance. I can see the benefit of using it if I were in a team that was onboarding new people and encouraging backend-inclined members to code on the frontend. It would also be useful for interns and graduate developers to figure out how props change the appearance of components.
+
+For the well-defined components, I created a folder to house the main component, the styled component, and the storybook file. For example:
+
+```jsx
+📁 Button
+	📃 Button.stories.tsx
+	📃 Button.styled.ts
+	📃 Button.tsx
+```
+
+## The Deployment Dilemma
+
+Originally, I wanted to deploy it as a subdomain at storybook.[michaelsavage.ie](http://michaelsavage.ie) but that would have added extra hosting costs. Instead, I configured the site to serve Storybook at `/storybook` inside the main site deployment.
+
+Does it slow down my build? Yea…
+
+Vite builds the app into `dist` , and storybook builds separately into `dist/storybook` so that the two outputs are deployed together. For now, Storybook is built on every deploy but eventually, I imagine I will move it to a separate Netlify site to speed things up and avoid bundling it unless I need it.
+
+## Learning Curve
+
+A lot of the heavy lifting was completed by Cursor in this regard even though the documentation is clear and concise. Time was definitely halved for the use case I wanted and after the second and third stories component, I started to see the pattern and I was able to adjust the styling to my needs.
+
+It didn't take even half a day to get up and running. The Storybook command is very complete and thorough for getting you up and going with an example. All you need to run is:
+
+```jsx
+npm create storybook@latest
+```
+
+## Will I keep using it?
+
+I think so. I'd like to implement this in a larger codebase that utilizes many components. Not everything needs a story though, and I'd like to have a better understanding how this workshop is not suited for all code. For example, it doesn't make sense to add it for very trivial wrappers, entire pages or routes, purely data-driven views, or Heads-up UI.
+
+**Very trivial wrappers**  
+	Components that do nothing more than wrap children to inject CSS or context, without any visible variation.
+
+**Entire pages or routes**  
+	Full-page layouts often depend on router context, global stores or data-fetching. They're harder to isolate and don't benefit as much from “knobs.”
+
+**Purely data-driven views**  
+	If a component just renders JSON or a simple table with no UI states to experiment with, it's low ROI.
+
+**Heads-up UI (toasts, alerts)**  
+	Unless you want to play with timing, positions and interactions. If you never tweak those, leave them out.
+
+### The storybook is available here: <Anchor link="/storybook" variant="link" />
