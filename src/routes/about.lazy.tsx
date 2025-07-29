@@ -1,4 +1,4 @@
-import { useTheme } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import selfieImg from "@/assets/images/me.jpg";
 import { Group } from "@/components/atoms/Group";
@@ -19,29 +19,30 @@ export const Route = createLazyFileRoute("/about")({
 });
 
 function About() {
-	const theme = useTheme();
+	const { colors } = useTheme();
 
 	return (
 		<Content>
-			<SectionInView
-				delay={0}
-				main={theme.colors.moon}
-				bg={theme.colors.section1}
-			>
+			<SectionInView delay={0} main={colors.moon} bg={colors.section1}>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
 						<Picture src={selfieImg} alt="Picture of Me" style={selfieStyle} />
 						<p>
-							Studied Computer Applications in DCU and started working with
-							Jaguar Land Rover, Shannon from 2021 to 2024. I'm currently
-							working with Talentbait in the heart of Barcelona as a frontend
-							developer using Node.js and React.js.
+							Studied Computer Applications in DCU and started working with{" "}
+							<Anchor
+								link="https://careers.jaguarlandrover.com/where-we-are/ireland"
+								text="JLR"
+								variant="link"
+							/>
+							, Shannon from 2021 to 2024. I'm currently working as a Frontend
+							Developer in the heart of Barcelona using tools like React.js,
+							JavaScript, TypeScript, TanStack, Figma, and more!
 						</p>
 					</Group>
 				</Paragraph>
 			</SectionInView>
 
-			<SectionInView delay={100} main={theme.colors.section2}>
+			<SectionInView delay={100} main={colors.section2}>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
 						<Picture
@@ -55,6 +56,7 @@ function About() {
 								variant="link"
 								text="Plant Bass'd"
 								link="/blog/what-is-plant-bassd"
+								style={css`color: ${colors.link};`}
 							/>
 							, an electronic music blog and underground club night that that
 							took hold in Ireland and Scotland. I learned to DJ, create events,
@@ -65,28 +67,20 @@ function About() {
 				</Paragraph>
 			</SectionInView>
 
-			<SectionInView
-				delay={200}
-				main={theme.colors.section3}
-				bg={theme.colors.section3b}
-			>
+			<SectionInView delay={200} main={colors.section3} bg={colors.section3b}>
 				<Paragraph>
 					<Letterboxd />
 				</Paragraph>
 			</SectionInView>
 
-			<SectionInView
-				delay={300}
-				main={theme.colors.toggle}
-				bg={theme.colors.card}
-			>
+			<SectionInView delay={300} main={colors.toggle} bg={colors.card}>
 				<Paragraph>
-					<Group direction="column" align="center">
+					<Group align="center" gap="2rem">
 						<p>
-							I've played sports like Gaelic Football and rugby all my life. I
-							represented the Ulster Club u18s rugby team, and have played for
-							Monaghan RFC, Ennis RFC, and Corinthians RFC. Recently I've taken
-							up running and completed the Barcelona Half Marathon 1 hour and 44
+							I've played sports like Gaelic Football and rugby all my life! I
+							represented Ulster Club u18s rugby, and I've played for Monaghan
+							RFC, Ennis RFC, and Corinthians RFC. I've taken up running and
+							completed the 2025 Barcelona Half Marathon in 1 hour and 44
 							minutes.
 						</p>
 					</Group>
