@@ -34,9 +34,6 @@ export default defineConfig(({ mode }) => ({
 		tanstackRouter({
 			target: "react",
 			autoCodeSplitting: true,
-			experimental: {
-				enableCodeSplitting: true,
-			},
 		}),
 		react({
 			include: /\.(mdx|tsx|ts)$/,
