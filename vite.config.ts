@@ -65,48 +65,12 @@ export default defineConfig(({ mode }) => ({
 			},
 			output: {
 				manualChunks(id) {
-					const modulePath = id.toString();
-
-					if (modulePath.includes("node_modules")) {
-						if (modulePath.includes("@tanstack/react-router"))
-							return "tanstack-router";
-						if (modulePath.includes("@tanstack/react-query"))
-							return "tanstack-query";
-						if (modulePath.includes("framer-motion")) return "framer-motion";
-						if (modulePath.includes("@emotion")) return "emotion";
-						if (modulePath.includes("react-dom")) return "react-dom";
-						if (
-							modulePath.includes("react") &&
-							!modulePath.includes("react-dom")
-						)
-							return "react";
-
-						if (
-							modulePath.includes("@mdx-js") ||
-							modulePath.includes("mdx-bundler")
-						)
-							return "mdx-vendor";
-
-						if (
-							modulePath.includes("@floating-ui") ||
-							modulePath.includes("react-intersection-observer") ||
-							modulePath.includes("react-helmet-async") ||
-							modulePath.includes("react-toastify") ||
-							modulePath.includes("react-transition-group")
-						)
-							return "ui-utils";
-
-						if (modulePath.includes("posthog")) return "analytics";
-
-						return "vendor";
+					if (id.includes("node_modules")) {
+						const parts = id.split("node_modules/")[1].split("/");
+						return parts[0].startsWith("@")
+							? `${parts[0]}/${parts[1]}`
+							: parts[0];
 					}
-
-					if (modulePath.includes("src/components")) return "components";
-					if (modulePath.includes("src/lib")) return "lib";
-					if (modulePath.includes("src/content")) return "content";
-					if (modulePath.includes("src/api")) return "api";
-					if (modulePath.includes("src/styles")) return "styles";
-					if (modulePath.includes("src/types")) return "types";
 				},
 				chunkFileNames: "assets/[name]-[hash].js",
 				entryFileNames: "assets/[name]-[hash].js",

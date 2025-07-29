@@ -1,6 +1,6 @@
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
+import type { MDXComponents } from "mdx/types.js";
 import { getMDXComponent } from "mdx-bundler/client";
-import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
 import { memo, useMemo } from "react";
 import { OrderedList } from "@/components/content/OrderedList";
 import { Paragraph } from "@/components/content/Paragraph";
