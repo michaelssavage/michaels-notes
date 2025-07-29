@@ -1,7 +1,7 @@
-import { getContrastYIQ } from "@/lib/colors";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { getContrastYIQ } from "@/lib/colors";
 
 interface FactContentProps {
 	color?: string;

@@ -1,16 +1,12 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { MetaData } from "@/components/atoms";
 import ErrorBoundary from "@/components/atoms/ErrorBoundary";
 import { NotFound } from "@/components/atoms/NotFound";
 import { Loading } from "@/components/molecules/Loading";
 import { ThemeProvider } from "@/context/ThemeProvider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-	Outlet,
-	ScrollRestoration,
-	createRootRoute,
-} from "@tanstack/react-router";
-import { Suspense, lazy } from "react";
-import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
@@ -45,7 +41,6 @@ function RootComponent() {
 					<ThemeProvider>
 						<Navbar />
 						<Toggle />
-						<ScrollRestoration />
 						<ErrorBoundary>
 							<Outlet />
 						</ErrorBoundary>

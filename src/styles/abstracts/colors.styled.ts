@@ -1,6 +1,8 @@
 const common = {
 	button: "#716eef",
+	buttonLink: "#091486",
 	header: "#ca1551",
+	headerBg: "#9a103e",
 	btnBg: "#e35103",
 	extBtnBg: "#009fd1",
 	extBtnBgHover: "#027a9e",
@@ -32,8 +34,10 @@ export const lightTheme = {
 		underlined: "#C4704F",
 		section1: "#b5422f",
 		section2: "#5f68cf",
-		section4: "#251E19",
-		section4b: "#fd92b4",
+		section3: "#FFFCF8",
+		section3b: "#5f68cf",
+		section3c: "#dd648a",
+		section3d: "#091486",
 	},
 };
 
@@ -50,8 +54,10 @@ export const darkTheme = {
 		underlined: "#E8916F",
 		section1: "#42160f",
 		section2: "#F2E9E1",
-		section4: "#fd92b4",
-		section4b: "#251E19",
+		section3: "#fd92b4",
+		section3b: "#251E19",
+		section3c: "#d91b57",
+		section3d: "#dd648a",
 	},
 };
 

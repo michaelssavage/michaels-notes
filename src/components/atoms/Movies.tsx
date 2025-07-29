@@ -1,6 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { fetchFavouriteMovies } from "@/api/favorite-movies.api";
 import type { IMovie } from "@/types/Movie";
-import { useQuery } from "@tanstack/react-query";
 
 export const Movies = () => {
 	const { data, isLoading, error } = useQuery<Array<IMovie>>({

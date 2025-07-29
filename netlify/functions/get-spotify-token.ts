@@ -7,7 +7,7 @@ const corsHeaders = {
 	"Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
 	if (event.httpMethod === "OPTIONS") {
 		return {
 			statusCode: 200,
@@ -49,7 +49,9 @@ const handler: Handler = async (event, context) => {
 			};
 		}
 
-		const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");
+		const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
+			"base64",
+		);
 
 		const response = await fetch("https://accounts.spotify.com/api/token", {
 			method: "POST",

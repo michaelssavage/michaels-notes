@@ -1,9 +1,9 @@
-import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import isPropValid from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 interface DescriptionI {
 	isExpanded: boolean;

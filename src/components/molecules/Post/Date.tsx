@@ -1,5 +1,4 @@
-import type { ReactNode } from "@tanstack/react-router";
-import { memo } from "react";
+import { memo, type ReactNode } from "react";
 import { StyledDateText } from "./Post.styled";
 
 export interface DateTextProps {

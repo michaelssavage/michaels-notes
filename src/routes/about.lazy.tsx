@@ -1,3 +1,5 @@
+import { useTheme } from "@emotion/react";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import plantbassdImg from "@/assets/images/blog/plantbassd.png";
 import selfieImg from "@/assets/images/me.jpg";
 import { Group } from "@/components/atoms/Group";
@@ -5,15 +7,13 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Letterboxd } from "@/components/molecules/Letterboxd";
 import { Picture } from "@/components/molecules/Picture";
 import {
-	Paragraph,
-	Section,
 	breakpoint,
+	Content,
+	Paragraph,
 	plantbassdStyle,
+	Section,
 	selfieStyle,
 } from "@/styles/routes/home.styled";
-import { Content } from "@/styles/routes/home.styled";
-import { useTheme } from "@emotion/react";
-import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/about")({
 	component: About,
@@ -61,7 +61,7 @@ function About() {
 				</Paragraph>
 			</Section>
 
-			<Section main={theme.colors.section4} bg={theme.colors.section4b}>
+			<Section main={theme.colors.section3} bg={theme.colors.section3b}>
 				<Paragraph>
 					<Letterboxd />
 				</Paragraph>

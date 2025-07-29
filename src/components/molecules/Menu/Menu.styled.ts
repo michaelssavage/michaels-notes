@@ -1,7 +1,7 @@
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
 export const MenuContainer = styled.div<{ open: boolean }>`
   position: fixed;

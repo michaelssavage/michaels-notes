@@ -3,6 +3,11 @@
   publish = "dist"
   functions = "netlify/functions"
 
+[functions]
+  external_node_modules = [
+    "esbuild"
+  ]
+
 [[redirects]]
   from = "/storybook/*"
   to = "/storybook/:splat"
@@ -15,7 +20,6 @@
   status = 200
   force = true
 
-# This is crucial for single-page applications (like React) to handle client-side routing
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import type { ReactNode } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 interface Props {
 	title: string;

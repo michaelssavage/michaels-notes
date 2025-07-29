@@ -1,11 +1,11 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
 import type { FilterState } from "@/routes/index.lazy";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 
 export const headerStyle = css`
   margin: 0 0.5rem 2rem;
@@ -99,10 +99,10 @@ export const MainSection = styled.div`
 `;
 
 // Article styling
-
-export const Article = styled.article`
+export const Article = styled.article<{ height?: string }>`
   margin: 2rem auto;
   width: 50%;
+  min-height: ${({ height }) => height};
 
   ${forPhoneOnly(css`
     width: 90%;

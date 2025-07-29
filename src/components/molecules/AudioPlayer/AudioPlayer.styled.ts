@@ -1,12 +1,12 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
 import { getContrastYIQ } from "@/lib/colors";
 import {
 	animateMusicBars,
 	spinInfinitely,
 } from "@/styles/abstracts/animations.styled";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 
 export const Bar = styled.span`
   display: inline-block;

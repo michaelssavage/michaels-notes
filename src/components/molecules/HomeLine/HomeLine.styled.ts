@@ -1,6 +1,6 @@
-import { slideInAnimation } from "@/styles/abstracts/animations.styled";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { slideInAnimation } from "@/styles/abstracts/animations.styled";
 
 export const AnimatedLine = styled(motion.div)`
   margin-top: 1rem;

@@ -1,7 +1,7 @@
 import type { Handler } from "@netlify/functions";
 import type { IRecentTrackResponse } from "../../src/types/Spotify";
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
 	// Handle CORS preflight
 	if (event.httpMethod === "OPTIONS") {
 		return {

@@ -1,3 +1,5 @@
+import { createLazyFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { MetaData } from "@/components/atoms";
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
@@ -9,22 +11,19 @@ import { Loading } from "@/components/molecules/Loading";
 import { NoPost } from "@/components/molecules/Post/NoPost";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { Weather } from "@/components/molecules/Weather";
-import { useContent } from "@/context/ContentProvider";
+import { usePostsIndex } from "@/hooks/use-posts.hook";
 import { sortByDate } from "@/lib/utils";
 import { Col, Row } from "@/styles/abstracts/layout.styled";
 import {
 	ButtonGroup,
 	Filter,
 	Heading,
+	headerStyle,
 	Info,
 	Page,
 	Panel,
 	RowStyle,
-	headerStyle,
 } from "@/styles/routes/blog.styled";
-import type { IPosts } from "@/types/Post";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { Suspense, lazy, useCallback, useMemo, useState } from "react";
 
 export type FilterState = {
 	isPlantBassd: boolean;
@@ -41,7 +40,6 @@ export const Route = createLazyFileRoute("/")({
 const description = "Learnings, mishaps, and articles about random things.";
 
 function Blog() {
-	const { content, isLoading } = useContent();
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filter, setFilter] = useState<FilterState>({
 		isPlantBassd: true,
@@ -56,7 +54,7 @@ function Blog() {
 		[filter],
 	);
 
-	const { blogs = [], bites = [] } = content || ({} as IPosts);
+	const { blogs = [], bites = [] } = usePostsIndex();
 
 	const posts = useMemo(() => {
 		const searchLowercase = searchQuery.toLowerCase();
@@ -86,17 +84,6 @@ function Blog() {
 
 		return [...filteredBlogs, ...filteredBites].sort(sortByDate);
 	}, [filter, searchQuery, blogs, bites]);
-
-	if (isLoading) {
-		return (
-			<Page>
-				<MetaData title="My Blog" description={description} />
-				<Panel>
-					<Loading />
-				</Panel>
-			</Page>
-		);
-	}
 
 	return (
 		<Page>

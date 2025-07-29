@@ -1,7 +1,6 @@
 import { LeftIcon, RightIcon } from "@/components/icons";
 import { type SerializedStyles, css } from "@emotion/react";
-import type { ReactNode } from "@tanstack/react-router";
-import { useRef } from "react";
+import { type ReactNode, useRef } from "react";
 import {
 	ComponentWrapper,
 	ItemContainer,

@@ -1,11 +1,12 @@
-import { ContentProvider } from "@/context/ContentProvider";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
+import { ContentProvider } from "@/context/ContentProvider";
 import { routeTree } from "./routeTree.gen";
 
 // Set up a Router instance
 const router = createRouter({
+	scrollRestoration: true,
 	routeTree,
 });
 
@@ -19,7 +20,7 @@ const LazyPostHogProvider = lazy(
 	() => import("@/components/atoms/PostHogContainer"),
 );
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
+// biome-ignore lint/style/noNonNullAssertion: is root
 const rootElement = document.getElementById("root")!;
 
 if (!rootElement.innerHTML) {

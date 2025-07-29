@@ -2,7 +2,7 @@ import type { Handler } from "@netlify/functions";
 import jwt from "jsonwebtoken";
 import { MongoClient } from "mongodb";
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
 	const authResult = isValidAuth(event.headers.authorization);
 	if (!authResult.isValid) {
 		return {

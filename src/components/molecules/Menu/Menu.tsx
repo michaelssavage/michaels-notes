@@ -1,7 +1,7 @@
-import { ArrowBackIcon } from "@/components/icons";
-import { Anchor } from "@/components/molecules/Anchor";
 import { useTheme } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ArrowBackIcon } from "@/components/icons";
+import { Anchor } from "@/components/molecules/Anchor";
 import { MenuContainer, PageLink, Sidebar } from "./Menu.styled";
 
 interface Picked {

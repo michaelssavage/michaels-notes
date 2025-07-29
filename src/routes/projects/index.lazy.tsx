@@ -1,3 +1,5 @@
+import { createLazyFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { Project } from "@/components/atoms/Project";
@@ -5,13 +7,11 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
-import { useContent } from "@/context/ContentProvider";
+import { usePostsByCategory } from "@/hooks/use-posts.hook";
 import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
 import { Header, Page, SpotifyContent } from "@/styles/routes/projects.styled";
-import { type IPosts, type ITechnology, TECHNOLOGIES } from "@/types/Post";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { Suspense, lazy, useMemo, useState } from "react";
+import { type ITechnology, TECHNOLOGIES } from "@/types/Post";
 
 const TopTracks = lazy(
 	() => import("@/components/spotify/TopTracks/TopTracks"),
@@ -25,29 +25,16 @@ const description =
 	"Personal development, work, code challenges, and university projects.";
 
 function Projects() {
-	const { content, isLoading } = useContent();
-
 	const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
 	const handleTechClick = (tech: ITechnology) => {
 		setSelectedTech(tech === selectedTech ? null : tech);
 	};
 
-	const { projects = [] } = content || ({} as IPosts);
+	const posts = usePostsByCategory("projects");
 
 	const sortedProjects = useMemo(() => {
-		return projects.sort(sortById);
-	}, [projects]);
-
-	if (isLoading) {
-		return (
-			<Container>
-				<MetaData title="My Blog" description={description} />
-				<Header>
-					<Loading />
-				</Header>
-			</Container>
-		);
-	}
+		return posts.sort(sortById);
+	}, [posts]);
 
 	return (
 		<Page>

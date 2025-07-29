@@ -2,13 +2,13 @@ import type { Handler } from "@netlify/functions";
 import type { ITopTrackResponse } from "../../src/types/Spotify";
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "Content-Type, Accept",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Content-Type": "application/json",
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Headers": "Content-Type, Accept",
+	"Access-Control-Allow-Methods": "GET, OPTIONS",
+	"Content-Type": "application/json",
 };
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
 	// Handle CORS preflight
 	if (event.httpMethod === "OPTIONS") {
 		return {
@@ -74,7 +74,7 @@ const handler: Handler = async (event, context) => {
 		if (!tokenData.access_token) {
 			return {
 				statusCode: 500,
-				headers:corsHeaders,
+				headers: corsHeaders,
 				body: JSON.stringify({ error: "No access token received" }),
 			};
 		}
