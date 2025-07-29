@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { getContrastYIQ } from "@/lib/colors";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
@@ -124,13 +123,6 @@ export const Paths = styled.div`
     width: 90%;
     position: static;
   `)}
-`;
-
-export const ProjectImage = styled(motion.div)`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  will-change: transform;
 `;
 
 export const SpotifyContent = styled.div`

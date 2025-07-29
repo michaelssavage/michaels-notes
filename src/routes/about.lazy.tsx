@@ -3,6 +3,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import plantbassdImg from "@/assets/images/blog/plantbassd.png";
 import selfieImg from "@/assets/images/me.jpg";
 import { Group } from "@/components/atoms/Group";
+import { SectionInView } from "@/components/atoms/SectionInView";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Letterboxd } from "@/components/molecules/Letterboxd";
 import { Picture } from "@/components/molecules/Picture";
@@ -11,7 +12,6 @@ import {
 	Content,
 	Paragraph,
 	plantbassdStyle,
-	Section,
 	selfieStyle,
 } from "@/styles/routes/home.styled";
 
@@ -21,9 +21,14 @@ export const Route = createLazyFileRoute("/about")({
 
 function About() {
 	const theme = useTheme();
+
 	return (
 		<Content>
-			<Section main={theme.colors.moon} bg={theme.colors.section1}>
+			<SectionInView
+				delay={0}
+				main={theme.colors.moon}
+				bg={theme.colors.section1}
+			>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
 						<Picture src={selfieImg} alt="Picture of Me" style={selfieStyle} />
@@ -35,9 +40,9 @@ function About() {
 						</p>
 					</Group>
 				</Paragraph>
-			</Section>
+			</SectionInView>
 
-			<Section main={theme.colors.section2}>
+			<SectionInView delay={200} main={theme.colors.section2}>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
 						<Picture
@@ -59,15 +64,23 @@ function About() {
 						</p>
 					</Group>
 				</Paragraph>
-			</Section>
+			</SectionInView>
 
-			<Section main={theme.colors.section3} bg={theme.colors.section3b}>
+			<SectionInView
+				delay={400}
+				main={theme.colors.section3}
+				bg={theme.colors.section3b}
+			>
 				<Paragraph>
 					<Letterboxd />
 				</Paragraph>
-			</Section>
+			</SectionInView>
 
-			<Section main={theme.colors.toggle} bg={theme.colors.card}>
+			<SectionInView
+				delay={600}
+				main={theme.colors.toggle}
+				bg={theme.colors.card}
+			>
 				<Paragraph>
 					<Group direction="column" align="center">
 						<p>
@@ -79,7 +92,7 @@ function About() {
 						</p>
 					</Group>
 				</Paragraph>
-			</Section>
+			</SectionInView>
 		</Content>
 	);
 }

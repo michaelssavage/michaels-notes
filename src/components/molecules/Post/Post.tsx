@@ -1,6 +1,7 @@
-import type { IBlog } from "@/types/Post";
+import { useSpring } from "@react-spring/web";
 import { useCallback, useMemo, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import type { IBlog } from "@/types/Post";
 import { DateText } from "./Date";
 import { Description } from "./Description";
 import { Card, CardInfo, Title } from "./Post.styled";
@@ -26,6 +27,11 @@ const Post = ({
 
 	const isExpanded = useMemo(() => isFirst || isHovered, [isFirst, isHovered]);
 
+	const spring = useSpring({
+		transform: isHovered ? "scale(1.05)" : "scale(1)",
+		config: { tension: 300, friction: 30 },
+	});
+
 	return (
 		<article
 			ref={ref}
@@ -39,18 +45,12 @@ const Post = ({
 				aria-label={`Read post: ${title}`}
 			>
 				<CardInfo>
-					<Title
-						id={`post-title-${id}`}
-						layoutId={`blog-title-${id}`}
-						transition={{ type: "spring", stiffness: 300, damping: 30 }}
-					>
-						{title}
-					</Title>
+					<Title style={spring}>{title}</Title>
 					<DateText isExternal={isExternal}>{date}</DateText>
 				</CardInfo>
-				<Description 
-					description={description} 
-					isExpanded={isExpanded} 
+				<Description
+					description={description}
+					isExpanded={isExpanded}
 					label={`Description for ${title}`}
 				/>
 			</Card>

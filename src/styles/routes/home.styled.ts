@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { animated } from "@react-spring/web";
 import { ArrowDown } from "@/components/icons";
 import { hoverVertically } from "@/styles/abstracts/animations.styled";
 import {
@@ -22,7 +22,7 @@ export const Arrow = styled(ArrowDown)`
   cursor: pointer;
 `;
 
-export const Section = styled(motion.section)<{
+export const Section = styled(animated.section)<{
 	main?: string;
 	bg?: string;
 }>`

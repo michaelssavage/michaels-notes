@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
+import { animated, useSpring } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import DOMPurify from "dompurify";
-import { AnimatePresence, motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
 	fetchCurrentTrack,
 	fetchRecentTrack,
@@ -14,30 +14,29 @@ import {
 	MaximiseIcon,
 	MinimiseIcon,
 } from "@/components/icons";
-import {
-	Content,
-	Player,
-} from "@/components/molecules/AudioPlayer/AudioPlayer.styled";
 import { Picture } from "@/components/molecules/Picture";
 import { getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
 import type { IPlayTrack } from "@/types/Spotify";
 import {
-	Box,
 	Comp,
+	Content,
 	ExpandButton,
 	FactContent,
 	NowPlaying,
+	Player,
 	Title,
 } from "./CurrentPlay.styled";
 
 export const CurrentPlay = () => {
 	const [expanded, setExpanded] = useState(false);
+	const [contentHeight, setContentHeight] = useState(0);
+	const contentRef = useRef<HTMLDivElement>(null);
 
 	const currentTrack = useQuery<IPlayTrack>({
 		queryKey: ["currentTrack"],
 		queryFn: fetchCurrentTrack,
-		refetchInterval: 30000, // Refetch every 30 seconds
+		refetchInterval: 10000, // Refetch every 30 seconds
 	});
 
 	const recentTrack = useQuery<IPlayTrack>({
@@ -58,12 +57,22 @@ export const CurrentPlay = () => {
 
 	const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 
-	const memoizedColor = useMemo(() => dominantColor, [dominantColor]);
-
 	const fact = useMemo(
 		() => DOMPurify.sanitize(trackFact.data?.artist?.bio?.summary ?? ""),
 		[trackFact.data],
 	);
+
+	useEffect(() => {
+		if (contentRef.current) {
+			setContentHeight(contentRef.current.scrollHeight);
+		}
+	}, []);
+
+	const springs = useSpring({
+		opacity: fact ? 1 : 0,
+		height: expanded ? contentHeight : 12,
+		config: { duration: 300 },
+	});
 
 	if (trackFact.error) {
 		console.log("Last fm error: ", trackFact.error);
@@ -78,8 +87,8 @@ export const CurrentPlay = () => {
 				{trackData?.isPlaying ? "Now Playing:" : "Recently Played:"}
 			</Title>
 			{trackData && (
-				<NowPlaying color={memoizedColor ?? ""}>
-					<Player color={memoizedColor ?? ""}>
+				<NowPlaying color={dominantColor ?? ""}>
+					<Player color={dominantColor ?? ""}>
 						<Picture
 							src={trackData.albumArtUrl || ""}
 							alt="Album Art"
@@ -88,31 +97,20 @@ export const CurrentPlay = () => {
 						/>
 						<Content>
 							<h3>{trackData.trackTitle}</h3>
-							<Box layout>
-								<p id="artist-name">{trackData.artist}</p>
-							</Box>
+							<p id="artist-name">{trackData.artist}</p>
 						</Content>
 					</Player>
 
 					{fact && (
 						<>
-							<AnimatePresence initial={false}>
-								<motion.div
-									key="fact"
-									layout
-									initial={{ opacity: 0, height: 0 }}
-									animate={{ height: expanded ? "auto" : 12 }}
-									exit={{ opacity: 0, height: 0 }}
-									transition={{ duration: 0.3 }}
-									style={{ overflow: "hidden" }}
-								>
-									<FactContent
-										color={memoizedColor ?? ""}
-										// biome-ignore lint/security/noDangerouslySetInnerHtml: dom sanitised
-										dangerouslySetInnerHTML={{ __html: fact }}
-									/>
-								</motion.div>
-							</AnimatePresence>
+							<animated.div style={{ ...springs, overflow: "hidden" }}>
+								<FactContent
+									ref={contentRef}
+									color={dominantColor ?? ""}
+									// biome-ignore lint/security/noDangerouslySetInnerHtml: dom sanitised
+									dangerouslySetInnerHTML={{ __html: fact }}
+								/>
+							</animated.div>
 
 							<ExpandButton
 								onClick={() => setExpanded((prev) => !prev)}

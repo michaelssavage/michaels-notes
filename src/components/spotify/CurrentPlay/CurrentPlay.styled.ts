@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 import { getContrastYIQ } from "@/lib/colors";
 
 interface FactContentProps {
@@ -53,12 +52,6 @@ export const NowPlaying = styled.div<{ color: string }>`
   }
 `;
 
-export const Box = styled(motion.div)`
-  display: relative;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const FactContent = styled.p<FactContentProps>`
   font-size: 0.8rem;
   color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.colors.secondaryText};
@@ -67,6 +60,10 @@ export const FactContent = styled.p<FactContentProps>`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
+  &&& a {
+    color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.colors.secondaryText};
+  }
 `;
 
 export const ExpandButton = styled.button`
@@ -102,4 +99,15 @@ export const ExpandButton = styled.button`
       transform: scale(1.1);
     }
   }
+`;
+
+export const Content = styled.div`
+  padding: 1rem 0;
+  margin-left: 1rem;
+`;
+
+export const Player = styled.div<{ isPlaying?: boolean; color: string }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;

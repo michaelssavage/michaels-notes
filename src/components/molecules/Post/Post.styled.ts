@@ -1,8 +1,8 @@
 import isPropValid from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { animated } from "@react-spring/web";
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 interface DescriptionI {
@@ -28,7 +28,7 @@ export const CardInfo = styled.div`
   gap: 2rem;
 
   ${forPhoneOnly(css`
-    flex-direction: column;
+    flex-direction: column; 
     gap: 0.5rem;
   `)}
 
@@ -37,7 +37,7 @@ export const CardInfo = styled.div`
   }
 `;
 
-export const Title = styled(motion.h2)`
+export const Title = styled(animated.h2)`
   font-size: 1.2rem;
   will-change: transform;
   color: ${({ theme }) => theme.colors.text};
@@ -62,7 +62,7 @@ export const DescriptionText = styled.p`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const DescriptionWrapper = styled(motion.div)<DescriptionI>`
+export const DescriptionWrapper = styled(animated.div)<DescriptionI>`
   width: 100%;
   overflow: hidden;
   max-height: ${({ isExpanded, contentHeight }) =>

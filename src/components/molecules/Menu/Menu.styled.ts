@@ -19,8 +19,16 @@ export const MenuContainer = styled.div<{ open: boolean }>`
   border-radius: 0.5rem;
   cursor: ${({ open }) => (open ? "default" : "pointer")};
 
+
   svg {
     cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    svg {
+      transform: rotate(-90deg);
+    }
   }
   
   ${forTabletOnly(css`

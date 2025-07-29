@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { animated } from "@react-spring/web";
 import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
 import type { FilterState } from "@/routes/index.lazy";
@@ -81,7 +81,7 @@ export const ButtonGroup = styled.div`
   }
 `;
 
-export const Header = styled(motion.h1)`
+export const Header = styled(animated.h1)`
   font-size: 2rem;
   text-transform: uppercase;
   margin-bottom: 1rem;

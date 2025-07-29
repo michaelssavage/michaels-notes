@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { animated, useTransition } from "@react-spring/web";
 import { ArrowBackIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { MenuContainer, PageLink, Sidebar } from "./Menu.styled";
@@ -33,38 +33,41 @@ export const Menu = <T extends {}>({
 		if (!open) setOpen(true);
 	};
 
+	const transitions = useTransition(open, {
+		from: { opacity: 0, transform: "translateY(-10px)" },
+		enter: { opacity: 1, transform: "translateY(0px)" },
+		leave: { opacity: 0, transform: "translateY(-10px)" },
+		config: { duration: 200 },
+	});
+
 	return (
 		<MenuContainer open={open} onClick={openMenu}>
 			<ArrowBackIcon onClick={handleClick} />
 
-			<AnimatePresence>
-				{open && (
-					<motion.div
-						initial={{ opacity: 0, y: -10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -10 }}
-						transition={{ duration: 0.2, ease: "easeOut" }}
-					>
-						<PageLink to={`/${target}`} color={colors.link}>
-							back to {target}
-						</PageLink>
+			{transitions(
+				(styles, item) =>
+					item && (
+						<animated.div style={styles}>
+							<PageLink to={`/${target}`} color={colors.link}>
+								back to {target}
+							</PageLink>
 
-						<Sidebar>
-							{items.map(({ title, id, slug }) => {
-								return (
-									<li key={id}>
-										<Anchor
-											text={title}
-											link={`/${target}/${slug}`}
-											variant="link"
-										/>
-									</li>
-								);
-							})}
-						</Sidebar>
-					</motion.div>
-				)}
-			</AnimatePresence>
+							<Sidebar>
+								{items.map(({ title, id, slug }) => {
+									return (
+										<li key={id}>
+											<Anchor
+												text={title}
+												link={`/${target}/${slug}`}
+												variant="link"
+											/>
+										</li>
+									);
+								})}
+							</Sidebar>
+						</animated.div>
+					),
+			)}
 		</MenuContainer>
 	);
 };
