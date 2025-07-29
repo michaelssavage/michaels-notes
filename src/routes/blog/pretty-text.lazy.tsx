@@ -1,7 +1,6 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
-import rekordbox from "src/assets/images/blog/export-playlist.jpg";
 import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { CopyIcon, GithubIcon } from "@/components/icons";
@@ -183,7 +182,10 @@ function RekordboxPrettifier() {
 				<AboutSection>
 					<h2>About</h2>
 
-					<Picture src={rekordbox} alt="Rekordbox setting to export playlist" />
+					<Picture
+						src="/blog/export-playlist.jpg"
+						alt="Rekordbox setting to export playlist"
+					/>
 					<p>
 						Prettify an exported setlist from Rekordbox after you're done
 						recording. Useful for adding better descriptions to SoundCloud,

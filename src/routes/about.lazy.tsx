@@ -1,6 +1,5 @@
 import { useTheme } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import plantbassdImg from "@/assets/images/blog/plantbassd.png";
 import selfieImg from "@/assets/images/me.jpg";
 import { Group } from "@/components/atoms/Group";
 import { SectionInView } from "@/components/atoms/SectionInView";
@@ -42,11 +41,11 @@ function About() {
 				</Paragraph>
 			</SectionInView>
 
-			<SectionInView delay={200} main={theme.colors.section2}>
+			<SectionInView delay={100} main={theme.colors.section2}>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
 						<Picture
-							src={plantbassdImg}
+							src="/blog/plantbassd.png"
 							alt="Plant bass'd logo"
 							style={plantbassdStyle}
 						/>
@@ -67,7 +66,7 @@ function About() {
 			</SectionInView>
 
 			<SectionInView
-				delay={400}
+				delay={200}
 				main={theme.colors.section3}
 				bg={theme.colors.section3b}
 			>
@@ -77,7 +76,7 @@ function About() {
 			</SectionInView>
 
 			<SectionInView
-				delay={600}
+				delay={300}
 				main={theme.colors.toggle}
 				bg={theme.colors.card}
 			>

@@ -3,6 +3,23 @@ import path from "node:path";
 import matter from "gray-matter";
 import type { IBite, IBlog, IPosts, IProject } from "@/types/Post";
 
+if (process.platform === "win32") {
+	process.env.ESBUILD_BINARY_PATH = path.join(
+		process.cwd(),
+		"node_modules",
+		"esbuild",
+		"esbuild.exe",
+	);
+} else {
+	process.env.ESBUILD_BINARY_PATH = path.join(
+		process.cwd(),
+		"node_modules",
+		"esbuild",
+		"bin",
+		"esbuild",
+	);
+}
+
 interface MdxOptions {
 	rehypePlugins?: unknown[];
 	remarkPlugins?: unknown[];

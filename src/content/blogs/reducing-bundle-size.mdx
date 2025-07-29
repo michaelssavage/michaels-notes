@@ -6,9 +6,6 @@ description: "I sat down and decided to tackle the huge bundle size of my websit
 type: blog
 ---
 
-import rollup from "src/assets/images/blog/rollup-size.png";
-import comparer from "src/assets/images/blog/bundle-comparer.png";
-
 I sat down and decided to tackle the huge bundle size of my website. Embarrassingly it was 23mb after building, and although I never looked into how to reduce it, I knew that the problem would be the rendering of the blog posts. I have the bundle size now down to 1.14mb after tackling the biggest issues:
 
 - I was processing all MDX files at build time. I was embedding all the blog post content directly into the JavaScript bundle but now I have moved the processing to Netlify Server functions so that the content is requested when needed.
@@ -18,7 +15,7 @@ The build time for blog posts only extracts FrontMatter (metadata) content and n
 
 I used `rollup-plugin-visualizer` to visualize the remaining output (view the below screenshot), and I could see that framer motion was taking up 25% of the build!!! 
 
-<Picture src={rollup} alt="Roll-up size" />
+<Picture src="/blog/rollup-size.png" alt="Roll-up size" />
 
 ## Animations
 
@@ -27,6 +24,6 @@ After a quick look around at alternatives I decided to replace <Anchor link="htt
 - <Anchor link="https://bundlephobia.com/package/react-spring@10.0.1" variant="link" isExternal />
 - <Anchor link="https://bundlephobia.com/package/framer-motion@12.23.11" variant="link" isExternal />
 
-<Picture src={comparer} alt="comparing sizes of react-spring and framer-motion" />
+<Picture src="/blog/bundle-comparer.png" alt="comparing sizes of react-spring and framer-motion" />
 
 After replacing framer-motion, the bundle size dropped a significant amount. The full rendered amount comes out at 1.14mb, and gzipped at 357kb. React-spring takes up less than 5% of the bundle size now. Although Framer-motion wasn't the biggest offender, it was good to get an additional reduction in size. Overall, the 95% smaller size will lead to faster loading times, much less data consumed by visitors, and better performance on all devices. 

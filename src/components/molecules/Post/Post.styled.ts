@@ -62,18 +62,6 @@ export const DescriptionText = styled.p`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const DescriptionWrapper = styled(animated.div)<DescriptionI>`
-  width: 100%;
-  overflow: hidden;
-  max-height: ${({ isExpanded, contentHeight }) =>
-		isExpanded ? `${contentHeight}px` : "1.4rem"};
-  transition: max-height 0.3s ease-in-out;
-
-  ${forPhoneOnly(css`
-    font-size: 0.9rem;
-  `)}
-`;
-
 export const Card = styled(Link, {
 	shouldForwardProp: (prop) => isPropValid(prop) && prop !== "inView",
 })<{ inView: boolean }>`
@@ -97,4 +85,19 @@ export const Card = styled(Link, {
   &:hover {
     box-shadow: #009a7be5 5px 5px;
   }
+`;
+
+export const DescriptionWrapper = styled(animated.div, {
+	shouldForwardProp: (prop) =>
+		isPropValid(prop) && !["isExpanded", "contentHeight"].includes(prop),
+})<DescriptionI>`
+  width: 100%;
+  overflow: hidden;
+  max-height: ${({ isExpanded, contentHeight }) =>
+		isExpanded ? `${contentHeight}px` : "1.4rem"};
+  transition: max-height 0.3s ease-in-out;
+
+  ${forPhoneOnly(css`
+    font-size: 0.9rem;
+  `)}
 `;

@@ -15,14 +15,6 @@ colors:
   bg: "#2A004E"
 ---
 
-import nmr from "src/assets/images/project/nmr_tanstack.png";
-
-import likedSongs from "src/assets/images/project/liked-songs.png";
-
-import playlistUpdates from "src/assets/images/project/playlist-updates.png";
-
-import savedArtists from "src/assets/images/project/saved-artists.png";
-
 <Anchor link="https://new-music-releases-production.up.railway.app/" text="New Music Releases" variant="button" />
 
 A full-stack TypeScript application that automatically creates a Spotify playlist and updates it with new releases from user-saved artists. Built with React and Express using a monorepo architecture and Clean Code principles. 
@@ -32,7 +24,7 @@ A full-stack TypeScript application that automatically creates a Spotify playlis
 I chose Vite as the underlying build tool for the frontend, as it provides a 'faster and leaner development experience' with hot module reloading and a lightning-fast production build. It takes 4-5 seconds to build the frontend for production, which is served sas static assets on the backend. The GUI is built with TypeScript and React, using Tanstack Query for server state management and 
 <Anchor link="https://tanstack.com/" text="Tanstack Router" variant="link" isExternal /> for secure Spotify OAuth integration.
 
-<Picture src={nmr} alt="tan stack apps" />
+<Picture src="/project/nmr_tanstack.png" alt="tan stack apps" />
 
 I created my endpoints using Axios, and Tanstack Query helped to manage server state, caching, and automatic data synchronization using mutations.
 
@@ -54,16 +46,16 @@ I used Railway for deployment, as it was a simple and easy way to deploy my app.
 
 The app displays a table of the users liked songs from Spotify, which they can add to their favourites.
 
-<Picture src={likedSongs} alt="Liked songs table" />
+<Picture src="/project/liked-songs.png" alt="Liked songs table" />
 
 ### Playlist updates
 
 The app displays a table of the new music releases from Spotify from their favourite artists.
 
-<Picture src={playlistUpdates} alt="Liked songs table" />
+<Picture src="/project/playlist-updates.png" alt="Liked songs table" />
 
 ### Saved artists
 
 The app displays a table of the users favourited artists from Spotify.
 
-<Picture src={savedArtists} alt="Liked songs table" />
+<Picture src="/project/saved-artists.png" alt="Liked songs table" />

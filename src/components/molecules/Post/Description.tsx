@@ -18,7 +18,11 @@ export const Description = memo(({ description, isExpanded, label }: IDesc) => {
 	}, []);
 
 	return (
-		<DescriptionWrapper aria-label={label} isExpanded={isExpanded} contentHeight={contentHeight}>
+		<DescriptionWrapper
+			aria-label={label}
+			isExpanded={isExpanded}
+			contentHeight={contentHeight}
+		>
 			<DescriptionText ref={contentRef}>{description}</DescriptionText>
 		</DescriptionWrapper>
 	);

@@ -48,7 +48,12 @@ interface MarkdownProps {
 
 const Markdown = memo(({ content }: MarkdownProps) => {
 	const Component = useMemo(() => {
-		return getMDXComponent(content.code, MDX_GLOBAL_CONFIG);
+		try {
+			return getMDXComponent(content.code, MDX_GLOBAL_CONFIG);
+		} catch (error) {
+			console.error("Error parsing MDX component:", error);
+			return () => <div>Error loading content</div>;
+		}
 	}, [content]);
 
 	return (
