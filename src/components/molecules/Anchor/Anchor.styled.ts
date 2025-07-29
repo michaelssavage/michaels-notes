@@ -1,11 +1,12 @@
-import type { AnchorVariants } from "@/components/molecules/Anchor/Anchor";
-import { css } from "@emotion/react";
+import { type CSSObject, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
+import type { AnchorVariants } from "@/components/molecules/Anchor/Anchor";
 
 interface IStyle {
 	variant?: AnchorVariants;
 	isExternal?: boolean;
+	style?: CSSObject;
 }
 
 export const LinkStyle = styled(Link)<IStyle>`
@@ -64,4 +65,6 @@ export const LinkStyle = styled(Link)<IStyle>`
 				return null;
 		}
 	}}
+
+  ${({ style }) => style || {}}
 `;

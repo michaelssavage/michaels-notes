@@ -61,7 +61,7 @@ function About() {
 				</Paragraph>
 			</Section>
 
-			<Section main={theme.colors.section4} bg={theme.colors.section4b}>
+			<Section main={theme.colors.section3} bg={theme.colors.section3b}>
 				<Paragraph>
 					<Letterboxd />
 				</Paragraph>

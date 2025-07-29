@@ -45,16 +45,12 @@ export default defineConfig(({ mode }) => ({
 		}),
 		tsconfigPaths(),
 		postsPlugin(),
-		...(mode === "production"
-			? [
-					visualizer({
-						open: false,
-						filename: "dist/stats.html",
-						gzipSize: true,
-						brotliSize: true,
-					}),
-				]
-			: []),
+		visualizer({
+			open: false,
+			filename: "dist/stats.html",
+			gzipSize: true,
+			brotliSize: true,
+		}),
 	],
 	build: {
 		outDir: "dist",

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useState } from "react";
 import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
@@ -13,7 +13,7 @@ import { usePostContent, usePostsByCategory } from "@/hooks/use-posts.hook";
 
 const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 
-export const Route = createFileRoute("/projects/$slug")({
+export const Route = createLazyFileRoute("/projects/$slug")({
 	component: Slug,
 });
 

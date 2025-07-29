@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useState } from "react";
 import { MetaData } from "@/components/atoms";
 import { GithubIcon } from "@/components/icons";
@@ -12,7 +12,7 @@ import { usePostContent, usePostsByCategory } from "@/hooks/use-posts.hook";
 
 const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 
-export const Route = createFileRoute("/blog/$slug")({
+export const Route = createLazyFileRoute("/blog/$slug")({
 	component: Slug,
 });
 
@@ -33,13 +33,13 @@ function Slug() {
 			<Article height="90vh">
 				<Loading />
 			</Article>
-		);
+		)
 	if (isError) {
 		return (
 			<Article height="90vh">
 				Error loading blog: {error?.message || "Unknown error"}
 			</Article>
-		);
+		)
 	}
 
 	const sidebar = posts
@@ -78,5 +78,5 @@ function Slug() {
 				</Content>
 			</Suspense>
 		</Article>
-	);
+	)
 }

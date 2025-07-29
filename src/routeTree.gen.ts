@@ -12,14 +12,14 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
-import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
-import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const PlaygroundLazyRouteImport = createFileRoute('/playground')()
 const AboutLazyRouteImport = createFileRoute('/about')()
 const IndexLazyRouteImport = createFileRoute('/')()
 const ProjectsIndexLazyRouteImport = createFileRoute('/projects/')()
+const ProjectsSlugLazyRouteImport = createFileRoute('/projects/$slug')()
 const BlogPrettyTextLazyRouteImport = createFileRoute('/blog/pretty-text')()
+const BlogSlugLazyRouteImport = createFileRoute('/blog/$slug')()
 
 const PlaygroundLazyRoute = PlaygroundLazyRouteImport.update({
   id: '/playground',
@@ -48,6 +48,13 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsSlugLazyRoute = ProjectsSlugLazyRouteImport.update({
+  id: '/projects/$slug',
+  path: '/projects/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/projects/$slug.lazy').then((d) => d.Route),
+)
 const BlogPrettyTextLazyRoute = BlogPrettyTextLazyRouteImport.update({
   id: '/blog/pretty-text',
   path: '/blog/pretty-text',
@@ -55,24 +62,19 @@ const BlogPrettyTextLazyRoute = BlogPrettyTextLazyRouteImport.update({
 } as any).lazy(() =>
   import('./routes/blog/pretty-text.lazy').then((d) => d.Route),
 )
-const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
-  id: '/projects/$slug',
-  path: '/projects/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
+const BlogSlugLazyRoute = BlogSlugLazyRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/blog/$slug.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/playground': typeof PlaygroundLazyRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/projects/$slug': typeof ProjectsSlugRoute
+  '/blog/$slug': typeof BlogSlugLazyRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
+  '/projects/$slug': typeof ProjectsSlugLazyRoute
   '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
@@ -80,9 +82,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/playground': typeof PlaygroundLazyRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/projects/$slug': typeof ProjectsSlugRoute
+  '/blog/$slug': typeof BlogSlugLazyRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
+  '/projects/$slug': typeof ProjectsSlugLazyRoute
   '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
@@ -91,9 +93,9 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/playground': typeof PlaygroundLazyRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/projects/$slug': typeof ProjectsSlugRoute
+  '/blog/$slug': typeof BlogSlugLazyRoute
   '/blog/pretty-text': typeof BlogPrettyTextLazyRoute
+  '/projects/$slug': typeof ProjectsSlugLazyRoute
   '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexLazyRoute
 }
@@ -104,8 +106,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/playground'
     | '/blog/$slug'
-    | '/projects/$slug'
     | '/blog/pretty-text'
+    | '/projects/$slug'
     | '/blog'
     | '/projects'
   fileRoutesByTo: FileRoutesByTo
@@ -114,8 +116,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/playground'
     | '/blog/$slug'
-    | '/projects/$slug'
     | '/blog/pretty-text'
+    | '/projects/$slug'
     | '/blog'
     | '/projects'
   id:
@@ -124,8 +126,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/playground'
     | '/blog/$slug'
-    | '/projects/$slug'
     | '/blog/pretty-text'
+    | '/projects/$slug'
     | '/blog/'
     | '/projects/'
   fileRoutesById: FileRoutesById
@@ -134,9 +136,9 @@ export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AboutLazyRoute: typeof AboutLazyRoute
   PlaygroundLazyRoute: typeof PlaygroundLazyRoute
-  BlogSlugRoute: typeof BlogSlugRoute
-  ProjectsSlugRoute: typeof ProjectsSlugRoute
+  BlogSlugLazyRoute: typeof BlogSlugLazyRoute
   BlogPrettyTextLazyRoute: typeof BlogPrettyTextLazyRoute
+  ProjectsSlugLazyRoute: typeof ProjectsSlugLazyRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProjectsIndexLazyRoute: typeof ProjectsIndexLazyRoute
 }
@@ -178,6 +180,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/$slug': {
+      id: '/projects/$slug'
+      path: '/projects/$slug'
+      fullPath: '/projects/$slug'
+      preLoaderRoute: typeof ProjectsSlugLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/pretty-text': {
       id: '/blog/pretty-text'
       path: '/blog/pretty-text'
@@ -185,18 +194,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogPrettyTextLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/$slug': {
-      id: '/projects/$slug'
-      path: '/projects/$slug'
-      fullPath: '/projects/$slug'
-      preLoaderRoute: typeof ProjectsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
+      preLoaderRoute: typeof BlogSlugLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -206,9 +208,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AboutLazyRoute: AboutLazyRoute,
   PlaygroundLazyRoute: PlaygroundLazyRoute,
-  BlogSlugRoute: BlogSlugRoute,
-  ProjectsSlugRoute: ProjectsSlugRoute,
+  BlogSlugLazyRoute: BlogSlugLazyRoute,
   BlogPrettyTextLazyRoute: BlogPrettyTextLazyRoute,
+  ProjectsSlugLazyRoute: ProjectsSlugLazyRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProjectsIndexLazyRoute: ProjectsIndexLazyRoute,
 }

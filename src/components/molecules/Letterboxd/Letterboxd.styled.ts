@@ -1,12 +1,21 @@
-import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
+import type { MyTheme } from "@/styles/abstracts/colors.styled";
+import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 interface ICard {
 	index: number;
 	active: number;
 }
+
+export const anchorStyles = (
+	isActive: boolean,
+	colors: MyTheme["colors"],
+) => css`
+  color: ${isActive ? colors.section3c : colors.section3d};
+  text-decoration: ${isActive ? "underline" : "none"};
+`;
 
 export const StackContainer = styled.div`
   width: 100%;
@@ -53,7 +62,7 @@ export const Card = styled(Link)<ICard>`
 		const rotateY = isActive ? 0 : `${diff * 10}deg`;
 		const scale = isActive ? 1 : 1 - Math.abs(diff) * 0.1;
 		const opacity = isActive ? 1 : 1 - Math.abs(diff) * 0.2;
-		return `
+		return css`
       transform: translateX(${translateX}) translateZ(${translateZ}) rotateY(${rotateY}) scale(${scale});
       opacity: ${opacity};
       z-index: ${10 - Math.abs(diff)};
@@ -91,15 +100,15 @@ export const Button = styled.button<{ isActive: boolean }>`
   padding: 0.25rem 1.25rem;
   border: none;
   background-color: ${({ isActive, theme }) =>
-		isActive ? theme.colors.button : "transparent"};
-  color: ${({ isActive, theme }) => (isActive ? theme.colors.moon : "#070f06")};
+		isActive ? theme.colors.section3d : "transparent"};
+  color: ${({ theme }) => theme.colors.moon};
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
     background-color: ${({ isActive, theme }) =>
-			isActive ? theme.colors.extBtnBg : "#e2e6ea"};
+			isActive ? theme.colors.headerBg : theme.colors.buttonLink};
   }
 
   ${forPhoneOnly(css`

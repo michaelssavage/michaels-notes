@@ -1,12 +1,14 @@
+import { useTheme } from "@emotion/react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { fetchFavouriteMovies } from "@/api/favorite-movies.api";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import { breakpoint } from "@/styles/routes/home.styled";
 import type { IMovie } from "@/types/Movie";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import {
+	anchorStyles,
 	Button,
 	ButtonContainer,
 	Card,
@@ -20,6 +22,8 @@ export const Letterboxd = () => {
 		queryFn: fetchFavouriteMovies,
 		refetchOnWindowFocus: false,
 	});
+
+	const { colors } = useTheme();
 
 	const [active, setActive] = useState(0);
 
@@ -56,22 +60,21 @@ export const Letterboxd = () => {
 			</StackContainer>
 
 			<div>
-				<p>
-					I love watching, sharing and keeping track of movies on Letterboxd
-					(the best social media platform). Some of my favourites include{" "}
-					{data.map((movie, index) => (
-						<>
-							<Anchor
-								key={movie.title}
-								link={movie.movieurl}
-								text={movie.title}
-								variant={index === active ? "link" : "text"}
-							/>
-							{index < data.length - 1 && ", "}
-						</>
-					))}
-					.
-				</p>
+				I love watching, sharing and keeping track of movies on Letterboxd (the
+				best social media platform). Some of my favourites include{" "}
+				{data.map((movie, index) => (
+					<>
+						<Anchor
+							key={movie.title}
+							link={movie.movieurl}
+							text={movie.title}
+							variant="link"
+							style={anchorStyles(index === active, colors)}
+						/>
+						{index < data.length - 1 && ", "}
+					</>
+				))}
+				.
 				<ButtonContainer>
 					{data.map((movie, index) => (
 						<Button
