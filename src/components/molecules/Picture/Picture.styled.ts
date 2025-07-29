@@ -1,6 +1,6 @@
-import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 
 export const Wrapper = styled.figure`
   display: grid;

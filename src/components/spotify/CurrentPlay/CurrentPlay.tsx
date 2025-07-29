@@ -1,3 +1,9 @@
+import { css } from "@emotion/react";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
+import DOMPurify from "dompurify";
+import { AnimatePresence, motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import {
 	fetchCurrentTrack,
 	fetchRecentTrack,
@@ -16,12 +22,6 @@ import { Picture } from "@/components/molecules/Picture";
 import { getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
 import type { IPlayTrack } from "@/types/Spotify";
-import { css } from "@emotion/react";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
-import DOMPurify from "dompurify";
-import { AnimatePresence, motion } from "framer-motion";
-import { useMemo, useState } from "react";
 import {
 	Box,
 	Comp,

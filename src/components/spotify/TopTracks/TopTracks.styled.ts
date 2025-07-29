@@ -1,6 +1,6 @@
-import { getContrastYIQ } from "@/lib/colors";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
+import { getContrastYIQ } from "@/lib/colors";
 
 export const Card = styled(Link)`
   flex: 0 0 auto;

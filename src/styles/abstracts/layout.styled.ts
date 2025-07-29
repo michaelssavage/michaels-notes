@@ -1,6 +1,6 @@
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
 interface IGroup {
 	direction?: "row" | "column" | "row-reverse" | "column-reverse";

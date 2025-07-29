@@ -1,4 +1,4 @@
-import { type ReactNode, memo } from "react";
+import { memo, type ReactNode } from "react";
 import { StyledDateText } from "./Post.styled";
 
 export interface DateTextProps {

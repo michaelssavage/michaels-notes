@@ -1,6 +1,6 @@
+import { css } from "@emotion/react";
 import nudicaFont from "@/assets/fonts/nudica.woff2";
 import rawestFont from "@/assets/fonts/rawest.woff2";
-import { css } from "@emotion/react";
 
 export const fonts = css`
   @font-face {

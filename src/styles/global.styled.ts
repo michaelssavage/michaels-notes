@@ -1,8 +1,8 @@
+import { css } from "@emotion/react";
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
 import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { fonts } from "@/styles/abstracts/fonts.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
-import { css } from "@emotion/react";
 
 export const globalStyles = (theme: MyTheme) => css`
   ${resetStyles}

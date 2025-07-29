@@ -1,9 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
 import { fetchTopTracks } from "@/api/top-tracks.api";
 import { ExternalLinkIcon } from "@/components/icons";
 import { Scroll } from "@/components/molecules/Scroll";
 import { getRandomColor } from "@/lib/colors";
 import type { ITopTrack } from "@/types/Spotify";
-import { useQuery } from "@tanstack/react-query";
 import { ArtistName, Card, TrackName } from "./TopTracks.styled";
 
 const TopTracks = () => {
