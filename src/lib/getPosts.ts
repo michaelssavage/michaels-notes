@@ -98,7 +98,7 @@ export async function getPostContent(category: string, slug: string) {
 					".png": "dataurl",
 				};
 				options.external = options.external || [];
-				options.external.push("src/assets/**");
+				options.external.push("src/assets/*");
 				return options;
 			},
 		});
