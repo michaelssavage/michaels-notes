@@ -4,6 +4,7 @@
   functions = "netlify/functions"
 
 [functions]
+  included_files = ["src/content/**"]
   external_node_modules = [
     "esbuild"
   ]

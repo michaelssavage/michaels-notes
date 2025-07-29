@@ -3,23 +3,6 @@ import path from "node:path";
 import matter from "gray-matter";
 import type { IBite, IBlog, IPosts, IProject } from "@/types/Post";
 
-if (process.platform === "win32") {
-	process.env.ESBUILD_BINARY_PATH = path.join(
-		process.cwd(),
-		"node_modules",
-		"esbuild",
-		"esbuild.exe",
-	);
-} else {
-	process.env.ESBUILD_BINARY_PATH = path.join(
-		process.cwd(),
-		"node_modules",
-		"esbuild",
-		"bin",
-		"esbuild",
-	);
-}
-
 interface MdxOptions {
 	rehypePlugins?: unknown[];
 	remarkPlugins?: unknown[];
@@ -35,6 +18,13 @@ const globals = {
 };
 
 function extractFrontmatter<T>(directory: string): T[] {
+	if (!fs.existsSync(directory)) {
+		console.warn(
+			`extractFrontmatter: Directory not found: ${directory}. Returning empty array.`,
+		);
+		return [];
+	}
+
 	const files = fs
 		.readdirSync(directory)
 		.filter((file) => file.endsWith(".mdx"));
@@ -43,23 +33,21 @@ function extractFrontmatter<T>(directory: string): T[] {
 		const filePath = path.resolve(directory, file);
 		const source = fs.readFileSync(filePath, "utf-8");
 
-		const { data: frontmatter, content } = matter(source);
-
-		const excerpt = `${content
-			.split("\n\n")[0]
-			.replace(/[#*`]/g, "")
-			.substring(0, 160)}...`;
+		const { data: frontmatter } = matter(source);
 
 		return {
 			...frontmatter,
 			slug: file.replace(".mdx", ""),
-			excerpt,
 		} as T;
 	});
 }
 
 // Build-time index generation (lightweight)
 export const getContentPosts = async (contentDir: string): Promise<IPosts> => {
+	console.log(
+		`getContentPosts: Starting to build content index from: ${contentDir}`,
+	);
+
 	return {
 		projects: extractFrontmatter<IProject>(path.join(contentDir, "projects")),
 		blogs: extractFrontmatter<IBlog>(path.join(contentDir, "blogs")),
@@ -77,40 +65,60 @@ export async function getPostContent(category: string, slug: string) {
 		`src/content/${category}/${slug}.mdx`,
 	);
 
+	console.log(`getPostContent: File does NOT exist at path: "${filePath}"`);
+
 	if (!fs.existsSync(filePath)) {
-		throw new Error(`Post not found: ${category}/${slug}`);
+		throw new Error(
+			`getPostContent: File does NOT exist at path: ${category}/${slug}`,
+		);
 	}
 
 	const source = fs.readFileSync(filePath, "utf-8");
 
-	const { code, frontmatter } = await bundleMDX({
-		source,
-		cwd: path.resolve(process.cwd()),
-		globals,
-		mdxOptions(options: MdxOptions) {
-			options.rehypePlugins = [
-				...(options.rehypePlugins ?? []),
-				rehypeMdxImportMedia.default,
-				rehypeHighlight.default,
-			];
-			return {
-				...options,
-				providerImportSource: "@mdx-js/react",
-			};
-		},
-		esbuildOptions: (options) => {
-			options.loader = {
-				...options.loader,
-				".jpg": "dataurl",
-				".png": "dataurl",
-			};
-			return options;
-		},
-	});
+	try {
+		const { code, frontmatter } = await bundleMDX({
+			source,
+			cwd: path.resolve(process.cwd()),
+			globals,
+			mdxOptions(options: MdxOptions) {
+				options.rehypePlugins = [
+					...(options.rehypePlugins ?? []),
+					rehypeMdxImportMedia.default,
+					rehypeHighlight.default,
+				];
+				return {
+					...options,
+					providerImportSource: "@mdx-js/react",
+				};
+			},
+			esbuildOptions: (options) => {
+				options.loader = {
+					...options.loader,
+					".jpg": "dataurl",
+					".png": "dataurl",
+				};
+				return options;
+			},
+		});
 
-	return {
-		...frontmatter,
-		slug,
-		code,
-	};
+		return {
+			...frontmatter,
+			slug,
+			code,
+		};
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			console.error(
+				`getPostContent: Error bundling MDX for ${category}/${slug}:`,
+				error,
+			);
+			throw new Error(`Failed to process post content: ${error.message}`);
+		} else {
+			console.error(
+				`getPostContent: Unknown error bundling MDX for ${category}/${slug}:`,
+				error,
+			);
+			throw new Error("Failed to process post content: Unknown bundling error");
+		}
+	}
 }
