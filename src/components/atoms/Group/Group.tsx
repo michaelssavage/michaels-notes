@@ -1,6 +1,6 @@
 import type { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
-import type { ReactNode } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 interface IGroup {
 	direction?: "row" | "column" | "row-reverse" | "column-reverse";

@@ -6,7 +6,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/molecules/Overlays";
-import type { ReactNode } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 interface IFloating {
 	type: "tooltip" | "popover";

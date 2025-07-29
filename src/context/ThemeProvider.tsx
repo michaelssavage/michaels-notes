@@ -5,8 +5,8 @@ import {
 } from "@/styles/abstracts/colors.styled";
 import { globalStyles } from "@/styles/global.styled";
 import { ThemeProvider as EmotionThemeProvider, Global } from "@emotion/react";
-import type { ReactNode } from "@tanstack/react-router";
 import {
+	type ReactNode,
 	createContext,
 	useCallback,
 	useContext,

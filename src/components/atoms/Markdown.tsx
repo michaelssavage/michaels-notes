@@ -5,7 +5,6 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
-import type { ReactNode } from "@tanstack/react-router";
 import { getMDXComponent } from "mdx-bundler/client";
 import type { MDXComponents } from "node_modules/@mdx-js/react/lib";
 import { memo, useMemo } from "react";
@@ -41,7 +40,7 @@ const components: MDXComponents = {
 
 interface MarkdownProps {
 	content: {
-		code: ReactNode;
+		code: string;
 		title: string;
 		description: string;
 	};
