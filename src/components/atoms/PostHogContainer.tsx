@@ -13,11 +13,11 @@ const options = {
 export default function LazyPostHogProvider({
 	children,
 }: { children: React.ReactNode }) {
+	if (isDevelopment) return <>{children}</>;
+
 	return (
 		<PostHogProvider
-			apiKey={
-				isDevelopment ? "" : import.meta.env.VITE_PUBLIC_POSTHOG_KEY || ""
-			}
+			apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY || ""}
 			options={options}
 		>
 			{children}

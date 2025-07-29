@@ -1,9 +1,9 @@
-import { getContrastYIQ } from "@/lib/colors";
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { getContrastYIQ } from "@/lib/colors";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
 interface ICard {
 	main: string;
@@ -92,10 +92,10 @@ export const Header = styled.div`
 `;
 
 // slug
-
-export const Article = styled.article`
+export const Article = styled.article<{ height?: string }>`
   margin: 2rem auto;
   width: 50%;
+  min-height: ${({ height }) => height};
 
   ${forPhoneOnly(css`
     width: 90%;

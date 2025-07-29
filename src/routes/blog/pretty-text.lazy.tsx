@@ -1,3 +1,7 @@
+import { createLazyFileRoute } from "@tanstack/react-router";
+import { useCallback, useState } from "react";
+import { toast } from "react-toastify";
+import rekordbox from "src/assets/images/blog/export-playlist.jpg";
 import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { CopyIcon, GithubIcon } from "@/components/icons";
@@ -8,19 +12,15 @@ import { Picture } from "@/components/molecules/Picture";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
 	AboutSection,
+	copyButtonStyles,
 	DragBanner,
 	Label,
 	StyledTextarea,
 	TextareaWrapper,
 	Title,
-	copyButtonStyles,
 	viewMoreButtonStyles,
 } from "@/styles/routes/rekordbox-prettifier.styled";
 import { exampleRekordboxText } from "@/utils";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { useCallback, useState } from "react";
-import { toast } from "react-toastify";
-import rekordbox from "src/assets/images/blog/export-playlist.jpg";
 
 export const Route = createLazyFileRoute("/blog/pretty-text")({
 	component: RekordboxPrettifier,

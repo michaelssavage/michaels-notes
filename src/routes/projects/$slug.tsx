@@ -1,3 +1,5 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense, useState } from "react";
 import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
@@ -5,11 +7,9 @@ import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { joinTags } from "@/lib/utils";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
-import type { IPosts } from "@/types/Post";
-import { createFileRoute } from "@tanstack/react-router";
-import { Suspense, lazy, useState } from "react";
 import type { IProject } from "../../types/Post";
 import "highlight.js/styles/monokai.css";
+import { usePostContent, usePostsByCategory } from "@/hooks/use-posts.hook";
 
 const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 
@@ -18,13 +18,29 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function Slug() {
-	const { slug } = Route.useParams();
-	const { projects }: IPosts = import.meta.env.POSTS;
-	const doc = projects.find((post) => post.slug === slug);
 	const [open, setOpen] = useState(false);
+	const { slug } = Route.useParams();
+	const posts = usePostsByCategory("projects");
 
-	if (!doc) {
-		return <div>Project post not found</div>;
+	const {
+		data: doc,
+		isLoading,
+		isError,
+		error,
+	} = usePostContent<IProject>("projects", slug);
+
+	if (!doc || isLoading)
+		return (
+			<Article height="90vh">
+				<Loading />
+			</Article>
+		);
+	if (isError) {
+		return (
+			<Article height="90vh">
+				Error loading project: {error?.message || "Unknown error"}
+			</Article>
+		);
 	}
 
 	return (
@@ -33,7 +49,7 @@ function Slug() {
 				<MetaData title={doc.title} description={doc.description} />
 				<Menu<IProject>
 					target="projects"
-					items={projects}
+					items={posts.filter(({ id }) => id !== doc.id)}
 					open={open}
 					setOpen={setOpen}
 				/>

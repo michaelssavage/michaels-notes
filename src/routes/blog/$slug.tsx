@@ -1,13 +1,14 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense, useState } from "react";
 import { MetaData } from "@/components/atoms";
 import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
-import type { IBlog, IPosts } from "@/types/Post";
-import { createFileRoute } from "@tanstack/react-router";
-import { Suspense, lazy, useState } from "react";
+import type { IBlog } from "@/types/Post";
 import "highlight.js/styles/monokai.css";
+import { usePostContent, usePostsByCategory } from "@/hooks/use-posts.hook";
 
 const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 
@@ -17,18 +18,33 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function Slug() {
 	const [open, setOpen] = useState(false);
-
 	const { slug } = Route.useParams();
-	const { blogs }: IPosts = import.meta.env.POSTS;
-	const doc = blogs.find((post) => post.slug === slug);
+	const posts = usePostsByCategory("blogs");
 
-	if (!doc) {
-		return <div>Blog post not found</div>;
+	const {
+		data: doc,
+		isLoading,
+		isError,
+		error,
+	} = usePostContent<IBlog>("blogs", slug);
+
+	if (!doc || isLoading)
+		return (
+			<Article height="90vh">
+				<Loading />
+			</Article>
+		);
+	if (isError) {
+		return (
+			<Article height="90vh">
+				Error loading blog: {error?.message || "Unknown error"}
+			</Article>
+		);
 	}
 
-	const sidebar = blogs
-		.filter((item) => !item.isExternal)
-		.filter((current) => current.id !== doc.id);
+	const sidebar = posts
+		.filter(({ isExternal }) => !isExternal)
+		.filter(({ id }) => id !== doc.id);
 
 	return (
 		<Article>

@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import {
+	autoUpdate,
 	FloatingFocusManager,
 	FloatingPortal,
-	type Placement,
-	autoUpdate,
 	flip,
 	offset,
+	type Placement,
 	shift,
 	useClick,
 	useDismiss,
@@ -15,14 +15,14 @@ import {
 	useRole,
 } from "@floating-ui/react";
 import {
-	type Dispatch,
-	type HTMLProps,
-	type ReactNode,
-	type SetStateAction,
 	cloneElement,
 	createContext,
+	type Dispatch,
 	forwardRef,
+	type HTMLProps,
 	isValidElement,
+	type ReactNode,
+	type SetStateAction,
 	useContext,
 	useMemo,
 	useState,
@@ -142,7 +142,7 @@ export const PopoverTrigger = forwardRef<
 	HTMLProps<HTMLElement> & PopoverTriggerProps
 >(function PopoverTrigger({ children, asChild = false, ...props }, propRef) {
 	const context = usePopoverContext();
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	// biome-ignore lint/suspicious/noExplicitAny: allow any children
 	const childrenRef = (children as any).ref;
 	const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
 
@@ -187,8 +187,6 @@ export const PopoverContent = forwardRef<
 				<div
 					ref={ref}
 					style={{ ...context.floatingStyles, ...style }}
-					aria-labelledby={context.labelId}
-					aria-describedby={context.descriptionId}
 					{...context.getFloatingProps(props)}
 				>
 					{props.children}

@@ -16,7 +16,7 @@ export const Countdown = ({ targetDate }: CountdownClockProps) => {
 	const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
 
 	function calculateTimeLeft(): TimeLeft {
-		const difference = +new Date(targetDate) - +new Date();
+		const difference = +new Date(targetDate) - Date.now();
 		let timeLeft: TimeLeft = {
 			days: 0,
 			hours: 0,

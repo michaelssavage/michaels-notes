@@ -2,11 +2,11 @@ import path from "node:path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { type Plugin, defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { getContentPosts } from "./src/lib/getPosts";
 
-async function getPostsData() {
+async function getPostsIndex() {
 	const contentDir = path.resolve(__dirname, "src/content");
 	return await getContentPosts(contentDir);
 }
@@ -15,10 +15,11 @@ function postsPlugin(): Plugin {
 	return {
 		name: "posts-plugin",
 		async config() {
-			const postsData = await getPostsData();
+			// Only embed the lightweight index
+			const postsIndex = await getPostsIndex();
 			return {
 				define: {
-					"import.meta.env.POSTS": JSON.stringify(postsData),
+					"import.meta.env.POSTS_INDEX": JSON.stringify(postsIndex),
 				},
 			};
 		},
@@ -115,10 +116,12 @@ export default defineConfig(({ mode }) => ({
 				entryFileNames: "assets/[name]-[hash].js",
 				assetFileNames: "assets/[name]-[hash].[ext]",
 			},
+			external: ["esbuild"],
 		},
 		chunkSizeWarningLimit: 1000,
 		optimizeDeps: {
 			include: ["@emotion/react", "@emotion/styled", "react", "react-dom"],
+			exclude: ["esbuild"],
 		},
 		esbuild: {
 			logLevel: "info",

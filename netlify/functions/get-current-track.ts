@@ -1,13 +1,13 @@
 import type { Handler } from "@netlify/functions";
 import type { IPlayTrackResponse } from "../../src/types/Spotify";
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
 	// Handle CORS preflight
 	if (event.httpMethod === "OPTIONS") {
 		return {
 			statusCode: 200,
 			headers: {
-				"Access-Control-Allow-Origin": "*", // Configure this for your domain in production
+				"Access-Control-Allow-Origin": "*",
 				"Access-Control-Allow-Headers": "Content-Type, Authorization",
 				"Access-Control-Allow-Methods": "GET, OPTIONS",
 				"Content-Type": "text/plain",
@@ -23,8 +23,8 @@ const handler: Handler = async (event, context) => {
 			headers: {
 				"Access-Control-Allow-Origin": "*",
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
+				"Access-Control-Allow-Headers": "",
+				"Access-Control-Allow-Methods": "",
 			},
 			body: JSON.stringify({ error: "Method not allowed" }),
 		};
@@ -40,8 +40,8 @@ const handler: Handler = async (event, context) => {
 			headers: {
 				"Access-Control-Allow-Origin": "*",
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
+				"Access-Control-Allow-Headers": "",
+				"Access-Control-Allow-Methods": "",
 			},
 			body: JSON.stringify({ error: "Missing Spotify credentials" }),
 		};
@@ -75,8 +75,8 @@ const handler: Handler = async (event, context) => {
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Headers": "", // Add this
-					"Access-Control-Allow-Methods": "", // Add this
+					"Access-Control-Allow-Headers": "",
+					"Access-Control-Allow-Methods": "",
 				},
 				body: JSON.stringify({ error: "Failed to refresh token" }),
 			};
@@ -90,8 +90,8 @@ const handler: Handler = async (event, context) => {
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Headers": "", // Add this
-					"Access-Control-Allow-Methods": "", // Add this
+					"Access-Control-Allow-Headers": "",
+					"Access-Control-Allow-Methods": "",
 				},
 				body: JSON.stringify({ error: "No access token received" }),
 			};
@@ -115,8 +115,8 @@ const handler: Handler = async (event, context) => {
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Headers": "", // Add this
-					"Access-Control-Allow-Methods": "", // Add this
+					"Access-Control-Allow-Headers": "",
+					"Access-Control-Allow-Methods": "",
 				},
 				body: JSON.stringify({ error: "Failed to fetch current track" }),
 			};
@@ -129,8 +129,8 @@ const handler: Handler = async (event, context) => {
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
-					"Access-Control-Allow-Headers": "", // Add this
-					"Access-Control-Allow-Methods": "", // Add this
+					"Access-Control-Allow-Headers": "",
+					"Access-Control-Allow-Methods": "",
 				},
 				body: JSON.stringify({ isPlaying: false }),
 			};
@@ -152,8 +152,8 @@ const handler: Handler = async (event, context) => {
 			headers: {
 				"Access-Control-Allow-Origin": "*",
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
+				"Access-Control-Allow-Headers": "",
+				"Access-Control-Allow-Methods": "",
 			},
 			body: JSON.stringify(transformedTrack),
 		};
@@ -164,8 +164,8 @@ const handler: Handler = async (event, context) => {
 			headers: {
 				"Access-Control-Allow-Origin": "*",
 				"Content-Type": "application/json",
-				"Access-Control-Allow-Headers": "", // Add this
-				"Access-Control-Allow-Methods": "", // Add this
+				"Access-Control-Allow-Headers": "",
+				"Access-Control-Allow-Methods": "",
 			},
 			body: JSON.stringify({ error: "Internal server error" }),
 		};

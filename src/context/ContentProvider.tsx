@@ -1,12 +1,12 @@
-import type { IPosts } from "@/types/Post";
 import {
-	type ReactNode,
 	createContext,
+	type ReactNode,
 	useContext,
 	useEffect,
 	useMemo,
 	useState,
 } from "react";
+import type { IPosts } from "@/types/Post";
 
 type ContentContextType = {
 	content: IPosts | null;
