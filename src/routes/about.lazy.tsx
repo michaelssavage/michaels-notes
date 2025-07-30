@@ -1,12 +1,12 @@
-import { css, useTheme } from "@emotion/react";
+import { useTheme } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import selfieImg from "@/assets/images/me.jpg";
 import { Group } from "@/components/atoms/Group";
 import { SectionInView } from "@/components/atoms/SectionInView";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Letterboxd } from "@/components/molecules/Letterboxd";
 import { Picture } from "@/components/molecules/Picture";
 import {
+	anchorStyle,
 	breakpoint,
 	Content,
 	Paragraph,
@@ -26,13 +26,14 @@ function About() {
 			<SectionInView delay={0} main={colors.moon} bg={colors.section1}>
 				<Paragraph>
 					<Group align="center" gap="2rem" css={breakpoint}>
-						<Picture src={selfieImg} alt="Picture of Me" style={selfieStyle} />
+						<Picture src="/me.jpg" alt="Picture of Me" style={selfieStyle} />
 						<p>
 							Studied Computer Applications in DCU and started working with{" "}
 							<Anchor
 								link="https://careers.jaguarlandrover.com/where-we-are/ireland"
 								text="JLR"
 								variant="link"
+								style={anchorStyle("#adcbfc", "#5990e1")}
 							/>
 							, Shannon from 2021 to 2024. I'm currently working as a Frontend
 							Developer in the heart of Barcelona using tools like React.js,
@@ -56,7 +57,7 @@ function About() {
 								variant="link"
 								text="Plant Bass'd"
 								link="/blog/what-is-plant-bassd"
-								style={css`color: ${colors.link};`}
+								style={anchorStyle(colors.link, colors.header)}
 							/>
 							, an electronic music blog and underground club night that that
 							took hold in Ireland and Scotland. I learned to DJ, create events,

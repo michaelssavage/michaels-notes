@@ -1,18 +1,18 @@
-import { useTheme } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchFavouriteMovies } from "@/api/favorite-movies.api";
 import { Group } from "@/components/atoms/Group";
-import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import { breakpoint } from "@/styles/routes/home.styled";
 import type { IMovie } from "@/types/Movie";
 import {
-	anchorStyles,
 	Button,
 	ButtonContainer,
 	Card,
 	CardStack,
+	HoverOverlay,
+	HoverText,
+	Movie,
 	StackContainer,
 } from "./Letterboxd.styled";
 
@@ -22,8 +22,6 @@ export const Letterboxd = () => {
 		queryFn: fetchFavouriteMovies,
 		refetchOnWindowFocus: false,
 	});
-
-	const { colors } = useTheme();
 
 	const [active, setActive] = useState(0);
 
@@ -49,11 +47,15 @@ export const Letterboxd = () => {
 						<Card
 							key={`${movie.title}-${index}`}
 							to={movie.movieurl}
-							index={index}
-							active={active}
+							diff={index - active}
+							isActive={index === active}
 							data-testid="movie-card"
 						>
 							<Picture src={movie.imageurl} alt={movie.title} />
+
+							<HoverOverlay>
+								<HoverText>open</HoverText>
+							</HoverOverlay>
 						</Card>
 					))}
 				</CardStack>
@@ -63,18 +65,17 @@ export const Letterboxd = () => {
 				I love watching, sharing and keeping track of movies on Letterboxd (the
 				best social media platform). Some of my favourites include{" "}
 				{data.map((movie, index) => (
-					<>
-						<Anchor
-							key={movie.title}
-							link={movie.movieurl}
-							text={movie.title}
-							variant="link"
-							style={anchorStyles(index === active, colors)}
-						/>
-						{index < data.length - 1 && ", "}
-					</>
+					<span key={movie.title}>
+						<Movie
+							isActive={index === active}
+							onKeyDown={() => handleButtonClick(index)}
+							onClick={() => handleButtonClick(index)}
+						>
+							{movie.title}
+						</Movie>
+						<span>{index < data.length - 1 ? ", " : "."}</span>
+					</span>
 				))}
-				.
 				<ButtonContainer>
 					{data.map((movie, index) => (
 						<Button

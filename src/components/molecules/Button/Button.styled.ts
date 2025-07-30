@@ -42,6 +42,15 @@ export const ButtonStyled = styled.button<IStyle>`
           color: ${theme.colors.text};
           flex-direction: row-reverse;
         `;
+			case "link":
+				return css`
+          padding: 0;
+          display: inline;
+          background-color: transparent;
+          text-wrap: wrap;
+          white-space: normal;
+          word-wrap: break-word;
+        `;
 			case "pill":
 				return css`
           background-color: ${

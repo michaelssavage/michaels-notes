@@ -2,7 +2,12 @@ import type { SerializedStyles } from "@emotion/react";
 import type { ReactElement } from "react";
 import { ButtonStyled } from "./Button.styled";
 
-export type ButtonVariants = "primary" | "secondary" | "ghost" | "pill";
+export type ButtonVariants =
+	| "primary"
+	| "secondary"
+	| "ghost"
+	| "pill"
+	| "link";
 
 export interface ButtonProps {
 	text?: string;

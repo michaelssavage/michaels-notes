@@ -5,16 +5,32 @@ import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 interface ICard {
-	index: number;
-	active: number;
+	diff: number;
+	isActive: boolean;
 }
 
 export const anchorStyles = (
 	isActive: boolean,
 	colors: MyTheme["colors"],
 ) => css`
-  color: ${isActive ? colors.section3c : colors.section3d};
+  color: ${isActive ? colors.section3c : "#dccad0"};
   text-decoration: ${isActive ? "underline" : "none"};
+  transition: color 0.2s;
+
+  &:hover {
+    color: ${isActive ? colors.headerBg : colors.buttonLink};
+  }
+`;
+
+export const Movie = styled.span<{ isActive: boolean }>`
+  color: ${({ isActive, theme }) => (isActive ? theme.colors.section3c : "#aeb1ea")};
+  text-decoration: ${({ isActive }) => (isActive ? "underline" : "none")};
+  transition: color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ isActive, theme }) => (isActive ? theme.colors.headerBg : theme.colors.buttonLink)};
+  }
 `;
 
 export const StackContainer = styled.div`
@@ -51,12 +67,11 @@ export const Card = styled(Link)<ICard>`
   width: 75%;
   border-radius: 16px;
   overflow: hidden;
+  flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.highlight};
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-out;
-  ${({ index, active }) => {
-		const isActive = index === active;
-		const diff = index - active;
+  ${({ isActive, diff }) => {
 		const translateX = isActive ? 0 : `${diff * 50}px`;
 		const translateZ = isActive ? 0 : `${Math.abs(diff) * -100}px`;
 		const rotateY = isActive ? 0 : `${diff * 10}deg`;
@@ -74,6 +89,14 @@ export const Card = styled(Link)<ICard>`
     height: 100%;
   }
 
+  
+
+  &:hover {
+    img {
+      filter: blur(2px);
+    }
+    }
+
   ${forBreakAt({
 		breakpoint: 900,
 		styles: css`
@@ -82,6 +105,34 @@ export const Card = styled(Link)<ICard>`
       width: auto;
     `,
 	})}
+`;
+
+export const HoverOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  pointer-events: none;
+  border-radius: 16px;
+
+  ${Card}:hover & {
+    opacity: 1;
+  }
+`;
+
+export const HoverText = styled.span`
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 `;
 
 export const ButtonContainer = styled.div`
@@ -100,7 +151,7 @@ export const Button = styled.button<{ isActive: boolean }>`
   padding: 0.25rem 1.25rem;
   border: none;
   background-color: ${({ isActive, theme }) =>
-		isActive ? theme.colors.section3d : "transparent"};
+		isActive ? theme.colors.link : "transparent"};
   color: ${({ theme }) => theme.colors.moon};
   border-radius: 5px;
   cursor: pointer;

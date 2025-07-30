@@ -17,6 +17,5 @@ Personal site built with React, Typescript, Vite, and @emotion, using Biome for 
 `npm run lint`
 - run biome linting.
 
-## TODO:
-
-- re-add spotify previews: https://github.com/rexdotsh/spotify-preview-url-workaround
+`npx npm-check-updates`
+- check what packages need updates

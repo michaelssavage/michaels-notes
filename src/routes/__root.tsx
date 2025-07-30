@@ -5,7 +5,9 @@ import { HelmetProvider } from "react-helmet-async";
 import { MetaData } from "@/components/atoms";
 import ErrorBoundary from "@/components/atoms/ErrorBoundary";
 import { NotFound } from "@/components/atoms/NotFound";
+import Footer from "@/components/molecules/Footer/Footer";
 import { Loading } from "@/components/molecules/Loading";
+import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ThemeProvider } from "@/context/ThemeProvider";
 
 const queryClient = new QueryClient();
@@ -20,8 +22,6 @@ const TanStackRouterDevtools =
 			);
 
 const Toggle = lazy(() => import("@/components/molecules/Toggle/Toggle"));
-const Navbar = lazy(() => import("@/components/molecules/Navbar/Navbar"));
-const Footer = lazy(() => import("@/components/molecules/Footer/Footer"));
 const LazyToastContainer = lazy(
 	() => import("@/components/atoms/ToastContainer"),
 );
@@ -35,19 +35,24 @@ function RootComponent() {
 	return (
 		<HelmetProvider>
 			<QueryClientProvider client={queryClient}>
-				<Suspense fallback={<Loading />}>
-					<MetaData />
+				<MetaData />
+
+				<Suspense fallback={null}>
 					<LazyToastContainer />
-					<ThemeProvider>
-						<Navbar />
-						<Toggle />
-						<ErrorBoundary>
-							<Outlet />
-						</ErrorBoundary>
-						<Footer />
-						<TanStackRouterDevtools position="bottom-right" />
-					</ThemeProvider>
 				</Suspense>
+
+				<ThemeProvider>
+					<Navbar />
+					<Toggle />
+
+					<ErrorBoundary>
+						<Suspense fallback={<Loading />}>
+							<Outlet />
+						</Suspense>
+					</ErrorBoundary>
+					<Footer />
+					<TanStackRouterDevtools position="bottom-right" />
+				</ThemeProvider>
 			</QueryClientProvider>
 		</HelmetProvider>
 	);

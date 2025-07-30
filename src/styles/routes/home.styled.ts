@@ -13,6 +13,14 @@ export const Content = styled.div`
   position: relative;
 `;
 
+export const anchorStyle = (color: string, hoverColor: string) => css`
+  color: ${color};
+  
+  &:hover {
+    color: ${hoverColor};
+  }
+`;
+
 export const Arrow = styled(ArrowDown)`
   ${hoverVertically()}
   width: 4rem;

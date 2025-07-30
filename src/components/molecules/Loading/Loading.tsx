@@ -1,13 +1,18 @@
+import { memo } from "react";
 import { Container, Dot } from "./Loading.styled";
 
-export const Loading = () => {
+const DOTS = [0, 1, 2];
+
+export const Loading = memo(() => {
 	return (
 		<Container data-testid="loading">
 			<div>
-				{[0, 1, 2].map((index) => (
+				{DOTS.map((index) => (
 					<Dot key={index} delay={index * 0.15} />
 				))}
 			</div>
 		</Container>
 	);
-};
+});
+
+Loading.displayName = "Loading";
