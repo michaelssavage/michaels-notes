@@ -1,0 +1,44 @@
+---
+id: 5
+title: Boxd Out
+date: March 25, 2025
+description: "A Django REST Framework app to scrape movies from Letterboxd and save them to a PostgreSQL database"
+github: "https://github.com/michaelssavage/boxd-out"
+technology:
+  - Django
+  - Python
+  - BeautifulSoup
+  - PostgreSQL
+colors:
+  main: "#2C5F2D"
+  bg: "#97BC62FF"
+---
+
+I created a Django REST Framework app to scrape movies from Letterboxd and save them to a PostgreSQL database. Initially built with Go in March 2025, I moved to Python to take advantage of the Django ecosystem as my new job role would use this stack. I previously wrote about it here <Anchor link="/blog/rest-api-with-go" text="REST API with Go" variant="link" />.
+
+The previous stack used Gin (Go web framework), saved results to MongoDB, and was deployed to fly.io. I would then fetch the results using a Netlify function to show on my About page. Although I preferred the structure in that setup; a controller, service, repository, and model for each entity, I do enjoy the opioniated way of Django.
+
+The Core Functionality is extracting favorite movies from Letterboxd and storing the data in a PostgreSQL database. The API has 4 main endpoints:
+
+1. Health check endpoint
+2. Scrape Letterboxd favorites
+3. Retrieve Letterboxd favorites
+4. Save favorites
+
+There is some image processing going on during the process too, as the extracted images are too small and have query strings attached. I clean them up, resize them, and save the image url to the DB. The final model structure is very simple:
+
+```javascript
+{
+  title: string;
+  year: string;
+  status: "FAVORITE" | "SAVED";
+  image_url: string;
+  link_url: string;
+  created_at: string;
+  updated_at: string;
+}
+```
+
+The Djano REST Framework API provides 8 main endpoints. I added a new one to fetch individual movies by title and save them to the DB. Doing a **POST** `/movies/save/` with a JSON body of `{"movie_title": "apocalypse-now"}` will save the movie to the DB.
+
+One new technology I have been exposed to is <Anchor link='https://github.com/astral-sh/uv' text='uv' variant='link' isExternal /> for Python management. It is so handy for managing Python dependencies and virtual environments. Like completely changed how much I despised Python management. The project is deployed to Railway using a simple Procfile and has a couple of security headers to only work on HTTPS.

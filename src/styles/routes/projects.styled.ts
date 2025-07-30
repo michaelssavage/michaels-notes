@@ -15,7 +15,7 @@ interface CardWrapperProps {
 
 export const Page = styled.section`
   margin: 2rem 0;
-  `;
+`;
 
 export const CardWrapper = styled.div<CardWrapperProps>`
   position: relative;
@@ -23,11 +23,16 @@ export const CardWrapper = styled.div<CardWrapperProps>`
   transition: transform 0.3s ease;
   min-width: 250px;
   max-width: 250px;
-  opacity: ${({ $shouldDim }) => ($shouldDim ? 0.5 : 1)};
+  ${({ $shouldDim }) =>
+		$shouldDim &&
+		css`
+    opacity: 0.5;
+    filter: blur(3px);
+  `};
 
   ${forTabletOnly(css`
-  min-width: 150px;
-  max-width: 150px;
+    min-width: 150px;
+    max-width: 150px;
   `)}
 `;
 
@@ -82,9 +87,11 @@ export const CardBody = styled.div<{ bg: string }>`
 
 export const Header = styled.div`
   margin: 1rem 0;
+
   p {
     margin-bottom: 0.5rem;
   }
+
   ${forPhoneOnly(css`
     margin: 0 5% 2rem;
   `)}

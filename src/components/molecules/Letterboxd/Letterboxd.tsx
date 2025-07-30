@@ -46,12 +46,12 @@ export const Letterboxd = () => {
 					{data.map((movie, index) => (
 						<Card
 							key={`${movie.title}-${index}`}
-							to={movie.movieurl}
+							to={movie.link_url}
 							diff={index - active}
 							isActive={index === active}
 							data-testid="movie-card"
 						>
-							<Picture src={movie.imageurl} alt={movie.title} />
+							<Picture src={movie.image_url} alt={movie.title} />
 
 							<HoverOverlay>
 								<HoverText>open</HoverText>
