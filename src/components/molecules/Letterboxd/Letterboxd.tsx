@@ -32,9 +32,9 @@ export const Letterboxd = () => {
 	if (!data || data.length === 0 || !Array.isArray(data)) {
 		return (
 			<p>
-				I love movies! I watch a lot and keep track of every movie I've watched.
-				Some of my favourites include Amélie, Y Tu Mamá También, Aftersun, and
-				Sexy Beast.
+				I love watching, sharing and keeping track of movies on Letterboxd (the
+				best social media platform). Some of my favourites include Amélie, Y Tu
+				Mamá También, Memoir of a Snail, and Sexy Beast.
 			</p>
 		);
 	}
