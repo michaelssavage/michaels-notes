@@ -2,11 +2,11 @@
 id: 21
 title: "Reducing bundle size"
 date: July 29, 2025
-description: "I sat down and decided to tackle the huge bundle size of my website. Embarrassingly it was 23mb after building, and I never looked into how to reduce it, but I knew that the problem would be the rendering of the blog posts."
+description: "I sat down and decided to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building. I never looked into how to reduce it, but I knew that the problem would be the rendering of the blog posts."
 type: blog
 ---
 
-I sat down and decided to tackle the huge bundle size of my website. Embarrassingly it was 23mb after building, and although I never looked into how to reduce it, I knew that the problem would be the rendering of the blog posts. I have the bundle size now down to 1.14mb after tackling the biggest issues:
+I sat down and decided to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building. I never looked into how to reduce it, but I knew that the problem would be the rendering of the blog posts. I have the bundle size now down to 1mb after tackling the biggest issues which is still considered a very large bundle size. I am aiming to get it down to 200kb - 500kb but here is the first things I did:
 
 - I was processing all MDX files at build time. I was embedding all the blog post content directly into the JavaScript bundle but now I have moved the processing to Netlify Server functions so that the content is requested when needed.
 - I removed some heavier packages like `masonic` and `@mdx-js/rollup` and updated some others packages so that they only lived in the dev dependencies. Also simply updating packages like `@tanstack/router-plugin` improved build output.
@@ -19,11 +19,11 @@ I used `rollup-plugin-visualizer` to visualize the remaining output (view the be
 
 ## Animations
 
-After a quick look around at alternatives I decided to replace <Anchor link="https://motion.dev/" text="framer-motion" variant="link" isExternal /> with <Anchor link="https://react-spring.dev/" text="react-spring" variant="link" isExternal />. Framer-motion is 2.9x larger than react-spring and again, and added no huge benefits of react-spring. I could view the sizes on bundlephobia.com:
+After a quick look around at alternatives I decided to replace <Anchor link="https://motion.dev/" text="framer-motion" variant="link" isExternal /> with <Anchor link="https://react-spring.dev/" text="react-spring" variant="link" isExternal />. Framer-motion is 2.9x larger than react-spring and again, and added no huge benefits over react-spring. I could view the sizes on bundlephobia.com for extra visual help:
 
 - <Anchor link="https://bundlephobia.com/package/react-spring@10.0.1" variant="link" isExternal />
 - <Anchor link="https://bundlephobia.com/package/framer-motion@12.23.11" variant="link" isExternal />
 
 <Picture src="/blog/bundle-comparer.png" alt="comparing sizes of react-spring and framer-motion" />
 
-After replacing framer-motion, the bundle size dropped a significant amount. The full rendered amount comes out at 1.14mb, and gzipped at 357kb. React-spring takes up less than 5% of the bundle size now. Although Framer-motion wasn't the biggest offender, it was good to get an additional reduction in size. Overall, the 95% smaller size will lead to faster loading times, much less data consumed by visitors, and better performance on all devices. 
+After replacing framer-motion, the bundle size dropped a significant amount. The full rendered amount comes out at 1mb, and gzipped at 332kb. React-spring takes up around 5% of the bundle size now so it will be the next target for reduction. Although Framer-motion wasn't the biggest offender, it was good to get an additional reduction in size. Overall, the 95% smaller size will lead to faster loading times, much less data consumed by visitors, and better performance on all devices. 
