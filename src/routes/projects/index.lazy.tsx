@@ -1,7 +1,7 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useMemo, useState } from "react";
-import { MetaData } from "@/components/atoms";
 import { Group } from "@/components/atoms/Group";
+import { MetaData } from "@/components/atoms/MetaData";
 import { Project } from "@/components/atoms/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";

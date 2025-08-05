@@ -2,8 +2,7 @@ import { css } from "@emotion/react";
 import { animated, useSpring } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import DOMPurify from "dompurify";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
 	fetchCurrentTrack,
 	fetchRecentTrack,
@@ -36,7 +35,7 @@ export const CurrentPlay = () => {
 	const currentTrack = useQuery<IPlayTrack>({
 		queryKey: ["currentTrack"],
 		queryFn: fetchCurrentTrack,
-		refetchInterval: 10000, // Refetch every 30 seconds
+		refetchInterval: 10000, // Refetch every 10 seconds
 	});
 
 	const recentTrack = useQuery<IPlayTrack>({
@@ -57,15 +56,21 @@ export const CurrentPlay = () => {
 
 	const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 
-	const fact = useMemo(
-		() => DOMPurify.sanitize(trackFact.data?.artist?.bio?.summary ?? ""),
-		[trackFact.data],
-	);
+	const fact = trackFact.data?.artist?.bio?.summary ?? "";
 
 	useEffect(() => {
-		if (contentRef.current) {
-			setContentHeight(contentRef.current.scrollHeight);
-		}
+		const element = contentRef.current;
+		if (!element) return;
+
+		const resizeObserver = new ResizeObserver(() => {
+			setContentHeight(element.scrollHeight);
+		});
+
+		resizeObserver.observe(element);
+
+		return () => {
+			resizeObserver.disconnect();
+		};
 	}, []);
 
 	const springs = useSpring({
@@ -107,7 +112,7 @@ export const CurrentPlay = () => {
 								<FactContent
 									ref={contentRef}
 									color={dominantColor ?? ""}
-									// biome-ignore lint/security/noDangerouslySetInnerHtml: dom sanitised
+									// biome-ignore lint/security/noDangerouslySetInnerHtml: from Last.fm API
 									dangerouslySetInnerHTML={{ __html: fact }}
 								/>
 							</animated.div>

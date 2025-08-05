@@ -1,4 +1,5 @@
-import { Icon } from "@/components/atoms";
+import { memo } from "react";
+import { Icon } from "@/components/atoms/Icon";
 import {
 	GithubIcon,
 	LinkedInIcon,
@@ -6,8 +7,6 @@ import {
 	ResumeIcon,
 	SpotifyIcon,
 } from "@/components/icons";
-import posthog from "posthog-js";
-import { memo } from "react";
 import { Header, Icons, StyledLink } from "./Navbar.styled";
 
 interface Props {
@@ -24,7 +23,9 @@ const NavLink = memo(({ to, text }: Props) => {
 });
 
 const Navbar = () => {
-	const captureCvClick = () => {
+	const captureCvClick = async () => {
+		const posthog = (await import("posthog-js")).default;
+
 		posthog.capture("cv_download_clicked", {
 			source: "resume_button",
 		});
@@ -37,38 +38,38 @@ const Navbar = () => {
 				<NavLink to="/projects" text="Projects" />
 				<NavLink to="/about" text="About" />
 			</nav>
-				<Icons>
-					<Icon
-						label="GitHub Profile"
-						link="https://github.com/michaelssavage"
-						icon={<GithubIcon />}
-						isExternal
-					/>
-					<Icon
-						label="LinkedIn Profile"
-						link="https://www.linkedin.com/in/michaelssavage"
-						icon={<LinkedInIcon />}
-						isExternal
-					/>
-					<Icon
-						label="My Email"
-						link="mailto:michaelsavage940@gmail.com"
-						icon={<MailIcon />}
-						isExternal
-					/>
-					<Icon
-						label="Spotify Profile"
-						link="https://open.spotify.com/user/1156402021"
-						icon={<SpotifyIcon />}
-						isExternal
-					/>
-					<Icon
-						label="View CV"
-						link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
-						icon={<ResumeIcon onClick={captureCvClick} />}
-						isExternal
-					/>
-				</Icons>
+			<Icons>
+				<Icon
+					label="GitHub Profile"
+					link="https://github.com/michaelssavage"
+					icon={<GithubIcon />}
+					isExternal
+				/>
+				<Icon
+					label="LinkedIn Profile"
+					link="https://www.linkedin.com/in/michaelssavage"
+					icon={<LinkedInIcon />}
+					isExternal
+				/>
+				<Icon
+					label="My Email"
+					link="mailto:michaelsavage940@gmail.com"
+					icon={<MailIcon />}
+					isExternal
+				/>
+				<Icon
+					label="Spotify Profile"
+					link="https://open.spotify.com/user/1156402021"
+					icon={<SpotifyIcon />}
+					isExternal
+				/>
+				<Icon
+					label="View CV"
+					link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
+					icon={<ResumeIcon onClick={captureCvClick} />}
+					isExternal
+				/>
+			</Icons>
 		</Header>
 	);
 };

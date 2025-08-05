@@ -56,7 +56,6 @@ export default defineConfig(({ mode }) => ({
 		outDir: "dist",
 		cssCodeSplit: true,
 		cssMinify: "lightningcss",
-		minify: "esbuild",
 		emptyOutDir: true,
 		sourcemap: mode === "development",
 		rollupOptions: {

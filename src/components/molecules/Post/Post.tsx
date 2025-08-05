@@ -1,6 +1,5 @@
 import { useSpring } from "@react-spring/web";
-import { useCallback, useMemo, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { IBlog } from "@/types/Post";
 import { DateText } from "./Date";
 import { Description } from "./Description";
@@ -16,11 +15,32 @@ const Post = ({
 	isFirst,
 }: IBlog) => {
 	const [isHovered, setIsHovered] = useState(false);
+	const [inView, setInView] = useState(false);
+	const ref = useRef<HTMLElement | null>(null);
 
-	const [ref, inView] = useInView({
-		triggerOnce: true,
-		threshold: 0.1,
-	});
+	useEffect(() => {
+		if (!ref.current) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						setInView(true);
+						observer.disconnect(); // Trigger once
+					}
+				});
+			},
+			{
+				threshold: 0.1,
+			},
+		);
+
+		observer.observe(ref.current);
+
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
 
 	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
 	const handleMouseLeave = useCallback(() => setIsHovered(false), []);

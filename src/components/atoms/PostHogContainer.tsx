@@ -1,4 +1,4 @@
-import { PostHogProvider } from "posthog-js/react";
+import { lazy, Suspense } from "react";
 
 const isDevelopment = import.meta.env.DEV;
 
@@ -10,17 +10,25 @@ const options = {
 	opt_out_capturing_by_default: isDevelopment,
 };
 
-export default function LazyPostHogProvider({
+const PostHogProviderLazy = lazy(() =>
+	import("posthog-js/react").then((mod) => ({ default: mod.PostHogProvider })),
+);
+
+export default function PostHogProvider({
 	children,
-}: { children: React.ReactNode }) {
+}: {
+	children: React.ReactNode;
+}) {
 	if (isDevelopment) return <>{children}</>;
 
 	return (
-		<PostHogProvider
-			apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY || ""}
-			options={options}
-		>
-			{children}
-		</PostHogProvider>
+		<Suspense fallback={null}>
+			<PostHogProviderLazy
+				apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY || ""}
+				options={options}
+			>
+				{children}
+			</PostHogProviderLazy>
+		</Suspense>
 	);
 }

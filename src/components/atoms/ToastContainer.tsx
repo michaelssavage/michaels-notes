@@ -1,6 +1,11 @@
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { lazy, Suspense } from "react";
 
-export default function LazyToastContainer() {
-	return <ToastContainer />;
-}
+const Toaster = lazy(() =>
+	import("react-hot-toast").then((mod) => ({ default: mod.Toaster })),
+);
+
+export const ToastProvider = () => (
+	<Suspense fallback={null}>
+		<Toaster />
+	</Suspense>
+);

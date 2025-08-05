@@ -1,9 +1,9 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
-import { MetaData } from "@/components/atoms";
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
 import { HomeLine } from "@/components/atoms/HomeLine";
+import { MetaData } from "@/components/atoms/MetaData";
 import { CircleIcon } from "@/components/icons";
 import { Bite } from "@/components/molecules/Bite";
 import { Button } from "@/components/molecules/Button";
@@ -52,7 +52,7 @@ function Blog() {
 			setFilter({ ...filter, ...updates });
 		},
 		[filter],
-	)
+	);
 
 	const { blogs = [], bites = [] } = usePostsIndex();
 
@@ -74,13 +74,13 @@ function Blog() {
 				if (onSite && isPlantBassd) return true;
 				return onSite ? !isExternal : isExternal;
 			},
-		)
+		);
 
 		const filteredBites = isBite
 			? bites.filter(({ description }) =>
 					description.toLowerCase().includes(searchLowercase),
 				)
-			: []
+			: [];
 
 		return [...filteredBlogs, ...filteredBites].sort(sortByDate);
 	}, [filter, searchQuery, blogs, bites]);
@@ -112,7 +112,7 @@ function Blog() {
 										<Bite key={post.id} {...post} />
 									) : (
 										<Post key={post.id} {...post} isFirst={index === 0} />
-									)
+									);
 								})
 							) : (
 								<NoPost />
@@ -170,5 +170,5 @@ function Blog() {
 				</Row>
 			</Panel>
 		</Page>
-	)
+	);
 }

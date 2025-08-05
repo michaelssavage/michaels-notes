@@ -1,8 +1,8 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
-import { toast } from "react-toastify";
-import { MetaData } from "@/components/atoms";
+import toast from "react-hot-toast";
 import { Group } from "@/components/atoms/Group";
+import { MetaData } from "@/components/atoms/MetaData";
 import { CopyIcon, GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
@@ -64,7 +64,7 @@ function RekordboxPrettifier() {
 
 	const handleCopy = useCallback(() => {
 		navigator.clipboard.writeText(formatText(inputText, withBPM));
-		toast("Text copied to your clipboard");
+		toast.success("Text copied to your clipboard");
 	}, [inputText, withBPM, formatText]);
 
 	const handlePaste = useCallback(() => {

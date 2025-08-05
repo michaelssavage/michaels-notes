@@ -1,6 +1,6 @@
 import { useSpring } from "@react-spring/web";
 import type { ReactNode } from "react";
-import { useInView } from "react-intersection-observer";
+import { useEffect, useRef, useState } from "react";
 import { Section } from "@/styles/routes/home.styled";
 
 interface SectionI {
@@ -11,10 +11,32 @@ interface SectionI {
 }
 
 export const SectionInView = ({ children, delay = 0, main, bg }: SectionI) => {
-	const [ref, inView] = useInView({
-		threshold: 0.2, // Trigger when 20% of the element is visible
-		triggerOnce: true,
-	});
+	const ref = useRef<HTMLDivElement | null>(null);
+	const [inView, setInView] = useState(false);
+
+	useEffect(() => {
+		if (!ref.current) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						setInView(true);
+						observer.disconnect(); // Trigger once
+					}
+				});
+			},
+			{
+				threshold: 0.2,
+			},
+		);
+
+		observer.observe(ref.current);
+
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
 
 	const spring = useSpring({
 		opacity: inView ? 1 : 0,
