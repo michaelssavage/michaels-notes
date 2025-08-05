@@ -43,10 +43,10 @@ export const Section = styled(animated.section)<{
   background-color: ${({ bg }) => bg || "transparent"};
 
   &:first-of-type {
-    height: 85vh;
+    min-height: 85vh;
     
     ${forPhoneOnly(css`
-      height: 80vh;
+      min-height: 80vh;
     `)}
   }
 `;

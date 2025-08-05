@@ -48,7 +48,7 @@ export const Letterboxd = () => {
 							key={`${movie.title}-${index}`}
 							to={movie.link_url}
 							diff={index - active}
-							isActive={index === active}
+							$isActive={index === active}
 							data-testid="movie-card"
 						>
 							<Picture src={movie.image_url} alt={movie.title} />
@@ -67,7 +67,7 @@ export const Letterboxd = () => {
 				{data.map((movie, index) => (
 					<span key={movie.title}>
 						<Movie
-							isActive={index === active}
+							$isActive={index === active}
 							onKeyDown={() => handleButtonClick(index)}
 							onClick={() => handleButtonClick(index)}
 						>

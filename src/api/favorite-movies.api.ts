@@ -1,15 +1,23 @@
-export const fetchFavouriteMovies = async () => {
-	const token = import.meta.env.VITE_LETTERBOXD_BEARER_TOKEN;
+import { createClient } from "@supabase/supabase-js";
 
-	const response = await fetch("/.netlify/functions/movies", {
-		method: "POST",
-		headers: {
-			Authorization: `Bearer ${token ?? process.env.VITE_LETTERBOXD_BEARER_TOKEN}`,
-		},
-	});
-	if (!response.ok) {
-		throw new Error("Network response was not ok");
+const supabase = createClient(
+	import.meta.env.VITE_SUPABASE_URL,
+	import.meta.env.VITE_SUPABASE_ANON_KEY,
+);
+
+export const fetchFavouriteMovies = async () => {
+	try {
+		const { data, error } = await supabase
+			.from("movies_movie")
+			.select("id, title, year, status, image_url, link_url");
+
+		if (error) {
+			throw new Error(`Supabase error: ${error.message}`);
+		}
+
+		return data;
+	} catch (error) {
+		console.error("Error fetching movies:", error);
+		throw new Error("Failed to fetch movies");
 	}
-	const data = await response.json();
-	return data;
 };

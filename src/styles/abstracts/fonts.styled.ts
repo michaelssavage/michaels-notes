@@ -11,7 +11,7 @@ export const fonts = css`
 
   @font-face {
     font-family: "Nudica";
-    src: url("/nudica.woff2") format("woff2");
+    src: url("/fonts/nudica.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;

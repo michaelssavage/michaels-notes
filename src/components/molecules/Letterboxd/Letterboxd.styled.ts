@@ -6,7 +6,7 @@ import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 interface ICard {
 	diff: number;
-	isActive: boolean;
+	$isActive: boolean;
 }
 
 export const anchorStyles = (
@@ -22,14 +22,14 @@ export const anchorStyles = (
   }
 `;
 
-export const Movie = styled.span<{ isActive: boolean }>`
-  color: ${({ isActive, theme }) => (isActive ? theme.colors.section3c : "#aeb1ea")};
-  text-decoration: ${({ isActive }) => (isActive ? "underline" : "none")};
+export const Movie = styled.span<Pick<ICard, "$isActive">>`
+  color: ${({ $isActive, theme }) => ($isActive ? theme.colors.section3c : "#aeb1ea")};
+  text-decoration: ${({ $isActive }) => ($isActive ? "underline" : "none")};
   transition: color 0.2s;
   cursor: pointer;
 
   &:hover {
-    color: ${({ isActive, theme }) => (isActive ? theme.colors.headerBg : theme.colors.buttonLink)};
+    color: ${({ $isActive, theme }) => ($isActive ? theme.colors.headerBg : theme.colors.buttonLink)};
   }
 `;
 
@@ -62,7 +62,9 @@ export const CardStack = styled.div`
   justify-content: center;
 `;
 
-export const Card = styled(Link)<ICard>`
+export const Card = styled(Link, {
+	shouldForwardProp: (prop) => prop !== "$isActive",
+})<ICard>`
   position: absolute;
   width: 75%;
   border-radius: 16px;
@@ -71,31 +73,31 @@ export const Card = styled(Link)<ICard>`
   background-color: ${({ theme }) => theme.colors.highlight};
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-out;
-  ${({ isActive, diff }) => {
-		const translateX = isActive ? 0 : `${diff * 50}px`;
-		const translateZ = isActive ? 0 : `${Math.abs(diff) * -100}px`;
-		const rotateY = isActive ? 0 : `${diff * 10}deg`;
-		const scale = isActive ? 1 : 1 - Math.abs(diff) * 0.1;
-		const opacity = isActive ? 1 : 1 - Math.abs(diff) * 0.2;
+
+  ${({ $isActive, diff }) => {
+		const translateX = $isActive ? 0 : `${diff * 50}px`;
+		const translateZ = $isActive ? 0 : `${Math.abs(diff) * -100}px`;
+		const rotateY = $isActive ? 0 : `${diff * 10}deg`;
+		const scale = $isActive ? 1 : 1 - Math.abs(diff) * 0.1;
+		const opacity = $isActive ? 1 : 1 - Math.abs(diff) * 0.2;
 		return css`
       transform: translateX(${translateX}) translateZ(${translateZ}) rotateY(${rotateY}) scale(${scale});
       opacity: ${opacity};
       z-index: ${10 - Math.abs(diff)};
     `;
 	}}
+
   img {
     border-radius: 0.4rem;
     width: 100%;
     height: 100%;
   }
 
-  
-
   &:hover {
     img {
       filter: blur(2px);
     }
-    }
+  }
 
   ${forBreakAt({
 		breakpoint: 900,
