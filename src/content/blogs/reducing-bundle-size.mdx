@@ -2,14 +2,16 @@
 id: 21
 title: "Reducing bundle size"
 date: July 29, 2025
-description: "I sat down and decided to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building. I never looked into how to reduce it, but I knew that the problem would be the rendering of the blog posts."
+description: "I finally sat down to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building. I never looked into how to reduce it, but I knew that the problem would be the rendering of the blog posts."
 type: blog
 ---
 
-I sat down and decided to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building. I never looked into how to reduce it, but I knew that the problem would be the rendering of the blog posts. I have the bundle size now down to 1mb after tackling the biggest issues which is still considered a very large bundle size. I am aiming to get it down to 200kb - 500kb but here is the first things I did:
+I finally sat down to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building. I hadn't looked into reducing it before, but I knew that the culprit was how the blog posts were being rendered. After addressing some of the biggest issues, I've managed to bring the bundle size down to 1mb. That's still considered a large bundle size but my goal is to get it down to between 200kb and 500kb. Here are some of the first steps I took:
 
-- I was processing all MDX files at build time. I was embedding all the blog post content directly into the JavaScript bundle but now I have moved the processing to Netlify Server functions so that the content is requested when needed.
-- I removed some heavier packages like `masonic` and `@mdx-js/rollup` and updated some others packages so that they only lived in the dev dependencies. Also simply updating packages like `@tanstack/router-plugin` improved build output.
+- Previously, I was processing all MDX files at build time. I was embedding all the blog post content directly into the JavaScript bundle but now I moved the processing to Netlify Server functions so that the content is requested when needed.
+- I removed unnecessary packages, including some heavier packages like `masonic` and `@mdx-js/rollup`.
+- I moved some others packages so that they only lived in the dev dependencies.
+- Also simply updating packages like `@tanstack/router-plugin` improved build output.
 
 The build time for blog posts only extracts FrontMatter (metadata) content and now at runtime, I process the full MDX content on-demand when someone visits a post. The bundle size dropped by 90%.
 
@@ -26,4 +28,6 @@ After a quick look around at alternatives I decided to replace <Anchor link="htt
 
 <Picture src="/blog/bundle-comparer.png" alt="comparing sizes of react-spring and framer-motion" />
 
-After replacing framer-motion, the bundle size dropped a significant amount. The full rendered amount comes out at 1mb, and gzipped at 332kb. React-spring takes up around 5% of the bundle size now so it will be the next target for reduction. Although Framer-motion wasn't the biggest offender, it was good to get an additional reduction in size. Overall, the 95% smaller size will lead to faster loading times, much less data consumed by visitors, and better performance on all devices. 
+After replacing framer-motion, the bundle size dropped a significant amount. The full rendered amount comes out at 1mb, and gzipped at 332kb. React-spring takes up around 5% of the bundle size now so it will be the next target for reduction. Although Framer-motion wasn't the biggest offender, it was good to get an additional reduction in size. 
+
+Overall, the 95% smaller size will lead to faster loading times, much less data consumed by visitors, and better performance on all devices. 
