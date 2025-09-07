@@ -91,8 +91,15 @@ function Projects() {
 			<Container maxWidth="70%">
 				<Header>
 					<h2>Miscellaneous</h2>
-					<p>Here are some of my other projects and interests.</p>
-					<Anchor link="/mixes" text="DJ mixes" variant="button" />
+					<p>Quick links to other pages, projects, and interests.</p>
+					<Group gap="1rem" wrap="wrap">
+						<Anchor link="/mixes" text="DJ mixes" variant="button" />
+						<Anchor
+							link="/blog/pretty-text"
+							text="Pretty Rekordbox Text"
+							variant="button"
+						/>
+					</Group>
 				</Header>
 			</Container>
 		</Page>

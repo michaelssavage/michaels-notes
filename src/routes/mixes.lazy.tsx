@@ -71,7 +71,12 @@ function RouteComponent() {
 			<MetaData title="DJ mixes" description={description} />
 			<Panel>
 				<h1 css={{ marginRight: "auto" }}>Mixes</h1>
-				<Group gap="1rem" align="center" wrap="wrap">
+				<Group
+					gap="1rem"
+					align="center"
+					wrap="wrap"
+					css={css`margin-top: -1rem;`}
+				>
 					<Anchor
 						variant="text"
 						link="https://www.mixcloud.com/michaelsaverage/"
