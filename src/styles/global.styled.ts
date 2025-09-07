@@ -40,6 +40,10 @@ export const globalStyles = (theme: MyTheme) => css`
     text-wrap: balance;
   }
 
+  button:active {
+    transform: scale(1.05);
+  }
+
   .icon-link {
     color: ${theme.colors.icon};
 

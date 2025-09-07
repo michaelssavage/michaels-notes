@@ -88,6 +88,13 @@ function Projects() {
 					</SpotifyContent>
 				</Suspense>
 			</Container>
+			<Container maxWidth="70%">
+				<Header>
+					<h2>Miscellaneous</h2>
+					<p>Here are some of my other projects and interests.</p>
+					<Anchor link="/mixes" text="DJ mixes" variant="button" />
+				</Header>
+			</Container>
 		</Page>
 	);
 }

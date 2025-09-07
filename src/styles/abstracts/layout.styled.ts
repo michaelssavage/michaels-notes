@@ -4,8 +4,14 @@ import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
 interface IGroup {
 	direction?: "row" | "column" | "row-reverse" | "column-reverse";
-	align?: "flex-start" | "flex-end" | "center";
-	justify?: "flex-start" | "flex-end" | "center";
+	align?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+	justify?:
+		| "flex-start"
+		| "flex-end"
+		| "center"
+		| "space-between"
+		| "space-around"
+		| "space-evenly";
 	gap?: string;
 }
 
