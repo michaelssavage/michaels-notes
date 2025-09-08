@@ -1,5 +1,6 @@
 export { ArrowBackIcon } from "./ArrowBack";
 export { ArrowDown } from "./ArrowDown";
+export { ArrowUpIcon } from "./ArrowUp";
 export { CircleIcon } from "./Circle";
 export { CopyIcon } from "./Copy";
 export { ExternalLinkIcon } from "./ExternalLink";

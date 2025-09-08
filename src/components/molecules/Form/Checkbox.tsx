@@ -19,7 +19,7 @@ const CheckboxStyled = styled.div`
     width: 0;
 
     &:checked ~ span {
-      background-color: #329a51;
+      background-color: ${({ theme }) => theme.colors.mint};
     }
   }
 
@@ -33,7 +33,7 @@ const CheckboxStyled = styled.div`
   }
 
   label:hover input[type='checkbox']:checked ~ span {
-    background-color: #329a51;
+    background-color: ${({ theme }) => theme.colors.mint};
   }
 
   span {
@@ -62,7 +62,8 @@ const CheckboxStyled = styled.div`
   }
 
   div {
-    color: #333;
+    color: #333444;
+    text-decoration: underline;
     line-height: 1.4;
     font-size: 1rem;
   }

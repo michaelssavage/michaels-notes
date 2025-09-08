@@ -19,6 +19,7 @@ export const ButtonStyled = styled.button<IStyle>`
   gap: 4px;
   align-items: center;
   text-wrap: nowrap;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   ${({ variant, theme, selected }) => {
 		switch (variant) {
@@ -27,13 +28,16 @@ export const ButtonStyled = styled.button<IStyle>`
           color: ${theme.colors.card};
           background-color: ${theme.colors.mint};
           &:hover {
-            background-color: ${theme.colors.extBtnBgHover};
+            background-color: ${theme.colors.mintHover};
           }
         `;
 			case "secondary":
 				return css`
           background-color: ${theme.colors.secondary};
           color: ${theme.colors.card};
+          &:hover {
+            background-color: ${theme.colors.secondaryHover};
+          }
         `;
 			case "ghost":
 				return css`
