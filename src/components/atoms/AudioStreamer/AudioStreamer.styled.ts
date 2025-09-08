@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const MixCard = styled.div`
   max-width: 64rem;
+  width: 100%;
   margin: 0 auto;
   padding: 1rem;
   background: ${({ theme }) => theme.colors.card};

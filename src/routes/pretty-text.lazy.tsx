@@ -14,6 +14,7 @@ import {
 	copyButtonStyles,
 	DragBanner,
 	Label,
+	pasteButtonStyles,
 	StyledTextarea,
 	TextareaWrapper,
 	Title,
@@ -21,7 +22,7 @@ import {
 } from "@/styles/routes/rekordbox-prettifier.styled";
 import { exampleRekordboxText } from "@/utils";
 
-export const Route = createLazyFileRoute("/blog/pretty-text")({
+export const Route = createLazyFileRoute("/pretty-text")({
 	component: RekordboxPrettifier,
 });
 
@@ -121,15 +122,6 @@ function RekordboxPrettifier() {
 			<MetaData title="Rekordbox Prettifier" description={description} />
 			<Panel>
 				<Title>Rekordbox Text Formatter</Title>
-				<Group justify="flex-end">
-					<Anchor
-						link="https://github.com/michaelssavage/Rekordbox-Mix-Setlist"
-						icon={<GithubIcon />}
-						text="View on Github"
-						style={viewMoreButtonStyles}
-						isExternal
-					/>
-				</Group>
 
 				<Group wrap="wrap">
 					<TextareaWrapper>
@@ -140,17 +132,19 @@ function RekordboxPrettifier() {
 							value={inputText}
 							onChange={(e) => setInputText(e.target.value)}
 						/>
-						<Group>
+						<Group align="center">
 							<Button
 								text="Paste example text"
 								onClick={handlePaste}
 								variant="primary"
+								styles={pasteButtonStyles}
 							/>
 
 							<Button
 								text="Clear text"
 								onClick={clearText}
 								variant="secondary"
+								styles={pasteButtonStyles}
 							/>
 						</Group>
 					</TextareaWrapper>
@@ -190,17 +184,25 @@ function RekordboxPrettifier() {
 						Prettify an exported setlist from Rekordbox after you're done
 						recording. Useful for adding better descriptions to SoundCloud,
 						MixCloud etc.
-					</p>
-					<p>
+						<br />
+						<br />
 						Click the <b>Paste example text</b> button to see what the contents
 						of an exported .txt file look like. <b>Clear text</b> to start
 						entering your own .txt file.
-					</p>
-					<p>
+						<br />
+						<br />
 						For convenience you can drag-and-drop a text file onto the page to
 						fill the textarea. You can also copy the formatted text by clicking
 						the icon in the top right corner of the textarea.
 					</p>
+
+					<Anchor
+						link="https://github.com/michaelssavage/Rekordbox-Mix-Setlist"
+						icon={<GithubIcon />}
+						text="View on Github"
+						style={viewMoreButtonStyles}
+						isExternal
+					/>
 				</AboutSection>
 			</Panel>
 		</Page>

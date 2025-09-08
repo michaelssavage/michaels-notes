@@ -55,19 +55,29 @@ export const copyButtonStyles = css`
   }
 `;
 
+export const pasteButtonStyles = css`
+  padding: 5px 10px;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #24292e;
+  border: 1px solid #24292e;
+`;
+
 export const viewMoreButtonStyles = css`
-  background-color: #24292e;
+  color: #24292e;
   flex-direction: row-reverse;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border-radius: 6px;
   white-space: nowrap;
+
   svg {
-    stroke: #fff;
+    stroke: #24292e;
   }
 
   &:hover {
     color: #2b3137;
-    background-color:	#fafbfc;
+    background-color: #fafbfc;
+    border-color: transparent;
     svg {
       stroke: #2b3137;
     }

@@ -69,7 +69,7 @@ function Projects() {
 				<Suspense fallback={<Loading />}>
 					<SpotifyContent>
 						<Header>
-							<h2>Consuming Spotify Data</h2>
+							<h2>Consuming Spotify Music</h2>
 							<p>
 								I spent some time learning how to use the Spotify API and you
 								can read my{" "}
@@ -87,20 +87,6 @@ function Projects() {
 						<TopTracks />
 					</SpotifyContent>
 				</Suspense>
-			</Container>
-			<Container maxWidth="70%">
-				<Header>
-					<h2>Miscellaneous</h2>
-					<p>Quick links to other pages, projects, and interests.</p>
-					<Group gap="1rem" wrap="wrap">
-						<Anchor link="/mixes" text="DJ mixes" variant="button" />
-						<Anchor
-							link="/blog/pretty-text"
-							text="Pretty Rekordbox Text"
-							variant="button"
-						/>
-					</Group>
-				</Header>
 			</Container>
 		</Page>
 	);

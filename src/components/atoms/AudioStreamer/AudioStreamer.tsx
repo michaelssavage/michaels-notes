@@ -49,7 +49,7 @@ interface Props {
 	date?: string;
 	description?: string;
 	audioUrl: string;
-	waveFormData: WaveformDataI;
+	waveFormData: string;
 	externalUrl?: string;
 }
 
@@ -67,8 +67,35 @@ export const AudioStreamer = ({
 }: Props) => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const [zoom, setZoom] = useState(1);
+	const [waveformDataObj, setWaveformDataObj] = useState<WaveformDataI | null>(
+		null,
+	);
 
-	const peaks = useMemo(() => [waveFormData.data], [waveFormData.data]);
+	useEffect(() => {
+		const fetchWaveformData = async () => {
+			try {
+				const response = await fetch(waveFormData);
+				if (!response.ok) {
+					throw new Error(
+						`Failed to fetch waveform data: ${response.statusText}`,
+					);
+				}
+				const data: WaveformDataI = await response.json();
+				setWaveformDataObj(data);
+			} catch (error) {
+				console.error("Error fetching waveform data:", error);
+			}
+		};
+
+		if (waveFormData) {
+			fetchWaveformData();
+		}
+	}, [waveFormData]);
+
+	const peaks = useMemo(
+		() => (waveformDataObj ? [waveformDataObj.data] : undefined),
+		[waveformDataObj],
+	);
 
 	const { wavesurfer, isReady, isPlaying, currentTime } = useWavesurfer({
 		container: containerRef,
