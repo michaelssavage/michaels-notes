@@ -1,7 +1,5 @@
 import { css } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import waveFormData2 from "src/content/mixes/7-oct-23-mix.json";
-import waveFormData1 from "src/content/mixes/29-aug-b2b-mix.json";
 import { AudioStreamer } from "@/components/atoms/AudioStreamer/AudioStreamer";
 import { Group } from "@/components/atoms/Group";
 import { MetaData } from "@/components/atoms/MetaData";
@@ -22,7 +20,7 @@ const mixes = [
 			"Recorded a b2b mix of house, hard house, uk bass, and more. Nearly 3 hours in the 120bpm - 140bpm range with tracks from the likes of Pangaea, Mall grab, and more.",
 		audioUrl:
 			"https://ia600907.us.archive.org/10/items/29-aug-b-2b-mix_202508/29-aug-b2b-mix.mp3",
-		waveFormData: waveFormData1,
+		waveFormData: "/mixes/29-aug-b2b-mix.json",
 		externalUrl:
 			"https://www.mixcloud.com/michaelsaverage/house-party-b2b-mix/",
 	},
@@ -33,7 +31,7 @@ const mixes = [
 			"Partially recorded mix of the Plant Bass'd Organica DJ night in Galway with Lushed b2b Michael Average.",
 		audioUrl:
 			"https://ia800900.us.archive.org/29/items/organica-7-10-23/organica-7-10-23.wav",
-		waveFormData: waveFormData2,
+		waveFormData: "/mixes/7-oct-23-mix.json",
 		externalUrl:
 			"https://www.mixcloud.com/michaelsaverage/organica-71023-lushed-b2b-michael-average/",
 	},
@@ -99,15 +97,7 @@ function RouteComponent() {
 				{mixes
 					.sort((a, b) => (a.date > b.date ? 1 : -1))
 					.map((mix) => (
-						<AudioStreamer
-							key={mix.audioUrl}
-							audioUrl={mix.audioUrl}
-							waveFormData={mix.waveFormData}
-							title={mix.title}
-							date={mix.date}
-							description={mix.description}
-							externalUrl={mix.externalUrl}
-						/>
+						<AudioStreamer key={mix.audioUrl} {...mix} />
 					))}
 			</Panel>
 		</Page>
