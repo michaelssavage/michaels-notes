@@ -24,7 +24,6 @@ export function sortableHeader(
 			}}
 		>
 			{title}
-			{!isSorted(key) && <></>}
 			{isSorted(key) && !sortingDesc() && <ArrowDown />}
 			{isSorted(key) && sortingDesc() && <ArrowUpIcon />}
 		</Sorter>
