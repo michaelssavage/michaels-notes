@@ -45,6 +45,7 @@ export const ButtonStyled = styled.button<IStyle>`
           background-color: transparent;
           color: ${theme.colors.text};
           flex-direction: row-reverse;
+          box-shadow: none;
         `;
 			case "link":
 				return css`

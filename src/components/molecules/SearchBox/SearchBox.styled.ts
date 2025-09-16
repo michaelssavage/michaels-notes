@@ -6,6 +6,10 @@ export const Panel = styled.div<{ styles?: SerializedStyles }>`
   flex-direction: column;
   gap: 0.5rem;
 
+  label {
+    margin-left: 0.25rem;
+  }
+
   ${({ styles }) =>
 		styles &&
 		css`

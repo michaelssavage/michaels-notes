@@ -35,9 +35,9 @@ function About() {
 								variant="link"
 								style={anchorStyle("#adcbfc", "#5990e1")}
 							/>
-							, Shannon from 2021 to 2024. I'm currently working as a Frontend
-							Developer in the heart of Barcelona using tools like React.js,
-							JavaScript, TypeScript, TanStack, Figma, and more!
+							, Shannon from 2021 to 2024. I'm currently working as a Product
+							Developer for a startup in the heart of Barcelona using tools like
+							React.js, JavaScript / TypeScript, Django, Figma, and more!
 						</p>
 					</Group>
 				</Paragraph>

@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { Floating } from "@/components/atoms/Floating";
@@ -128,7 +129,7 @@ function Blog() {
 								onChange={(e) => setSearchQuery(e.target.value)}
 								placeholder="Spotify..."
 							/>
-							<Group wrap="wrap">
+							<Group wrap="wrap" css={css`margin-left: 0.25rem`}>
 								<p>Filters posts:</p>
 								<ButtonGroup>
 									<Button

@@ -41,6 +41,7 @@ export const lightTheme = {
 		section3b: "#5f68cf",
 		section3c: "#dd648a",
 		section3d: "#091486",
+		bentoBorder: "transparent",
 	},
 };
 
@@ -62,6 +63,7 @@ export const darkTheme = {
 		section3b: "#251E19",
 		section3c: "#d91b57",
 		section3d: "#dd648a",
+		bentoBorder: "#716eef",
 	},
 };
 

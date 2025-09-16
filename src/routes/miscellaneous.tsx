@@ -30,21 +30,21 @@ const items: Array<BentoI> = [
 		description:
 			"Some DJ mixes that I recorded and bothered to upload. Many exist in different freemium platforms which I will slowly add to here. They are streamed from Archive.org, with the waveform generated from audiowaveform, using wavesurfer.js",
 		link: "/mixes",
-		colSpan: 4,
+		colSpan: 3,
 	},
 	{
 		title: "Rekordbox Prettifier",
 		description:
 			"I created a text prettier for exported setlists from Rekordbox. This was really useful for adding the songs played to the description of SoundCloud or MixCloud.",
 		link: "/pretty-text",
-		colSpan: 2,
+		colSpan: 3,
 	},
 	{
 		title: "Barcelona Guide",
 		description:
 			"A very incomplete guide to things to do, see, and experience in Barcelona. I want to collect points of interest, activities, live music venues, and other fun things that aren't so obvious.",
 		link: "/guide/barcelona",
-		colSpan: 3,
+		colSpan: 4,
 	},
 ];
 

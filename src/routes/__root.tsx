@@ -47,7 +47,7 @@ function RootComponent() {
 						</Suspense>
 					</ErrorBoundary>
 					<Footer />
-					<TanStackRouterDevtools position="bottom-right" />
+					<TanStackRouterDevtools position="top-right" />
 				</ThemeProvider>
 			</QueryClientProvider>
 		</HelmetProvider>

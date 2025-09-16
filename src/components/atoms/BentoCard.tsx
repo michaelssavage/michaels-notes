@@ -7,13 +7,13 @@ import { forBreakAt, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 export const BentoHeader = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
   margin-bottom: 0.75rem;
 `;
 
 export const BentoTitle = styled.h3`
-  font-size: 2.5rem;
+  font-size: 2.1rem;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
 
   ${forBreakAt({
 		breakpoint: 900,
@@ -25,14 +25,14 @@ export const BentoTitle = styled.h3`
 
 export const BentoDescription = styled.p`
   font-size: 1.1rem;
-  color: #666666;
-  margin: 0.25rem 0 0 0;
+  color: ${({ theme }) => theme.colors.text};
+  margin: 0.25rem 0 0;
 `;
 
 export const BentoContent = styled.div`
   flex: 1;
   font-size: 0.875rem;
-  color: #444444;
+  color: ${({ theme }) => theme.colors.card};
 `;
 
 type BentoCardProps = {
@@ -46,7 +46,7 @@ const BentoCardStyled = styled(Link)<
 	Pick<BentoCardProps, "colSpan" | "rowSpan">
 >`
   background-color: ${({ theme }) => theme.colors.card};
-  border: 1px solid ${({ theme }) => theme.colors.button};
+  border: 1px solid ${({ theme }) => theme.colors.bentoBorder};
   border-radius: 1rem;
   padding: 1.25rem;
   display: flex;

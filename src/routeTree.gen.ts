@@ -12,6 +12,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MiscellaneousRouteImport } from './routes/miscellaneous'
+import { Route as GuideIndexRouteImport } from './routes/guide/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as GuideBarcelonaRouteImport } from './routes/guide/barcelona'
 
@@ -61,6 +62,11 @@ const ProjectsIndexLazyRoute = ProjectsIndexLazyRouteImport.update({
 } as any).lazy(() =>
   import('./routes/projects/index.lazy').then((d) => d.Route),
 )
+const GuideIndexRoute = GuideIndexRouteImport.update({
+  id: '/guide/',
+  path: '/guide/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugLazyRoute
   '/projects/$slug': typeof ProjectsSlugLazyRoute
   '/blog': typeof BlogIndexRoute
+  '/guide': typeof GuideIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
 export interface FileRoutesByTo {
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugLazyRoute
   '/projects/$slug': typeof ProjectsSlugLazyRoute
   '/blog': typeof BlogIndexRoute
+  '/guide': typeof GuideIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
 export interface FileRoutesById {
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugLazyRoute
   '/projects/$slug': typeof ProjectsSlugLazyRoute
   '/blog/': typeof BlogIndexRoute
+  '/guide/': typeof GuideIndexRoute
   '/projects/': typeof ProjectsIndexLazyRoute
 }
 export interface FileRouteTypes {
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/$slug'
     | '/blog'
+    | '/guide'
     | '/projects'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/$slug'
     | '/blog'
+    | '/guide'
     | '/projects'
   id:
     | '__root__'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/$slug'
     | '/blog/'
+    | '/guide/'
     | '/projects/'
   fileRoutesById: FileRoutesById
 }
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   BlogSlugLazyRoute: typeof BlogSlugLazyRoute
   ProjectsSlugLazyRoute: typeof ProjectsSlugLazyRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  GuideIndexRoute: typeof GuideIndexRoute
   ProjectsIndexLazyRoute: typeof ProjectsIndexLazyRoute
 }
 
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guide/': {
+      id: '/guide/'
+      path: '/guide'
+      fullPath: '/guide'
+      preLoaderRoute: typeof GuideIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -273,6 +293,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugLazyRoute: BlogSlugLazyRoute,
   ProjectsSlugLazyRoute: ProjectsSlugLazyRoute,
   BlogIndexRoute: BlogIndexRoute,
+  GuideIndexRoute: GuideIndexRoute,
   ProjectsIndexLazyRoute: ProjectsIndexLazyRoute,
 }
 export const routeTree = rootRouteImport
