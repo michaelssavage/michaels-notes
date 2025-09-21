@@ -1,9 +1,13 @@
+import { Group } from "@/components/atoms/Group";
+import { Icon } from "@/components/atoms/Icon";
 import { MetaData } from "@/components/atoms/MetaData";
+import { MapIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { sortableHeader } from "@/components/molecules/Table/SortableHeader";
 import { Table } from "@/components/molecules/Table/Table";
-import { items, type TableItem } from "@/content/guide/barcelona";
+import { items } from "@/content/guide/barcelona";
 import { Page, Panel } from "@/styles/routes/blog.styled";
+import { GuideTableItem } from "@/types/Guide";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   createColumnHelper,
@@ -21,7 +25,7 @@ export const Route = createFileRoute("/guide/barcelona")({
 const description =
   "Barcelona guide with places to visit, activities, and entertainment options.";
 
-const columnHelper = createColumnHelper<TableItem>();
+const columnHelper = createColumnHelper<GuideTableItem>();
 
 function RouteComponent() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -32,12 +36,28 @@ function RouteComponent() {
         header: ({ column }) =>
           sortableHeader(column.id, "Title", sorting, setSorting),
         cell: (info) => {
-          const value = info.getValue();
-          const link = info.row.original.link;
-          return link ? (
-            <Anchor variant="link" link={link} text={value} isExternal />
-          ) : (
-            value
+          return (
+            <Anchor
+              variant="link"
+              link={info.row.original.link}
+              text={info.getValue()}
+              isExternal
+            />
+          );
+        },
+      }),
+      columnHelper.accessor("location", {
+        header: () => <Group justify="center">Location</Group>,
+        cell: (info) => {
+          return (
+            <Group justify="center">
+              <Icon
+                label=""
+                icon={<MapIcon />}
+                link={info.getValue()}
+                isExternal
+              />
+            </Group>
           );
         },
       }),
@@ -50,10 +70,6 @@ function RouteComponent() {
         header: "Price",
         cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("location", {
-        header: "Location",
-        cell: (info) => info.getValue() || "-",
-      }),
       columnHelper.accessor("tags", {
         header: "Tags",
         cell: (info) => {
@@ -62,7 +78,7 @@ function RouteComponent() {
         },
       }),
     ],
-    [sorting],
+    [sorting]
   );
 
   const table = useReactTable({

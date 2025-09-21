@@ -8,10 +8,14 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig([
   globalIgnores([
-    "dist",
-    "playwright-report",
+    "dist/**",
+    "build/**",
+    "node_modules/**",
+    "**/*.d.ts",
+    ".tanstack/**",
+    ".git/**",
+    "playwright-report/**",
     "vite.config.ts",
-    "node_modules",
   ]),
 
   // Base JS config
@@ -41,7 +45,8 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
         },
