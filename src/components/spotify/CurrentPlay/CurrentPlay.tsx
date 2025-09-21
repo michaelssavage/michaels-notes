@@ -16,6 +16,7 @@ import { css } from "@emotion/react";
 import { animated, useSpring } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
+import DOMPurify from "dompurify";
 import { useEffect, useRef, useState } from "react";
 import {
   Comp,
@@ -56,7 +57,7 @@ export const CurrentPlay = () => {
 
   const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 
-  const fact = trackFact.data?.artist?.bio?.summary ?? "";
+  const fact = DOMPurify.sanitize(trackFact.data?.artist?.bio?.summary ?? "");
 
   useEffect(() => {
     const element = contentRef.current;
