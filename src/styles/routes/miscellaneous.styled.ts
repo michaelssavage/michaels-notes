@@ -1,6 +1,6 @@
+import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 export const GridContainer = styled.div`
   display: grid;

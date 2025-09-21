@@ -10,7 +10,8 @@ const meta: Meta<typeof Picture> = {
     alt: "Sample image",
     src: "/favicon.png",
   },
-  render: (args) => (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  render: (args: any) => (
     <Picture
       {...args}
       style={css`

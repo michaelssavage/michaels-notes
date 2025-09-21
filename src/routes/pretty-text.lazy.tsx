@@ -5,6 +5,7 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { Checkbox } from "@/components/molecules/Form/Checkbox";
 import { Picture } from "@/components/molecules/Picture";
+import { exampleRekordboxText } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   AboutSection,
@@ -17,7 +18,6 @@ import {
   Title,
   viewMoreButtonStyles,
 } from "@/styles/routes/rekordbox-prettifier.styled";
-import { exampleRekordboxText } from "@/utils";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";

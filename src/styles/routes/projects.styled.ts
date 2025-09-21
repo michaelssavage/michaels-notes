@@ -1,8 +1,8 @@
+import { getContrastYIQ } from "@/lib/colors";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
-import { getContrastYIQ } from "@/lib/colors";
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
 interface ICard {
   main: string;

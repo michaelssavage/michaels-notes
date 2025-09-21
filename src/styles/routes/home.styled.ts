@@ -1,6 +1,3 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { animated } from "@react-spring/web";
 import { ArrowDown } from "@/components/icons";
 import { hoverVertically } from "@/styles/abstracts/animations.styled";
 import {
@@ -8,6 +5,9 @@ import {
   forPhoneOnly,
   forTabletOnly,
 } from "@/styles/abstracts/mixins.styled";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { animated } from "@react-spring/web";
 
 export const Content = styled.div`
   position: relative;

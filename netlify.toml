@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build && npm run build:storybook"
+  command = "pnpm build && pnpm build:storybook"
   publish = "dist"
   functions = "netlify/functions"
 
