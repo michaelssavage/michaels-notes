@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { getContrastYIQ } from "@/lib/colors";
 
 interface FactContentProps {
-	color?: string;
+  color?: string;
 }
 
 export const Comp = styled.div`
@@ -54,7 +54,8 @@ export const NowPlaying = styled.div<{ color: string }>`
 
 export const FactContent = styled.p<FactContentProps>`
   font-size: 0.8rem;
-  color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.colors.secondaryText};
+  color: ${({ color = "", theme }) =>
+    getContrastYIQ(color) || theme.colors.secondaryText};
 
   width: 90%;
   margin: 0 auto;
@@ -62,7 +63,8 @@ export const FactContent = styled.p<FactContentProps>`
   flex-direction: column;
 
   &&& a {
-    color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.colors.secondaryText};
+    color: ${({ color = "", theme }) =>
+      getContrastYIQ(color) || theme.colors.secondaryText};
   }
 `;
 
@@ -86,8 +88,8 @@ export const ExpandButton = styled.button`
   align-items: center;
   gap: 0.25rem;
 
-  &:hover{
-  background-color: ${({ theme }) => theme.colors.hoverCard};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.hoverCard};
   }
 
   svg {

@@ -2,9 +2,9 @@ import type { SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 
 interface YouTubePlayerProps {
-	videoId: string;
-	title?: string;
-	styles?: SerializedStyles;
+  videoId: string;
+  title?: string;
+  styles?: SerializedStyles;
 }
 
 const Wrapper = styled.div`
@@ -22,19 +22,19 @@ const Iframe = styled.iframe`
 `;
 
 export const Player = ({
-	videoId,
-	title = "YouTube video player",
-	styles,
+  videoId,
+  title = "YouTube video player",
+  styles,
 }: YouTubePlayerProps) => {
-	return (
-		<Wrapper css={styles}>
-			<Iframe
-				src={`https://www.youtube.com/embed/${videoId}`}
-				title={title}
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-				allowFullScreen
-				referrerPolicy="strict-origin-when-cross-origin"
-			/>
-		</Wrapper>
-	);
+  return (
+    <Wrapper css={styles}>
+      <Iframe
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    </Wrapper>
+  );
 };

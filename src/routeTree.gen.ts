@@ -12,6 +12,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MiscellaneousRouteImport } from './routes/miscellaneous'
+import { Route as ReviewIndexRouteImport } from './routes/review/index'
 import { Route as GuideIndexRouteImport } from './routes/guide/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as GuideBarcelonaRouteImport } from './routes/guide/barcelona'
@@ -22,6 +23,7 @@ const MixesLazyRouteImport = createFileRoute('/mixes')()
 const AboutLazyRouteImport = createFileRoute('/about')()
 const IndexLazyRouteImport = createFileRoute('/')()
 const ProjectsIndexLazyRouteImport = createFileRoute('/projects/')()
+const ReviewSlugLazyRouteImport = createFileRoute('/review/$slug')()
 const ProjectsSlugLazyRouteImport = createFileRoute('/projects/$slug')()
 const BlogSlugLazyRouteImport = createFileRoute('/blog/$slug')()
 
@@ -62,6 +64,11 @@ const ProjectsIndexLazyRoute = ProjectsIndexLazyRouteImport.update({
 } as any).lazy(() =>
   import('./routes/projects/index.lazy').then((d) => d.Route),
 )
+const ReviewIndexRoute = ReviewIndexRouteImport.update({
+  id: '/review/',
+  path: '/review/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuideIndexRoute = GuideIndexRouteImport.update({
   id: '/guide/',
   path: '/guide/',
@@ -72,6 +79,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReviewSlugLazyRoute = ReviewSlugLazyRouteImport.update({
+  id: '/review/$slug',
+  path: '/review/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/review/$slug.lazy').then((d) => d.Route))
 const ProjectsSlugLazyRoute = ProjectsSlugLazyRouteImport.update({
   id: '/projects/$slug',
   path: '/projects/$slug',
@@ -100,8 +112,10 @@ export interface FileRoutesByFullPath {
   '/guide/barcelona': typeof GuideBarcelonaRoute
   '/blog/$slug': typeof BlogSlugLazyRoute
   '/projects/$slug': typeof ProjectsSlugLazyRoute
+  '/review/$slug': typeof ReviewSlugLazyRoute
   '/blog': typeof BlogIndexRoute
   '/guide': typeof GuideIndexRoute
+  '/review': typeof ReviewIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
 export interface FileRoutesByTo {
@@ -114,8 +128,10 @@ export interface FileRoutesByTo {
   '/guide/barcelona': typeof GuideBarcelonaRoute
   '/blog/$slug': typeof BlogSlugLazyRoute
   '/projects/$slug': typeof ProjectsSlugLazyRoute
+  '/review/$slug': typeof ReviewSlugLazyRoute
   '/blog': typeof BlogIndexRoute
   '/guide': typeof GuideIndexRoute
+  '/review': typeof ReviewIndexRoute
   '/projects': typeof ProjectsIndexLazyRoute
 }
 export interface FileRoutesById {
@@ -129,8 +145,10 @@ export interface FileRoutesById {
   '/guide/barcelona': typeof GuideBarcelonaRoute
   '/blog/$slug': typeof BlogSlugLazyRoute
   '/projects/$slug': typeof ProjectsSlugLazyRoute
+  '/review/$slug': typeof ReviewSlugLazyRoute
   '/blog/': typeof BlogIndexRoute
   '/guide/': typeof GuideIndexRoute
+  '/review/': typeof ReviewIndexRoute
   '/projects/': typeof ProjectsIndexLazyRoute
 }
 export interface FileRouteTypes {
@@ -145,8 +163,10 @@ export interface FileRouteTypes {
     | '/guide/barcelona'
     | '/blog/$slug'
     | '/projects/$slug'
+    | '/review/$slug'
     | '/blog'
     | '/guide'
+    | '/review'
     | '/projects'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -159,8 +179,10 @@ export interface FileRouteTypes {
     | '/guide/barcelona'
     | '/blog/$slug'
     | '/projects/$slug'
+    | '/review/$slug'
     | '/blog'
     | '/guide'
+    | '/review'
     | '/projects'
   id:
     | '__root__'
@@ -173,8 +195,10 @@ export interface FileRouteTypes {
     | '/guide/barcelona'
     | '/blog/$slug'
     | '/projects/$slug'
+    | '/review/$slug'
     | '/blog/'
     | '/guide/'
+    | '/review/'
     | '/projects/'
   fileRoutesById: FileRoutesById
 }
@@ -188,8 +212,10 @@ export interface RootRouteChildren {
   GuideBarcelonaRoute: typeof GuideBarcelonaRoute
   BlogSlugLazyRoute: typeof BlogSlugLazyRoute
   ProjectsSlugLazyRoute: typeof ProjectsSlugLazyRoute
+  ReviewSlugLazyRoute: typeof ReviewSlugLazyRoute
   BlogIndexRoute: typeof BlogIndexRoute
   GuideIndexRoute: typeof GuideIndexRoute
+  ReviewIndexRoute: typeof ReviewIndexRoute
   ProjectsIndexLazyRoute: typeof ProjectsIndexLazyRoute
 }
 
@@ -244,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/review/': {
+      id: '/review/'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof ReviewIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guide/': {
       id: '/guide/'
       path: '/guide'
@@ -256,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/review/$slug': {
+      id: '/review/$slug'
+      path: '/review/$slug'
+      fullPath: '/review/$slug'
+      preLoaderRoute: typeof ReviewSlugLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/$slug': {
@@ -292,8 +332,10 @@ const rootRouteChildren: RootRouteChildren = {
   GuideBarcelonaRoute: GuideBarcelonaRoute,
   BlogSlugLazyRoute: BlogSlugLazyRoute,
   ProjectsSlugLazyRoute: ProjectsSlugLazyRoute,
+  ReviewSlugLazyRoute: ReviewSlugLazyRoute,
   BlogIndexRoute: BlogIndexRoute,
   GuideIndexRoute: GuideIndexRoute,
+  ReviewIndexRoute: ReviewIndexRoute,
   ProjectsIndexLazyRoute: ProjectsIndexLazyRoute,
 }
 export const routeTree = rootRouteImport

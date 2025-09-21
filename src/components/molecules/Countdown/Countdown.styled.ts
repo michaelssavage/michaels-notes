@@ -24,7 +24,7 @@ export const TimeUnit = styled.div`
     font-size: 2rem;
     font-weight: bold;
   }
-  
+
   p {
     font-size: 1rem;
     text-transform: uppercase;
@@ -46,6 +46,6 @@ export const Separator = styled.div`
   align-self: flex-start;
 
   ${forPhoneOnly(css`
-      font-size: 1rem;
+    font-size: 1rem;
   `)}
 `;

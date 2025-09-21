@@ -33,7 +33,6 @@ export const ScrollContainer = styled.div`
 
   svg[aria-label="left icon"] {
     left: calc(-10px - 1.5rem);
-
   }
   svg[aria-label="right icon"] {
     right: calc(-10px - 1.5rem);

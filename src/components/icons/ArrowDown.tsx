@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const ArrowDown = (
-  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement> & Props
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement> & Props,
 ) => {
   return (
     <svg

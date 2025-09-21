@@ -1,3 +1,4 @@
+export { MapIcon } from "@/components/icons/Map";
 export { ArrowBackIcon } from "./ArrowBack";
 export { ArrowDown } from "./ArrowDown";
 export { ArrowUpIcon } from "./ArrowUp";

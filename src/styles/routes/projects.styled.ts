@@ -1,16 +1,16 @@
+import { getContrastYIQ } from "@/lib/colors";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
-import { getContrastYIQ } from "@/lib/colors";
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
 interface ICard {
-	main: string;
-	bg: string;
+  main: string;
+  bg: string;
 }
 
 interface CardWrapperProps {
-	$shouldDim: boolean | null;
+  $shouldDim: boolean | null;
 }
 
 export const Page = styled.section`
@@ -24,11 +24,11 @@ export const CardWrapper = styled.div<CardWrapperProps>`
   min-width: 250px;
   max-width: 250px;
   ${({ $shouldDim }) =>
-		$shouldDim &&
-		css`
-    opacity: 0.5;
-    filter: blur(3px);
-  `};
+    $shouldDim &&
+    css`
+      opacity: 0.5;
+      filter: blur(3px);
+    `};
 
   ${forTabletOnly(css`
     min-width: 150px;
@@ -81,7 +81,7 @@ export const CardBody = styled.div<{ bg: string }>`
   `)}
 
   ${forPhoneOnly(css`
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   `)}
 `;
 

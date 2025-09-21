@@ -3,19 +3,19 @@ import { MoonIcon, SunIcon } from "../../icons";
 import { ToggleIcon, ToggleInput } from "./Toggle.styled";
 
 const Toggle = () => {
-	const { mode, toggleTheme } = useTheme();
+  const { mode, toggleTheme } = useTheme();
 
-	return (
-		<ToggleIcon>
-			<ToggleInput
-				type="checkbox"
-				checked={mode === "light"}
-				onChange={toggleTheme}
-			/>
-			<SunIcon id="star" />
-			<MoonIcon id="moon" />
-		</ToggleIcon>
-	);
+  return (
+    <ToggleIcon>
+      <ToggleInput
+        type="checkbox"
+        checked={mode === "light"}
+        onChange={toggleTheme}
+      />
+      <SunIcon id="star" />
+      <MoonIcon id="moon" />
+    </ToggleIcon>
+  );
 };
 
 export default Toggle;

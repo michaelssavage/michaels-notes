@@ -8,12 +8,12 @@ export const MixCard = styled.div`
   background: ${({ theme }) => theme.colors.card};
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  
+
   @media (max-width: 1200px) {
     margin: 0 0.5rem;
     padding: 0.75rem;
   }
-  
+
   @media (max-width: 480px) {
     margin: 0 0.25rem;
     padding: 0.5rem;

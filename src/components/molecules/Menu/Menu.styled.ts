@@ -19,7 +19,6 @@ export const MenuContainer = styled.div<{ open: boolean }>`
   border-radius: 0.5rem;
   cursor: ${({ open }) => (open ? "default" : "pointer")};
 
-
   svg {
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -30,7 +29,7 @@ export const MenuContainer = styled.div<{ open: boolean }>`
       transform: rotate(-90deg);
     }
   }
-  
+
   ${forTabletOnly(css`
     padding: 0.5rem;
     margin-bottom: 1rem;
@@ -60,7 +59,7 @@ export const Sidebar = styled.ol`
   li {
     margin-bottom: 0.2rem;
   }
-  
+
   ${forPhoneOnly(css`
     padding: 0 1rem 0.75rem;
   `)}

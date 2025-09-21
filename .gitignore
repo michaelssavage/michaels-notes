@@ -24,8 +24,6 @@ dist-ssr
 *.sw?
 .env
 tsconfig.tsbuildinfo
-# Million Lint
-.million
 
 # Local Netlify folder
 .netlify
@@ -39,3 +37,4 @@ tsconfig.tsbuildinfo
 *storybook.log
 storybook-static
 stats.html
+.tanstack

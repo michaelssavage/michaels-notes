@@ -1,8 +1,8 @@
-import { css } from "@emotion/react";
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
 import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { fonts } from "@/styles/abstracts/fonts.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
+import { css } from "@emotion/react";
 
 export const globalStyles = (theme: MyTheme) => css`
   ${resetStyles}
@@ -89,6 +89,6 @@ export const globalStyles = (theme: MyTheme) => css`
     max-width: 600px;
     border-radius: 10px;
     padding: 1rem;
-    border: 1px solid  ${theme.colors.off};
+    border: 1px solid ${theme.colors.off};
   }
 `;

@@ -12,7 +12,7 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  
+
   ${forTabletOnly(css`
     flex-direction: column;
     gap: 0.5rem;
@@ -28,12 +28,11 @@ export const Header = styled.header`
     padding: 0;
     text-transform: uppercase;
     font-style: italic;
-  
+
     ${forTabletOnly(css`
       flex-wrap: wrap;
       text-wrap: balance;
     `)}
-    
 
     ${forPhoneOnly(css`
       font-size: 1.1rem;
@@ -73,13 +72,13 @@ export const Icons = styled.div`
   gap: 1rem;
   margin: 0 1rem;
 
-${forPhoneOnly(css`
-  margin: 0 0.2rem;
-  min-width: unset;
-  min-height: unset;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-`)}
+  ${forPhoneOnly(css`
+    margin: 0 0.2rem;
+    min-width: unset;
+    min-height: unset;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  `)}
 
   svg {
     width: 3rem;
@@ -88,10 +87,10 @@ ${forPhoneOnly(css`
     min-height: 2rem;
 
     ${forPhoneOnly(css`
-    width: 2rem;
-    height: 2rem;
-    min-width: 1rem;
-    min-height: 1rem;
+      width: 2rem;
+      height: 2rem;
+      min-width: 1rem;
+      min-height: 1rem;
     `)}
   }
 `;

@@ -12,5 +12,5 @@ const Style = styled.code`
 `;
 
 export const Code = (props: HTMLAttributes<HTMLElement>) => {
-	return <Style {...props} />;
+  return <Style {...props} />;
 };

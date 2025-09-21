@@ -3,72 +3,72 @@ import { Link } from "@tanstack/react-router";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 
 interface IconLinkProps {
-	link: string;
-	isExternal?: boolean;
-	icon: ReactNode;
-	label: string;
+  link: string;
+  isExternal?: boolean;
+  icon: ReactNode;
+  label: string;
 }
 
 const proximityThreshold = 90;
 
 export const Icon = ({
-	link,
-	isExternal = false,
-	icon,
-	label,
+  link,
+  isExternal = false,
+  icon,
+  label,
 }: IconLinkProps) => {
-	const [transform, setTransform] = useState({ x: 0, y: 0 });
-	const iconRef = useRef<HTMLAnchorElement>(null);
+  const [transform, setTransform] = useState({ x: 0, y: 0 });
+  const iconRef = useRef<HTMLAnchorElement>(null);
 
-	useEffect(() => {
-		const handleMouseMove = (e: MouseEvent) => {
-			if (!iconRef.current) return;
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!iconRef.current) return;
 
-			const rect = iconRef.current.getBoundingClientRect();
-			const iconCenterX = rect.left + rect.width / 2;
-			const iconCenterY = rect.top + rect.height / 2;
-			const distanceX = e.clientX - iconCenterX;
-			const distanceY = e.clientY - iconCenterY;
+      const rect = iconRef.current.getBoundingClientRect();
+      const iconCenterX = rect.left + rect.width / 2;
+      const iconCenterY = rect.top + rect.height / 2;
+      const distanceX = e.clientX - iconCenterX;
+      const distanceY = e.clientY - iconCenterY;
 
-			if (
-				Math.abs(distanceX) < proximityThreshold &&
-				Math.abs(distanceY) < proximityThreshold
-			) {
-				const moveX = distanceX * 0.3;
-				const moveY = distanceY * 0.3;
-				setTransform({ x: moveX, y: moveY });
-			} else {
-				setTransform({ x: 0, y: 0 });
-			}
-		};
+      if (
+        Math.abs(distanceX) < proximityThreshold &&
+        Math.abs(distanceY) < proximityThreshold
+      ) {
+        const moveX = distanceX * 0.3;
+        const moveY = distanceY * 0.3;
+        setTransform({ x: moveX, y: moveY });
+      } else {
+        setTransform({ x: 0, y: 0 });
+      }
+    };
 
-		window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
-		return () => {
-			window.removeEventListener("mousemove", handleMouseMove);
-		};
-	}, []);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
-	return (
-		<Floating
-			type="tooltip"
-			placement="bottom"
-			trigger={
-				<Link
-					to={link}
-					ref={iconRef}
-					className="icon-link"
-					target={isExternal ? "_blank" : undefined}
-					rel={isExternal ? "noopener noreferrer" : undefined}
-					style={{
-						transform: `translate(${transform.x}px, ${transform.y}px)`,
-						transition: "transform 0.1s ease-out",
-					}}
-				>
-					{icon}
-				</Link>
-			}
-			content={label}
-		/>
-	);
+  return (
+    <Floating
+      type="tooltip"
+      placement="bottom"
+      trigger={
+        <Link
+          to={link}
+          ref={iconRef}
+          className="icon-link"
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          style={{
+            transform: `translate(${transform.x}px, ${transform.y}px)`,
+            transition: "transform 0.1s ease-out",
+          }}
+        >
+          {icon}
+        </Link>
+      }
+      content={label}
+    />
+  );
 };

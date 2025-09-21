@@ -7,5 +7,5 @@ const Style = styled.p`
 `;
 
 export const Paragraph = (props: HTMLAttributes<HTMLParagraphElement>) => {
-	return <Style {...props} />;
+  return <Style {...props} />;
 };

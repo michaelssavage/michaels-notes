@@ -25,7 +25,7 @@ export const Container = styled.div`
 export const Dot = styled.div<{ delay: number }>`
   width: 12px;
   height: 12px;
-  background-color: #3B82F6;
+  background-color: #3b82f6;
   border-radius: 50%;
   animation: ${bounce} 0.6s infinite;
   animation-delay: ${({ delay }) => delay}s;

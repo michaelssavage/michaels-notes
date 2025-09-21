@@ -1,8 +1,8 @@
 import { css, type SerializedStyles } from "@emotion/react";
 
 interface IBreak {
-	breakpoint: number;
-	styles: SerializedStyles | string;
+  breakpoint: number;
+  styles: SerializedStyles | string;
 }
 
 export const forBreakAt = ({ breakpoint, styles }: IBreak) => css`

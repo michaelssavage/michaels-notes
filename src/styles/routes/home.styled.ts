@@ -1,13 +1,13 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { animated } from "@react-spring/web";
 import { ArrowDown } from "@/components/icons";
 import { hoverVertically } from "@/styles/abstracts/animations.styled";
 import {
-	forBreakAt,
-	forPhoneOnly,
-	forTabletOnly,
+  forBreakAt,
+  forPhoneOnly,
+  forTabletOnly,
 } from "@/styles/abstracts/mixins.styled";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { animated } from "@react-spring/web";
 
 export const Content = styled.div`
   position: relative;
@@ -15,7 +15,7 @@ export const Content = styled.div`
 
 export const anchorStyle = (color: string, hoverColor: string) => css`
   color: ${color};
-  
+
   &:hover {
     color: ${hoverColor};
   }
@@ -31,8 +31,8 @@ export const Arrow = styled(ArrowDown)`
 `;
 
 export const Section = styled(animated.section)<{
-	main?: string;
-	bg?: string;
+  main?: string;
+  bg?: string;
 }>`
   height: calc(100vh);
   display: flex;
@@ -44,7 +44,7 @@ export const Section = styled(animated.section)<{
 
   &:first-of-type {
     min-height: 85vh;
-    
+
     ${forPhoneOnly(css`
       min-height: 80vh;
     `)}
@@ -80,7 +80,6 @@ export const selfieStyle = css`
   border-top-right-radius: 5rem;
   max-width: 300px;
 
-
   img {
     object-fit: cover;
     transition: transform 0.2s ease-in-out;
@@ -92,11 +91,11 @@ export const selfieStyle = css`
   }
 
   ${forBreakAt({
-		breakpoint: 900,
-		styles: css`
+    breakpoint: 900,
+    styles: css`
       width: 60%;
     `,
-	})}
+  })}
 `;
 
 export const plantbassdStyle = css`
@@ -106,11 +105,11 @@ export const plantbassdStyle = css`
     border-radius 0.3s ease;
 
   ${forBreakAt({
-		breakpoint: 900,
-		styles: css`
+    breakpoint: 900,
+    styles: css`
       width: 60%;
     `,
-	})}
+  })}
 
   &:hover {
     transform: rotate(15deg);
@@ -119,8 +118,8 @@ export const plantbassdStyle = css`
 `;
 
 export const breakpoint = forBreakAt({
-	breakpoint: 900,
-	styles: css`
+  breakpoint: 900,
+  styles: css`
     flex-direction: column;
   `,
 });
