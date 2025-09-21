@@ -92,7 +92,10 @@ function RouteComponent() {
 
   return (
     <Page>
-      <MetaData title="Barcelona Guide" description={description} />
+      <MetaData
+        title="Barcelona Guide| Michael Savage"
+        description={description}
+      />
 
       <Panel>
         <h1>Barcelona Guide</h1>

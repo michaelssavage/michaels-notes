@@ -119,7 +119,10 @@ function RekordboxPrettifier() {
           <h1>Drop your .txt file here to format the Rekordbox setlist!</h1>
         </DragBanner>
       )}
-      <MetaData title="Rekordbox Prettifier" description={description} />
+      <MetaData
+        title="Rekordbox Prettifier | Michael Savage"
+        description={description}
+      />
       <Panel>
         <Title>Rekordbox Text Formatter</Title>
 

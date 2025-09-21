@@ -106,7 +106,7 @@ function Blog() {
 
   return (
     <Page>
-      <MetaData title="My Blog" description={description} />
+      <MetaData title="My Blog | Michael Savage" description={description} />
       <Panel>
         <Group direction="column" gap="0" css={headerStyle}>
           <Heading>

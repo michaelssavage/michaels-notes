@@ -51,7 +51,10 @@ const items: Array<BentoI> = [
 function RouteComponent() {
   return (
     <Page>
-      <MetaData title="Miscellaneous" description={description} />
+      <MetaData
+        title="Miscellaneous | Michael Savage"
+        description={description}
+      />
       <GridContainer>
         {items.map((item) => (
           <BentoCard key={item.title} to={item.link} colSpan={item.colSpan}>

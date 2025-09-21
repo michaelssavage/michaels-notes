@@ -1,8 +1,8 @@
+import type { MyTheme } from "@/styles/abstracts/colors.styled";
+import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
-import type { MyTheme } from "@/styles/abstracts/colors.styled";
-import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 interface ICard {
   diff: number;
@@ -11,7 +11,7 @@ interface ICard {
 
 export const anchorStyles = (
   isActive: boolean,
-  colors: MyTheme["colors"],
+  colors: MyTheme["colors"]
 ) => css`
   color: ${isActive ? colors.section3c : "#dccad0"};
   text-decoration: ${isActive ? "underline" : "none"};

@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import {
   Popover,
   PopoverContent,
@@ -7,6 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/molecules/Overlays";
+import type { ReactNode } from "react";
 
 interface IFloating {
   type: "tooltip" | "popover";

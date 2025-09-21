@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { fetchFavouriteMovies } from "@/api/favorite-movies.api";
 import { Group } from "@/components/atoms/Group";
 import { Picture } from "@/components/molecules/Picture";
 import { breakpoint } from "@/styles/routes/home.styled";
 import type { IMovie } from "@/types/Movie";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import {
   Button,
   ButtonContainer,
@@ -62,8 +62,8 @@ export const Letterboxd = () => {
       </StackContainer>
 
       <div>
-        I love watching, sharing and keeping track of movies on Letterboxd (the
-        best social media platform). Some of my favourites include{" "}
+        I love watching, tracking, and sharing my thoughts about films on
+        LetterboxSome of my favourites include{" "}
         {data.map((movie, index) => (
           <span key={movie.title}>
             <Movie

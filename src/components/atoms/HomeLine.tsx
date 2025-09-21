@@ -1,6 +1,6 @@
+import { slideInAnimation } from "@/styles/abstracts/animations.styled";
 import styled from "@emotion/styled";
 import { animated, useScroll } from "@react-spring/web";
-import { slideInAnimation } from "@/styles/abstracts/animations.styled";
 
 const AnimatedLineStyled = styled.div`
   margin-top: 1rem;

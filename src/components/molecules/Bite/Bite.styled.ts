@@ -1,6 +1,6 @@
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 export const Year = styled.p`
   font-weight: bold;

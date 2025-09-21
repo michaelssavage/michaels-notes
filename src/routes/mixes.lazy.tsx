@@ -65,7 +65,7 @@ const linkStyle = css`
 function RouteComponent() {
   return (
     <Page>
-      <MetaData title="DJ mixes" description={description} />
+      <MetaData title="DJ mixes | Michael Savage" description={description} />
       <Panel>
         <h1 style={{ marginRight: "auto" }}>Mixes</h1>
         <Group

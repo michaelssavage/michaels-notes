@@ -1,7 +1,7 @@
+import type { AnchorVariants } from "@/components/molecules/Anchor/Anchor";
 import { type CSSObject, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
-import type { AnchorVariants } from "@/components/molecules/Anchor/Anchor";
 
 interface IStyle {
   variant?: AnchorVariants;

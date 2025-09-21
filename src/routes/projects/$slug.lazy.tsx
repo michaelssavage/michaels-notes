@@ -46,7 +46,10 @@ function Slug() {
   return (
     <Article>
       <Suspense fallback={<Loading />}>
-        <MetaData title={doc.title} description={doc.description} />
+        <MetaData
+          title={`${doc.title} | Michael Savage`}
+          description={doc.description}
+        />
         <Menu<IProject>
           target="projects"
           items={posts.filter(({ id }) => id !== doc.id)}

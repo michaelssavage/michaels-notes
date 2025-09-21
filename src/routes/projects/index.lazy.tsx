@@ -14,7 +14,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TopTracks = lazy(
-  () => import("@/components/spotify/TopTracks/TopTracks"),
+  () => import("@/components/spotify/TopTracks/TopTracks")
 );
 
 export const Route = createLazyFileRoute("/projects/")({
@@ -38,7 +38,10 @@ function Projects() {
 
   return (
     <Page>
-      <MetaData title="My Projects" description={description} />
+      <MetaData
+        title="My Projects | Michael Savage"
+        description={description}
+      />
       <Container>
         <Header>
           <p data-testid="projects-description">{description}</p>

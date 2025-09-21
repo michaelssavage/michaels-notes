@@ -56,7 +56,10 @@ function Slug() {
   return (
     <Article>
       <Suspense fallback={<Loading />}>
-        <MetaData title={doc.title} description={doc.description} />
+        <MetaData
+          title={`${doc.title} | Michael Savage`}
+          description={doc.description}
+        />
         <Menu<IBlog>
           target="blog"
           items={sidebar}
