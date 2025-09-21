@@ -1,34 +1,34 @@
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 
 interface IGroup {
-	direction?: "row" | "column" | "row-reverse" | "column-reverse";
-	align?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
-	justify?:
-		| "flex-start"
-		| "flex-end"
-		| "center"
-		| "space-between"
-		| "space-around"
-		| "space-evenly";
-	gap?: string;
+  direction?: "row" | "column" | "row-reverse" | "column-reverse";
+  align?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+  justify?:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
+  gap?: string;
 }
 
 interface IContainer extends IGroup {
-	maxWidth?: string;
-	padding?: string;
+  maxWidth?: string;
+  padding?: string;
 }
 
 type IRow = {
-	gap?: [string, string];
-	flex?: string;
+  gap?: [string, string];
+  flex?: string;
 };
 
 type ICol = {
-	size?: "md" | "sm";
-	gap?: string;
-	flex?: string;
+  size?: "md" | "sm";
+  gap?: string;
+  flex?: string;
 };
 
 export const Container = styled.div<IContainer>`
@@ -65,9 +65,9 @@ export const Col = styled.div<ICol>`
   height: auto;
   width: 100%;
   ${({ size }) => {
-		switch (size) {
-			case "sm":
-				return css`
+    switch (size) {
+      case "sm":
+        return css`
           flex: 0 0 25%;
           max-width: 25%;
 
@@ -81,8 +81,8 @@ export const Col = styled.div<ICol>`
             max-width: 100%;
           `)}
         `;
-			case "md":
-				return css`
+      case "md":
+        return css`
           flex: 0 0 50%;
           max-width: 50%;
 
@@ -91,8 +91,8 @@ export const Col = styled.div<ICol>`
             max-width: 100%;
           `)}
         `;
-			default:
-				return css`
+      default:
+        return css`
           flex: 0 0 25%;
           max-width: 25%;
 
@@ -106,8 +106,8 @@ export const Col = styled.div<ICol>`
             max-width: 100%;
           `)}
         `;
-		}
-	}}
+    }
+  }}
 `;
 
 export const Group = (props?: IGroup) => css`

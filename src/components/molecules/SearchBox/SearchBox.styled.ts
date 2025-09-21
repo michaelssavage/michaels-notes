@@ -11,8 +11,8 @@ export const Panel = styled.div<{ styles?: SerializedStyles }>`
   }
 
   ${({ styles }) =>
-		styles &&
-		css`
+    styles &&
+    css`
       ${styles}
     `}
 `;

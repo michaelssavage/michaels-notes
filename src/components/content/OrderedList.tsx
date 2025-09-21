@@ -7,5 +7,5 @@ const Style = styled.ol`
 `;
 
 export const OrderedList = (props: HTMLAttributes<HTMLOListElement>) => {
-	return <Style {...props} />;
+  return <Style {...props} />;
 };

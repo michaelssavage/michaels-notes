@@ -89,6 +89,6 @@ export const globalStyles = (theme: MyTheme) => css`
     max-width: 600px;
     border-radius: 10px;
     padding: 1rem;
-    border: 1px solid  ${theme.colors.off};
+    border: 1px solid ${theme.colors.off};
   }
 `;

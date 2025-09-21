@@ -4,9 +4,9 @@ import { Link } from "@tanstack/react-router";
 import type { AnchorVariants } from "@/components/molecules/Anchor/Anchor";
 
 interface IStyle {
-	variant?: AnchorVariants;
-	isExternal?: boolean;
-	style?: CSSObject;
+  variant?: AnchorVariants;
+  isExternal?: boolean;
+  style?: CSSObject;
 }
 
 export const LinkStyle = styled(Link)<IStyle>`
@@ -15,7 +15,7 @@ export const LinkStyle = styled(Link)<IStyle>`
   border-radius: 5px;
   width: fit-content;
   position: relative;
-  
+
   &:hover {
     svg {
       opacity: 1;
@@ -34,9 +34,9 @@ export const LinkStyle = styled(Link)<IStyle>`
   }
 
   ${({ variant, theme }) => {
-		switch (variant) {
-			case "button":
-				return css`
+    switch (variant) {
+      case "button":
+        return css`
           padding: 4px;
           border: 1px solid;
           border-color: ${theme.colors.button};
@@ -47,8 +47,8 @@ export const LinkStyle = styled(Link)<IStyle>`
             color: #fff;
           }
         `;
-			case "link":
-				return css`
+      case "link":
+        return css`
           padding: 0;
           text-decoration: underline;
           border: none;
@@ -57,14 +57,14 @@ export const LinkStyle = styled(Link)<IStyle>`
             color: ${theme.colors.link};
           }
         `;
-			case "text":
-				return css`
+      case "text":
+        return css`
           color: ${theme.colors.text};
         `;
-			default:
-				return null;
-		}
-	}}
+      default:
+        return null;
+    }
+  }}
 
   ${({ style }) => style || {}}
 `;

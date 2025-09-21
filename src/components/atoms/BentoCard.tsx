@@ -16,11 +16,11 @@ export const BentoTitle = styled.h3`
   color: ${({ theme }) => theme.colors.text};
 
   ${forBreakAt({
-		breakpoint: 900,
-		styles: css`
+    breakpoint: 900,
+    styles: css`
       font-size: 2.1rem;
     `,
-	})}
+  })}
 `;
 
 export const BentoDescription = styled.p`
@@ -36,14 +36,14 @@ export const BentoContent = styled.div`
 `;
 
 type BentoCardProps = {
-	children: ReactNode;
-	colSpan?: number;
-	rowSpan?: number;
-	to?: string;
+  children: ReactNode;
+  colSpan?: number;
+  rowSpan?: number;
+  to?: string;
 };
 
 const BentoCardStyled = styled(Link)<
-	Pick<BentoCardProps, "colSpan" | "rowSpan">
+  Pick<BentoCardProps, "colSpan" | "rowSpan">
 >`
   background-color: ${({ theme }) => theme.colors.card};
   border: 1px solid ${({ theme }) => theme.colors.bentoBorder};
@@ -51,35 +51,35 @@ const BentoCardStyled = styled(Link)<
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   text-decoration: none;
   color: inherit;
 
   &:hover {
     transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   }
 
   ${({ colSpan }) => colSpan && `grid-column: span ${colSpan};`}
   ${({ rowSpan }) => rowSpan && `grid-row: span ${rowSpan};`}
   
 
-  ${forTabletOnly(
-		css`
-      grid-column: 1 / -1;
-    `,
-	)}
+  ${forTabletOnly(css`
+    grid-column: 1 / -1;
+  `)}
 `;
 
 export const BentoCard = ({
-	children,
-	colSpan,
-	rowSpan,
-	to,
+  children,
+  colSpan,
+  rowSpan,
+  to,
 }: BentoCardProps) => {
-	return (
-		<BentoCardStyled to={to} colSpan={colSpan} rowSpan={rowSpan}>
-			{children}
-		</BentoCardStyled>
-	);
+  return (
+    <BentoCardStyled to={to} colSpan={colSpan} rowSpan={rowSpan}>
+      {children}
+    </BentoCardStyled>
+  );
 };

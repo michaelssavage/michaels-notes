@@ -2,18 +2,26 @@ import { memo, type ReactNode } from "react";
 import { StyledDateText } from "./Post.styled";
 
 export interface DateTextProps {
-	isExternal?: string;
-	children: ReactNode;
+  isExternal?: string;
+  isReview?: boolean;
+  children: ReactNode;
 }
 
 export const DateText = memo(
-	({ isExternal, children }: DateTextProps) => {
-		return <StyledDateText isExternal={isExternal}>{children}</StyledDateText>;
-	},
-	(prevProps, nextProps) => {
-		return (
-			prevProps.isExternal === nextProps.isExternal &&
-			prevProps.children === nextProps.children
-		);
-	},
+  ({ isExternal, isReview, children }: DateTextProps) => {
+    return (
+      <StyledDateText isExternal={isExternal} isReview={isReview}>
+        {children}
+      </StyledDateText>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.isExternal === nextProps.isExternal &&
+      prevProps.isReview === nextProps.isReview &&
+      prevProps.children === nextProps.children
+    );
+  }
 );
+
+DateText.displayName = "DateText";

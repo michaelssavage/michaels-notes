@@ -1,13 +1,13 @@
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import isPropValid from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { animated } from "@react-spring/web";
 import { Link } from "@tanstack/react-router";
-import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 
 interface DescriptionI {
-	isExpanded: boolean;
-	contentHeight: number;
+  isExpanded: boolean;
+  contentHeight: number;
 }
 
 export const EmptyCard = styled.div`
@@ -28,7 +28,7 @@ export const CardInfo = styled.div`
   gap: 2rem;
 
   ${forPhoneOnly(css`
-    flex-direction: column; 
+    flex-direction: column;
     gap: 0.5rem;
   `)}
 
@@ -47,12 +47,19 @@ export const Title = styled(animated.h2)`
   }
 `;
 
-export const StyledDateText = styled.p<{ isExternal?: string }>`
+export const StyledDateText = styled.p<{
+  isExternal?: string;
+  isReview?: boolean;
+}>`
   white-space: nowrap;
   font-style: italic;
   font-size: 0.85rem;
-  color: ${({ isExternal, theme }) =>
-		isExternal ? theme.colors.off : theme.colors.on};
+  color: ${({ isExternal, isReview, theme }) => {
+    if (isReview) {
+      return "#9b59b6";
+    }
+    return isExternal ? theme.colors.off : theme.colors.on;
+  }};
   font-weight: bold;
 `;
 
@@ -63,7 +70,7 @@ export const DescriptionText = styled.p`
 `;
 
 export const Card = styled(Link, {
-	shouldForwardProp: (prop) => isPropValid(prop) && prop !== "inView",
+  shouldForwardProp: (prop) => isPropValid(prop) && prop !== "inView",
 })<{ inView: boolean }>`
   opacity: ${({ inView }) => (inView ? 1 : 0)};
   transform: translateY(${({ inView }) => (inView ? 0 : "20px")});
@@ -88,13 +95,13 @@ export const Card = styled(Link, {
 `;
 
 export const DescriptionWrapper = styled(animated.div, {
-	shouldForwardProp: (prop) =>
-		isPropValid(prop) && !["isExpanded", "contentHeight"].includes(prop),
+  shouldForwardProp: (prop) =>
+    isPropValid(prop) && !["isExpanded", "contentHeight"].includes(prop),
 })<DescriptionI>`
   width: 100%;
   overflow: hidden;
   max-height: ${({ isExpanded, contentHeight }) =>
-		isExpanded ? `${contentHeight}px` : "1.4rem"};
+    isExpanded ? `${contentHeight}px` : "1.4rem"};
   transition: max-height 0.3s ease-in-out;
 
   ${forPhoneOnly(css`

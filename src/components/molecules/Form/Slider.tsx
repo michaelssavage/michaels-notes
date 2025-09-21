@@ -37,50 +37,50 @@ const StyledSlider = styled.input`
 `;
 
 type SliderProps = {
-	value: number;
-	onChange: (value: number) => void;
-	min: number;
-	max: number;
-	step?: number;
+  value: number;
+  onChange: (value: number) => void;
+  min: number;
+  max: number;
+  step?: number;
 };
 
 export const Slider = ({
-	value,
-	onChange,
-	min,
-	max,
-	step = 1,
+  value,
+  onChange,
+  min,
+  max,
+  step = 1,
 }: SliderProps) => {
-	const frameRef = useRef<number | null>(null);
+  const frameRef = useRef<number | null>(null);
 
-	const throttledOnChange = useCallback(
-		(newValue: number) => {
-			if (frameRef.current !== null) return;
+  const throttledOnChange = useCallback(
+    (newValue: number) => {
+      if (frameRef.current !== null) return;
 
-			frameRef.current = requestAnimationFrame(() => {
-				onChange(newValue);
-				frameRef.current = null;
-			});
-		},
-		[onChange],
-	);
+      frameRef.current = requestAnimationFrame(() => {
+        onChange(newValue);
+        frameRef.current = null;
+      });
+    },
+    [onChange],
+  );
 
-	const handleChange = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			const newValue = Number(e.target.value);
-			throttledOnChange(newValue);
-		},
-		[throttledOnChange],
-	);
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const newValue = Number(e.target.value);
+      throttledOnChange(newValue);
+    },
+    [throttledOnChange],
+  );
 
-	return (
-		<StyledSlider
-			type="range"
-			value={value}
-			onChange={handleChange}
-			min={min}
-			max={max}
-			step={step}
-		/>
-	);
+  return (
+    <StyledSlider
+      type="range"
+      value={value}
+      onChange={handleChange}
+      min={min}
+      max={max}
+      step={step}
+    />
+  );
 };

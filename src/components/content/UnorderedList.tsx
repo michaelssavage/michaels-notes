@@ -7,5 +7,5 @@ const Style = styled.ul`
 `;
 
 export const UnorderedList = (props: HTMLAttributes<HTMLUListElement>) => {
-	return <Style {...props} />;
+  return <Style {...props} />;
 };

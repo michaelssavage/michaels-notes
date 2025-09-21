@@ -34,8 +34,8 @@ export const ImageStyle = styled.img<{ loaded: boolean; ar?: string }>`
   transition: opacity 0.3s ease-in-out;
 
   ${({ loaded }) =>
-		loaded &&
-		css`
+    loaded &&
+    css`
       opacity: 1;
     `}
 `;

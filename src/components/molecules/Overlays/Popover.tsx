@@ -1,197 +1,196 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import {
-	autoUpdate,
-	FloatingFocusManager,
-	FloatingPortal,
-	flip,
-	offset,
-	type Placement,
-	shift,
-	useClick,
-	useDismiss,
-	useFloating,
-	useInteractions,
-	useMergeRefs,
-	useRole,
+  autoUpdate,
+  flip,
+  FloatingFocusManager,
+  FloatingPortal,
+  offset,
+  type Placement,
+  shift,
+  useClick,
+  useDismiss,
+  useFloating,
+  useInteractions,
+  useMergeRefs,
+  useRole,
 } from "@floating-ui/react";
 import {
-	cloneElement,
-	createContext,
-	type Dispatch,
-	forwardRef,
-	type HTMLProps,
-	isValidElement,
-	type ReactNode,
-	type SetStateAction,
-	useContext,
-	useMemo,
-	useState,
+  cloneElement,
+  createContext,
+  type Dispatch,
+  forwardRef,
+  type HTMLProps,
+  isValidElement,
+  type ReactNode,
+  type SetStateAction,
+  useContext,
+  useMemo,
+  useState,
 } from "react";
 
 interface PopoverOptions {
-	initialOpen?: boolean;
-	placement?: Placement;
-	modal?: boolean;
-	open?: boolean;
-	onOpenChange?: (open: boolean) => void;
+  initialOpen?: boolean;
+  placement?: Placement;
+  modal?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-const defaultButton = css`
+const DefaultButton = styled.button`
   color: blue;
   padding: 0;
   border-radius: 4px;
 `;
 
 export function usePopover({
-	initialOpen = false,
-	placement = "top",
-	modal,
-	open: controlledOpen,
-	onOpenChange: setControlledOpen,
+  initialOpen = false,
+  placement = "top",
+  modal,
+  open: controlledOpen,
+  onOpenChange: setControlledOpen,
 }: PopoverOptions = {}) {
-	const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen);
-	const [labelId, setLabelId] = useState<string | undefined>();
-	const [descriptionId, setDescriptionId] = useState<string | undefined>();
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen);
+  const [labelId, setLabelId] = useState<string | undefined>();
+  const [descriptionId, setDescriptionId] = useState<string | undefined>();
 
-	const open = controlledOpen ?? uncontrolledOpen;
-	const setOpen = setControlledOpen ?? setUncontrolledOpen;
+  const open = controlledOpen ?? uncontrolledOpen;
+  const setOpen = setControlledOpen ?? setUncontrolledOpen;
 
-	const data = useFloating({
-		placement,
-		open,
-		onOpenChange: setOpen,
-		whileElementsMounted: autoUpdate,
-		middleware: [
-			offset(5),
-			flip({
-				crossAxis: placement.includes("-"),
-				fallbackAxisSideDirection: "end",
-				padding: 5,
-			}),
-			shift({ padding: 5 }),
-		],
-	});
+  const data = useFloating({
+    placement,
+    open,
+    onOpenChange: setOpen,
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      offset(5),
+      flip({
+        crossAxis: placement.includes("-"),
+        fallbackAxisSideDirection: "end",
+        padding: 5,
+      }),
+      shift({ padding: 5 }),
+    ],
+  });
 
-	const context = data.context;
+  const context = data.context;
 
-	const click = useClick(context, {
-		enabled: controlledOpen == null,
-	});
-	const dismiss = useDismiss(context);
-	const role = useRole(context);
+  const click = useClick(context, {
+    enabled: controlledOpen == null,
+  });
+  const dismiss = useDismiss(context);
+  const role = useRole(context);
 
-	const interactions = useInteractions([click, dismiss, role]);
+  const interactions = useInteractions([click, dismiss, role]);
 
-	return useMemo(
-		() => ({
-			open,
-			setOpen,
-			...interactions,
-			...data,
-			modal,
-			labelId,
-			descriptionId,
-			setLabelId,
-			setDescriptionId,
-		}),
-		[open, setOpen, interactions, data, modal, labelId, descriptionId],
-	);
+  return useMemo(
+    () => ({
+      open,
+      setOpen,
+      ...interactions,
+      ...data,
+      modal,
+      labelId,
+      descriptionId,
+      setLabelId,
+      setDescriptionId,
+    }),
+    [open, setOpen, interactions, data, modal, labelId, descriptionId],
+  );
 }
 
 type ContextType =
-	| (ReturnType<typeof usePopover> & {
-			setLabelId: Dispatch<SetStateAction<string | undefined>>;
-			setDescriptionId: Dispatch<SetStateAction<string | undefined>>;
-	  })
-	| null;
+  | (ReturnType<typeof usePopover> & {
+      setLabelId: Dispatch<SetStateAction<string | undefined>>;
+      setDescriptionId: Dispatch<SetStateAction<string | undefined>>;
+    })
+  | null;
 
 const PopoverContext = createContext<ContextType>(null);
 
 export const usePopoverContext = () => {
-	const context = useContext(PopoverContext);
+  const context = useContext(PopoverContext);
 
-	if (context == null) {
-		throw new Error("Popover components must be wrapped in <Popover />");
-	}
+  if (context == null) {
+    throw new Error("Popover components must be wrapped in <Popover />");
+  }
 
-	return context;
+  return context;
 };
 
 export function Popover({
-	children,
-	modal = false,
-	...restOptions
+  children,
+  modal = false,
+  ...restOptions
 }: {
-	children: ReactNode;
+  children: ReactNode;
 } & PopoverOptions) {
-	const popover = usePopover({ modal, ...restOptions });
-	return (
-		<PopoverContext.Provider value={popover}>
-			{children}
-		</PopoverContext.Provider>
-	);
+  const popover = usePopover({ modal, ...restOptions });
+  return (
+    <PopoverContext.Provider value={popover}>
+      {children}
+    </PopoverContext.Provider>
+  );
 }
 
 interface PopoverTriggerProps {
-	children: ReactNode;
-	asChild?: boolean;
+  children: ReactNode;
+  asChild?: boolean;
 }
 
 export const PopoverTrigger = forwardRef<
-	HTMLElement,
-	HTMLProps<HTMLElement> & PopoverTriggerProps
+  HTMLElement,
+  HTMLProps<HTMLElement> & PopoverTriggerProps
 >(function PopoverTrigger({ children, asChild = false, ...props }, propRef) {
-	const context = usePopoverContext();
-	// biome-ignore lint/suspicious/noExplicitAny: allow any children
-	const childrenRef = (children as any).ref;
-	const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
+  const context = usePopoverContext();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const childrenRef = (children as any).ref;
+  const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
 
-	// `asChild` allows the user to pass any element as the anchor
-	if (asChild && isValidElement(children)) {
-		return cloneElement(
-			children,
-			context.getReferenceProps({
-				ref,
-				...props,
-				...children.props,
-				"data-state": context.open ? "open" : "closed",
-			}),
-		);
-	}
+  // `asChild` allows the user to pass any element as the anchor
+  if (asChild && isValidElement(children)) {
+    return cloneElement(
+      children,
+      context.getReferenceProps({
+        ref,
+        ...props,
+        ...children.props,
+        "data-state": context.open ? "open" : "closed",
+      }),
+    );
+  }
 
-	return (
-		<button
-			ref={ref}
-			type="button"
-			data-state={context.open ? "open" : "closed"}
-			css={defaultButton}
-			{...context.getReferenceProps(props)}
-		>
-			{children}
-		</button>
-	);
+  return (
+    <DefaultButton
+      ref={ref}
+      type="button"
+      data-state={context.open ? "open" : "closed"}
+      {...context.getReferenceProps(props)}
+    >
+      {children}
+    </DefaultButton>
+  );
 });
 
 export const PopoverContent = forwardRef<
-	HTMLDivElement,
-	HTMLProps<HTMLDivElement>
+  HTMLDivElement,
+  HTMLProps<HTMLDivElement>
 >(function PopoverContent({ style, ...props }, propRef) {
-	const { context: floatingContext, ...context } = usePopoverContext();
-	const ref = useMergeRefs([context.refs.setFloating, propRef]);
+  const { context: floatingContext, ...context } = usePopoverContext();
+  const ref = useMergeRefs([context.refs.setFloating, propRef]);
 
-	if (!floatingContext.open) return null;
+  if (!floatingContext.open) return null;
 
-	return (
-		<FloatingPortal>
-			<FloatingFocusManager context={floatingContext} modal={context.modal}>
-				<div
-					ref={ref}
-					style={{ ...context.floatingStyles, ...style }}
-					{...context.getFloatingProps(props)}
-				>
-					{props.children}
-				</div>
-			</FloatingFocusManager>
-		</FloatingPortal>
-	);
+  return (
+    <FloatingPortal>
+      <FloatingFocusManager context={floatingContext} modal={context.modal}>
+        <div
+          ref={ref}
+          style={{ ...context.floatingStyles, ...style }}
+          {...context.getFloatingProps(props)}
+        >
+          {props.children}
+        </div>
+      </FloatingFocusManager>
+    </FloatingPortal>
+  );
 });

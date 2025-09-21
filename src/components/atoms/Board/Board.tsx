@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import type { ReactNode } from "react";
 
 interface Props {
-	title: string;
-	text?: string;
-	children?: ReactNode;
+  title: string;
+  text?: string;
+  children?: ReactNode;
 }
 
 const BoardStyle = styled.div`
@@ -17,15 +17,15 @@ const BoardStyle = styled.div`
   flex: 1;
   border-radius: 5px;
   padding: 1em;
-  box-shadow: 5px 5px 7px rgba(33,33,33,.5);
+  box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.5);
 `;
 
 export const Board = ({ title, text, children }: Props) => {
-	return (
-		<BoardStyle>
-			<h1>{title}</h1>
-			{text && <p>{text}</p>}
-			{children}
-		</BoardStyle>
-	);
+  return (
+    <BoardStyle>
+      <h1>{title}</h1>
+      {text && <p>{text}</p>}
+      {children}
+    </BoardStyle>
+  );
 };
