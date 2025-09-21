@@ -1,5 +1,4 @@
 import type { IBlog } from "@/types/Post";
-import { useSpring } from "@react-spring/web";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DateText } from "./Date";
 import { Description } from "./Description";
@@ -47,11 +46,6 @@ const Post = ({
 
   const isExpanded = useMemo(() => isFirst || isHovered, [isFirst, isHovered]);
 
-  const spring = useSpring({
-    transform: isHovered ? "scale(1.05)" : "scale(1)",
-    config: { tension: 300, friction: 30 },
-  });
-
   return (
     <article
       ref={ref}
@@ -65,7 +59,7 @@ const Post = ({
         aria-label={`Read post: ${title}`}
       >
         <CardInfo>
-          <Title style={spring}>{title}</Title>
+          <Title>{title}</Title>
           <DateText isExternal={isExternal} isReview={type === "review"}>
             {date}
           </DateText>

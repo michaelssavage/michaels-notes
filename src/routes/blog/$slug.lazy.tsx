@@ -65,7 +65,9 @@ function Slug() {
         />
         <p className="date">{doc.date}</p>
         <Content>
-          <Header style={spring}>{doc.title}</Header>
+          <Header style={spring} aria-labelledby={`post-title-${slug}`}>
+            {doc.title}
+          </Header>
           <Markdown content={doc} />
           {doc.github && (
             <div>

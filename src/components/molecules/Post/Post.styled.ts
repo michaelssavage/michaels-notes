@@ -5,9 +5,9 @@ import styled from "@emotion/styled";
 import { animated } from "@react-spring/web";
 import { Link } from "@tanstack/react-router";
 
-interface DescriptionI {
-  isExpanded: boolean;
-  contentHeight: number;
+interface DateTextI {
+  isExternal?: string;
+  isReview?: boolean;
 }
 
 export const EmptyCard = styled.div`
@@ -39,24 +39,22 @@ export const CardInfo = styled.div`
 
 export const Title = styled(animated.h2)`
   font-size: 1.2rem;
-  will-change: transform;
   color: ${({ theme }) => theme.colors.text};
   text-wrap: initial;
+  will-change: transform;
+  transition: transform 0.3s cubic-bezier(0.26, 0.46, 0.44, 0.94);
   &:hover {
     text-decoration: underline;
   }
 `;
 
-export const StyledDateText = styled.p<{
-  isExternal?: string;
-  isReview?: boolean;
-}>`
+export const StyledDateText = styled.p<DateTextI>`
   white-space: nowrap;
   font-style: italic;
   font-size: 0.85rem;
   color: ${({ isExternal, isReview, theme }) => {
     if (isReview) {
-      return "#9b59b6";
+      return theme.colors.review;
     }
     return isExternal ? theme.colors.off : theme.colors.on;
   }};
@@ -75,9 +73,7 @@ export const Card = styled(Link, {
   opacity: ${({ inView }) => (inView ? 1 : 0)};
   transform: translateY(${({ inView }) => (inView ? 0 : "20px")});
   text-decoration: none;
-  transition:
-    opacity 0.5s ease-in-out,
-    transform 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 
   padding: 1rem;
   background-color: ${({ theme }) => theme.colors.card};
@@ -91,13 +87,20 @@ export const Card = styled(Link, {
 
   &:hover {
     box-shadow: #009a7be5 5px 5px;
+
+    ${Title} {
+      transform: scale(1.04);
+    }
   }
 `;
 
 export const DescriptionWrapper = styled(animated.div, {
   shouldForwardProp: (prop) =>
     isPropValid(prop) && !["isExpanded", "contentHeight"].includes(prop),
-})<DescriptionI>`
+})<{
+  isExpanded: boolean;
+  contentHeight: number;
+}>`
   width: 100%;
   overflow: hidden;
   max-height: ${({ isExpanded, contentHeight }) =>
