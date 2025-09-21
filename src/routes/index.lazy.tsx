@@ -128,9 +128,9 @@ function Blog() {
               {posts.length > 0 ? (
                 posts.map((post, index) => {
                   return post.type === "bite" ? (
-                    <Bite key={post.id} {...post} />
+                    <Bite key={post.slug} {...post} />
                   ) : (
-                    <Post key={post.id} {...post} isFirst={index === 0} />
+                    <Post key={post.slug} {...post} isFirst={index === 0} />
                   );
                 })
               ) : (
@@ -193,7 +193,7 @@ function Blog() {
                   <span id="onSite">Blog posts</span> about learnings and
                   mishaps, movies and music, previous{" "}
                   <span id="isPlantBassd">Plant Bass&apos;d articles</span>,{" "}
-                  <span id="isReview">reviews</span> of films and media, and{" "}
+                  <span id="isReview">reviews of films and media</span>, and{" "}
                   <span id="isBite">bite-sized achievements</span> along my
                   journey.
                 </Info>

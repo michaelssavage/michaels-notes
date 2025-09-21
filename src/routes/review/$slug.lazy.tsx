@@ -1,11 +1,11 @@
 import { MetaData } from "@/components/atoms/MetaData";
-import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePostContent, usePostsByCategory } from "@/hooks/use-posts.hook";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
+import { css } from "@emotion/react";
 import { useSpring } from "@react-spring/web";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
@@ -13,21 +13,21 @@ import { lazy, Suspense, useState } from "react";
 
 const Markdown = lazy(() => import("@/components/atoms/Markdown"));
 
-export const Route = createLazyFileRoute("/blog/$slug")({
+export const Route = createLazyFileRoute("/review/$slug")({
   component: Slug,
 });
 
 function Slug() {
   const [open, setOpen] = useState(false);
   const { slug } = Route.useParams();
-  const posts = usePostsByCategory("blogs");
+  const posts = usePostsByCategory("reviews");
 
   const {
     data: doc,
     isLoading,
     isError,
     error,
-  } = usePostContent<IBlog>("blogs", slug);
+  } = usePostContent<IBlog>("reviews", slug);
 
   const spring = useSpring({
     from: { opacity: 0, transform: "translateY(20px)" },
@@ -58,7 +58,7 @@ function Slug() {
       <Suspense fallback={<Loading />}>
         <MetaData title={doc.title} description={doc.description} />
         <Menu<IBlog>
-          target="blog"
+          target="review"
           items={sidebar}
           open={open}
           setOpen={setOpen}
@@ -67,16 +67,14 @@ function Slug() {
         <Content>
           <Header style={spring}>{doc.title}</Header>
           <Markdown content={doc} />
-          {doc.github && (
-            <div>
-              <Anchor
-                text="GitHub Link"
-                link={doc.github}
-                icon={<GithubIcon />}
-                isExternal
-              />
-            </div>
-          )}
+          <Anchor
+            text="Letterboxd Link"
+            link="https://letterboxd.com/ottobio"
+            style={css`
+              width: fit-content;
+            `}
+            isExternal
+          />
         </Content>
       </Suspense>
     </Article>

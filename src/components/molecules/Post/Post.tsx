@@ -11,7 +11,6 @@ const Post = ({
   description,
   isExternal,
   slug,
-  id,
   isFirst,
   type,
 }: IBlog) => {
@@ -58,10 +57,10 @@ const Post = ({
       ref={ref}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      aria-labelledby={`post-title-${id}`}
+      aria-labelledby={`post-title-${slug}`}
     >
       <Card
-        to={isExternal ? isExternal : `/blog/${slug}`}
+        to={isExternal ? isExternal : `/${type}/${slug}`}
         inView={inView}
         aria-label={`Read post: ${title}`}
       >

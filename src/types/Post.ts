@@ -1,7 +1,6 @@
 export interface IBlog {
-  code: string;
   slug: string;
-  id: number;
+  code: string;
   title: string;
   date: string;
   description: string;
@@ -13,7 +12,7 @@ export interface IBlog {
 }
 
 export interface IBite {
-  id: number;
+  slug: string;
   date: string;
   description: string;
   link?: string;

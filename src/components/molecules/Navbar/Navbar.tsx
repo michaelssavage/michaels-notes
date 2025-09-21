@@ -6,17 +6,29 @@ import {
   ResumeIcon,
   SpotifyIcon,
 } from "@/components/icons";
+import { useLocation } from "@tanstack/react-router";
 import { memo } from "react";
 import { Header, Icons, StyledLink } from "./Navbar.styled";
 
 interface Props {
   to: string;
   text: string;
+  activeRoutes?: string[];
 }
 
-const NavLink = memo(({ to, text }: Props) => {
+const NavLink = memo(({ to, text, activeRoutes }: Props) => {
+  const location = useLocation();
+
+  const isActive = activeRoutes
+    ? activeRoutes.some(
+        (route) =>
+          location.pathname === route ||
+          location.pathname.startsWith(route + "/")
+      )
+    : location.pathname === to;
+
   return (
-    <StyledLink to={to} activeProps={{ className: "active" }}>
+    <StyledLink to={to} className={isActive ? "active" : ""}>
       {text}
     </StyledLink>
   );
@@ -34,7 +46,11 @@ const Navbar = () => {
   return (
     <Header>
       <nav>
-        <NavLink to="/" text="Writing" />
+        <NavLink
+          to="/"
+          text="Writing"
+          activeRoutes={["/", "/blog", "/review"]}
+        />
         <NavLink to="/projects" text="Projects" />
         <NavLink to="/about" text="About" />
         <NavLink to="/miscellaneous" text="Misc" />

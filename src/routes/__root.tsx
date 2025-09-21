@@ -8,19 +8,11 @@ import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { lazy, Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
-
-const TanStackRouterDevtools =
-  process.env.NODE_ENV === "production"
-    ? () => null
-    : lazy(() =>
-        import("@tanstack/router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-        })),
-      );
 
 const Toggle = lazy(() => import("@/components/molecules/Toggle/Toggle"));
 

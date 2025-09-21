@@ -6,7 +6,6 @@ import { MenuContainer, PageLink, Sidebar } from "./Menu.styled";
 
 interface Picked {
   slug: string;
-  id: number;
   title: string;
 }
 
@@ -53,9 +52,9 @@ export const Menu = <T extends object>({
               </PageLink>
 
               <Sidebar>
-                {items.map(({ title, id, slug }) => {
+                {items.map(({ title, slug }) => {
                   return (
-                    <li key={id}>
+                    <li key={slug}>
                       <Anchor
                         text={title}
                         link={`/${target}/${slug}`}
@@ -66,7 +65,7 @@ export const Menu = <T extends object>({
                 })}
               </Sidebar>
             </animated.div>
-          ),
+          )
       )}
     </MenuContainer>
   );

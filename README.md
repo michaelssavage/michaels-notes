@@ -2,7 +2,7 @@
 
 Live at [michaelsavage.ie](https://michaelsavage.ie)
 
-Personal site built with React, Typescript, Vite, and @emotion, using Biome for linting. Blog posts written locally with MDX.
+Personal site built with React, Typescript, Vite, and @emotion, using eslint for linting. Blog posts written locally with MDX.
 
 ## Running locally:
 
@@ -18,7 +18,7 @@ Personal site built with React, Typescript, Vite, and @emotion, using Biome for 
 
 `pnpm lint`
 
-- run biome linting.
+- run linting.
 
 `pnpm dlx npm-check-updates`
 

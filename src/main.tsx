@@ -16,7 +16,6 @@ declare module "@tanstack/react-router" {
   }
 }
 
-// biome-ignore lint/style/noNonNullAssertion: is root
 const rootElement = document.getElementById("root")!;
 
 if (!rootElement.innerHTML) {
@@ -28,6 +27,6 @@ if (!rootElement.innerHTML) {
           <RouterProvider router={router} />
         </ContentProvider>
       </PostHogProvider>
-    </React.StrictMode>,
+    </React.StrictMode>
   );
 }

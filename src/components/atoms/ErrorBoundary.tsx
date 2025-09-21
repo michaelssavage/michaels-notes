@@ -32,7 +32,6 @@ class ErrorBoundary extends Component<Props, State> {
     dogImageUrl: null,
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public static getDerivedStateFromError(_: Error): State {
     return { hasError: true, dogImageUrl: null };
   }

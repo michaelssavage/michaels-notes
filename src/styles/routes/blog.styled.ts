@@ -160,8 +160,9 @@ export const Info = styled.p<{ filter: FilterState }>`
   }
 
   ${({ filter }) => {
+    const allFilters = Object.values(filter).length;
     const activeFilters = Object.values(filter).filter(Boolean).length;
-    if (activeFilters !== 1) return "";
+    if (activeFilters === allFilters) return "";
 
     return Object.keys(filter)
       .map((key) => {

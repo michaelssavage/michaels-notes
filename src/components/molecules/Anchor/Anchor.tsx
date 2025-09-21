@@ -1,6 +1,5 @@
 import type { SerializedStyles } from "@emotion/react";
 import { memo, type ReactElement } from "react";
-import { ExternalLinkIcon } from "../../icons";
 import { LinkStyle } from "./Anchor.styled";
 
 export type AnchorVariants = "button" | "link" | "text";
@@ -31,10 +30,10 @@ export const Anchor = memo(
         target={isExternal ? "_blank" : undefined}
         style={style}
       >
-        {text ? text : link} {icon || (isExternal && <ExternalLinkIcon />)}
+        {text ? text : link} {icon}
       </LinkStyle>
     );
-  },
+  }
 );
 
 Anchor.displayName = "Anchor";

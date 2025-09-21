@@ -1,8 +1,3 @@
-import { css } from "@emotion/react";
-import { animated, useSpring } from "@react-spring/web";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
 import {
   fetchCurrentTrack,
   fetchRecentTrack,
@@ -17,6 +12,11 @@ import { Picture } from "@/components/molecules/Picture";
 import { getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
 import type { IPlayTrack } from "@/types/Spotify";
+import { css } from "@emotion/react";
+import { animated, useSpring } from "@react-spring/web";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import {
   Comp,
   Content,
@@ -115,7 +115,6 @@ export const CurrentPlay = () => {
                 <FactContent
                   ref={contentRef}
                   color={dominantColor ?? ""}
-                  // biome-ignore lint/security/noDangerouslySetInnerHtml: from Last.fm API
                   dangerouslySetInnerHTML={{ __html: fact }}
                 />
               </animated.div>
