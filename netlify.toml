@@ -1,5 +1,5 @@
 [build]
-  environment = { NODE_OPTIONS="--max-old-space-size=4096 }
+  environment = { NODE_OPTIONS="--max-old-space-size=4096" }
   command = "pnpm build && pnpm build:storybook"
   publish = "dist"
   functions = "netlify/functions"
