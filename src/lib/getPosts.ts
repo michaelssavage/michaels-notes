@@ -2,13 +2,14 @@ import type { IBite, IBlog, IPosts, IProject } from "@/types/Post";
 import matter from "gray-matter";
 import fs from "node:fs";
 import path from "node:path";
+import { type Plugin } from "vite";
 
 if (process.platform === "win32") {
   process.env.ESBUILD_BINARY_PATH = path.join(
     process.cwd(),
     "node_modules",
     "esbuild",
-    "esbuild.exe",
+    "esbuild.exe"
   );
 } else {
   process.env.ESBUILD_BINARY_PATH = path.join(
@@ -16,7 +17,7 @@ if (process.platform === "win32") {
     "node_modules",
     "esbuild",
     "bin",
-    "esbuild",
+    "esbuild"
   );
 }
 
@@ -37,7 +38,7 @@ const globals = {
 function extractFrontmatter<T>(directory: string): T[] {
   if (!fs.existsSync(directory)) {
     console.warn(
-      `extractFrontmatter: Directory not found: ${directory}. Returning empty array.`,
+      `extractFrontmatter: Directory not found: ${directory}. Returning empty array.`
     );
     return [];
   }
@@ -62,7 +63,7 @@ function extractFrontmatter<T>(directory: string): T[] {
 // Build-time index generation (lightweight)
 export const getContentPosts = async (contentDir: string): Promise<IPosts> => {
   console.log(
-    `getContentPosts: Starting to build content index from: ${contentDir}`,
+    `getContentPosts: Starting to build content index from: ${contentDir}`
   );
 
   return {
@@ -78,17 +79,26 @@ export async function getPostContent(category: string, slug: string) {
   const rehypeHighlight = await import("rehype-highlight");
   const rehypeMdxImportMedia = await import("rehype-mdx-import-media");
 
+  const basePath = process.env.NETLIFY
+    ? path.resolve(process.env.LAMBDA_TASK_ROOT || process.cwd())
+    : process.cwd();
+
   const filePath = path.resolve(
-    process.cwd(),
-    `src/content/${category}/${slug}.mdx`,
+    basePath,
+    `src/content/${category}/${slug}.mdx`
   );
 
-  console.log(`getPostContent: File does NOT exist at path: "${filePath}"`);
+  console.log(`Base path: ${basePath}`);
+  console.log(`Full file path: ${filePath}`);
+  console.log(`File exists: ${fs.existsSync(filePath)}`);
 
   if (!fs.existsSync(filePath)) {
-    throw new Error(
-      `getPostContent: File does NOT exist at path: ${category}/${slug}`,
-    );
+    // List directory contents for debugging
+    const contentDir = path.resolve(basePath, `src/content/${category}`);
+    if (fs.existsSync(contentDir)) {
+      console.log(`Contents of ${contentDir}:`, fs.readdirSync(contentDir));
+    }
+    throw new Error(`File does NOT exist at path: ${filePath}`);
   }
 
   const source = fs.readFileSync(filePath, "utf-8");
@@ -130,15 +140,35 @@ export async function getPostContent(category: string, slug: string) {
     if (error instanceof Error) {
       console.error(
         `getPostContent: Error bundling MDX for ${category}/${slug}:`,
-        error,
+        error
       );
       throw new Error(`Failed to process post content: ${error.message}`);
     } else {
       console.error(
         `getPostContent: Unknown error bundling MDX for ${category}/${slug}:`,
-        error,
+        error
       );
       throw new Error("Failed to process post content: Unknown bundling error");
     }
   }
+}
+
+async function getPostsIndex() {
+  const contentDir = path.resolve(__dirname, "src/content");
+  return await getContentPosts(contentDir);
+}
+
+export function postsPlugin(): Plugin {
+  return {
+    name: "posts-plugin",
+    async config() {
+      // Only embed the lightweight index
+      const postsIndex = await getPostsIndex();
+      return {
+        define: {
+          "import.meta.env.POSTS_INDEX": JSON.stringify(postsIndex),
+        },
+      };
+    },
+  };
 }
