@@ -5,6 +5,10 @@
 
 [functions]
   included_files = ["./src/content/**"]
+  node_bundler = "esbuild"
+  
+[functions.environment]
+  NODE_OPTIONS = "--max-old-space-size=3008"
 
 [[redirects]]
   from = "/storybook/*"
