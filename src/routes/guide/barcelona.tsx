@@ -78,7 +78,7 @@ function RouteComponent() {
         },
       }),
     ],
-    [sorting],
+    [sorting]
   );
 
   const table = useReactTable({
@@ -93,12 +93,13 @@ function RouteComponent() {
   return (
     <Page>
       <MetaData
-        title="Barcelona Guide| Michael Savage"
+        title="Barcelona Guide | Michael Savage"
         description={description}
       />
 
       <Panel>
         <h1>Barcelona Guide</h1>
+        <p>Qué haré o veré hoy?</p>
         <Table table={table} />
       </Panel>
     </Page>

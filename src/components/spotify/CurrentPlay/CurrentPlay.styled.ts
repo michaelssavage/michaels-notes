@@ -1,6 +1,6 @@
+import { getContrastYIQ } from "@/lib/colors";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { getContrastYIQ } from "@/lib/colors";
 
 interface FactContentProps {
   color?: string;
@@ -91,15 +91,13 @@ export const ExpandButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverCard};
   }
+  &:active {
+    transform: translateX(-50%) scale(1.05);
+  }
 
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    transition: transform 0.3s ease;
-
-    :hover {
-      transform: scale(1.1);
-    }
   }
 `;
 

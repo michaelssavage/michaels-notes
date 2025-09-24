@@ -1,38 +1,27 @@
+import { getCompiledPost, getPostsIndex } from "@/lib/getPosts";
 import type { IPosts } from "@/types/Post";
 import { useQuery } from "@tanstack/react-query";
 
-export function usePostsIndex(): IPosts {
-  return (
-    (import.meta.env.POSTS_INDEX as IPosts) || {
-      projects: [],
-      blogs: [],
-      bites: [],
-    }
-  );
-}
-
-export function usePostContent<T = unknown>(category: string, slug: string) {
-  return useQuery<T>({
-    queryKey: ["post", category, slug],
-    queryFn: async () => {
-      const params = new URLSearchParams({ category, slug });
-      const response = await fetch(`/.netlify/functions/get-posts?${params}`);
-
-      if (!response.ok) {
-        const errorData = await response
-          .json()
-          .catch(() => ({ error: "Unknown error" }));
-        throw new Error(errorData.error || "Post not found");
-      }
-      return response.json();
-    },
-    enabled: !!(category && slug),
+export function usePostsIndex() {
+  return useQuery<IPosts>({
+    queryKey: ["posts-index"],
+    queryFn: getPostsIndex,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 }
 
-export function usePostsByCategory<K extends keyof IPosts>(
-  category: K,
-): IPosts[K] {
-  const postsIndex = usePostsIndex();
-  return postsIndex[category] || [];
+// Load compiled post content
+export function usePostContent<T = unknown>(category: string, slug: string) {
+  return useQuery<T>({
+    queryKey: ["post", category, slug],
+    queryFn: () => getCompiledPost<T>(category, slug),
+    enabled: !!(category && slug),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+}
+
+// Get posts by category
+export function usePostsByCategory<K extends keyof IPosts>(category: K) {
+  const { data: postsIndex } = usePostsIndex();
+  return postsIndex?.[category] || [];
 }

@@ -54,10 +54,11 @@ function Blog() {
     (updates: Partial<FilterState>) => {
       setFilter({ ...filter, ...updates });
     },
-    [filter],
+    [filter]
   );
 
-  const { blogs = [], bites = [], reviews = [] } = usePostsIndex();
+  const { data } = usePostsIndex();
+  const { blogs = [], bites = [], reviews = [] } = data || {};
 
   const posts = useMemo(() => {
     const searchLowercase = searchQuery.toLowerCase();
@@ -76,7 +77,7 @@ function Blog() {
         if (!onSite && !isPlantBassd) return false;
         if (onSite && isPlantBassd) return true;
         return onSite ? !isExternal : isExternal;
-      },
+      }
     );
 
     const filteredReviews = isReview
@@ -95,12 +96,12 @@ function Blog() {
 
     const filteredBites = isBite
       ? bites.filter(({ description }) =>
-          description.toLowerCase().includes(searchLowercase),
+          description.toLowerCase().includes(searchLowercase)
         )
       : [];
 
     return [...filteredBlogs, ...filteredReviews, ...filteredBites].sort(
-      sortByDate,
+      sortByDate
     );
   }, [filter, searchQuery, blogs, bites, reviews]);
 

@@ -110,25 +110,21 @@ export const CurrentPlay = () => {
             </Content>
           </Player>
 
-          {fact && (
-            <>
-              <animated.div style={{ ...springs, overflow: "hidden" }}>
-                <FactContent
-                  ref={contentRef}
-                  color={dominantColor ?? ""}
-                  dangerouslySetInnerHTML={{ __html: fact }}
-                />
-              </animated.div>
+          <animated.div style={{ ...springs, overflow: "hidden" }}>
+            <FactContent
+              ref={contentRef}
+              color={dominantColor ?? ""}
+              dangerouslySetInnerHTML={{ __html: fact }}
+            />
+          </animated.div>
 
-              <ExpandButton
-                onClick={() => setExpanded((prev) => !prev)}
-                color={getRandomColor()}
-              >
-                {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
-                {expanded ? "minimise" : "read more"}
-              </ExpandButton>
-            </>
-          )}
+          <ExpandButton
+            onClick={() => setExpanded((prev) => !prev)}
+            color={getRandomColor()}
+          >
+            {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
+            {expanded ? "minimise" : "read more"}
+          </ExpandButton>
 
           <Link id="external-track-url" to={trackData?.trackUrl}>
             <ExternalLinkIcon />

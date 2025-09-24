@@ -3,22 +3,6 @@
   publish = "dist"
   functions = "netlify/functions"
 
-[functions]
-  included_files = [
-    "src/content/**",
-    "node_modules/mdx-bundler/**",
-    "node_modules/@mdx-js/**",
-    "node_modules/rehype*/**",
-    "node_modules/esbuild/**"
-  ]
-  external_node_modules = [
-    "esbuild", 
-    "rehype-highlight", 
-    "rehype-mdx-import-media",
-    "@mdx-js/react",
-    "mdx-bundler"
-  ]
-
 [[redirects]]
   from = "/storybook/*"
   to = "/storybook/:splat"
@@ -35,3 +19,15 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[headers]]
+  for = "/compiled-posts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

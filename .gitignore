@@ -38,3 +38,5 @@ tsconfig.tsbuildinfo
 storybook-static
 stats.html
 .tanstack
+
+public/compiled-posts/
