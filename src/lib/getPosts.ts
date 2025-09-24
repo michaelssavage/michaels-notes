@@ -154,7 +154,7 @@ export function postsPlugin(): Plugin {
     name: "posts-plugin",
     async config() {
       // Only embed the lightweight index
-      const contentDir = path.resolve(__dirname, "src/content");
+      const contentDir = path.resolve(process.cwd(), "src/content");
       const postsIndex = await getContentPosts(contentDir);
       return {
         define: {
