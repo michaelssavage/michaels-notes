@@ -62,6 +62,8 @@ export default defineConfig(({ mode }) => ({
     cssMinify: "lightningcss",
     emptyOutDir: true,
     sourcemap: mode === "development",
+    target: "es2022",
+    minify: "esbuild",
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
@@ -95,30 +97,11 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: "assets/[name]-[hash].js",
         assetFileNames: "assets/[name]-[hash].[ext]",
       },
-      external: ["esbuild"],
     },
     chunkSizeWarningLimit: 1000,
     optimizeDeps: {
       include: ["@emotion/react", "@emotion/styled", "react", "react-dom"],
     },
-    esbuild: {
-      logLevel: "error",
-      drop: mode === "production" ? ["console", "debugger"] : [],
-      treeShaking: true,
-      minifyIdentifiers: mode === "production",
-      minifySyntax: mode === "production",
-      minifyWhitespace: mode === "production",
-      ignoreAnnotations: false,
-    },
-    target: "esnext",
-    minify: "esbuild",
-  },
-  experimental: {
-    renderBuiltUrl(filename, { hostType }) {
-      if (hostType === "js") {
-        return { js: `/${filename}` };
-      }
-      return { relative: true };
-    },
+    esbuild: { drop: mode === "production" ? ["console", "debugger"] : [] },
   },
 }));
