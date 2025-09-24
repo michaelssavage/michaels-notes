@@ -1,21 +1,22 @@
 import { Group } from "@/components/atoms/Group";
-import { Icon } from "@/components/atoms/Icon";
 import { MetaData } from "@/components/atoms/MetaData";
-import { MapIcon } from "@/components/icons";
-import { Anchor } from "@/components/molecules/Anchor";
-import { sortableHeader } from "@/components/molecules/Table/SortableHeader";
-import { Table } from "@/components/molecules/Table/Table";
+import { ExternalLinkIcon, MapIcon } from "@/components/icons";
+import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
 import { Page, Panel } from "@/styles/routes/blog.styled";
-import { GuideTableItem } from "@/types/Guide";
-import { createFileRoute } from "@tanstack/react-router";
 import {
-  createColumnHelper,
-  getCoreRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
-} from "@tanstack/react-table";
+  BasicLink,
+  Card,
+  ClearFiltersButton,
+  FilterableTag,
+  FilterContainer,
+  Grid,
+  ResultsCount,
+  TypeSelect,
+} from "@/styles/routes/guide.styled";
+import { GuideTags } from "@/types/Guide";
+import { css } from "@emotion/react";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/guide/barcelona")({
@@ -25,70 +26,65 @@ export const Route = createFileRoute("/guide/barcelona")({
 const description =
   "Barcelona guide with places to visit, activities, and entertainment options.";
 
-const columnHelper = createColumnHelper<GuideTableItem>();
-
 function RouteComponent() {
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedType, setSelectedType] = useState("all");
+  const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);
 
-  const columns = useMemo(
-    () => [
-      columnHelper.accessor("title", {
-        header: ({ column }) =>
-          sortableHeader(column.id, "Title", sorting, setSorting),
-        cell: (info) => {
-          return (
-            <Anchor
-              variant="link"
-              link={info.row.original.link}
-              text={info.getValue()}
-              isExternal
-            />
-          );
-        },
-      }),
-      columnHelper.accessor("location", {
-        header: () => <Group justify="center">Location</Group>,
-        cell: (info) => {
-          return (
-            <Group justify="center">
-              <Icon
-                label=""
-                icon={<MapIcon />}
-                link={info.getValue()}
-                isExternal
-              />
-            </Group>
-          );
-        },
-      }),
-      columnHelper.accessor("type", {
-        header: ({ column }) =>
-          sortableHeader(column.id, "Type", sorting, setSorting),
-        cell: (info) => info.getValue() || "-",
-      }),
-      columnHelper.accessor("price", {
-        header: "Price",
-        cell: (info) => info.getValue() || "-",
-      }),
-      columnHelper.accessor("tags", {
-        header: "Tags",
-        cell: (info) => {
-          const tags = info.getValue();
-          return tags && tags.length > 0 ? tags.join(", ") : "-";
-        },
-      }),
-    ],
-    [sorting]
-  );
+  // Get unique types and tags from items
+  const { uniqueTypes, uniqueTags } = useMemo(() => {
+    const types = new Set<string>();
+    const tags = new Set<GuideTags>();
 
-  const table = useReactTable({
-    data: items,
-    columns,
-    state: { sorting },
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-  });
+    items.forEach((item) => {
+      types.add(item.type);
+      item.tags?.forEach((tag) => tags.add(tag));
+    });
+
+    return {
+      uniqueTypes: Array.from(types).sort(),
+      uniqueTags: Array.from(tags).sort(),
+    };
+  }, []);
+
+  // Filter items based on search, type, and tags
+  const filteredItems = useMemo(() => {
+    return items.filter((item) => {
+      // Search filter
+      const matchesSearch =
+        searchTerm === "" ||
+        item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item?.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.tags?.some((tag) =>
+          tag.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+      // Type filter
+      const matchesType = selectedType === "all" || item.type === selectedType;
+
+      // Tags filter
+      const matchesTags =
+        selectedTags.length === 0 ||
+        selectedTags.every((selectedTag) => item.tags?.includes(selectedTag));
+
+      return matchesSearch && matchesType && matchesTags;
+    });
+  }, [searchTerm, selectedType, selectedTags]);
+
+  const handleTagClick = (tag: GuideTags) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const clearAllFilters = () => {
+    setSearchTerm("");
+    setSelectedType("all");
+    setSelectedTags([]);
+  };
+
+  const hasActiveFilters =
+    searchTerm !== "" || selectedType !== "all" || selectedTags.length > 0;
 
   return (
     <Page>
@@ -98,9 +94,111 @@ function RouteComponent() {
       />
 
       <Panel>
-        <h1>Barcelona Guide</h1>
-        <p>Qué haré o veré hoy?</p>
-        <Table table={table} />
+        <h1>Barcelona Guide - Qué haré hoy?</h1>
+
+        <FilterContainer>
+          <Group align="center" gap="0.5rem" wrap="wrap">
+            <Group align="center" gap="0.5rem" wrap="wrap">
+              <label htmlFor="search">Search:</label>
+              <SearchBox
+                id="search"
+                placeholder="Search cards..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                styles={css`
+                  min-width: fit-content;
+                `}
+              />
+            </Group>
+
+            <Group align="center" gap="0.5rem" wrap="wrap">
+              <label htmlFor="type">Type:</label>
+              <TypeSelect
+                id="type"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+              >
+                <option value="all">All Types</option>
+                {uniqueTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </TypeSelect>
+            </Group>
+          </Group>
+
+          <Group align="center" gap="0.5rem" wrap="wrap">
+            <label htmlFor="tags">Tags:</label>
+            {uniqueTags.map((tag) => (
+              <FilterableTag
+                key={tag}
+                id={`tag-${tag}`}
+                isActive={selectedTags.includes(tag)}
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag}
+              </FilterableTag>
+            ))}
+          </Group>
+
+          {hasActiveFilters && (
+            <Group>
+              <ClearFiltersButton onClick={clearAllFilters}>
+                Clear All Filters
+              </ClearFiltersButton>
+            </Group>
+          )}
+        </FilterContainer>
+
+        <ResultsCount>
+          Showing {filteredItems.length} of {items.length} places
+        </ResultsCount>
+
+        <Grid>
+          {filteredItems.map((item, index) => {
+            return (
+              <Card key={index}>
+                <p data-id="type">{item.type}</p>
+                <h2>{item.title}</h2>
+                <p data-id="description">{item.description}</p>
+
+                <Group margin="auto 0 0 0">
+                  <p>{item.price}</p>
+
+                  <BasicLink href={item.link}>
+                    <ExternalLinkIcon />
+                  </BasicLink>
+
+                  <BasicLink href={item.location}>
+                    <MapIcon />
+                  </BasicLink>
+                </Group>
+
+                <p data-id="tags">
+                  {item.tags?.map((tag) => (
+                    <FilterableTag
+                      key={tag}
+                      isActive={selectedTags.includes(tag)}
+                      onClick={() => handleTagClick(tag)}
+                    >
+                      {tag}
+                    </FilterableTag>
+                  ))}
+                </p>
+              </Card>
+            );
+          })}
+        </Grid>
+
+        {filteredItems.length === 0 && (
+          <div
+            style={{ textAlign: "center", padding: "2rem", color: "#6c757d" }}
+          >
+            <h3>No places found</h3>
+            <p>Try adjusting your search terms or filters.</p>
+          </div>
+        )}
       </Panel>
     </Page>
   );
