@@ -2,9 +2,25 @@ import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { postsPlugin } from "./src/lib/getPosts";
+import { getContentPosts } from "./src/lib/getPosts";
+
+function postsPlugin(): Plugin {
+  return {
+    name: "posts-plugin",
+    async config() {
+      // Only embed the lightweight index
+      const contentDir = path.resolve(process.cwd(), "src/content");
+      const postsIndex = await getContentPosts(contentDir);
+      return {
+        define: {
+          "import.meta.env.POSTS_INDEX": JSON.stringify(postsIndex),
+        },
+      };
+    },
+  };
+}
 
 export default defineConfig(({ mode }) => ({
   server: {
