@@ -80,7 +80,6 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1000,
     optimizeDeps: {
       include: ["@emotion/react", "@emotion/styled", "react", "react-dom"],
-      exclude: ["esbuild"],
     },
     esbuild: {
       logLevel: "info",

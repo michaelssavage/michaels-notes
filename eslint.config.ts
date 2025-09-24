@@ -36,7 +36,7 @@ export default defineConfig([
   // Main config with all plugins registered together
   {
     files: ["**/*.{ts,tsx,js,jsx}"],
-    ignores: ["eslint.config.ts"],
+    ignores: ["eslint.config.ts", ".storybook/**"],
     plugins: {
       "react-hooks": reactHooks,
       "jsx-a11y": jsxA11y,
@@ -74,6 +74,40 @@ export default defineConfig([
           varsIgnorePattern: "^_",
         },
       ],
+    },
+  },
+
+  // Storybook config without typed linting
+  {
+    files: [".storybook/**/*.{ts,tsx,js,jsx}"],
+    plugins: {
+      "react-hooks": reactHooks,
+      "jsx-a11y": jsxA11y,
+      react: pluginReact,
+    },
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    rules: {
+      // React Hooks rules
+      ...reactHooks.configs.recommended.rules,
+
+      // Accessibility rules
+      ...jsxA11y.configs.recommended.rules,
+
+      // Custom overrides
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
   },
 ]);

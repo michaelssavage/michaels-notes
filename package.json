@@ -6,8 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:storybook": "storybook build -o dist/storybook",
-    "storybook": "storybook dev -p 6006",
     "preview": "vite preview",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint src --ext .ts,.tsx,.js,.jsx --fix",
@@ -31,7 +29,6 @@
     "@tanstack/react-router": "^1.57.9",
     "@tanstack/react-table": "^8.21.3",
     "@wavesurfer/react": "^1.0.11",
-    "esbuild": "^0.25.10",
     "gray-matter": "^4.0.3",
     "mdx-bundler": "^10.1.1",
     "posthog-js": "^1.258.3",
