@@ -5,11 +5,14 @@
 
 [functions]
   included_files = [
+    "./src/lib/**",
     "./src/content/**",
+    "./src/types/**",
     "./node_modules/esbuild/**",
     "./node_modules/mdx-bundler/**",
     "./node_modules/rehype-highlight/**",
-    "./node_modules/rehype-mdx-import-media/**"
+    "./node_modules/rehype-mdx-import-media/**",
+    "./node_modules/gray-matter/**"
   ]
   node_bundler = "nft"
 
