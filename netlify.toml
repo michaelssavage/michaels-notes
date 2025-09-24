@@ -5,8 +5,18 @@
 
 [functions]
   included_files = [
-    "./src/lib/**",
-    "./src/content/**",
+    "src/content/**",
+    "node_modules/mdx-bundler/**",
+    "node_modules/@mdx-js/**",
+    "node_modules/rehype*/**",
+    "node_modules/esbuild/**"
+  ]
+  external_node_modules = [
+    "esbuild", 
+    "rehype-highlight", 
+    "rehype-mdx-import-media",
+    "@mdx-js/react",
+    "mdx-bundler"
   ]
 
 [[redirects]]

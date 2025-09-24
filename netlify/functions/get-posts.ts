@@ -2,6 +2,25 @@ import type { Handler } from "@netlify/functions";
 import fs from "node:fs";
 import path from "node:path";
 
+const MDX_BUNDLER_DEPS = [
+  "mdx-bundler",
+  "rehype-highlight",
+  "rehype-mdx-import-media",
+  "@mdx-js/react",
+];
+
+// Check for required dependencies on cold start
+MDX_BUNDLER_DEPS.forEach((dep) => {
+  try {
+    require.resolve(dep);
+  } catch (error) {
+    console.error(`Missing dependency: ${dep}`, error);
+    throw new Error(
+      `Required dependency ${dep} is not available in the function environment`
+    );
+  }
+});
+
 interface MdxOptions {
   rehypePlugins?: unknown[];
   remarkPlugins?: unknown[];
@@ -26,16 +45,7 @@ async function getPostContent(category: string, slug: string) {
     `src/content/${category}/${slug}.mdx`
   );
 
-  console.log(`Base path: ${process.cwd()}`);
-  console.log(`Full file path: ${filePath}`);
-  console.log(`File exists: ${fs.existsSync(filePath)}`);
-
   if (!fs.existsSync(filePath)) {
-    // List directory contents for debugging
-    const contentDir = path.resolve(process.cwd(), `src/content/${category}`);
-    if (fs.existsSync(contentDir)) {
-      console.log(`Contents of ${contentDir}:`, fs.readdirSync(contentDir));
-    }
     throw new Error(`File does NOT exist at path: ${filePath}`);
   }
 

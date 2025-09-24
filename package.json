@@ -6,7 +6,7 @@
   "packageManager": "npm@10.9.3",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run build:functions",
+    "build": "vite build",
     "build:storybook": "storybook build -o dist/storybook",
     "storybook": "storybook dev -p 6006",
     "preview": "vite preview",
