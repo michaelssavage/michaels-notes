@@ -45,16 +45,12 @@ export default defineConfig(({ mode }) => ({
     }),
     tsconfigPaths(),
     postsPlugin(),
-    ...(mode === "development"
-      ? [
-          visualizer({
-            open: false,
-            filename: "dist/stats.html",
-            gzipSize: true,
-            brotliSize: true,
-          }),
-        ]
-      : []),
+    visualizer({
+      open: false,
+      filename: "dist/stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
   ],
   build: {
     outDir: "dist",
@@ -62,46 +58,32 @@ export default defineConfig(({ mode }) => ({
     cssMinify: "lightningcss",
     emptyOutDir: true,
     sourcemap: mode === "development",
-    target: "es2022",
-    minify: "esbuild",
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
       },
       output: {
-        manualChunks: (id) => {
+        manualChunks(id) {
           if (id.includes("node_modules")) {
-            // React packages
-            if (id.includes("react") || id.includes("react-dom")) {
-              return "react";
-            }
-            // Emotion packages
-            if (
-              id.includes("@emotion/react") ||
-              id.includes("@emotion/styled")
-            ) {
-              return "emotion";
-            }
-            // TanStack packages
-            if (
-              id.includes("@tanstack/router") ||
-              id.includes("@tanstack/react-router")
-            ) {
-              return "tanstack";
-            }
-            // Everything else goes to vendor
-            return "vendor";
+            const parts = id.split("node_modules/")[1].split("/");
+            return parts[0].startsWith("@")
+              ? `${parts[0]}/${parts[1]}`
+              : parts[0];
           }
         },
         chunkFileNames: "assets/[name]-[hash].js",
         entryFileNames: "assets/[name]-[hash].js",
         assetFileNames: "assets/[name]-[hash].[ext]",
       },
+      external: ["esbuild"],
     },
     chunkSizeWarningLimit: 1000,
     optimizeDeps: {
       include: ["@emotion/react", "@emotion/styled", "react", "react-dom"],
+      exclude: ["esbuild"],
     },
-    esbuild: { drop: mode === "production" ? ["console", "debugger"] : [] },
+    esbuild: {
+      drop: mode === "production" ? ["console", "debugger"] : [],
+    },
   },
 }));

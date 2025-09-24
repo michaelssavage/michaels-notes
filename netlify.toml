@@ -6,6 +6,10 @@
 [functions]
   included_files = ["./src/content/**"]
 
+[functions."get-posts"]
+  node_bundler = "esbuild"
+  external_node_modules = ["mdx-bundler", "rehype-highlight", "rehype-mdx-import-media", "gray-matter", "esbuild"]
+
 [[redirects]]
   from = "/storybook/*"
   to = "/storybook/:splat"

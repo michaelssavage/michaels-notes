@@ -28,5 +28,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "netlify/functions", "scripts", ".storybook"]
+  "include": ["src", "netlify/functions"]
 }

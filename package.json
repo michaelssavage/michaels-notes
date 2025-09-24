@@ -18,7 +18,6 @@
     "type-check": "tsc --noEmit",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "analyze": "vite build && npx vite-bundle-analyzer dist",
     "sort:barcelona": "node ./scripts/sort-barcelona.js"
   },
   "dependencies": {
