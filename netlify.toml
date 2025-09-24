@@ -5,7 +5,7 @@
 
 [functions]
   included_files = [
-    "./src/lib/**",
+    "./src/lib/getPosts.ts",
     "./src/content/**",
     "./src/types/**",
     "./node_modules/esbuild/**",
