@@ -60,41 +60,23 @@ function extractFrontmatter<T>(directory: string): T[] {
   });
 }
 
-// Build-time index generation (lightweight)
-export const getContentPosts = async (contentDir: string): Promise<IPosts> => {
-  console.log(
-    `getContentPosts: Starting to build content index from: ${contentDir}`
-  );
-
-  return {
-    projects: extractFrontmatter<IProject>(path.join(contentDir, "projects")),
-    blogs: extractFrontmatter<IBlog>(path.join(contentDir, "blogs")),
-    reviews: extractFrontmatter<IBlog>(path.join(contentDir, "reviews")),
-    bites: extractFrontmatter<IBite>(path.join(contentDir, "bites")),
-  };
-};
-
 export async function getPostContent(category: string, slug: string) {
   const { bundleMDX } = await import("mdx-bundler");
   const rehypeHighlight = await import("rehype-highlight");
   const rehypeMdxImportMedia = await import("rehype-mdx-import-media");
 
-  const basePath = process.env.NETLIFY
-    ? path.resolve(process.env.LAMBDA_TASK_ROOT || process.cwd())
-    : process.cwd();
-
   const filePath = path.resolve(
-    basePath,
+    process.cwd(),
     `src/content/${category}/${slug}.mdx`
   );
 
-  console.log(`Base path: ${basePath}`);
+  console.log(`Base path: ${process.cwd()}`);
   console.log(`Full file path: ${filePath}`);
   console.log(`File exists: ${fs.existsSync(filePath)}`);
 
   if (!fs.existsSync(filePath)) {
     // List directory contents for debugging
-    const contentDir = path.resolve(basePath, `src/content/${category}`);
+    const contentDir = path.resolve(process.cwd(), `src/content/${category}`);
     if (fs.existsSync(contentDir)) {
       console.log(`Contents of ${contentDir}:`, fs.readdirSync(contentDir));
     }
@@ -153,17 +135,27 @@ export async function getPostContent(category: string, slug: string) {
   }
 }
 
-async function getPostsIndex() {
-  const contentDir = path.resolve(__dirname, "src/content");
-  return await getContentPosts(contentDir);
-}
+// Build-time index generation (lightweight)
+export const getContentPosts = async (contentDir: string): Promise<IPosts> => {
+  console.log(
+    `getContentPosts: Starting to build content index from: ${contentDir}`
+  );
+
+  return {
+    projects: extractFrontmatter<IProject>(path.join(contentDir, "projects")),
+    blogs: extractFrontmatter<IBlog>(path.join(contentDir, "blogs")),
+    reviews: extractFrontmatter<IBlog>(path.join(contentDir, "reviews")),
+    bites: extractFrontmatter<IBite>(path.join(contentDir, "bites")),
+  };
+};
 
 export function postsPlugin(): Plugin {
   return {
     name: "posts-plugin",
     async config() {
       // Only embed the lightweight index
-      const postsIndex = await getPostsIndex();
+      const contentDir = path.resolve(__dirname, "src/content");
+      const postsIndex = await getContentPosts(contentDir);
       return {
         define: {
           "import.meta.env.POSTS_INDEX": JSON.stringify(postsIndex),
