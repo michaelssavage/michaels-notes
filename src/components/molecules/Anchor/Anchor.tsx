@@ -33,7 +33,7 @@ export const Anchor = memo(
         {text ? text : link} {icon}
       </LinkStyle>
     );
-  }
+  },
 );
 
 Anchor.displayName = "Anchor";

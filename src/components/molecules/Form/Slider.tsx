@@ -62,7 +62,7 @@ export const Slider = ({
         frameRef.current = null;
       });
     },
-    [onChange]
+    [onChange],
   );
 
   const handleChange = useCallback(
@@ -70,7 +70,7 @@ export const Slider = ({
       const newValue = Number(e.target.value);
       throttledOnChange(newValue);
     },
-    [throttledOnChange]
+    [throttledOnChange],
   );
 
   return (

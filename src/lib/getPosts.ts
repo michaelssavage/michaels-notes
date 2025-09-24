@@ -8,7 +8,7 @@ if (process.platform === "win32") {
     process.cwd(),
     "node_modules",
     "esbuild",
-    "esbuild.exe"
+    "esbuild.exe",
   );
 } else {
   process.env.ESBUILD_BINARY_PATH = path.join(
@@ -16,7 +16,7 @@ if (process.platform === "win32") {
     "node_modules",
     "esbuild",
     "bin",
-    "esbuild"
+    "esbuild",
   );
 }
 
@@ -37,7 +37,7 @@ const globals = {
 function extractFrontmatter<T>(directory: string): T[] {
   if (!fs.existsSync(directory)) {
     console.warn(
-      `extractFrontmatter: Directory not found: ${directory}. Returning empty array.`
+      `extractFrontmatter: Directory not found: ${directory}. Returning empty array.`,
     );
     return [];
   }
@@ -62,7 +62,7 @@ function extractFrontmatter<T>(directory: string): T[] {
 // Build-time index generation (lightweight)
 export const getContentPosts = async (contentDir: string): Promise<IPosts> => {
   console.log(
-    `getContentPosts: Starting to build content index from: ${contentDir}`
+    `getContentPosts: Starting to build content index from: ${contentDir}`,
   );
 
   return {
@@ -80,14 +80,14 @@ export async function getPostContent(category: string, slug: string) {
 
   const filePath = path.resolve(
     process.cwd(),
-    `src/content/${category}/${slug}.mdx`
+    `src/content/${category}/${slug}.mdx`,
   );
 
   console.log(`getPostContent: File does NOT exist at path: "${filePath}"`);
 
   if (!fs.existsSync(filePath)) {
     throw new Error(
-      `getPostContent: File does NOT exist at path: ${category}/${slug}`
+      `getPostContent: File does NOT exist at path: ${category}/${slug}`,
     );
   }
 
@@ -130,13 +130,13 @@ export async function getPostContent(category: string, slug: string) {
     if (error instanceof Error) {
       console.error(
         `getPostContent: Error bundling MDX for ${category}/${slug}:`,
-        error
+        error,
       );
       throw new Error(`Failed to process post content: ${error.message}`);
     } else {
       console.error(
         `getPostContent: Unknown error bundling MDX for ${category}/${slug}:`,
-        error
+        error,
       );
       throw new Error("Failed to process post content: Unknown bundling error");
     }

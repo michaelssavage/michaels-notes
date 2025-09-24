@@ -21,7 +21,7 @@ export const DateText = memo(
       prevProps.isReview === nextProps.isReview &&
       prevProps.children === nextProps.children
     );
-  }
+  },
 );
 
 DateText.displayName = "DateText";

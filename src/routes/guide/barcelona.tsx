@@ -78,7 +78,7 @@ function RouteComponent() {
         },
       }),
     ],
-    [sorting]
+    [sorting],
   );
 
   const table = useReactTable({

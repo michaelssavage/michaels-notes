@@ -68,7 +68,7 @@ export const AudioStreamer = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [zoom, setZoom] = useState(1);
   const [waveformDataObj, setWaveformDataObj] = useState<WaveformDataI | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export const AudioStreamer = ({
         const response = await fetch(waveFormData);
         if (!response.ok) {
           throw new Error(
-            `Failed to fetch waveform data: ${response.statusText}`
+            `Failed to fetch waveform data: ${response.statusText}`,
           );
         }
         const data: WaveformDataI = await response.json();
@@ -94,7 +94,7 @@ export const AudioStreamer = ({
 
   const peaks = useMemo(
     () => (waveformDataObj ? [waveformDataObj.data] : undefined),
-    [waveformDataObj]
+    [waveformDataObj],
   );
 
   const { wavesurfer, isReady, isPlaying, currentTime } = useWavesurfer({
@@ -147,7 +147,7 @@ export const AudioStreamer = ({
         wrapper.scrollLeft = value;
       }
     },
-    [getWrapper, wavesurfer]
+    [getWrapper, wavesurfer],
   );
 
   const handleZoom = useCallback(
@@ -155,11 +155,11 @@ export const AudioStreamer = ({
       const ZOOM_STEP = 5;
       const newZoom = Math.min(
         100,
-        Math.max(1, zoom + (deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP))
+        Math.max(1, zoom + (deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP)),
       );
       setZoom(newZoom);
     },
-    [zoom]
+    [zoom],
   );
 
   const handlePan = useCallback(
@@ -176,7 +176,7 @@ export const AudioStreamer = ({
       newScroll = Math.max(0, Math.min(maxScroll, newScroll));
       setScrollLeft(newScroll);
     },
-    [getClientWidth, getScrollLeft, setScrollLeft, getWrapper]
+    [getClientWidth, getScrollLeft, setScrollLeft, getWrapper],
   );
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm run build && pnpm build:storybook"
+  command = "npm run build && npm run build:storybook"
   publish = "dist"
   functions = "netlify/functions"
 
@@ -17,7 +17,7 @@
   to = "/storybook/index.html"
   status = 200
   force = true
-  
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

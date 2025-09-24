@@ -11,16 +11,16 @@ Personal site built with React, Typescript, Vite, and @emotion, using eslint for
 - to use the Letterboxd api that runs in netlify functions
 - view on localhost:8888
 
-`pnpm dev`
+`npm run dev`
 
 - run as normal
 - view on localhost:3000
 
-`pnpm lint`
+`npm run lint`
 
 - run linting.
 
-`pnpm dlx npm-check-updates`
+`npm run dlx npm-check-updates`
 
 - check what packages need updates
 

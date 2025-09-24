@@ -14,7 +14,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TopTracks = lazy(
-  () => import("@/components/spotify/TopTracks/TopTracks")
+  () => import("@/components/spotify/TopTracks/TopTracks"),
 );
 
 export const Route = createLazyFileRoute("/projects/")({

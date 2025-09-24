@@ -11,7 +11,7 @@ interface ICard {
 
 export const anchorStyles = (
   isActive: boolean,
-  colors: MyTheme["colors"]
+  colors: MyTheme["colors"],
 ) => css`
   color: ${isActive ? colors.section3c : "#dccad0"};
   text-decoration: ${isActive ? "underline" : "none"};

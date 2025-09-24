@@ -27,6 +27,6 @@ if (!rootElement.innerHTML) {
           <RouterProvider router={router} />
         </ContentProvider>
       </PostHogProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
