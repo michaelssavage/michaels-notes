@@ -4,11 +4,14 @@
   functions = "netlify/functions"
 
 [functions]
-  included_files = ["./src/content/**"]
-  node_bundler = "esbuild"
-  
-[functions.environment]
-  NODE_OPTIONS = "--max-old-space-size=3008"
+  included_files = [
+    "./src/content/**",
+    "./node_modules/esbuild/**",
+    "./node_modules/mdx-bundler/**",
+    "./node_modules/rehype-highlight/**",
+    "./node_modules/rehype-mdx-import-media/**"
+  ]
+  node_bundler = "nft"
 
 [[redirects]]
   from = "/storybook/*"

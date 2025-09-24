@@ -63,7 +63,21 @@ export default defineConfig(({ mode }) => ({
       exclude: ["esbuild"],
     },
     esbuild: {
+      logLevel: "info",
       drop: mode === "production" ? ["console", "debugger"] : [],
+      treeShaking: true,
+      minifyIdentifiers: mode === "production",
+      minifySyntax: mode === "production",
+      minifyWhitespace: mode === "production",
+      ignoreAnnotations: false,
+    },
+  },
+  experimental: {
+    renderBuiltUrl(filename, { hostType }) {
+      if (hostType === "js") {
+        return { js: `/${filename}` };
+      }
+      return { relative: true };
     },
   },
 }));

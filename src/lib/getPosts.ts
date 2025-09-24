@@ -4,22 +4,53 @@ import fs from "node:fs";
 import path from "node:path";
 import { type Plugin } from "vite";
 
-if (process.platform === "win32") {
-  process.env.ESBUILD_BINARY_PATH = path.join(
-    process.cwd(),
-    "node_modules",
-    "esbuild",
-    "esbuild.exe"
-  );
-} else {
-  process.env.ESBUILD_BINARY_PATH = path.join(
-    process.cwd(),
-    "node_modules",
-    "esbuild",
-    "bin",
-    "esbuild"
-  );
+function setEsbuildPath() {
+  if (process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    const possiblePaths = [
+      path.join(process.cwd(), "node_modules", "esbuild", "bin", "esbuild"),
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "node_modules",
+        "esbuild",
+        "bin",
+        "esbuild"
+      ),
+      "/var/task/node_modules/esbuild/bin/esbuild",
+      "/opt/nodejs/node_modules/esbuild/bin/esbuild",
+    ];
+
+    for (const esbuildPath of possiblePaths) {
+      if (fs.existsSync(esbuildPath)) {
+        process.env.ESBUILD_BINARY_PATH = esbuildPath;
+        console.log(`Found esbuild at: ${esbuildPath}`);
+        return;
+      }
+    }
+
+    console.warn("Could not find esbuild binary in expected locations");
+  } else {
+    if (process.platform === "win32") {
+      process.env.ESBUILD_BINARY_PATH = path.join(
+        process.cwd(),
+        "node_modules",
+        "esbuild",
+        "esbuild.exe"
+      );
+    } else {
+      process.env.ESBUILD_BINARY_PATH = path.join(
+        process.cwd(),
+        "node_modules",
+        "esbuild",
+        "bin",
+        "esbuild"
+      );
+    }
+  }
 }
+
+setEsbuildPath();
 
 interface MdxOptions {
   rehypePlugins?: unknown[];
