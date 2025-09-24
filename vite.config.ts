@@ -45,12 +45,16 @@ export default defineConfig(({ mode }) => ({
     }),
     tsconfigPaths(),
     postsPlugin(),
-    visualizer({
-      open: false,
-      filename: "dist/stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
+    ...(mode === "development"
+      ? [
+          visualizer({
+            open: false,
+            filename: "dist/stats.html",
+            gzipSize: true,
+            brotliSize: true,
+          }),
+        ]
+      : []),
   ],
   build: {
     outDir: "dist",
@@ -63,12 +67,28 @@ export default defineConfig(({ mode }) => ({
         main: path.resolve(__dirname, "index.html"),
       },
       output: {
-        manualChunks(id) {
+        manualChunks: (id) => {
           if (id.includes("node_modules")) {
-            const parts = id.split("node_modules/")[1].split("/");
-            return parts[0].startsWith("@")
-              ? `${parts[0]}/${parts[1]}`
-              : parts[0];
+            // React packages
+            if (id.includes("react") || id.includes("react-dom")) {
+              return "react";
+            }
+            // Emotion packages
+            if (
+              id.includes("@emotion/react") ||
+              id.includes("@emotion/styled")
+            ) {
+              return "emotion";
+            }
+            // TanStack packages
+            if (
+              id.includes("@tanstack/router") ||
+              id.includes("@tanstack/react-router")
+            ) {
+              return "tanstack";
+            }
+            // Everything else goes to vendor
+            return "vendor";
           }
         },
         chunkFileNames: "assets/[name]-[hash].js",
@@ -82,7 +102,7 @@ export default defineConfig(({ mode }) => ({
       include: ["@emotion/react", "@emotion/styled", "react", "react-dom"],
     },
     esbuild: {
-      logLevel: "info",
+      logLevel: "error",
       drop: mode === "production" ? ["console", "debugger"] : [],
       treeShaking: true,
       minifyIdentifiers: mode === "production",
@@ -90,6 +110,8 @@ export default defineConfig(({ mode }) => ({
       minifyWhitespace: mode === "production",
       ignoreAnnotations: false,
     },
+    target: "esnext",
+    minify: "esbuild",
   },
   experimental: {
     renderBuiltUrl(filename, { hostType }) {
