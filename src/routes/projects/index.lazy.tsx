@@ -14,7 +14,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TopTracks = lazy(
-  () => import("@/components/spotify/TopTracks/TopTracks"),
+  () => import("@/components/spotify/TopTracks/TopTracks")
 );
 
 export const Route = createLazyFileRoute("/projects/")({
@@ -22,7 +22,7 @@ export const Route = createLazyFileRoute("/projects/")({
 });
 
 const description =
-  "Personal development, work, code challenges, and university projects.";
+  "Personal development, work, code challenges, and university projects";
 
 function Projects() {
   const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
@@ -44,8 +44,9 @@ function Projects() {
       />
       <Container>
         <Header>
-          <p data-testid="projects-description">{description}</p>
-          <Group wrap="wrap">
+          <h1 data-testid="projects-description">{description}</h1>
+          <Group wrap="wrap" align="center">
+            <p data-id="filter-post-title">Filters projects:</p>
             {TECHNOLOGIES.map((tech) => (
               <Button
                 key={tech}

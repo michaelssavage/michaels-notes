@@ -1,3 +1,4 @@
+import { MyTheme } from "@/styles/abstracts/colors.styled";
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import isPropValid from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
@@ -5,9 +6,19 @@ import styled from "@emotion/styled";
 import { animated } from "@react-spring/web";
 import { Link } from "@tanstack/react-router";
 
-interface DateTextI {
+const getPostColor = (
+  theme: MyTheme,
+  isExternal?: string,
+  isReview?: boolean
+) => {
+  if (isReview) return theme.purple;
+  return isExternal ? theme.blue200 : theme.red200;
+};
+
+interface CardI {
   isExternal?: string;
   isReview?: boolean;
+  inView: boolean;
 }
 
 export const EmptyCard = styled.div`
@@ -25,7 +36,7 @@ export const CardInfo = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 1rem;
 
   ${forPhoneOnly(css`
     flex-direction: column;
@@ -38,59 +49,62 @@ export const CardInfo = styled.div`
 `;
 
 export const Title = styled(animated.h2)`
-  font-size: 1.2rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
   text-wrap: initial;
   will-change: transform;
   transition: transform 0.3s cubic-bezier(0.26, 0.46, 0.44, 0.94);
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
-export const StyledDateText = styled.p<DateTextI>`
+export const PostType = styled.p`
   white-space: nowrap;
   font-style: italic;
-  font-size: 0.85rem;
-  color: ${({ isExternal, isReview, theme }) => {
-    if (isReview) {
-      return theme.colors.review;
-    }
-    return isExternal ? theme.colors.off : theme.colors.on;
-  }};
   font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const DateText = styled.p`
+  font-style: italic;
+  color: ${({ theme }) => theme.gray500};
+  font-size: clamp(0.9rem, 0.7rem + 0.3vw, 1rem);
 `;
 
 export const DescriptionText = styled.p`
   margin: 0;
   padding: 0;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
 `;
 
-export const Card = styled(Link, {
-  shouldForwardProp: (prop) => isPropValid(prop) && prop !== "inView",
-})<{ inView: boolean }>`
+// prettier-ignore
+export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop) && prop !== "inView" })<CardI>`
   opacity: ${({ inView }) => (inView ? 1 : 0)};
   transform: translateY(${({ inView }) => (inView ? 0 : "20px")});
   text-decoration: none;
   transition: opacity 0.5s ease-in-out;
-
+  position: relative;
   padding: 1rem;
-  background-color: ${({ theme }) => theme.colors.card};
+  background-color: ${({ theme }) => theme.white};
   border-radius: 0.4rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   width: 100%;
-  box-shadow: #009a7b66 5px 5px;
+  box-shadow: ${({ theme }) => theme.blue} 5px 5px;
   z-index: 2;
 
   &:hover {
-    box-shadow: #009a7be5 5px 5px;
+    box-shadow: ${({ theme }) => theme.blue200} 5px 5px;
 
     ${Title} {
-      transform: scale(1.04);
+      transform: translateY(-5px);
     }
+  }
+
+  ${PostType} {
+    color: ${({ isExternal, isReview, theme }) => {
+      return getPostColor(theme, isExternal, isReview);
+    }};
   }
 `;
 

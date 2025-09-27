@@ -9,12 +9,10 @@ import { ThemeProvider } from "@/context/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
-
-const Toggle = lazy(() => import("@/components/molecules/Toggle/Toggle"));
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -25,13 +23,10 @@ function RootComponent() {
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <MetaData />
-
-        <ToastProvider />
-
         <ThemeProvider>
+          <MetaData />
+          <ToastProvider />
           <Navbar />
-          <Toggle />
 
           <ErrorBoundary>
             <Suspense fallback={<Loading />}>

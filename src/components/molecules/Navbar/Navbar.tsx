@@ -23,7 +23,7 @@ const NavLink = memo(({ to, text, activeRoutes }: Props) => {
     ? activeRoutes.some(
         (route) =>
           location.pathname === route ||
-          location.pathname.startsWith(route + "/"),
+          location.pathname.startsWith(route + "/")
       )
     : location.pathname === to;
 
@@ -45,7 +45,7 @@ const Navbar = () => {
 
   return (
     <Header>
-      <nav>
+      <div>
         <NavLink
           to="/"
           text="Writing"
@@ -54,7 +54,7 @@ const Navbar = () => {
         <NavLink to="/projects" text="Projects" />
         <NavLink to="/about" text="About" />
         <NavLink to="/miscellaneous" text="Misc" />
-      </nav>
+      </div>
       <Icons>
         <Icon
           label="GitHub Profile"

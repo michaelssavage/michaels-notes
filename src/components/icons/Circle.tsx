@@ -1,11 +1,17 @@
 interface IconProps {
-  color: string;
+  dataId?: string;
+  color?: string;
   size?: string;
 }
 
-export const CircleIcon = ({ color, size = "24" }: IconProps) => {
+export const CircleIcon = ({
+  dataId,
+  color = "currentColor",
+  size = "24",
+}: IconProps) => {
   return (
     <svg
+      data-id={dataId}
       role="img"
       aria-label="circle icon"
       xmlns="http://www.w3.org/2000/svg"

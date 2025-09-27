@@ -88,7 +88,7 @@ export const CardBody = styled.div<{ bg: string }>`
 export const Header = styled.div`
   margin: 1rem 0;
 
-  p {
+  h1 {
     margin-bottom: 0.5rem;
   }
 

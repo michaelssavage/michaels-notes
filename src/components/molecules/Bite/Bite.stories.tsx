@@ -17,6 +17,7 @@ export default meta;
 type Story = StoryObj<typeof Bite>;
 
 const defaultBite: IBite = {
+  id: "default-bite",
   slug: "default-bite",
   date: "12 March 2023",
   description: "Learned about React Server Components and their impact on SSR.",

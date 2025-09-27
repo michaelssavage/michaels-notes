@@ -6,7 +6,6 @@ export const ClockContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Arial", sans-serif;
   background-color: #1a1a1a;
   color: ${({ theme }) => theme.colors.btnBg};
   padding: 1.4rem;

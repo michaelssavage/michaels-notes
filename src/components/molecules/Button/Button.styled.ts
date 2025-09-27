@@ -25,16 +25,16 @@ export const ButtonStyled = styled.button<IStyle>`
     switch (variant) {
       case "primary":
         return css`
-          color: ${theme.colors.card};
-          background-color: ${theme.colors.mint};
+          color: ${theme.white};
+          background-color: ${theme.green};
           &:hover {
-            background-color: ${theme.colors.mintHover};
+            background-color: ${theme.green200};
           }
         `;
       case "secondary":
         return css`
           background-color: ${theme.colors.secondary};
-          color: ${theme.colors.card};
+          color: ${theme.white};
           &:hover {
             background-color: ${theme.colors.secondaryHover};
           }
@@ -58,10 +58,8 @@ export const ButtonStyled = styled.button<IStyle>`
         `;
       case "pill":
         return css`
-          background-color: ${selected
-            ? theme.colors.card
-            : theme.colors.secondary};
-          color: ${selected ? theme.colors.text : theme.colors.card};
+          background-color: ${selected ? theme.white : theme.gray300};
+          color: ${selected ? theme.colors.text : theme.white};
           padding: 7px 14px;
           border-radius: 8px;
           font-size: 0.8rem;

@@ -12,6 +12,7 @@ export interface IBlog {
 }
 
 export interface IBite {
+  id: string;
   slug: string;
   date: string;
   description: string;
@@ -21,16 +22,16 @@ export interface IBite {
 
 export const TECHNOLOGIES = [
   "React.js",
-  "TypeScript",
   "Express.js",
   "MDX",
   "MongoDB",
   "Next.js",
   "Nest.js",
+  "PostgreSQL",
+  "TypeScript",
   "BeautifulSoup",
   "Django",
   "Firestore",
-  "PostgreSQL",
   "Python",
   "PYQT5",
   "React Query",
