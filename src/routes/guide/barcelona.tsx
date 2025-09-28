@@ -1,5 +1,4 @@
 import { Group } from "@/components/atoms/Group";
-import { MetaData } from "@/components/atoms/MetaData";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
@@ -17,16 +16,29 @@ import {
 import { GuideTags } from "@/types/Guide";
 import { css } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/guide/barcelona")({
   component: RouteComponent,
 });
 
-const description =
-  "Barcelona guide with places to visit, activities, and entertainment options.";
-
 function RouteComponent() {
+  useHead({
+    link: [
+      {
+        rel: "canonical",
+        href: `https://www.michaelsavage.ie/guide/barcelona`,
+      },
+    ],
+  });
+
+  useSeoMeta({
+    title: "Barcelona Guide",
+    description:
+      "Barcelona guide with places to visit, activities, and entertainment options.",
+  });
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);
@@ -88,11 +100,6 @@ function RouteComponent() {
 
   return (
     <Page>
-      <MetaData
-        title="Barcelona Guide | Michael Savage"
-        description={description}
-      />
-
       <Panel>
         <h1>Barcelona Guide - Qué haré hoy?</h1>
 

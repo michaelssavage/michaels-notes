@@ -5,16 +5,14 @@ import {
   BentoHeader,
   BentoTitle,
 } from "@/components/atoms/BentoCard";
-import { MetaData } from "@/components/atoms/MetaData";
 import { Page } from "@/styles/routes/blog.styled";
 import { GridContainer } from "@/styles/routes/miscellaneous.styled";
 import { createFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 
 export const Route = createFileRoute("/miscellaneous")({
   component: RouteComponent,
 });
-
-const description = "Miscellaneous links, small projects, and lists";
 
 interface BentoI {
   title: string;
@@ -49,12 +47,19 @@ const items: Array<BentoI> = [
 ];
 
 function RouteComponent() {
+  useHead({
+    link: [
+      { rel: "canonical", href: "https://www.michaelsavage.ie/miscellaneous" },
+    ],
+  });
+
+  useSeoMeta({
+    title: "Miscellaneous",
+    description: "Miscellaneous links, small projects, and lists.",
+  });
+
   return (
     <Page>
-      <MetaData
-        title="Miscellaneous | Michael Savage"
-        description={description}
-      />
       <GridContainer>
         {items.map((item) => (
           <BentoCard key={item.title} to={item.link} colSpan={item.colSpan}>

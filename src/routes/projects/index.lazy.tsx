@@ -1,5 +1,4 @@
 import { Group } from "@/components/atoms/Group";
-import { MetaData } from "@/components/atoms/MetaData";
 import { Project } from "@/components/atoms/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
@@ -11,6 +10,7 @@ import { Container } from "@/styles/abstracts/layout.styled";
 import { Header, Page, SpotifyContent } from "@/styles/routes/projects.styled";
 import { type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TopTracks = lazy(
@@ -21,10 +21,17 @@ export const Route = createLazyFileRoute("/projects/")({
   component: Projects,
 });
 
-const description =
-  "Personal development, work, code challenges, and university projects";
-
 function Projects() {
+  useHead({
+    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/projects" }],
+  });
+
+  useSeoMeta({
+    title: "My Projects",
+    description:
+      "Personal development, work, code challenges, and university projects",
+  });
+
   const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
   const handleTechClick = (tech: ITechnology) => {
     setSelectedTech(tech === selectedTech ? null : tech);
@@ -38,13 +45,11 @@ function Projects() {
 
   return (
     <Page>
-      <MetaData
-        title="My Projects | Michael Savage"
-        description={description}
-      />
       <Container>
         <Header>
-          <h1 data-testid="projects-description">{description}</h1>
+          <h1 data-testid="projects-description">
+            Personal development, work, code challenges, and university projects
+          </h1>
           <Group wrap="wrap" align="center">
             <p data-id="filter-post-title">Filters projects:</p>
             {TECHNOLOGIES.map((tech) => (

@@ -1,5 +1,4 @@
 import { Group } from "@/components/atoms/Group";
-import { MetaData } from "@/components/atoms/MetaData";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
@@ -7,6 +6,7 @@ import { usePostContent, usePostsByCategory } from "@/hooks/use-posts.hook";
 import { joinTags } from "@/lib/utils";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import "highlight.js/styles/monokai.css";
 import { lazy, Suspense, useState } from "react";
 import type { IProject } from "../../types/Post";
@@ -18,9 +18,7 @@ export const Route = createLazyFileRoute("/projects/$slug")({
 });
 
 function Slug() {
-  const [open, setOpen] = useState(false);
   const { slug } = Route.useParams();
-  const posts = usePostsByCategory("projects");
 
   const {
     data: doc,
@@ -28,6 +26,27 @@ function Slug() {
     isError,
     error,
   } = usePostContent<IProject>("projects", slug);
+
+  useHead({
+    link: [
+      {
+        rel: "canonical",
+        href: `https://www.michaelsavage.ie/projects/${slug}`,
+      },
+    ],
+  });
+
+  useSeoMeta({
+    ogType: "article",
+    ogUrl: `https://www.michaelsavage.ie/projects/${slug}`,
+    articleAuthor: ["Michael Savage"],
+    articlePublishedTime: doc?.date,
+    title: doc?.title,
+    description: doc?.description,
+  });
+
+  const [open, setOpen] = useState(false);
+  const posts = usePostsByCategory("projects");
 
   if (!doc || isLoading)
     return (
@@ -46,10 +65,6 @@ function Slug() {
   return (
     <Article>
       <Suspense fallback={<Loading />}>
-        <MetaData
-          title={`${doc.title} | Michael Savage`}
-          description={doc.description}
-        />
         <Menu<IProject>
           target="projects"
           items={posts.filter(({ id }) => id !== doc.id)}

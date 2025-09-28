@@ -13,12 +13,21 @@ import {
 } from "@/styles/routes/home.styled";
 import { useTheme } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 
 export const Route = createLazyFileRoute("/about")({
   component: About,
 });
 
 function About() {
+  useHead({
+    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/about" }],
+  });
+
+  useSeoMeta({
+    title: "About Me",
+    description: "About my background, experience, and interests",
+  });
   const { colors } = useTheme();
 
   return (

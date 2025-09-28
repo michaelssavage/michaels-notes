@@ -1,7 +1,6 @@
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
 import { HomeLine } from "@/components/atoms/HomeLine";
-import { MetaData } from "@/components/atoms/MetaData";
 import { CircleIcon } from "@/components/icons";
 import { Bite } from "@/components/molecules/Bite";
 import { Button } from "@/components/molecules/Button";
@@ -20,6 +19,7 @@ import {
   Panel,
 } from "@/styles/routes/blog.styled";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 
 export type FilterState = {
@@ -35,9 +35,16 @@ export const Route = createLazyFileRoute("/")({
   component: Blog,
 });
 
-const description = "Learnings, mishaps, and articles about random things.";
-
 function Blog() {
+  useHead({
+    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/" }],
+  });
+
+  useSeoMeta({
+    title: "Writings",
+    description: "Learnings, mishaps, and articles about random things.",
+  });
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterState>({
     isPlantBassd: true,
@@ -112,7 +119,6 @@ function Blog() {
 
   return (
     <Page>
-      <MetaData title="My Blog | Michael Savage" description={description} />
       <Panel>
         <Group direction="column" gap="0">
           <Heading>

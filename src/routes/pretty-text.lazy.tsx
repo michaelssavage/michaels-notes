@@ -1,5 +1,4 @@
 import { Group } from "@/components/atoms/Group";
-import { MetaData } from "@/components/atoms/MetaData";
 import { CopyIcon, GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
@@ -19,6 +18,7 @@ import {
   viewMoreButtonStyles,
 } from "@/styles/routes/rekordbox-prettifier.styled";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -26,10 +26,19 @@ export const Route = createLazyFileRoute("/pretty-text")({
   component: RekordboxPrettifier,
 });
 
-const description =
-  "Getting the track setlist from a .txt file from Rekordbox after recording a mix";
-
 function RekordboxPrettifier() {
+  useHead({
+    link: [
+      { rel: "canonical", href: "https://www.michaelsavage.ie/pretty-text" },
+    ],
+  });
+
+  useSeoMeta({
+    title: "Rekordbox Prettifier",
+    description:
+      "Getting the track setlist from a .txt file from Rekordbox after recording a mix",
+  });
+
   const [inputText, setInputText] = useState("");
   const [withBPM, setWithBPM] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -119,10 +128,6 @@ function RekordboxPrettifier() {
           <h1>Drop your .txt file here to format the Rekordbox setlist!</h1>
         </DragBanner>
       )}
-      <MetaData
-        title="Rekordbox Prettifier | Michael Savage"
-        description={description}
-      />
       <Panel>
         <Title>Rekordbox Text Formatter</Title>
 
