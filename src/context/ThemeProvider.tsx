@@ -1,25 +1,10 @@
-import {
-  type MyTheme,
-  darkTheme,
-  lightTheme,
-} from "@/styles/abstracts/colors.styled";
+import { type MyTheme, lightTheme } from "@/styles/abstracts/colors.styled";
 import { globalStyles } from "@/styles/global.styled";
 import { ThemeProvider as EmotionThemeProvider, Global } from "@emotion/react";
-import {
-  type ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-
-type modeType = "light" | "dark";
+import { type ReactNode, createContext, useContext, useMemo } from "react";
 
 interface ITC {
-  mode: modeType;
-  toggleTheme: () => void;
+  lightTheme: MyTheme;
 }
 
 interface ITP {
@@ -29,34 +14,12 @@ interface ITP {
 const ThemeContext = createContext<ITC | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: ITP) => {
-  const [mode, setMode] = useState<modeType>("light");
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as modeType | null;
-    if (savedTheme) {
-      setMode(savedTheme);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("theme", mode);
-  }, [mode]);
-
-  const toggleTheme = useCallback(() => {
-    setMode((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  }, []);
-
-  const theme: MyTheme = useMemo(
-    () => (mode === "light" ? lightTheme : darkTheme),
-    [mode],
-  );
-
-  const value = useMemo(() => ({ mode, toggleTheme }), [mode, toggleTheme]);
+  const value = useMemo(() => ({ lightTheme }), []);
 
   return (
     <ThemeContext.Provider value={value}>
-      <EmotionThemeProvider theme={theme}>
-        <Global styles={globalStyles(theme)} />
+      <EmotionThemeProvider theme={lightTheme}>
+        <Global styles={globalStyles(lightTheme)} />
         {children}
       </EmotionThemeProvider>
     </ThemeContext.Provider>

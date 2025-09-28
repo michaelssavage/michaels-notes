@@ -1,5 +1,4 @@
 import { Group } from "@/components/atoms/Group";
-import { MetaData } from "@/components/atoms/MetaData";
 import { Project } from "@/components/atoms/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
@@ -8,23 +7,43 @@ import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import { usePostsByCategory } from "@/hooks/use-posts.hook";
 import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
-import { Header, Page, SpotifyContent } from "@/styles/routes/projects.styled";
+import {
+  GridContainer,
+  Header,
+  Page,
+  SpotifyContent,
+} from "@/styles/routes/projects.styled";
 import { type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TopTracks = lazy(
-  () => import("@/components/spotify/TopTracks/TopTracks"),
+  () => import("@/components/spotify/TopTracks/TopTracks")
 );
 
 export const Route = createLazyFileRoute("/projects/")({
   component: Projects,
 });
 
-const description =
-  "Personal development, work, code challenges, and university projects.";
-
 function Projects() {
+  useHead({
+    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/projects" }],
+  });
+
+  useSeoMeta({
+    title: "My Projects",
+    description:
+      "Personal development, work, code challenges, and university projects",
+  });
+
+  const [showAll, setShowAll] = useState(false);
+  const displayedTechnologies = showAll
+    ? TECHNOLOGIES
+    : TECHNOLOGIES.slice(0, 3);
+
+  const handleShow = () => setShowAll((prev) => !prev);
+
   const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
   const handleTechClick = (tech: ITechnology) => {
     setSelectedTech(tech === selectedTech ? null : tech);
@@ -38,15 +57,14 @@ function Projects() {
 
   return (
     <Page>
-      <MetaData
-        title="My Projects | Michael Savage"
-        description={description}
-      />
       <Container>
         <Header>
-          <p data-testid="projects-description">{description}</p>
-          <Group wrap="wrap">
-            {TECHNOLOGIES.map((tech) => (
+          <h1 data-testid="projects-description">
+            Personal development, work, code challenges, and university projects
+          </h1>
+          <Group wrap="wrap" align="center" gap="0.5rem">
+            <p data-id="filter-projects">Filters projects:</p>
+            {displayedTechnologies.map((tech) => (
               <Button
                 key={tech}
                 text={tech}
@@ -56,10 +74,15 @@ function Projects() {
                 selected={selectedTech === tech}
               />
             ))}
+            <Button
+              text={showAll ? "Show less" : "Show all"}
+              variant="link"
+              onClick={handleShow}
+            />
           </Group>
         </Header>
       </Container>
-      <Group wrap="wrap" justify="center">
+      <GridContainer>
         {sortedProjects.map((project) => (
           <Project
             key={project.id}
@@ -67,8 +90,8 @@ function Projects() {
             selectedTech={selectedTech}
           />
         ))}
-      </Group>
-      <Container maxWidth="70%">
+      </GridContainer>
+      <Container margin="2rem 10% 0">
         <Suspense fallback={<Loading />}>
           <SpotifyContent>
             <Header>

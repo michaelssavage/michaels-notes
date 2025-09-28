@@ -1,7 +1,6 @@
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
 import { HomeLine } from "@/components/atoms/HomeLine";
-import { MetaData } from "@/components/atoms/MetaData";
 import { CircleIcon } from "@/components/icons";
 import { Bite } from "@/components/molecules/Bite";
 import { Button } from "@/components/molecules/Button";
@@ -11,19 +10,16 @@ import { SearchBox } from "@/components/molecules/SearchBox";
 import { Weather } from "@/components/molecules/Weather";
 import { usePostsIndex } from "@/hooks/use-posts.hook";
 import { sortByDate } from "@/lib/utils";
-import { Col, Row } from "@/styles/abstracts/layout.styled";
 import {
   ButtonGroup,
   Filter,
-  headerStyle,
   Heading,
   Info,
   Page,
   Panel,
-  RowStyle,
 } from "@/styles/routes/blog.styled";
-import { css } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 
 export type FilterState = {
@@ -39,9 +35,16 @@ export const Route = createLazyFileRoute("/")({
   component: Blog,
 });
 
-const description = "Learnings, mishaps, and articles about random things.";
-
 function Blog() {
+  useHead({
+    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/" }],
+  });
+
+  useSeoMeta({
+    title: "Writings",
+    description: "Learnings, mishaps, and articles about random things.",
+  });
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterState>({
     isPlantBassd: true,
@@ -105,103 +108,99 @@ function Blog() {
     );
   }, [filter, searchQuery, blogs, bites, reviews]);
 
+  const activeFilters = Object.keys(filter).filter(
+    (key) => filter[key as keyof FilterState]
+  );
+
+  const dataFilters =
+    activeFilters.length === Object.keys(filter).length
+      ? ""
+      : activeFilters.join(" ");
+
   return (
     <Page>
-      <MetaData title="My Blog | Michael Savage" description={description} />
       <Panel>
-        <Group direction="column" gap="0" css={headerStyle}>
+        <Group direction="column" gap="0">
           <Heading>
-            Michael <span>Savage</span>
-          </Heading>
-          <p>
-            Software Developer from Ireland and currently based in{" "}
+            Hi, I&apos;m Michael, A Software Developer from Ireland currently
+            based in{" "}
             <Floating
               type="tooltip"
               trigger={<span className="underline">Barcelona, Spain</span>}
               content={<Weather />}
             />
-          </p>
-          <HomeLine />
+          </Heading>
         </Group>
-        <Row css={RowStyle}>
-          <Col size="md" gap="1rem">
-            <Suspense fallback={<Loading />}>
-              {posts.length > 0 ? (
-                posts.map((post, index) => {
-                  return post.type === "bite" ? (
-                    <Bite key={post.slug} {...post} />
-                  ) : (
-                    <Post key={post.slug} {...post} isFirst={index === 0} />
-                  );
-                })
-              ) : (
-                <NoPost />
-              )}
-            </Suspense>
-          </Col>
-          <Col size="md">
-            <Filter>
-              <SearchBox
-                id="search-item"
-                label="Search posts:"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Spotify..."
+        <Filter>
+          <SearchBox
+            id="search-item"
+            label="Search posts:"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Spotify..."
+          />
+          <Group wrap="wrap">
+            <p data-id="filter-post-title">Filters posts:</p>
+            <ButtonGroup>
+              <Button
+                icon={<CircleIcon dataId="onSite" />}
+                text="Posts"
+                variant="ghost"
+                onClick={() => handleFilter({ onSite: !filter.onSite })}
+                active={filter.onSite}
               />
-              <Group
-                wrap="wrap"
-                css={css`
-                  margin-left: 0.25rem;
-                `}
-              >
-                <p>Filters posts:</p>
-                <ButtonGroup>
-                  <Button
-                    icon={<CircleIcon color="#fb4d3d" />}
-                    text="Posts"
-                    variant="ghost"
-                    onClick={() => handleFilter({ onSite: !filter.onSite })}
-                    active={filter.onSite}
-                  />
 
-                  <Button
-                    icon={<CircleIcon color="#3d89fb" />}
-                    text="Plant Bass'd"
-                    variant="ghost"
-                    onClick={() =>
-                      handleFilter({ isPlantBassd: !filter.isPlantBassd })
-                    }
-                    active={filter.isPlantBassd}
-                  />
+              <Button
+                icon={<CircleIcon dataId="isPlantBassd" />}
+                text="Plant Bass'd"
+                variant="ghost"
+                onClick={() =>
+                  handleFilter({ isPlantBassd: !filter.isPlantBassd })
+                }
+                active={filter.isPlantBassd}
+              />
 
-                  <Button
-                    icon={<CircleIcon color="#f8af07" />}
-                    text="Bites"
-                    variant="ghost"
-                    onClick={() => handleFilter({ isBite: !filter.isBite })}
-                    active={filter.isBite}
-                  />
+              <Button
+                icon={<CircleIcon dataId="isBite" />}
+                text="Bites"
+                variant="ghost"
+                onClick={() => handleFilter({ isBite: !filter.isBite })}
+                active={filter.isBite}
+              />
 
-                  <Button
-                    icon={<CircleIcon color="#9b59b6" />}
-                    text="Reviews"
-                    variant="ghost"
-                    onClick={() => handleFilter({ isReview: !filter.isReview })}
-                    active={filter.isReview}
-                  />
-                </ButtonGroup>
-                <Info filter={filter}>
-                  <span id="onSite">Blog posts</span> about learnings and
-                  mishaps, movies and music, previous{" "}
-                  <span id="isPlantBassd">Plant Bass&apos;d articles</span>,{" "}
-                  <span id="isReview">reviews of films and media</span>, and{" "}
-                  <span id="isBite">bite-sized achievements</span> along my
-                  journey.
-                </Info>
-              </Group>
-            </Filter>
-          </Col>
-        </Row>
+              <Button
+                icon={<CircleIcon dataId="isReview" />}
+                text="Reviews"
+                variant="ghost"
+                onClick={() => handleFilter({ isReview: !filter.isReview })}
+                active={filter.isReview}
+              />
+            </ButtonGroup>
+            <Info data-filter={dataFilters}>
+              <span data-id="onSite">Blog posts</span> about learnings and
+              mishaps, movies and music, previous{" "}
+              <span data-id="isPlantBassd">Plant Bass&apos;d articles</span>,{" "}
+              <span data-id="isReview">reviews of films and media</span>, and{" "}
+              <span data-id="isBite">bite-sized achievements</span> along my
+              journey.
+            </Info>
+          </Group>
+        </Filter>
+
+        <HomeLine />
+        <Suspense fallback={<Loading />}>
+          {posts.length > 0 ? (
+            posts.map((post, index) => {
+              return post.type === "bite" ? (
+                <Bite key={post.slug} {...post} />
+              ) : (
+                <Post key={post.slug} {...post} isFirst={index === 0} />
+              );
+            })
+          ) : (
+            <NoPost />
+          )}
+        </Suspense>
       </Panel>
     </Page>
   );

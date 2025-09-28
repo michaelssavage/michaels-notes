@@ -1,11 +1,11 @@
+import { getContrastYIQ } from "@/lib/colors";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
-import { getContrastYIQ } from "@/lib/colors";
 
 export const Card = styled(Link)`
   flex: 0 0 auto;
-  background-color: ${({ color }) => color || "#f0f0f0"};
-  color: ${({ color }) => getContrastYIQ(color || "#f0f0f0")};
+  background-color: ${({ color, theme }) => color || theme.white};
+  color: ${({ color, theme }) => getContrastYIQ(color || theme.white)};
   border-radius: 0.4rem;
   padding: 0.7rem 1.4rem 0.7rem 1rem;
   display: flex;
@@ -29,8 +29,8 @@ export const Card = styled(Link)`
   }
 `;
 
-export const TrackName = styled.h3`
-  font-size: 0.9rem;
+export const TrackName = styled.h4`
+  font-weight: 500;
 `;
 
 export const ArtistName = styled.p`

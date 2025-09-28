@@ -10,6 +10,7 @@ export type ButtonVariants =
   | "link";
 
 export interface ButtonProps {
+  id?: string;
   text?: string;
   disabled?: boolean;
   type?: "submit" | "button";
@@ -22,6 +23,7 @@ export interface ButtonProps {
 }
 
 export const Button = ({
+  id,
   text,
   disabled,
   type = "button",
@@ -34,6 +36,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <ButtonStyled
+      {...(id ? { id } : {})}
       disabled={disabled}
       type={type}
       onClick={onClick}

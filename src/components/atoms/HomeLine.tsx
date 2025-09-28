@@ -5,9 +5,8 @@ import { animated, useScroll } from "@react-spring/web";
 const AnimatedLineStyled = styled.div`
   margin-top: 1rem;
   height: 1rem;
-  background-color: ${({ theme }) => theme.colors.mint};
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  background-color: ${({ theme }) => theme.blue200};
+  border-radius: 4px;
   z-index: -1;
   margin-right: auto;
   ${slideInAnimation("100px", "horizontal", "0.75s")}
@@ -19,7 +18,7 @@ export const HomeLine = () => {
   const width = scrollY
     .to({
       range: [0, 1000],
-      output: [75, 0],
+      output: [100, 0],
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     })

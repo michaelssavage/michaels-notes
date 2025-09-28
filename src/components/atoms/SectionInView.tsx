@@ -1,16 +1,14 @@
+import { Section } from "@/styles/routes/home.styled";
 import { useSpring } from "@react-spring/web";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { Section } from "@/styles/routes/home.styled";
 
 interface SectionI {
   children: ReactNode;
   delay?: number;
-  main: string;
-  bg?: string;
 }
 
-export const SectionInView = ({ children, delay = 0, main, bg }: SectionI) => {
+export const SectionInView = ({ children, delay = 0 }: SectionI) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
 
@@ -28,7 +26,7 @@ export const SectionInView = ({ children, delay = 0, main, bg }: SectionI) => {
       },
       {
         threshold: 0.2,
-      },
+      }
     );
 
     observer.observe(ref.current);
@@ -49,7 +47,7 @@ export const SectionInView = ({ children, delay = 0, main, bg }: SectionI) => {
   });
 
   return (
-    <Section ref={ref} style={spring} main={main} bg={bg}>
+    <Section ref={ref} style={spring}>
       {children}
     </Section>
   );

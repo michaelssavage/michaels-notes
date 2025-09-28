@@ -1,4 +1,3 @@
-import { MetaData } from "@/components/atoms/MetaData";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
@@ -8,6 +7,7 @@ import type { IBlog } from "@/types/Post";
 import { css } from "@emotion/react";
 import { useSpring } from "@react-spring/web";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 import "highlight.js/styles/monokai.css";
 import { lazy, Suspense, useState } from "react";
 
@@ -18,9 +18,7 @@ export const Route = createLazyFileRoute("/review/$slug")({
 });
 
 function Slug() {
-  const [open, setOpen] = useState(false);
   const { slug } = Route.useParams();
-  const posts = usePostsByCategory("reviews");
 
   const {
     data: doc,
@@ -28,6 +26,24 @@ function Slug() {
     isError,
     error,
   } = usePostContent<IBlog>("reviews", slug);
+
+  useHead({
+    link: [
+      { rel: "canonical", href: `https://www.michaelsavage.ie/review/${slug}` },
+    ],
+  });
+
+  useSeoMeta({
+    ogType: "article",
+    ogUrl: `https://www.michaelsavage.ie/review/${slug}`,
+    articleAuthor: ["Michael Savage"],
+    articlePublishedTime: doc?.date,
+    title: doc?.title,
+    description: doc?.description,
+  });
+
+  const [open, setOpen] = useState(false);
+  const posts = usePostsByCategory("reviews");
 
   const spring = useSpring({
     from: { opacity: 0, transform: "translateY(20px)" },
@@ -56,10 +72,6 @@ function Slug() {
   return (
     <Article>
       <Suspense fallback={<Loading />}>
-        <MetaData
-          title={`${doc.title} | Michael Savage`}
-          description={doc.description}
-        />
         <Menu<IBlog>
           target="review"
           items={sidebar}

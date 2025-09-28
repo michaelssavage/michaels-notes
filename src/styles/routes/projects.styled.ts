@@ -1,13 +1,12 @@
 import { getContrastYIQ } from "@/lib/colors";
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
+import {
+  forBreakAt,
+  forPhoneOnly,
+  forTabletOnly,
+} from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
-
-interface ICard {
-  main: string;
-  bg: string;
-}
 
 interface CardWrapperProps {
   $shouldDim: boolean | null;
@@ -17,23 +16,42 @@ export const Page = styled.section`
   margin: 2rem 0;
 `;
 
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, minmax(180px, 1fr));
+  align-items: stretch;
+  gap: 4px;
+  margin: 0 1rem;
+
+  ${forBreakAt({
+    breakpoint: 1000,
+    styles: css`
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+    `,
+  })}
+
+  ${forTabletOnly(css`
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  `)}
+
+  ${forPhoneOnly(css`
+    gap: 1rem;
+    grid-template-columns: repeat(1, minmax(180px, 1fr));
+  `)}
+`;
+
 export const CardWrapper = styled.div<CardWrapperProps>`
   position: relative;
-  transform-style: preserve-3d;
   transition: transform 0.3s ease;
-  min-width: 250px;
-  max-width: 250px;
+  height: 100%;
+
   ${({ $shouldDim }) =>
     $shouldDim &&
     css`
       opacity: 0.5;
       filter: blur(3px);
     `};
-
-  ${forTabletOnly(css`
-    min-width: 150px;
-    max-width: 150px;
-  `)}
 `;
 
 export const Card = styled(Link)`
@@ -42,8 +60,9 @@ export const Card = styled(Link)`
   will-change: transform;
   border-radius: 0.2rem;
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.card};
+  color: ${({ theme }) => theme.black};
+  background-color: ${({ theme }) => theme.white};
+  height: 100%;
 
   border-radius: 0.4rem;
   transition: box-shadow 0.3s ease;
@@ -60,6 +79,8 @@ export const CardTitle = styled.h3<{ main: string }>`
   background-color: ${({ main }) => main};
   color: ${({ main }) => getContrastYIQ(main)};
   font-weight: 400;
+  display: flex;
+  align-items: center;
 
   ${forTabletOnly(css`
     font-size: clamp(0.8rem, 1vi + 0.31rem, 0.95rem);
@@ -86,32 +107,31 @@ export const CardBody = styled.div<{ bg: string }>`
 `;
 
 export const Header = styled.div`
-  margin: 1rem 0;
+  margin-bottom: 1rem;
 
-  p {
+  h1 {
     margin-bottom: 0.5rem;
   }
 
   ${forPhoneOnly(css`
     margin: 0 5% 2rem;
   `)}
+
+  p[data-id="filter-projects"] {
+    color: ${({ theme }) => theme.gray600};
+  }
 `;
 
 // slug
 export const Article = styled.article<{ height?: string }>`
-  margin: 2rem auto;
-  width: 50%;
+  margin: 2rem 10%;
   min-height: ${({ height }) => height};
-
-  ${forPhoneOnly(css`
-    width: 90%;
-  `)}
 `;
 
 export const Tags = styled.p`
   text-align: right;
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
 `;
 
 export const Content = styled.div`
@@ -139,15 +159,10 @@ export const SpotifyContent = styled.div`
   gap: 1.2rem;
 `;
 
-export const Title = styled.h1<ICard>`
+export const Title = styled.h1`
   font-size: 2rem;
-  text-transform: uppercase;
-  padding: 0.5rem;
-  border-top-right-radius: 0.4rem;
-  border-bottom-right-radius: 0.4rem;
+  margin-bottom: -1rem;
   font-weight: bold;
-  background-color: ${({ main }) => main};
-  color: ${({ main }) => getContrastYIQ(main)};
 
   display: flex;
   align-items: center;

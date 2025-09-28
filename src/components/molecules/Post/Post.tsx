@@ -1,8 +1,7 @@
 import type { IBlog } from "@/types/Post";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { DateText } from "./Date";
 import { Description } from "./Description";
-import { Card, CardInfo, Title } from "./Post.styled";
+import { Card, CardInfo, DateText, PostType, Title } from "./Post.styled";
 
 const Post = ({
   title,
@@ -31,7 +30,7 @@ const Post = ({
       },
       {
         threshold: 0.1,
-      },
+      }
     );
 
     observer.observe(ref.current);
@@ -57,13 +56,16 @@ const Post = ({
         to={isExternal ? isExternal : `/${type}/${slug}`}
         inView={inView}
         aria-label={`Read post: ${title}`}
+        isExternal={isExternal}
+        isReview={type === "review"}
       >
         <CardInfo>
           <Title>{title}</Title>
-          <DateText isExternal={isExternal} isReview={type === "review"}>
-            {date}
-          </DateText>
+          <PostType>{type}</PostType>
         </CardInfo>
+
+        <DateText>{date}</DateText>
+
         <Description
           description={description}
           isExpanded={isExpanded}

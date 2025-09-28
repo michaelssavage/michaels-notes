@@ -3,12 +3,24 @@ import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 
 export const Route = createLazyFileRoute("/playground")({
   component: Playground,
 });
 
 function Playground() {
+  useHead({
+    link: [
+      { rel: "canonical", href: "https://www.michaelsavage.ie/playground" },
+    ],
+  });
+
+  useSeoMeta({
+    title: "Playground",
+    description: "A space for experimentation and exploration.",
+  });
+
   return (
     <Page>
       <Panel>

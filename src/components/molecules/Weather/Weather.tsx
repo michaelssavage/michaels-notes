@@ -25,7 +25,7 @@ export const Weather = () => {
   return (
     <SpeechBubble>
       {icon ? <img src={`/weather/${icon}.svg`} alt="" /> : null}
-      It&apos;s {data.current.temp_c}°C
+      <p>It&apos;s {data.current.temp_c}°C</p>
     </SpeechBubble>
   );
 };

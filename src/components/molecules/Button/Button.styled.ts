@@ -25,25 +25,25 @@ export const ButtonStyled = styled.button<IStyle>`
     switch (variant) {
       case "primary":
         return css`
-          color: ${theme.colors.card};
-          background-color: ${theme.colors.mint};
+          color: ${theme.white};
+          background-color: ${theme.green};
           &:hover {
-            background-color: ${theme.colors.mintHover};
+            background-color: ${theme.green200};
           }
         `;
       case "secondary":
         return css`
-          background-color: ${theme.colors.secondary};
-          color: ${theme.colors.card};
+          background-color: ${theme.gray400};
+          color: ${theme.white};
           &:hover {
-            background-color: ${theme.colors.secondaryHover};
+            background-color: ${theme.gray500};
           }
         `;
       case "ghost":
         return css`
           padding: 0;
           background-color: transparent;
-          color: ${theme.colors.text};
+          color: ${theme.black};
           flex-direction: row-reverse;
           box-shadow: none;
         `;
@@ -55,26 +55,28 @@ export const ButtonStyled = styled.button<IStyle>`
           text-wrap: wrap;
           white-space: normal;
           word-wrap: break-word;
+          box-shadow: none;
+          &:hover {
+            color: ${theme.blue200};
+          }
         `;
       case "pill":
         return css`
-          background-color: ${selected
-            ? theme.colors.card
-            : theme.colors.secondary};
-          color: ${selected ? theme.colors.text : theme.colors.card};
+          background-color: ${selected ? theme.green : theme.yellow};
+          color: ${selected ? theme.black : theme.gray500};
+          border: 2px solid ${theme.black};
           padding: 7px 14px;
           border-radius: 8px;
           font-size: 0.8rem;
           &:hover {
-            background-color: ${selected
-              ? theme.colors.extBtnBg
-              : theme.colors.extBtnBgHover};
+            background-color: ${selected ? theme.green300 : theme.white};
+            color: ${theme.black};
           }
           &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             &:hover {
-              background-color: ${theme.colors.secondary};
+              background-color: ${theme.gray400};
             }
           }
         `;

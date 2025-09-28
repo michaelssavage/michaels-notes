@@ -15,7 +15,7 @@ export const ScrollContainer = styled.div`
     position: absolute;
     top: 70%;
     transform: translateY(-70%);
-    color: ${({ theme }) => theme.colors.secondaryText};
+    color: ${({ theme }) => theme.gray400};
     border: none;
     border-radius: 50%;
     width: 2rem;
@@ -23,7 +23,7 @@ export const ScrollContainer = styled.div`
     cursor: pointer;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.text};
+      color: ${({ theme }) => theme.black};
     }
 
     &:focus {
@@ -51,10 +51,10 @@ export const Title = styled.h3`
   font-weight: 500;
   margin: 0 -1rem;
 
-  color: ${({ theme }) => theme.colors.secondaryText};
+  color: ${({ theme }) => theme.gray400};
 
   svg {
-    color: ${({ theme }) => theme.colors.extBtnBg};
+    color: ${({ theme }) => theme.blue};
   }
 `;
 

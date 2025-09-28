@@ -13,13 +13,12 @@ export const globalStyles = (theme: MyTheme) => css`
     margin: 0;
     padding: 0;
     font-family:
-      "Nudica",
-      Inter,
+      "Mona Sans",
       -apple-system,
       BlinkMacSystemFont,
       sans-serif;
-    background-color: ${theme.colors.background};
-    color: ${theme.colors.text};
+    background-color: ${theme.yellow};
+    color: ${theme.black};
     overflow-x: hidden;
     min-height: 100vh;
     transition:
@@ -38,26 +37,37 @@ export const globalStyles = (theme: MyTheme) => css`
   h6 {
     font-family: "Rawest";
     text-wrap: balance;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.2rem);
+  }
+
+  h2 {
+    font-size: clamp(1.2rem, 1rem + 0.9vw, 1.6rem);
+  }
+
+  h3 {
+    font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+  }
+
+  h4 {
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  }
+
+  p {
+    font-size: clamp(1rem, 0.9rem + 0.3vw, 1.1rem);
   }
 
   button:active {
     transform: scale(1.05);
   }
 
-  .icon-link {
-    color: ${theme.colors.icon};
-
-    svg {
-      &:hover {
-        transform: scale(1.08);
-      }
-    }
-  }
-
   .date {
     font-size: 0.9rem;
     font-style: italic;
-    color: ${theme.colors.secondaryText};
+    color: ${theme.gray400};
     font-weight: bold;
   }
 
@@ -65,7 +75,7 @@ export const globalStyles = (theme: MyTheme) => css`
     cursor: pointer;
     background-image: linear-gradient(
       transparent calc(100% - 0.15rem),
-      ${theme.colors.underlined} 0.15rem
+      ${theme.red200} 0.15rem
     );
     background-position: left bottom 0;
     background-repeat: no-repeat;
@@ -76,7 +86,7 @@ export const globalStyles = (theme: MyTheme) => css`
   }
 
   .callout {
-    background-color: ${theme.colors.card};
+    background-color: ${theme.yellow};
     padding: 1rem;
     font-size: 1.2rem;
     border-radius: 0.5rem;
@@ -85,10 +95,10 @@ export const globalStyles = (theme: MyTheme) => css`
   }
 
   .popover-card {
-    background-color: ${theme.colors.card};
+    background-color: ${theme.yellow};
     max-width: 600px;
     border-radius: 10px;
     padding: 1rem;
-    border: 1px solid ${theme.colors.off};
+    border: 1px solid ${theme.blue200};
   }
 `;

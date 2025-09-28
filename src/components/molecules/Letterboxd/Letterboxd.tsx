@@ -14,6 +14,7 @@ import {
   HoverText,
   Movie,
   StackContainer,
+  Text,
 } from "./Letterboxd.styled";
 
 export const Letterboxd = () => {
@@ -61,9 +62,9 @@ export const Letterboxd = () => {
         </CardStack>
       </StackContainer>
 
-      <div>
+      <Text>
         I love watching, tracking, and sharing my thoughts about films on
-        LetterboxSome of my favourites include{" "}
+        Letterboxd. Some of my favourites include{" "}
         {data.map((movie, index) => (
           <span key={movie.title}>
             <Movie
@@ -88,7 +89,7 @@ export const Letterboxd = () => {
             </Button>
           ))}
         </ButtonContainer>
-      </div>
+      </Text>
     </Group>
   );
 };

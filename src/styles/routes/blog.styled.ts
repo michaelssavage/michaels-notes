@@ -1,35 +1,23 @@
 import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
-import type { FilterState } from "@/routes/index.lazy";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { animated } from "@react-spring/web";
 
-export const headerStyle = css`
-  margin: 0 0.5rem 2rem;
-`;
-
 export const Heading = styled.h1`
-  font-size: 3rem;
   margin: 0;
-  color: ${({ theme }) => theme.colors.icon};
-  span {
-    color: ${({ theme }) => theme.colors.header};
-  }
-  ${forPhoneOnly(css`
-    font-size: 1.5rem;
-  `)}
+  color: ${({ theme }) => theme.black};
 `;
 
-export const Page = styled.article`
+export const Page = styled.div`
   position: relative;
   min-height: 80vh;
 `;
 
 export const Panel = styled.div`
-  margin: 2rem 5%;
+  margin: 2rem 10%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -57,18 +45,14 @@ export const RowStyle = css`
 `;
 
 export const Filter = styled.div`
-  position: sticky;
-  top: 2rem;
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 0 2rem;
 
-  ${forTabletOnly(css`
-    width: 100%;
-    padding: 0 1rem;
-  `)}
+  p[data-id="filter-post-title"] {
+    color: ${({ theme }) => theme.gray600};
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -78,6 +62,27 @@ export const ButtonGroup = styled.div`
 
   ${ButtonStyled} {
     white-space: nowrap;
+    color: ${({ theme }) => theme.gray600};
+  }
+
+  ${ButtonStyled}[data-active="true"] {
+    font-weight: 600;
+
+    svg[data-id="onSite"] {
+      fill: ${({ theme }) => theme.red200};
+    }
+
+    svg[data-id="isPlantBassd"] {
+      fill: ${({ theme }) => theme.blue200};
+    }
+
+    svg[data-id="isReview"] {
+      fill: ${({ theme }) => theme.purple200};
+    }
+
+    svg[data-id="isBite"] {
+      fill: ${({ theme }) => theme.yellow300};
+    }
   }
 `;
 
@@ -86,7 +91,7 @@ export const Header = styled(animated.h1)`
   text-transform: uppercase;
   margin-bottom: 1rem;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
   will-change: transform;
 `;
 
@@ -112,7 +117,7 @@ export const Article = styled.article<{ height?: string }>`
 export const Tags = styled.p`
   text-align: right;
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
 `;
 
 export const Content = styled.div`
@@ -140,37 +145,31 @@ export const ImgPositioner = styled.div`
   `)}
 `;
 
-const colors = {
-  onSite: "#fb4d3d",
-  isPlantBassd: "#3d89fb",
-  isBite: "#f8af07",
-  isReview: "#9b59b6",
-};
-
-export const Info = styled.p<{ filter: FilterState }>`
-  opacity: 0.7;
+export const Info = styled.p`
+  color: ${({ theme }) => theme.gray600};
   margin: 0.5rem 0;
 
   span {
-    font-weight: normal;
-    color: inherit;
-    transition:
-      color 0.3s ease,
-      font-weight 0.3s ease;
+    color: ${({ theme }) => theme.gray600};
   }
 
-  ${({ filter }) => {
-    const allFilters = Object.values(filter).length;
-    const activeFilters = Object.values(filter).filter(Boolean).length;
-    if (activeFilters === allFilters) return "";
+  &[data-filter*="onSite"] span[data-id="onSite"] {
+    color: ${({ theme }) => theme.red200};
+    font-weight: 600;
+  }
 
-    return Object.keys(filter)
-      .map((key) => {
-        if (!filter[key as keyof FilterState]) return "";
-        return `span[id=${key}] { 
-        color: ${colors[key as keyof typeof colors]}; 
-      }`;
-      })
-      .join("\n");
-  }}
+  &[data-filter*="isPlantBassd"] span[data-id="isPlantBassd"] {
+    color: ${({ theme }) => theme.blue200};
+    font-weight: 600;
+  }
+
+  &[data-filter*="isReview"] span[data-id="isReview"] {
+    color: ${({ theme }) => theme.purple200};
+    font-weight: 600;
+  }
+
+  &[data-filter*="isBite"] span[data-id="isBite"] {
+    color: ${({ theme }) => theme.yellow300};
+    font-weight: 600;
+  }
 `;

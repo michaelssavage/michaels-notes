@@ -6,11 +6,7 @@ import {
   createRootRoute,
   createRouter,
 } from "@tanstack/react-router";
-import {
-  type MyTheme,
-  darkTheme,
-  lightTheme,
-} from "../src/styles/abstracts/colors.styled";
+import { lightTheme } from "../src/styles/abstracts/colors.styled";
 import { globalStyles } from "../src/styles/global.styled";
 
 const RouterDecorator: Decorator = (Story) => {
@@ -40,7 +36,7 @@ const preview: Preview = {
       defaultValue: "light",
       toolbar: {
         icon: "circlehollow",
-        items: ["light", "dark"],
+        items: ["light"],
       },
     },
   },
@@ -48,12 +44,9 @@ const preview: Preview = {
   decorators: [
     RouterDecorator,
     (Story, context) => {
-      const theme: MyTheme =
-        context.globals.theme === "dark" ? darkTheme : lightTheme;
-
       return (
-        <EmotionThemeProvider theme={theme}>
-          <Global styles={globalStyles(theme)} />
+        <EmotionThemeProvider theme={lightTheme}>
+          <Global styles={globalStyles(lightTheme)} />
           <div
             style={{
               maxWidth: "800px",

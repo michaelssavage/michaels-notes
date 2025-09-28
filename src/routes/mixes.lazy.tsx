@@ -1,16 +1,14 @@
 import { AudioStreamer } from "@/components/atoms/AudioStreamer/AudioStreamer";
 import { Group } from "@/components/atoms/Group";
-import { MetaData } from "@/components/atoms/MetaData";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import { css } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useHead, useSeoMeta } from "@unhead/react";
 
 export const Route = createLazyFileRoute("/mixes")({
   component: RouteComponent,
 });
-
-const description = "Collection of recorded DJ mixes with Rekordbox.";
 
 const mixes = [
   {
@@ -63,9 +61,17 @@ const linkStyle = css`
 `;
 
 function RouteComponent() {
+  useHead({
+    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/mixes" }],
+  });
+
+  useSeoMeta({
+    title: "DJ mixes",
+    description: "Collection of recorded DJ mixes with Rekordbox.",
+  });
+
   return (
     <Page>
-      <MetaData title="DJ mixes | Michael Savage" description={description} />
       <Panel>
         <h1 style={{ marginRight: "auto" }}>Mixes</h1>
         <Group

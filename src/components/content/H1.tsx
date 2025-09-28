@@ -6,7 +6,7 @@ const Style = styled.h1`
   text-transform: uppercase;
   margin-bottom: 1rem;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
 `;
 
 export const H1 = (props: HTMLAttributes<HTMLHeadingElement>) => {

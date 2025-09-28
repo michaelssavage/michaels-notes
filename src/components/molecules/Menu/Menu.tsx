@@ -1,6 +1,5 @@
 import { ArrowBackIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
-import { useTheme } from "@emotion/react";
 import { animated, useTransition } from "@react-spring/web";
 import { MenuContainer, PageLink, Sidebar } from "./Menu.styled";
 
@@ -22,8 +21,6 @@ export const Menu = <T extends object>({
   open,
   setOpen,
 }: Props<T>) => {
-  const { colors } = useTheme();
-
   const handleClick = () => {
     setOpen(!open);
   };
@@ -47,9 +44,7 @@ export const Menu = <T extends object>({
         (styles, item) =>
           item && (
             <animated.div style={styles}>
-              <PageLink to={`/${target}`} color={colors.link}>
-                back to {target}
-              </PageLink>
+              <PageLink to={`/${target}`}>back to {target}</PageLink>
 
               <Sidebar>
                 {items.map(({ title, slug }) => {
@@ -65,7 +60,7 @@ export const Menu = <T extends object>({
                 })}
               </Sidebar>
             </animated.div>
-          ),
+          )
       )}
     </MenuContainer>
   );
