@@ -6,7 +6,7 @@ import { Link } from "@tanstack/react-router";
 export const Header = styled.nav`
   line-height: 1;
   padding: 3rem 2rem 1rem;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;

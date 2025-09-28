@@ -11,7 +11,7 @@ export const Heading = styled.h1`
   color: ${({ theme }) => theme.black};
 `;
 
-export const Page = styled.article`
+export const Page = styled.div`
   position: relative;
   min-height: 80vh;
 `;

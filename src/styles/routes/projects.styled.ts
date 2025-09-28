@@ -1,5 +1,9 @@
 import { getContrastYIQ } from "@/lib/colors";
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
+import {
+  forBreakAt,
+  forPhoneOnly,
+  forTabletOnly,
+} from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
@@ -14,13 +18,26 @@ export const Page = styled.section`
 
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(5, minmax(180px, 1fr));
   align-items: stretch;
   gap: 4px;
   margin: 0 1rem;
 
+  ${forBreakAt({
+    breakpoint: 1000,
+    styles: css`
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+    `,
+  })}
+
   ${forTabletOnly(css`
     gap: 1rem;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  `)}
+
+  ${forPhoneOnly(css`
+    gap: 1rem;
+    grid-template-columns: repeat(1, minmax(180px, 1fr));
   `)}
 `;
 

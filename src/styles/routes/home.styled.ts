@@ -56,8 +56,7 @@ export const Paragraph = styled.div<{ text?: string }>`
 
 export const selfieStyle = css`
   overflow: hidden;
-  border-top-left-radius: 5rem;
-  border-top-right-radius: 5rem;
+  border-radius: 1rem;
   max-width: 300px;
 
   img {
@@ -80,6 +79,7 @@ export const selfieStyle = css`
 
 export const plantbassdStyle = css`
   border-radius: 1rem;
+  max-width: 300px;
   transition:
     transform 0.3s ease,
     border-radius 0.3s ease;
