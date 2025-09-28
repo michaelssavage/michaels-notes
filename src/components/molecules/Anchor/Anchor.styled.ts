@@ -51,6 +51,7 @@ export const LinkStyle = styled(Link)<IStyle>`
           padding: 0;
           text-decoration: underline;
           border: none;
+          margin-right: 2px;
           color: ${theme.blue200};
           &:hover {
             color: ${theme.blue300};

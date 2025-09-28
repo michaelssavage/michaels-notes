@@ -28,6 +28,17 @@ function RouteComponent() {
   return (
     <Page>
       <GridContainer>
+        <BentoCard to="/guide/barcelona">
+          <BentoHeader>
+            <BentoTitle>Barcelona Guide</BentoTitle>
+            <BentoDescription>
+              A very incomplete guide to things to do, see, and experience in
+              Barcelona. I want to collect points of interest, activities, live
+              music venues, and other fun things that aren&apos;t so obvious.
+            </BentoDescription>
+          </BentoHeader>
+        </BentoCard>
+
         <BentoCard to="/mixes">
           <BentoHeader>
             <BentoTitle>DJ Mixes</BentoTitle>
@@ -51,13 +62,12 @@ function RouteComponent() {
           </BentoHeader>
         </BentoCard>
 
-        <BentoCard to="/guide/barcelona">
+        <BentoCard to="/storybook">
           <BentoHeader>
-            <BentoTitle>Barcelona Guide</BentoTitle>
+            <BentoTitle>Storybook</BentoTitle>
             <BentoDescription>
-              A very incomplete guide to things to do, see, and experience in
-              Barcelona. I want to collect points of interest, activities, live
-              music venues, and other fun things that aren&apos;t so obvious.
+              A basic implementation of Storybook.js to show how my components
+              can be reused.
             </BentoDescription>
           </BentoHeader>
         </BentoCard>
