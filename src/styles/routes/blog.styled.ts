@@ -91,12 +91,15 @@ export const ButtonGroup = styled.div`
 `;
 
 export const Header = styled(animated.h1)`
-  font-size: 2rem;
   text-transform: uppercase;
-  margin-bottom: 1rem;
   font-weight: bold;
   color: ${({ theme }) => theme.black};
   will-change: transform;
+`;
+
+export const MovieInfo = styled.p`
+  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.gray500};
 `;
 
 export const MainSection = styled.div`
@@ -125,9 +128,12 @@ export const Tags = styled.p`
 `;
 
 export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 export const ImgPositioner = styled.div`

@@ -151,13 +151,11 @@ function Blog() {
               />
 
               <Button
-                icon={<CircleIcon dataId="isPlantBassd" />}
-                text="Plant Bass'd"
+                icon={<CircleIcon dataId="isReview" />}
+                text="Reviews"
                 variant="ghost"
-                onClick={() =>
-                  handleFilter({ isPlantBassd: !filter.isPlantBassd })
-                }
-                active={filter.isPlantBassd}
+                onClick={() => handleFilter({ isReview: !filter.isReview })}
+                active={filter.isReview}
               />
 
               <Button
@@ -169,11 +167,13 @@ function Blog() {
               />
 
               <Button
-                icon={<CircleIcon dataId="isReview" />}
-                text="Reviews"
+                icon={<CircleIcon dataId="isPlantBassd" />}
+                text="Plant Bass'd"
                 variant="ghost"
-                onClick={() => handleFilter({ isReview: !filter.isReview })}
-                active={filter.isReview}
+                onClick={() =>
+                  handleFilter({ isPlantBassd: !filter.isPlantBassd })
+                }
+                active={filter.isPlantBassd}
               />
             </ButtonGroup>
             <Info data-filter={dataFilters}>

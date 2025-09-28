@@ -4,11 +4,25 @@ export interface IBlog {
   title: string;
   date: string;
   description: string;
-  isExternal?: string;
   github?: string;
   draft?: boolean;
+  isExternal?: string;
   isFirst: boolean;
-  type: "blog" | "review";
+  type: "blog";
+}
+
+export interface IReview {
+  slug: string;
+  code: string;
+  releaseYear: number;
+  title: string;
+  date: string;
+  description: string;
+  director: string;
+  draft?: boolean;
+  isExternal?: string;
+  isFirst: boolean;
+  type: "review";
 }
 
 export interface IBite {
@@ -62,6 +76,6 @@ export interface IProject {
 export interface IPosts {
   projects: Array<IProject>;
   blogs: Array<IBlog>;
-  reviews: Array<IBlog>;
+  reviews: Array<IReview>;
   bites: Array<IBite>;
 }

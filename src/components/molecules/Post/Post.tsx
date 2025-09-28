@@ -1,4 +1,4 @@
-import type { IBlog } from "@/types/Post";
+import type { IBlog, IReview } from "@/types/Post";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Description } from "./Description";
 import { Card, CardInfo, DateText, PostType, Title } from "./Post.styled";
@@ -11,7 +11,7 @@ const Post = ({
   slug,
   isFirst,
   type,
-}: IBlog) => {
+}: IBlog | IReview) => {
   const [isHovered, setIsHovered] = useState(false);
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLElement | null>(null);

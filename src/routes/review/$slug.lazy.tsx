@@ -2,8 +2,13 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePostContent, usePostsByCategory } from "@/hooks/use-posts.hook";
-import { Article, Content, Header } from "@/styles/routes/blog.styled";
-import type { IBlog } from "@/types/Post";
+import {
+  Article,
+  Content,
+  Header,
+  MovieInfo,
+} from "@/styles/routes/blog.styled";
+import type { IReview } from "@/types/Post";
 import { css } from "@emotion/react";
 import { useSpring } from "@react-spring/web";
 import { createLazyFileRoute } from "@tanstack/react-router";
@@ -25,7 +30,7 @@ function Slug() {
     isLoading,
     isError,
     error,
-  } = usePostContent<IBlog>("reviews", slug);
+  } = usePostContent<IReview>("reviews", slug);
 
   useHead({
     link: [
@@ -65,14 +70,12 @@ function Slug() {
     );
   }
 
-  const sidebar = posts
-    .filter(({ isExternal }) => !isExternal)
-    .filter(({ slug }) => slug !== doc.slug);
+  const sidebar = posts.filter(({ slug }) => slug !== doc.slug);
 
   return (
     <Article>
       <Suspense fallback={<Loading />}>
-        <Menu<IBlog>
+        <Menu<IReview>
           target="review"
           items={sidebar}
           open={open}
@@ -81,7 +84,12 @@ function Slug() {
         <p className="date">{doc.date}</p>
         <Content>
           <Header style={spring}>{doc.title}</Header>
-          <Markdown content={doc} />
+          <MovieInfo>
+            Directed by {doc.director} ({doc.releaseYear})
+          </MovieInfo>
+          <section>
+            <Markdown content={doc} />
+          </section>
           <Anchor
             text="Letterboxd Link"
             link="https://letterboxd.com/ottobio"

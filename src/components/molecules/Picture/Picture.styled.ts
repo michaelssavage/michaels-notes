@@ -8,15 +8,19 @@ export const Wrapper = styled.figure`
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
 
   figcaption {
     font-size: 0.9rem;
     opacity: 0.8;
     background-color: ${({ theme }) => theme.white};
+    padding: 0 0.25rem;
     width: 100%;
     display: flex;
     justify-content: flex-start;
-    margin-top: -1.4rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 `;
 

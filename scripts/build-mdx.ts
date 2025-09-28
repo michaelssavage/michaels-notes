@@ -1,4 +1,4 @@
-import type { IBite, IBlog, IPosts, IProject } from "@/types/Post";
+import type { IBite, IBlog, IPosts, IProject, IReview } from "@/types/Post";
 import matter from "gray-matter";
 import fs from "node:fs";
 import path from "node:path";
@@ -95,7 +95,7 @@ async function compileAllPosts(contentDir: string) {
   const postsIndex: IPosts = {
     projects: extractFrontmatter<IProject>(path.join(contentDir, "projects")),
     blogs: extractFrontmatter<IBlog>(path.join(contentDir, "blogs")),
-    reviews: extractFrontmatter<IBlog>(path.join(contentDir, "reviews")),
+    reviews: extractFrontmatter<IReview>(path.join(contentDir, "reviews")),
     bites: extractFrontmatter<IBite>(path.join(contentDir, "bites")),
   };
 
