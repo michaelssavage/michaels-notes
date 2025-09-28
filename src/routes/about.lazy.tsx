@@ -32,7 +32,11 @@ function About() {
       <SectionInView delay={0}>
         <Paragraph>
           <Group align="center" gap="2rem" css={breakpoint}>
-            <Picture src="/me.jpg" alt="Picture of Me" style={selfieStyle} />
+            <Picture
+              src="/portrait.jpg"
+              alt="Picture of Me"
+              style={selfieStyle}
+            />
             <p>
               Studied Computer Applications in DCU and started working with{" "}
               <Anchor
@@ -86,7 +90,7 @@ function About() {
               in Ireland. I represented Ulster Club u18s rugby, and I&apos;ve
               played for Monaghan RFC, Ennis RFC, and Corinthians RFC. I
               completed the 2025 Barcelona Half Marathon in 1 hour and 44
-              minutes and continue to run and play Padel.
+              minutes.
             </p>
           </Group>
         </Paragraph>

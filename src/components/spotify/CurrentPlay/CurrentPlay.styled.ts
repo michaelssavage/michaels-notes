@@ -13,6 +13,8 @@ export const Comp = styled.div`
 
 export const Title = styled.h3`
   font-weight: 500;
+  color: ${({ theme }) => theme.gray500};
+  margin-bottom: 0.5rem;
 `;
 
 export const NowPlaying = styled.div<{ color: string }>`
@@ -73,7 +75,7 @@ export const ExpandButton = styled.button`
   background: none;
   border: none;
   background-color: ${({ theme }) => theme.white};
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.gray500};
   cursor: pointer;
   padding: 0.1rem 0.25rem;
   border-radius: 0.25rem;

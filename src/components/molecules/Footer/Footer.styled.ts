@@ -10,7 +10,7 @@ export const Content = styled.div`
   justify-content: flex-end;
   align-items: center;
   font-size: 0.85rem;
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.gray600};
 
   a {
     color: inherit;
@@ -18,6 +18,7 @@ export const Content = styled.div`
 
     &:hover {
       text-decoration: underline;
+      color: ${({ theme }) => theme.black};
     }
   }
 `;

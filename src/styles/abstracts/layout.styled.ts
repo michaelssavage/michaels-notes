@@ -33,8 +33,7 @@ type ICol = {
 export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
-  margin: ${({ margin }) => margin ?? "0 10%"};
-  padding: 0 0 1rem;
+  margin: ${({ margin }) => margin ?? "0 10% 1rem"};
   align-items: stretch;
   justify-content: flex-start;
   gap: 0;

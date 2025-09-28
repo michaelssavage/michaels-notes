@@ -55,18 +55,19 @@ export const Paragraph = styled.div<{ text?: string }>`
 `;
 
 export const selfieStyle = css`
-  overflow: hidden;
   border-radius: 1rem;
   max-width: 300px;
+  transition:
+    transform 0.3s ease,
+    border-radius 0.3s ease;
+
+  &:hover {
+    transform: rotate(-15deg);
+    border-radius: 0;
+  }
 
   img {
     object-fit: cover;
-    transition: transform 0.2s ease-in-out;
-    transform-origin: 30% top;
-
-    &:hover {
-      transform: scale(2);
-    }
   }
 
   ${forBreakAt({
