@@ -174,18 +174,18 @@ function RouteComponent() {
             return (
               <Card key={index}>
                 <p data-id="type">{item.type}</p>
-                <h2>{item.title}</h2>
+                <a data-id="link" href={item.link}>
+                  <h2>{item.title}</h2>
+                </a>
                 <p data-id="description">{item.description}</p>
-
+                <p data-id="price">{item.price}</p>
                 <Group margin="auto 0 0 0">
-                  <p>{item.price}</p>
-
                   <BasicLink href={item.link}>
-                    <ExternalLinkIcon />
+                    Info <ExternalLinkIcon />
                   </BasicLink>
 
                   <BasicLink href={item.location}>
-                    <MapIcon />
+                    Map <MapIcon />
                   </BasicLink>
                 </Group>
 

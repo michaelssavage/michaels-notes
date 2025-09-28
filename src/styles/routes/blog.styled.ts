@@ -27,6 +27,10 @@ export const Panel = styled.div`
     flex-direction: column;
     gap: 1rem;
   }
+
+  ${forPhoneOnly(css`
+    margin: 1rem 5%;
+  `)}
 `;
 
 export const RowStyle = css`

@@ -2,8 +2,13 @@ import styled from "@emotion/styled";
 
 export const BasicLink = styled.a`
   color: ${({ theme }) => theme.green300};
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  font-weight: 500;
+  flex-wrap: wrap;
 
   &:hover {
     color: ${({ theme }) => theme.green200};
@@ -21,8 +26,7 @@ export const Card = styled.div`
   background-color: ${({ theme }) => theme.white};
   border: 2px solid ${({ theme }) => theme.black};
   border-radius: 0.5rem;
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: 1rem 1rem 0.25rem;
   display: flex;
   flex-direction: column;
 
@@ -35,20 +39,26 @@ export const Card = styled.div`
     color: ${({ theme }) => theme.red};
   }
 
-  h2 {
-    margin-top: 0.25rem;
+  a[data-id="link"] {
+    text-decoration: none;
+
+    h2 {
+      color: ${({ theme }) => theme.black};
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
   }
 
-  p[data-id="description"] {
+  p[data-id="price"] {
     margin-bottom: 1rem;
   }
 
   p[data-id="tags"] {
-    margin-top: 0.5rem;
+    margin: 0.5rem 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 0.25rem;
   }
 `;
 
