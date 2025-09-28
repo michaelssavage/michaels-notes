@@ -4,14 +4,12 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Letterboxd } from "@/components/molecules/Letterboxd";
 import { Picture } from "@/components/molecules/Picture";
 import {
-  anchorStyle,
   breakpoint,
   Content,
   Paragraph,
   plantbassdStyle,
   selfieStyle,
 } from "@/styles/routes/home.styled";
-import { useTheme } from "@emotion/react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useHead, useSeoMeta } from "@unhead/react";
 
@@ -28,11 +26,10 @@ function About() {
     title: "About Me",
     description: "About my background, experience, and interests",
   });
-  const { colors } = useTheme();
 
   return (
     <Content>
-      <SectionInView delay={0} main={colors.moon} bg={colors.section1}>
+      <SectionInView delay={0}>
         <Paragraph>
           <Group align="center" gap="2rem" css={breakpoint}>
             <Picture src="/me.jpg" alt="Picture of Me" style={selfieStyle} />
@@ -42,18 +39,16 @@ function About() {
                 link="https://careers.jaguarlandrover.com/where-we-are/ireland"
                 text="JLR"
                 variant="link"
-                style={anchorStyle("#adcbfc", "#5990e1")}
               />
-              , Shannon from 2021 to 2024. I&apos;m currently working as a
-              Product Developer for a startup in the heart of Barcelona using
-              tools like React.js, JavaScript / TypeScript, Django, Figma, and
-              more!
+              in 2021. I&apos;m currently working as a Product Developer for a
+              startup in the heart of Barcelona using tools like React.js,
+              JavaScript, TypeScript, Django, Figma, and more!
             </p>
           </Group>
         </Paragraph>
       </SectionInView>
 
-      <SectionInView delay={100} main={colors.section2}>
+      <SectionInView delay={100}>
         <Paragraph>
           <Group align="center" gap="2rem" css={breakpoint}>
             <Picture
@@ -67,7 +62,6 @@ function About() {
                 variant="link"
                 text="Plant Bass'd"
                 link="/blog/what-is-plant-bassd"
-                style={anchorStyle(colors.link, colors.header)}
               />
               , an electronic music blog and underground club night that that
               took hold in Ireland and Scotland. I learned to DJ, create events,
@@ -78,21 +72,21 @@ function About() {
         </Paragraph>
       </SectionInView>
 
-      <SectionInView delay={200} main={colors.section3} bg={colors.section3b}>
+      <SectionInView delay={200}>
         <Paragraph>
           <Letterboxd />
         </Paragraph>
       </SectionInView>
 
-      <SectionInView delay={300} main={colors.toggle} bg={colors.card}>
+      <SectionInView delay={300}>
         <Paragraph>
           <Group align="center" gap="2rem">
             <p>
-              I&apos;ve played sports like Gaelic Football and rugby all my
-              life! I represented Ulster Club u18s rugby, and I&apos;ve played
-              for Monaghan RFC, Ennis RFC, and Corinthians RFC. I&apos;ve taken
-              up running and completed the 2025 Barcelona Half Marathon in 1
-              hour and 44 minutes.
+              I&apos;ve played sports like Gaelic Football and rugby growing up
+              in Ireland. I represented Ulster Club u18s rugby, and I&apos;ve
+              played for Monaghan RFC, Ennis RFC, and Corinthians RFC. I
+              completed the 2025 Barcelona Half Marathon in 1 hour and 44
+              minutes and continue to run and play Padel.
             </p>
           </Group>
         </Paragraph>

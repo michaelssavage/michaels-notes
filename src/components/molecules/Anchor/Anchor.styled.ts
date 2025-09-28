@@ -11,7 +11,7 @@ interface IStyle {
 
 export const LinkStyle = styled(Link)<IStyle>`
   text-decoration: none;
-  transition: all 0.35s;
+  transition: all 0.25s;
   border-radius: 5px;
   width: fit-content;
   position: relative;
@@ -39,12 +39,11 @@ export const LinkStyle = styled(Link)<IStyle>`
         return css`
           padding: 4px;
           border: 1px solid;
-          border-color: ${theme.colors.button};
-          color: ${theme.colors.button};
+          border-color: ${theme.blue200};
+          color: ${theme.blue200};
           &:hover {
-            box-shadow: inset 0 0 0 2em ${theme.colors.link};
-            border-color: ${theme.colors.link};
-            color: #fff;
+            box-shadow: inset 0 0 0 2rem ${theme.blue200};
+            color: ${theme.white};
           }
         `;
       case "link":
@@ -52,14 +51,14 @@ export const LinkStyle = styled(Link)<IStyle>`
           padding: 0;
           text-decoration: underline;
           border: none;
-          color: ${theme.colors.button};
+          color: ${theme.blue200};
           &:hover {
-            color: ${theme.colors.link};
+            color: ${theme.blue300};
           }
         `;
       case "text":
         return css`
-          color: ${theme.colors.text};
+          color: ${theme.black};
         `;
       default:
         return null;

@@ -10,8 +10,8 @@ interface Props {
 const BoardStyle = styled.div`
   margin: 1em 0;
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.text};
-  background: ${({ theme }) => theme.colors.highlight};
+  color: ${({ theme }) => theme.black};
+  background: ${({ theme }) => theme.blue};
   display: flex;
   flex-direction: column;
   flex: 1;

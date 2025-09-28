@@ -1,6 +1,6 @@
+import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 
 export const Wrapper = styled.figure`
   display: grid;
@@ -12,7 +12,7 @@ export const Wrapper = styled.figure`
   figcaption {
     font-size: 0.9rem;
     opacity: 0.8;
-    background-color: ${({ theme }) => theme.colors.card};
+    background-color: ${({ theme }) => theme.white};
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -21,7 +21,7 @@ export const Wrapper = styled.figure`
 `;
 
 export const NotFound = styled.img`
-  background-color: ${({ theme }) => theme.colors.card};
+  background-color: ${({ theme }) => theme.white};
   width: 120px;
   border-radius: 0.4rem;
 `;

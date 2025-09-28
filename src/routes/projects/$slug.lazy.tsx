@@ -71,11 +71,9 @@ function Slug() {
           open={open}
           setOpen={setOpen}
         />
-        <p className="date">{doc.date}</p>
         <Content>
-          <Title main={doc.colors.main} bg={doc.colors.bg}>
-            {doc.title}
-          </Title>
+          <Title>{doc.title}</Title>
+          <p className="date">{doc.date}</p>
 
           <Markdown content={doc} />
           <Tags>{joinTags(doc.technology)}</Tags>

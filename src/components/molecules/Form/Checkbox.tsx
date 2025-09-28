@@ -19,7 +19,7 @@ const CheckboxStyled = styled.div`
     width: 0;
 
     &:checked ~ span {
-      background-color: ${({ theme }) => theme.colors.mint};
+      background-color: ${({ theme }) => theme.green};
     }
   }
 
@@ -32,7 +32,7 @@ const CheckboxStyled = styled.div`
   }
 
   label:hover input[type="checkbox"]:checked ~ span {
-    background-color: ${({ theme }) => theme.colors.mint};
+    background-color: ${({ theme }) => theme.green};
   }
 
   span {
@@ -42,7 +42,6 @@ const CheckboxStyled = styled.div`
     height: 20px;
     width: 20px;
     background-color: #eee;
-    transition: background-color 0.25s ease;
     border-radius: 4px;
 
     &::after {

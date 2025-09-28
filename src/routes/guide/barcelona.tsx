@@ -1,5 +1,6 @@
 import { Group } from "@/components/atoms/Group";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
+import { Button } from "@/components/molecules/Button";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
 import { Page, Panel } from "@/styles/routes/blog.styled";
@@ -43,7 +44,10 @@ function RouteComponent() {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);
 
-  // Get unique types and tags from items
+  const [showAll, setShowAll] = useState(false);
+
+  const handleShow = () => setShowAll((prev) => !prev);
+
   const { uniqueTypes, uniqueTags } = useMemo(() => {
     const types = new Set<string>();
     const tags = new Set<GuideTags>();
@@ -59,10 +63,8 @@ function RouteComponent() {
     };
   }, []);
 
-  // Filter items based on search, type, and tags
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
-      // Search filter
       const matchesSearch =
         searchTerm === "" ||
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -71,10 +73,8 @@ function RouteComponent() {
           tag.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-      // Type filter
       const matchesType = selectedType === "all" || item.type === selectedType;
 
-      // Tags filter
       const matchesTags =
         selectedTags.length === 0 ||
         selectedTags.every((selectedTag) => item.tags?.includes(selectedTag));
@@ -97,6 +97,8 @@ function RouteComponent() {
 
   const hasActiveFilters =
     searchTerm !== "" || selectedType !== "all" || selectedTags.length > 0;
+
+  const displayedTags = showAll ? uniqueTags : uniqueTags.slice(0, 3);
 
   return (
     <Page>
@@ -137,16 +139,21 @@ function RouteComponent() {
 
           <Group align="center" gap="0.5rem" wrap="wrap">
             <label htmlFor="tags">Tags:</label>
-            {uniqueTags.map((tag) => (
-              <FilterableTag
+            {displayedTags.map((tag) => (
+              <Button
+                variant="pill"
                 key={tag}
                 id={`tag-${tag}`}
-                isActive={selectedTags.includes(tag)}
+                selected={selectedTags.includes(tag)}
                 onClick={() => handleTagClick(tag)}
-              >
-                {tag}
-              </FilterableTag>
+                text={tag}
+              />
             ))}
+            <Button
+              text={showAll ? "Show less" : "Show all"}
+              variant="link"
+              onClick={handleShow}
+            />
           </Group>
 
           {hasActiveFilters && (
@@ -186,7 +193,7 @@ function RouteComponent() {
                   {item.tags?.map((tag) => (
                     <FilterableTag
                       key={tag}
-                      isActive={selectedTags.includes(tag)}
+                      $isActive={selectedTags.includes(tag)}
                       onClick={() => handleTagClick(tag)}
                     >
                       {tag}

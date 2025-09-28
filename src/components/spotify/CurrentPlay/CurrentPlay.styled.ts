@@ -13,7 +13,6 @@ export const Comp = styled.div`
 
 export const Title = styled.h3`
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.secondaryText};
 `;
 
 export const NowPlaying = styled.div<{ color: string }>`
@@ -26,8 +25,8 @@ export const NowPlaying = styled.div<{ color: string }>`
   border-radius: 0.4rem;
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
   ${({ color, theme }) => css`
-    background-color: ${color || theme.colors.moon};
-    color: ${getContrastYIQ(color || theme.colors.moon)};
+    background-color: ${color || theme.white};
+    color: ${getContrastYIQ(color || theme.white)};
   `}
 
   a[id="external-track-url"] {
@@ -42,7 +41,7 @@ export const NowPlaying = styled.div<{ color: string }>`
       width: 100%;
       height: 100%;
       ${({ color, theme }) => css`
-        color: ${getContrastYIQ(color || theme.colors.moon)};
+        color: ${getContrastYIQ(color || theme.white)};
       `}
     }
 
@@ -54,8 +53,7 @@ export const NowPlaying = styled.div<{ color: string }>`
 
 export const FactContent = styled.p<FactContentProps>`
   font-size: 0.8rem;
-  color: ${({ color = "", theme }) =>
-    getContrastYIQ(color) || theme.colors.secondaryText};
+  color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.gray400};
 
   width: 90%;
   margin: 0 auto;
@@ -63,8 +61,7 @@ export const FactContent = styled.p<FactContentProps>`
   flex-direction: column;
 
   &&& a {
-    color: ${({ color = "", theme }) =>
-      getContrastYIQ(color) || theme.colors.secondaryText};
+    color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.gray400};
   }
 `;
 
@@ -75,9 +72,8 @@ export const ExpandButton = styled.button`
   transform: translateX(-50%);
   background: none;
   border: none;
-  background-color: ${({ theme }) => theme.colors.card};
-  color: ${({ theme }) => theme.colors.text};
-  transition: color 0.3s ease;
+  background-color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.black};
   cursor: pointer;
   padding: 0.1rem 0.25rem;
   border-radius: 0.25rem;
@@ -89,7 +85,7 @@ export const ExpandButton = styled.button`
   gap: 0.25rem;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.hoverCard};
+    background-color: ${({ theme }) => theme.white};
   }
   &:active {
     transform: translateX(-50%) scale(1.05);

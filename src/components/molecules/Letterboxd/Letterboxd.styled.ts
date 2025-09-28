@@ -1,4 +1,3 @@
-import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -9,29 +8,19 @@ interface ICard {
   $isActive: boolean;
 }
 
-export const anchorStyles = (
-  isActive: boolean,
-  colors: MyTheme["colors"],
-) => css`
-  color: ${isActive ? colors.section3c : "#dccad0"};
-  text-decoration: ${isActive ? "underline" : "none"};
-  transition: color 0.2s;
-
-  &:hover {
-    color: ${isActive ? colors.headerBg : colors.buttonLink};
-  }
+export const Text = styled.p`
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
 `;
 
 export const Movie = styled.span<Pick<ICard, "$isActive">>`
   color: ${({ $isActive, theme }) =>
-    $isActive ? theme.colors.section3c : "#aeb1ea"};
+    $isActive ? theme.green400 : theme.green};
   text-decoration: ${({ $isActive }) => ($isActive ? "underline" : "none")};
-  transition: color 0.2s;
   cursor: pointer;
 
   &:hover {
     color: ${({ $isActive, theme }) =>
-      $isActive ? theme.colors.headerBg : theme.colors.buttonLink};
+      $isActive ? theme.green400 : theme.green400};
   }
 `;
 
@@ -64,15 +53,13 @@ export const CardStack = styled.div`
   justify-content: center;
 `;
 
-export const Card = styled(Link, {
-  shouldForwardProp: (prop) => prop !== "$isActive",
-})<ICard>`
+// prettier-ignore
+export const Card = styled(Link, {shouldForwardProp: (prop) => prop !== "$isActive" })<ICard>`
   position: absolute;
   width: 75%;
   border-radius: 16px;
   overflow: hidden;
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme.colors.highlight};
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-out;
 
@@ -144,30 +131,25 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  line-height: 1rem;
   margin: 0.5rem 0;
-
-  ${forPhoneOnly(css`
-    line-height: 0.5rem;
-  `)}
+  gap: 0.5rem;
 `;
 
 export const Button = styled.button<{ isActive: boolean }>`
-  padding: 0.25rem 1.25rem;
+  width: 2rem;
+  height: 2rem;
   border: none;
   background-color: ${({ isActive, theme }) =>
-    isActive ? theme.colors.link : "transparent"};
-  color: ${({ theme }) => theme.colors.moon};
-  border-radius: 5px;
+    isActive ? theme.green300 : theme.gray600};
+  color: ${({ theme }) => theme.white};
+  border-radius: 50%;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: ${({ isActive, theme }) =>
-      isActive ? theme.colors.headerBg : theme.colors.buttonLink};
+    background-color: ${({ theme }) => theme.green400};
   }
-
-  ${forPhoneOnly(css`
-    padding: 0.5rem 1rem;
-  `)}
 `;

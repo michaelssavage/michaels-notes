@@ -13,8 +13,8 @@ interface Props {
 
 export const Project = ({ data, selectedTech }: Props) => {
   const { id, slug, title, description, colors } = data;
-
   const shouldDim = selectedTech && !data.technology.includes(selectedTech);
+
   return (
     <CardWrapper $shouldDim={shouldDim} data-testid="project-card">
       <Card key={id} to={slug}>

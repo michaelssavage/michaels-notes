@@ -43,6 +43,6 @@ export const Box = styled.div`
     height: 1.5rem;
     width: 1.5rem;
     background-color: transparent;
-    color: ${({ theme }) => theme.colors.hoverText};
+    color: ${({ theme }) => theme.gray600};
   }
 `;

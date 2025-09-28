@@ -91,7 +91,7 @@ export const Header = styled(animated.h1)`
   text-transform: uppercase;
   margin-bottom: 1rem;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
   will-change: transform;
 `;
 
@@ -117,7 +117,7 @@ export const Article = styled.article<{ height?: string }>`
 export const Tags = styled.p`
   text-align: right;
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
 `;
 
 export const Content = styled.div`
@@ -151,7 +151,6 @@ export const Info = styled.p`
 
   span {
     color: ${({ theme }) => theme.gray600};
-    transition: color 0.3s ease;
   }
 
   &[data-filter*="onSite"] span[data-id="onSite"] {

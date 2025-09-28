@@ -10,12 +10,11 @@ export const Content = styled.div`
   justify-content: flex-end;
   align-items: center;
   font-size: 0.85rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.black};
 
   a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.2s ease;
 
     &:hover {
       text-decoration: underline;

@@ -30,48 +30,28 @@ export const Arrow = styled(ArrowDown)`
   cursor: pointer;
 `;
 
-export const Section = styled(animated.section)<{
-  main?: string;
-  bg?: string;
-}>`
-  height: calc(100vh);
+export const Section = styled(animated.section)`
+  height: calc(60vh);
   display: flex;
   align-items: center;
   justify-content: center;
   scroll-snap-align: center;
-  color: ${({ main, theme }) => main || theme.colors.text};
-  background-color: ${({ bg }) => bg || "transparent"};
-
-  &:first-of-type {
-    min-height: 85vh;
-
-    ${forPhoneOnly(css`
-      min-height: 80vh;
-    `)}
-  }
 `;
 
 export const Paragraph = styled.div<{ text?: string }>`
-  font-size: 1.5rem;
-  width: 60%;
+  width: 70%;
+
+  p {
+    font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+  }
 
   ${forTabletOnly(css`
     width: 85%;
-    font-size: 1.2rem;
   `)}
 
   ${forPhoneOnly(css`
     width: 95%;
-    font-size: 1rem;
   `)}
-`;
-
-export const Paragraphs = styled.div`
-  font-size: 1.2rem;
-
-  p {
-    margin-bottom: 1rem;
-  }
 `;
 
 export const selfieStyle = css`

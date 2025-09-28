@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
 export const BasicLink = styled.a`
-  color: ${({ theme }) => theme.colors.button};
+  color: ${({ theme }) => theme.green300};
   display: grid;
   place-items: center;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.buttonLink};
+    color: ${({ theme }) => theme.green200};
   }
 `;
 
@@ -18,7 +18,8 @@ export const Grid = styled.div`
 
 export const Card = styled.div`
   position: relative;
-  background-color: ${({ theme }) => theme.colors.card};
+  background-color: ${({ theme }) => theme.white};
+  border: 2px solid ${({ theme }) => theme.black};
   border-radius: 0.5rem;
   padding: 1rem;
   margin: 1rem 0;
@@ -27,10 +28,15 @@ export const Card = styled.div`
 
   p[data-id="type"] {
     position: absolute;
-    top: -0.75rem;
-    left: 0;
+    top: 0.2rem;
+    left: 0.2rem;
     font-size: 0.75rem;
-    color: ${({ theme }) => theme.colors.highlight};
+    font-weight: 500;
+    color: ${({ theme }) => theme.red};
+  }
+
+  h2 {
+    margin-top: 0.25rem;
   }
 
   p[data-id="description"] {
@@ -70,15 +76,15 @@ export const TypeSelect = styled.select`
   font-size: 0.875rem;
   line-height: 1.25rem;
   padding: 0.5rem 1rem;
-  border: 2px solid ${({ theme }) => theme.colors.text};
   border-radius: 9999px;
   min-width: 150px;
-  color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.card};
+  border: 2px solid ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.gray500};
+  background-color: ${({ theme }) => theme.yellow};
   cursor: pointer;
 
   &:focus {
-    outline: solid 2px ${({ theme }) => theme.colors.mint};
+    outline: solid 2px ${({ theme }) => theme.green};
   }
 
   /* Style the dropdown arrow */
@@ -90,29 +96,31 @@ export const TypeSelect = styled.select`
   padding-right: 2.5rem;
 `;
 
-export const FilterableTag = styled.button<{ isActive: boolean }>`
-  transition: all 0.2s ease;
-  background: ${(props) => (props.isActive ? "#007bff" : "#a1c9f0")};
-  color: ${(props) => (props.isActive ? "white" : "#3e4449")};
+export const FilterableTag = styled.button<{ $isActive: boolean }>`
+  background-color: ${({ $isActive, theme }) =>
+    $isActive ? theme.green : theme.white};
+  color: ${({ $isActive, theme }) => ($isActive ? theme.black : theme.gray500)};
+  border: 2px solid ${({ theme }) => theme.black};
   border-radius: 0.5rem;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
 
   &:hover {
-    background: ${(props) => (props.isActive ? "#0056b3" : "#dee2e6")};
+    color: ${({ theme }) => theme.black};
+    background-color: ${({ $isActive, theme }) =>
+      $isActive ? theme.green300 : theme.white};
   }
 `;
 
 export const ClearFiltersButton = styled.button`
   padding: 0.25rem 0.5rem;
-  background: #dc3545;
+  background: ${({ theme }) => theme.red};
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  border-radius: 5px;
 
   &:hover {
-    background: #c82333;
+    background: ${({ theme }) => theme.red200};
   }
 `;
 

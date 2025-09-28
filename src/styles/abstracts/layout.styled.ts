@@ -15,9 +15,8 @@ interface IGroup {
   gap?: string;
 }
 
-interface IContainer extends IGroup {
-  maxWidth?: string;
-  padding?: string;
+interface IContainer {
+  margin?: string;
 }
 
 type IRow = {
@@ -34,12 +33,11 @@ type ICol = {
 export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  max-width: ${({ maxWidth }) => maxWidth ?? "60%"};
-  padding: ${({ padding }) => padding ?? "0 0 1rem"};
-  align-items: ${({ align }) => align ?? "stretch"};
-  justify-content: ${({ justify }) => justify ?? "flex-start"};
-  gap: ${({ gap }) => gap ?? "0"};
+  margin: ${({ margin }) => margin ?? "0 10%"};
+  padding: 0 0 1rem;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
 
   ${forPhoneOnly(css`
     max-width: 90%;
