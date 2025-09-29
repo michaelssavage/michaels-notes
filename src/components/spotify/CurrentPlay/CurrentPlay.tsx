@@ -28,8 +28,11 @@ import {
   Title,
 } from "./CurrentPlay.styled";
 
+const COLLAPSED_HEIGHT = 30;
+
 export const CurrentPlay = () => {
   const [expanded, setExpanded] = useState(false);
+  const [canExpand, setCanExpand] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -64,7 +67,9 @@ export const CurrentPlay = () => {
     if (!element) return;
 
     const resizeObserver = new ResizeObserver(() => {
-      setContentHeight(element.scrollHeight);
+      const fullHeight = element.scrollHeight;
+      setContentHeight(fullHeight);
+      setCanExpand(fullHeight > COLLAPSED_HEIGHT);
     });
 
     resizeObserver.observe(element);
@@ -76,7 +81,7 @@ export const CurrentPlay = () => {
 
   const springs = useSpring({
     opacity: fact ? 1 : 0,
-    height: expanded ? contentHeight : 12,
+    height: expanded ? contentHeight : COLLAPSED_HEIGHT,
     config: { duration: 300 },
   });
 
@@ -118,13 +123,15 @@ export const CurrentPlay = () => {
             />
           </animated.div>
 
-          <ExpandButton
-            onClick={() => setExpanded((prev) => !prev)}
-            color={getRandomColor()}
-          >
-            {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
-            {expanded ? "minimise" : "read more"}
-          </ExpandButton>
+          {canExpand && (
+            <ExpandButton
+              onClick={() => setExpanded((prev) => !prev)}
+              color={getRandomColor()}
+            >
+              {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
+              {expanded ? "minimise" : "read more"}
+            </ExpandButton>
+          )}
 
           <Link id="external-track-url" to={trackData?.trackUrl}>
             <ExternalLinkIcon />
