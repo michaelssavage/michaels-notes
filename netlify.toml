@@ -1,7 +1,9 @@
 [build]
-  command = "npm run build && npm run build:storybook"
-  publish = "dist"
-  functions = "netlify/functions"
+  command = "vite build"
+  publish = "dist/client"
+[dev]
+  command = "vite dev"
+  port = 3000
 
 [[redirects]]
   from = "/storybook/*"
@@ -14,11 +16,6 @@
   to = "/storybook/index.html"
   status = 200
   force = true
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 [[headers]]
   for = "/compiled-posts/*"

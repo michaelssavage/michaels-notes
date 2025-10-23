@@ -17,28 +17,30 @@ import {
   Title,
   viewMoreButtonStyles,
 } from "@/styles/routes/rekordbox-prettifier.styled";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
+import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
-export const Route = createLazyFileRoute("/pretty-text")({
+const title = "Rekordbox Prettifier | Michael Savage";
+const description =
+  "Get the track setlist from a .txt file from Rekordbox after recording a mix.";
+const url = "https://michaelsavage.com/pretty-text";
+
+export const Route = createFileRoute("/pretty-text")({
   component: RekordboxPrettifier,
+  head: () => ({
+    title,
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 function RekordboxPrettifier() {
-  useHead({
-    link: [
-      { rel: "canonical", href: "https://www.michaelsavage.ie/pretty-text" },
-    ],
-  });
-
-  useSeoMeta({
-    title: "Rekordbox Prettifier",
-    description:
-      "Getting the track setlist from a .txt file from Rekordbox after recording a mix",
-  });
-
   const [inputText, setInputText] = useState("");
   const [withBPM, setWithBPM] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -61,7 +63,7 @@ function RekordboxPrettifier() {
           const bpm =
             withBPM && bpmIndex !== -1 ? songInfo[bpmIndex]?.trim() : "";
 
-          return `${index + 1}. ${artist} - ${track}${bpm ? ` (${bpm})` : ""}`;
+          return `${index + 1}. ${artist} - ${track}${bpm ? ` (${bpm})` : ``}`;
         });
       } else {
         // If the expected headers are not found, return the original text

@@ -7,24 +7,26 @@ import {
 import { Page } from "@/styles/routes/blog.styled";
 import { GridContainer } from "@/styles/routes/miscellaneous.styled";
 import { createFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
+
+const title = "Miscellaneous | Michael Savage";
+const description = "Miscellaneous links, small projects, and lists.";
+const url = "https://michaelsavage.com/miscellaneous";
 
 export const Route = createFileRoute("/miscellaneous")({
   component: RouteComponent,
+  head: () => ({
+    title,
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 function RouteComponent() {
-  useHead({
-    link: [
-      { rel: "canonical", href: "https://www.michaelsavage.ie/miscellaneous" },
-    ],
-  });
-
-  useSeoMeta({
-    title: "Miscellaneous",
-    description: "Miscellaneous links, small projects, and lists.",
-  });
-
   return (
     <Page>
       <GridContainer>

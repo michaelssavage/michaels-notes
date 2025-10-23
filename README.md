@@ -4,25 +4,49 @@ Live at [michaelsavage.ie](https://michaelsavage.ie)
 
 Personal site built with React, Typescript, Vite, and @emotion, using eslint for linting. Blog posts written locally with MDX.
 
+
 ## Running locally:
 
-`netlify dev`
+To run this application:
 
-- to use the Letterboxd api that runs in netlify functions
-- view on localhost:8888
+```bash
+npm install
+npm run start
+```
 
-`npm run dev`
+# Building For Production
 
-- run as normal
-- view on localhost:3000
+To build this application for production:
 
-`npm run lint`
+```bash
+npm run build
+```
 
-- run linting.
+## Testing
 
-`npm run dlx npm-check-updates`
+This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
-- check what packages need updates
+```bash
+npm run test
+```
+
+## Styling
+
+This project uses [Emotion CSS](https://emotion.sh/docs/introduction) for styling.
+
+
+## Linting & Formatting
+
+
+This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
+
+```bash
+npm run lint
+npm run format
+npm run check
+```
+
+
 
 ## Audio waveform generation
 

@@ -2,25 +2,28 @@ import { Board } from "@/components/atoms/Board";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Page, Panel } from "@/styles/routes/blog.styled";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/playground")({
+const title = "Playground | Michael Savage";
+const description =
+  "A space for experimentation and exploration of development ideas.";
+const url = "https://michaelsavage.com/playground";
+
+export const Route = createFileRoute("/playground")({
   component: Playground,
+  head: () => ({
+    title,
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 function Playground() {
-  useHead({
-    link: [
-      { rel: "canonical", href: "https://www.michaelsavage.ie/playground" },
-    ],
-  });
-
-  useSeoMeta({
-    title: "Playground",
-    description: "A space for experimentation and exploration.",
-  });
-
   return (
     <Page>
       <Panel>

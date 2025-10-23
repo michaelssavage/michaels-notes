@@ -1,4 +1,4 @@
-import js from "@eslint/js";
+import eslint from "@eslint/js";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import pluginReact from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -18,25 +18,14 @@ export default defineConfig([
     "vite.config.ts",
   ]),
 
-  // Base JS config
-  {
-    files: ["**/*.{js,jsx}"],
-    ...js.configs.recommended,
-    languageOptions: {
-      globals: globals.browser,
-    },
-  },
-
-  // TypeScript configs
+  eslint.configs.recommended,
   tseslint.configs.recommended,
-
-  // React config
   pluginReact.configs.flat.recommended,
 
   // Main config with all plugins registered together
   {
     files: ["**/*.{ts,tsx,js,jsx}"],
-    ignores: ["eslint.config.ts", ".storybook/**"],
+    ignores: [".storybook/**"],
     plugins: {
       "react-hooks": reactHooks,
       "jsx-a11y": jsxA11y,

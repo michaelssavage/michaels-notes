@@ -10,23 +10,27 @@ import {
   plantbassdStyle,
   selfieStyle,
 } from "@/styles/routes/home.styled";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/about")({
+const title = "About Me | Michael Savage";
+const description = "About my background, experience, and interests";
+const url = "https://michaelsavage.com/about";
+
+export const Route = createFileRoute("/about")({
   component: About,
+  head: () => ({
+    title,
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 function About() {
-  useHead({
-    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/about" }],
-  });
-
-  useSeoMeta({
-    title: "About Me",
-    description: "About my background, experience, and interests",
-  });
-
   return (
     <Content>
       <SectionInView delay={0}>

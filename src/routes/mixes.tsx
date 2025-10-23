@@ -3,11 +3,25 @@ import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import { css } from "@emotion/react";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/mixes")({
+const title = "Mixes | Michael Savage";
+const description =
+  "Collection of recorded DJ mixes with Rekordbox. Rendering waveforms with Wavesurfer.js.";
+const url = "https://michaelsavage.com/mixes";
+
+export const Route = createFileRoute("/mixes")({
   component: RouteComponent,
+  head: () => ({
+    title,
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 const mixes = [
@@ -61,15 +75,6 @@ const linkStyle = css`
 `;
 
 function RouteComponent() {
-  useHead({
-    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/mixes" }],
-  });
-
-  useSeoMeta({
-    title: "DJ mixes",
-    description: "Collection of recorded DJ mixes with Rekordbox.",
-  });
-
   return (
     <Page>
       <Panel>

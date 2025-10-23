@@ -4,6 +4,7 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
+import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import { usePostsByCategory } from "@/hooks/use-posts.hook";
 import { sortById } from "@/lib/utils";
 import { Container } from "@/styles/abstracts/layout.styled";
@@ -14,29 +15,29 @@ import {
   SpotifyContent,
 } from "@/styles/routes/projects.styled";
 import { type ITechnology, TECHNOLOGIES } from "@/types/Post";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
-import { lazy, Suspense, useMemo, useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { Suspense, useMemo, useState } from "react";
 
-const TopTracks = lazy(
-  () => import("@/components/spotify/TopTracks/TopTracks")
-);
+const title = "Projects | Michael Savage";
+const description =
+  "My personal development, work, code challenges, and university projects";
+const url = "https://michaelsavage.com/projects";
 
-export const Route = createLazyFileRoute("/projects/")({
+export const Route = createFileRoute("/projects/")({
   component: Projects,
+  head: () => ({
+    title,
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 function Projects() {
-  useHead({
-    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/projects" }],
-  });
-
-  useSeoMeta({
-    title: "My Projects",
-    description:
-      "Personal development, work, code challenges, and university projects",
-  });
-
   const [showAll, setShowAll] = useState(false);
   const displayedTechnologies = showAll
     ? TECHNOLOGIES

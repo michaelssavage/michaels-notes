@@ -6,6 +6,7 @@ import { Bite } from "@/components/molecules/Bite";
 import { Button } from "@/components/molecules/Button";
 import { Loading } from "@/components/molecules/Loading";
 import { NoPost } from "@/components/molecules/Post/NoPost";
+import Post from "@/components/molecules/Post/Post";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { Weather } from "@/components/molecules/Weather";
 import { usePostsIndex } from "@/hooks/use-posts.hook";
@@ -18,9 +19,8 @@ import {
   Page,
   Panel,
 } from "@/styles/routes/blog.styled";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
-import { lazy, Suspense, useCallback, useMemo, useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { Suspense, useCallback, useMemo, useState } from "react";
 
 export type FilterState = {
   isPlantBassd: boolean;
@@ -29,22 +29,25 @@ export type FilterState = {
   isReview: boolean;
 };
 
-const Post = lazy(() => import("@/components/molecules/Post/Post"));
+const title = "Writings | Michael Savage";
+const description = "Learnings, mishaps, and articles about random things.";
+const url = "https://michaelsavage.com/";
 
-export const Route = createLazyFileRoute("/")({
+export const Route = createFileRoute("/")({
   component: Blog,
+  head: () => ({
+    title,
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 function Blog() {
-  useHead({
-    link: [{ rel: "canonical", href: "https://www.michaelsavage.ie/" }],
-  });
-
-  useSeoMeta({
-    title: "Writings",
-    description: "Learnings, mishaps, and articles about random things.",
-  });
-
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterState>({
     isPlantBassd: true,

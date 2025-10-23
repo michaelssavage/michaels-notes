@@ -1,4 +1,8 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+
+interface HogProps {
+  children: React.ReactNode;
+}
 
 const isDevelopment = import.meta.env.DEV;
 
@@ -11,15 +15,19 @@ const options = {
 };
 
 const PostHogProviderLazy = lazy(() =>
-  import("posthog-js/react").then((mod) => ({ default: mod.PostHogProvider })),
+  import("posthog-js/react").then((mod) => ({ default: mod.PostHogProvider }))
 );
 
-export default function PostHogProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  if (isDevelopment) return <>{children}</>;
+export default function PostHogProvider({ children }: HogProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (isDevelopment || typeof window === "undefined" || !isClient) {
+    return <>{children}</>;
+  }
 
   return (
     <Suspense fallback={null}>
