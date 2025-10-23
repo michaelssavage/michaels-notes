@@ -64,6 +64,7 @@ function Blog() {
   );
 
   const { data } = usePostsIndex();
+
   const { blogs = [], bites = [], reviews = [] } = data || {};
 
   const posts = useMemo(() => {

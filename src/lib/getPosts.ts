@@ -2,34 +2,17 @@ import type { IPosts } from "@/types/Post";
 
 export async function getPostsIndex(): Promise<IPosts> {
   try {
-    if (typeof window === "undefined") {
-      const fs = await import("node:fs");
-      const path = await import("node:path");
+    const response = await fetch("/compiled-posts/index.json");
 
-      const indexPath = path.join(
-        process.cwd(),
-        "public",
-        "compiled-posts",
-        "index.json"
-      );
-
-      if (fs.existsSync(indexPath)) {
-        const data = fs.readFileSync(indexPath, "utf-8");
-        return JSON.parse(data) as IPosts;
-      }
-    } else {
-      // In browser context, fetch from public directory
-      const response = await fetch("/compiled-posts/index.json");
-      if (response.ok) {
-        const data = await response.json();
-        return data as IPosts;
-      }
+    if (response.ok) {
+      const data = await response.json();
+      return data as IPosts;
     }
   } catch (error) {
     console.warn("Failed to load posts index:", error);
+    throw error;
   }
 
-  // Fallback to empty structure
   return {
     projects: [],
     blogs: [],
