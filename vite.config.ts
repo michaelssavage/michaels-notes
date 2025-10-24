@@ -5,26 +5,27 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
+const isDevBuild = !!process.env.VITE_ENV_DEV;
+
 const config = defineConfig({
   server: { port: 3000, open: true },
-  ssr: { noExternal: ["@emotion/*"] },
   optimizeDeps: { include: ["@emotion/react", "@emotion/styled"] },
   plugins: [
-    tanstackStart(),
-    netlify(),
     viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
+    tanstackStart(),
+    ...(!isDevBuild ? [netlify()] : []),
+    visualizer({
+      open: false,
+      filename: "dist/stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
     viteReact({
       include: /\.(mdx|tsx|ts)$/,
       jsxImportSource: "@emotion/react",
       babel: {
         plugins: ["@emotion/babel-plugin"],
       },
-    }),
-    visualizer({
-      open: false,
-      filename: "dist/stats.html",
-      gzipSize: true,
-      brotliSize: true,
     }),
   ],
 });

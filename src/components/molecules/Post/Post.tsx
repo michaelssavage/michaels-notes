@@ -2,6 +2,7 @@ import type { IBlog, IReview } from "@/types/Post";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Description } from "./Description";
 import { Card, CardInfo, DateText, PostType, Title } from "./Post.styled";
+import PostSkeleton from "./PostSkeleton";
 
 const Post = ({
   title,
@@ -44,6 +45,14 @@ const Post = ({
   const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
   const isExpanded = useMemo(() => isFirst || isHovered, [isFirst, isHovered]);
+
+  if (!inView) {
+    return (
+      <article ref={ref}>
+        <PostSkeleton />
+      </article>
+    );
+  }
 
   return (
     <article

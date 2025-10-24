@@ -3,9 +3,9 @@ import Markdown from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { usePostsByCategory } from "@/hooks/use-posts.hook";
-import { getCompiledPost } from "@/lib/getPosts";
+import { usePosts } from "@/hooks/posts.hook";
 import { joinTags } from "@/lib/utils";
+import { getFullPost } from "@/server/posts";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
@@ -20,7 +20,12 @@ const url = "https://michaelsavage.com/projects";
 export const Route = createFileRoute("/projects/$slug")({
   component: Slug,
   loader: async ({ params }) => {
-    const post = await getCompiledPost<IProject>("projects", params.slug);
+    const post = await getFullPost({
+      data: {
+        category: "projects",
+        slug: params.slug,
+      },
+    });
     return post;
   },
   head: ({ loaderData: d }) => ({
@@ -44,10 +49,10 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function Slug() {
-  const post = Route.useLoaderData();
-
   const [open, setOpen] = useState(false);
-  const posts = usePostsByCategory("projects");
+
+  const post = Route.useLoaderData();
+  const posts = usePosts("projects");
 
   return (
     <Article>

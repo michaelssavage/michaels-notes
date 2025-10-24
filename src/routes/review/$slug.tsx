@@ -2,8 +2,8 @@ import Markdown from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { usePostsByCategory } from "@/hooks/use-posts.hook";
-import { getCompiledPost } from "@/lib/getPosts";
+import { usePosts } from "@/hooks/posts.hook";
+import { getFullPost } from "@/server/posts";
 import {
   Article,
   Content,
@@ -25,7 +25,13 @@ const url = "https://michaelsavage.com/review";
 export const Route = createFileRoute("/review/$slug")({
   component: Slug,
   loader: async ({ params }) => {
-    const post = await getCompiledPost<IReview>("reviews", params.slug);
+    const post = await getFullPost({
+      data: {
+        category: "reviews",
+        slug: params.slug,
+      },
+    });
+
     return post;
   },
   head: ({ loaderData: d }) => ({
@@ -49,12 +55,10 @@ export const Route = createFileRoute("/review/$slug")({
 });
 
 function Slug() {
-  const post = Route.useLoaderData();
-
-  console.log(post);
-
   const [open, setOpen] = useState(false);
-  const posts = usePostsByCategory("reviews");
+
+  const post = Route.useLoaderData();
+  const posts = usePosts("reviews");
 
   const spring = useSpring({
     from: { opacity: 0, transform: "translateY(20px)" },

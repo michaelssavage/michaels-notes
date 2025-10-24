@@ -5,8 +5,8 @@ import { Button } from "@/components/molecules/Button";
 import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import TopTracks from "@/components/spotify/TopTracks/TopTracks";
-import { usePostsByCategory } from "@/hooks/use-posts.hook";
 import { sortById } from "@/lib/utils";
+import { getMiniPosts } from "@/server/posts";
 import { Container } from "@/styles/abstracts/layout.styled";
 import {
   GridContainer,
@@ -14,8 +14,10 @@ import {
   Page,
   SpotifyContent,
 } from "@/styles/routes/projects.styled";
-import { type ITechnology, TECHNOLOGIES } from "@/types/Post";
+import { IPosts, type ITechnology, TECHNOLOGIES } from "@/types/Post";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Suspense, useMemo, useState } from "react";
 
 const title = "Projects | Michael Savage";
@@ -50,11 +52,17 @@ function Projects() {
     setSelectedTech(tech === selectedTech ? null : tech);
   };
 
-  const posts = usePostsByCategory("projects");
+  const getPosts = useServerFn(getMiniPosts);
+
+  const { data } = useQuery<IPosts>({
+    queryKey: ["posts-index"],
+    queryFn: () => getPosts(),
+    retry: false,
+  });
 
   const sortedProjects = useMemo(() => {
-    return posts.sort(sortById);
-  }, [posts]);
+    return (data?.projects || []).sort(sortById);
+  }, [data?.projects]);
 
   return (
     <Page>

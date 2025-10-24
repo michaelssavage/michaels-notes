@@ -58,18 +58,3 @@ export async function getCompiledPost<T = unknown>(
     throw error;
   }
 }
-
-export async function getAllPostPaths(): Promise<
-  Array<{ category: string; slug: string }>
-> {
-  const postsIndex = await getPostsIndex();
-  const paths: Array<{ category: string; slug: string }> = [];
-
-  Object.entries(postsIndex).forEach(([category, posts]) => {
-    posts.forEach((post: { slug: string }) => {
-      paths.push({ category, slug: post.slug });
-    });
-  });
-
-  return paths;
-}

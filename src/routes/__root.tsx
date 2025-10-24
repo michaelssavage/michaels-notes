@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { NotFound } from "@/components/atoms/NotFound";
 import PostHogProvider from "@/components/atoms/PostHogContainer";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
@@ -5,9 +6,10 @@ import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
 import { ThemeProvider } from "@/context/ThemeProvider";
-import { TanStackDevtools } from "@tanstack/react-devtools";
+import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
 import type { QueryClient } from "@tanstack/react-query";
-import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   HeadContent,
   Outlet,
@@ -24,10 +26,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     meta: [
       { charSet: "utf-8" },
       { title: "Michael Savage" },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
       { property: "og:title", content: "Michael Savage" },
       { name: "robots", content: "index,follow" },
       { name: "author", content: "Michael Savage" },
@@ -69,6 +68,23 @@ function RootComponent() {
   );
 }
 
+function Providers({ children }: { children: React.ReactNode }) {
+  const emotionCache = createCache({ key: "css" });
+
+  return (
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider>
+        <PostHogProvider>
+          <ContentProvider>
+            <ToastProvider />
+            {children}
+          </ContentProvider>
+        </PostHogProvider>
+      </ThemeProvider>
+    </CacheProvider>
+  );
+}
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -76,26 +92,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider>
-          <PostHogProvider>
-            <ContentProvider>
-              <ToastProvider />
-              <Navbar />
-              {children}
-              <Footer />
-            </ContentProvider>
-          </PostHogProvider>
-        </ThemeProvider>
+        <Providers>
+          <Navbar />
+          {children}
+          <Footer />
+        </Providers>
 
-        <TanStackDevtools
-          config={{ position: "bottom-right" }}
-          plugins={[
-            {
-              name: "React Query",
-              render: <ReactQueryDevtoolsPanel />,
-            },
-          ]}
-        />
+        <ReactQueryDevtools position="bottom" />
         <Scripts />
       </body>
     </html>

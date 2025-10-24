@@ -4,13 +4,12 @@ import { HomeLine } from "@/components/atoms/HomeLine";
 import { CircleIcon } from "@/components/icons";
 import { Bite } from "@/components/molecules/Bite";
 import { Button } from "@/components/molecules/Button";
-import { Loading } from "@/components/molecules/Loading";
 import { NoPost } from "@/components/molecules/Post/NoPost";
 import Post from "@/components/molecules/Post/Post";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { Weather } from "@/components/molecules/Weather";
-import { usePostsIndex } from "@/hooks/use-posts.hook";
 import { sortByDate } from "@/lib/utils";
+import { getMiniPosts } from "@/server/posts";
 import {
   ButtonGroup,
   Filter,
@@ -20,7 +19,7 @@ import {
   Panel,
 } from "@/styles/routes/blog.styled";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense, useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export type FilterState = {
   isPlantBassd: boolean;
@@ -35,6 +34,10 @@ const url = "https://michaelsavage.com/";
 
 export const Route = createFileRoute("/")({
   component: Blog,
+  loader: async () => {
+    const data = await getMiniPosts();
+    return data;
+  },
   head: () => ({
     title,
     link: [{ rel: "canonical", href: url }],
@@ -63,7 +66,7 @@ function Blog() {
     [filter]
   );
 
-  const { data } = usePostsIndex();
+  const data = Route.useLoaderData();
 
   const { blogs = [], bites = [], reviews = [] } = data || {};
 
@@ -192,19 +195,17 @@ function Blog() {
         </Filter>
 
         <HomeLine />
-        <Suspense fallback={<Loading />}>
-          {posts.length > 0 ? (
-            posts.map((post, index) => {
-              return post.type === "bite" ? (
-                <Bite key={post.slug} {...post} />
-              ) : (
-                <Post key={post.slug} {...post} isFirst={index === 0} />
-              );
-            })
-          ) : (
-            <NoPost />
-          )}
-        </Suspense>
+        {posts.length > 0 ? (
+          posts.map((post, index) => {
+            return post.type === "bite" ? (
+              <Bite key={post.slug} {...post} />
+            ) : (
+              <Post key={post.slug} {...post} isFirst={index === 0} />
+            );
+          })
+        ) : (
+          <NoPost />
+        )}
       </Panel>
     </Page>
   );

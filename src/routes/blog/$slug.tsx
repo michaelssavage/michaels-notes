@@ -3,8 +3,8 @@ import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { usePostsByCategory } from "@/hooks/use-posts.hook";
-import { getCompiledPost } from "@/lib/getPosts";
+import { usePosts } from "@/hooks/posts.hook";
+import { getFullPost } from "@/server/posts";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
 import { useSpring } from "@react-spring/web";
@@ -19,7 +19,13 @@ const url = "https://michaelsavage.com/blog";
 export const Route = createFileRoute("/blog/$slug")({
   component: Slug,
   loader: async ({ params }) => {
-    const post = await getCompiledPost<IBlog>("blogs", params.slug);
+    const post = await getFullPost({
+      data: {
+        category: "blogs",
+        slug: params.slug,
+      },
+    });
+
     return post;
   },
   head: ({ loaderData: d }) => ({
@@ -43,11 +49,11 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function Slug() {
+  const [open, setOpen] = useState(false);
+
   const { slug } = Route.useParams();
   const post = Route.useLoaderData();
-
-  const [open, setOpen] = useState(false);
-  const posts = usePostsByCategory("blogs");
+  const posts = usePosts("blogs");
 
   const spring = useSpring({
     from: { opacity: 0, transform: "translateY(20px)" },
