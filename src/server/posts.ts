@@ -33,7 +33,7 @@ export const getMiniPosts = createServerFn({
         signal?.aborted ||
         (error instanceof Error && error.message === "Request aborted")
       ) {
-        throw error; // Re-throw abort errors
+        throw error;
       }
       console.warn("Failed to load posts index:", error);
       return {
