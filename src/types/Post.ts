@@ -79,3 +79,5 @@ export interface IPosts {
   reviews: Array<IReview>;
   bites: Array<IBite>;
 }
+
+export type IPost = IBlog | IReview | IBite;

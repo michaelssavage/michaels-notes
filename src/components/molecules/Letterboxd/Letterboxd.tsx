@@ -1,9 +1,9 @@
-import { fetchFavouriteMovies } from "@/api/favorite-movies.api";
 import { Group } from "@/components/atoms/Group";
 import { Picture } from "@/components/molecules/Picture";
+import { getMovies } from "@/server/letterboxd";
 import { breakpoint } from "@/styles/routes/home.styled";
-import type { IMovie } from "@/types/Movie";
 import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import {
   Button,
@@ -18,9 +18,11 @@ import {
 } from "./Letterboxd.styled";
 
 export const Letterboxd = () => {
-  const { data } = useQuery<Array<IMovie>>({
+  const fetchMovies = useServerFn(getMovies);
+
+  const { data } = useQuery({
     queryKey: ["favorites"],
-    queryFn: fetchFavouriteMovies,
+    queryFn: () => fetchMovies(),
     refetchOnWindowFocus: false,
   });
 

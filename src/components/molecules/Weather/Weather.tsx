@@ -1,13 +1,16 @@
-import { fetchTheWeather } from "@/api/get-weather.api";
 import { Loading } from "@/components/molecules/Loading";
-import { type IWeather, WeatherIcon } from "@/types/Weather";
+import { getWeather } from "@/server/weather";
+import { WeatherIcon } from "@/types/Weather";
 import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { SpeechBubble } from "./Weather.styled";
 
 export const Weather = () => {
-  const { data, isLoading } = useQuery<IWeather>({
-    queryKey: ["top-tracks"],
-    queryFn: fetchTheWeather,
+  const fetchMovies = useServerFn(getWeather);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["weather"],
+    queryFn: () => fetchMovies(),
     refetchOnMount: false,
     refetchOnWindowFocus: true,
   });
