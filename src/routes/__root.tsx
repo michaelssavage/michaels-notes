@@ -6,8 +6,6 @@ import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
 import { ThemeProvider } from "@/context/ThemeProvider";
-import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -69,19 +67,15 @@ function RootComponent() {
 }
 
 function Providers({ children }: { children: React.ReactNode }) {
-  const emotionCache = createCache({ key: "css" });
-
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider>
-        <PostHogProvider>
-          <ContentProvider>
-            <ToastProvider />
-            {children}
-          </ContentProvider>
-        </PostHogProvider>
-      </ThemeProvider>
-    </CacheProvider>
+    <ThemeProvider>
+      <PostHogProvider>
+        <ContentProvider>
+          <ToastProvider />
+          {children}
+        </ContentProvider>
+      </PostHogProvider>
+    </ThemeProvider>
   );
 }
 

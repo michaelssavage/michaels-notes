@@ -8,18 +8,24 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 const isDevBuild = !!process.env.VITE_ENV_DEV;
 
 const config = defineConfig({
-  server: { port: 3000, open: true },
-  optimizeDeps: { include: ["@emotion/react", "@emotion/styled"] },
+  server: { port: 3000 },
+  optimizeDeps: {
+    include: ["@emotion/styled"],
+  },
   plugins: [
     viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart(),
     ...(!isDevBuild ? [netlify()] : []),
-    visualizer({
-      open: false,
-      filename: "dist/stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
+    ...(!isDevBuild
+      ? [
+          visualizer({
+            open: false,
+            filename: "dist/stats.html",
+            gzipSize: true,
+            brotliSize: true,
+          }),
+        ]
+      : []),
     viteReact({
       include: /\.(mdx|tsx|ts)$/,
       jsxImportSource: "@emotion/react",

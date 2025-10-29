@@ -38,6 +38,7 @@ export const getMovies = createServerFn({
         image_url: 1,
         link_url: 1,
       })
+      .sort({ id: 1 })
       .toArray();
 
     return movies;

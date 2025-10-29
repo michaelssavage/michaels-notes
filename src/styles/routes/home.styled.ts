@@ -31,7 +31,7 @@ export const Arrow = styled(ArrowDown)`
 `;
 
 export const Section = styled(animated.section)`
-  height: calc(60vh);
+  min-height: calc(60vh);
   display: flex;
   align-items: center;
   justify-content: center;
