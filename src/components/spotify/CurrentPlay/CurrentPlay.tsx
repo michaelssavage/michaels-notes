@@ -1,23 +1,21 @@
 import {
-  fetchCurrentTrack,
-  fetchRecentTrack,
-} from "@/api/fetch-current-track.api";
-import { getFact } from "@/api/lastfm-fact.api";
-import {
   ExternalLinkIcon,
   MaximiseIcon,
   MinimiseIcon,
 } from "@/components/icons";
 import { Picture } from "@/components/molecules/Picture";
-import { getRandomColor } from "@/lib/colors";
+import { useTheme } from "@/context/ThemeProvider";
+import { getContrastYIQ, getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
-import type { IPlayTrack } from "@/types/Spotify";
+import { getLastFmTrack } from "@/server/lastfm-track.api";
+import { getSpotifyTrack } from "@/server/spotify-track.api";
 import { css } from "@emotion/react";
 import { animated, useSpring } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import DOMPurify from "dompurify";
-import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import DOMPurify from "isomorphic-dompurify";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Comp,
   Content,
@@ -33,29 +31,29 @@ export const CurrentPlay = () => {
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const currentTrack = useQuery<IPlayTrack>({
-    queryKey: ["currentTrack"],
-    queryFn: fetchCurrentTrack,
-    refetchInterval: 10000, // Refetch every 10 seconds
-  });
+  const { lightTheme: theme } = useTheme();
 
-  const recentTrack = useQuery<IPlayTrack>({
-    queryKey: ["recentTrack"],
-    queryFn: fetchRecentTrack,
-    enabled: !currentTrack?.data?.isPlaying,
-  });
+  const spotifyFn = useServerFn(getSpotifyTrack);
+  const factFn = useServerFn(getLastFmTrack);
 
-  const trackData = currentTrack?.data?.isPlaying
-    ? currentTrack?.data
-    : recentTrack?.data;
+  const { data: trackData, isLoading } = useQuery({
+    queryKey: ["spotifyTrack"],
+    queryFn: spotifyFn,
+    refetchInterval: 10000,
+  });
 
   const trackFact = useQuery({
     queryKey: ["trackFact", trackData?.artist],
-    queryFn: () => getFact(trackData?.artist ?? ""),
+    queryFn: () => factFn({ data: { artist: trackData?.artist ?? "" } }),
     enabled: Boolean(trackData?.artist),
   });
 
   const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
+
+  const factColor = useMemo(
+    () => (dominantColor ? getContrastYIQ(dominantColor) : theme.gray400),
+    [dominantColor, theme.gray400]
+  );
 
   const fact = DOMPurify.sanitize(trackFact.data?.artist?.bio?.summary ?? "");
 
@@ -84,8 +82,7 @@ export const CurrentPlay = () => {
     console.log("Last fm error: ", trackFact.error);
   }
 
-  if (currentTrack?.isLoading || recentTrack?.isLoading)
-    return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Comp>
@@ -114,6 +111,7 @@ export const CurrentPlay = () => {
             <FactContent
               ref={contentRef}
               color={dominantColor ?? ""}
+              factColor={factColor}
               dangerouslySetInnerHTML={{ __html: fact }}
             />
           </animated.div>

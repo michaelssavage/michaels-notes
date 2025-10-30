@@ -6,7 +6,7 @@ import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import { sortById } from "@/lib/utils";
-import { getMiniPosts } from "@/server/posts";
+import { getMiniPosts } from "@/server/posts.api";
 import { Container } from "@/styles/abstracts/layout.styled";
 import {
   GridContainer,
@@ -90,16 +90,16 @@ function Projects() {
             />
           </Group>
         </Header>
+        <GridContainer>
+          {sortedProjects.map((project) => (
+            <Project
+              key={project.id}
+              data={project}
+              selectedTech={selectedTech}
+            />
+          ))}
+        </GridContainer>
       </Container>
-      <GridContainer>
-        {sortedProjects.map((project) => (
-          <Project
-            key={project.id}
-            data={project}
-            selectedTech={selectedTech}
-          />
-        ))}
-      </GridContainer>
       <Container margin="2rem 10% 0">
         <Suspense fallback={<Loading />}>
           <SpotifyContent>
@@ -118,6 +118,8 @@ function Projects() {
                 will display what I&apos;m currently listening to.
               </p>
             </Header>
+
+            {/* spotify components */}
             <CurrentPlay />
             <TopTracks />
           </SpotifyContent>

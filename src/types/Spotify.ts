@@ -2,7 +2,7 @@ export interface ITopTrack {
   name: string;
   artists: string;
   url: string;
-  img: string;
+  img: string | null;
 }
 
 export interface IPlayTrack {

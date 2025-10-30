@@ -21,7 +21,6 @@ export const GridContainer = styled.div`
   grid-template-columns: repeat(5, minmax(180px, 1fr));
   align-items: stretch;
   gap: 4px;
-  margin: 0 1rem;
 
   ${forBreakAt({
     breakpoint: 1000,

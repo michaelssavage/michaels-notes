@@ -1,4 +1,4 @@
-import { getMiniPosts } from "@/server/posts";
+import { getMiniPosts } from "@/server/posts.api";
 import { IPosts } from "@/types/Post";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";

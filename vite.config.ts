@@ -7,33 +7,44 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 
 const isDevBuild = !!process.env.VITE_ENV_DEV;
 
-const config = defineConfig({
-  server: { port: 3000 },
-  optimizeDeps: {
-    include: ["@emotion/styled"],
-  },
-  plugins: [
-    viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
-    tanstackStart(),
-    ...(!isDevBuild ? [netlify()] : []),
-    ...(!isDevBuild
-      ? [
-          visualizer({
-            open: false,
-            filename: "dist/stats.html",
-            gzipSize: true,
-            brotliSize: true,
-          }),
-        ]
-      : []),
-    viteReact({
-      include: /\.(mdx|tsx|ts)$/,
-      jsxImportSource: "@emotion/react",
-      babel: {
-        plugins: ["@emotion/babel-plugin"],
-      },
-    }),
-  ],
-});
+export default defineConfig(({ isSsrBuild }) => {
+  // Use isSsrBuild from Vite's config context
+  const cacheDir = isSsrBuild
+    ? "./node_modules/.vite-ssr"
+    : "./node_modules/.vite-client";
 
-export default config;
+  return {
+    server: { port: 3000 },
+    cacheDir,
+    optimizeDeps: {
+      include: ["@emotion/styled"],
+    },
+    ssr: {
+      optimizeDeps: {
+        include: ["@emotion/styled"],
+      },
+    },
+    plugins: [
+      viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
+      tanstackStart(),
+      ...(!isDevBuild ? [netlify()] : []),
+      ...(!isDevBuild
+        ? [
+            visualizer({
+              open: false,
+              filename: "dist/stats.html",
+              gzipSize: true,
+              brotliSize: true,
+            }),
+          ]
+        : []),
+      viteReact({
+        include: /\.(mdx|tsx|ts)$/,
+        jsxImportSource: "@emotion/react",
+        babel: {
+          plugins: ["@emotion/babel-plugin"],
+        },
+      }),
+    ],
+  };
+});

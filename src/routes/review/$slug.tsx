@@ -3,7 +3,7 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePosts } from "@/hooks/posts.hook";
-import { getFullPost } from "@/server/posts";
+import { getFullPost } from "@/server/posts.api";
 import {
   Article,
   Content,

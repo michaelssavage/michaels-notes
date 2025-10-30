@@ -9,7 +9,7 @@ import Post from "@/components/molecules/Post/Post";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { Weather } from "@/components/molecules/Weather";
 import { sortByDate } from "@/lib/utils";
-import { getMiniPosts } from "@/server/posts";
+import { getMiniPosts } from "@/server/posts.api";
 import {
   ButtonGroup,
   Filter,

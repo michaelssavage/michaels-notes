@@ -1,7 +1,7 @@
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
-import { getMovies } from "@/server/letterboxd";
+import { getMovies } from "@/server/letterboxd.api";
 import {
   Embla,
   EmblaContainer,

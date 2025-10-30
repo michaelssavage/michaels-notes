@@ -9,7 +9,6 @@ export const getMiniPosts = createServerFn({
 }).handler(
   async ({ signal }: { signal?: AbortSignal } = {}): Promise<IPosts> => {
     try {
-      // Check if request was aborted
       if (signal?.aborted) {
         throw new Error("Request aborted");
       }
@@ -22,7 +21,6 @@ export const getMiniPosts = createServerFn({
       );
       const data = await readFile(filePath, "utf-8");
 
-      // Check again after async operation
       if (signal?.aborted) {
         throw new Error("Request aborted");
       }

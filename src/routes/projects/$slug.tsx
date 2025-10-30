@@ -5,7 +5,7 @@ import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePosts } from "@/hooks/posts.hook";
 import { joinTags } from "@/lib/utils";
-import { getFullPost } from "@/server/posts";
+import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";

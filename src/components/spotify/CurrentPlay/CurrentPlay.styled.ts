@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 
 interface FactContentProps {
   color?: string;
+  factColor?: string;
 }
 
 export const Comp = styled.div`
@@ -55,7 +56,7 @@ export const NowPlaying = styled.div<{ color: string }>`
 
 export const FactContent = styled.p<FactContentProps>`
   font-size: 0.8rem;
-  color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.gray400};
+  color: ${({ factColor }) => factColor};
 
   width: 90%;
   margin: 0 auto;
@@ -63,7 +64,7 @@ export const FactContent = styled.p<FactContentProps>`
   flex-direction: column;
 
   &&& a {
-    color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.gray400};
+    color: ${({ factColor }) => factColor};
   }
 `;
 
