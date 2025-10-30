@@ -39,9 +39,9 @@ export const Route = createFileRoute("/")({
     return data;
   },
   head: () => ({
-    title,
     link: [{ rel: "canonical", href: url }],
     meta: [
+      { title },
       { property: "og:title", content: title },
       { property: "og:url", content: url },
       { name: "description", content: description },

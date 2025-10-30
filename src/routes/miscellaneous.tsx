@@ -15,9 +15,9 @@ const url = "https://michaelsavage.com/miscellaneous";
 export const Route = createFileRoute("/miscellaneous")({
   component: RouteComponent,
   head: () => ({
-    title,
     link: [{ rel: "canonical", href: url }],
     meta: [
+      { title },
       { property: "og:title", content: title },
       { property: "og:url", content: url },
       { name: "description", content: description },

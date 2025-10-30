@@ -29,9 +29,9 @@ export const Route = createFileRoute("/projects/$slug")({
     return post;
   },
   head: ({ loaderData: d }) => ({
-    title: d?.title || title,
     link: [{ rel: "canonical", href: `${url}/${d?.slug}` }],
     meta: [
+      { title: d?.title || title },
       { property: "og:title", content: d?.title || title },
       { property: "og:url", content: `${url}/${d?.slug}` },
       { name: "description", content: d?.description || description },

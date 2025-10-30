@@ -13,7 +13,7 @@ import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Button,
   ButtonContainer,
@@ -25,6 +25,8 @@ import {
 
 export const Letterboxd = () => {
   const fetchMovies = useServerFn(getMovies);
+
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   const { data } = useQuery({
@@ -56,6 +58,26 @@ export const Letterboxd = () => {
     };
   }, [emblaApi]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!emblaApi || !data) return;
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        emblaApi.scrollPrev();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        emblaApi.scrollNext();
+      }
+    };
+
+    const container = buttonContainerRef.current;
+    if (container) {
+      container.addEventListener("keydown", handleKeyDown);
+      return () => container.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [emblaApi, data]);
+
   if (!data || data.length === 0 || !Array.isArray(data)) {
     return (
       <p>
@@ -83,7 +105,7 @@ export const Letterboxd = () => {
           </EmblaViewport>
         </Embla>
 
-        <ButtonContainer>
+        <ButtonContainer ref={buttonContainerRef} tabIndex={-1}>
           {data.map((movie, index) => (
             <Button
               key={movie.title}
@@ -112,7 +134,7 @@ export const Letterboxd = () => {
             <span>{index < data.length - 1 ? ", " : "."}</span>
           </span>
         ))}{" "}
-        and ware more on{" "}
+        and more on{" "}
         <Anchor
           link="https://letterboxd.com/ottobio/"
           text="my profile"

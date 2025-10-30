@@ -68,6 +68,13 @@ export const FactContent = styled.p<FactContentProps>`
   }
 `;
 
+export const FactLink = styled.p<FactContentProps>`
+  font-size: 0.8rem;
+  &&& a {
+    color: ${({ factColor }) => factColor};
+  }
+`;
+
 export const ExpandButton = styled.button`
   position: absolute;
   bottom: -0.5rem;

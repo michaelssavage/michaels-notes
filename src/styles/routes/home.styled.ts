@@ -104,3 +104,10 @@ export const breakpoint = forBreakAt({
     flex-direction: column;
   `,
 });
+
+export const reverseBreak = forBreakAt({
+  breakpoint: 900,
+  styles: css`
+    flex-direction: column-reverse;
+  `,
+});

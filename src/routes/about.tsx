@@ -8,6 +8,7 @@ import {
   Content,
   Paragraph,
   plantbassdStyle,
+  reverseBreak,
   selfieStyle,
 } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
@@ -19,9 +20,9 @@ const url = "https://michaelsavage.com/about";
 export const Route = createFileRoute("/about")({
   component: About,
   head: () => ({
-    title,
     link: [{ rel: "canonical", href: url }],
     meta: [
+      { title },
       { property: "og:title", content: title },
       { property: "og:url", content: url },
       { name: "description", content: description },
@@ -58,12 +59,7 @@ function About() {
 
       <SectionInView delay={100}>
         <Paragraph>
-          <Group align="center" gap="2rem" css={breakpoint}>
-            <Picture
-              src="/blog/plantbassd.png"
-              alt="Plant bass'd logo"
-              style={plantbassdStyle}
-            />
+          <Group align="center" gap="2rem" css={reverseBreak}>
             <p>
               I co-created{" "}
               <Anchor
@@ -76,6 +72,11 @@ function About() {
               design posters, and I&apos;m always trying my hand at producing
               music on Ableton.
             </p>
+            <Picture
+              src="/blog/plantbassd.png"
+              alt="Plant bass'd logo"
+              style={plantbassdStyle}
+            />
           </Group>
         </Paragraph>
       </SectionInView>

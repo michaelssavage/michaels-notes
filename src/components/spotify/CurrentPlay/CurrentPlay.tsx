@@ -21,6 +21,7 @@ import {
   Content,
   ExpandButton,
   FactContent,
+  FactLink,
   NowPlaying,
   Player,
   Title,
@@ -42,7 +43,7 @@ export const CurrentPlay = () => {
     refetchInterval: 10000,
   });
 
-  const trackFact = useQuery({
+  const { data: trackFact, error: trackFactError } = useQuery({
     queryKey: ["trackFact", trackData?.artist],
     queryFn: () => factFn({ data: { artist: trackData?.artist ?? "" } }),
     enabled: Boolean(trackData?.artist),
@@ -55,7 +56,8 @@ export const CurrentPlay = () => {
     [dominantColor, theme.gray400]
   );
 
-  const fact = DOMPurify.sanitize(trackFact.data?.artist?.bio?.summary ?? "");
+  const fact = DOMPurify.sanitize(trackFact?.artist?.bio?.summary ?? "");
+  const hasFact = trackFact?.artist?.bio?.content !== "";
 
   useEffect(() => {
     const element = contentRef.current;
@@ -72,14 +74,16 @@ export const CurrentPlay = () => {
     };
   }, []);
 
+  const randomColor = useMemo(() => getRandomColor(), []);
+
   const springs = useSpring({
     opacity: fact ? 1 : 0,
-    height: expanded ? contentHeight : 12,
+    height: expanded ? contentHeight : 15,
     config: { duration: 300 },
   });
 
-  if (trackFact.error) {
-    console.log("Last fm error: ", trackFact.error);
+  if (trackFactError) {
+    console.log("Last fm error: ", trackFactError);
   }
 
   if (isLoading) return <div>Loading...</div>;
@@ -104,25 +108,35 @@ export const CurrentPlay = () => {
             <Content>
               <h3>{trackData.trackTitle}</h3>
               <p id="artist-name">{trackData.artist}</p>
+              {!hasFact && (
+                <FactLink
+                  factColor={factColor}
+                  dangerouslySetInnerHTML={{ __html: fact }}
+                />
+              )}
             </Content>
           </Player>
 
-          <animated.div style={{ ...springs, overflow: "hidden" }}>
-            <FactContent
-              ref={contentRef}
-              color={dominantColor ?? ""}
-              factColor={factColor}
-              dangerouslySetInnerHTML={{ __html: fact }}
-            />
-          </animated.div>
+          {hasFact && (
+            <>
+              <animated.div style={{ ...springs, overflow: "hidden" }}>
+                <FactContent
+                  ref={contentRef}
+                  color={dominantColor ?? ""}
+                  factColor={factColor}
+                  dangerouslySetInnerHTML={{ __html: fact }}
+                />
+              </animated.div>
 
-          <ExpandButton
-            onClick={() => setExpanded((prev) => !prev)}
-            color={getRandomColor()}
-          >
-            {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
-            {expanded ? "minimise" : "read more"}
-          </ExpandButton>
+              <ExpandButton
+                onClick={() => setExpanded((prev) => !prev)}
+                color={randomColor}
+              >
+                {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
+                {expanded ? "minimise" : "read more"}
+              </ExpandButton>
+            </>
+          )}
 
           <Link id="external-track-url" to={trackData?.trackUrl}>
             <ExternalLinkIcon />
