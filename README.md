@@ -6,23 +6,42 @@ Personal site built with React, Typescript, Vite, and @emotion, using eslint for
 
 ## Running locally:
 
-`netlify dev`
+To run this application:
 
-- Run the app with netlify functions
-- view on localhost:8888
+```bash
+pnpm install
+pnpm run start
+```
 
-`npm run dev`
+# Building For ProductionW
 
-- run as normal
-- view on localhost:3000
+To build this application for production:
 
-`npm run lint`
+```bash
+pnpm run build
+```
 
-- run linting.
+## Testing
 
-`npm run dlx npm-check-updates`
+This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
-- check what packages need updates
+```bash
+pnpm run test
+```
+
+## Styling
+
+This project uses [Emotion CSS](https://emotion.sh/docs/introduction) for styling.
+
+## Linting & Formatting
+
+This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
+
+```bash
+pnpm run lint
+pnpm run format
+pnpm run check
+```
 
 ## Audio waveform generation
 

@@ -19,6 +19,7 @@ import {
   createContext,
   type Dispatch,
   forwardRef,
+  HTMLAttributes,
   type HTMLProps,
   isValidElement,
   type ReactNode,
@@ -94,7 +95,7 @@ export function usePopover({
       setLabelId,
       setDescriptionId,
     }),
-    [open, setOpen, interactions, data, modal, labelId, descriptionId],
+    [open, setOpen, interactions, data, modal, labelId, descriptionId]
   );
 }
 
@@ -153,9 +154,9 @@ export const PopoverTrigger = forwardRef<
       context.getReferenceProps({
         ref,
         ...props,
-        ...children.props,
+        ...(children.props as Record<string, unknown>),
         "data-state": context.open ? "open" : "closed",
-      }),
+      } as HTMLAttributes<HTMLElement>)
     );
   }
 

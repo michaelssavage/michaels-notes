@@ -1,11 +1,12 @@
-import { getContrastYIQ } from "@/lib/colors";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
-export const Card = styled(Link)`
+export const Card = styled(Link, {
+  shouldForwardProp: (prop) => prop !== "color" && prop !== "contrastColor",
+})<{ color: string; contrastColor: string }>`
   flex: 0 0 auto;
   background-color: ${({ color, theme }) => color || theme.white};
-  color: ${({ color, theme }) => getContrastYIQ(color || theme.white)};
+  color: ${({ contrastColor }) => contrastColor};
   border-radius: 0.4rem;
   padding: 0.7rem 1.4rem 0.7rem 1rem;
   display: flex;

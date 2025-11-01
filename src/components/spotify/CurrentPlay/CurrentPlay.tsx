@@ -1,67 +1,74 @@
 import {
-  fetchCurrentTrack,
-  fetchRecentTrack,
-} from "@/api/fetch-current-track.api";
-import { getFact } from "@/api/lastfm-fact.api";
-import {
   ExternalLinkIcon,
   MaximiseIcon,
   MinimiseIcon,
 } from "@/components/icons";
 import { Picture } from "@/components/molecules/Picture";
-import { getRandomColor } from "@/lib/colors";
+import { useTheme } from "@/context/ThemeProvider";
+import { useSanitizedHTML } from "@/hooks/dompurify.hook";
+import { getContrastYIQ, getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
-import type { IPlayTrack } from "@/types/Spotify";
+import { getLastFmTrack } from "@/server/lastfm-track.api";
+import { getSpotifyTrack } from "@/server/spotify-track.api";
 import { css } from "@emotion/react";
 import { animated, useSpring } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import DOMPurify from "dompurify";
-import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Comp,
   Content,
   ExpandButton,
   FactContent,
+  FactLink,
   NowPlaying,
   Player,
   Title,
 } from "./CurrentPlay.styled";
 
-const COLLAPSED_HEIGHT = 30;
+const COLLAPSED_HEIGHT = 15;
 
 export const CurrentPlay = () => {
   const [expanded, setExpanded] = useState(false);
-  const [canExpand, setCanExpand] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const currentTrack = useQuery<IPlayTrack>({
-    queryKey: ["currentTrack"],
-    queryFn: fetchCurrentTrack,
-    refetchInterval: 10000, // Refetch every 10 seconds
+  const { lightTheme: theme } = useTheme();
+
+  const spotifyFn = useServerFn(getSpotifyTrack);
+  const factFn = useServerFn(getLastFmTrack);
+
+  const { data: trackData, isLoading } = useQuery({
+    queryKey: ["spotifyTrack"],
+    queryFn: spotifyFn,
+    refetchInterval: 10000,
   });
 
-  const recentTrack = useQuery<IPlayTrack>({
-    queryKey: ["recentTrack"],
-    queryFn: fetchRecentTrack,
-    enabled: !currentTrack?.data?.isPlaying,
-  });
-
-  const trackData = currentTrack?.data?.isPlaying
-    ? currentTrack?.data
-    : recentTrack?.data;
-
-  const trackFact = useQuery({
+  const { data: trackFact, error: trackFactError } = useQuery({
     queryKey: ["trackFact", trackData?.artist],
-    queryFn: () => getFact(trackData?.artist ?? ""),
+    queryFn: () => factFn({ data: { artist: trackData?.artist ?? "" } }),
     enabled: Boolean(trackData?.artist),
   });
 
   const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 
-  const fact = DOMPurify.sanitize(trackFact.data?.artist?.bio?.summary ?? "");
+  const factColor = useMemo(
+    () => (dominantColor ? getContrastYIQ(dominantColor) : theme.gray400),
+    [dominantColor, theme.gray400]
+  );
 
+  const fact = useSanitizedHTML(trackFact?.artist?.bio?.summary ?? "");
+  const hasFact = trackFact?.artist?.bio?.content !== "";
+
+  // Initial measurement
+  useEffect(() => {
+    if (contentRef.current && fact) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [fact]);
+
+  // Continuous observation
   useEffect(() => {
     const element = contentRef.current;
     if (!element) return;
@@ -69,7 +76,6 @@ export const CurrentPlay = () => {
     const resizeObserver = new ResizeObserver(() => {
       const fullHeight = element.scrollHeight;
       setContentHeight(fullHeight);
-      setCanExpand(fullHeight > COLLAPSED_HEIGHT);
     });
 
     resizeObserver.observe(element);
@@ -79,18 +85,19 @@ export const CurrentPlay = () => {
     };
   }, []);
 
+  const randomColor = useMemo(() => getRandomColor(), []);
+
   const springs = useSpring({
     opacity: fact ? 1 : 0,
     height: expanded ? contentHeight : COLLAPSED_HEIGHT,
     config: { duration: 300 },
   });
 
-  if (trackFact.error) {
-    console.log("Last fm error: ", trackFact.error);
+  if (trackFactError) {
+    console.log("Last fm error: ", trackFactError);
   }
 
-  if (currentTrack?.isLoading || recentTrack?.isLoading)
-    return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Comp>
@@ -112,25 +119,35 @@ export const CurrentPlay = () => {
             <Content>
               <h3>{trackData.trackTitle}</h3>
               <p id="artist-name">{trackData.artist}</p>
+              {!hasFact && (
+                <FactLink
+                  ref={contentRef}
+                  factColor={factColor}
+                  dangerouslySetInnerHTML={{ __html: fact }}
+                />
+              )}
             </Content>
           </Player>
 
-          <animated.div style={{ ...springs, overflow: "hidden" }}>
-            <FactContent
-              ref={contentRef}
-              color={dominantColor ?? ""}
-              dangerouslySetInnerHTML={{ __html: fact }}
-            />
-          </animated.div>
+          {hasFact && (
+            <>
+              <animated.div style={{ ...springs, overflow: "hidden" }}>
+                <FactContent
+                  ref={contentRef}
+                  color={dominantColor ?? ""}
+                  factColor={factColor}
+                  dangerouslySetInnerHTML={{ __html: fact }}
+                />
+              </animated.div>
 
-          {canExpand && (
-            <ExpandButton
-              onClick={() => setExpanded((prev) => !prev)}
-              color={getRandomColor()}
-            >
-              {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
-              {expanded ? "minimise" : "read more"}
-            </ExpandButton>
+              <ExpandButton
+                onClick={() => setExpanded((prev) => !prev)}
+                color={randomColor}
+              >
+                {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
+                {expanded ? "minimise" : "read more"}
+              </ExpandButton>
+            </>
           )}
 
           <Link id="external-track-url" to={trackData?.trackUrl}>

@@ -75,6 +75,7 @@ export const DescriptionText = styled.p`
   margin: 0;
   padding: 0;
   color: ${({ theme }) => theme.black};
+  font-weight: 500;
 `;
 
 // prettier-ignore

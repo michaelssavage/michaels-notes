@@ -17,29 +17,28 @@ import {
 import { GuideTags } from "@/types/Guide";
 import { css } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useHead, useSeoMeta } from "@unhead/react";
 import { useMemo, useState } from "react";
+
+const title = "Barcelona Guide | Michael Savage";
+const description =
+  "Barcelona guide with places to visit, activities, and entertainment options.";
+const url = "https://michaelsavage.com/guide/barcelona";
 
 export const Route = createFileRoute("/guide/barcelona")({
   component: RouteComponent,
+  head: () => ({
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { title },
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 function RouteComponent() {
-  useHead({
-    link: [
-      {
-        rel: "canonical",
-        href: `https://www.michaelsavage.ie/guide/barcelona`,
-      },
-    ],
-  });
-
-  useSeoMeta({
-    title: "Barcelona Guide",
-    description:
-      "Barcelona guide with places to visit, activities, and entertainment options.",
-  });
-
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);

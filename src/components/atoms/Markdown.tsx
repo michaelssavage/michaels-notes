@@ -4,11 +4,10 @@ import { UnorderedList } from "@/components/content/UnorderedList";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
+import { ImgPositioner } from "@/styles/routes/blog.styled";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { getMDXComponent } from "mdx-bundler/client";
-import type { MDXComponents } from "mdx/types.js";
 import { memo, useMemo } from "react";
-import { ImgPositioner } from "../../styles/routes/blog.styled";
 import { BlockQuote, Code, H1 } from "../content";
 import { Board } from "./Board";
 import { Floating } from "./Floating";
@@ -21,7 +20,7 @@ const MDX_GLOBAL_CONFIG = {
   },
 };
 
-const components: MDXComponents = {
+const components = {
   Picture,
   Anchor,
   Board,

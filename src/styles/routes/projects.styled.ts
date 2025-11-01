@@ -1,4 +1,3 @@
-import { getContrastYIQ } from "@/lib/colors";
 import {
   forBreakAt,
   forPhoneOnly,
@@ -21,7 +20,6 @@ export const GridContainer = styled.div`
   grid-template-columns: repeat(5, minmax(180px, 1fr));
   align-items: stretch;
   gap: 4px;
-  margin: 0 1rem;
 
   ${forBreakAt({
     breakpoint: 1000,
@@ -73,11 +71,11 @@ export const Card = styled(Link)`
   }
 `;
 
-export const CardTitle = styled.h3<{ main: string }>`
+export const CardTitle = styled.h3<{ main: string; contrast: string }>`
   padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
   font-size: clamp(0.8rem, 1.4vi + 0.1rem, 1rem);
   background-color: ${({ main }) => main};
-  color: ${({ main }) => getContrastYIQ(main)};
+  color: ${({ contrast }) => contrast};
   font-weight: 400;
   display: flex;
   align-items: center;
@@ -91,11 +89,11 @@ export const CardTitle = styled.h3<{ main: string }>`
   `)}
 `;
 
-export const CardBody = styled.div<{ bg: string }>`
+export const CardBody = styled.div<{ bg: string; contrast: string }>`
   padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
   font-size: clamp(0.8rem, 0.8vi + 0.1rem, 1rem);
   background-color: ${({ bg }) => bg};
-  color: ${({ bg }) => getContrastYIQ(bg)};
+  color: ${({ contrast }) => contrast};
 
   ${forTabletOnly(css`
     font-size: clamp(0.72rem, 0.5vi + 0.45rem, 0.9rem);

@@ -17,6 +17,7 @@ import {
   cloneElement,
   createContext,
   forwardRef,
+  HTMLAttributes,
   type HTMLProps,
   isValidElement,
   type ReactNode,
@@ -80,7 +81,7 @@ export function useTooltip({
       ...interactions,
       ...data,
     }),
-    [open, setOpen, interactions, data],
+    [open, setOpen, interactions, data]
   );
 }
 
@@ -128,9 +129,9 @@ export const TooltipTrigger = forwardRef<
       context.getReferenceProps({
         ref,
         ...props,
-        ...children.props,
+        ...(children.props as Record<string, unknown>),
         "data-state": context.open ? "open" : "closed",
-      }),
+      } as HTMLAttributes<HTMLElement>)
     );
   }
 

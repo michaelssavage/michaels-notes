@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 
 interface FactContentProps {
   color?: string;
+  factColor?: string;
 }
 
 export const Title = styled.h3`
@@ -16,12 +17,6 @@ export const Title = styled.h3`
 export const Comp = styled.div`
   display: flex;
   flex-direction: column;
-
-  &:hover {
-    ${Title} {
-      color: ${({ theme }) => theme.black};
-    }
-  }
 `;
 
 export const NowPlaying = styled.div<{ color: string }>`
@@ -62,7 +57,7 @@ export const NowPlaying = styled.div<{ color: string }>`
 
 export const FactContent = styled.p<FactContentProps>`
   font-size: 0.8rem;
-  color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.gray400};
+  color: ${({ factColor }) => factColor};
 
   width: 90%;
   margin: 0 auto;
@@ -70,7 +65,14 @@ export const FactContent = styled.p<FactContentProps>`
   flex-direction: column;
 
   &&& a {
-    color: ${({ color = "", theme }) => getContrastYIQ(color) || theme.gray400};
+    color: ${({ factColor }) => factColor};
+  }
+`;
+
+export const FactLink = styled.p<FactContentProps>`
+  font-size: 0.8rem;
+  &&& a {
+    color: ${({ factColor }) => factColor};
   }
 `;
 

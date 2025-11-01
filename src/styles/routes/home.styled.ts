@@ -31,7 +31,7 @@ export const Arrow = styled(ArrowDown)`
 `;
 
 export const Section = styled(animated.section)`
-  height: calc(60vh);
+  min-height: calc(60vh);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,5 +102,12 @@ export const breakpoint = forBreakAt({
   breakpoint: 900,
   styles: css`
     flex-direction: column;
+  `,
+});
+
+export const reverseBreak = forBreakAt({
+  breakpoint: 900,
+  styles: css`
+    flex-direction: column-reverse;
   `,
 });
