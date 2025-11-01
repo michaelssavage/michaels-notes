@@ -23,6 +23,26 @@ export default defineConfig(({ isSsrBuild }) => {
       optimizeDeps: {
         include: ["@emotion/styled"],
       },
+      external: isSsrBuild
+        ? [
+            "jsdom",
+            "vitest",
+            "@vitest/browser",
+            "@vitest/coverage-v8",
+            "@playwright/test",
+            "playwright",
+            "@testing-library/react",
+            "@testing-library/dom",
+            // Storybook - dev only
+            "storybook",
+            "@storybook/react",
+            "@storybook/addon-a11y",
+            "@storybook/addon-docs",
+            "@storybook/addon-vitest",
+            "@storybook/react-vite",
+            "@chromatic-com/storybook",
+          ]
+        : undefined,
     },
     plugins: [
       viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
