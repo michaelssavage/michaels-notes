@@ -4,22 +4,21 @@ Live at [michaelsavage.ie](https://michaelsavage.ie)
 
 Personal site built with React, Typescript, Vite, and @emotion, using eslint for linting. Blog posts written locally with MDX.
 
-
 ## Running locally:
 
 To run this application:
 
 ```bash
-npm install
-npm run start
+pnpm install
+pnpm run start
 ```
 
-# Building For Production
+# Building For ProductionW
 
 To build this application for production:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ## Testing
@@ -27,26 +26,22 @@ npm run build
 This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
 ```bash
-npm run test
+pnpm run test
 ```
 
 ## Styling
 
 This project uses [Emotion CSS](https://emotion.sh/docs/introduction) for styling.
 
-
 ## Linting & Formatting
-
 
 This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
-npm run lint
-npm run format
-npm run check
+pnpm run lint
+pnpm run format
+pnpm run check
 ```
-
-
 
 ## Audio waveform generation
 

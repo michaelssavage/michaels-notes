@@ -7,15 +7,16 @@ interface FactContentProps {
   factColor?: string;
 }
 
-export const Comp = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Title = styled.h3`
   font-weight: 500;
   color: ${({ theme }) => theme.gray500};
   margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+`;
+
+export const Comp = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const NowPlaying = styled.div<{ color: string }>`
@@ -95,7 +96,7 @@ export const ExpandButton = styled.button`
   gap: 0.25rem;
 
   &:hover {
-    background-color: ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.black};
   }
   &:active {
     transform: translateX(-50%) scale(1.05);

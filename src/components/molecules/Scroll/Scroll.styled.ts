@@ -60,5 +60,5 @@ export const Title = styled.h3`
 
 export const ComponentWrapper = styled.div<{ spacing?: SerializedStyles }>`
   position: relative;
-  ${({ spacing }) => spacing}
+  ${({ spacing }) => spacing};
 `;

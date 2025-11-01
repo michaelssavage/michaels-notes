@@ -27,6 +27,8 @@ import {
   Title,
 } from "./CurrentPlay.styled";
 
+const COLLAPSED_HEIGHT = 15;
+
 export const CurrentPlay = () => {
   const [expanded, setExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
@@ -59,12 +61,21 @@ export const CurrentPlay = () => {
   const fact = DOMPurify.sanitize(trackFact?.artist?.bio?.summary ?? "");
   const hasFact = trackFact?.artist?.bio?.content !== "";
 
+  // Initial measurement
+  useEffect(() => {
+    if (contentRef.current && fact) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [fact]);
+
+  // Continuous observation
   useEffect(() => {
     const element = contentRef.current;
     if (!element) return;
 
     const resizeObserver = new ResizeObserver(() => {
-      setContentHeight(element.scrollHeight);
+      const fullHeight = element.scrollHeight;
+      setContentHeight(fullHeight);
     });
 
     resizeObserver.observe(element);
@@ -78,7 +89,7 @@ export const CurrentPlay = () => {
 
   const springs = useSpring({
     opacity: fact ? 1 : 0,
-    height: expanded ? contentHeight : 15,
+    height: expanded ? contentHeight : COLLAPSED_HEIGHT,
     config: { duration: 300 },
   });
 
@@ -110,6 +121,7 @@ export const CurrentPlay = () => {
               <p id="artist-name">{trackData.artist}</p>
               {!hasFact && (
                 <FactLink
+                  ref={contentRef}
                   factColor={factColor}
                   dangerouslySetInnerHTML={{ __html: fact }}
                 />
