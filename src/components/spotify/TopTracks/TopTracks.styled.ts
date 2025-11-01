@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
-export const Card = styled(Link)<{ color: string; contrastColor: string }>`
+export const Card = styled(Link, {
+  shouldForwardProp: (prop) => prop !== "color" && prop !== "contrastColor",
+})<{ color: string; contrastColor: string }>`
   flex: 0 0 auto;
   background-color: ${({ color, theme }) => color || theme.white};
   color: ${({ contrastColor }) => contrastColor};

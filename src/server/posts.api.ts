@@ -27,13 +27,19 @@ export const getMiniPosts = createServerFn({
 
       return JSON.parse(data) as IPosts;
     } catch (error) {
+      console.warn("Failed to load posts index:", error);
+
       if (
         signal?.aborted ||
-        (error instanceof Error && error.message === "Request aborted")
+        (error instanceof Error && error.name === "AbortError")
       ) {
-        throw error;
+        return {
+          projects: [],
+          blogs: [],
+          reviews: [],
+          bites: [],
+        };
       }
-      console.warn("Failed to load posts index:", error);
       return {
         projects: [],
         blogs: [],
