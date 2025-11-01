@@ -1,8 +1,9 @@
 [build]
-  command = "vite build"
+  command = "pnpm build"
   publish = "dist/client"
+
 [dev]
-  command = "vite dev"
+  command = "pnpm dev"
   port = 3000
 
 [[redirects]]

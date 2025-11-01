@@ -5,6 +5,7 @@ import {
 } from "@/components/icons";
 import { Picture } from "@/components/molecules/Picture";
 import { useTheme } from "@/context/ThemeProvider";
+import { useSanitizedHTML } from "@/hooks/dompurify.hook";
 import { getContrastYIQ, getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
 import { getLastFmTrack } from "@/server/lastfm-track.api";
@@ -14,7 +15,6 @@ import { animated, useSpring } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import DOMPurify from "isomorphic-dompurify";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Comp,
@@ -58,7 +58,7 @@ export const CurrentPlay = () => {
     [dominantColor, theme.gray400]
   );
 
-  const fact = DOMPurify.sanitize(trackFact?.artist?.bio?.summary ?? "");
+  const fact = useSanitizedHTML(trackFact?.artist?.bio?.summary ?? "");
   const hasFact = trackFact?.artist?.bio?.content !== "";
 
   // Initial measurement
