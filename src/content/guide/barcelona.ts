@@ -8,6 +8,9 @@ export const items: GuideTableItem[] = [
     price: "€100+",
     type: "Fun",
     description: "Thermal baths and spa experience in the old city.",
+    tags: [],
+    image:
+      "https://31m9mhhbv2.ucarecd.net/a4a5cdf0-48f2-4180-b460-b6bfc0767aec/aire.jpg",
   },
   {
     title: "Aquarium de Barcelona",
@@ -16,6 +19,9 @@ export const items: GuideTableItem[] = [
     price: "€14",
     type: "Fun",
     description: "Large aquarium with Mediterranean and tropical marine life.",
+    tags: [],
+    image:
+      "https://31m9mhhbv2.ucarecd.net/c90da5e6-87f7-4117-9149-48d72b181c84/aquarium.jpg",
   },
   {
     title: "Axe Throwing",
@@ -24,6 +30,9 @@ export const items: GuideTableItem[] = [
     price: "€19.50",
     type: "Activity",
     description: "Indoor axe-throwing games in the city centre.",
+    tags: [],
+    image:
+      "https://31m9mhhbv2.ucarecd.net/d98868c9-db69-43d3-bcd3-1d9494a2df02/axe.jpg",
   },
   {
     title: "Barcelona Botanical Garden",
@@ -34,6 +43,8 @@ export const items: GuideTableItem[] = [
     tags: ["Free 1st Sunday"],
     description:
       "Mediterranean plant garden; visit La Caseta del Migdia afterwards for sunrise.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/c7007628-791d-49bb-9f50-9aeec939a8ca/jardinbotanico.jpg",
   },
   {
     title: "Barcelona Zoo",
@@ -41,14 +52,23 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/Y33ARACBXcY2unwV8",
     link: "https://zoobarcelona.cat/en/home",
     type: "Fun",
+    tags: [],
     description:
       "Mid-sized city zoo with a wide variety of animals in Parc de la Ciutadella including komodo dragons, hippos, giraffes, hyenas, elephants, lions, red pandas, penguins, orangutans",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/df789c45-b5b2-48b6-9640-d73af7baf3b9/meerkats.jpg",
   },
   {
     title: "Basílica del Sagrat Cor Tibidabo",
     type: "Place",
     location: "https://maps.app.goo.gl/wfmdK47p23poZLVM7",
-    link: "https://tibidabo.salesianos.edu/",
+    link: "https://tibidabo.cat/en",
+    price: "Free - €4+",
+    tags: [],
+    description:
+      "The mountain peak in Sarrià-Sant Gervasi has a church, amusement park, and excellent views of the city. Whether you hike up, take the funicular, or drive, it's worth a visit. Jump on the Talaia, an attraction that has offered a 360° panoramic view of Barcelona 550 meters above sea level, since 1921.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/de6da6b0-6f5b-48d9-9042-97cef3b40c1e/tibidabo.webp",
   },
   {
     title: "Bewake Park",
@@ -56,7 +76,10 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/WPjEWuqFtC3Luv6j8",
     link: "https://bewakepark.com/",
     type: "Activity",
+    tags: [],
     description: "Cable wakeboarding and water sports park.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/c12a58bc-4bf2-4e23-820d-69566f7181bf/wakeboarding.jpg",
   },
   {
     title: "Biblioteca Gabriel García Márquez",
@@ -64,6 +87,9 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/Rg4cM3gsk8U9QCEx5",
     link: "https://ajuntament.barcelona.cat/biblioteques/ca/bibgarciamarquez",
     type: "Place",
+    tags: ["Free"],
+    image:
+      "https://31m9mhhbv2.ucarecd.net/f47a5448-89c0-4bc8-811b-22b258358a80/library.jpg",
     description:
       "Public library designed by SUMA Arquitectura, and uses exposed wood and glass, creating a warm, modern environment. There’s a special comic section showcasing works by Francisco Ibáñez, a local comic artist, with a collection of 500 pieces.",
   },
@@ -76,6 +102,8 @@ export const items: GuideTableItem[] = [
     tags: ["Day Trip"],
     description:
       "Outdoor bungee jumping experience 130km outside of Barcelona. Experience a 30 meter jump above the river canyon, with a pendulum effect of up to 25 meters.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/3ef05610-b45d-40c1-9c61-025f6f9a10b0/bungee.jpg",
   },
   {
     title: "Bunkers del Carmel",
@@ -83,8 +111,11 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/WiNPByzatAMXYZyp6",
     link: "https://www.barcelona.cat/museuhistoria/ca/patrimonis/els-espais-del-museu/turo-de-la-rovira",
     type: "Place",
+    tags: [],
     description:
       "MUHBA Turó de la Rovira offers panoramic views of Barcelona from Spanish Civil War bunkers where anti-aircraft guns were installed.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/a8837809-7fcc-4294-8f29-9752533384fd/bunkers.jpg",
   },
   {
     title: "CaixaForum",
@@ -93,6 +124,9 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/AhiX6L9Lnt35ARC56",
     link: "https://caixaforum.org/es/barcelona",
     description: "Cultural centre with art exhibitions and events.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/05272c32-4507-4a37-9a25-a5a4ff34a1a0/caixaforum.jpg",
+    tags: [],
   },
   {
     title: "Castell de Montjuïc",
@@ -102,6 +136,8 @@ export const items: GuideTableItem[] = [
     link: "https://ajuntament.barcelona.cat/castelldemontjuic/en/visit/planning-your-visit",
     location: "https://maps.app.goo.gl/TDYFQHaGyGyoCkk78",
     description: "Historic fortress with city views at the top of Montjuïc.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/db4dd0b3-7319-4e8e-8862-df111baff24f/montjuic.jpg",
   },
   {
     title: "CeleBreak",
@@ -109,78 +145,103 @@ export const items: GuideTableItem[] = [
     link: "https://celebreak.com/es/",
     price: "€7 - €20",
     type: "Activity",
+    tags: [],
     description:
       "Book and play soccer matches with strangers or friends using the CeleBreak app.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/3ce004bb-ba71-4560-9382-3b5db645a76d/celebreak.jpg",
   },
   {
     title: "Centre Cívic Convent de Sant Agustí",
     type: "Place",
     location: "https://maps.app.goo.gl/oYJfoYAucbqdjnGF8",
     link: "https://conventagusti.com/",
+    tags: ["Free"],
     price: "Free",
-  },
-  {
-    title: "Ceramics & Wine",
-    price: "€25",
-    link: "https://www.groupon.es/deals/tiwona-taller-de-ceramica-barcelona-workshops-coworking",
-    location: "https://maps.app.goo.gl/HtMyDm8yrf96TjWcA",
-    type: "Fun",
-    description: "Pottery workshop combined with wine tasting.",
+    description:
+      "A restored 14th-century convent in Barcelona's El Born district that hosts exhibitions, concerts, workshops, and activities.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/953eafa7-d81b-408f-8d6c-64498f6eff19/civicconvent.jpg",
   },
   {
     title: "Ciutadella Park",
     location: "https://maps.app.goo.gl/3zbVCi4pDm6Ft3Gh8",
+    tags: ["Free"],
+    price: "Free",
     link: "https://www.barcelona.cat/es/que-hacer-en-bcn/parques-y-jardines/parque-de-la-ciutadella-92086011921",
     type: "Place",
+    description:
+      "Ciutadella Park has a large number of century-old trees and a wide range of elements: the monumental waterfall, 19th-century buildings now used as museums, a lake for rowing boats, pathways and numerous sculptures. It shares the site with the city zoo.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/c9aa5517-c58b-49c9-9b0b-8cec17314621/ciutadella.jpg",
   },
   {
-    title: "CosmoCaixa Museum of Science",
+    title: "Museo de la Ciencia",
     type: "Place",
     price: "€8",
-    location: "Carrer d'Isaac Newton, 26, Sarrià-Sant Gervasi, 08022 Barcelona",
+    location: "https://maps.app.goo.gl/Vke3mwSVLgny5ZW78",
     link: "https://maps.app.goo.gl/Fdvn6xJkaYZ5M7RA8",
+    tags: [],
     description:
       "Interactive science museum with exhibitions and a planetarium.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/4c34dc8a-6fc9-40b4-bb42-01f2104c5e2a/cosmocaixa.jpg",
   },
   {
     title: "Dr. Flow Bar",
     location: "https://maps.app.goo.gl/49Gq84m8dkRWd59n7",
     link: "https://www.drflow.es/programacion/",
+    tags: [],
     type: "Music",
+    price: "Donation",
     description: "Live music venue located in El Born.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/759da686-4c24-433b-8c66-fa859ab73074/flow.jpg",
   },
   {
     title: "Flamenco theater - Palau Dalmases",
     type: "Fun",
     price: "€30",
+    tags: [],
     link: "https://www.flamencopalaudalmases.com/",
     location: "https://maps.app.goo.gl/H3R6B8XBU1hRH6mw7",
     description: "Traditional Spanish dance and music performance.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/d85f8cf3-3404-45dc-89ff-79d32a65e45a/flamenco.webp",
   },
   {
     title: "Flotarium",
     price: "€75 for 2",
+    tags: [],
     link: "https://www.flotarium.com/tienda/",
     location: "https://maps.app.goo.gl/FJ1cQd61qpTZYkYQ9",
     type: "Fun",
     description: "Sensory deprivation floatation tank experience.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/3595af55-9704-4d8c-a966-e492ea1ed0e1/flotarium.webp",
   },
   {
     title: "Fundació Joan Miró",
     price: "€9",
     location: "https://maps.app.goo.gl/WK2VEt35TScS8K7x7",
+    tags: [],
     link: "https://www.fmirobcn.org/",
     type: "Fun",
     description:
       "Showcase of Joan Miro's modern, colorful artworks in hilltop museum with courtyards and terraces.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/f1d20d07-e4c6-4247-aa3b-a891f3af165f/miro.webp",
   },
   {
     title: "Jazz at 23 Robadors",
     price: "€8",
     type: "Fun",
     link: "https://23robadors.com/programacio/",
+    tags: [],
     location: "https://maps.app.goo.gl/Y1MtCGiLZxJQAPEv9",
     description: "Intimate bar offering live jazz music.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/dffa80ae-334b-4a7b-a0bc-f2f117966141/jazz.jpg",
   },
   {
     title: "MACBA",
@@ -195,6 +256,7 @@ export const items: GuideTableItem[] = [
   {
     title: "Mirador Torre Glòries",
     price: "€18",
+    tags: [],
     type: "Place",
     location: "https://maps.app.goo.gl/Cuf9cmmt91Duf1Sq9",
     link: "https://www.miradortorreglories.com/planifica-tu-visita/comprar-entradas/",
@@ -205,6 +267,7 @@ export const items: GuideTableItem[] = [
     price: "€10.80",
     type: "Activity",
     link: "https://www.telefericdemontjuic.cat/en",
+    tags: [],
     location: "https://maps.app.goo.gl/Be5ypmRLntBPeqxE7",
     description: "Scenic cable car ride up to Montjuïc Hill.",
   },
@@ -228,12 +291,15 @@ export const items: GuideTableItem[] = [
   {
     title: "Nau Bostik",
     type: "Place",
+    tags: [],
+    price: "Free",
     location: "https://maps.app.goo.gl/Bky7avBMcoKVwuTv9",
     link: "https://naubostik.com/",
   },
   {
     title: "Observatori Fabra - Dinner with stars",
     link: "https://www.sternalia.com/en/dinners-with-stars.html",
+    tags: [],
     location: "https://maps.app.goo.gl/mQgU3BMHx2kojxEx6",
     price: "€81.50 - €128",
     type: "Activity",
@@ -242,6 +308,7 @@ export const items: GuideTableItem[] = [
     title: "Observatori Fabra - Night guided tour",
     price: "€18.50 - €30",
     type: "Place",
+    tags: [],
     description:
       "Every Friday and Saturday between October to May you will have the opportunity to visit the Fabra Observatory, enjoy a conference and the views of Barcelona from the outside of the dome and see the stars through the telescope.",
     link: "https://www.sternalia.com/en/guided-tours-fabra-observatory.html",
@@ -262,6 +329,7 @@ export const items: GuideTableItem[] = [
     location: "App Dependant",
     link: "https://playtomic.com/",
     price: "€7 - €20",
+    tags: [],
     type: "Activity",
     description:
       "Book and play padel matches with strangers or friends using the Playtomic app.",
@@ -270,15 +338,22 @@ export const items: GuideTableItem[] = [
     title: "Palau Martorell",
     type: "Place",
     location: "https://maps.app.goo.gl/jrAQMgSNdveGvyKS7",
+    tags: [],
     link: "https://www.palaumartorell.com/en/visita",
     price: "€16",
     description: "Exhibition hall hosting art and cultural events.",
   },
   {
-    title: "Palo Alto",
+    title: "Palo Alto Market",
     type: "Fun",
+    tags: [],
     location: "https://maps.app.goo.gl/SLVni93PmeVEJxtY6",
-    link: "https://www.paloalto.barcelona/esdeveniments",
+    link: "https://palomarketfest.com/en",
+    price: "€6.50",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/c1cdb931-74e1-4b22-93e1-7fd22e226d09/tallerespia_1.png",
+    description:
+      "A design market with street music, DJ sessions, food trucks, and many exhibitors selling unique products.",
   },
   {
     title: "Parc del Laberint d'Horta",
@@ -286,13 +361,27 @@ export const items: GuideTableItem[] = [
     type: "Place",
     link: "https://guia.barcelona.cat/en/detall/parc-del-laberint-d-horta_92086011952.html",
     location: "https://maps.app.goo.gl/9BhXR3c49gvMNje76",
+    tags: [],
     description: "Historical garden with a maze and romantic architecture.",
+  },
+  {
+    title: "Pedralbés Monastery",
+    type: "Place",
+    location: "https://maps.app.goo.gl/LevoJkbLsJcpcFoT9",
+    price: "€5.20",
+    tags: ["Free after Sunday 3pm", "Free 1st Sunday"],
+    link: "https://www.monestirpedralbes.barcelona/en/visit/opening_times_and_admission_fees",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/ca2b37e8-b15c-45d7-8f20-0d59a654bfc0/202103190853eMonestirdePedralbes29Barcelona2021.jpg",
+    description:
+      "Gothic monastery with cloisters, gardens, and religious art founded in the 14th Century.",
   },
   {
     title: "Razzmatazz",
     type: "Music",
     location: "https://maps.app.goo.gl/QfjV8VvyudB7nnPn9",
     link: "https://www.salarazzmatazz.com",
+    tags: [],
     price: "€10 - €20",
     description: "Large music venue and nightclub in Poble Nou.",
   },
@@ -301,6 +390,7 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/grFnrFHZ1tM74f5v6",
     link: "https://santpaubarcelona.org/en/visita/visita-lliure/",
     price: "€11.90",
+    tags: [],
     type: "Place",
     description: "Modernist hospital complex and UNESCO World Heritage site.",
   },
@@ -308,6 +398,8 @@ export const items: GuideTableItem[] = [
     title: "Rouge Cocktail Club",
     location: "https://maps.app.goo.gl/7Un6zEftLsCZEMyAA",
     link: "https://www.instagram.com/rouge_cocktailclub/",
+    price: "Free",
+    tags: [],
     type: "Music",
     description: "Live music bar in Poble Sec.",
   },
@@ -317,6 +409,7 @@ export const items: GuideTableItem[] = [
     description:
       "Immersive yoga, pilates, breathwork, and more in tranquil space with spatial audio and 360° visuals.",
     location: "https://maps.app.goo.gl/6vbcKFMdCctZx6Ls9",
+    tags: [],
     link: "https://sabda.es/classes/",
     price: "€20",
   },
@@ -325,34 +418,58 @@ export const items: GuideTableItem[] = [
     price: "€31.80",
     type: "Place",
     description: "Gaudí's world-famous unfinished basilica.",
+    tags: [],
     location: "https://maps.app.goo.gl/qgsz87obhV6R9Hre7",
     link: "https://ticketsagradafamilia.com/",
   },
   {
-    title: "Sailing Experience Barcelona",
+    title: "Sailboat Experience Barcelona",
     location: "https://maps.app.goo.gl/DrDdKV3uPbUPUzg26",
-    link: "https://www.instagram.com/sailingexperiencebarcelona/",
+    link: "https://www.sailingexperiencebcn.com",
+    tags: [],
     type: "Activity",
-    description: "Guided sailing trips along Barcelona's coast.",
+    price: "€39+",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/d65c06fe-af51-4659-9514-87fc80e27f58/15hoursailingswimming1030x694.jpeg",
+    description:
+      "Guided sailing trips along Barcelona's coast with time for a plunge in the Mediterranean.",
+  },
+  {
+    title: "Fly & Sail",
+    location: "https://maps.app.goo.gl/DrDdKV3uPbUPUzg26",
+    link: "https://www.sailingexperiencebcn.com/shop/helicopter-costa-tour-sailing-experience-barcelona/",
+    tags: [],
+    image:
+      "https://31m9mhhbv2.ucarecd.net/c1a9ace7-0330-408a-a3d9-4ceeeba34c03/VuelohelicopteroBarcelona.jpg",
+    price: "€89 - €109",
+    type: "Activity",
+    description:
+      "Experience a 7 minute helicopter journey with up to 3 passengers at a time, then set sail with snacks and drinks.",
   },
   {
     title: "Sala Apolo",
     location: "https://maps.app.goo.gl/1pe6KwRWYhSqRdqb6",
     link: "https://sala-apolo.com/es/agenda",
+    tags: [],
     type: "Music",
+    price: "€10+",
     description: "Popular concert hall and nightclub.",
   },
   {
     title: "Sala Taro",
     location: "https://maps.app.goo.gl/5znMc89VHdpCjNR26",
     link: "https://dice.fm/venue/sala-taro-lv8x",
+    tags: [],
     type: "Music",
+    price: "€3+",
     description: "Late night venue & bar in Sants.",
   },
   {
     title: "Sala Upload",
     link: "https://sala-upload.com/",
     location: "https://maps.app.goo.gl/drGuWcRZFZn3tYEY9",
+    tags: [],
+    price: "€10+",
     type: "Music",
     description: "Live music venue in Montjuïc.",
   },
@@ -362,6 +479,7 @@ export const items: GuideTableItem[] = [
     price: "€300",
     link: "https://tickets-actividades.aquariumbcn.com/pass/1137305161",
     type: "Fun",
+    tags: [],
     description: "Dive with sharks at the Barcelona Aquarium.",
   },
   {
@@ -370,6 +488,7 @@ export const items: GuideTableItem[] = [
     link: "https://saltamos.es/en/tandem-jump/",
     location: "https://maps.app.goo.gl/ToycpFwpXmxCbzqc8",
     type: "Activity",
+    tags: [],
     description: "Tandem parachute jump experience near Barcelona.",
   },
   {
@@ -377,13 +496,15 @@ export const items: GuideTableItem[] = [
     type: "Place",
     location: "https://maps.app.goo.gl/xfbZv7BCyDtfdWbh6",
     link: "https://www.barcelona.cat/grec/es",
+    tags: [],
     price: "Free",
   },
   {
     title: "The Comedy Clubhouse",
     type: "Fun",
-    price: "Free - €20",
+    price: "Donation",
     link: "https://thecomedyclubhouse.es/",
+    tags: [],
     location: "https://maps.app.goo.gl/FyTwtgb4B9auaqaX9",
     description:
       "Stand-up comedy venue with regular shows in English and Spanish.",
@@ -394,7 +515,10 @@ export const items: GuideTableItem[] = [
     type: "Activity",
     description: "Seasonal outdoor ice-skating rink at Tibidabo.",
     link: "https://tibidabo.cat/en/events/ice-rink",
+    price: "€5",
     location: "https://maps.app.goo.gl/VBNxWxDVfqHvUnTH7",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/4a22b461-dd45-42b4-b387-25f21c95fbe1/Pistadegeldenit2_0.jpg",
   },
   {
     title: "Trip to Montserrat Abbey",
@@ -402,6 +526,9 @@ export const items: GuideTableItem[] = [
     tags: ["Day Trip"],
     location: "https://maps.app.goo.gl/5HpFHD5TyVWSXmVE9",
     link: "https://tickets.montserratvisita.com",
+    price: "€5 - €9",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/cf3d9047-d419-47fa-a38a-4f7b54994b31/visita_montserrat.jpg",
     description:
       "Take a train to Monistrol de Montserrat and get a Cremallera to the abbey, and witness the best views of the surroundings. Getting the ticket to enter the Abbey is definitely optional.",
   },
@@ -410,6 +537,7 @@ export const items: GuideTableItem[] = [
     price: "€15",
     type: "Place",
     description: "Museum showcasing contemporary art.",
+    tags: [],
     location: "https://maps.app.goo.gl/h5R6FTSrwzbnAkhg7",
     link: "https://tickets.whiterabbit-theoffmuseum.com/en-ES/1283/7951?s=maps&f=nav&lang=en-ES",
   },

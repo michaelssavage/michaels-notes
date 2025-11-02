@@ -1,5 +1,6 @@
 import { Group } from "@/components/atoms/Group";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
+import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
@@ -11,10 +12,12 @@ import {
   FilterableTag,
   FilterContainer,
   Grid,
+  GridSelector,
+  LinkTitle,
   ResultsCount,
   TypeSelect,
 } from "@/styles/routes/guide.styled";
-import { GuideTags } from "@/types/Guide";
+import { GridCols, GuideTags } from "@/types/Guide";
 import { css } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
@@ -42,8 +45,13 @@ function RouteComponent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);
+  const [columns, setColumns] = useState<GridCols>(4);
 
   const [showAll, setShowAll] = useState(false);
+
+  const handleChangeColumns = (value: GridCols) => {
+    setColumns(value);
+  };
 
   const handleShow = () => setShowAll((prev) => !prev);
 
@@ -102,7 +110,34 @@ function RouteComponent() {
   return (
     <Page>
       <Panel>
-        <h1>Barcelona Guide - Qué haré hoy?</h1>
+        <h1>Barcelona Guide - Què faré avui?</h1>
+
+        <p>
+          Bon dia! There are so many sites to find things to do in Barcelona but
+          here are some useful places to start:
+          <br />
+          <Anchor
+            link="https://www.barcelona-tickets.com/botanical-garden-barcelona/"
+            text="barcelona-tickets.com"
+            variant="link"
+            isExternal
+          />
+          {", "}
+          <Anchor
+            link="https://www.atlasobscura.com/things-to-do/barcelona-spain/"
+            text="atlasobscura.com"
+            variant="link"
+            isExternal
+          />
+          {", and "}
+          <Anchor
+            link="https://barcelonasecreta.com"
+            text="barcelonasecreta.com"
+            variant="link"
+            isExternal
+          />
+          .
+        </p>
 
         <FilterContainer>
           <Group align="center" gap="0.5rem" wrap="wrap">
@@ -164,41 +199,77 @@ function RouteComponent() {
           )}
         </FilterContainer>
 
-        <ResultsCount>
-          Showing {filteredItems.length} of {items.length} places
-        </ResultsCount>
+        <Group justify="space-between" align="flex-end" margin="0 0 1rem 0">
+          <ResultsCount>
+            Showing {filteredItems.length} of {items.length} places
+          </ResultsCount>
 
-        <Grid>
+          <GridSelector>
+            <p data-id="label-1">Show</p>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <Button
+                key={num}
+                onClick={() => handleChangeColumns(num as GridCols)}
+                selected={columns === num}
+                variant="pill"
+                text={num.toString()}
+              />
+            ))}
+            <p data-id="label-2">per row</p>
+          </GridSelector>
+        </Group>
+
+        <Grid columns={columns}>
           {filteredItems.map((item, index) => {
             return (
               <Card key={index}>
+                {item.image ? (
+                  <img data-id="image" src={item.image} alt={item.title} />
+                ) : null}
+
+                {item.tags.length > 0 && (
+                  <p data-id="tags">
+                    {item.tags?.map((tag) => (
+                      <FilterableTag
+                        key={tag}
+                        $isActive={selectedTags.includes(tag)}
+                        onClick={() => handleTagClick(tag)}
+                      >
+                        {tag}
+                      </FilterableTag>
+                    ))}
+                  </p>
+                )}
                 <p data-id="type">{item.type}</p>
-                <a data-id="link" href={item.link}>
+
+                <LinkTitle
+                  data-id="link"
+                  href={item.link}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <h2>{item.title}</h2>
-                </a>
+                </LinkTitle>
                 <p data-id="description">{item.description}</p>
                 <p data-id="price">{item.price}</p>
-                <Group margin="auto 0 0 0">
-                  <BasicLink href={item.link}>
+
+                <Group margin="0 0 0.5rem 0" justify="space-between">
+                  <BasicLink
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Info <ExternalLinkIcon />
                   </BasicLink>
 
-                  <BasicLink href={item.location}>
+                  <BasicLink
+                    href={item.location}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Map <MapIcon />
                   </BasicLink>
                 </Group>
-
-                <p data-id="tags">
-                  {item.tags?.map((tag) => (
-                    <FilterableTag
-                      key={tag}
-                      $isActive={selectedTags.includes(tag)}
-                      onClick={() => handleTagClick(tag)}
-                    >
-                      {tag}
-                    </FilterableTag>
-                  ))}
-                </p>
               </Card>
             );
           })}

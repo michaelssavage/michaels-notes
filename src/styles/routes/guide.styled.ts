@@ -1,3 +1,6 @@
+import { forBreakAt } from "@/styles/abstracts/mixins.styled";
+import { GridCols } from "@/types/Guide";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const BasicLink = styled.a`
@@ -15,10 +18,50 @@ export const BasicLink = styled.a`
   }
 `;
 
-export const Grid = styled.div`
+export const LinkTitle = styled.a`
+  text-decoration: none;
+
+  h2 {
+    color: ${({ theme }) => theme.black};
+    font-weight: 600;
+    margin-top: 0.25rem;
+  }
+`;
+
+export const GridSelector = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.1rem;
+  align-items: center;
+
+  p[data-id="label-1"] {
+    margin-right: 0.25rem;
+  }
+
+  p[data-id="label-2"] {
+    margin-left: 0.25rem;
+  }
+
+  ${forBreakAt({
+    breakpoint: 1200,
+    styles: css`
+      display: none;
+    `,
+  })}
+`;
+
+export const Grid = styled.div<{ columns?: GridCols }>`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: ${({ columns = 4 }) =>
+    `repeat(${columns}, minmax(0, 1fr))`};
   gap: 1rem;
+
+  ${forBreakAt({
+    breakpoint: 1200,
+    styles: css`
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    `,
+  })}
 `;
 
 export const Card = styled.div`
@@ -30,6 +73,14 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
 
+  img[data-id="image"] {
+    height: 10rem;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
   p[data-id="type"] {
     position: absolute;
     top: 0.2rem;
@@ -39,22 +90,13 @@ export const Card = styled.div`
     color: ${({ theme }) => theme.red};
   }
 
-  a[data-id="link"] {
-    text-decoration: none;
-
-    h2 {
-      color: ${({ theme }) => theme.black};
-      font-weight: 600;
-      margin-top: 0.25rem;
-    }
-  }
-
   p[data-id="price"] {
+    margin-top: auto;
     margin-bottom: 1rem;
   }
 
   p[data-id="tags"] {
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0.25rem;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -89,8 +131,8 @@ export const TypeSelect = styled.select`
   border-radius: 9999px;
   min-width: 150px;
   border: 2px solid ${({ theme }) => theme.black};
-  color: ${({ theme }) => theme.gray500};
-  background-color: ${({ theme }) => theme.yellow};
+  color: ${({ theme }) => theme.gray600};
+  background-color: ${({ theme }) => theme.white};
   cursor: pointer;
 
   &:focus {
@@ -109,7 +151,7 @@ export const TypeSelect = styled.select`
 export const FilterableTag = styled.button<{ $isActive: boolean }>`
   background-color: ${({ $isActive, theme }) =>
     $isActive ? theme.green : theme.white};
-  color: ${({ $isActive, theme }) => ($isActive ? theme.black : theme.gray500)};
+  color: ${({ $isActive, theme }) => ($isActive ? theme.black : theme.gray600)};
   border: 2px solid ${({ theme }) => theme.black};
   border-radius: 0.5rem;
   padding: 0.25rem 0.5rem;
@@ -135,6 +177,5 @@ export const ClearFiltersButton = styled.button`
 `;
 
 export const ResultsCount = styled.p`
-  margin: 0.75rem 0;
   font-weight: 500;
 `;

@@ -3,6 +3,7 @@ export type GuideTags =
   | "Expensive"
   | "Free 1st Sunday"
   | "Free every Sunday 11am"
+  | "Free after Sunday 3pm"
   | "Free after Saturday 3pm"
   | "Free after Saturday 4pm"
   | "Can't Miss"
@@ -16,7 +17,10 @@ export interface GuideTableItem {
   type: "Fun" | "Activity" | "Place" | "Music";
   location: string;
   link: string;
-  price?: string;
-  tags?: Array<GuideTags>;
+  price: string;
+  tags: Array<GuideTags>;
+  image?: string;
   description?: string;
 }
+
+export type GridCols = 1 | 2 | 3 | 4 | 5;

@@ -36,6 +36,7 @@ export const Header = styled.nav`
 
     ${forPhoneOnly(css`
       gap: 0.5rem;
+      font-size: clamp(0.8rem, 1rem + 0.3vw, 1.1rem);
     `)}
   }
 `;

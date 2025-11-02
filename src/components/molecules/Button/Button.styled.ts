@@ -62,8 +62,8 @@ export const ButtonStyled = styled.button<IStyle>`
         `;
       case "pill":
         return css`
-          background-color: ${selected ? theme.green : theme.yellow};
-          color: ${selected ? theme.black : theme.gray500};
+          background-color: ${selected ? theme.green : theme.white};
+          color: ${selected ? theme.black : theme.gray600};
           border: 2px solid ${theme.black};
           padding: 7px 14px;
           border-radius: 8px;

@@ -30,7 +30,7 @@ export const Box = styled.div`
     border-radius: 9999px;
     width: 100%;
     color: ${({ theme }) => theme.black};
-    background-color: ${({ theme }) => theme.yellow};
+    background-color: ${({ theme }) => theme.white};
 
     &:focus {
       outline: solid 2px ${({ theme }) => theme.green300};
