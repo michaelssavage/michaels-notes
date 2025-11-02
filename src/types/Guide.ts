@@ -22,5 +22,3 @@ export interface GuideTableItem {
   image?: string;
   description?: string;
 }
-
-export type GridCols = 1 | 2 | 3 | 4 | 5;

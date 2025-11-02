@@ -129,6 +129,18 @@ export const items: GuideTableItem[] = [
     tags: [],
   },
   {
+    title: "Casa Vicens",
+    link: "https://casavicens.org/es",
+    price: "€21",
+    type: "Place",
+    tags: ["Expensive"],
+    image:
+      "https://31m9mhhbv2.ucarecd.net/fdf43859-fbf6-44b5-a8f8-c2bd6eb2d931/CV_ESPACIOS_32.jpg",
+    location: "https://maps.app.goo.gl/27Frb6oJ3M98qpdXA",
+    description:
+      "One of Antoni Gaudí's earliest works, it showcases a mix of Moorish, oriental, and natural influences, with colourful ceramic tiles and intricate ironwork. Cool to look at if you're in the area but too expensive for some to enter.",
+  },
+  {
     title: "Castell de Montjuïc",
     tags: ["Free 1st Sunday"],
     price: "€12",
@@ -250,6 +262,8 @@ export const items: GuideTableItem[] = [
     link: "https://www.macba.cat",
     tags: ["Free after Saturday 4pm"],
     location: "https://maps.app.goo.gl/NgbAxXmbCPiVDJFRA",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/20fe39fa-5c00-488e-986e-7a5cf1b00f37/elMACBAporMarcelLiSaenz.jpg",
     description:
       "Museu d'Art Contemporani de Barcelona has built a collection of over 5,000 works, concentrating on post-1945 Catalan and Spanish art, while also including international pieces.",
   },
@@ -259,8 +273,11 @@ export const items: GuideTableItem[] = [
     tags: [],
     type: "Place",
     location: "https://maps.app.goo.gl/Cuf9cmmt91Duf1Sq9",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/8d276301-9d69-4a37-8fbe-5f7a075335cc/b5eccf92696c0d58.png",
     link: "https://www.miradortorreglories.com/planifica-tu-visita/comprar-entradas/",
-    description: "Modern skyscraper also known as Torre Glòries.",
+    description:
+      "This skyscraper offers panoramic views of the city and features an interactive exhibition that combines art, technology, and data to explore Barcelona's urban life.",
   },
   {
     title: "Montjuïc Cable Car",
@@ -269,7 +286,10 @@ export const items: GuideTableItem[] = [
     link: "https://www.telefericdemontjuic.cat/en",
     tags: [],
     location: "https://maps.app.goo.gl/Be5ypmRLntBPeqxE7",
-    description: "Scenic cable car ride up to Montjuïc Hill.",
+    description:
+      "Scenic cable car ride up to Montjuïc Castle for those without a fear of heights.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/ad69c7fa-f7ad-4fa1-9ed1-c712267f669a/d781d1511b10b5792c4e848376c3e88f21526barcelonacombomontjuiccablecaraquariumbarcelona12.jpg",
   },
   {
     title: "Museu del Disseny de Barcelona",
@@ -279,6 +299,8 @@ export const items: GuideTableItem[] = [
     link: "https://www.dissenyhub.barcelona/",
     type: "Place",
     description: "Museum dedicated to design, fashion, and decorative arts.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/5b555d44-b135-46e6-88c6-eb1db47a9dab/REF_HUB_CT6A6276jpg.webp",
   },
   {
     title: "Museu Nacional d'Art de Catalunya",
@@ -287,13 +309,21 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/z2jAgAz1KuYa2nULA",
     link: "https://www.mnac.cat/",
     tags: ["Free 1st Sunday", "Free after Saturday 3pm"],
+    image:
+      "https://31m9mhhbv2.ucarecd.net/3bd4cfb5-0475-4029-8906-7adcc6697c5c/museunacionaldartdecatalunyarutadelmodernismedebarcelona2.jpg",
+    description:
+      "Built between 1927 and 1929 within the style known as Eclectic Monumentalism. It houses collections from over a thousand years of Catalan art: painting, sculpture, arts of the object, drawing and engraving, photography, numismatics and medals",
   },
   {
     title: "Nau Bostik",
     type: "Place",
     tags: [],
     price: "Free",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/54b03177-c84b-4822-a24f-56455006a084/NauBostik.jpg",
     location: "https://maps.app.goo.gl/Bky7avBMcoKVwuTv9",
+    description:
+      "A self-managed meeting and artistic creation space in Barcelona located in the La Sagrera neighborhood. It is housed in a former factory building that was part of the Bostik adhesive company, which has been transformed into a vibrant cultural hub.",
     link: "https://naubostik.com/",
   },
   {

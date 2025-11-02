@@ -1,6 +1,3 @@
-import { forBreakAt } from "@/styles/abstracts/mixins.styled";
-import { GridCols } from "@/types/Guide";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const BasicLink = styled.a`
@@ -12,10 +9,17 @@ export const BasicLink = styled.a`
   text-decoration: none;
   font-weight: 500;
   flex-wrap: wrap;
+  width: fit-content;
 
   &:hover {
     color: ${({ theme }) => theme.green200};
   }
+`;
+
+export const LoadMore = styled.div`
+  text-align: center;
+  margin: 2rem 0;
+  color: ${({ theme }) => theme.gray500};
 `;
 
 export const LinkTitle = styled.a`
@@ -28,40 +32,10 @@ export const LinkTitle = styled.a`
   }
 `;
 
-export const GridSelector = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 0.1rem;
-  align-items: center;
-
-  p[data-id="label-1"] {
-    margin-right: 0.25rem;
-  }
-
-  p[data-id="label-2"] {
-    margin-left: 0.25rem;
-  }
-
-  ${forBreakAt({
-    breakpoint: 1200,
-    styles: css`
-      display: none;
-    `,
-  })}
-`;
-
-export const Grid = styled.div<{ columns?: GridCols }>`
+export const Grid = styled.div`
   display: grid;
-  grid-template-columns: ${({ columns = 4 }) =>
-    `repeat(${columns}, minmax(0, 1fr))`};
   gap: 1rem;
-
-  ${forBreakAt({
-    breakpoint: 1200,
-    styles: css`
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    `,
-  })}
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 `;
 
 export const Card = styled.div`

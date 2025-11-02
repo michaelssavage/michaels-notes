@@ -12,16 +12,18 @@ import {
   FilterableTag,
   FilterContainer,
   Grid,
-  GridSelector,
   LinkTitle,
+  LoadMore,
   ResultsCount,
   TypeSelect,
 } from "@/styles/routes/guide.styled";
-import { GridCols, GuideTags } from "@/types/Guide";
+import { GuideTags } from "@/types/Guide";
 import { css } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+const INITIAL_ITEMS = 12;
+const ITEMS_PER_PAGE = 12;
 const title = "Barcelona Guide | Michael Savage";
 const description =
   "Barcelona guide with places to visit, activities, and entertainment options.";
@@ -45,13 +47,10 @@ function RouteComponent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);
-  const [columns, setColumns] = useState<GridCols>(4);
-
   const [showAll, setShowAll] = useState(false);
+  const [displayedCount, setDisplayedCount] = useState(INITIAL_ITEMS);
 
-  const handleChangeColumns = (value: GridCols) => {
-    setColumns(value);
-  };
+  const loaderRef = useRef<HTMLDivElement>(null);
 
   const handleShow = () => setShowAll((prev) => !prev);
 
@@ -89,6 +88,41 @@ function RouteComponent() {
       return matchesSearch && matchesType && matchesTags;
     });
   }, [searchTerm, selectedType, selectedTags]);
+
+  useEffect(() => {
+    setDisplayedCount(INITIAL_ITEMS);
+  }, [searchTerm, selectedType, selectedTags]);
+
+  const loadMore = useCallback(() => {
+    setDisplayedCount((prev) =>
+      Math.min(prev + ITEMS_PER_PAGE, filteredItems.length)
+    );
+  }, [filteredItems.length]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first.isIntersecting && displayedCount < filteredItems.length) {
+          loadMore();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentLoader = loaderRef.current;
+    if (currentLoader) {
+      observer.observe(currentLoader);
+    }
+
+    return () => {
+      if (currentLoader) {
+        observer.unobserve(currentLoader);
+      }
+    };
+  }, [displayedCount, filteredItems.length, loadMore]);
+
+  const displayedItems = filteredItems.slice(0, displayedCount);
 
   const handleTagClick = (tag: GuideTags) => {
     setSelectedTags((prev) =>
@@ -199,32 +233,23 @@ function RouteComponent() {
           )}
         </FilterContainer>
 
-        <Group justify="space-between" align="flex-end" margin="0 0 1rem 0">
+        <Group justify="flex-end" margin="0 0 1rem 0">
           <ResultsCount>
-            Showing {filteredItems.length} of {items.length} places
+            Showing {displayedItems.length} of {filteredItems.length} places
           </ResultsCount>
-
-          <GridSelector>
-            <p data-id="label-1">Show</p>
-            {[1, 2, 3, 4, 5].map((num) => (
-              <Button
-                key={num}
-                onClick={() => handleChangeColumns(num as GridCols)}
-                selected={columns === num}
-                variant="pill"
-                text={num.toString()}
-              />
-            ))}
-            <p data-id="label-2">per row</p>
-          </GridSelector>
         </Group>
 
-        <Grid columns={columns}>
-          {filteredItems.map((item, index) => {
+        <Grid>
+          {displayedItems.map((item, index) => {
             return (
               <Card key={index}>
                 {item.image ? (
-                  <img data-id="image" src={item.image} alt={item.title} />
+                  <img
+                    data-id="image"
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                  />
                 ) : null}
 
                 {item.tags.length > 0 && (
@@ -275,13 +300,18 @@ function RouteComponent() {
           })}
         </Grid>
 
+        {/* For intersection observer */}
+        {displayedCount < filteredItems.length && (
+          <LoadMore ref={loaderRef} onClick={loadMore} tabIndex={0}>
+            <p>Loading more places...</p>
+          </LoadMore>
+        )}
+
         {filteredItems.length === 0 && (
-          <div
-            style={{ textAlign: "center", padding: "2rem", color: "#6c757d" }}
-          >
+          <LoadMore>
             <h3>No places found</h3>
             <p>Try adjusting your search terms or filters.</p>
-          </div>
+          </LoadMore>
         )}
       </Panel>
     </Page>
