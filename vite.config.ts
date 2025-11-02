@@ -4,6 +4,7 @@ import viteReact from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
+import storybookPlugin from "./src/lib/storybook";
 
 const isDevBuild = !!process.env.VITE_ENV_DEV;
 
@@ -27,6 +28,7 @@ export default defineConfig(({ isSsrBuild }) => {
     plugins: [
       viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
       tanstackStart(),
+      storybookPlugin(),
       ...(!isDevBuild ? [netlify()] : []),
       ...(!isDevBuild
         ? [
