@@ -203,7 +203,7 @@ export const items: GuideTableItem[] = [
     title: "Dr. Flow Bar",
     location: "https://maps.app.goo.gl/49Gq84m8dkRWd59n7",
     link: "https://www.drflow.es/programacion/",
-    tags: [],
+    tags: ["Live Music"],
     type: "Music",
     price: "Donation",
     description: "Live music venue located in El Born.",
@@ -214,7 +214,7 @@ export const items: GuideTableItem[] = [
     title: "Flamenco theater - Palau Dalmases",
     type: "Fun",
     price: "€30",
-    tags: [],
+    tags: ["Live Music"],
     link: "https://www.flamencopalaudalmases.com/",
     location: "https://maps.app.goo.gl/H3R6B8XBU1hRH6mw7",
     description: "Traditional Spanish dance and music performance.",
@@ -249,7 +249,7 @@ export const items: GuideTableItem[] = [
     price: "€8",
     type: "Fun",
     link: "https://23robadors.com/programacio/",
-    tags: [],
+    tags: ["Live Music"],
     location: "https://maps.app.goo.gl/Y1MtCGiLZxJQAPEv9",
     description: "Intimate bar offering live jazz music.",
     image:
@@ -317,7 +317,7 @@ export const items: GuideTableItem[] = [
   {
     title: "Nau Bostik",
     type: "Place",
-    tags: [],
+    tags: ["Live Music"],
     price: "Free",
     image:
       "https://31m9mhhbv2.ucarecd.net/54b03177-c84b-4822-a24f-56455006a084/NauBostik.jpg",
@@ -333,6 +333,8 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/mQgU3BMHx2kojxEx6",
     price: "€81.50 - €128",
     type: "Activity",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/75a87700-8671-4cc1-bbbf-688eab2730e7/cenarestrellasbarcelona1_2.jpg",
   },
   {
     title: "Observatori Fabra - Night guided tour",
@@ -343,6 +345,8 @@ export const items: GuideTableItem[] = [
       "Every Friday and Saturday between October to May you will have the opportunity to visit the Fabra Observatory, enjoy a conference and the views of Barcelona from the outside of the dome and see the stars through the telescope.",
     link: "https://www.sternalia.com/en/guided-tours-fabra-observatory.html",
     location: "https://maps.app.goo.gl/mQgU3BMHx2kojxEx6",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/13fce4bd-7c23-4edd-9c2a-0696bed6455f/15soparsestrellesobservatorifabra.jpg",
   },
   {
     title: "Observatori Fabra de Barcelona",
@@ -353,6 +357,8 @@ export const items: GuideTableItem[] = [
       "Historic astronomical observatory offering tours and stargazing.",
     link: "https://observatorifabra.cat/visits/",
     location: "https://maps.app.goo.gl/mQgU3BMHx2kojxEx6",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/5b40d9a7-b4b6-4fd6-b9e5-de0fa7946e48/cenarestrellasbarcelona8_2.jpg",
   },
   {
     title: "Padel",
@@ -363,6 +369,8 @@ export const items: GuideTableItem[] = [
     type: "Activity",
     description:
       "Book and play padel matches with strangers or friends using the Playtomic app.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/f1af4744-2f8b-4f5e-88a3-0deb107e6da3/06d09b0ba9a34328838ba49ce536de82_169discoveraspectratio_default_0.webp",
   },
   {
     title: "Palau Martorell",
@@ -372,11 +380,13 @@ export const items: GuideTableItem[] = [
     link: "https://www.palaumartorell.com/en/visita",
     price: "€16",
     description: "Exhibition hall hosting art and cultural events.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/76646086-2383-427d-affd-f4045f870854/expoSorolla271_edited.jpg",
   },
   {
     title: "Palo Alto Market",
     type: "Fun",
-    tags: [],
+    tags: ["Live Music"],
     location: "https://maps.app.goo.gl/SLVni93PmeVEJxtY6",
     link: "https://palomarketfest.com/en",
     price: "€6.50",
@@ -393,6 +403,8 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/9BhXR3c49gvMNje76",
     tags: [],
     description: "Historical garden with a maze and romantic architecture.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/f7c4ba13-9e5c-4dbe-832e-0dc18b0792bc/image.webp",
   },
   {
     title: "Pedralbés Monastery",
@@ -411,9 +423,12 @@ export const items: GuideTableItem[] = [
     type: "Music",
     location: "https://maps.app.goo.gl/QfjV8VvyudB7nnPn9",
     link: "https://www.salarazzmatazz.com",
-    tags: [],
+    tags: ["Live Music"],
     price: "€10 - €20",
-    description: "Large music venue and nightclub in Poble Nou.",
+    description:
+      "Large music venue and nightclub in Poble Nou with 5 floors of different styles of music.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/8299625a-ce48-45ce-b5d7-83fc5b46ee0c/Razzmatazz_c1.jpg",
   },
   {
     title: "Recinte Modernista de Sant Pau",
@@ -423,15 +438,8 @@ export const items: GuideTableItem[] = [
     tags: [],
     type: "Place",
     description: "Modernist hospital complex and UNESCO World Heritage site.",
-  },
-  {
-    title: "Rouge Cocktail Club",
-    location: "https://maps.app.goo.gl/7Un6zEftLsCZEMyAA",
-    link: "https://www.instagram.com/rouge_cocktailclub/",
-    price: "Free",
-    tags: [],
-    type: "Music",
-    description: "Live music bar in Poble Sec.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/9f1c9a8b-4d4b-40ef-bff2-7d90ede8be90/ticketsforsantpaurecintemodernistabarcelonaT24.jpg",
   },
   {
     title: "SABDA",
@@ -439,18 +447,23 @@ export const items: GuideTableItem[] = [
     description:
       "Immersive yoga, pilates, breathwork, and more in tranquil space with spatial audio and 360° visuals.",
     location: "https://maps.app.goo.gl/6vbcKFMdCctZx6Ls9",
-    tags: [],
+    tags: ["Live Music"],
     link: "https://sabda.es/classes/",
     price: "€20",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/cf0d20ad-0403-4a6a-b03d-e4582b732637/lg_8e29b93df0894f0e8a04efa1d50da9d8_immersive2J9A7245.jpg",
   },
   {
     title: "Sagrada Familia",
     price: "€31.80",
     type: "Place",
-    description: "Gaudí's world-famous unfinished basilica.",
+    description:
+      "Gaudí's world-famous unfinished basilica. The tallest church in the world",
     tags: [],
     location: "https://maps.app.goo.gl/qgsz87obhV6R9Hre7",
     link: "https://ticketsagradafamilia.com/",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/8f3d2cac-cb34-42ef-8c72-1818236dd2e4/colorsllumnaixementacolumnesscaled.jpg",
   },
   {
     title: "Sailboat Experience Barcelona",
@@ -480,28 +493,12 @@ export const items: GuideTableItem[] = [
     title: "Sala Apolo",
     location: "https://maps.app.goo.gl/1pe6KwRWYhSqRdqb6",
     link: "https://sala-apolo.com/es/agenda",
-    tags: [],
+    tags: ["Live Music"],
     type: "Music",
     price: "€10+",
     description: "Popular concert hall and nightclub.",
-  },
-  {
-    title: "Sala Taro",
-    location: "https://maps.app.goo.gl/5znMc89VHdpCjNR26",
-    link: "https://dice.fm/venue/sala-taro-lv8x",
-    tags: [],
-    type: "Music",
-    price: "€3+",
-    description: "Late night venue & bar in Sants.",
-  },
-  {
-    title: "Sala Upload",
-    link: "https://sala-upload.com/",
-    location: "https://maps.app.goo.gl/drGuWcRZFZn3tYEY9",
-    tags: [],
-    price: "€10+",
-    type: "Music",
-    description: "Live music venue in Montjuïc.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/df1f3f33-9e18-4a17-90d0-a5c2525c8c62/7392967620_a69f21766b_k11536x1024.jpg",
   },
   {
     title: "Shark Diving",
@@ -526,8 +523,12 @@ export const items: GuideTableItem[] = [
     type: "Place",
     location: "https://maps.app.goo.gl/xfbZv7BCyDtfdWbh6",
     link: "https://www.barcelona.cat/grec/es",
-    tags: [],
+    tags: ["Live Music"],
     price: "Free",
+    description:
+      "Open air theatre in Montjuïc constructed in 1929 to sit and enjoy the sun. You'll often find music, theatre, and dance performances here.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/34e34c2e-f8b4-4fbd-866d-8dedb4323406/teatregrec16249.jpg",
   },
   {
     title: "The Comedy Clubhouse",

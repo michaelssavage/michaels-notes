@@ -70,7 +70,10 @@ const Post = ({
       >
         <CardInfo>
           <Title>{title}</Title>
-          <PostType>{type}</PostType>
+          <PostType>
+            {isExternal && "ext. "}
+            {type}
+          </PostType>
         </CardInfo>
 
         <DateText>{date}</DateText>

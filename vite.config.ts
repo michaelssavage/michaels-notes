@@ -8,45 +8,37 @@ import storybookPlugin from "./src/lib/storybook";
 
 const isDevBuild = !!process.env.VITE_ENV_DEV;
 
-export default defineConfig(({ isSsrBuild }) => {
-  // Use isSsrBuild from Vite's config context
-  const cacheDir = isSsrBuild
-    ? "./node_modules/.vite-ssr"
-    : "./node_modules/.vite-client";
-
-  return {
-    server: { port: 3000 },
-    cacheDir,
+export default defineConfig({
+  server: { port: 3000 },
+  optimizeDeps: {
+    include: ["@emotion/styled"],
+  },
+  ssr: {
     optimizeDeps: {
       include: ["@emotion/styled"],
     },
-    ssr: {
-      optimizeDeps: {
-        include: ["@emotion/styled"],
+  },
+  plugins: [
+    viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
+    tanstackStart(),
+    storybookPlugin(),
+    ...(!isDevBuild ? [netlify()] : []),
+    ...(!isDevBuild
+      ? [
+          visualizer({
+            open: false,
+            filename: "dist/stats.html",
+            gzipSize: true,
+            brotliSize: true,
+          }),
+        ]
+      : []),
+    viteReact({
+      include: /\.(mdx|tsx|ts)$/,
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"],
       },
-    },
-    plugins: [
-      viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
-      tanstackStart(),
-      storybookPlugin(),
-      ...(!isDevBuild ? [netlify()] : []),
-      ...(!isDevBuild
-        ? [
-            visualizer({
-              open: false,
-              filename: "dist/stats.html",
-              gzipSize: true,
-              brotliSize: true,
-            }),
-          ]
-        : []),
-      viteReact({
-        include: /\.(mdx|tsx|ts)$/,
-        jsxImportSource: "@emotion/react",
-        babel: {
-          plugins: ["@emotion/babel-plugin"],
-        },
-      }),
-    ],
-  };
+    }),
+  ],
 });

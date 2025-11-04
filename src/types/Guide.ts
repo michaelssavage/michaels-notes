@@ -10,7 +10,8 @@ export type GuideTags =
   | "Stamp of Approval"
   | "Winter"
   | "Day Trip"
-  | "Cash only";
+  | "Cash only"
+  | "Live Music";
 
 export interface GuideTableItem {
   title: string;
@@ -19,6 +20,6 @@ export interface GuideTableItem {
   link: string;
   price: string;
   tags: Array<GuideTags>;
-  image?: string;
+  image: string;
   description?: string;
 }
