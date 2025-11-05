@@ -64,7 +64,7 @@ function RouteComponent() {
           </BentoHeader>
         </BentoCard>
 
-        <BentoCard to="/storybook">
+        {/* <BentoCard to="/storybook">
           <BentoHeader>
             <BentoTitle>Storybook</BentoTitle>
             <BentoDescription>
@@ -72,7 +72,7 @@ function RouteComponent() {
               can be reused.
             </BentoDescription>
           </BentoHeader>
-        </BentoCard>
+        </BentoCard> */}
       </GridContainer>
     </Page>
   );
