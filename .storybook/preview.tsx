@@ -1,5 +1,6 @@
 import { ThemeProvider as EmotionThemeProvider, Global } from "@emotion/react";
 import type { Decorator, Preview } from "@storybook/react-vite";
+import React from "react";
 
 import {
   RouterProvider,
