@@ -6,6 +6,8 @@ export type GuideTags =
   | "Free after Sunday 3pm"
   | "Free after Saturday 3pm"
   | "Free after Saturday 4pm"
+  | "Living World"
+  | "Nature"
   | "Can't Miss"
   | "Stamp of Approval"
   | "Winter"

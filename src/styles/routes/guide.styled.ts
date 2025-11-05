@@ -19,6 +19,7 @@ export const BasicLink = styled.a`
 export const LoadMore = styled.div`
   text-align: center;
   margin: 2rem 0;
+  width: fit-content;
   color: ${({ theme }) => theme.gray500};
 `;
 

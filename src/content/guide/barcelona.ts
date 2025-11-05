@@ -19,7 +19,7 @@ export const items: GuideTableItem[] = [
     price: "€14",
     type: "Fun",
     description: "Large aquarium with Mediterranean and tropical marine life.",
-    tags: [],
+    tags: ["Living World"],
     image:
       "https://31m9mhhbv2.ucarecd.net/c90da5e6-87f7-4117-9149-48d72b181c84/aquarium.jpg",
   },
@@ -40,7 +40,7 @@ export const items: GuideTableItem[] = [
     price: "€5",
     location: "https://maps.app.goo.gl/kQ7AxvQUmq1jDRJ58",
     link: "https://museuciencies.cat/en/the-nat/venues/botanical-garden-of-barcelona",
-    tags: ["Free 1st Sunday"],
+    tags: ["Free 1st Sunday", "Living World", "Nature"],
     description:
       "Mediterranean plant garden; visit La Caseta del Migdia afterwards for sunrise.",
     image:
@@ -52,7 +52,7 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/Y33ARACBXcY2unwV8",
     link: "https://zoobarcelona.cat/en/home",
     type: "Fun",
-    tags: [],
+    tags: ["Living World"],
     description:
       "Mid-sized city zoo with a wide variety of animals in Parc de la Ciutadella including komodo dragons, hippos, giraffes, hyenas, elephants, lions, red pandas, penguins, orangutans",
     image:
@@ -178,7 +178,7 @@ export const items: GuideTableItem[] = [
   {
     title: "Ciutadella Park",
     location: "https://maps.app.goo.gl/3zbVCi4pDm6Ft3Gh8",
-    tags: ["Free"],
+    tags: ["Free", "Nature"],
     price: "Free",
     link: "https://www.barcelona.cat/es/que-hacer-en-bcn/parques-y-jardines/parque-de-la-ciutadella-92086011921",
     type: "Place",
@@ -308,7 +308,7 @@ export const items: GuideTableItem[] = [
     type: "Place",
     location: "https://maps.app.goo.gl/z2jAgAz1KuYa2nULA",
     link: "https://www.mnac.cat/",
-    tags: ["Free 1st Sunday", "Free after Saturday 3pm"],
+    tags: ["Free 1st Sunday", "Free after Saturday 3pm", "Can't Miss"],
     image:
       "https://31m9mhhbv2.ucarecd.net/3bd4cfb5-0475-4029-8906-7adcc6697c5c/museunacionaldartdecatalunyarutadelmodernismedebarcelona2.jpg",
     description:
@@ -401,7 +401,7 @@ export const items: GuideTableItem[] = [
     type: "Place",
     link: "https://guia.barcelona.cat/en/detall/parc-del-laberint-d-horta_92086011952.html",
     location: "https://maps.app.goo.gl/9BhXR3c49gvMNje76",
-    tags: [],
+    tags: ["Nature"],
     description: "Historical garden with a maze and romantic architecture.",
     image:
       "https://31m9mhhbv2.ucarecd.net/f7c4ba13-9e5c-4dbe-832e-0dc18b0792bc/image.webp",
@@ -459,7 +459,7 @@ export const items: GuideTableItem[] = [
     type: "Place",
     description:
       "Gaudí's world-famous unfinished basilica. The tallest church in the world",
-    tags: [],
+    tags: ["Can't Miss"],
     location: "https://maps.app.goo.gl/qgsz87obhV6R9Hre7",
     link: "https://ticketsagradafamilia.com/",
     image:
@@ -508,6 +508,8 @@ export const items: GuideTableItem[] = [
     type: "Fun",
     tags: [],
     description: "Dive with sharks at the Barcelona Aquarium.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/3882636d-a689-41f5-b534-220083a5c39f/SUMERGETE_1.webp",
   },
   {
     title: "Skydiving",
@@ -517,13 +519,26 @@ export const items: GuideTableItem[] = [
     type: "Activity",
     tags: [],
     description: "Tandem parachute jump experience near Barcelona.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/ecfe5817-c605-4074-8723-483689b4bd89/tadnemskydiveparachuting.jpg",
+  },
+  {
+    title: "Flyboarding",
+    price: "€100 - €300",
+    link: "https://www.jetscoot.com/es/flyboard.html",
+    location: "https://maps.app.goo.gl/HxKLSggKuWJ4twUC8",
+    type: "Activity",
+    tags: ["Expensive"],
+    description: "Fly on the surface of the water using a board and a jetpack.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/ba536978-55b1-40ea-b623-f6b23de098eb/PortForum_Barcelone_flyboard_JetScoot_wstvok",
   },
   {
     title: "Teatre Grec",
     type: "Place",
     location: "https://maps.app.goo.gl/xfbZv7BCyDtfdWbh6",
     link: "https://www.barcelona.cat/grec/es",
-    tags: ["Live Music"],
+    tags: ["Live Music", "Nature"],
     price: "Free",
     description:
       "Open air theatre in Montjuïc constructed in 1929 to sit and enjoy the sun. You'll often find music, theatre, and dance performances here.",
@@ -539,6 +554,8 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/FyTwtgb4B9auaqaX9",
     description:
       "Stand-up comedy venue with regular shows in English and Spanish.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/8f697a80-b33a-4d6e-af85-a3c76deafcec/theexpatsmattwalsh.jpg",
   },
   {
     title: "Tibidabo Ice Rink",
@@ -554,7 +571,7 @@ export const items: GuideTableItem[] = [
   {
     title: "Trip to Montserrat Abbey",
     type: "Place",
-    tags: ["Day Trip"],
+    tags: ["Day Trip", "Nature"],
     location: "https://maps.app.goo.gl/5HpFHD5TyVWSXmVE9",
     link: "https://tickets.montserratvisita.com",
     price: "€5 - €9",
@@ -567,9 +584,16 @@ export const items: GuideTableItem[] = [
     title: "White Rabbit Museum",
     price: "€15",
     type: "Place",
-    description: "Museum showcasing contemporary art.",
+    description:
+      "A weird and unique museum showcasing contemporary art in Barcelona that you can interact with. They're not traditional and they self-describe themselve as an 'off-museum'.",
     tags: [],
     location: "https://maps.app.goo.gl/h5R6FTSrwzbnAkhg7",
     link: "https://tickets.whiterabbit-theoffmuseum.com/en-ES/1283/7951?s=maps&f=nav&lang=en-ES",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/d7b1620d-be85-4b57-9130-074ce07a895d/WhiteRabbit9_520x347.jpg",
   },
+  // {
+  //   title: "Paddlesurfing",
+  //   link: "https://www.extremesportsacademy.com/es/experiences"
+  // }
 ];
