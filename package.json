@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "build:mdx": "tsx scripts/build-mdx.ts",
-    "build:storybook": "storybook build -o dist/storybook",
+    "build:storybook": "storybook build -o dist/client/storybook",
     "prebuild": "pnpm run build:mdx && pnpm run build:storybook",
     "build": "vite build",
-    "postbuild": "tsx scripts/copy-storybook.ts",
     "dev": "vite dev",
     "dev:mdx": "pnpm build:mdx && vite dev",
     "storybook": "storybook dev -p 6006",

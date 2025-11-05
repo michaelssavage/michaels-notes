@@ -6,17 +6,14 @@
   command = "pnpm dev"
   port = 3000
 
-[[redirects]]
-  from = "/storybook/*"
-  to = "/storybook/:splat"
-  status = 200
-  force = true
-
+# Serve Storybook static files - Netlify serves static files before SSR automatically
+# Files are in dist/client/storybook/ after build
+# This redirect ensures /storybook serves index.html for SPA routing
 [[redirects]]
   from = "/storybook"
   to = "/storybook/index.html"
   status = 200
-  force = true
+  force = false
 
 [[headers]]
   for = "/compiled-posts/*"

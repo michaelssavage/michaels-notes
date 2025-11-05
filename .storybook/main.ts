@@ -12,5 +12,14 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  // Configure base path for deployment at /storybook
+  // This ensures assets are loaded correctly when served from a subdirectory
+  viteFinal: async (config) => {
+    // Set base path for production builds
+    if (process.env.NODE_ENV === "production") {
+      config.base = "/storybook/";
+    }
+    return config;
+  },
 };
 export default config;
