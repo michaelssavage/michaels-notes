@@ -442,18 +442,6 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/9f1c9a8b-4d4b-40ef-bff2-7d90ede8be90/ticketsforsantpaurecintemodernistabarcelonaT24.jpg",
   },
   {
-    title: "SABDA",
-    type: "Fun",
-    description:
-      "Immersive yoga, pilates, breathwork, and more in tranquil space with spatial audio and 360° visuals.",
-    location: "https://maps.app.goo.gl/6vbcKFMdCctZx6Ls9",
-    tags: ["Live Music"],
-    link: "https://sabda.es/classes/",
-    price: "€20",
-    image:
-      "https://31m9mhhbv2.ucarecd.net/cf0d20ad-0403-4a6a-b03d-e4582b732637/lg_8e29b93df0894f0e8a04efa1d50da9d8_immersive2J9A7245.jpg",
-  },
-  {
     title: "Sagrada Familia",
     price: "€31.80",
     type: "Place",
