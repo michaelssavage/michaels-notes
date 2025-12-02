@@ -2,7 +2,7 @@ import type { SerializedStyles } from "@emotion/react";
 import { memo, type ReactElement } from "react";
 import { LinkStyle } from "./Anchor.styled";
 
-export type AnchorVariants = "button" | "link" | "text";
+export type AnchorVariants = "button" | "link" | "text" | "header";
 
 interface Props {
   link: string;
@@ -33,7 +33,7 @@ export const Anchor = memo(
         {text ? text : link} {icon}
       </LinkStyle>
     );
-  },
+  }
 );
 
 Anchor.displayName = "Anchor";

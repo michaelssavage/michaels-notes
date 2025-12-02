@@ -1,6 +1,5 @@
 import { Group } from "@/components/atoms/Group";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
-import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
@@ -147,30 +146,7 @@ function RouteComponent() {
         <h1>Barcelona Guide - Què faré avui?</h1>
 
         <p>
-          Bon dia! There are so many sites to find things to do in Barcelona but
-          here are some useful places to start:
-          <br />
-          <Anchor
-            link="https://www.barcelona-tickets.com/botanical-garden-barcelona/"
-            text="barcelona-tickets.com"
-            variant="link"
-            isExternal
-          />
-          {", "}
-          <Anchor
-            link="https://www.atlasobscura.com/things-to-do/barcelona-spain/"
-            text="atlasobscura.com"
-            variant="link"
-            isExternal
-          />
-          {", and "}
-          <Anchor
-            link="https://barcelonasecreta.com"
-            text="barcelonasecreta.com"
-            variant="link"
-            isExternal
-          />
-          .
+          Bon dia! There are so many sites to find things to do in Barcelona.
         </p>
 
         <FilterContainer>

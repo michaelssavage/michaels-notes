@@ -1,11 +1,6 @@
-import {
-  BentoCard,
-  BentoDescription,
-  BentoHeader,
-  BentoTitle,
-} from "@/components/atoms/BentoCard";
+import { Anchor } from "@/components/molecules/Anchor";
 import { Page } from "@/styles/routes/blog.styled";
-import { GridContainer } from "@/styles/routes/miscellaneous.styled";
+import { MiscContainer } from "@/styles/routes/miscellaneous.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 const title = "Miscellaneous | Michael Savage";
@@ -29,41 +24,70 @@ export const Route = createFileRoute("/miscellaneous")({
 function RouteComponent() {
   return (
     <Page>
-      <GridContainer>
-        <BentoCard to="/guide/barcelona">
-          <BentoHeader>
-            <BentoTitle>Barcelona Guide</BentoTitle>
-            <BentoDescription>
-              A very incomplete guide to things to do, see, and experience in
-              Barcelona. I want to collect points of interest, activities, live
-              music venues, and other fun things that aren&apos;t so obvious.
-            </BentoDescription>
-          </BentoHeader>
-        </BentoCard>
+      <MiscContainer>
+        <h2>Various mini projects</h2>
+        <p>
+          A very{" "}
+          <Anchor
+            link="/guide/barcelona"
+            text="incomplete guide"
+            variant="header"
+          />{" "}
+          to things to do, see, and experience in Barcelona. I&apos;m always
+          collecting points of interest, activities, live music venues, and
+          other fun things that aren&apos;t so obvious. There are many resources
+          for finding things to do, like{" "}
+          <Anchor
+            link="https://www.barcelona-tickets.com/botanical-garden-barcelona/"
+            text="barcelona-tickets.com"
+            variant="link"
+            isExternal
+          />
+          {", "}
+          <Anchor
+            link="https://www.atlasobscura.com/things-to-do/barcelona-spain/"
+            text="atlasobscura.com"
+            variant="link"
+            isExternal
+          />
+          {", or "}
+          <Anchor
+            link="https://barcelonasecreta.com"
+            text="barcelonasecreta.com"
+            variant="link"
+            isExternal
+          />
+          .
+        </p>
 
-        <BentoCard to="/mixes">
-          <BentoHeader>
-            <BentoTitle>DJ Mixes</BentoTitle>
-            <BentoDescription>
-              Some DJ mixes that I recorded and bothered to upload. Many exist
-              in different freemium platforms which I will slowly add to here.
-              They are streamed from Archive.org, with the waveform generated
-              from audiowaveform, using wavesurfer.js
-            </BentoDescription>
-          </BentoHeader>
-        </BentoCard>
-
-        <BentoCard to="/pretty-text">
-          <BentoHeader>
-            <BentoTitle>Rekordbox Prettifier</BentoTitle>
-            <BentoDescription>
-              I created a text prettier for exported setlists from Rekordbox.
-              This was really useful for adding the songs played to the
-              description of SoundCloud or MixCloud.
-            </BentoDescription>
-          </BentoHeader>
-        </BentoCard>
-
+        <p>
+          Here are some{" "}
+          <Anchor link="/mixes" text="DJ mixes" variant="header" /> that I
+          recorded and bothered to upload. Many have existed in different
+          freemium platforms, but have been lost to time. These mixes are
+          streamed from Archive.org, with the waveforms generated from
+          audiowaveform, using wavesurfer.js. I created a background visual for
+          a DJ gig using Adobe Illustrator and{" "}
+          <Anchor
+            link="https://www.youtube.com/watch?v=zGB_YubjRN8"
+            text="uploaded it to YouTube"
+            variant="link"
+            isExternal
+          />{" "}
+          .
+        </p>
+        <p>
+          I created a utility function,{" "}
+          <Anchor
+            link="/pretty-text"
+            text="Rekordbox text prettifier"
+            variant="header"
+          />
+          {", "}
+          to format exported setlists from the DJ software Rekordbox. This was
+          really useful for adding the songs played to the description of
+          SoundCloud or MixCloud.
+        </p>
         {/* <BentoCard to="/storybook">
           <BentoHeader>
             <BentoTitle>Storybook</BentoTitle>
@@ -73,7 +97,7 @@ function RouteComponent() {
             </BentoDescription>
           </BentoHeader>
         </BentoCard> */}
-      </GridContainer>
+      </MiscContainer>
     </Page>
   );
 }

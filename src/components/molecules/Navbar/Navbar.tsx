@@ -45,7 +45,7 @@ const Navbar = () => {
 
   return (
     <Header>
-      <div>
+      <div id="navbar-links-container">
         <NavLink
           to="/"
           text="Writing"
@@ -53,7 +53,7 @@ const Navbar = () => {
         />
         <NavLink to="/projects" text="Projects" />
         <NavLink to="/about" text="About" />
-        <NavLink to="/miscellaneous" text="Misc" />
+        <NavLink to="/miscellaneous" text="Miscellaneous" />
       </div>
       <Icons>
         <Icon

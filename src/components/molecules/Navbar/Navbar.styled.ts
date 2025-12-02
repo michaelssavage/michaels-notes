@@ -11,20 +11,19 @@ export const Header = styled.nav`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem 2rem;
 
   ${forTabletOnly(css`
     flex-direction: column;
-    gap: 0.5rem;
     flex-wrap: wrap;
   `)}
 
-  > div {
+  #navbar-links-container {
     font-size: clamp(1.1rem, 1rem + 0.3vw, 1.4rem);
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem 1rem;
     padding: 0;
     text-transform: uppercase;
     font-style: italic;
@@ -35,7 +34,6 @@ export const Header = styled.nav`
     `)}
 
     ${forPhoneOnly(css`
-      gap: 0.5rem;
       font-size: clamp(0.8rem, 1rem + 0.3vw, 1.1rem);
     `)}
   }
@@ -90,8 +88,8 @@ export const Icons = styled.div`
     }
 
     ${forPhoneOnly(css`
-      width: 2rem;
-      height: 2rem;
+      width: 2.4rem;
+      height: 2.4rem;
       min-width: 1rem;
       min-height: 1rem;
     `)}
