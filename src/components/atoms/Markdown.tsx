@@ -1,5 +1,10 @@
+import { BlockQuote } from "@/components/content/BlockQuote";
+import { H1 } from "@/components/content/H1";
+import { H2 } from "@/components/content/H2";
+import { InlineCode } from "@/components/content/InlineCode";
 import { OrderedList } from "@/components/content/OrderedList";
 import { Paragraph } from "@/components/content/Paragraph";
+import { Pre } from "@/components/content/Pre";
 import { UnorderedList } from "@/components/content/UnorderedList";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
@@ -8,7 +13,6 @@ import { ImgPositioner } from "@/styles/routes/blog.styled";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { getMDXComponent } from "mdx-bundler/client";
 import { memo, useMemo } from "react";
-import { BlockQuote, Code, H1 } from "../content";
 import { Board } from "./Board";
 import { Floating } from "./Floating";
 import { Group } from "./Group";
@@ -28,8 +32,10 @@ const components = {
   ol: OrderedList,
   ul: UnorderedList,
   h1: H1,
+  h2: H2,
   blockquote: BlockQuote,
-  code: Code,
+  pre: Pre,
+  code: InlineCode,
   ImgPositioner,
   CurrentPlay,
   Player,

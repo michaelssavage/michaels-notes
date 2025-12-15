@@ -11,7 +11,7 @@ const BoardStyle = styled.div`
   margin: 1em 0;
   text-decoration: none;
   color: ${({ theme }) => theme.black};
-  background: ${({ theme }) => theme.blue};
+  background: ${({ theme }) => theme.blue100};
   display: flex;
   flex-direction: column;
   flex: 1;

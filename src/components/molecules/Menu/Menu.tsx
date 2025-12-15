@@ -1,6 +1,8 @@
 import { ArrowBackIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
+import { useClickOutside } from "@/hooks/use-click-outside.hook";
 import { animated, useTransition } from "@react-spring/web";
+import { useRef } from "react";
 import { MenuContainer, PageLink, Sidebar } from "./Menu.styled";
 
 interface Picked {
@@ -21,6 +23,10 @@ export const Menu = <T extends object>({
   open,
   setOpen,
 }: Props<T>) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(menuRef, () => setOpen(false), open);
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -37,7 +43,7 @@ export const Menu = <T extends object>({
   });
 
   return (
-    <MenuContainer open={open} onClick={openMenu}>
+    <MenuContainer ref={menuRef} open={open} onClick={openMenu}>
       <ArrowBackIcon onClick={handleClick} />
 
       {transitions(

@@ -146,7 +146,8 @@ function RouteComponent() {
         <h1>Barcelona Guide - Què faré avui?</h1>
 
         <p>
-          Bon dia! There are so many sites to find things to do in Barcelona.
+          Bon dia! There are many ways to find things to do in Barcelona but I
+          wanted to store some here.
         </p>
 
         <FilterContainer>

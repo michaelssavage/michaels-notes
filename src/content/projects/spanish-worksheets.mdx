@@ -1,0 +1,90 @@
+---
+id: 9
+title: "Spanish Worksheets"
+date: December 14, 2025
+description: "A Python app that generates Spanish worksheets for users."
+github: "https://github.com/michaelssavage/spanish-worksheets"
+technology:
+  - Python
+  - Django REST Framework
+  - PostgreSQL
+  - AI
+colors:
+  main: "#1A1A2E"
+  bg: "#6CA116"
+---
+
+Homework straight to your inbox.
+
+A Django app deployed to Railway with a Github Action CRON job. The CRON runs every second day and generates Spanish homework via an LLM, and then sends an email of the homework via Mailgun's API.
+
+<hr />
+## Models
+
+### User
+
+Stores user account information. Each user has:
+
+- Email address (used for login)
+- Active status (whether they should receive worksheets)
+- Next delivery date (when their next worksheet should be sent)
+- Standard account fields (staff status, permissions, join date)
+
+### Worksheet
+
+Tracks generated worksheets for each user. Contains:
+
+- Link to the user who received it
+- Creation timestamp
+- Content hash (prevents duplicate worksheets)
+- Topics covered (stored as JSON)
+
+### Config
+
+Simple key-value storage for app settings. Currently used to track which topic pool to use next in the rotation.
+
+### User Recipient
+
+Stores additional email recipients for each user. Allows users to send worksheets to multiple email addresses. Each recipient has:
+
+- Link to the user
+- Email address
+- Optional name
+- Creation timestamp
+
+<hr />
+## Email Delivery
+
+When a worksheet is generated and sent, emails are delivered via Mailgun to:
+
+- The user's own email address
+- All additional recipients associated with that user (from the UserRecipient model)
+
+The email contains the worksheet formatted as HTML with four sections: Past Tense, Present Tense, Future Tense, and Vocabulary Expansion.
+
+<hr />
+## Endpoints
+
+### `/api/token/`
+
+Generates an authentication token. Users provide their email and password to get a token for accessing other endpoints.
+
+### `/api/worksheet/generate-content/`
+
+Generates worksheet content using Deepseek's API. Accepts optional themes in the request body. If no themes are provided, it picks from a rotating pool of topics. Returns the generated content directly without saving or emailing.
+
+### `/api/worksheet/generate-worksheet/`
+
+Creates a complete worksheet for the authenticated user. Generates content, saves it to the database, and emails it to the recipients that the user has added. Prevents duplicates by checking content hashes. Returns the worksheet content.
+
+<hr />
+## GitHub Action
+
+I generate a Spanish worksheet using a Github Action that runs automatically every two days at 8 PM. It can also be triggered manually.
+
+The workflow:
+
+1. Authenticates with the API using stored credentials
+2. Calls the generate-worksheet endpoint to create and send a worksheet
+
+This automates the regular delivery of Spanish worksheets to users without manual intervention.

@@ -4,6 +4,8 @@ import { readFile } from "fs/promises";
 import { join } from "node:path";
 import { z } from "zod";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export const getMiniPosts = createServerFn({
   method: "GET",
 }).handler(
@@ -25,7 +27,15 @@ export const getMiniPosts = createServerFn({
         throw new Error("Request aborted");
       }
 
-      return JSON.parse(data) as IPosts;
+      const posts = JSON.parse(data) as IPosts;
+
+      if (isProd) {
+        posts.blogs = posts.blogs.filter((p) => !p.draft);
+        posts.projects = posts.projects.filter((p) => !p.draft);
+        posts.reviews = posts.reviews.filter((p) => !p.draft);
+      }
+
+      return posts;
     } catch (error) {
       console.warn("Failed to load posts index:", error);
 

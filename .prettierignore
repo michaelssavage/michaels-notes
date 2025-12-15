@@ -1,0 +1,3 @@
+# Ignore MDX files - they contain JSX that Prettier can break
+**/*.mdx
+

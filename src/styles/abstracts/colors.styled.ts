@@ -20,6 +20,7 @@ export const lightTheme = {
   green400: "#07653D",
 
   blue: "#6DC9E7",
+  blue100: "#94dbf3",
   blue200: "#079CCD",
   blue300: "#02519D",
 

@@ -7,9 +7,9 @@ type: blog
 ---
 
 
-I added storybook to my site. It's absolutely overkill for my personal corner of the internet but it is also my playground for testing things. And test things I will!
+I added storybook to my site. It was absolutely overkill for my personal corner of the internet but it is also my playground for testing things. And test things I will!
 
-I have to say I like it! It gives me a clear visual of my main components at a glance. I can see the benefit of using it if I were in a team that was onboarding new people and encouraging backend-inclined members to code on the frontend. It would also be useful for interns and graduate developers to figure out how props change the appearance of components.
+I have to say I like it. It gives me a clear visual of my main components at a glance. I can see the benefit of using it if I were in a team that was onboarding new people and encouraging backend-inclined members to code on the frontend. It would also be useful for interns and graduate developers to figure out how props change the appearance of components.
 
 For the well-defined components, I created a folder to house the main component, the styled component, and the storybook file. For example:
 
@@ -22,7 +22,7 @@ For the well-defined components, I created a folder to house the main component,
 
 ## The Deployment Dilemma
 
-Originally, I wanted to deploy it as a subdomain at storybook.[michaelsavage.ie](http://michaelsavage.ie) but that would have added extra hosting costs. Instead, I configured the site to serve Storybook at `/storybook` inside the main site deployment.
+I wanted to deploy it as a subdomain at [storybook.michaelsavage.ie](http://michaelsavage.ie) but I scratched that plan in favour of a quicker outcome. Instead, I configured the site to serve Storybook at `/storybook` inside the main site deployment.
 
 Does it slow down my build? Yea…
 
@@ -40,7 +40,7 @@ npm create storybook@latest
 
 ## Will I keep using it?
 
-I think so. I'd like to implement this in a larger codebase that utilizes many components. Not everything needs a story though, and I'd like to have a better understanding how this workshop is not suited for all code. For example, it doesn't make sense to add it for very trivial wrappers, entire pages or routes, purely data-driven views, or Heads-up UI.
+In a larger codebase that utilizes many components, yes absolutely. Not everything needs a story though, and I'd like to have a better understanding how this workshop is not suited for all code. For example, it doesn't make sense to add it for very trivial wrappers, entire pages or routes, purely data-driven views, or Heads-up UI.
 
 **Very trivial wrappers**  
 	Components that do nothing more than wrap children to inject CSS or context, without any visible variation.
@@ -53,5 +53,3 @@ I think so. I'd like to implement this in a larger codebase that utilizes many c
 
 **Heads-up UI (toasts, alerts)**  
 	Unless you want to play with timing, positions and interactions. If you never tweak those, leave them out.
-
-### The storybook is available here: <Anchor link="https://michaelsavage.ie/storybook" text="Storybook" variant="link" isExternal />

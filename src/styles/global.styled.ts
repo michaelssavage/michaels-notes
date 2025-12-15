@@ -1,6 +1,7 @@
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
 import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { fonts } from "@/styles/abstracts/fonts.styled";
+import { forBreakAt } from "@/styles/abstracts/mixins.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
 import { css } from "@emotion/react";
 
@@ -100,5 +101,31 @@ export const globalStyles = (theme: MyTheme) => css`
     border-radius: 10px;
     padding: 1rem;
     border: 1px solid ${theme.blue200};
+  }
+
+  .three-grid-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 1rem;
+
+    ${forBreakAt({
+      breakpoint: 1200,
+      styles: css`
+        grid-template-columns: 1fr;
+      `,
+    })}
+  }
+
+  .two-grid-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 1rem;
+
+    ${forBreakAt({
+      breakpoint: 1200,
+      styles: css`
+        grid-template-columns: 1fr;
+      `,
+    })}
   }
 `;

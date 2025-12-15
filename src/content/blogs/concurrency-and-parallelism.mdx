@@ -7,6 +7,7 @@ type: blog
 ---
 
 I wanted to explore the differences between concurrency and parallelism. I know Concurrency ≠ parallelism but I wanted to refresh my memory and visualize each term. They refer to executing multiple tasks, but they represent different approaches.
+
 - **Concurrency** is about managing multiple tasks by interleaving their execution.
 - **Parallelism** is the ability to execute independent tasks of a program in the same instant of time. 
 
@@ -23,7 +24,7 @@ Tasks communicate with each other by using a shared memory or by message passing
 
 There are three main ways to achieve concurrency:
 
-<Group justify="center" wrap="wrap">
+<div className="three-grid-columns">
   <Board
     title="Distributed"
     text="Multiple independent processes with no shared memory, communicating only via message passing."
@@ -36,11 +37,11 @@ There are three main ways to achieve concurrency:
     title="Event Queue"
     text="Only a single thread exists! A single loop reads from the event queue and invokes the handlers."
   />
-</Group>
+</div>
 
 Unlike concurrency, parallelism is about separating tasks into smaller parts to be performed independently and simultaneously using more than one processor. It's when tasks actually run at the same time, without just giving the illusion of it. The two most common ways to achieve parallelism:
 
-<Group justify="center" wrap="wrap">
+<div className="two-grid-columns">
   <Board
     title="Data Parallelism"
     text="Split data into chunks and process them simultaneously (e.g., rendering frames in a video)."
@@ -49,8 +50,7 @@ Unlike concurrency, parallelism is about separating tasks into smaller parts to 
     title="Task Parallelism"
     text="Execute different tasks at the same time (e.g., downloading files while compressing others)."
   />
-</Group>
-
+</div>
 
 <p className="callout">
 💡Example of parallelism

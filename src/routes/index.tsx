@@ -74,31 +74,27 @@ function Blog() {
     const searchLowercase = searchQuery.toLowerCase();
     const { onSite, isPlantBassd, isBite, isReview } = filter;
 
-    const filteredBlogs = blogs.filter(
-      ({ title, description, draft, isExternal }) => {
-        const titleMatches = title.toLowerCase().includes(searchLowercase);
-        const descriptionMatches = description
-          .toLowerCase()
-          .includes(searchLowercase);
+    const filteredBlogs = blogs.filter(({ title, description, isExternal }) => {
+      const titleMatches = title.toLowerCase().includes(searchLowercase);
+      const descriptionMatches = description
+        .toLowerCase()
+        .includes(searchLowercase);
 
-        if (!titleMatches && !descriptionMatches) return false;
-        if (import.meta.env.PROD && draft) return false;
+      if (!titleMatches && !descriptionMatches) return false;
 
-        if (!onSite && !isPlantBassd) return false;
-        if (onSite && isPlantBassd) return true;
-        return onSite ? !isExternal : isExternal;
-      }
-    );
+      if (!onSite && !isPlantBassd) return false;
+      if (onSite && isPlantBassd) return true;
+      return onSite ? !isExternal : isExternal;
+    });
 
     const filteredReviews = isReview
-      ? reviews.filter(({ title, description, draft }) => {
+      ? reviews.filter(({ title, description }) => {
           const titleMatches = title.toLowerCase().includes(searchLowercase);
           const descriptionMatches = description
             .toLowerCase()
             .includes(searchLowercase);
 
           if (!titleMatches && !descriptionMatches) return false;
-          if (import.meta.env.PROD && draft) return false;
 
           return true;
         })
