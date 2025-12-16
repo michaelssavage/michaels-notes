@@ -56,7 +56,7 @@ export const items: GuideTableItem[] = [
     description:
       "Mid-sized city zoo with a wide variety of animals in Parc de la Ciutadella including komodo dragons, hippos, giraffes, hyenas, elephants, lions, red pandas, penguins, orangutans",
     image:
-      "https://31m9mhhbv2.ucarecd.net/df789c45-b5b2-48b6-9640-d73af7baf3b9/meerkats.jpg",
+      "https://31m9mhhbv2.ucarecd.net/dc549cd7-91bf-44f7-bd99-6882d0e17b3a/suricata.jpg",
   },
   {
     title: "Basílica del Sagrat Cor Tibidabo",

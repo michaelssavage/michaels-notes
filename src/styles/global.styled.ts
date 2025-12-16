@@ -5,6 +5,25 @@ import { forBreakAt } from "@/styles/abstracts/mixins.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
 import { css } from "@emotion/react";
 
+export const underlineStyles = (color: string, hoverColor?: string) => css`
+  background-image: linear-gradient(transparent calc(100% - 1px), ${color} 1px);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: background-image 0.25s;
+  font-weight: inherit;
+
+  ${hoverColor &&
+  css`
+    &:hover {
+      background-image: linear-gradient(
+        transparent calc(100% - 1px),
+        ${hoverColor} 1px
+      );
+    }
+  `}
+`;
+
 export const globalStyles = (theme: MyTheme) => css`
   ${resetStyles}
   ${pageTransitions}
@@ -74,16 +93,7 @@ export const globalStyles = (theme: MyTheme) => css`
 
   .underline {
     cursor: pointer;
-    background-image: linear-gradient(
-      transparent calc(100% - 0.15rem),
-      ${theme.red200} 0.15rem
-    );
-    background-position: left bottom 0;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    display: inline;
-    font-weight: inherit;
-    transition: background-size 0.6s cubic-bezier(0.45, 0, 0.55, 1);
+    ${underlineStyles(theme.red200, theme.red300)}
   }
 
   .callout {

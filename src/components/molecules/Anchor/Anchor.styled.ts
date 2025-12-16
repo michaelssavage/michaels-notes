@@ -1,4 +1,5 @@
 import type { AnchorVariants } from "@/components/molecules/Anchor/Anchor";
+import { underlineStyles } from "@/styles/global.styled";
 import { type CSSObject, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
@@ -49,7 +50,7 @@ export const LinkStyle = styled(Link)<IStyle>`
       case "link":
         return css`
           padding: 0;
-          text-decoration: underline;
+          ${underlineStyles(theme.blue200, theme.blue300)}
           border: none;
           margin-right: 2px;
           color: ${theme.blue200};

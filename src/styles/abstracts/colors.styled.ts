@@ -29,6 +29,7 @@ export const lightTheme = {
 
   red: "#FF8973",
   red200: "#FF2800",
+  red300: "#FF0000",
 
   code: "#d63384",
 };
