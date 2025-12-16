@@ -1,6 +1,7 @@
 import { BlockQuote } from "@/components/content/BlockQuote";
 import { H1 } from "@/components/content/H1";
 import { H2 } from "@/components/content/H2";
+import { H3 } from "@/components/content/H3";
 import { InlineCode } from "@/components/content/InlineCode";
 import { OrderedList } from "@/components/content/OrderedList";
 import { Paragraph } from "@/components/content/Paragraph";
@@ -33,6 +34,7 @@ const components = {
   ul: UnorderedList,
   h1: H1,
   h2: H2,
+  h3: H3,
   blockquote: BlockQuote,
   pre: Pre,
   code: InlineCode,

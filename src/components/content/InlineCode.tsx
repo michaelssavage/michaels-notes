@@ -5,7 +5,7 @@ const Inline = styled.code`
   font-family: monospace;
   color: ${({ theme }) => theme.code};
   background-color: ${({ theme }) => theme.white100};
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
 `;
 

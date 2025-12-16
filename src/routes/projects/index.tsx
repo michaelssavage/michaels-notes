@@ -106,16 +106,15 @@ function Projects() {
             <Header>
               <h2>Consuming Spotify Music</h2>
               <p>
-                I spent some time learning how to use the Spotify API and you
-                can read my{" "}
-                <Anchor
-                  link="/blog/spotify-developer-api"
-                  text="words about it here."
-                  variant="link"
-                />
                 Below you can see the top 10 tracks I&apos;ve listened to
                 recently and my last listened to song. If I&apos;m online it
-                will display what I&apos;m currently listening to.
+                will display what I&apos;m currently listening to. You can read
+                more about how I set up the{" "}
+                <Anchor
+                  link="/blog/spotify-developer-api"
+                  text="Spotify API here."
+                  variant="link"
+                />
               </p>
             </Header>
 

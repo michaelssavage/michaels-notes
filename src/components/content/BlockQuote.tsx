@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 import type { HTMLAttributes } from "react";
 
 const Style = styled.blockquote`
-  color: ${({ theme }) => theme.gray600};
+  color: ${({ theme }) => theme.black};
+  background-color: ${({ theme }) => theme.white};
   border-left: 4px solid ${({ theme }) => theme.gray600};
-  margin: 0.5rem 10px;
+  margin-bottom: 1rem;
   padding: 0.5rem 10px;
 
   p {
