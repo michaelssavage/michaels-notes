@@ -1,12 +1,11 @@
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Link } from "@tanstack/react-router";
 
 export const MenuContainer = styled.div<{ open: boolean }>`
   position: fixed;
-  top: 9rem;
-  left: 2rem;
+  top: 15rem;
+  left: 5rem;
   z-index: 12;
   display: flex;
   flex-direction: column;
@@ -18,6 +17,11 @@ export const MenuContainer = styled.div<{ open: boolean }>`
   border: 1px solid ${({ theme }) => theme.black};
   border-radius: 0.5rem;
   cursor: ${({ open }) => (open ? "default" : "pointer")};
+
+  #back-to-target {
+    font-size: 1.1rem;
+    font-style: italic;
+  }
 
   svg {
     cursor: pointer;
@@ -32,23 +36,11 @@ export const MenuContainer = styled.div<{ open: boolean }>`
 
   ${forTabletOnly(css`
     padding: 0.5rem;
-    margin-bottom: 1rem;
-    top: 7rem;
-    position: static;
+    top: 5rem;
+    left: 1rem;
+    right: 1rem;
     width: fit-content;
   `)}
-`;
-
-export const PageLink = styled(Link)`
-  font-size: 1.2rem;
-  text-decoration: underline;
-  font-style: italic;
-  transition: all 0.35s;
-
-  color: ${({ theme }) => theme.black};
-  &:hover {
-    color: ${({ theme }) => theme.blue300};
-  }
 `;
 
 export const Sidebar = styled.ol`

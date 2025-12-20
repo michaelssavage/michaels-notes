@@ -83,9 +83,10 @@ function Slug() {
           <Markdown content={post} />
           {post.github && (
             <Anchor
-              text="GitHub Link"
+              text="Project Link"
               link={post.github}
               icon={<GithubIcon />}
+              variant="header"
               style={css`
                 display: inline-flex;
                 align-items: center;

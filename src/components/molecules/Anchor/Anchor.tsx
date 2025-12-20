@@ -5,6 +5,7 @@ import { LinkStyle } from "./Anchor.styled";
 export type AnchorVariants = "button" | "link" | "text" | "header" | "footer";
 
 interface Props {
+  id?: string;
   link: string;
   text?: string;
   isExternal?: boolean;
@@ -15,6 +16,7 @@ interface Props {
 
 export const Anchor = memo(
   ({
+    id,
     link,
     text,
     icon,
@@ -24,6 +26,7 @@ export const Anchor = memo(
   }: Props) => {
     return (
       <LinkStyle
+        id={id}
         to={link}
         variant={variant}
         rel={isExternal ? "noopener noreferrer" : undefined}

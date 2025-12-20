@@ -30,21 +30,22 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
 export default function Navbar() {
   const { scrollY } = useScroll();
 
-  const logoSize = scrollY.to([0, 200], [10, 2.5], "clamp");
+  const logoSize = scrollY.to([0, 200], [10, 3], "clamp");
 
   return (
     <Header>
+      <Link to="/">
+        <animated.div
+          id="navbar-logo-link"
+          style={{
+            width: logoSize.to((size) => `${size}rem`),
+            height: logoSize.to((size) => `${size}rem`),
+          }}
+        >
+          <Picture src="/logo.png" alt="Logo" loading="eager" />
+        </animated.div>
+      </Link>
       <div id="navbar-links-container">
-        <Link to="/" id="navbar-logo-link">
-          <animated.div
-            style={{
-              width: logoSize.to((size) => `${size}rem`),
-              height: logoSize.to((size) => `${size}rem`),
-            }}
-          >
-            <Picture src="/logo.png" alt="Logo" loading="eager" />
-          </animated.div>
-        </Link>
         <NavLink
           to="/"
           text="Writing"

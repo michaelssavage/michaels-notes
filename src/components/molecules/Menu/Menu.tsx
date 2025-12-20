@@ -1,9 +1,10 @@
+import { Group } from "@/components/atoms/Group";
 import { ArrowBackIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { useClickOutside } from "@/hooks/use-click-outside.hook";
 import { animated, useTransition } from "@react-spring/web";
 import { useRef } from "react";
-import { MenuContainer, PageLink, Sidebar } from "./Menu.styled";
+import { MenuContainer, Sidebar } from "./Menu.styled";
 
 interface Picked {
   slug: string;
@@ -24,16 +25,11 @@ export const Menu = <T extends object>({
   setOpen,
 }: Props<T>) => {
   const menuRef = useRef<HTMLDivElement>(null);
-
   useClickOutside(menuRef, () => setOpen(false), open);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const handleClick = () => setOpen(!open);
 
-  const openMenu = () => {
-    if (!open) setOpen(true);
-  };
+  const openMenu = () => !open && setOpen(true);
 
   const transitions = useTransition(open, {
     from: { opacity: 0, transform: "translateY(-10px)" },
@@ -44,15 +40,22 @@ export const Menu = <T extends object>({
 
   return (
     <MenuContainer ref={menuRef} open={open} onClick={openMenu}>
-      <ArrowBackIcon onClick={handleClick} />
+      <Group direction="row" gap="0.5rem" align="center" onClick={handleClick}>
+        <ArrowBackIcon />
+        {open && <p>close</p>}
+      </Group>
 
       {transitions(
         (styles, item) =>
           item && (
             <animated.div style={styles}>
-              <PageLink to={`/${target}`}>back to {target}</PageLink>
-
               <Sidebar>
+                <Anchor
+                  id="back-to-target"
+                  text={`back to ${target}`}
+                  link={`/${target}`}
+                  variant="header"
+                />
                 {items.map(({ title, slug }) => {
                   return (
                     <li key={slug}>

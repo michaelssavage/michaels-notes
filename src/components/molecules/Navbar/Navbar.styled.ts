@@ -9,24 +9,40 @@ export const Header = styled.nav`
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem 2rem;
+  gap: 0.5rem 1rem;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 10;
+  background-color: ${({ theme }) => theme.yellow};
+
+  /* Fade-out mask for content scrolling underneath */
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -1rem;
+    height: 1rem;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      ${({ theme }) => theme.yellow} 100%
+    );
+  }
 
   ${forTabletOnly(css`
-    flex-direction: column;
-    flex-wrap: wrap;
+    padding: 1rem 1.25rem;
+    #navbar-logo-link {
+      width: 3rem !important;
+      height: 3rem !important;
+    }
   `)}
 
   #navbar-links-container {
     font-size: clamp(1.1rem, 1rem + 0.3vw, 1.4rem);
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 0.5rem 1rem;
     padding: 0;
     text-transform: uppercase;
     font-style: italic;

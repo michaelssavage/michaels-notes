@@ -1,3 +1,4 @@
+import { sortByDate } from "@/lib/utils";
 import type { IBite, IBlog, IPosts, IProject, IReview } from "@/types/Post";
 import matter from "gray-matter";
 import fs from "node:fs";
@@ -93,10 +94,18 @@ async function compileAllPosts(contentDir: string) {
   fs.mkdirSync(outputDir, { recursive: true });
 
   const postsIndex: IPosts = {
-    projects: extractFrontmatter<IProject>(path.join(contentDir, "projects")),
-    blogs: extractFrontmatter<IBlog>(path.join(contentDir, "blogs")),
-    reviews: extractFrontmatter<IReview>(path.join(contentDir, "reviews")),
-    bites: extractFrontmatter<IBite>(path.join(contentDir, "bites")),
+    projects: extractFrontmatter<IProject>(
+      path.join(contentDir, "projects")
+    ).sort(sortByDate),
+    blogs: extractFrontmatter<IBlog>(path.join(contentDir, "blogs")).sort(
+      sortByDate
+    ),
+    reviews: extractFrontmatter<IReview>(path.join(contentDir, "reviews")).sort(
+      sortByDate
+    ),
+    bites: extractFrontmatter<IBite>(path.join(contentDir, "bites")).sort(
+      sortByDate
+    ),
   };
 
   fs.writeFileSync(

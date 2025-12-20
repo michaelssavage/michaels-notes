@@ -11,13 +11,13 @@ export const Heading = styled.h1`
   color: ${({ theme }) => theme.black};
 `;
 
-export const Page = styled.div`
+export const Page = styled.main`
   position: relative;
   min-height: 80vh;
 `;
 
 export const Panel = styled.div`
-  margin: 2rem 10%;
+  margin: 1rem 10% 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

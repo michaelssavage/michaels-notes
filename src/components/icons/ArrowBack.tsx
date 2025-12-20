@@ -1,4 +1,4 @@
-export const ArrowBackIcon = ({ onClick }: { onClick: () => void }) => {
+export const ArrowBackIcon = ({ onClick }: { onClick?: () => void }) => {
   return (
     <svg
       onClick={onClick}

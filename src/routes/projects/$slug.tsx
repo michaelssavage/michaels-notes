@@ -71,7 +71,12 @@ function Slug() {
           <Tags>{joinTags(post.technology)}</Tags>
           <Group justify="flex-end">
             {post.github && (
-              <Anchor text="GitHub Link" link={post.github} isExternal />
+              <Anchor
+                text="Project Link"
+                variant="header"
+                link={post.github}
+                isExternal
+              />
             )}
           </Group>
         </Content>

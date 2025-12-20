@@ -13,6 +13,7 @@ interface IGroup {
   margin?: string;
   height?: string;
   children: ReactNode;
+  onClick?: () => void;
 }
 
 const GroupStyle = styled.div<Omit<IGroup, "css">>`
@@ -27,9 +28,9 @@ const GroupStyle = styled.div<Omit<IGroup, "css">>`
   margin: ${({ margin }) => margin && margin};
 `;
 
-export const Group = ({ css: cssStyle, ...props }: IGroup) => {
+export const Group = ({ css: cssStyle, onClick, ...props }: IGroup) => {
   return (
-    <GroupStyle {...props} css={cssStyle}>
+    <GroupStyle {...props} css={cssStyle} onClick={onClick} onKeyDown={onClick}>
       {props.children}
     </GroupStyle>
   );
