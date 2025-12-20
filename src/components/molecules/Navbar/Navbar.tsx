@@ -1,14 +1,7 @@
-import { Icon } from "@/components/atoms/Icon";
-import {
-  GithubIcon,
-  LinkedInIcon,
-  MailIcon,
-  ResumeIcon,
-  SpotifyIcon,
-} from "@/components/icons";
-import { useLocation } from "@tanstack/react-router";
-import { memo } from "react";
-import { Header, Icons, StyledLink } from "./Navbar.styled";
+import { Picture } from "@/components/molecules/Picture";
+import { animated, useScroll } from "@react-spring/web";
+import { Link, useLocation } from "@tanstack/react-router";
+import { Header, StyledLink } from "./Navbar.styled";
 
 interface Props {
   to: string;
@@ -16,7 +9,7 @@ interface Props {
   activeRoutes?: string[];
 }
 
-const NavLink = memo(({ to, text, activeRoutes }: Props) => {
+const NavLink = ({ to, text, activeRoutes }: Props) => {
   const location = useLocation();
 
   const isActive = activeRoutes
@@ -32,20 +25,26 @@ const NavLink = memo(({ to, text, activeRoutes }: Props) => {
       {text}
     </StyledLink>
   );
-});
+};
 
-const Navbar = () => {
-  const captureCvClick = async () => {
-    const posthog = (await import("posthog-js")).default;
+export default function Navbar() {
+  const { scrollY } = useScroll();
 
-    posthog.capture("cv_download_clicked", {
-      source: "resume_button",
-    });
-  };
+  const logoSize = scrollY.to([0, 200], [10, 2.5], "clamp");
 
   return (
     <Header>
       <div id="navbar-links-container">
+        <Link to="/" id="navbar-logo-link">
+          <animated.div
+            style={{
+              width: logoSize.to((size) => `${size}rem`),
+              height: logoSize.to((size) => `${size}rem`),
+            }}
+          >
+            <Picture src="/logo.png" alt="Logo" loading="eager" />
+          </animated.div>
+        </Link>
         <NavLink
           to="/"
           text="Writing"
@@ -55,42 +54,6 @@ const Navbar = () => {
         <NavLink to="/about" text="About" />
         <NavLink to="/miscellaneous" text="Miscellaneous" />
       </div>
-      <Icons>
-        <Icon
-          label="GitHub Profile"
-          link="https://github.com/michaelssavage"
-          icon={<GithubIcon />}
-          isExternal
-        />
-        <Icon
-          label="LinkedIn Profile"
-          link="https://www.linkedin.com/in/michaelssavage"
-          icon={<LinkedInIcon />}
-          isExternal
-        />
-        <Icon
-          label="My Email"
-          link="mailto:michaelsavage940@gmail.com"
-          icon={<MailIcon />}
-          isExternal
-        />
-        <Icon
-          label="Spotify Profile"
-          link="https://open.spotify.com/user/1156402021"
-          icon={<SpotifyIcon />}
-          isExternal
-        />
-        <Icon
-          label="View CV"
-          link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
-          icon={<ResumeIcon onClick={captureCvClick} />}
-          isExternal
-        />
-      </Icons>
     </Header>
   );
-};
-
-export default Navbar;
-
-NavLink.displayName = "NavLink";
+}

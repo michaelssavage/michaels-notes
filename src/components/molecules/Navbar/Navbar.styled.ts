@@ -5,13 +5,16 @@ import { Link } from "@tanstack/react-router";
 
 export const Header = styled.nav`
   line-height: 1;
-  padding: 3rem 2rem 1rem;
+  padding: 1.25rem;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   ${forTabletOnly(css`
     flex-direction: column;
@@ -42,6 +45,7 @@ export const Header = styled.nav`
 export const StyledLink = styled(Link)`
   z-index: 3;
   text-decoration: none;
+  padding: 0.5rem 1rem;
   font-family: "Rawest";
   color: ${({ theme }) => theme.black};
   transition:
@@ -60,38 +64,5 @@ export const StyledLink = styled(Link)`
     transition:
       color 0.3s cubic-bezier(0.45, 0, 0.55, 1),
       transform 0.3s cubic-bezier(0.45, 0, 0.55, 1);
-  }
-`;
-
-export const Icons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 1rem;
-
-  ${forPhoneOnly(css`
-    min-width: unset;
-    min-height: unset;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  `)}
-
-  svg {
-    width: 3rem;
-    height: 3rem;
-    min-width: 2rem;
-    min-height: 2rem;
-    color: ${({ theme }) => theme.gray600};
-
-    &:hover {
-      transform: scale(1.08);
-    }
-
-    ${forPhoneOnly(css`
-      width: 2.4rem;
-      height: 2.4rem;
-      min-width: 1rem;
-      min-height: 1rem;
-    `)}
   }
 `;

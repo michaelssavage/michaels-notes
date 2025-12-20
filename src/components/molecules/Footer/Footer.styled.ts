@@ -1,28 +1,20 @@
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.footer`
-  width: 100%;
-  padding: 0.25rem 1rem;
-`;
-
-export const Content = styled.div`
+export const Wrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  font-size: 0.85rem;
-  color: ${({ theme }) => theme.gray600};
+  flex-wrap: wrap;
 
-  a {
-    color: inherit;
-    text-decoration: none;
+  padding: 0 1rem;
+  max-width: 1000px;
+  margin: 3rem auto;
+  gap: 1rem;
 
-    &:hover {
-      text-decoration: underline;
-      color: ${({ theme }) => theme.black};
-    }
-  }
-`;
-
-export const Separator = styled.span`
-  margin: 0 0.5rem;
+  ${forPhoneOnly(css`
+    gap: 0.5rem;
+  `)}
 `;
