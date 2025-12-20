@@ -7,6 +7,7 @@ import { usePosts } from "@/hooks/posts.hook";
 import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
+import { css } from "@emotion/react";
 import { useSpring } from "@react-spring/web";
 import { createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
@@ -81,14 +82,18 @@ function Slug() {
           </Header>
           <Markdown content={post} />
           {post.github && (
-            <div>
-              <Anchor
-                text="GitHub Link"
-                link={post.github}
-                icon={<GithubIcon />}
-                isExternal
-              />
-            </div>
+            <Anchor
+              text="GitHub Link"
+              link={post.github}
+              icon={<GithubIcon />}
+              style={css`
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                width: fit-content;
+              `}
+              isExternal
+            />
           )}
         </Content>
       </Suspense>

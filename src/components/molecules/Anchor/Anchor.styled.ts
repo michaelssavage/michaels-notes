@@ -17,21 +17,9 @@ export const LinkStyle = styled(Link)<IStyle>`
   width: fit-content;
   position: relative;
 
-  &:hover {
-    svg {
-      opacity: 1;
-    }
-  }
-
   svg {
-    position: absolute;
-    top: 0;
-    right: -1.2rem;
-    flex-shrink: 0;
-    width: 1rem;
-    height: 1rem;
-    opacity: 0;
-    transition: opacity 0.25s;
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
   ${({ variant, theme }) => {

@@ -30,7 +30,7 @@ export const Anchor = memo(
         target={isExternal ? "_blank" : undefined}
         style={style}
       >
-        {text ? text : link} {icon}
+        {icon} {text ? text : link}
       </LinkStyle>
     );
   }
