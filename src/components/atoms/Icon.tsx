@@ -1,12 +1,14 @@
 import { Floating } from "@/components/atoms/Floating";
+import { Anchor } from "@/components/molecules/Anchor";
 import { Link } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { type ReactElement } from "react";
 
 interface IconLinkProps {
   link: string;
   isExternal?: boolean;
-  icon: ReactNode;
+  icon: ReactElement;
   label: string;
+  useFloating?: boolean;
 }
 
 export const Icon = ({
@@ -14,7 +16,20 @@ export const Icon = ({
   isExternal = false,
   icon,
   label,
+  useFloating = false,
 }: IconLinkProps) => {
+  if (!useFloating) {
+    return (
+      <Anchor
+        link={link}
+        isExternal={isExternal}
+        icon={icon}
+        text={label}
+        variant="footer"
+      />
+    );
+  }
+
   return (
     <Floating
       type="tooltip"

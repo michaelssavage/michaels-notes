@@ -37,15 +37,28 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         property: "og:description",
         content: "Personal website of Michael Savage",
       },
-      { name: "theme-color", content: "#079CCD" },
+      { name: "theme-color", content: "#FFFCF8" },
+      { name: "apple-mobile-web-app-title", content: "Notes" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap",
       },
-
-      { rel: "icon", type: "image/jpeg", href: "/favicon-32.jpg" },
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "/favicon-96x96.png",
+        sizes: "96x96",
+      },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",

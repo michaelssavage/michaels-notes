@@ -1,4 +1,5 @@
 import type { AnchorVariants } from "@/components/molecules/Anchor/Anchor";
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { underlineStyles } from "@/styles/global.styled";
 import { type CSSObject, css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -56,6 +57,28 @@ export const LinkStyle = styled(Link)<IStyle>`
 
           &:hover {
             transform: scale(1.02);
+          }
+        `;
+      case "footer":
+        return css`
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: ${theme.gray600};
+
+          svg {
+            width: 3rem;
+            height: 3rem;
+
+            ${forPhoneOnly(css`
+              width: 2.5rem;
+              height: 2.5rem;
+            `)}
+          }
+
+          &:hover {
+            transform: scale(1.02);
+            color: ${theme.black};
           }
         `;
       case "text":

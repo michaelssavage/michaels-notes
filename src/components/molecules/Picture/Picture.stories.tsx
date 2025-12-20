@@ -8,7 +8,7 @@ const meta: Meta<typeof Picture> = {
   tags: ["autodocs"],
   args: {
     alt: "Sample image",
-    src: "/favicon.png",
+    src: "/favicon.svg",
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render: (args: any) => (
