@@ -53,7 +53,17 @@ export default function Navbar() {
         />
         <NavLink to="/projects" text="Projects" />
         <NavLink to="/about" text="About" />
-        <NavLink to="/miscellaneous" text="Miscellaneous" />
+        <NavLink
+          to="/miscellaneous"
+          text="Miscellaneous"
+          activeRoutes={[
+            "/miscellaneous",
+            "/guide",
+            "/doodles",
+            "/mixes",
+            "/pretty-text",
+          ]}
+        />
       </div>
     </Header>
   );

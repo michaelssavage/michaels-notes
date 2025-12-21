@@ -11,7 +11,18 @@ export const MiscContainer = styled.div`
 `;
 
 export const GridLineContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
+  // TODO: add display: grid-lanes when supported
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  figure {
+    max-width: 250px;
+    transition: transform 0.2s ease;
+
+    :hover {
+      transform: scale(1.05);
+    }
+  }
 `;
