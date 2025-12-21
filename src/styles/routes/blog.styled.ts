@@ -14,6 +14,7 @@ export const Heading = styled.h1`
 export const Page = styled.main`
   position: relative;
   min-height: 80vh;
+  padding-top: 1rem;
 `;
 
 export const Panel = styled.div`

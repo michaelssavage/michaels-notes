@@ -7,7 +7,7 @@ import { Button } from "@/components/molecules/Button";
 import { NoPost } from "@/components/molecules/Post/NoPost";
 import Post from "@/components/molecules/Post/Post";
 import { SearchBox } from "@/components/molecules/SearchBox";
-import { Weather } from "@/components/molecules/Weather";
+import { Weather } from "@/components/molecules/Weather/Weather";
 import { sortByDate } from "@/lib/utils";
 import { getMiniPosts } from "@/server/posts.api";
 import {

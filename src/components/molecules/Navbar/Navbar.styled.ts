@@ -5,7 +5,7 @@ import { Link } from "@tanstack/react-router";
 
 export const Header = styled.nav`
   line-height: 1;
-  padding: 1.25rem;
+  padding: 1.25rem 1.25rem 0;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -31,7 +31,7 @@ export const Header = styled.nav`
   }
 
   ${forTabletOnly(css`
-    padding: 1rem 1rem 0.5rem;
+    padding: 1rem 1rem 0;
     #navbar-logo-link {
       width: 3rem !important;
       height: 3rem !important;
