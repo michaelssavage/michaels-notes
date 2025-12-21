@@ -2,7 +2,7 @@ import Markdown from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { usePosts } from "@/hooks/posts.hook";
+import { usePosts } from "@/hooks/use-posts.hook";
 import { getFullPost } from "@/server/posts.api";
 import {
   Article,

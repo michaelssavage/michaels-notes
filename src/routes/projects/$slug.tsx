@@ -3,7 +3,8 @@ import Markdown from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { usePosts } from "@/hooks/posts.hook";
+import { useClient } from "@/hooks/use-client.hook";
+import { usePosts } from "@/hooks/use-posts.hook";
 import { joinTags } from "@/lib/utils";
 import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
@@ -49,10 +50,13 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function Slug() {
+  const isClient = useClient();
   const [open, setOpen] = useState(false);
 
   const post = Route.useLoaderData();
   const posts = usePosts("projects");
+
+  if (!isClient) return <Loading />;
 
   return (
     <Article>

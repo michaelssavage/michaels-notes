@@ -2,6 +2,7 @@ import { Group } from "@/components/atoms/Group";
 import { ArrowBackIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { useClickOutside } from "@/hooks/use-click-outside.hook";
+import { useClient } from "@/hooks/use-client.hook";
 import { animated, useTransition } from "@react-spring/web";
 import { useRef } from "react";
 import { MenuContainer, Sidebar } from "./Menu.styled";
@@ -25,18 +26,22 @@ export const Menu = <T extends object>({
   setOpen,
 }: Props<T>) => {
   const menuRef = useRef<HTMLDivElement>(null);
+  const isClient = useClient();
+
   useClickOutside(menuRef, () => setOpen(false), open);
 
   const handleClick = () => setOpen(!open);
 
   const openMenu = () => !open && setOpen(true);
 
-  const transitions = useTransition(open, {
+  const transitions = useTransition(isClient && open, {
     from: { opacity: 0, transform: "translateY(-10px)" },
     enter: { opacity: 1, transform: "translateY(0px)" },
     leave: { opacity: 0, transform: "translateY(-10px)" },
     config: { duration: 200 },
   });
+
+  if (!isClient) return null;
 
   return (
     <MenuContainer ref={menuRef} open={open} onClick={openMenu}>

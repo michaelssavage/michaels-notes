@@ -118,6 +118,7 @@ export const globalStyles = (theme: MyTheme) => css`
     background-color: ${theme.white100};
     padding: 0.25rem;
     border-radius: 0.25rem;
+    margin-bottom: 1rem;
   }
 
   .popover-card {

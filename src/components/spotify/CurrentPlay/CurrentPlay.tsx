@@ -4,8 +4,8 @@ import {
   MinimiseIcon,
 } from "@/components/icons";
 import { Picture } from "@/components/molecules/Picture";
-import { useTheme } from "@/context/ThemeProvider";
-import { useSanitizedHTML } from "@/hooks/dompurify.hook";
+import { useSanitizedHTML } from "@/hooks/use-sanitized-html.hook";
+import { useTheme } from "@/hooks/use-theme.hook";
 import { getContrastYIQ, getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
 import { getLastFmTrack } from "@/server/lastfm-track.api";

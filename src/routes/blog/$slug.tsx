@@ -3,7 +3,8 @@ import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { usePosts } from "@/hooks/posts.hook";
+import { useClient } from "@/hooks/use-client.hook";
+import { usePosts } from "@/hooks/use-posts.hook";
 import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
@@ -50,6 +51,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function Slug() {
+  const isClient = useClient();
   const [open, setOpen] = useState(false);
 
   const { slug } = Route.useParams();
@@ -61,6 +63,8 @@ function Slug() {
     to: { opacity: 1, transform: "translateY(0px)" },
     config: { tension: 300, friction: 30 },
   });
+
+  if (!isClient) return <Loading />;
 
   const sidebar = posts
     .filter(({ isExternal }) => !isExternal)

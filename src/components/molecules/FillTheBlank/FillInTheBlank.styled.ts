@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 
 export const BlankContainer = styled.div`
   margin-bottom: 1rem;
-  font-size: 1.2rem;
 `;
 
 // prettier-ignore
