@@ -1,6 +1,7 @@
 import { Board } from "@/components/atoms/Board";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
+import { FillInTheBlank } from "@/components/molecules/FillTheBlank/FillTheBlank";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -38,6 +39,12 @@ function Playground() {
           link="/blog/what-is-plant-bassd"
           text="Blog - What is Plant Bass'd?"
           variant="button"
+        />
+
+        <FillInTheBlank
+          beforeText="¿Tú"
+          afterText="(hacer) el check-in en línea ayer?"
+          correctAnswer="hiciste"
         />
       </Panel>
     </Page>

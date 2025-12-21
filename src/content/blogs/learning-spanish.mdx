@@ -11,22 +11,36 @@ I developed a basic service to reinforce my <Anchor link="https://github.com/mic
 
 I learned French in school; I was fine at it. It turned out to be the subject I spent the least amount of attention on, so once I left school, my knowledge completely disappeared. The same thing with Irish, unfortunately. I learned it for fourteen years, and it met the same demise. You can blame the Irish education system, and a lot of people might do, but the real problem was practice. Or the lack of it. With Spanish, I didn't want to repeat that pattern, so the homework idea made sense.
 
-The app itself is boring. It's a <Anchor link="https://www.django-rest-framework.org/" text="Django REST framework" variant="link" isExternal /> app deployed on <Anchor link="https://railway.com/pricing" text="Railway.com" variant="link" isExternal />. A GitHub Action fires a CRON job every second day, which wakes up the app, generates a prompt from rotating topics to send to <Anchor link="https://api-docs.deepseek.com/quick_start/pricing" text="Deepseek AI" variant="link" isExternal />, and then emails the result through <Anchor link="https://www.mailgun.com/" text="Mailgun" variant="link" isExternal />. The email consists of four sections of ten sentences each of the past, present, future, and mixed vocabulary in natural dialogue thanks to the LLM. For example:
+The app itself is boring. It's a <Anchor link="https://www.django-rest-framework.org/" text="Django REST framework" variant="link" isExternal /> app deployed on <Anchor link="https://railway.com/pricing" text="Railway.com" variant="link" isExternal />. A GitHub Action fires a CRON job every second day, which wakes up the app, generates a prompt from rotating topics to send to <Anchor link="https://api-docs.deepseek.com/quick_start/pricing" text="Deepseek AI" variant="link" isExternal />, and then emails the result through <Anchor link="https://www.mailgun.com/" text="Mailgun" variant="link" isExternal />. The email consists of four sections of ten sentences each of the past, present, future, and mixed vocabulary in natural dialogue thanks to the LLM.  
+For example (try it out yourself!):
 
+<div className="simple-card">
+<FillInTheBlank
+    heading="Past"
+    beforeText="- ¿Tú"
+    afterText="(hacer) el check-in en línea ayer?"
+    correctAnswer="hiciste"
+/> 
 
-```text
-Past:  
-¿Tú __________ (hacer) el check-in en línea ayer?  
+<FillInTheBlank
+    heading="Present"
+    beforeText="- Los huéspedes"
+    afterText="(disfrutar) del desayuno buffet en el comedor."
+    correctAnswer="disfrutan"
+/>  
  
-Present:  
-Los huéspedes __________ (disfrutar) del desayuno buffet en el comedor.  
  
-Future:  
- El tren __________ (partir) a las ocho en punto de la mañana.  
+
+<FillInTheBlank
+    heading="Future"
+    beforeText="- El tren"
+    afterText="(partir) a las ocho en punto de la mañana."
+    correctAnswer="partirá"
+/> 
  
-Vocab:  
+<h3>Vocab</h3>
 La azafata repartió los formularios de aduana antes del aterrizaje.  
-```
+</div>
 
 Once I got it working, I showed my girlfriend and she liked the idea too. I decided then to add the functionality to send to more than just me, with a User Recipient model for each user. 
 

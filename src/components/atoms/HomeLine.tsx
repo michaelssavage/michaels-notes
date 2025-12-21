@@ -1,6 +1,7 @@
 import { slideInAnimation } from "@/styles/abstracts/animations.styled";
 import styled from "@emotion/styled";
 import { animated, useScroll } from "@react-spring/web";
+import { useEffect, useState } from "react";
 
 const AnimatedLineStyled = styled.div`
   margin-top: 1rem;
@@ -14,19 +15,30 @@ const AnimatedLineStyled = styled.div`
 `;
 
 export const HomeLine = () => {
+  const [isClient, setIsClient] = useState(false);
   const { scrollY } = useScroll();
 
-  const width = scrollY
-    .to({
-      range: [0, 1000],
-      output: [100, 0],
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    })
-    .to((value) => `${value}%`);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Default to initial scroll position (0) for SSR to match client initial state
+  const width = isClient
+    ? scrollY
+        .to({
+          range: [0, 1000],
+          output: [100, 0],
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        })
+        .to((value) => `${value}%`)
+    : "100%";
 
   return (
-    <animated.div style={{ width, willChange: "width" }}>
+    <animated.div
+      style={{ width, willChange: "width" }}
+      suppressHydrationWarning
+    >
       <AnimatedLineStyled />
     </animated.div>
   );

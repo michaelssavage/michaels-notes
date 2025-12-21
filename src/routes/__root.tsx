@@ -15,6 +15,7 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
+import { StrictMode } from "react";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -100,12 +101,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Providers>
-          <Navbar />
-          <TextBleed />
-          {children}
-          <Footer />
-        </Providers>
+        <StrictMode>
+          <Providers>
+            <Navbar />
+            <TextBleed />
+            {children}
+            <Footer />
+          </Providers>
+        </StrictMode>
 
         <ReactQueryDevtools position="bottom" />
         <Scripts />

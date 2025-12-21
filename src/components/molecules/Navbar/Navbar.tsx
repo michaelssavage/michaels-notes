@@ -1,6 +1,7 @@
 import { Picture } from "@/components/molecules/Picture";
 import { animated, useScroll } from "@react-spring/web";
 import { Link, useLocation } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Header, StyledLink } from "./Navbar.styled";
 
 interface Props {
@@ -28,19 +29,26 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
 };
 
 export default function Navbar() {
+  const [isClient, setIsClient] = useState(false);
   const { scrollY } = useScroll();
 
-  const logoSize = scrollY.to([0, 200], [10, 3], "clamp");
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const logoSize = isClient
+    ? scrollY.to([0, 200], [160, 48], "clamp")
+    : scrollY.to(() => 160);
+
+  const logoWidth = logoSize.to((size) => `${size}px`);
+  const logoHeight = logoSize.to((size) => `${size}px`);
 
   return (
     <Header>
       <Link to="/">
         <animated.div
           id="navbar-logo-link"
-          style={{
-            width: logoSize.to((size) => `${size}rem`),
-            height: logoSize.to((size) => `${size}rem`),
-          }}
+          style={{ width: logoWidth, height: logoHeight }}
         >
           <Picture src="/logo.png" alt="Logo" loading="eager" />
         </animated.div>

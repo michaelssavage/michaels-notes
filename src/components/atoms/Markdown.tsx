@@ -8,6 +8,7 @@ import { Paragraph } from "@/components/content/Paragraph";
 import { Pre } from "@/components/content/Pre";
 import { UnorderedList } from "@/components/content/UnorderedList";
 import { Anchor } from "@/components/molecules/Anchor";
+import { FillInTheBlank } from "@/components/molecules/FillTheBlank/FillTheBlank";
 import { Picture } from "@/components/molecules/Picture";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import { ImgPositioner } from "@/styles/routes/blog.styled";
@@ -43,6 +44,7 @@ const components = {
   Player,
   Group,
   Floating,
+  FillInTheBlank,
 };
 
 interface MarkdownProps {
