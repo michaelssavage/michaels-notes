@@ -110,14 +110,14 @@ export const MainSection = styled.div`
   padding: 0 0.5rem;
 `;
 
-// Article styling
 export const Article = styled.article<{ height?: string }>`
-  margin: 2rem auto;
+  margin: 1rem auto 2rem;
   width: 50%;
   min-height: ${({ height }) => height};
 
   ${forPhoneOnly(css`
     width: 90%;
+    margin: 3rem auto 2rem;
   `)}
 `;
 

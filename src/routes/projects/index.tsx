@@ -69,7 +69,7 @@ function Projects() {
       <Container>
         <Header>
           <h1 data-testid="projects-description">
-            Personal development, work, code challenges, and university projects
+            Personal development through side projects
           </h1>
           <Group wrap="wrap" align="center" gap="0.5rem">
             <p data-id="filter-projects">Filters projects:</p>

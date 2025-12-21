@@ -65,6 +65,7 @@ export const Card = styled(Link)`
   border-radius: 0.4rem;
   transition: box-shadow 0.3s ease;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  filter: url(#bleed);
 
   &:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
@@ -122,8 +123,14 @@ export const Header = styled.div`
 
 // slug
 export const Article = styled.article<{ height?: string }>`
-  margin: 2rem 10%;
+  margin: 1rem auto 2rem;
+  width: 60%;
   min-height: ${({ height }) => height};
+
+  ${forPhoneOnly(css`
+    width: 90%;
+    margin: 3rem auto 2rem;
+  `)}
 `;
 
 export const Tags = styled.p`

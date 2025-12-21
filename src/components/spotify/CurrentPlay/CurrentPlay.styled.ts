@@ -56,7 +56,7 @@ export const NowPlaying = styled.div<{ color: string }>`
 `;
 
 export const FactContent = styled.p<FactContentProps>`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: ${({ factColor }) => factColor};
 
   width: 90%;
@@ -70,7 +70,7 @@ export const FactContent = styled.p<FactContentProps>`
 `;
 
 export const FactLink = styled.p<FactContentProps>`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   &&& a {
     color: ${({ factColor }) => factColor};
   }

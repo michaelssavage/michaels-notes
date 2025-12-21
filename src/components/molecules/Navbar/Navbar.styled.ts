@@ -9,7 +9,6 @@ export const Header = styled.nav`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 0.5rem 1rem;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -32,7 +31,7 @@ export const Header = styled.nav`
   }
 
   ${forTabletOnly(css`
-    padding: 1rem 1.25rem;
+    padding: 1rem 1rem 0.5rem;
     #navbar-logo-link {
       width: 3rem !important;
       height: 3rem !important;
@@ -73,6 +72,10 @@ export const StyledLink = styled(Link)`
     color: ${({ theme }) => theme.blue200};
     transform: translateY(-5px);
   }
+
+  ${forTabletOnly(css`
+    padding: 0.4rem 0.75rem;
+  `)}
 
   &.active {
     color: ${({ theme }) => theme.blue200};

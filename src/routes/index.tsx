@@ -125,11 +125,10 @@ function Blog() {
       <Panel>
         <Group direction="column" gap="0">
           <Heading>
-            Hi, I&apos;m Michael, A Software Developer from Ireland currently
-            based in{" "}
+            Michael - Irish Software Developer based in{" "}
             <Floating
               type="tooltip"
-              trigger={<span className="underline">Barcelona, Spain</span>}
+              trigger={<span className="underline">Barcelona.</span>}
               content={<Weather />}
             />
           </Heading>
