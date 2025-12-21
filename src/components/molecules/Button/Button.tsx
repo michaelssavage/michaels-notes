@@ -40,7 +40,6 @@ export const Button = ({
       disabled={disabled}
       type={type}
       onClick={onClick}
-      onKeyDown={onClick}
       variant={variant}
       active={active}
       data-active={active}
@@ -48,7 +47,8 @@ export const Button = ({
       data-selected={selected}
       styles={styles}
     >
-      {text} {icon}
+      {text}
+      {icon && icon}
     </ButtonStyled>
   );
 };

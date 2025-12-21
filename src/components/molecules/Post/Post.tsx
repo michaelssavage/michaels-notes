@@ -69,7 +69,7 @@ const Post = ({
         isReview={type === "review"}
       >
         <CardInfo>
-          <Title>{title}</Title>
+          <Title id={`post-title-${slug}`}>{title}</Title>
           <PostType>
             {isExternal && "ext. "}
             {type}

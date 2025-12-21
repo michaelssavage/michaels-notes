@@ -95,7 +95,7 @@ export const ButtonStyled = styled.button<IStyle>`
   }
 
   ${({ active }) =>
-    !active &&
+    active === false &&
     css`
       svg {
         stroke-width: 1;
