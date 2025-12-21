@@ -4,7 +4,7 @@ Live at [michaelsavage.ie](https://michaelsavage.ie)
 
 Personal site built with React, Typescript, Vite, and @emotion, using eslint for linting. Blog posts written locally with MDX.
 
-## Running locally:
+## Running locally
 
 To run this application:
 
@@ -13,7 +13,7 @@ pnpm install
 pnpm run start
 ```
 
-# Building For ProductionW
+# Building For Production
 
 To build this application for production:
 
