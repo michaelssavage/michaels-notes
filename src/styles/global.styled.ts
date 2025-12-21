@@ -80,6 +80,14 @@ export const globalStyles = (theme: MyTheme) => css`
     font-size: clamp(1rem, 0.9rem + 0.3vw, 1.1rem);
   }
 
+  a,
+  p,
+  button,
+  span,
+  svg {
+    filter: url(#bleed);
+  }
+
   button:active {
     transform: scale(1.05);
   }
@@ -94,6 +102,7 @@ export const globalStyles = (theme: MyTheme) => css`
   .underline {
     cursor: pointer;
     ${underlineStyles(theme.red200, theme.red300)}
+    filter: unset;
   }
 
   .callout {

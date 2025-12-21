@@ -9,3 +9,9 @@ export const MiscContainer = styled.div`
   max-width: 50rem;
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
 `;
+
+export const GridLineContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+`;

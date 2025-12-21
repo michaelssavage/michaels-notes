@@ -9,6 +9,7 @@ const AnimatedLineStyled = styled.div`
   border-radius: 4px;
   z-index: -1;
   margin-right: auto;
+  filter: url(#bleed);
   ${slideInAnimation("100px", "horizontal", "0.75s")}
 `;
 

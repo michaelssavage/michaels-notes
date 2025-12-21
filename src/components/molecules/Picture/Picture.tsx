@@ -9,6 +9,7 @@ interface Props {
   loading?: "lazy" | "eager";
   ar?: string;
   caption?: string;
+  fit?: "cover" | "contain";
 }
 
 export const Picture = ({
@@ -18,6 +19,7 @@ export const Picture = ({
   loading = "lazy",
   ar,
   caption,
+  fit = "cover",
 }: Props) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -59,6 +61,7 @@ export const Picture = ({
           loaded={imageLoaded}
           loading={loading}
           ar={ar}
+          fit={fit}
         />
       )}
       {caption && <figcaption>{caption}</figcaption>}

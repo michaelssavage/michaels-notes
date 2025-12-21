@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 import { NotFound } from "@/components/atoms/NotFound";
 import PostHogProvider from "@/components/atoms/PostHogContainer";
+import { TextBleed } from "@/components/atoms/TextBleed";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
 import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
@@ -101,6 +102,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <Providers>
           <Navbar />
+          <TextBleed />
           {children}
           <Footer />
         </Providers>

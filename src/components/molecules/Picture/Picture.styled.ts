@@ -30,8 +30,13 @@ export const NotFound = styled.img`
   border-radius: 0.4rem;
 `;
 
-export const ImageStyle = styled.img<{ loaded: boolean; ar?: string }>`
+export const ImageStyle = styled.img<{
+  loaded: boolean;
+  ar?: string;
+  fit?: "cover" | "contain";
+}>`
   aspect-ratio: ${({ ar }) => ar};
+  object-fit: ${({ fit }) => fit};
   width: 100%;
   height: auto;
   opacity: 0;

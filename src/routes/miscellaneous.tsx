@@ -1,6 +1,6 @@
 import { Anchor } from "@/components/molecules/Anchor";
 import { Page } from "@/styles/routes/blog.styled";
-import { MiscContainer } from "@/styles/routes/miscellaneous.styled";
+import { MiscContainer } from "@/styles/routes/routes.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 const title = "Miscellaneous | Michael Savage";
@@ -58,6 +58,13 @@ function RouteComponent() {
             isExternal
           />
           .
+        </p>
+
+        <p>
+          Now and again I&apos;ll create sketch something for tattoo ideas or
+          just for making bad jokes. Check out some of the{" "}
+          <Anchor link="/doodles" text="doodles" variant="header" /> that
+          I&apos;ve created.
         </p>
 
         <p>
