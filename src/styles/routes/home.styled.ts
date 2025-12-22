@@ -42,6 +42,7 @@ export const Paragraph = styled.div<{ text?: string }>`
   width: 70%;
 
   p {
+    filter: url(#bleed);
     font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
   }
 

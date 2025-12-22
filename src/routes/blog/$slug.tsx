@@ -1,6 +1,7 @@
 import Markdown from "@/components/atoms/Markdown";
 import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
+import { buttonWithIconStyles } from "@/components/molecules/Button/Button.styled";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { useClient } from "@/hooks/use-client.hook";
@@ -8,7 +9,6 @@ import { usePosts } from "@/hooks/use-posts.hook";
 import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
-import { css } from "@emotion/react";
 import { useSpring } from "@react-spring/web";
 import { createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
@@ -91,12 +91,7 @@ function Slug() {
               link={post.github}
               icon={<GithubIcon />}
               variant="header"
-              style={css`
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                width: fit-content;
-              `}
+              style={buttonWithIconStyles}
               isExternal
             />
           )}

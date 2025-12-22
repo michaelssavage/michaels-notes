@@ -9,6 +9,13 @@ interface IStyle {
   styles?: SerializedStyles;
 }
 
+export const buttonWithIconStyles = css`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+`;
+
 export const ButtonStyled = styled.button<IStyle>`
   padding: 10px 20px;
   border: none;

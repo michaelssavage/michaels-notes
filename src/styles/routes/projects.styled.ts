@@ -112,6 +112,10 @@ export const Header = styled.div`
     margin-bottom: 0.5rem;
   }
 
+  p {
+    filter: url(#bleed);
+  }
+
   ${forPhoneOnly(css`
     margin: 0 5% 2rem;
   `)}

@@ -63,27 +63,6 @@ export const pasteButtonStyles = css`
   border: 1px solid #24292e;
 `;
 
-export const viewMoreButtonStyles = css`
-  color: #24292e;
-  flex-direction: row-reverse;
-  padding: 8px 14px;
-  border-radius: 6px;
-  white-space: nowrap;
-
-  svg {
-    stroke: #24292e;
-  }
-
-  &:hover {
-    color: #2b3137;
-    background-color: #fafbfc;
-    border-color: transparent;
-    svg {
-      stroke: #2b3137;
-    }
-  }
-`;
-
 export const DragBanner = styled.div`
   position: fixed;
   top: 0;

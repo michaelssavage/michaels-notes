@@ -2,6 +2,7 @@ import { Group } from "@/components/atoms/Group";
 import { CopyIcon, GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
+import { buttonWithIconStyles } from "@/components/molecules/Button/Button.styled";
 import { Checkbox } from "@/components/molecules/Form/Checkbox";
 import { Picture } from "@/components/molecules/Picture";
 import { exampleRekordboxText } from "@/lib/utils";
@@ -15,7 +16,6 @@ import {
   StyledTextarea,
   TextareaWrapper,
   Title,
-  viewMoreButtonStyles,
 } from "@/styles/routes/rekordbox-prettifier.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
@@ -210,7 +210,8 @@ function RekordboxPrettifier() {
             link="https://github.com/michaelssavage/Rekordbox-Mix-Setlist"
             icon={<GithubIcon />}
             text="View on Github"
-            style={viewMoreButtonStyles}
+            variant="header"
+            style={buttonWithIconStyles}
             isExternal
           />
         </AboutSection>

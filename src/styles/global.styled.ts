@@ -81,7 +81,6 @@ export const globalStyles = (theme: MyTheme) => css`
   }
 
   a,
-  p,
   button,
   span,
   svg {
