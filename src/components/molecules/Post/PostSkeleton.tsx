@@ -1,21 +1,12 @@
-import { keyframes } from "@emotion/react";
+import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 import styled from "@emotion/styled";
 import { memo } from "react";
 import { Card, CardInfo, DescriptionWrapper } from "./Post.styled";
 
-const shimmer = keyframes`
-  0% {
-    background-position: -200px 0;
-  }
-  100% {
-    background-position: calc(200px + 100%) 0;
-  }
-`;
-
 const SkeletonElement = styled.div<{ width?: string; height?: string }>`
   background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
   background-size: 200px 100%;
-  animation: ${shimmer} 2s infinite ease-in-out;
+  ${shimmerAnimation()};
   border-radius: 4px;
   width: ${({ width }) => width || "100%"};
   height: ${({ height }) => height || "1rem"};

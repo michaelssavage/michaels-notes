@@ -52,6 +52,17 @@ export const CardWrapper = styled.div<CardWrapperProps>`
     `};
 `;
 
+export const DraftBadge = styled.div`
+  position: absolute;
+  top: 1px;
+  right: 0;
+  z-index: 1;
+  background-color: ${({ theme }) => theme.red300};
+  color: ${({ theme }) => theme.white};
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+`;
+
 export const Card = styled(Link)`
   display: grid;
   overflow: hidden;

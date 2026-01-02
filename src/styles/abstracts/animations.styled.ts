@@ -58,7 +58,7 @@ export const slideInAnimation = (
   from: string,
   direction = "vertical",
   duration = "0.25s",
-  fillMode = "none",
+  fillMode = "none"
 ) => {
   const transform = direction === "horizontal" ? "translateX" : "translateY";
 
@@ -100,12 +100,12 @@ export const shimmerAnimation = () => {
   background-position: -200% 0;
 }
 100% {
-  background-position: 200% 0;
+  background-position: calc(200px + 100%) 0;
 }
 `;
 
   return css`
-    animation: ${shimmerKeyframes} 1.5s infinite;
+    animation: ${shimmerKeyframes} 2s infinite ease-in-out;
   `;
 };
 

@@ -1,5 +1,6 @@
 import { Group } from "@/components/atoms/Group";
-import { Project } from "@/components/atoms/Project";
+import { LoadingProject } from "@/components/atoms/Project/LoadingProject";
+import { Project } from "@/components/atoms/Project/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { Loading } from "@/components/molecules/Loading";
@@ -54,7 +55,7 @@ function Projects() {
 
   const getPosts = useServerFn(getMiniPosts);
 
-  const { data } = useQuery<IPosts>({
+  const { data, isLoading } = useQuery<IPosts>({
     queryKey: ["posts-index"],
     queryFn: () => getPosts(),
     retry: false,
@@ -91,13 +92,17 @@ function Projects() {
           </Group>
         </Header>
         <GridContainer>
-          {sortedProjects.map((project) => (
-            <Project
-              key={project.id}
-              data={project}
-              selectedTech={selectedTech}
-            />
-          ))}
+          {isLoading ? (
+            <LoadingProject />
+          ) : (
+            sortedProjects.map((project) => (
+              <Project
+                key={project.id}
+                data={project}
+                selectedTech={selectedTech}
+              />
+            ))
+          )}
         </GridContainer>
       </Container>
       <Container margin="2rem 10% 0">
