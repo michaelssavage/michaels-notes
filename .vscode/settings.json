@@ -44,12 +44,5 @@
     "typescriptreact"
   ],
   "javascript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "vsicons.associations.files": [
-    {
-      "icon": "sass",
-      "extensions": ["styled.ts"],
-      "format": "ts"
-    }
-  ]
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }
