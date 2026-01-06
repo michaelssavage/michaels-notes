@@ -1,12 +1,18 @@
+import { FormLabel } from "@/components/atoms/FormLabel";
 import { Group } from "@/components/atoms/Group";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
 import { Button } from "@/components/molecules/Button";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";
+import { useTheme } from "@/hooks/use-theme.hook";
+import { customSelectStyles } from "@/styles/react-select.styled";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   BasicLink,
   Card,
+  CardBody,
+  CardFooter,
   ClearFiltersButton,
   FilterableTag,
   FilterContainer,
@@ -14,14 +20,14 @@ import {
   LinkTitle,
   LoadMore,
   ResultsCount,
-  TypeSelect,
 } from "@/styles/routes/guide.styled";
-import { GuideTags } from "@/types/Guide";
+import { GuideTableItem, GuideTags } from "@/types/Guide";
 import { css } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import Select from "react-select";
 
-const INITIAL_ITEMS = 12;
+const INITIAL_COUNT = 12;
 const ITEMS_PER_PAGE = 12;
 const title = "Barcelona Guide | Michael Savage";
 const description =
@@ -47,11 +53,7 @@ function RouteComponent() {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);
   const [showAll, setShowAll] = useState(false);
-  const [displayedCount, setDisplayedCount] = useState(INITIAL_ITEMS);
-
-  const loaderRef = useRef<HTMLDivElement>(null);
-
-  const handleShow = () => setShowAll((prev) => !prev);
+  const { lightTheme } = useTheme();
 
   const { uniqueTypes, uniqueTags } = useMemo(() => {
     const types = new Set<string>();
@@ -59,7 +61,13 @@ function RouteComponent() {
 
     items.forEach((item) => {
       types.add(item.type);
-      item.tags?.forEach((tag) => tags.add(tag));
+      item.tags?.forEach((tag) => {
+        if (tag.toLowerCase().includes("free")) {
+          tags.add("Free");
+        } else {
+          tags.add(tag);
+        }
+      });
     });
 
     return {
@@ -82,52 +90,40 @@ function RouteComponent() {
 
       const matchesTags =
         selectedTags.length === 0 ||
-        selectedTags.every((selectedTag) => item.tags?.includes(selectedTag));
+        selectedTags.some((selectedTag) => {
+          if (selectedTag === "Free") {
+            return item.tags?.some((itemTag) =>
+              itemTag.toLowerCase().includes("free")
+            );
+          }
+          return item.tags?.includes(selectedTag);
+        });
 
       return matchesSearch && matchesType && matchesTags;
     });
   }, [searchTerm, selectedType, selectedTags]);
 
-  useEffect(() => {
-    setDisplayedCount(INITIAL_ITEMS);
-  }, [searchTerm, selectedType, selectedTags]);
+  const { displayedItems, displayedCount, hasMore, loadMore, loaderRef } =
+    useInfiniteScroll<GuideTableItem>({
+      items: filteredItems,
+      initialCount: INITIAL_COUNT,
+      itemsPerPage: ITEMS_PER_PAGE,
+    });
 
-  const loadMore = useCallback(() => {
-    setDisplayedCount((prev) =>
-      Math.min(prev + ITEMS_PER_PAGE, filteredItems.length)
-    );
-  }, [filteredItems.length]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const first = entries[0];
-        if (first.isIntersecting && displayedCount < filteredItems.length) {
-          loadMore();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentLoader = loaderRef.current;
-    if (currentLoader) {
-      observer.observe(currentLoader);
+  const isTagActive = (tag: GuideTags) => {
+    if (tag.toLowerCase().includes("free") && selectedTags.includes("Free")) {
+      return true;
     }
-
-    return () => {
-      if (currentLoader) {
-        observer.unobserve(currentLoader);
-      }
-    };
-  }, [displayedCount, filteredItems.length, loadMore]);
-
-  const displayedItems = filteredItems.slice(0, displayedCount);
+    return selectedTags.includes(tag);
+  };
 
   const handleTagClick = (tag: GuideTags) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
+
+  const handleShow = () => setShowAll((prev) => !prev);
 
   const clearAllFilters = () => {
     setSearchTerm("");
@@ -146,14 +142,13 @@ function RouteComponent() {
         <h1>Barcelona Guide - Què faré avui?</h1>
 
         <p>
-          Bon dia! There are many ways to find things to do in Barcelona but I
-          wanted to store some here.
+          Bon dia! There are many resources to find things to do in Barcelona
+          but I wanted to store my own recommendations here.
         </p>
 
         <FilterContainer>
           <Group align="center" gap="0.5rem" wrap="wrap">
-            <Group align="center" gap="0.5rem" wrap="wrap">
-              <label htmlFor="search">Search:</label>
+            <FormLabel id="search" label="Search">
               <SearchBox
                 id="search"
                 placeholder="Search cards..."
@@ -163,42 +158,47 @@ function RouteComponent() {
                   min-width: fit-content;
                 `}
               />
-            </Group>
+            </FormLabel>
 
-            <Group align="center" gap="0.5rem" wrap="wrap">
-              <label htmlFor="type">Type:</label>
-              <TypeSelect
+            <FormLabel id="type" label="Type">
+              <Select
                 id="type"
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
-              >
-                <option value="all">All Types</option>
-                {uniqueTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </TypeSelect>
-            </Group>
-          </Group>
-
-          <Group align="center" gap="0.5rem" wrap="wrap">
-            <label htmlFor="tags">Tags:</label>
-            {displayedTags.map((tag) => (
-              <Button
-                variant="pill"
-                key={tag}
-                id={`tag-${tag}`}
-                selected={selectedTags.includes(tag)}
-                onClick={() => handleTagClick(tag)}
-                text={tag}
+                value={
+                  uniqueTypes
+                    .map((type) => ({ value: type, label: type }))
+                    .find((option) => option.value === selectedType) || {
+                    value: "all",
+                    label: "All Types",
+                  }
+                }
+                onChange={(option) => setSelectedType(option?.value || "all")}
+                options={[
+                  { value: "all", label: "All Types" },
+                  ...uniqueTypes.map((type) => ({ value: type, label: type })),
+                ]}
+                styles={customSelectStyles(lightTheme)}
               />
-            ))}
-            <Button
-              text={showAll ? "Show less" : "Show all"}
-              variant="link"
-              onClick={handleShow}
-            />
+            </FormLabel>
+
+            <FormLabel id="tags" label="Tags">
+              <Group align="center" gap="0.5rem" wrap="wrap">
+                {displayedTags.map((tag) => (
+                  <Button
+                    variant="pill"
+                    key={tag}
+                    id={`tag-${tag}`}
+                    selected={selectedTags.includes(tag)}
+                    onClick={() => handleTagClick(tag)}
+                    text={tag}
+                  />
+                ))}
+                <Button
+                  text={showAll ? "Show less" : "Show all"}
+                  variant="link"
+                  onClick={handleShow}
+                />
+              </Group>
+            </FormLabel>
           </Group>
 
           {hasActiveFilters && (
@@ -212,7 +212,7 @@ function RouteComponent() {
 
         <Group justify="flex-end" margin="0 0 1rem 0">
           <ResultsCount>
-            Showing {displayedItems.length} of {filteredItems.length} places
+            Showing {displayedCount} of {filteredItems.length} places
           </ResultsCount>
         </Group>
 
@@ -229,33 +229,36 @@ function RouteComponent() {
                   />
                 ) : null}
 
-                {item.tags.length > 0 && (
-                  <p data-id="tags">
-                    {item.tags?.map((tag) => (
-                      <FilterableTag
-                        key={tag}
-                        $isActive={selectedTags.includes(tag)}
-                        onClick={() => handleTagClick(tag)}
-                      >
-                        {tag}
-                      </FilterableTag>
-                    ))}
-                  </p>
-                )}
                 <p data-id="type">{item.type}</p>
-
-                <LinkTitle
-                  data-id="link"
-                  href={item.link}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <h2>{item.title}</h2>
-                </LinkTitle>
-                <p data-id="description">{item.description}</p>
                 <p data-id="price">{item.price}</p>
 
-                <Group margin="0 0 0.5rem 0" justify="space-between">
+                <CardBody>
+                  <LinkTitle
+                    data-id="link"
+                    href={item.link}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <h2>{item.title}</h2>
+                  </LinkTitle>
+                  <p data-id="description">{item.description}</p>
+
+                  {item.tags.length > 0 && (
+                    <p data-id="tags">
+                      {item.tags?.map((tag) => (
+                        <FilterableTag
+                          key={tag}
+                          $isActive={isTagActive(tag)}
+                          onClick={() => handleTagClick(tag)}
+                        >
+                          {tag}
+                        </FilterableTag>
+                      ))}
+                    </p>
+                  )}
+                </CardBody>
+
+                <CardFooter>
                   <BasicLink
                     href={item.link}
                     target="_blank"
@@ -271,14 +274,13 @@ function RouteComponent() {
                   >
                     Map <MapIcon />
                   </BasicLink>
-                </Group>
+                </CardFooter>
               </Card>
             );
           })}
         </Grid>
 
-        {/* For intersection observer */}
-        {displayedCount < filteredItems.length && (
+        {hasMore && (
           <LoadMore ref={loaderRef} onClick={loadMore} tabIndex={0}>
             <p>Loading more places...</p>
           </LoadMore>

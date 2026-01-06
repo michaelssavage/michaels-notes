@@ -27,13 +27,14 @@ export const Box = styled.div`
     line-height: 1.25rem;
     padding: 0.5rem 1rem 0.5rem 2.5rem;
     border: 2px solid ${({ theme }) => theme.black};
-    border-radius: 9999px;
+    border-radius: 0.5rem;
     width: 100%;
     color: ${({ theme }) => theme.black};
     background-color: ${({ theme }) => theme.white};
+    outline: none;
 
     &:focus {
-      outline: solid 2px ${({ theme }) => theme.green300};
+      border: solid 2px ${({ theme }) => theme.green300};
     }
   }
 

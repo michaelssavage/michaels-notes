@@ -63,8 +63,9 @@ export const ButtonStyled = styled.button<IStyle>`
           white-space: normal;
           word-wrap: break-word;
           box-shadow: none;
+          color: ${theme.blue200};
           &:hover {
-            color: ${theme.blue200};
+            color: ${theme.blue300};
           }
         `;
       case "pill":

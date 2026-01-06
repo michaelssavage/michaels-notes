@@ -7,7 +7,7 @@ import {
   EmblaContainer,
   EmblaSlide,
   EmblaViewport,
-} from "@/styles/Carousel.styled";
+} from "@/styles/carousel.styled";
 import { breakpoint } from "@/styles/routes/home.styled";
 import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";

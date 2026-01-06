@@ -29,7 +29,7 @@ export const LinkTitle = styled.a`
   h2 {
     color: ${({ theme }) => theme.black};
     font-weight: 600;
-    margin-top: 0.25rem;
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   }
 `;
 
@@ -39,43 +39,70 @@ export const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 `;
 
+export const CardBody = styled.div`
+  padding: 0.5rem 1rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+`;
+
+export const CardFooter = styled.div`
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.25rem;
+`;
+
 export const Card = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.white};
   border: 2px solid ${({ theme }) => theme.black};
-  border-radius: 0.5rem;
-  padding: 1rem 1rem 0.25rem;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   img[data-id="image"] {
     height: 10rem;
     object-fit: cover;
     width: 100%;
-    border-radius: 0.5rem;
-    margin: 0.5rem 0;
+    border-top-left-radius: 6px; // (8px - 2px)
+    border-top-right-radius: 6px; //(8px - 2px)
+  }
+
+  p[data-id="type"],
+  p[data-id="price"] {
+    position: absolute;
+    top: 2px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: ${({ theme }) => theme.white};
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
   }
 
   p[data-id="type"] {
-    position: absolute;
-    top: 0.2rem;
-    left: 0.2rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.red};
+    left: 2px;
+    color: ${({ theme }) => theme.black};
   }
 
   p[data-id="price"] {
-    margin-top: auto;
-    margin-bottom: 1rem;
+    right: 2px;
+    color: ${({ theme }) => theme.black};
   }
 
   p[data-id="tags"] {
-    margin: 0.5rem 0 0.25rem;
+    margin: 0.25rem 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     gap: 0.25rem;
+  }
+
+  p[data-id="description"] {
+    font-size: clamp(0.9rem, 0.8rem + 0.3vw, 1rem);
   }
 `;
 
@@ -97,30 +124,6 @@ export const SearchInput = styled.input`
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
   }
-`;
-
-export const TypeSelect = styled.select`
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  min-width: 150px;
-  border: 2px solid ${({ theme }) => theme.black};
-  color: ${({ theme }) => theme.gray600};
-  background-color: ${({ theme }) => theme.white};
-  cursor: pointer;
-
-  &:focus {
-    outline: solid 2px ${({ theme }) => theme.green};
-  }
-
-  /* Style the dropdown arrow */
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1rem;
-  padding-right: 2.5rem;
 `;
 
 export const FilterableTag = styled.button<{ $isActive: boolean }>`

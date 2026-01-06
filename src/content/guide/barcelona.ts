@@ -8,7 +8,7 @@ export const items: GuideTableItem[] = [
     price: "€100+",
     type: "Fun",
     description: "Thermal baths and spa experience in the old city.",
-    tags: [],
+    tags: ["Expensive"],
     image:
       "https://31m9mhhbv2.ucarecd.net/a4a5cdf0-48f2-4180-b460-b6bfc0767aec/aire.jpg",
   },
@@ -133,7 +133,7 @@ export const items: GuideTableItem[] = [
     link: "https://casavicens.org/es",
     price: "€21",
     type: "Place",
-    tags: ["Expensive"],
+    tags: [],
     image:
       "https://31m9mhhbv2.ucarecd.net/fdf43859-fbf6-44b5-a8f8-c2bd6eb2d931/CV_ESPACIOS_32.jpg",
     location: "https://maps.app.goo.gl/27Frb6oJ3M98qpdXA",
@@ -292,7 +292,19 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/ad69c7fa-f7ad-4fa1-9ed1-c712267f669a/d781d1511b10b5792c4e848376c3e88f21526barcelonacombomontjuiccablecaraquariumbarcelona12.jpg",
   },
   {
-    title: "Museu del Disseny de Barcelona",
+    title: "Museo de Ciencias Naturales de Barcelona",
+    tags: ["Free 1st Sunday", "Free after Sunday 3pm"],
+    type: "Activity",
+    price: "Free - €6",
+    location: "https://maps.app.goo.gl/YpgzH54YpmZAHtNFA",
+    link: "https://museuciencies.cat/en//the-nat/venues/natural-sciences-museum-of-barcelona/useful-information/opening-times-and-admission-fees/",
+    description:
+      "The Barcelona Natural Science Museum has an innovative offer of activities that combines scientific rigour with a sense of fun, and that includes temporary exhibitions, a Media library, the Science Nest (Niu de Ciència), conferences and workshops.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/daaa562e-0119-45ef-af70-9bf932b615e2/museublau.jpg",
+  },
+  {
+    title: "Museo del Diseño de Barcelona",
     price: "€6.20",
     tags: ["Free 1st Sunday"],
     location: "https://maps.app.goo.gl/v6bfWM5D4TCVVaRY6",
@@ -303,7 +315,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/5b555d44-b135-46e6-88c6-eb1db47a9dab/REF_HUB_CT6A6276jpg.webp",
   },
   {
-    title: "Museu Nacional d'Art de Catalunya",
+    title: "Museo Nacional de Arte de Cataluña",
     price: "€12",
     type: "Place",
     location: "https://maps.app.goo.gl/z2jAgAz1KuYa2nULA",
@@ -417,6 +429,18 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/ca2b37e8-b15c-45d7-8f20-0d59a654bfc0/202103190853eMonestirdePedralbes29Barcelona2021.jpg",
     description:
       "Gothic monastery with cloisters, gardens, and religious art founded in the 14th Century.",
+  },
+  {
+    title: "Picasso Museum",
+    type: "Place",
+    location: "https://maps.app.goo.gl/XxLBErKHus1GPgQA6",
+    link: "https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours",
+    price: "Free - €14",
+    tags: ["Free 1st Sunday"],
+    description:
+      "Museum dedicated to Picasso's art during his early life in Barcelona. Free between 4pm and 7pm on Thursday during winter, and free between 7pm and 9pm Thursday, Friday and Saturday during summer.",
+    image:
+      "https://31m9mhhbv2.ucarecd.net/e34a6c2b-fada-4495-9906-a434b6721a82/picasso.jpg",
   },
   {
     title: "Razzmatazz",

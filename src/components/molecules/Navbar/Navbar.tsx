@@ -1,5 +1,5 @@
 import { Picture } from "@/components/molecules/Picture";
-import { animated, useScroll } from "@react-spring/web";
+import { animated, useScroll, useSpring } from "@react-spring/web";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Header, StyledLink } from "./Navbar.styled";
 
@@ -30,10 +30,17 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
 export default function Navbar() {
   const { scrollY } = useScroll();
 
-  const logoSize = scrollY.to([0, 200], [160, 48], "clamp");
+  const { size } = useSpring({
+    size: scrollY.to([0, 200], [160, 48], "clamp"),
+    config: {
+      tension: 120,
+      friction: 26,
+      precision: 0.1,
+    },
+  });
 
-  const logoWidth = logoSize.to((size) => `${size}px`);
-  const logoHeight = logoSize.to((size) => `${size}px`);
+  const logoWidth = size.to((size) => `${size}px`);
+  const logoHeight = size.to((size) => `${size}px`);
 
   return (
     <Header>
