@@ -3,12 +3,11 @@ import Markdown from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { useClient } from "@/hooks/use-client.hook";
 import { usePosts } from "@/hooks/use-posts.hook";
 import { joinTags } from "@/lib/utils";
 import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Tags, Title } from "@/styles/routes/projects.styled";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useHydrated } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
 import type { IProject } from "../../types/Post";
@@ -50,13 +49,13 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function Slug() {
-  const isClient = useClient();
+  const hydrated = useHydrated();
   const [open, setOpen] = useState(false);
 
   const post = Route.useLoaderData();
   const posts = usePosts("projects");
 
-  if (!isClient) return <Loading />;
+  if (!hydrated) return <Loading />;
 
   return (
     <Article>

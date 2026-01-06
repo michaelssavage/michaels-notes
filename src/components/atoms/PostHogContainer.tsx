@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useHydrated } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 interface HogProps {
   children: React.ReactNode;
@@ -19,13 +20,9 @@ const PostHogProviderLazy = lazy(() =>
 );
 
 export default function PostHogProvider({ children }: HogProps) {
-  const [isClient, setIsClient] = useState(false);
+  const hydrated = useHydrated();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (isDevelopment || typeof window === "undefined" || !isClient) {
+  if (isDevelopment || !hydrated) {
     return <>{children}</>;
   }
 

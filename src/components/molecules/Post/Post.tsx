@@ -1,4 +1,5 @@
 import type { IBlog, IReview } from "@/types/Post";
+import { useHydrated } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Description } from "./Description";
 import { Card, CardInfo, DateText, PostType, Title } from "./Post.styled";
@@ -14,18 +15,20 @@ const Post = ({
   type,
 }: IBlog | IReview) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
   const ref = useRef<HTMLElement | null>(null);
 
+  const hydrated = useHydrated();
+
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || !hydrated) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setInView(true);
-            observer.disconnect(); // Trigger once
+            observer.disconnect();
           }
         });
       },
@@ -39,14 +42,19 @@ const Post = ({
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [hydrated]);
 
-  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
-  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
+  const handleMouseEnter = useCallback(() => {
+    if (hydrated) setIsHovered(true);
+  }, [hydrated]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (hydrated) setIsHovered(false);
+  }, [hydrated]);
 
   const isExpanded = useMemo(() => isFirst || isHovered, [isFirst, isHovered]);
 
-  if (!inView) {
+  if (hydrated && !inView) {
     return (
       <article ref={ref}>
         <PostSkeleton />
@@ -63,7 +71,7 @@ const Post = ({
     >
       <Card
         to={isExternal ? isExternal : `/${type}/${slug}`}
-        inView={inView}
+        inView={hydrated ? inView : true}
         aria-label={`Read post: ${title}`}
         isExternal={isExternal}
         isReview={type === "review"}

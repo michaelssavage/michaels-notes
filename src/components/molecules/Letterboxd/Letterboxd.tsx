@@ -1,13 +1,14 @@
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
+import { useTheme } from "@/hooks/use-theme.hook";
 import { getMovies } from "@/server/letterboxd.api";
 import {
   Embla,
   EmblaContainer,
   EmblaSlide,
   EmblaViewport,
-} from "@/styles/carousel.styled";
+} from "@/styles/embla.styled";
 import { breakpoint } from "@/styles/routes/home.styled";
 import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
@@ -25,6 +26,7 @@ import {
 
 export const Letterboxd = () => {
   const fetchMovies = useServerFn(getMovies);
+  const { lightTheme } = useTheme();
 
   const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -140,11 +142,10 @@ export const Letterboxd = () => {
           text="my profile"
           variant="link"
           style={css`
-            color: #2d241f;
+            color: ${lightTheme.black};
             text-decoration: none;
             &:hover {
-              color: #2d241f;
-              text-decoration: underline;
+              color: ${lightTheme.green400};
             }
           `}
         />

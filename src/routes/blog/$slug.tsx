@@ -4,13 +4,12 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { buttonWithIconStyles } from "@/components/molecules/Button/Button.styled";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
-import { useClient } from "@/hooks/use-client.hook";
 import { usePosts } from "@/hooks/use-posts.hook";
 import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
 import { useSpring } from "@react-spring/web";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useHydrated } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
 
@@ -51,7 +50,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function Slug() {
-  const isClient = useClient();
+  const hydrated = useHydrated();
   const [open, setOpen] = useState(false);
 
   const { slug } = Route.useParams();
@@ -64,7 +63,7 @@ function Slug() {
     config: { tension: 300, friction: 30 },
   });
 
-  if (!isClient) return <Loading />;
+  if (!hydrated) return <Loading />;
 
   const sidebar = posts
     .filter(({ isExternal }) => !isExternal)

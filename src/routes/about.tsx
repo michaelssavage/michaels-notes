@@ -95,7 +95,7 @@ function About() {
               in Ireland. I represented Ulster Club u18s rugby, and I&apos;ve
               played for Monaghan RFC, Ennis RFC, and Corinthians RFC. I
               completed the 2025 Barcelona Half Marathon in 1 hour and 44
-              minutes. I love a challenge!
+              minutes. Looking forward to the next challenge!
             </p>
           </Group>
         </Paragraph>
