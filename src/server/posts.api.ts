@@ -4,7 +4,7 @@ import { readFile } from "fs/promises";
 import { join } from "node:path";
 import { z } from "zod";
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = import.meta.env.PROD;
 
 export const getMiniPosts = createServerFn({
   method: "GET",
