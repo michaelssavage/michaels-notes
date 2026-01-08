@@ -1,4 +1,4 @@
-import type { IPosts } from "@/types/Post";
+import type { IBite, IBlog, IPosts, IProject, IReview } from "@/types/Post";
 import { createServerFn } from "@tanstack/react-start";
 import { readFile } from "fs/promises";
 import { join } from "node:path";
@@ -6,34 +6,40 @@ import { z } from "zod";
 
 const isProd = process.env.NODE_ENV === "production";
 
+async function loadPostsIndex(signal?: AbortSignal): Promise<IPosts> {
+  if (signal?.aborted) {
+    throw new Error("Request aborted");
+  }
+
+  const filePath = join(
+    process.cwd(),
+    "public",
+    "compiled-posts",
+    "index.json"
+  );
+  const data = await readFile(filePath, "utf-8");
+
+  if (signal?.aborted) {
+    throw new Error("Request aborted");
+  }
+
+  return JSON.parse(data) as IPosts;
+}
+
+function filterDrafts<T extends { draft?: boolean }>(items: T[]): T[] {
+  return isProd ? items.filter((item) => !item.draft) : items;
+}
+
 export const getMiniPosts = createServerFn({
   method: "GET",
 }).handler(
   async ({ signal }: { signal?: AbortSignal } = {}): Promise<IPosts> => {
     try {
-      if (signal?.aborted) {
-        throw new Error("Request aborted");
-      }
+      const posts = await loadPostsIndex(signal);
 
-      const filePath = join(
-        process.cwd(),
-        "public",
-        "compiled-posts",
-        "index.json"
-      );
-      const data = await readFile(filePath, "utf-8");
-
-      if (signal?.aborted) {
-        throw new Error("Request aborted");
-      }
-
-      const posts = JSON.parse(data) as IPosts;
-
-      if (isProd) {
-        posts.blogs = posts.blogs.filter((p) => !p.draft);
-        posts.projects = posts.projects.filter((p) => !p.draft);
-        posts.reviews = posts.reviews.filter((p) => !p.draft);
-      }
+      posts.blogs = filterDrafts(posts.blogs);
+      posts.projects = filterDrafts(posts.projects);
+      posts.reviews = filterDrafts(posts.reviews);
 
       return posts;
     } catch (error) {
@@ -56,6 +62,90 @@ export const getMiniPosts = createServerFn({
         reviews: [],
         bites: [],
       };
+    }
+  }
+);
+
+export const getProjects = createServerFn({
+  method: "GET",
+}).handler(
+  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IProject[]> => {
+    try {
+      const posts = await loadPostsIndex(signal);
+      return filterDrafts(posts.projects);
+    } catch (error) {
+      if (
+        signal?.aborted ||
+        (error instanceof Error && error.name === "AbortError")
+      ) {
+        return [];
+      }
+
+      console.warn("Failed to load projects:", error);
+      return [];
+    }
+  }
+);
+
+export const getBlogs = createServerFn({
+  method: "GET",
+}).handler(
+  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IBlog[]> => {
+    try {
+      const posts = await loadPostsIndex(signal);
+      return filterDrafts(posts.blogs);
+    } catch (error) {
+      if (
+        signal?.aborted ||
+        (error instanceof Error && error.name === "AbortError")
+      ) {
+        return [];
+      }
+
+      console.warn("Failed to load blogs:", error);
+      return [];
+    }
+  }
+);
+
+export const getReviews = createServerFn({
+  method: "GET",
+}).handler(
+  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IReview[]> => {
+    try {
+      const posts = await loadPostsIndex(signal);
+      return filterDrafts(posts.reviews);
+    } catch (error) {
+      if (
+        signal?.aborted ||
+        (error instanceof Error && error.name === "AbortError")
+      ) {
+        return [];
+      }
+
+      console.warn("Failed to load reviews:", error);
+      return [];
+    }
+  }
+);
+
+export const getBites = createServerFn({
+  method: "GET",
+}).handler(
+  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IBite[]> => {
+    try {
+      const posts = await loadPostsIndex(signal);
+      return posts.bites;
+    } catch (error) {
+      if (
+        signal?.aborted ||
+        (error instanceof Error && error.name === "AbortError")
+      ) {
+        return [];
+      }
+
+      console.warn("Failed to load bites:", error);
+      return [];
     }
   }
 );

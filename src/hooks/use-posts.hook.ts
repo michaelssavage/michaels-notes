@@ -1,16 +1,36 @@
-import { getMiniPosts } from "@/server/posts.api";
-import { IPosts } from "@/types/Post";
-import { useQuery } from "@tanstack/react-query";
+import {
+  getBites,
+  getBlogs,
+  getProjects,
+  getReviews,
+} from "@/server/posts.api";
+import type { IBite, IBlog, IProject, IReview } from "@/types/Post";
+import { QueryFunction, useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 
-export function usePosts<K extends keyof IPosts>(category: K) {
-  const getPosts = useServerFn(getMiniPosts);
+type QueryFn = QueryFunction<
+  IProject[] | IBlog[] | IReview[] | IBite[],
+  string[]
+>;
 
-  const { data } = useQuery<IPosts>({
-    queryKey: ["posts-index"],
-    queryFn: () => getPosts(),
+export function usePosts(category: "projects"): IProject[];
+export function usePosts(category: "blogs"): IBlog[];
+export function usePosts(category: "reviews"): IReview[];
+export function usePosts(category: "bites"): IBite[];
+
+export function usePosts(category: "projects" | "blogs" | "reviews" | "bites") {
+  const fnMap = {
+    projects: useServerFn(getProjects),
+    blogs: useServerFn(getBlogs),
+    reviews: useServerFn(getReviews),
+    bites: useServerFn(getBites),
+  } as const;
+
+  const { data } = useQuery({
+    queryKey: ["posts", category],
+    queryFn: fnMap[category] as QueryFn,
     retry: false,
   });
 
-  return data?.[category] || [];
+  return data || [];
 }

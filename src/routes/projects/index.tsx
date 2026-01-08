@@ -7,7 +7,7 @@ import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import { sortById } from "@/lib/utils";
-import { getMiniPosts } from "@/server/posts.api";
+import { getProjects } from "@/server/posts.api";
 import { Container } from "@/styles/abstracts/layout.styled";
 import {
   GridContainer,
@@ -15,11 +15,11 @@ import {
   Page,
   SpotifyContent,
 } from "@/styles/routes/projects.styled";
-import { IPosts, type ITechnology, TECHNOLOGIES } from "@/types/Post";
+import { type IProject, type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useState } from "react";
 
 const title = "Projects | Michael Savage";
 const description =
@@ -53,17 +53,13 @@ function Projects() {
     setSelectedTech(tech === selectedTech ? null : tech);
   };
 
-  const getPosts = useServerFn(getMiniPosts);
+  const getProjectsFn = useServerFn(getProjects);
 
-  const { data, isLoading } = useQuery<IPosts>({
-    queryKey: ["posts-index"],
-    queryFn: () => getPosts(),
+  const { data = [], isLoading } = useQuery<IProject[]>({
+    queryKey: ["posts-projects"],
+    queryFn: () => getProjectsFn(),
     retry: false,
   });
-
-  const sortedProjects = useMemo(() => {
-    return (data?.projects || []).sort(sortById);
-  }, [data?.projects]);
 
   return (
     <Page>
@@ -95,13 +91,15 @@ function Projects() {
           {isLoading ? (
             <LoadingProject />
           ) : (
-            sortedProjects.map((project) => (
-              <Project
-                key={project.id}
-                data={project}
-                selectedTech={selectedTech}
-              />
-            ))
+            data
+              .sort(sortById)
+              .map((project) => (
+                <Project
+                  key={project.id}
+                  data={project}
+                  selectedTech={selectedTech}
+                />
+              ))
           )}
         </GridContainer>
       </Container>
