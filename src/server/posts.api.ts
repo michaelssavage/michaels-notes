@@ -6,6 +6,10 @@ import { z } from "zod";
 
 const isProd = process.env.NODE_ENV === "production";
 
+function filterDrafts<T extends { draft?: boolean }>(items: T[]): T[] {
+  return isProd ? items.filter((item) => !item.draft) : items;
+}
+
 async function loadPostsIndex(signal?: AbortSignal): Promise<IPosts> {
   if (signal?.aborted) {
     throw new Error("Request aborted");
@@ -24,10 +28,6 @@ async function loadPostsIndex(signal?: AbortSignal): Promise<IPosts> {
   }
 
   return JSON.parse(data) as IPosts;
-}
-
-function filterDrafts<T extends { draft?: boolean }>(items: T[]): T[] {
-  return isProd ? items.filter((item) => !item.draft) : items;
 }
 
 export const getMiniPosts = createServerFn({
