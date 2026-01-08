@@ -7,8 +7,7 @@ import { TextArea } from "@/components/molecules/Form/TextArea";
 import { useTheme } from "@/hooks/use-theme.hook";
 import { submitFeedback } from "@/server/feedback.api";
 import { css } from "@emotion/react";
-import { useState } from "react";
-import { LoaderIcon } from "react-hot-toast";
+import { lazy, useState } from "react";
 import {
   ButtonGrid,
   Card,
@@ -18,6 +17,10 @@ import {
   FloatingButton,
   SuccessMessage,
 } from "./Feedback.styled";
+
+const LoaderIcon = lazy(() =>
+  import("react-hot-toast").then((mod) => ({ default: mod.LoaderIcon }))
+);
 
 export const Feedback = () => {
   const { lightTheme: theme } = useTheme();
