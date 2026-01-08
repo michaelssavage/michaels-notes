@@ -14,8 +14,8 @@ export const lightTheme = {
 
   black: "#2D241F", // text
 
-  green: "#009a7b66",
-  green200: "#00A65F",
+  green: "#05B87A",
+  green200: "#08986A",
   green300: "#78A994",
   green400: "#07653D",
 

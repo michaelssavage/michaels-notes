@@ -3,6 +3,7 @@ import { NotFound } from "@/components/atoms/NotFound";
 import PostHogProvider from "@/components/atoms/PostHogContainer";
 import { TextBleed } from "@/components/atoms/TextBleed";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
+import { Feedback } from "@/components/molecules/Feedback/Feedback";
 import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
@@ -106,11 +107,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <Navbar />
             <TextBleed />
             {children}
+            <Feedback />
             <Footer />
           </Providers>
         </StrictMode>
 
-        <ReactQueryDevtools position="bottom" />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />
       </body>
     </html>

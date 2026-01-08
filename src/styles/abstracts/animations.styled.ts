@@ -2,13 +2,13 @@ import { css, keyframes } from "@emotion/react";
 
 export const spinInfinitely = (duration = "3s") => {
   const spin = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  `;
 
   return css`
     animation: ${spin} ${duration} linear infinite;
@@ -17,15 +17,15 @@ export const spinInfinitely = (duration = "3s") => {
 
 export const expandAndAppear = (duration = "0.5s") => {
   const expandAndAppearKeyframes = keyframes`
-  from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  `;
 
   return css`
     animation: ${expandAndAppearKeyframes} ${duration} ease-in-out forwards;
@@ -34,12 +34,12 @@ export const expandAndAppear = (duration = "0.5s") => {
 
 export const animateMusicBars = () => {
   const bounce = keyframes`
-  10% { transform: scaleY(0.3); }
-  30% { transform: scaleY(1); }
-  60% { transform: scaleY(0.5); }
-  80% { transform: scaleY(0.75); }
-  100% { transform: scaleY(0.6); } 
-`;
+    10% { transform: scaleY(0.3); }
+    30% { transform: scaleY(1); }
+    60% { transform: scaleY(0.5); }
+    80% { transform: scaleY(0.75); }
+    100% { transform: scaleY(0.6); } 
+  `;
 
   return css`
     span {
@@ -78,16 +78,16 @@ export const slideInAnimation = (
 
 export const flashAnimation = () => {
   const flashKeyframes = keyframes`
-  0% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-`;
+    0% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  `;
 
   return css`
     animation: ${flashKeyframes} 1.25s ease-in-out;
@@ -96,13 +96,13 @@ export const flashAnimation = () => {
 
 export const shimmerAnimation = () => {
   const shimmerKeyframes = keyframes`
-0% {
-  background-position: -200% 0;
-}
-100% {
-  background-position: calc(200px + 100%) 0;
-}
-`;
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  `;
 
   return css`
     animation: ${shimmerKeyframes} 2s infinite ease-in-out;
@@ -111,14 +111,15 @@ export const shimmerAnimation = () => {
 
 export const hoverVertically = (distance = "10px", duration = "1s") => {
   const hoverKeyframes = (distance: string) => keyframes`
-0%,
-100% {
-  transform: translateY(0);
-}
-50% {
-  transform: translateY(-${distance});
-}
-`;
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-${distance});
+    }
+  `;
+
   return css`
     animation: ${hoverKeyframes(distance)} ${duration} ease-in-out infinite;
   `;

@@ -28,7 +28,7 @@ const CheckboxStyled = styled.div`
   }
 
   label:hover input[type="checkbox"] ~ span {
-    background-color: #eee;
+    background-color: ${({ theme }) => theme.white100};
   }
 
   label:hover input[type="checkbox"]:checked ~ span {
@@ -37,47 +37,48 @@ const CheckboxStyled = styled.div`
 
   span {
     position: absolute;
-    top: 2px;
+    top: 0;
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: #eee;
+    background-color: ${({ theme }) => theme.white100};
+    border: 1px solid ${({ theme }) => theme.gray400};
     border-radius: 4px;
 
     &::after {
       content: "";
       position: absolute;
-      left: 8px;
-      top: 4px;
       width: 5px;
       height: 10px;
-      border: solid #fff;
+      border: 1px solid ${({ theme }) => theme.white};
       border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
       opacity: 0;
       transition: opacity 0.25s ease;
     }
   }
 
   div {
-    color: #333444;
-    text-decoration: underline;
+    color: ${({ theme }) => theme.black};
     line-height: 1.4;
     font-size: 1rem;
   }
 `;
+
 interface Props {
   onChange: () => void;
-  value: boolean;
+  checked: boolean;
   text: string;
   id: string;
 }
 
-export const Checkbox = ({ onChange, value, text, id }: Props) => {
+export const Checkbox = ({ onChange, checked, text, id }: Props) => {
   return (
-    <CheckboxStyled onChange={onChange}>
+    <CheckboxStyled>
       <label htmlFor={id}>
-        <input type="checkbox" id={id} checked={value} />
+        <input type="checkbox" id={id} checked={checked} onChange={onChange} />
         <span />
         <div>{text}</div>
       </label>

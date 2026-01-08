@@ -17,7 +17,7 @@ export const buttonWithIconStyles = css`
 `;
 
 export const ButtonStyled = styled.button<IStyle>`
-  padding: 10px 20px;
+  padding: 6px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -26,7 +26,6 @@ export const ButtonStyled = styled.button<IStyle>`
   gap: 4px;
   align-items: center;
   text-wrap: nowrap;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   ${({ variant, theme, selected }) => {
     switch (variant) {
@@ -40,10 +39,12 @@ export const ButtonStyled = styled.button<IStyle>`
         `;
       case "secondary":
         return css`
-          background-color: ${theme.gray400};
-          color: ${theme.white};
+          border: 1px solid ${theme.gray400};
+          background-color: ${theme.white};
+          color: ${theme.gray400};
           &:hover {
-            background-color: ${theme.gray500};
+            border-color: ${theme.black};
+            color: ${theme.black};
           }
         `;
       case "ghost":

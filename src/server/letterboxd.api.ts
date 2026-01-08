@@ -1,35 +1,18 @@
 import { IMovie } from "@/types/Movie";
 import { createServerFn } from "@tanstack/react-start";
-import { MongoClient } from "mongodb";
+import { getCollection } from "./db";
 
-const MONGODB_URI = process.env.VITE_MOVIES_STRING!;
-const DB_NAME = "michaels-notes";
 const COLLECTION_NAME = "movies";
-
-let cachedClient: MongoClient | null = null;
-
-async function getMongoClient() {
-  if (cachedClient) {
-    return cachedClient;
-  }
-
-  const client = new MongoClient(MONGODB_URI);
-  await client.connect();
-  cachedClient = client;
-  return client;
-}
 
 export const getMovies = createServerFn({
   method: "GET",
 }).handler(async (): Promise<Array<IMovie>> => {
   try {
-    const client = await getMongoClient();
-    const db = client.db(DB_NAME);
-    const collection = db.collection(COLLECTION_NAME);
+    const collection = await getCollection<IMovie>(COLLECTION_NAME);
 
     const movies = await collection
       .find({})
-      .project<IMovie>({
+      .project({
         _id: 0,
         id: 1,
         title: 1,
@@ -41,7 +24,7 @@ export const getMovies = createServerFn({
       .sort({ id: 1 })
       .toArray();
 
-    return movies;
+    return movies as IMovie[];
   } catch (error) {
     console.error("Error fetching movies from MongoDB:", error);
     throw new Error("Failed to fetch movies");

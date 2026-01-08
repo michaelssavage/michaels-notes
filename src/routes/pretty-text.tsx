@@ -5,6 +5,7 @@ import { Button } from "@/components/molecules/Button";
 import { buttonWithIconStyles } from "@/components/molecules/Button/Button.styled";
 import { Checkbox } from "@/components/molecules/Form/Checkbox";
 import { Picture } from "@/components/molecules/Picture";
+import { useTheme } from "@/hooks/use-theme.hook";
 import { exampleRekordboxText } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
@@ -12,12 +13,11 @@ import {
   copyButtonStyles,
   DragBanner,
   Label,
-  pasteButtonStyles,
   StyledTextarea,
   TextareaWrapper,
   Title,
 } from "@/styles/routes/rekordbox-prettifier.styled";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useHydrated } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -40,52 +40,50 @@ export const Route = createFileRoute("/pretty-text")({
   }),
 });
 
+const formatText = (text: string, withBPM: boolean) => {
+  const lines = text.split("\n");
+  let formattedLines: string[] = [];
+
+  if (lines.length > 0) {
+    const headers = lines[0].split("\t");
+    const artistIndex = headers.indexOf("Artist");
+    const trackIndex = headers.indexOf("Track Title");
+    const bpmIndex = headers.indexOf("BPM");
+
+    if (artistIndex !== -1 && trackIndex !== -1) {
+      formattedLines = lines.slice(1).map((line, index) => {
+        const songInfo = line.split("\t");
+        const artist = songInfo[artistIndex]?.trim() || "";
+        const track = songInfo[trackIndex]?.trim() || "";
+        const bpm =
+          withBPM && bpmIndex !== -1 ? songInfo[bpmIndex]?.trim() : "";
+
+        return `${index + 1}. ${artist} - ${track}${bpm ? ` (${bpm})` : ``}`;
+      });
+    } else {
+      // If the expected headers are not found, return the original text
+      return text;
+    }
+  }
+
+  return formattedLines.join("\n");
+};
+
 function RekordboxPrettifier() {
+  const isHydrated = useHydrated();
+  const { lightTheme: theme } = useTheme();
   const [inputText, setInputText] = useState("");
   const [withBPM, setWithBPM] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  const formatText = useCallback((text: string, withBPM: boolean) => {
-    const lines = text.split("\n");
-    let formattedLines: string[] = [];
-
-    if (lines.length > 0) {
-      const headers = lines[0].split("\t");
-      const artistIndex = headers.indexOf("Artist");
-      const trackIndex = headers.indexOf("Track Title");
-      const bpmIndex = headers.indexOf("BPM");
-
-      if (artistIndex !== -1 && trackIndex !== -1) {
-        formattedLines = lines.slice(1).map((line, index) => {
-          const songInfo = line.split("\t");
-          const artist = songInfo[artistIndex]?.trim() || "";
-          const track = songInfo[trackIndex]?.trim() || "";
-          const bpm =
-            withBPM && bpmIndex !== -1 ? songInfo[bpmIndex]?.trim() : "";
-
-          return `${index + 1}. ${artist} - ${track}${bpm ? ` (${bpm})` : ``}`;
-        });
-      } else {
-        // If the expected headers are not found, return the original text
-        return text;
-      }
-    }
-
-    return formattedLines.join("\n");
-  }, []);
-
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(formatText(inputText, withBPM));
     toast.success("Text copied to your clipboard");
-  }, [inputText, withBPM, formatText]);
+  }, [inputText, withBPM]);
 
-  const handlePaste = useCallback(() => {
-    setInputText(exampleRekordboxText);
-  }, []);
+  const handlePaste = useCallback(() => setInputText(exampleRekordboxText), []);
 
-  const clearText = useCallback(() => {
-    setInputText("");
-  }, []);
+  const clearText = useCallback(() => setInputText(""), []);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -125,7 +123,7 @@ function RekordboxPrettifier() {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      {isDragging && (
+      {isHydrated && isDragging && (
         <DragBanner>
           <h1>Drop your .txt file here to format the Rekordbox setlist!</h1>
         </DragBanner>
@@ -143,18 +141,11 @@ function RekordboxPrettifier() {
               onChange={(e) => setInputText(e.target.value)}
             />
             <Group align="center">
+              <Button text="Paste example text" onClick={handlePaste} />
               <Button
-                text="Paste example text"
-                onClick={handlePaste}
-                variant="primary"
-                styles={pasteButtonStyles}
-              />
-
-              <Button
+                variant="secondary"
                 text="Clear text"
                 onClick={clearText}
-                variant="secondary"
-                styles={pasteButtonStyles}
               />
             </Group>
           </TextareaWrapper>
@@ -162,7 +153,7 @@ function RekordboxPrettifier() {
             <Button
               onClick={handleCopy}
               icon={<CopyIcon size={20} />}
-              styles={copyButtonStyles}
+              styles={copyButtonStyles(theme)}
             />
 
             <Label htmlFor="output">Formatted Text</Label>
@@ -176,7 +167,7 @@ function RekordboxPrettifier() {
               <Checkbox
                 id="bpm-mode"
                 onChange={() => setWithBPM(!withBPM)}
-                value={withBPM}
+                checked={withBPM}
                 text="with BPM"
               />
             </Group>

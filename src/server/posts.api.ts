@@ -4,7 +4,7 @@ import { readFile } from "fs/promises";
 import { join } from "node:path";
 import { z } from "zod";
 
-const isProd = process.env.CONTEXT === "production";
+const isProd = process.env.NODE_ENV === "production";
 
 export const getMiniPosts = createServerFn({
   method: "GET",
@@ -37,8 +37,6 @@ export const getMiniPosts = createServerFn({
 
       return posts;
     } catch (error) {
-      console.warn("Failed to load posts index:", error);
-
       if (
         signal?.aborted ||
         (error instanceof Error && error.name === "AbortError")
@@ -50,6 +48,8 @@ export const getMiniPosts = createServerFn({
           bites: [],
         };
       }
+
+      console.warn("Failed to load posts index:", error);
       return {
         projects: [],
         blogs: [],

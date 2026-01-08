@@ -1,3 +1,4 @@
+import { MyTheme } from "@/styles/abstracts/colors.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -39,28 +40,17 @@ export const AboutSection = styled.div`
   }
 `;
 
-export const copyButtonStyles = css`
+export const copyButtonStyles = (theme: MyTheme) => css`
   position: absolute;
   top: 1.75rem;
   right: 0.25rem;
   padding: 0.25rem;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: transform 0.2s ease-in-out;
+  background-color: ${theme.white};
+  border: 1px solid ${theme.gray400};
 
   &:hover {
-    background-color: #c9c7c7;
-    transform: scale(1.1);
+    background-color: ${theme.gray};
   }
-`;
-
-export const pasteButtonStyles = css`
-  padding: 5px 10px;
-  border-radius: 6px;
-  background-color: transparent;
-  color: #24292e;
-  border: 1px solid #24292e;
 `;
 
 export const DragBanner = styled.div`
