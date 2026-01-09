@@ -19,8 +19,8 @@ export const feedbackBtnStyles = (theme: MyTheme) => css`
 
 export const Container = styled.div`
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 6px;
+  right: 6px;
   z-index: 50;
 `;
 
@@ -43,8 +43,8 @@ export const ButtonGrid = styled.div`
 `;
 
 export const FloatingButton = styled.button`
-  height: 7rem;
-  width: 7rem;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   background: ${({ theme }) => theme.green};
   color: white;
