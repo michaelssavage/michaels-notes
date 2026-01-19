@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const CheckIcon = (
-  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement> & Props
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement> & Props,
 ) => {
   return (
     <svg

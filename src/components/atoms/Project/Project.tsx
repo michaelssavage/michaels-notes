@@ -21,7 +21,7 @@ export const Project = ({ data, selectedTech }: Props) => {
   const textContrast = useMemo(() => getContrastYIQ(colors.bg), [colors.bg]);
   const titleContrast = useMemo(
     () => getContrastYIQ(colors.main),
-    [colors.main]
+    [colors.main],
   );
 
   return (

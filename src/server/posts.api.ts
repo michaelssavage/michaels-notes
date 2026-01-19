@@ -19,7 +19,7 @@ async function loadPostsIndex(signal?: AbortSignal): Promise<IPosts> {
     process.cwd(),
     "public",
     "compiled-posts",
-    "index.json"
+    "index.json",
   );
   const data = await readFile(filePath, "utf-8");
 
@@ -63,7 +63,7 @@ export const getMiniPosts = createServerFn({
         bites: [],
       };
     }
-  }
+  },
 );
 
 export const getProjects = createServerFn({
@@ -84,7 +84,7 @@ export const getProjects = createServerFn({
       console.warn("Failed to load projects:", error);
       return [];
     }
-  }
+  },
 );
 
 export const getBlogs = createServerFn({
@@ -105,7 +105,7 @@ export const getBlogs = createServerFn({
       console.warn("Failed to load blogs:", error);
       return [];
     }
-  }
+  },
 );
 
 export const getReviews = createServerFn({
@@ -126,7 +126,7 @@ export const getReviews = createServerFn({
       console.warn("Failed to load reviews:", error);
       return [];
     }
-  }
+  },
 );
 
 export const getBites = createServerFn({
@@ -147,7 +147,7 @@ export const getBites = createServerFn({
       console.warn("Failed to load bites:", error);
       return [];
     }
-  }
+  },
 );
 
 const PostSchema = z.object({
@@ -166,7 +166,7 @@ export const getFullPost = createServerFn({
         "public",
         "compiled-posts",
         data.category,
-        `${data.slug}.json`
+        `${data.slug}.json`,
       );
 
       const fileContent = await readFile(postPath, "utf-8");
@@ -174,7 +174,7 @@ export const getFullPost = createServerFn({
     } catch (error) {
       console.error(
         `Failed to load post ${data.category}/${data.slug}:`,
-        error
+        error,
       );
       throw new Error(`Post not found: ${data.category}/${data.slug}`);
     }

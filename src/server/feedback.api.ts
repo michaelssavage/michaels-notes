@@ -88,7 +88,7 @@ export const submitFeedback = createServerFn({ method: "POST" })
         $inc: { count: 1 },
         $setOnInsert: { createdAt: now },
       },
-      { upsert: true, returnDocument: "after" }
+      { upsert: true, returnDocument: "after" },
     );
 
     if (!result) {
@@ -107,3 +107,33 @@ export const submitFeedback = createServerFn({ method: "POST" })
 
     return { ok: true };
   });
+
+interface IFeedback {
+  text: string;
+  ip: string;
+  createdAt: string;
+}
+
+export const getFeedback = createServerFn({ method: "GET" }).handler(
+  async (): Promise<Array<IFeedback>> => {
+    try {
+      const collection = await getCollection("feedback");
+      const feedback = await collection
+        .find({})
+
+        .project({
+          _id: 0,
+          text: 1,
+          ip: 1,
+          createdAt: 1,
+        })
+        .sort({ createdAt: -1 })
+        .toArray();
+
+      return feedback as Array<IFeedback>;
+    } catch (error) {
+      console.error("Error fetching feedback from MongoDB:", error);
+      throw new Error("Failed to fetch feedback");
+    }
+  },
+);

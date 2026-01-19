@@ -63,7 +63,7 @@ function Blog() {
     (updates: Partial<FilterState>) => {
       setFilter({ ...filter, ...updates });
     },
-    [filter]
+    [filter],
   );
 
   const data = Route.useLoaderData();
@@ -102,17 +102,17 @@ function Blog() {
 
     const filteredBites = isBite
       ? bites.filter(({ description }) =>
-          description.toLowerCase().includes(searchLowercase)
+          description.toLowerCase().includes(searchLowercase),
         )
       : [];
 
     return [...filteredBlogs, ...filteredReviews, ...filteredBites].sort(
-      sortByDate
+      sortByDate,
     );
   }, [filter, searchQuery, blogs, bites, reviews]);
 
   const activeFilters = Object.keys(filter).filter(
-    (key) => filter[key as keyof FilterState]
+    (key) => filter[key as keyof FilterState],
   );
 
   const dataFilters =

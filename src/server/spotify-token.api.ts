@@ -12,7 +12,7 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
       }
 
       const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
-        "base64"
+        "base64",
       );
 
       const response = await fetch("https://accounts.spotify.com/api/token", {
@@ -45,5 +45,5 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
       console.error("Error refreshing Spotify token:", error);
       throw new Error("Internal server error");
     }
-  }
+  },
 );

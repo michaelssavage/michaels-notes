@@ -95,7 +95,7 @@ export function usePopover({
       setLabelId,
       setDescriptionId,
     }),
-    [open, setOpen, interactions, data, modal, labelId, descriptionId]
+    [open, setOpen, interactions, data, modal, labelId, descriptionId],
   );
 }
 
@@ -156,7 +156,7 @@ export const PopoverTrigger = forwardRef<
         ...props,
         ...(children.props as Record<string, unknown>),
         "data-state": context.open ? "open" : "closed",
-      } as HTMLAttributes<HTMLElement>)
+      } as HTMLAttributes<HTMLElement>),
     );
   }
 

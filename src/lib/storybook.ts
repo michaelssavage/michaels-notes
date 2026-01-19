@@ -6,7 +6,7 @@ import type { Plugin } from "vite";
 const serveStorybook = (
   req: { url?: string },
   res: ServerResponse<IncomingMessage>,
-  storybookDir: string
+  storybookDir: string,
 ) => {
   const url = req.url || "/";
 
@@ -46,7 +46,7 @@ const serveStorybook = (
 
       res.setHeader(
         "Content-Type",
-        contentType[ext] || "application/octet-stream"
+        contentType[ext] || "application/octet-stream",
       );
       res.end(content);
       return true;

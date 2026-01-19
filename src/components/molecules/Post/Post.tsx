@@ -34,7 +34,7 @@ const Post = ({
       },
       {
         threshold: 0.1,
-      }
+      },
     );
 
     observer.observe(ref.current);

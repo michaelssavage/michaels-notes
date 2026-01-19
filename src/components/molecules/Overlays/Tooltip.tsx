@@ -81,7 +81,7 @@ export function useTooltip({
       ...interactions,
       ...data,
     }),
-    [open, setOpen, interactions, data]
+    [open, setOpen, interactions, data],
   );
 }
 
@@ -130,7 +130,7 @@ export const TooltipTrigger = forwardRef<
         ...props,
         ...(children.props as Record<string, unknown>),
         "data-state": context.open ? "open" : "closed",
-      } as HTMLAttributes<HTMLElement>)
+      } as HTMLAttributes<HTMLElement>),
     );
   }
 

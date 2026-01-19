@@ -58,7 +58,7 @@ export const slideInAnimation = (
   from: string,
   direction = "vertical",
   duration = "0.25s",
-  fillMode = "none"
+  fillMode = "none",
 ) => {
   const transform = direction === "horizontal" ? "translateX" : "translateY";
 

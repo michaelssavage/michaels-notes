@@ -26,7 +26,7 @@ export const SectionInView = ({ children, delay = 0 }: SectionI) => {
       },
       {
         threshold: 0.2,
-      }
+      },
     );
 
     observer.observe(ref.current);

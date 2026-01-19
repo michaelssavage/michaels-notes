@@ -16,7 +16,7 @@ const options = {
 };
 
 const PostHogProviderLazy = lazy(() =>
-  import("posthog-js/react").then((mod) => ({ default: mod.PostHogProvider }))
+  import("posthog-js/react").then((mod) => ({ default: mod.PostHogProvider })),
 );
 
 export default function PostHogProvider({ children }: HogProps) {

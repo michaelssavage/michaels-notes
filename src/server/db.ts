@@ -17,7 +17,7 @@ async function getMongoClient() {
 }
 
 export async function getCollection<T extends Document>(
-  collectionName: string
+  collectionName: string,
 ): Promise<Collection<T>> {
   const client = await getMongoClient();
   const db = client.db(DB_NAME);

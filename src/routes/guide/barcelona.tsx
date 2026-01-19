@@ -83,7 +83,7 @@ function RouteComponent() {
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item?.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.tags?.some((tag) =>
-          tag.toLowerCase().includes(searchTerm.toLowerCase())
+          tag.toLowerCase().includes(searchTerm.toLowerCase()),
         );
 
       const matchesType = selectedType === "all" || item.type === selectedType;
@@ -93,7 +93,7 @@ function RouteComponent() {
         selectedTags.some((selectedTag) => {
           if (selectedTag === "Free") {
             return item.tags?.some((itemTag) =>
-              itemTag.toLowerCase().includes("free")
+              itemTag.toLowerCase().includes("free"),
             );
           }
           return item.tags?.includes(selectedTag);
@@ -119,7 +119,7 @@ function RouteComponent() {
 
   const handleTagClick = (tag: GuideTags) => {
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 

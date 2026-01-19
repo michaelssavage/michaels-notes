@@ -13,7 +13,9 @@ import { Route as PrettyTextRouteImport } from './routes/pretty-text'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as MixesRouteImport } from './routes/mixes'
 import { Route as MiscellaneousRouteImport } from './routes/miscellaneous'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as DoodlesRouteImport } from './routes/doodles'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReviewIndexRouteImport } from './routes/review/index'
@@ -45,9 +47,19 @@ const MiscellaneousRoute = MiscellaneousRouteImport.update({
   path: '/miscellaneous',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DoodlesRoute = DoodlesRouteImport.update({
   id: '/doodles',
   path: '/doodles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -104,7 +116,9 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
+  '/login': typeof LoginRoute
   '/miscellaneous': typeof MiscellaneousRoute
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
@@ -121,7 +135,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
+  '/login': typeof LoginRoute
   '/miscellaneous': typeof MiscellaneousRoute
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
@@ -139,7 +155,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
+  '/login': typeof LoginRoute
   '/miscellaneous': typeof MiscellaneousRoute
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
@@ -158,7 +176,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/doodles'
+    | '/login'
     | '/miscellaneous'
     | '/mixes'
     | '/playground'
@@ -175,7 +195,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/admin'
     | '/doodles'
+    | '/login'
     | '/miscellaneous'
     | '/mixes'
     | '/playground'
@@ -192,7 +214,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/doodles'
+    | '/login'
     | '/miscellaneous'
     | '/mixes'
     | '/playground'
@@ -210,7 +234,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
   DoodlesRoute: typeof DoodlesRoute
+  LoginRoute: typeof LoginRoute
   MiscellaneousRoute: typeof MiscellaneousRoute
   MixesRoute: typeof MixesRoute
   PlaygroundRoute: typeof PlaygroundRoute
@@ -255,11 +281,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MiscellaneousRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/doodles': {
       id: '/doodles'
       path: '/doodles'
       fullPath: '/doodles'
       preLoaderRoute: typeof DoodlesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -338,7 +378,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
   DoodlesRoute: DoodlesRoute,
+  LoginRoute: LoginRoute,
   MiscellaneousRoute: MiscellaneousRoute,
   MixesRoute: MixesRoute,
   PlaygroundRoute: PlaygroundRoute,

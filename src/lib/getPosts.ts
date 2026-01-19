@@ -24,7 +24,7 @@ export async function getPostsIndex(): Promise<IPosts> {
 // Load compiled post content
 export async function getCompiledPost<T = unknown>(
   category: string,
-  slug: string
+  slug: string,
 ): Promise<T> {
   try {
     // In build/SSR context
@@ -37,7 +37,7 @@ export async function getCompiledPost<T = unknown>(
         "public",
         "compiled-posts",
         category,
-        `${slug}.json`
+        `${slug}.json`,
       );
 
       if (fs.existsSync(postPath)) {

@@ -27,33 +27,19 @@ function RouteComponent() {
       <MiscContainer>
         <h2>Various mini projects</h2>
         <p>
-          A very{" "}
+          A very incomplete{" "}
           <Anchor
             link="/guide/barcelona"
-            text="incomplete guide"
+            text="Barcelona guide"
             variant="header"
           />{" "}
-          to things to do, see, and experience in Barcelona. I&apos;m always
-          collecting points of interest, activities, live music venues, and
-          other fun things that aren&apos;t so obvious. There are many resources
-          for finding things to do, like{" "}
-          <Anchor
-            link="https://www.barcelona-tickets.com/botanical-garden-barcelona/"
-            text="barcelona-tickets.com"
-            variant="link"
-            isExternal
-          />
-          {", "}
+          of things to do, see, and experience. I&apos;m always collecting
+          points of interest, activities, live music venues, and other fun
+          things that aren&apos;t so obvious. There are many resources for
+          finding things to do, like{" "}
           <Anchor
             link="https://www.atlasobscura.com/things-to-do/barcelona-spain/"
-            text="atlasobscura.com"
-            variant="link"
-            isExternal
-          />
-          {", or "}
-          <Anchor
-            link="https://barcelonasecreta.com"
-            text="barcelonasecreta.com"
+            text="Atlas Obscura"
             variant="link"
             isExternal
           />
@@ -61,10 +47,10 @@ function RouteComponent() {
         </p>
 
         <p>
-          Now and again I&apos;ll create sketch something for tattoo ideas or
-          just for making bad jokes. Check out some of the{" "}
-          <Anchor link="/doodles" text="doodles" variant="header" /> that
-          I&apos;ve created.
+          Now and again I&apos;ll put pen to paper for tattoo ideas or for
+          really bad jokes. I&apos;ll share some of the{" "}
+          <Anchor link="/doodles" text="doodles" variant="header" /> on this
+          page.
         </p>
 
         <p>
@@ -80,8 +66,8 @@ function RouteComponent() {
             text="uploaded it to YouTube"
             variant="link"
             isExternal
-          />{" "}
-          .
+          />
+          {". "}
         </p>
         <p>
           I created a utility function,{" "}

@@ -9,7 +9,7 @@ import { Link } from "@tanstack/react-router";
 const getPostColor = (
   theme: MyTheme,
   isExternal?: string,
-  isReview?: boolean
+  isReview?: boolean,
 ) => {
   if (isReview) return theme.purple;
   return isExternal ? theme.blue200 : theme.red200;

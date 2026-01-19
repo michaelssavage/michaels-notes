@@ -14,7 +14,7 @@ export const getWeather = createServerFn({
         key: WEATHER_API,
         accept: "application/json",
       },
-    }
+    },
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");

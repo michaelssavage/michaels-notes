@@ -74,7 +74,7 @@ export const Menu = <T extends object>({
                 })}
               </Sidebar>
             </animated.div>
-          )
+          ),
       )}
     </MenuContainer>
   );

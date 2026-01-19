@@ -16,19 +16,19 @@ export const getSpotifyTrack = createServerFn({ method: "GET" }).handler(
         "https://api.spotify.com/v1/me/player/currently-playing",
         {
           headers: { Authorization: `Bearer ${access_token}` },
-        }
+        },
       );
 
       // If no song playing (204), fall back to recently played
       if (currentRes.status === 204 || !currentRes.ok) {
         const recentRes = await fetch(
           "https://api.spotify.com/v1/me/player/recently-played?limit=1",
-          { headers: { Authorization: `Bearer ${access_token}` } }
+          { headers: { Authorization: `Bearer ${access_token}` } },
         );
 
         if (!recentRes.ok) {
           throw new Error(
-            `Failed to fetch recent track: ${await recentRes.text()}`
+            `Failed to fetch recent track: ${await recentRes.text()}`,
           );
         }
 
@@ -62,5 +62,5 @@ export const getSpotifyTrack = createServerFn({ method: "GET" }).handler(
       console.error("Error fetching Spotify track:", err);
       throw new Error("Internal server error");
     }
-  }
+  },
 );

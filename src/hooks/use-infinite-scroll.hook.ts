@@ -45,7 +45,7 @@ export function useInfiniteScroll<T>({
           loadMore();
         }
       },
-      { threshold }
+      { threshold },
     );
 
     const currentLoader = loaderRef.current;

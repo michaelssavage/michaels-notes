@@ -24,7 +24,7 @@ export const Route = createFileRoute("/doodles")({
 
 const doodles = import.meta.glob(
   "/src/content/doodles/*.{png,jpg,jpeg,webp,svg}",
-  { eager: true, as: "url" }
+  { eager: true, as: "url" },
 );
 
 function RouteComponent() {

@@ -16,7 +16,7 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
     ? activeRoutes.some(
         (route) =>
           location.pathname === route ||
-          location.pathname.startsWith(route + "/")
+          location.pathname.startsWith(route + "/"),
       )
     : location.pathname === to;
 

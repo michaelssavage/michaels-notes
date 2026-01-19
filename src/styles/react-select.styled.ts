@@ -7,7 +7,7 @@ interface TypeOption {
 }
 
 export const customSelectStyles = (
-  theme: MyTheme
+  theme: MyTheme,
 ): StylesConfig<TypeOption, false> => ({
   control: (provided: CSSObjectWithLabel, state) => ({
     ...provided,

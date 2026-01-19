@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const XIcon = (
-  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement> & Props
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement> & Props,
 ) => {
   return (
     <svg

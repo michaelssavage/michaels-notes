@@ -55,7 +55,7 @@ export const CurrentPlay = () => {
 
   const factColor = useMemo(
     () => (dominantColor ? getContrastYIQ(dominantColor) : theme.gray400),
-    [dominantColor, theme.gray400]
+    [dominantColor, theme.gray400],
   );
 
   const fact = useSanitizedHTML(trackFact?.artist?.bio?.summary ?? "");

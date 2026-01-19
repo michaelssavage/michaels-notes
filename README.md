@@ -19,6 +19,8 @@ To build this application for production:
 
 - `pnpm run build`
 
+generate a manifest for SEO: https://realfavicongenerator.net/
+
 ## Testing
 
 Integrations tests with Playwright. First setup the hedaless browsers:

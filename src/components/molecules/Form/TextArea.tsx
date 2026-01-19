@@ -8,7 +8,7 @@ const StyledTextarea = styled.textarea<{ styles?: SerializedStyles }>`
   max-width: 100%;
   min-height: 2rem;
   padding: 8px 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.gray400};
   border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
@@ -22,7 +22,8 @@ const StyledTextarea = styled.textarea<{ styles?: SerializedStyles }>`
   }
 
   &::placeholder {
-    color: #9ca3af;
+    color: ${({ theme }) => theme.gray500};
+    font-size: 0.9rem;
   }
 
   ${({ styles }) => styles}

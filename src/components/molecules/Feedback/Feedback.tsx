@@ -19,7 +19,7 @@ import {
 } from "./Feedback.styled";
 
 const LoaderIcon = lazy(() =>
-  import("react-hot-toast").then((mod) => ({ default: mod.LoaderIcon }))
+  import("react-hot-toast").then((mod) => ({ default: mod.LoaderIcon })),
 );
 
 export const Feedback = () => {
@@ -82,13 +82,6 @@ export const Feedback = () => {
               {error && <ErrorMessage>{error}</ErrorMessage>}
               <ButtonGrid>
                 <Button
-                  onClick={handleSubmit}
-                  disabled={!feedback.trim() || isSubmitting}
-                  styles={feedbackBtnStyles(theme)}
-                  text={isSubmitting ? "Sending..." : "Send"}
-                  icon={isSubmitting ? <LoaderIcon /> : <SendIcon size={16} />}
-                />
-                <Button
                   text="Close"
                   onClick={() => setIsExpanded(false)}
                   variant="secondary"
@@ -96,6 +89,13 @@ export const Feedback = () => {
                     flex: 1;
                     justify-content: center;
                   `}
+                />
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!feedback.trim() || isSubmitting}
+                  styles={feedbackBtnStyles(theme)}
+                  text={isSubmitting ? "Sending..." : "Send"}
+                  icon={isSubmitting ? <LoaderIcon /> : <SendIcon size={16} />}
                 />
               </ButtonGrid>
             </>

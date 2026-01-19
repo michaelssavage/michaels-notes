@@ -26,7 +26,7 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.gray400};
   border-radius: 8px;
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),

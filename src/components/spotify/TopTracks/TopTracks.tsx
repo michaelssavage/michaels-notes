@@ -26,7 +26,7 @@ const TopTracks = () => {
       data.map((track) => {
         const color = getRandomColor();
         return [track.name, { color, contrastColor: getContrastYIQ(color) }];
-      })
+      }),
     );
   }, [data]);
 

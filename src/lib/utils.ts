@@ -32,3 +32,31 @@ export const exampleRekordboxText = `#	My Tag	Key	Artist	Track Title	Rating	Colo
 19	12A	Dbm	Terrence Parker 	Twisted Disco 77	***  		125.00	2021-10-02	E:/Tunes/Electronic/Groovy/Terrence Parker - Twisted Disco 77.mp3
 20	11A	F#m	Fouk	Night Shift (Original Mix)	     		120.00	2021-09-08	E:/Tunes/Electronic/Groovy/Fouk - Night Shift (Original Mix).mp3
 21	11B	A	Helado Negro	Outside the Outside	**   		120.00	2021-10-02	E:/Tunes/Electronic/Deep/Helado Negro - Outside the Outside.mp3`;
+
+interface FormatDateOptions {
+  value: Date | string | number;
+  dateStyle?: "full" | "long" | "medium" | "short";
+  timeStyle?: "full" | "long" | "medium" | "short";
+  locale?: string;
+}
+
+/**
+ * Formats a date using Intl.DateTimeFormat with day-before-month ordering
+ * @param options - Formatting options
+ * @returns Formatted date string
+ */
+export const formatDate = ({
+  value,
+  dateStyle,
+  timeStyle,
+  locale = "en-GB", // UK English uses day-month-year format
+}: FormatDateOptions): string => {
+  const date = value instanceof Date ? value : new Date(value);
+
+  const formatter = new Intl.DateTimeFormat(locale, {
+    dateStyle,
+    timeStyle,
+  });
+
+  return formatter.format(date);
+};

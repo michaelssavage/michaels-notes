@@ -11,7 +11,7 @@ export const getTopTracks = createServerFn({ method: "GET" }).handler(
         "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10",
         {
           headers: { Authorization: `Bearer ${access_token}` },
-        }
+        },
       );
 
       if (!res.ok) {
@@ -32,5 +32,5 @@ export const getTopTracks = createServerFn({ method: "GET" }).handler(
       console.error("Error fetching favourite tracks:", err);
       throw new Error("Internal server error");
     }
-  }
+  },
 );
