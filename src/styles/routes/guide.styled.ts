@@ -37,6 +37,13 @@ export const Grid = styled.div`
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-content: start;
+
+  > *:only-child {
+    max-width: calc(2 * 280px + 1rem);
+    justify-self: start;
+    width: 100%;
+  }
 `;
 
 export const CardBody = styled.div`

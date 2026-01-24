@@ -6,9 +6,9 @@ interface TypeOption {
   label: string;
 }
 
-export const customSelectStyles = (
-  theme: MyTheme,
-): StylesConfig<TypeOption, false> => ({
+export const customSelectStyles = <Option extends TypeOption>(
+  theme: MyTheme
+): StylesConfig<Option, false> => ({
   control: (provided: CSSObjectWithLabel, state) => ({
     ...provided,
     fontSize: "0.875rem",

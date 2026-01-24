@@ -1,4 +1,4 @@
-import { GuideTableItem } from "@/types/Guide";
+import { GUIDE_TAGS, GUIDE_TYPES, GuideTableItem } from "@/types/Guide";
 
 export const items: GuideTableItem[] = [
   {
@@ -6,9 +6,9 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/LTNxRGoMnzFM4wKU6",
     link: "https://relax.beaire.com/aire-ancient-baths-barcelona",
     price: "€100+",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     description: "Thermal baths and spa experience in the old city.",
-    tags: ["Expensive"],
+    tags: [GUIDE_TAGS.EXPENSIVE, GUIDE_TAGS.RELAXING],
     image:
       "https://31m9mhhbv2.ucarecd.net/a4a5cdf0-48f2-4180-b460-b6bfc0767aec/aire.jpg",
   },
@@ -17,9 +17,9 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/ecv77Rp9SeWuUobn7",
     link: "https://tickets.aquariumbcn.com/",
     price: "€14",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     description: "Large aquarium with Mediterranean and tropical marine life.",
-    tags: ["Living World"],
+    tags: [GUIDE_TAGS.LIVING_WORLD],
     image:
       "https://31m9mhhbv2.ucarecd.net/c90da5e6-87f7-4117-9149-48d72b181c84/aquarium.jpg",
   },
@@ -28,7 +28,7 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/VpaFan2JHpS9A97P7",
     link: "https://barcelonaaxethrowing.com/",
     price: "€19.50",
-    type: "Activity",
+    type: GUIDE_TYPES.FUN,
     description: "Indoor axe-throwing games in the city centre.",
     tags: [],
     image:
@@ -36,11 +36,15 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Barcelona Botanical Garden",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     price: "€5",
     location: "https://maps.app.goo.gl/kQ7AxvQUmq1jDRJ58",
     link: "https://museuciencies.cat/en/the-nat/venues/botanical-garden-of-barcelona",
-    tags: ["Free 1st Sunday", "Living World", "Nature"],
+    tags: [
+      GUIDE_TAGS.FREE_1ST_SUNDAY,
+      GUIDE_TAGS.LIVING_WORLD,
+      GUIDE_TAGS.NATURE,
+    ],
     description:
       "Mediterranean plant garden; visit La Caseta del Migdia afterwards for sunrise.",
     image:
@@ -51,8 +55,8 @@ export const items: GuideTableItem[] = [
     price: "€21.40",
     location: "https://maps.app.goo.gl/Y33ARACBXcY2unwV8",
     link: "https://zoobarcelona.cat/en/home",
-    type: "Fun",
-    tags: ["Living World"],
+    type: GUIDE_TYPES.FUN,
+    tags: [GUIDE_TAGS.LIVING_WORLD],
     description:
       "Mid-sized city zoo with a wide variety of animals in Parc de la Ciutadella including komodo dragons, hippos, giraffes, hyenas, elephants, lions, red pandas, penguins, orangutans",
     image:
@@ -60,7 +64,7 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Basílica del Sagrat Cor Tibidabo",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/wfmdK47p23poZLVM7",
     link: "https://tibidabo.cat/en",
     price: "Free - €4+",
@@ -75,7 +79,7 @@ export const items: GuideTableItem[] = [
     price: "€39 / 2 hours",
     location: "https://maps.app.goo.gl/WPjEWuqFtC3Luv6j8",
     link: "https://bewakepark.com/",
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     tags: [],
     description: "Cable wakeboarding and water sports park.",
     image:
@@ -83,11 +87,11 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Biblioteca Gabriel García Márquez",
-    price: "Free",
+    price: GUIDE_TAGS.FREE,
     location: "https://maps.app.goo.gl/Rg4cM3gsk8U9QCEx5",
     link: "https://ajuntament.barcelona.cat/biblioteques/ca/bibgarciamarquez",
-    type: "Place",
-    tags: ["Free"],
+    type: GUIDE_TYPES.PLACE,
+    tags: [GUIDE_TAGS.FREE],
     image:
       "https://31m9mhhbv2.ucarecd.net/f47a5448-89c0-4bc8-811b-22b258358a80/library.jpg",
     description:
@@ -98,8 +102,8 @@ export const items: GuideTableItem[] = [
     price: "€60 / 2 jumps",
     location: "https://maps.app.goo.gl/nDh9mxgyLUZZCtTa9",
     link: "https://www.cataloniaadventures.com/puenting-catalunya/",
-    type: "Activity",
-    tags: ["Day Trip"],
+    type: GUIDE_TYPES.ACTIVITY,
+    tags: [GUIDE_TAGS.DAY_TRIP],
     description:
       "Outdoor bungee jumping experience 130km outside of Barcelona. Experience a 30 meter jump above the river canyon, with a pendulum effect of up to 25 meters.",
     image:
@@ -107,10 +111,10 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Bunkers del Carmel",
-    price: "Free",
+    price: GUIDE_TAGS.FREE,
     location: "https://maps.app.goo.gl/WiNPByzatAMXYZyp6",
     link: "https://www.barcelona.cat/museuhistoria/ca/patrimonis/els-espais-del-museu/turo-de-la-rovira",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     tags: [],
     description:
       "MUHBA Turó de la Rovira offers panoramic views of Barcelona from Spanish Civil War bunkers where anti-aircraft guns were installed.",
@@ -120,7 +124,7 @@ export const items: GuideTableItem[] = [
   {
     title: "CaixaForum",
     price: "€6",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/AhiX6L9Lnt35ARC56",
     link: "https://caixaforum.org/es/barcelona",
     description: "Cultural centre with art exhibitions and events.",
@@ -132,7 +136,7 @@ export const items: GuideTableItem[] = [
     title: "Casa Vicens",
     link: "https://casavicens.org/es",
     price: "€21",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     tags: [],
     image:
       "https://31m9mhhbv2.ucarecd.net/fdf43859-fbf6-44b5-a8f8-c2bd6eb2d931/CV_ESPACIOS_32.jpg",
@@ -142,9 +146,9 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Castell de Montjuïc",
-    tags: ["Free 1st Sunday"],
+    tags: [GUIDE_TAGS.FREE_1ST_SUNDAY],
     price: "€12",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     link: "https://ajuntament.barcelona.cat/castelldemontjuic/en/visit/planning-your-visit",
     location: "https://maps.app.goo.gl/TDYFQHaGyGyoCkk78",
     description: "Historic fortress with city views at the top of Montjuïc.",
@@ -156,7 +160,7 @@ export const items: GuideTableItem[] = [
     location: "App Dependant",
     link: "https://celebreak.com/es/",
     price: "€7 - €20",
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     tags: [],
     description:
       "Book and play soccer matches with strangers or friends using the CeleBreak app.",
@@ -165,11 +169,11 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Centre Cívic Convent de Sant Agustí",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/oYJfoYAucbqdjnGF8",
     link: "https://conventagusti.com/",
-    tags: ["Free"],
-    price: "Free",
+    tags: [GUIDE_TAGS.FREE],
+    price: GUIDE_TAGS.FREE,
     description:
       "A restored 14th-century convent in Barcelona's El Born district that hosts exhibitions, concerts, workshops, and activities.",
     image:
@@ -178,10 +182,10 @@ export const items: GuideTableItem[] = [
   {
     title: "Ciutadella Park",
     location: "https://maps.app.goo.gl/3zbVCi4pDm6Ft3Gh8",
-    tags: ["Free", "Nature"],
-    price: "Free",
+    tags: [GUIDE_TAGS.FREE, GUIDE_TAGS.NATURE],
+    price: GUIDE_TAGS.FREE,
     link: "https://www.barcelona.cat/es/que-hacer-en-bcn/parques-y-jardines/parque-de-la-ciutadella-92086011921",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     description:
       "Ciutadella Park has a large number of century-old trees and a wide range of elements: the monumental waterfall, 19th-century buildings now used as museums, a lake for rowing boats, pathways and numerous sculptures. It shares the site with the city zoo.",
     image:
@@ -189,7 +193,7 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Museo de la Ciencia",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     price: "€8",
     location: "https://maps.app.goo.gl/Vke3mwSVLgny5ZW78",
     link: "https://maps.app.goo.gl/Fdvn6xJkaYZ5M7RA8",
@@ -203,8 +207,8 @@ export const items: GuideTableItem[] = [
     title: "Dr. Flow Bar",
     location: "https://maps.app.goo.gl/49Gq84m8dkRWd59n7",
     link: "https://www.drflow.es/programacion/",
-    tags: ["Live Music"],
-    type: "Music",
+    tags: [GUIDE_TAGS.LIVE_MUSIC],
+    type: GUIDE_TYPES.MUSIC,
     price: "Donation",
     description: "Live music venue located in El Born.",
     image:
@@ -212,9 +216,9 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Flamenco theater - Palau Dalmases",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     price: "€30",
-    tags: ["Live Music"],
+    tags: [GUIDE_TAGS.LIVE_MUSIC],
     link: "https://www.flamencopalaudalmases.com/",
     location: "https://maps.app.goo.gl/H3R6B8XBU1hRH6mw7",
     description: "Traditional Spanish dance and music performance.",
@@ -224,10 +228,10 @@ export const items: GuideTableItem[] = [
   {
     title: "Flotarium",
     price: "€75 for 2",
-    tags: [],
+    tags: [GUIDE_TAGS.RELAXING],
     link: "https://www.flotarium.com/tienda/",
     location: "https://maps.app.goo.gl/FJ1cQd61qpTZYkYQ9",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     description: "Sensory deprivation floatation tank experience.",
     image:
       "https://31m9mhhbv2.ucarecd.net/3595af55-9704-4d8c-a966-e492ea1ed0e1/flotarium.webp",
@@ -236,9 +240,9 @@ export const items: GuideTableItem[] = [
     title: "Fundació Joan Miró",
     price: "€9",
     location: "https://maps.app.goo.gl/WK2VEt35TScS8K7x7",
-    tags: [],
+    tags: [GUIDE_TAGS.RELAXING],
     link: "https://www.fmirobcn.org/",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     description:
       "Showcase of Joan Miro's modern, colorful artworks in hilltop museum with courtyards and terraces.",
     image:
@@ -247,9 +251,9 @@ export const items: GuideTableItem[] = [
   {
     title: "Jazz at 23 Robadors",
     price: "€8",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     link: "https://23robadors.com/programacio/",
-    tags: ["Live Music"],
+    tags: [GUIDE_TAGS.LIVE_MUSIC],
     location: "https://maps.app.goo.gl/Y1MtCGiLZxJQAPEv9",
     description: "Intimate bar offering live jazz music.",
     image:
@@ -257,10 +261,10 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "MACBA",
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     price: "€10,80",
     link: "https://www.macba.cat",
-    tags: ["Free after Saturday 4pm"],
+    tags: [GUIDE_TAGS.FREE_AFTER_SATURDAY_4PM],
     location: "https://maps.app.goo.gl/NgbAxXmbCPiVDJFRA",
     image:
       "https://31m9mhhbv2.ucarecd.net/20fe39fa-5c00-488e-986e-7a5cf1b00f37/elMACBAporMarcelLiSaenz.jpg",
@@ -271,7 +275,7 @@ export const items: GuideTableItem[] = [
     title: "Mirador Torre Glòries",
     price: "€18",
     tags: [],
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/Cuf9cmmt91Duf1Sq9",
     image:
       "https://31m9mhhbv2.ucarecd.net/8d276301-9d69-4a37-8fbe-5f7a075335cc/b5eccf92696c0d58.png",
@@ -282,7 +286,7 @@ export const items: GuideTableItem[] = [
   {
     title: "Montjuïc Cable Car",
     price: "€10.80",
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     link: "https://www.telefericdemontjuic.cat/en",
     tags: [],
     location: "https://maps.app.goo.gl/Be5ypmRLntBPeqxE7",
@@ -293,8 +297,8 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Museo de Ciencias Naturales de Barcelona",
-    tags: ["Free 1st Sunday", "Free after Sunday 3pm"],
-    type: "Activity",
+    tags: [GUIDE_TAGS.FREE_1ST_SUNDAY, GUIDE_TAGS.FREE_AFTER_SUNDAY_3PM],
+    type: GUIDE_TYPES.ACTIVITY,
     price: "Free - €6",
     location: "https://maps.app.goo.gl/YpgzH54YpmZAHtNFA",
     link: "https://museuciencies.cat/en//the-nat/venues/natural-sciences-museum-of-barcelona/useful-information/opening-times-and-admission-fees/",
@@ -306,10 +310,10 @@ export const items: GuideTableItem[] = [
   {
     title: "Museo del Diseño de Barcelona",
     price: "€6.20",
-    tags: ["Free 1st Sunday"],
+    tags: [GUIDE_TAGS.FREE_1ST_SUNDAY],
     location: "https://maps.app.goo.gl/v6bfWM5D4TCVVaRY6",
     link: "https://www.dissenyhub.barcelona/",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     description: "Museum dedicated to design, fashion, and decorative arts.",
     image:
       "https://31m9mhhbv2.ucarecd.net/5b555d44-b135-46e6-88c6-eb1db47a9dab/REF_HUB_CT6A6276jpg.webp",
@@ -317,10 +321,14 @@ export const items: GuideTableItem[] = [
   {
     title: "Museo Nacional de Arte de Cataluña",
     price: "€12",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/z2jAgAz1KuYa2nULA",
     link: "https://www.mnac.cat/",
-    tags: ["Free 1st Sunday", "Free after Saturday 3pm", "Can't Miss"],
+    tags: [
+      GUIDE_TAGS.FREE_1ST_SUNDAY,
+      GUIDE_TAGS.FREE_AFTER_SATURDAY_3PM,
+      GUIDE_TAGS.CANT_MISS,
+    ],
     image:
       "https://31m9mhhbv2.ucarecd.net/3bd4cfb5-0475-4029-8906-7adcc6697c5c/museunacionaldartdecatalunyarutadelmodernismedebarcelona2.jpg",
     description:
@@ -328,9 +336,9 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Nau Bostik",
-    type: "Place",
-    tags: ["Live Music"],
-    price: "Free",
+    type: GUIDE_TYPES.PLACE,
+    tags: [GUIDE_TAGS.LIVE_MUSIC],
+    price: GUIDE_TAGS.FREE,
     image:
       "https://31m9mhhbv2.ucarecd.net/54b03177-c84b-4822-a24f-56455006a084/NauBostik.jpg",
     location: "https://maps.app.goo.gl/Bky7avBMcoKVwuTv9",
@@ -344,15 +352,15 @@ export const items: GuideTableItem[] = [
     tags: [],
     location: "https://maps.app.goo.gl/mQgU3BMHx2kojxEx6",
     price: "€81.50 - €128",
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     image:
       "https://31m9mhhbv2.ucarecd.net/75a87700-8671-4cc1-bbbf-688eab2730e7/cenarestrellasbarcelona1_2.jpg",
   },
   {
     title: "Observatori Fabra - Night guided tour",
     price: "€18.50 - €30",
-    type: "Place",
-    tags: [],
+    type: GUIDE_TYPES.PLACE,
+    tags: [GUIDE_TAGS.RELAXING],
     description:
       "Every Friday and Saturday between October to May you will have the opportunity to visit the Fabra Observatory, enjoy a conference and the views of Barcelona from the outside of the dome and see the stars through the telescope.",
     link: "https://www.sternalia.com/en/guided-tours-fabra-observatory.html",
@@ -362,9 +370,13 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Observatori Fabra de Barcelona",
-    tags: ["Free 1st Sunday", "Free every Sunday 11am", "Cash only"],
+    tags: [
+      GUIDE_TAGS.FREE_1ST_SUNDAY,
+      GUIDE_TAGS.FREE_EVERY_SUNDAY_11AM,
+      GUIDE_TAGS.CASH_ONLY,
+    ],
     price: "€3",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     description:
       "Historic astronomical observatory offering tours and stargazing.",
     link: "https://observatorifabra.cat/visits/",
@@ -378,7 +390,7 @@ export const items: GuideTableItem[] = [
     link: "https://playtomic.com/",
     price: "€7 - €20",
     tags: [],
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     description:
       "Book and play padel matches with strangers or friends using the Playtomic app.",
     image:
@@ -386,7 +398,7 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Palau Martorell",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/jrAQMgSNdveGvyKS7",
     tags: [],
     link: "https://www.palaumartorell.com/en/visita",
@@ -397,8 +409,8 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Palo Alto Market",
-    type: "Fun",
-    tags: ["Live Music"],
+    type: GUIDE_TYPES.FUN,
+    tags: [GUIDE_TAGS.LIVE_MUSIC],
     location: "https://maps.app.goo.gl/SLVni93PmeVEJxtY6",
     link: "https://palomarketfest.com/en",
     price: "€6.50",
@@ -410,20 +422,20 @@ export const items: GuideTableItem[] = [
   {
     title: "Parc del Laberint d'Horta",
     price: "€2.23",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     link: "https://guia.barcelona.cat/en/detall/parc-del-laberint-d-horta_92086011952.html",
     location: "https://maps.app.goo.gl/9BhXR3c49gvMNje76",
-    tags: ["Nature"],
+    tags: [GUIDE_TAGS.NATURE],
     description: "Historical garden with a maze and romantic architecture.",
     image:
       "https://31m9mhhbv2.ucarecd.net/f7c4ba13-9e5c-4dbe-832e-0dc18b0792bc/image.webp",
   },
   {
     title: "Pedralbés Monastery",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/LevoJkbLsJcpcFoT9",
     price: "€5.20",
-    tags: ["Free after Sunday 3pm", "Free 1st Sunday"],
+    tags: [GUIDE_TAGS.FREE_AFTER_SUNDAY_3PM, GUIDE_TAGS.FREE_1ST_SUNDAY],
     link: "https://www.monestirpedralbes.barcelona/en/visit/opening_times_and_admission_fees",
     image:
       "https://31m9mhhbv2.ucarecd.net/ca2b37e8-b15c-45d7-8f20-0d59a654bfc0/202103190853eMonestirdePedralbes29Barcelona2021.jpg",
@@ -432,11 +444,11 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Picasso Museum",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/XxLBErKHus1GPgQA6",
     link: "https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours",
     price: "Free - €14",
-    tags: ["Free 1st Sunday"],
+    tags: [GUIDE_TAGS.FREE_1ST_SUNDAY],
     description:
       "Museum dedicated to Picasso's art during his early life in Barcelona. Free between 4pm and 7pm on Thursday during winter, and free between 7pm and 9pm Thursday, Friday and Saturday during summer.",
     image:
@@ -444,10 +456,10 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Razzmatazz",
-    type: "Music",
+    type: GUIDE_TYPES.MUSIC,
     location: "https://maps.app.goo.gl/QfjV8VvyudB7nnPn9",
     link: "https://www.salarazzmatazz.com",
-    tags: ["Live Music"],
+    tags: [GUIDE_TAGS.LIVE_MUSIC],
     price: "€10 - €20",
     description:
       "Large music venue and nightclub in Poble Nou with 5 floors of different styles of music.",
@@ -459,8 +471,8 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/grFnrFHZ1tM74f5v6",
     link: "https://santpaubarcelona.org/en/visita/visita-lliure/",
     price: "€11.90",
-    tags: [],
-    type: "Place",
+    tags: [GUIDE_TAGS.RELAXING],
+    type: GUIDE_TYPES.PLACE,
     description: "Modernist hospital complex and UNESCO World Heritage site.",
     image:
       "https://31m9mhhbv2.ucarecd.net/9f1c9a8b-4d4b-40ef-bff2-7d90ede8be90/ticketsforsantpaurecintemodernistabarcelonaT24.jpg",
@@ -468,10 +480,10 @@ export const items: GuideTableItem[] = [
   {
     title: "Sagrada Familia",
     price: "€31.80",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     description:
-      "Gaudí's world-famous unfinished basilica. The tallest church in the world",
-    tags: ["Can't Miss"],
+      "Gaudí's world-famous unfinished masterpiece. The tallest basilica in the world has been under construction for over one century.",
+    tags: [GUIDE_TAGS.CANT_MISS],
     location: "https://maps.app.goo.gl/qgsz87obhV6R9Hre7",
     link: "https://ticketsagradafamilia.com/",
     image:
@@ -482,7 +494,7 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/DrDdKV3uPbUPUzg26",
     link: "https://www.sailingexperiencebcn.com",
     tags: [],
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     price: "€39+",
     image:
       "https://31m9mhhbv2.ucarecd.net/d65c06fe-af51-4659-9514-87fc80e27f58/15hoursailingswimming1030x694.jpeg",
@@ -497,7 +509,7 @@ export const items: GuideTableItem[] = [
     image:
       "https://31m9mhhbv2.ucarecd.net/c1a9ace7-0330-408a-a3d9-4ceeeba34c03/VuelohelicopteroBarcelona.jpg",
     price: "€89 - €109",
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     description:
       "Experience a 7 minute helicopter journey with up to 3 passengers at a time, then set sail with snacks and drinks.",
   },
@@ -505,8 +517,8 @@ export const items: GuideTableItem[] = [
     title: "Sala Apolo",
     location: "https://maps.app.goo.gl/1pe6KwRWYhSqRdqb6",
     link: "https://sala-apolo.com/es/agenda",
-    tags: ["Live Music"],
-    type: "Music",
+    tags: [GUIDE_TAGS.LIVE_MUSIC],
+    type: GUIDE_TYPES.MUSIC,
     price: "€10+",
     description: "Popular concert hall and nightclub.",
     image:
@@ -517,7 +529,7 @@ export const items: GuideTableItem[] = [
     location: "https://maps.app.goo.gl/ecv77Rp9SeWuUobn7",
     price: "€300",
     link: "https://tickets-actividades.aquariumbcn.com/pass/1137305161",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     tags: [],
     description: "Dive with sharks at the Barcelona Aquarium.",
     image:
@@ -528,7 +540,7 @@ export const items: GuideTableItem[] = [
     price: "€300",
     link: "https://saltamos.es/en/tandem-jump/",
     location: "https://maps.app.goo.gl/ToycpFwpXmxCbzqc8",
-    type: "Activity",
+    type: GUIDE_TYPES.ACTIVITY,
     tags: [],
     description: "Tandem parachute jump experience near Barcelona.",
     image:
@@ -539,19 +551,19 @@ export const items: GuideTableItem[] = [
     price: "€100 - €300",
     link: "https://www.jetscoot.com/es/flyboard.html",
     location: "https://maps.app.goo.gl/HxKLSggKuWJ4twUC8",
-    type: "Activity",
-    tags: ["Expensive"],
+    type: GUIDE_TYPES.ACTIVITY,
+    tags: [],
     description: "Fly on the surface of the water using a board and a jetpack.",
     image:
       "https://31m9mhhbv2.ucarecd.net/ba536978-55b1-40ea-b623-f6b23de098eb/PortForum_Barcelone_flyboard_JetScoot_wstvok",
   },
   {
     title: "Teatre Grec",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/xfbZv7BCyDtfdWbh6",
     link: "https://www.barcelona.cat/grec/es",
-    tags: ["Live Music", "Nature"],
-    price: "Free",
+    tags: [GUIDE_TAGS.LIVE_MUSIC, GUIDE_TAGS.NATURE],
+    price: GUIDE_TAGS.FREE,
     description:
       "Open air theatre in Montjuïc constructed in 1929 to sit and enjoy the sun. You'll often find music, theatre, and dance performances here.",
     image:
@@ -559,7 +571,7 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "The Comedy Clubhouse",
-    type: "Fun",
+    type: GUIDE_TYPES.FUN,
     price: "Donation",
     link: "https://thecomedyclubhouse.es/",
     tags: [],
@@ -571,8 +583,8 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Tibidabo Ice Rink",
-    tags: ["Winter"],
-    type: "Activity",
+    tags: [GUIDE_TAGS.WINTER],
+    type: GUIDE_TYPES.ACTIVITY,
     description: "Seasonal outdoor ice-skating rink at Tibidabo.",
     link: "https://tibidabo.cat/en/events/ice-rink",
     price: "€5",
@@ -582,8 +594,8 @@ export const items: GuideTableItem[] = [
   },
   {
     title: "Trip to Montserrat Abbey",
-    type: "Place",
-    tags: ["Day Trip", "Nature"],
+    type: GUIDE_TYPES.PLACE,
+    tags: [GUIDE_TAGS.DAY_TRIP, GUIDE_TAGS.NATURE],
     location: "https://maps.app.goo.gl/5HpFHD5TyVWSXmVE9",
     link: "https://tickets.montserratvisita.com",
     price: "€5 - €9",
@@ -595,7 +607,7 @@ export const items: GuideTableItem[] = [
   {
     title: "White Rabbit Museum",
     price: "€15",
-    type: "Place",
+    type: GUIDE_TYPES.PLACE,
     description:
       "A weird and unique museum showcasing contemporary art in Barcelona that you can interact with. They're not traditional and they self-describe themselve as an 'off-museum'.",
     tags: [],

@@ -30,8 +30,8 @@ export function useInfiniteScroll<T>({
   }, [items.length, itemsPerPage]);
 
   const reset = useCallback(() => {
-    setDisplayedCount(initialCount);
-  }, [initialCount]);
+    setDisplayedCount(Math.min(initialCount, items.length));
+  }, [initialCount, items.length]);
 
   useEffect(() => {
     reset();
@@ -45,7 +45,7 @@ export function useInfiniteScroll<T>({
           loadMore();
         }
       },
-      { threshold },
+      { threshold }
     );
 
     const currentLoader = loaderRef.current;

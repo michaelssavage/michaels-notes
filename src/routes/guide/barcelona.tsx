@@ -21,11 +21,47 @@ import {
   LoadMore,
   ResultsCount,
 } from "@/styles/routes/guide.styled";
-import { GuideTableItem, GuideTags } from "@/types/Guide";
+import {
+  GUIDE_TAGS,
+  GuideTableItem,
+  GuideTag,
+  GuideType,
+  TAG_META,
+} from "@/types/Guide";
 import { css } from "@emotion/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import Select from "react-select";
+
+type GuideTypeOption = { value: GuideType | "all"; label: string };
+
+const getTagLabel = (tag: GuideTag) => TAG_META[tag]?.label ?? tag;
+const isFreeTag = (tag: GuideTag) =>
+  getTagLabel(tag).toLowerCase().includes("free");
+
+const { uniqueTypes, uniqueTags } = (() => {
+  const types = new Set<GuideType>();
+  const tags = new Set<GuideTag>();
+
+  items.forEach((item) => {
+    types.add(item.type);
+    item.tags.forEach((tag) => tags.add(tag));
+  });
+
+  return {
+    uniqueTypes: Array.from(types).sort(),
+    uniqueTags: Array.from(tags).sort((tagA, tagB) => {
+      const priorityA = TAG_META[tagA]?.priority ?? Number.POSITIVE_INFINITY;
+      const priorityB = TAG_META[tagB]?.priority ?? Number.POSITIVE_INFINITY;
+
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+
+      return getTagLabel(tagA).localeCompare(getTagLabel(tagB));
+    }),
+  };
+})();
 
 const INITIAL_COUNT = 12;
 const ITEMS_PER_PAGE = 12;
@@ -50,31 +86,10 @@ export const Route = createFileRoute("/guide/barcelona")({
 
 function RouteComponent() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState("all");
-  const [selectedTags, setSelectedTags] = useState<Array<GuideTags>>([]);
+  const [selectedType, setSelectedType] = useState<GuideType | "all">("all");
+  const [selectedTags, setSelectedTags] = useState<Array<GuideTag>>([]);
   const [showAll, setShowAll] = useState(false);
   const { lightTheme } = useTheme();
-
-  const { uniqueTypes, uniqueTags } = useMemo(() => {
-    const types = new Set<string>();
-    const tags = new Set<GuideTags>();
-
-    items.forEach((item) => {
-      types.add(item.type);
-      item.tags?.forEach((tag) => {
-        if (tag.toLowerCase().includes("free")) {
-          tags.add("Free");
-        } else {
-          tags.add(tag);
-        }
-      });
-    });
-
-    return {
-      uniqueTypes: Array.from(types).sort(),
-      uniqueTags: Array.from(tags).sort(),
-    };
-  }, []);
 
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
@@ -82,8 +97,8 @@ function RouteComponent() {
         searchTerm === "" ||
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item?.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.tags?.some((tag) =>
-          tag.toLowerCase().includes(searchTerm.toLowerCase()),
+        item.tags.some((tag) =>
+          getTagLabel(tag).toLowerCase().includes(searchTerm.toLowerCase())
         );
 
       const matchesType = selectedType === "all" || item.type === selectedType;
@@ -91,12 +106,10 @@ function RouteComponent() {
       const matchesTags =
         selectedTags.length === 0 ||
         selectedTags.some((selectedTag) => {
-          if (selectedTag === "Free") {
-            return item.tags?.some((itemTag) =>
-              itemTag.toLowerCase().includes("free"),
-            );
+          if (selectedTag === GUIDE_TAGS.FREE) {
+            return item.tags.some((itemTag) => isFreeTag(itemTag));
           }
-          return item.tags?.includes(selectedTag);
+          return item.tags.includes(selectedTag);
         });
 
       return matchesSearch && matchesType && matchesTags;
@@ -110,16 +123,13 @@ function RouteComponent() {
       itemsPerPage: ITEMS_PER_PAGE,
     });
 
-  const isTagActive = (tag: GuideTags) => {
-    if (tag.toLowerCase().includes("free") && selectedTags.includes("Free")) {
-      return true;
-    }
-    return selectedTags.includes(tag);
-  };
+  const isTagActive = (tag: GuideTag) =>
+    selectedTags.includes(tag) ||
+    (selectedTags.includes(GUIDE_TAGS.FREE) && isFreeTag(tag));
 
-  const handleTagClick = (tag: GuideTags) => {
+  const handleTagClick = (tag: GuideTag) => {
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
 
@@ -161,7 +171,7 @@ function RouteComponent() {
             </FormLabel>
 
             <FormLabel id="type" label="Type">
-              <Select
+              <Select<GuideTypeOption>
                 id="type"
                 value={
                   uniqueTypes
@@ -171,12 +181,12 @@ function RouteComponent() {
                     label: "All Types",
                   }
                 }
-                onChange={(option) => setSelectedType(option?.value || "all")}
+                onChange={(option) => setSelectedType(option?.value ?? "all")}
                 options={[
                   { value: "all", label: "All Types" },
                   ...uniqueTypes.map((type) => ({ value: type, label: type })),
                 ]}
-                styles={customSelectStyles(lightTheme)}
+                styles={customSelectStyles<GuideTypeOption>(lightTheme)}
               />
             </FormLabel>
 
@@ -189,7 +199,7 @@ function RouteComponent() {
                     id={`tag-${tag}`}
                     selected={selectedTags.includes(tag)}
                     onClick={() => handleTagClick(tag)}
-                    text={tag}
+                    text={getTagLabel(tag)}
                   />
                 ))}
                 <Button
@@ -251,7 +261,7 @@ function RouteComponent() {
                           $isActive={isTagActive(tag)}
                           onClick={() => handleTagClick(tag)}
                         >
-                          {tag}
+                          {getTagLabel(tag)}
                         </FilterableTag>
                       ))}
                     </p>
