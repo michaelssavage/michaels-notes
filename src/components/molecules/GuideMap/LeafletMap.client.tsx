@@ -2,7 +2,6 @@ import { GuideHeader } from "@/components/molecules/GuideMap/GuideMap.styled";
 import { Picture } from "@/components/molecules/Picture";
 import type { GuideTableItem } from "@/types/Guide";
 import { css } from "@emotion/react";
-import type { Marker as LeafletMarker } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
@@ -17,7 +16,7 @@ type MapSelectionProps = {
   selectedItem?: string | null;
   isSelectionActive?: boolean;
   mapItems: GuideTableItem[];
-  markerRefs: React.RefObject<Record<number, LeafletMarker | null>>;
+  markerRefs: React.RefObject<Record<number, unknown | null>>;
 };
 
 const MapSelectionEffect = ({
@@ -39,7 +38,7 @@ const MapSelectionEffect = ({
 
     const marker = markerRefs.current[itemIndex];
     map.setView(item.coordinates, map.getZoom(), { animate: true });
-    marker?.openPopup();
+    (marker as unknown as { openPopup: () => void })?.openPopup();
   }, [isSelectionActive, map, mapItems, markerRefs, selectedItem]);
 
   return null;
@@ -50,7 +49,7 @@ const LeafletMap = ({
   isSelectionActive = true,
   mapItems,
 }: LeafletMapProps) => {
-  const markerRefs = useRef<Record<number, LeafletMarker | null>>({});
+  const markerRefs = useRef<Record<number, unknown | null>>({});
 
   return (
     <MapContainer

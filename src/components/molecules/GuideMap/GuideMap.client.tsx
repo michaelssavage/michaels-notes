@@ -7,7 +7,7 @@ type ClientOnlyMapProps = {
   isSelectionActive?: boolean;
 };
 
-const LeafletMap = lazy(() => import("./LeafletMap.tsx"));
+const LeafletMap = lazy(() => import("./LeafletMap.client.tsx"));
 
 const ClientOnlyMap = ({
   selectedItem,

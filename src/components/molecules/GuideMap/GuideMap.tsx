@@ -9,8 +9,7 @@ type GuideMapProps = {
   withWrapper?: boolean;
 };
 
-const canUseDOM = typeof window !== "undefined";
-const LazyGuideMap = canUseDOM ? lazy(() => import("./GuideMap.client")) : null;
+const LazyGuideMap = lazy(() => import("./GuideMap.client"));
 
 export const GuideMap = ({
   selectedItem,

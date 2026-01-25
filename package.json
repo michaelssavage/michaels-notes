@@ -6,7 +6,7 @@
   "scripts": {
     "build:mdx": "tsx scripts/build-mdx.ts",
     "build:storybook": "storybook build -o dist/client/storybook",
-    "prebuild": "pnpm run build:mdx && pnpm run build:storybook",
+    "prebuild": "pnpm run build:mdx",
     "build": "vite build",
     "dev": "vite dev",
     "dev:mdx": "pnpm build:mdx && vite dev",
