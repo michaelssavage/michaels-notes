@@ -1,3 +1,5 @@
+import { forTabletOnly } from "@/styles/abstracts/mixins.styled";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const BasicLink = styled.a`
@@ -38,6 +40,7 @@ export const Grid = styled.div`
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   justify-content: start;
+  padding: 0 0.5rem;
 
   > *:only-child {
     max-width: calc(2 * 280px + 1rem);
@@ -52,6 +55,12 @@ export const CardBody = styled.div`
   flex-direction: column;
   gap: 0.25rem;
   flex: 1;
+
+  > h2 {
+    color: #2d241f;
+    font-weight: 600;
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  }
 `;
 
 export const CardFooter = styled.div`
@@ -163,4 +172,63 @@ export const ClearFiltersButton = styled.button`
 
 export const ResultsCount = styled.p`
   font-weight: 500;
+`;
+
+export const MapDrawerTrigger = styled.button`
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px solid ${({ theme }) => theme.black};
+  background: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.black};
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.6rem 1.2rem;
+  z-index: 40;
+
+  ${forTabletOnly(css`
+    display: inline-flex;
+    position: fixed;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+  `)}
+`;
+
+export const MapDrawerContent = styled.div`
+  background: ${({ theme }) => theme.white};
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 0.75rem;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`;
+
+export const MapDrawerHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+`;
+
+export const MapDrawerTitle = styled.h2`
+  font-size: 1.1rem;
+  margin: 0;
+`;
+
+export const MapDrawerClose = styled.button`
+  border: 2px solid ${({ theme }) => theme.black};
+  background: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.black};
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+`;
+
+export const MapDrawerMapArea = styled.div`
+  flex: 1;
+  min-height: 0;
 `;

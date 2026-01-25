@@ -2,6 +2,7 @@ import { GUIDE_TAGS, GUIDE_TYPES, GuideTableItem } from "@/types/Guide";
 
 export const items: GuideTableItem[] = [
   {
+    id: "aire-ancient-baths",
     title: "Aire Ancient Baths",
     location: "https://maps.app.goo.gl/LTNxRGoMnzFM4wKU6",
     coordinates: { lat: 41.3870318, lng: 2.1786015 },
@@ -14,6 +15,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/a4a5cdf0-48f2-4180-b460-b6bfc0767aec/aire.jpg",
   },
   {
+    id: "aquarium-de-barcelona",
     title: "Aquarium de Barcelona",
     location: "https://maps.app.goo.gl/ecv77Rp9SeWuUobn7",
     coordinates: { lat: 41.3768344, lng: 2.1819201 },
@@ -27,6 +29,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/c90da5e6-87f7-4117-9149-48d72b181c84/aquarium.jpg",
   },
   {
+    id: "axe-throwing",
     title: "Axe Throwing",
     location: "https://maps.app.goo.gl/VpaFan2JHpS9A97P7",
     coordinates: { lat: 41.3887966, lng: 2.1722123 },
@@ -39,6 +42,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/d98868c9-db69-43d3-bcd3-1d9494a2df02/axe.jpg",
   },
   {
+    id: "barcelona-botanical-garden",
     title: "Barcelona Botanical Garden",
     type: GUIDE_TYPES.PLACE,
     price: "€5",
@@ -55,6 +59,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/c7007628-791d-49bb-9f50-9aeec939a8ca/jardinbotanico.jpg",
   },
   {
+    id: "barcelona-zoo",
     title: "Barcelona Zoo",
     price: "€21.40",
     location: "https://maps.app.goo.gl/Y33ARACBXcY2unwV8",
@@ -68,6 +73,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/dc549cd7-91bf-44f7-bd99-6882d0e17b3a/suricata.jpg",
   },
   {
+    id: "basilica-del-sagrat-cor-tibidabo",
     title: "Basílica del Sagrat Cor Tibidabo",
     type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/wfmdK47p23poZLVM7",
@@ -81,6 +87,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/de6da6b0-6f5b-48d9-9042-97cef3b40c1e/tibidabo.webp",
   },
   {
+    id: "bewake-park",
     title: "Bewake Park",
     price: "€39 / 2 hours",
     location: "https://maps.app.goo.gl/WPjEWuqFtC3Luv6j8",
@@ -93,6 +100,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/c12a58bc-4bf2-4e23-820d-69566f7181bf/wakeboarding.jpg",
   },
   {
+    id: "biblioteca-gabriel-garcia-marquez",
     title: "Biblioteca Gabriel García Márquez",
     price: GUIDE_TAGS.FREE,
     location: "https://maps.app.goo.gl/Rg4cM3gsk8U9QCEx5",
@@ -106,6 +114,7 @@ export const items: GuideTableItem[] = [
       "Public library designed by SUMA Arquitectura, and uses exposed wood and glass, creating a warm, modern environment. There's a special comic section showcasing works by Francisco Ibáñez, a local comic artist, with a collection of 500 pieces.",
   },
   {
+    id: "bungee-jump",
     title: "Bungee Jump",
     price: "€60 / 2 jumps",
     location: "https://maps.app.goo.gl/nDh9mxgyLUZZCtTa9",
@@ -119,6 +128,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/3ef05610-b45d-40c1-9c61-025f6f9a10b0/bungee.jpg",
   },
   {
+    id: "bunkers-del-carmel",
     title: "Bunkers del Carmel",
     price: GUIDE_TAGS.FREE,
     location: "https://maps.app.goo.gl/WiNPByzatAMXYZyp6",
@@ -132,6 +142,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/a8837809-7fcc-4294-8f29-9752533384fd/bunkers.jpg",
   },
   {
+    id: "caixa-forum",
     title: "CaixaForum",
     price: "€6",
     type: GUIDE_TYPES.PLACE,
@@ -144,6 +155,7 @@ export const items: GuideTableItem[] = [
     tags: [],
   },
   {
+    id: "can-framis",
     title: "Can Framis",
     price: "€10",
     type: GUIDE_TYPES.PLACE,
@@ -157,6 +169,7 @@ export const items: GuideTableItem[] = [
     tags: ["relaxing"],
   },
   {
+    id: "casa-vicens",
     title: "Casa Vicens",
     link: "https://casavicens.org/es",
     price: "€21",
@@ -170,6 +183,7 @@ export const items: GuideTableItem[] = [
       "One of Antoni Gaudí's earliest works, it showcases a mix of Moorish, oriental, and natural influences, with colourful ceramic tiles and intricate ironwork. Cool to look at if you're in the area but too expensive for some to enter.",
   },
   {
+    id: "castell-de-montjuic",
     title: "Castell de Montjuïc",
     tags: [GUIDE_TAGS.FREE_1ST_SUNDAY],
     price: "€12",
@@ -182,6 +196,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/db4dd0b3-7319-4e8e-8862-df111baff24f/montjuic.jpg",
   },
   {
+    id: "celebreak",
     title: "CeleBreak",
     location: "App Dependant",
     link: "https://celebreak.com/es/",
@@ -194,6 +209,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/3ce004bb-ba71-4560-9382-3b5db645a76d/celebreak.jpg",
   },
   {
+    id: "centre-civic-convent-de-sant-agusti",
     title: "Centre Cívic Convent de Sant Agustí",
     type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/oYJfoYAucbqdjnGF8",
@@ -207,6 +223,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/953eafa7-d81b-408f-8d6c-64498f6eff19/civicconvent.jpg",
   },
   {
+    id: "ciutadella-park",
     title: "Ciutadella Park",
     location: "https://maps.app.goo.gl/3zbVCi4pDm6Ft3Gh8",
     coordinates: { lat: 41.388123, lng: 2.1860152 },
@@ -220,6 +237,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/c9aa5517-c58b-49c9-9b0b-8cec17314621/ciutadella.jpg",
   },
   {
+    id: "museo-de-la-ciencia",
     title: "Museo de la Ciencia",
     type: GUIDE_TYPES.PLACE,
     price: "€8",
@@ -233,6 +251,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/4c34dc8a-6fc9-40b4-bb42-01f2104c5e2a/cosmocaixa.jpg",
   },
   {
+    id: "dr-flow-bar",
     title: "Dr. Flow Bar",
     location: "https://maps.app.goo.gl/49Gq84m8dkRWd59n7",
     coordinates: { lat: 41.3843023, lng: 2.1800432 },
@@ -245,6 +264,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/759da686-4c24-433b-8c66-fa859ab73074/flow.jpg",
   },
   {
+    id: "espai-inmersa",
     title: "Espai Inmersa",
     link: "https://www.espacioinmersa.com/",
     location: "https://maps.app.goo.gl/2SPGLYS7HE68LhdT8",
@@ -258,6 +278,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/87e0f25f-1732-4b3a-b964-fcdc984a800c/inmersa.webp",
   },
   {
+    id: "flamenco-theater-palau-dalmases",
     title: "Flamenco theater - Palau Dalmases",
     type: GUIDE_TYPES.FUN,
     price: "€30",
@@ -271,6 +292,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/d85f8cf3-3404-45dc-89ff-79d32a65e45a/flamenco.webp",
   },
   {
+    id: "flotarium",
     title: "Flotarium",
     price: "€75 for 2",
     tags: [GUIDE_TAGS.RELAXING],
@@ -283,6 +305,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/3595af55-9704-4d8c-a966-e492ea1ed0e1/flotarium.webp",
   },
   {
+    id: "fundacio-joan-miro",
     title: "Fundació Joan Miró",
     price: "€9",
     location: "https://maps.app.goo.gl/WK2VEt35TScS8K7x7",
@@ -296,6 +319,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/f1d20d07-e4c6-4247-aa3b-a891f3af165f/miro.webp",
   },
   {
+    id: "jazz-at-23-robadors",
     title: "Jazz at 23 Robadors",
     price: "€8",
     type: GUIDE_TYPES.FUN,
@@ -308,6 +332,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/dffa80ae-334b-4a7b-a0bc-f2f117966141/jazz.jpg",
   },
   {
+    id: "le-patio-spa-hammam-massage",
     title: "Le Patio Spa - Hammam & Massage",
     location: "https://maps.app.goo.gl/KEbChegURjpuk7RA9",
     coordinates: { lat: 41.3842349, lng: 2.1551735 },
@@ -320,6 +345,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/bf9a6efd-e9e4-45c8-b74b-bf4b0a9aeb90/spapatio.webp",
   },
   {
+    id: "macba",
     title: "MACBA",
     type: GUIDE_TYPES.ACTIVITY,
     price: "€10,80",
@@ -333,6 +359,7 @@ export const items: GuideTableItem[] = [
       "Museu d'Art Contemporani de Barcelona has built a collection of over 5,000 works, concentrating on post-1945 Catalan and Spanish art, while also including international pieces.",
   },
   {
+    id: "mirador-torre-glories",
     title: "Mirador Torre Glòries",
     price: "€18",
     tags: [],
@@ -346,6 +373,7 @@ export const items: GuideTableItem[] = [
       "This skyscraper offers panoramic views of the city and features an interactive exhibition that combines art, technology, and data to explore Barcelona's urban life.",
   },
   {
+    id: "montjuic-cable-car",
     title: "Montjuïc Cable Car",
     price: "€10.80",
     type: GUIDE_TYPES.ACTIVITY,
@@ -359,6 +387,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/ad69c7fa-f7ad-4fa1-9ed1-c712267f669a/d781d1511b10b5792c4e848376c3e88f21526barcelonacombomontjuiccablecaraquariumbarcelona12.jpg",
   },
   {
+    id: "museo-de-ciencias-naturales",
     title: "Museo de Ciencias Naturales de Barcelona",
     tags: [GUIDE_TAGS.FREE_1ST_SUNDAY, GUIDE_TAGS.FREE_AFTER_SUNDAY_3PM],
     type: GUIDE_TYPES.ACTIVITY,
@@ -372,6 +401,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/daaa562e-0119-45ef-af70-9bf932b615e2/museublau.jpg",
   },
   {
+    id: "museo-del-diseno-de-barcelona",
     title: "Museo del Diseño de Barcelona",
     price: "€6.20",
     tags: [GUIDE_TAGS.FREE_1ST_SUNDAY],
@@ -384,6 +414,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/5b555d44-b135-46e6-88c6-eb1db47a9dab/REF_HUB_CT6A6276jpg.webp",
   },
   {
+    id: "museo-nacional-de-arte-de-catalunya",
     title: "Museo Nacional de Arte de Cataluña",
     price: "€12",
     type: GUIDE_TYPES.PLACE,
@@ -401,6 +432,7 @@ export const items: GuideTableItem[] = [
       "Built between 1927 and 1929 within the style known as Eclectic Monumentalism. It houses collections from over a thousand years of Catalan art: painting, sculpture, arts of the object, drawing and engraving, photography, numismatics and medals",
   },
   {
+    id: "nau-bostik",
     title: "Nau Bostik",
     type: GUIDE_TYPES.PLACE,
     tags: [GUIDE_TAGS.LIVE_MUSIC],
@@ -414,6 +446,7 @@ export const items: GuideTableItem[] = [
     link: "https://naubostik.com/",
   },
   {
+    id: "observatori-fabra-dinner-with-stars",
     title: "Observatori Fabra - Dinner with stars",
     link: "https://www.sternalia.com/en/dinners-with-stars.html",
     tags: [],
@@ -425,6 +458,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/75a87700-8671-4cc1-bbbf-688eab2730e7/cenarestrellasbarcelona1_2.jpg",
   },
   {
+    id: "observatori-fabra-night-guided-tour",
     title: "Observatori Fabra - Night guided tour",
     price: "€18.50 - €30",
     type: GUIDE_TYPES.PLACE,
@@ -438,6 +472,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/13fce4bd-7c23-4edd-9c2a-0696bed6455f/15soparsestrellesobservatorifabra.jpg",
   },
   {
+    id: "observatori-fabra-de-barcelona",
     title: "Observatori Fabra de Barcelona",
     tags: [
       GUIDE_TAGS.FREE_1ST_SUNDAY,
@@ -455,6 +490,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/5b40d9a7-b4b6-4fd6-b9e5-de0fa7946e48/cenarestrellasbarcelona8_2.jpg",
   },
   {
+    id: "padel",
     title: "Padel",
     location: "App Dependant",
     link: "https://playtomic.com/",
@@ -467,6 +503,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/f1af4744-2f8b-4f5e-88a3-0deb107e6da3/06d09b0ba9a34328838ba49ce536de82_169discoveraspectratio_default_0.webp",
   },
   {
+    id: "palau-martorell",
     title: "Palau Martorell",
     type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/jrAQMgSNdveGvyKS7",
@@ -479,6 +516,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/76646086-2383-427d-affd-f4045f870854/expoSorolla271_edited.jpg",
   },
   {
+    id: "palo-alto-market",
     title: "Palo Alto Market",
     type: GUIDE_TYPES.FUN,
     tags: [GUIDE_TAGS.LIVE_MUSIC],
@@ -492,6 +530,7 @@ export const items: GuideTableItem[] = [
       "A design market with street music, DJ sessions, food trucks, and many exhibitors selling unique products.",
   },
   {
+    id: "parc-del-laberint-d-horta",
     title: "Parc del Laberint d'Horta",
     price: "€2.23",
     type: GUIDE_TYPES.PLACE,
@@ -504,6 +543,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/f7c4ba13-9e5c-4dbe-832e-0dc18b0792bc/image.webp",
   },
   {
+    id: "pedralbes-monastery",
     title: "Pedralbés Monastery",
     type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/LevoJkbLsJcpcFoT9",
@@ -517,6 +557,7 @@ export const items: GuideTableItem[] = [
       "Gothic monastery with cloisters, gardens, and religious art founded in the 14th Century.",
   },
   {
+    id: "picasso-museum",
     title: "Picasso Museum",
     type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/XxLBErKHus1GPgQA6",
@@ -530,6 +571,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/e34a6c2b-fada-4495-9906-a434b6721a82/picasso.jpg",
   },
   {
+    id: "razzmatazz",
     title: "Razzmatazz",
     type: GUIDE_TYPES.MUSIC,
     location: "https://maps.app.goo.gl/QfjV8VvyudB7nnPn9",
@@ -543,6 +585,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/8299625a-ce48-45ce-b5d7-83fc5b46ee0c/Razzmatazz_c1.jpg",
   },
   {
+    id: "recinte-modernista-de-sant-pau",
     title: "Recinte Modernista de Sant Pau",
     location: "https://maps.app.goo.gl/grFnrFHZ1tM74f5v6",
     coordinates: { lat: 41.4117072, lng: 2.1743395 },
@@ -555,6 +598,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/9f1c9a8b-4d4b-40ef-bff2-7d90ede8be90/ticketsforsantpaurecintemodernistabarcelonaT24.jpg",
   },
   {
+    id: "sagrada-familia",
     title: "Sagrada Familia",
     price: "€31.80",
     type: GUIDE_TYPES.PLACE,
@@ -568,6 +612,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/8f3d2cac-cb34-42ef-8c72-1818236dd2e4/colorsllumnaixementacolumnesscaled.jpg",
   },
   {
+    id: "sailboat-experience-barcelona",
     title: "Sailboat Experience Barcelona",
     location: "https://maps.app.goo.gl/DrDdKV3uPbUPUzg26",
     coordinates: { lat: 41.3877157, lng: 2.1992335 },
@@ -581,6 +626,7 @@ export const items: GuideTableItem[] = [
       "Guided sailing trips along Barcelona's coast with time for a plunge in the Mediterranean.",
   },
   {
+    id: "fly-and-sail",
     title: "Fly & Sail",
     location: "https://maps.app.goo.gl/DrDdKV3uPbUPUzg26",
     coordinates: { lat: 41.3877157, lng: 2.1992335 },
@@ -594,6 +640,7 @@ export const items: GuideTableItem[] = [
       "Experience a 7 minute helicopter journey with up to 3 passengers at a time, then set sail with snacks and drinks.",
   },
   {
+    id: "sala-apolo",
     title: "Sala Apolo",
     location: "https://maps.app.goo.gl/1pe6KwRWYhSqRdqb6",
     coordinates: { lat: 41.3744026, lng: 2.1695739 },
@@ -606,6 +653,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/df1f3f33-9e18-4a17-90d0-a5c2525c8c62/7392967620_a69f21766b_k11536x1024.jpg",
   },
   {
+    id: "shark-diving",
     title: "Shark Diving",
     location: "https://maps.app.goo.gl/ecv77Rp9SeWuUobn7",
     coordinates: { lat: 41.3768344, lng: 2.1819201 },
@@ -618,6 +666,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/3882636d-a689-41f5-b534-220083a5c39f/SUMERGETE_1.webp",
   },
   {
+    id: "skydiving",
     title: "Skydiving",
     price: "€300",
     link: "https://saltamos.es/en/tandem-jump/",
@@ -630,6 +679,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/ecfe5817-c605-4074-8723-483689b4bd89/tadnemskydiveparachuting.jpg",
   },
   {
+    id: "flyboarding",
     title: "Flyboarding",
     price: "€100 - €300",
     link: "https://www.jetscoot.com/es/flyboard.html",
@@ -642,6 +692,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/ba536978-55b1-40ea-b623-f6b23de098eb/PortForum_Barcelone_flyboard_JetScoot_wstvok",
   },
   {
+    id: "teatre-grec",
     title: "Teatre Grec",
     type: GUIDE_TYPES.PLACE,
     location: "https://maps.app.goo.gl/xfbZv7BCyDtfdWbh6",
@@ -655,6 +706,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/34e34c2e-f8b4-4fbd-866d-8dedb4323406/teatregrec16249.jpg",
   },
   {
+    id: "the-comedy-clubhouse",
     title: "The Comedy Clubhouse",
     type: GUIDE_TYPES.FUN,
     price: "Donation",
@@ -668,6 +720,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/8f697a80-b33a-4d6e-af85-a3c76deafcec/theexpatsmattwalsh.jpg",
   },
   {
+    id: "tibidabo-ice-rink",
     title: "Tibidabo Ice Rink",
     tags: [GUIDE_TAGS.WINTER],
     type: GUIDE_TYPES.ACTIVITY,
@@ -680,6 +733,7 @@ export const items: GuideTableItem[] = [
       "https://31m9mhhbv2.ucarecd.net/4a22b461-dd45-42b4-b387-25f21c95fbe1/Pistadegeldenit2_0.jpg",
   },
   {
+    id: "montserrat-abbey",
     title: "Montserrat Abbey",
     type: GUIDE_TYPES.PLACE,
     tags: [GUIDE_TAGS.DAY_TRIP, GUIDE_TAGS.NATURE],
@@ -693,6 +747,7 @@ export const items: GuideTableItem[] = [
       "Take a train to Monistrol de Montserrat and get a Cremallera to the abbey, and witness the best views of the surroundings. Getting the ticket to enter the Abbey is definitely optional.",
   },
   {
+    id: "white-rabbit-museum",
     title: "White Rabbit Museum",
     price: "€15",
     type: GUIDE_TYPES.PLACE,

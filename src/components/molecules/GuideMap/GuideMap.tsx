@@ -1,89 +1,112 @@
-import { Group } from "@/components/atoms/Group";
-import { MapIcon } from "@/components/icons";
-import {
-  GuideDescription,
-  GuideHeader,
-  GuideLink,
-  GuidePrice,
-} from "@/components/molecules/GuideMap/GuideMap.styled";
+import { GuideHeader } from "@/components/molecules/GuideMap/GuideMap.styled";
 import { Picture } from "@/components/molecules/Picture";
 import { items } from "@/content/guide/barcelona";
-import { BasicLink } from "@/styles/routes/guide.styled";
+import { SplitMap } from "@/styles/routes/routes.styled";
+import type { GuideTableItem } from "@/types/Guide";
 import { css } from "@emotion/react";
+import type { Marker as LeafletMarker } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { useEffect, useMemo, useRef } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
-export const GuideMap = () => {
-  return (
-    <div style={{ height: "600px", width: "100%" }}>
-      <MapContainer
-        center={[41.3851, 2.1734]}
-        zoom={13}
-        style={{ height: "100%", width: "100%" }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+type GuideMapProps = {
+  selectedItem?: string | null;
+  isSelectionActive?: boolean;
+  withWrapper?: boolean;
+};
 
-        {items.map(
-          (item, index) =>
-            item.coordinates && (
-              <Marker key={index} position={item.coordinates}>
-                <Popup className="map-popup">
-                  <Group direction="row" gap="0.5rem">
-                    {item.image && (
-                      <Picture
-                        src={item.image}
-                        alt={item.title}
-                        style={css`
-                          flex: 1;
-                          max-height: 100px;
-                        `}
-                      />
-                    )}
-                    <Group
-                      direction="column"
-                      justify="space-between"
-                      gap="0.25rem"
-                      css={css`
-                        flex: 1;
+type MapSelectionProps = {
+  selectedItem?: string | null;
+  isSelectionActive?: boolean;
+  mapItems: GuideTableItem[];
+  markerRefs: React.RefObject<Record<number, LeafletMarker | null>>;
+};
+
+const MapSelectionEffect = ({
+  selectedItem,
+  isSelectionActive,
+  mapItems,
+  markerRefs,
+}: MapSelectionProps) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!isSelectionActive || !selectedItem) return;
+
+    const itemIndex = mapItems.findIndex((item) => item.id === selectedItem);
+    if (itemIndex < 0) return;
+
+    const item = mapItems[itemIndex];
+    if (!item.coordinates) return;
+
+    const marker = markerRefs.current[itemIndex];
+    map.setView(item.coordinates, map.getZoom(), { animate: true });
+    marker?.openPopup();
+  }, [isSelectionActive, map, mapItems, markerRefs, selectedItem]);
+
+  return null;
+};
+
+export const GuideMap = ({
+  selectedItem,
+  isSelectionActive = true,
+  withWrapper = true,
+}: GuideMapProps) => {
+  const markerRefs = useRef<Record<number, LeafletMarker | null>>({});
+  const mapItems = useMemo(() => items, []);
+
+  const mapContent = (
+    <MapContainer
+      center={[41.3851, 2.1734]}
+      zoom={13}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+
+      <MapSelectionEffect
+        selectedItem={selectedItem}
+        isSelectionActive={isSelectionActive}
+        mapItems={mapItems}
+        markerRefs={markerRefs}
+      />
+
+      {mapItems.map(
+        (item, index) =>
+          item.coordinates && (
+            <Marker
+              key={index}
+              position={item.coordinates}
+              ref={(marker) => {
+                markerRefs.current[index] = marker;
+              }}
+            >
+              <Popup className="map-popup">
+                <GuideHeader>{item.title}</GuideHeader>
+                {item.image && (
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    <Picture
+                      src={item.image}
+                      alt={item.title}
+                      style={css`
+                        max-height: 120px;
+                        margin-top: 0.4rem;
                       `}
-                    >
-                      <GuideHeader>{item.title}</GuideHeader>
-                      <GuidePrice>{item.price}</GuidePrice>
-                    </Group>
-                  </Group>
-                  <GuideDescription>{item.description}</GuideDescription>
-
-                  <Group
-                    direction="row"
-                    gap="0.25rem"
-                    align="center"
-                    justify="space-between"
-                  >
-                    <BasicLink
-                      href={item.location}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Map <MapIcon />
-                    </BasicLink>
-                    {item.link && (
-                      <GuideLink
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Visit Website →
-                      </GuideLink>
-                    )}
-                  </Group>
-                </Popup>
-              </Marker>
-            )
-        )}
-      </MapContainer>
-    </div>
+                    />
+                  </a>
+                )}
+              </Popup>
+            </Marker>
+          )
+      )}
+    </MapContainer>
   );
+
+  if (!withWrapper) {
+    return mapContent;
+  }
+
+  return <SplitMap>{mapContent}</SplitMap>;
 };

@@ -29,6 +29,7 @@ export const GUIDE_TYPES = {
 export type GuideType = (typeof GUIDE_TYPES)[keyof typeof GUIDE_TYPES];
 
 export interface GuideTableItem {
+  id: string;
   title: string;
   location: string;
   link: string;

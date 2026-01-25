@@ -30,7 +30,7 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
 export default function Navbar() {
   const { scrollY } = useScroll();
 
-  const size = scrollY.to([0, 80], [140, 50], "clamp");
+  const size = scrollY.to([0, 50], [140, 50], "clamp");
 
   return (
     <Header>

@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 
-export const GuideHeader = styled.h2`
-  font-size: 1.2rem;
+export const GuideHeader = styled.p`
+  font-size: clamp(0.8rem, 0.8rem + 0.4vw, 0.9rem);
+  text-wrap: pretty;
   font-weight: bold;
   &&& {
     margin: 0;
@@ -21,20 +22,5 @@ export const GuideType = styled.p`
   color: ${({ theme }) => theme.gray600};
   &&& {
     margin: 0;
-  }
-`;
-
-export const GuideLink = styled.a`
-  color: ${({ theme }) => theme.blue200};
-  font-weight: bold;
-  &&& {
-    margin: 0;
-  }
-`;
-
-export const GuideDescription = styled.p`
-  font-size: 0.8rem;
-  &&& {
-    margin: 0.5rem 0;
   }
 `;

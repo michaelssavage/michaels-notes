@@ -2,12 +2,15 @@ import { FormLabel } from "@/components/atoms/FormLabel";
 import { Group } from "@/components/atoms/Group";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
 import { Button } from "@/components/molecules/Button";
+import { Drawer } from "@/components/molecules/Drawer";
+import { GuideMap } from "@/components/molecules/GuideMap/GuideMap";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";
+import { useMatchMedia } from "@/hooks/use-match-media.hook";
 import { useTheme } from "@/hooks/use-theme.hook";
 import { customSelectStyles } from "@/styles/react-select.styled";
-import { Page, Panel } from "@/styles/routes/blog.styled";
+import { Page } from "@/styles/routes/blog.styled";
 import {
   BasicLink,
   Card,
@@ -17,10 +20,16 @@ import {
   FilterableTag,
   FilterContainer,
   Grid,
-  LinkTitle,
   LoadMore,
+  MapDrawerClose,
+  MapDrawerContent,
+  MapDrawerHeader,
+  MapDrawerMapArea,
+  MapDrawerTitle,
+  MapDrawerTrigger,
   ResultsCount,
 } from "@/styles/routes/guide.styled";
+import { SplitPanel, SplitView } from "@/styles/routes/routes.styled";
 import {
   GUIDE_TAGS,
   GuideTableItem,
@@ -88,7 +97,11 @@ function RouteComponent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<GuideType | "all">("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTag>>([]);
+
   const [showAll, setShowAll] = useState(false);
+
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [isMapDrawerOpen, setIsMapDrawerOpen] = useState(false);
   const { lightTheme } = useTheme();
 
   const filteredItems = useMemo(() => {
@@ -146,163 +159,206 @@ function RouteComponent() {
 
   const displayedTags = showAll ? uniqueTags : uniqueTags.slice(0, 3);
 
+  const toggleMapDrawer = (open: boolean) => setIsMapDrawerOpen(open);
+
+  const isTablet = useMatchMedia("(max-width: 768px)");
+
+  const handleCardClick = (item: GuideTableItem) => () => {
+    setSelectedItem(item.id);
+    if (isTablet) {
+      toggleMapDrawer(true);
+    }
+  };
+
   return (
     <Page>
-      <Panel>
-        <h1>Barcelona Guide - Què faré avui?</h1>
+      <SplitView>
+        <SplitPanel>
+          <div data-id="guide-header">
+            <h1>Barcelona Guide - Què faré avui?</h1>
 
-        <p>
-          Bon dia! There are many resources to find things to do in Barcelona
-          but I wanted to store my own recommendations here.
-        </p>
+            <p>
+              Bon dia! There are many resources to find things to do in
+              Barcelona but I wanted to store my own recommendations here.
+            </p>
 
-        <FilterContainer>
-          <Group align="center" gap="0.5rem" wrap="wrap">
-            <FormLabel id="search" label="Search">
-              <SearchBox
-                id="search"
-                placeholder="Search cards..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                styles={css`
-                  min-width: fit-content;
-                `}
-              />
-            </FormLabel>
-
-            <FormLabel id="type" label="Type">
-              <Select<GuideTypeOption>
-                id="type"
-                value={
-                  uniqueTypes
-                    .map((type) => ({ value: type, label: type }))
-                    .find((option) => option.value === selectedType) || {
-                    value: "all",
-                    label: "All Types",
-                  }
-                }
-                onChange={(option) => setSelectedType(option?.value ?? "all")}
-                options={[
-                  { value: "all", label: "All Types" },
-                  ...uniqueTypes.map((type) => ({ value: type, label: type })),
-                ]}
-                styles={customSelectStyles<GuideTypeOption>(lightTheme)}
-              />
-            </FormLabel>
-
-            <FormLabel id="tags" label="Tags">
+            <FilterContainer>
               <Group align="center" gap="0.5rem" wrap="wrap">
-                {displayedTags.map((tag) => (
-                  <Button
-                    variant="pill"
-                    key={tag}
-                    id={`tag-${tag}`}
-                    selected={selectedTags.includes(tag)}
-                    onClick={() => handleTagClick(tag)}
-                    text={getTagLabel(tag)}
+                <FormLabel id="search" label="Search">
+                  <SearchBox
+                    id="search"
+                    placeholder="Search cards..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    styles={css`
+                      min-width: fit-content;
+                    `}
                   />
-                ))}
-                <Button
-                  text={showAll ? "Show less" : "Show all"}
-                  variant="link"
-                  onClick={handleShow}
-                />
+                </FormLabel>
+
+                <FormLabel id="type" label="Type">
+                  <Select<GuideTypeOption>
+                    id="type"
+                    value={
+                      uniqueTypes
+                        .map((type) => ({ value: type, label: type }))
+                        .find((option) => option.value === selectedType) || {
+                        value: "all",
+                        label: "All Types",
+                      }
+                    }
+                    onChange={(option) =>
+                      setSelectedType(option?.value ?? "all")
+                    }
+                    options={[
+                      { value: "all", label: "All Types" },
+                      ...uniqueTypes.map((type) => ({
+                        value: type,
+                        label: type,
+                      })),
+                    ]}
+                    styles={customSelectStyles<GuideTypeOption>(lightTheme)}
+                  />
+                </FormLabel>
+
+                <FormLabel id="tags" label="Tags">
+                  <Group align="center" gap="0.5rem" wrap="wrap">
+                    {displayedTags.map((tag) => (
+                      <Button
+                        variant="pill"
+                        key={tag}
+                        id={`tag-${tag}`}
+                        selected={selectedTags.includes(tag)}
+                        onClick={() => handleTagClick(tag)}
+                        text={getTagLabel(tag)}
+                      />
+                    ))}
+                    <Button
+                      text={showAll ? "Show less" : "Show all"}
+                      variant="link"
+                      onClick={handleShow}
+                    />
+                  </Group>
+                </FormLabel>
               </Group>
-            </FormLabel>
-          </Group>
 
-          {hasActiveFilters && (
-            <Group>
-              <ClearFiltersButton onClick={clearAllFilters}>
-                Clear All Filters
-              </ClearFiltersButton>
+              {hasActiveFilters && (
+                <Group>
+                  <ClearFiltersButton onClick={clearAllFilters}>
+                    Clear All Filters
+                  </ClearFiltersButton>
+                </Group>
+              )}
+            </FilterContainer>
+
+            <Group justify="flex-end" margin="0 0 1rem 0">
+              <ResultsCount>
+                Showing {displayedCount} of {filteredItems.length} places
+              </ResultsCount>
             </Group>
-          )}
-        </FilterContainer>
+          </div>
 
-        <Group justify="flex-end" margin="0 0 1rem 0">
-          <ResultsCount>
-            Showing {displayedCount} of {filteredItems.length} places
-          </ResultsCount>
-        </Group>
+          <Grid>
+            {displayedItems.map((item, index) => {
+              return (
+                <Card key={index} onClick={handleCardClick(item)}>
+                  {item.image ? (
+                    <img
+                      data-id="image"
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                    />
+                  ) : null}
 
-        <Grid>
-          {displayedItems.map((item, index) => {
-            return (
-              <Card key={index}>
-                {item.image ? (
-                  <img
-                    data-id="image"
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                ) : null}
+                  <p data-id="type">{item.type}</p>
+                  <p data-id="price">{item.price}</p>
 
-                <p data-id="type">{item.type}</p>
-                <p data-id="price">{item.price}</p>
-
-                <CardBody>
-                  <LinkTitle
-                    data-id="link"
-                    href={item.link}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
+                  <CardBody>
                     <h2>{item.title}</h2>
-                  </LinkTitle>
-                  <p data-id="description">{item.description}</p>
+                    <p data-id="description">{item.description}</p>
 
-                  {item.tags.length > 0 && (
-                    <p data-id="tags">
-                      {item.tags?.map((tag) => (
-                        <FilterableTag
-                          key={tag}
-                          $isActive={isTagActive(tag)}
-                          onClick={() => handleTagClick(tag)}
-                        >
-                          {getTagLabel(tag)}
-                        </FilterableTag>
-                      ))}
-                    </p>
-                  )}
-                </CardBody>
+                    {item.tags.length > 0 && (
+                      <p data-id="tags">
+                        {item.tags?.map((tag) => (
+                          <FilterableTag
+                            key={tag}
+                            $isActive={isTagActive(tag)}
+                            onClick={() => handleTagClick(tag)}
+                          >
+                            {getTagLabel(tag)}
+                          </FilterableTag>
+                        ))}
+                      </p>
+                    )}
+                  </CardBody>
 
-                <CardFooter>
-                  <BasicLink
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Info <ExternalLinkIcon />
-                  </BasicLink>
+                  <CardFooter>
+                    <BasicLink
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      Info <ExternalLinkIcon />
+                    </BasicLink>
 
-                  <BasicLink
-                    href={item.location}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Map <MapIcon />
-                  </BasicLink>
-                </CardFooter>
-              </Card>
-            );
-          })}
-        </Grid>
+                    <BasicLink
+                      href={item.location}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      Map <MapIcon />
+                    </BasicLink>
+                  </CardFooter>
+                </Card>
+              );
+            })}
+          </Grid>
 
-        {hasMore && (
-          <LoadMore ref={loaderRef} onClick={loadMore} tabIndex={0}>
-            <p>Loading more places...</p>
-          </LoadMore>
-        )}
+          {hasMore && (
+            <LoadMore ref={loaderRef} onClick={loadMore} tabIndex={0}>
+              <p>Loading more places...</p>
+            </LoadMore>
+          )}
 
-        {filteredItems.length === 0 && (
-          <LoadMore>
-            <h3>No places found</h3>
-            <p>Try adjusting your search terms or filters.</p>
-          </LoadMore>
-        )}
-      </Panel>
+          {filteredItems.length === 0 && (
+            <LoadMore>
+              <h3>No places found</h3>
+              <p>Try adjusting your search terms or filters.</p>
+            </LoadMore>
+          )}
+        </SplitPanel>
+        <GuideMap selectedItem={selectedItem} />
+      </SplitView>
+
+      <MapDrawerTrigger onClick={() => toggleMapDrawer(true)}>
+        Open map
+      </MapDrawerTrigger>
+
+      <Drawer
+        title="Map view"
+        description="Map of Barcelona with markers for each place."
+        isOpen={isMapDrawerOpen}
+        onOpenChange={toggleMapDrawer}
+      >
+        <MapDrawerContent>
+          <MapDrawerHeader>
+            <MapDrawerTitle>Map view</MapDrawerTitle>
+            <MapDrawerClose onClick={() => toggleMapDrawer(false)}>
+              Close
+            </MapDrawerClose>
+          </MapDrawerHeader>
+          <MapDrawerMapArea>
+            <GuideMap
+              selectedItem={selectedItem}
+              isSelectionActive={isMapDrawerOpen}
+              withWrapper={false}
+            />
+          </MapDrawerMapArea>
+        </MapDrawerContent>
+      </Drawer>
     </Page>
   );
 }
