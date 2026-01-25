@@ -1,18 +1,14 @@
 import { GuideHeader } from "@/components/molecules/GuideMap/GuideMap.styled";
 import { Picture } from "@/components/molecules/Picture";
+import { items } from "@/content/guide/barcelona";
+import { LeafletProvider } from "@/context/LeafletProvider";
 import type { GuideTableItem } from "@/types/Guide";
 import { css } from "@emotion/react";
-import { useEffect, useRef } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-
-if (typeof window !== "undefined") {
-  import("leaflet/dist/leaflet.css");
-}
+import { useEffect, useMemo, useRef } from "react";
 
 type LeafletMapProps = {
   selectedItem?: string | null;
   isSelectionActive?: boolean;
-  mapItems: GuideTableItem[];
 };
 
 type MapSelectionProps = {
@@ -20,6 +16,8 @@ type MapSelectionProps = {
   isSelectionActive?: boolean;
   mapItems: GuideTableItem[];
   markerRefs: React.RefObject<Record<number, unknown | null>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useMap: () => any;
 };
 
 const MapSelectionEffect = ({
@@ -27,6 +25,7 @@ const MapSelectionEffect = ({
   isSelectionActive,
   mapItems,
   markerRefs,
+  useMap,
 }: MapSelectionProps) => {
   const map = useMap();
 
@@ -50,57 +49,66 @@ const MapSelectionEffect = ({
 const LeafletMap = ({
   selectedItem,
   isSelectionActive = true,
-  mapItems,
 }: LeafletMapProps) => {
   const markerRefs = useRef<Record<number, unknown | null>>({});
+  const mapItems = useMemo(() => items, []);
 
   return (
-    <MapContainer
-      center={[41.3851, 2.1734]}
-      zoom={13}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <LeafletProvider>
+      {({ MapContainer, TileLayer, Marker, Popup, useMap }) => (
+        <MapContainer
+          center={[41.3851, 2.1734]}
+          zoom={13}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
-      <MapSelectionEffect
-        selectedItem={selectedItem}
-        isSelectionActive={isSelectionActive}
-        mapItems={mapItems}
-        markerRefs={markerRefs}
-      />
+          <MapSelectionEffect
+            selectedItem={selectedItem}
+            isSelectionActive={isSelectionActive}
+            mapItems={mapItems}
+            markerRefs={markerRefs}
+            useMap={useMap}
+          />
 
-      {mapItems.map(
-        (item, index) =>
-          item.coordinates && (
-            <Marker
-              key={index}
-              position={item.coordinates}
-              ref={(marker) => {
-                markerRefs.current[index] = marker;
-              }}
-            >
-              <Popup className="map-popup">
-                <GuideHeader>{item.title}</GuideHeader>
-                {item.image && (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    <Picture
-                      src={item.image}
-                      alt={item.title}
-                      style={css`
-                        max-height: 120px;
-                        margin-top: 0.4rem;
-                      `}
-                    />
-                  </a>
-                )}
-              </Popup>
-            </Marker>
-          )
+          {mapItems.map(
+            (item, index) =>
+              item.coordinates && (
+                <Marker
+                  key={index}
+                  position={item.coordinates}
+                  ref={(marker) => {
+                    markerRefs.current[index] = marker;
+                  }}
+                >
+                  <Popup className="map-popup">
+                    <GuideHeader>{item.title}</GuideHeader>
+                    {item.image && (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Picture
+                          src={item.image}
+                          alt={item.title}
+                          style={css`
+                            max-height: 120px;
+                            margin-top: 0.4rem;
+                          `}
+                        />
+                      </a>
+                    )}
+                  </Popup>
+                </Marker>
+              )
+          )}
+        </MapContainer>
       )}
-    </MapContainer>
+    </LeafletProvider>
   );
 };
 
