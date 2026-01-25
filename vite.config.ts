@@ -12,16 +12,6 @@ export default defineConfig({
   server: { port: 3000 },
   optimizeDeps: {
     include: ["@emotion/styled"],
-    exclude: ["leaflet", "react-leaflet"],
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          leaflet: ["leaflet", "react-leaflet"],
-        },
-      },
-    },
   },
   ssr: {
     optimizeDeps: {
