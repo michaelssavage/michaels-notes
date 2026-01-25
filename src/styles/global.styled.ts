@@ -1,7 +1,7 @@
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
 import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { fonts } from "@/styles/abstracts/fonts.styled";
-import { forBreakAt } from "@/styles/abstracts/mixins.styled";
+import { forBreakAt, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
 import { css } from "@emotion/react";
 
@@ -153,4 +153,10 @@ export const globalStyles = (theme: MyTheme) => css`
       `,
     })}
   }
+  ${forTabletOnly(css`
+    .map-popup {
+      min-width: 100px;
+      max-width: 100px;
+    }
+  `)}
 `;

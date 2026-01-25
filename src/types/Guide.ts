@@ -37,6 +37,7 @@ export interface GuideTableItem {
   description?: string;
   tags: Array<GuideTag>;
   type: GuideType;
+  coordinates?: { lat: number; lng: number };
 }
 
 export const TAG_META: Record<string, { label: string; priority?: number }> = {

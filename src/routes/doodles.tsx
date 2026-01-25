@@ -1,7 +1,8 @@
 import { Picture } from "@/components/molecules/Picture";
 import { Page, Panel } from "@/styles/routes/blog.styled";
-import { GridLineContainer } from "@/styles/routes/routes.styled";
+import { masonryImgStyles } from "@/styles/routes/routes.styled";
 import { createFileRoute } from "@tanstack/react-router";
+import { Masonry } from "masonic";
 
 const title = "Doodles | Michael Savage";
 const description =
@@ -24,7 +25,17 @@ export const Route = createFileRoute("/doodles")({
 
 const doodles = import.meta.glob(
   "/src/content/doodles/*.{png,jpg,jpeg,webp,svg}",
-  { eager: true, as: "url" },
+  { eager: true, as: "url" }
+);
+const doodleEntries = Object.entries(doodles);
+
+const MasonryImg = ({ data: [path, src] }: { data: [string, string] }) => (
+  <Picture
+    src={src}
+    alt={path.split("/").pop()?.replace(/\..+$/, "") || ""}
+    fit="contain"
+    style={masonryImgStyles}
+  />
 );
 
 function RouteComponent() {
@@ -34,16 +45,12 @@ function RouteComponent() {
         <h1>Doodles</h1>
       </Panel>
 
-      <GridLineContainer>
-        {Object.entries(doodles).map(([path, src]) => (
-          <Picture
-            key={path}
-            src={src}
-            alt={path.split("/").pop()?.replace(/\..+$/, "") || ""}
-            fit="contain"
-          />
-        ))}
-      </GridLineContainer>
+      <Masonry
+        items={doodleEntries}
+        render={MasonryImg}
+        columnGutter={8}
+        columnWidth={250}
+      />
     </Page>
   );
 }
