@@ -3,7 +3,7 @@ import { Group } from "@/components/atoms/Group";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
 import { Button } from "@/components/molecules/Button";
 import { Drawer } from "@/components/molecules/Drawer";
-import { GuideMap } from "@/components/molecules/GuideMap/GuideMap";
+import { GuideMap } from "@/components/molecules/GuideMap/GuideMap.ssr";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { items } from "@/content/guide/barcelona";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";

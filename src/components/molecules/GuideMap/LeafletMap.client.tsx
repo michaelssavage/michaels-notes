@@ -2,9 +2,12 @@ import { GuideHeader } from "@/components/molecules/GuideMap/GuideMap.styled";
 import { Picture } from "@/components/molecules/Picture";
 import type { GuideTableItem } from "@/types/Guide";
 import { css } from "@emotion/react";
-import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+
+if (typeof window !== "undefined") {
+  import("leaflet/dist/leaflet.css");
+}
 
 type LeafletMapProps = {
   selectedItem?: string | null;

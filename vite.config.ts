@@ -17,7 +17,6 @@ export default defineConfig({
     optimizeDeps: {
       include: ["@emotion/styled"],
     },
-    noExternal: [],
     external: ["leaflet", "react-leaflet"],
   },
   plugins: [
