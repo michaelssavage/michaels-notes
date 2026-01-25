@@ -1,9 +1,7 @@
 import { Loading } from "@/components/molecules/Loading";
 import { SplitMap } from "@/styles/routes/routes.styled";
 import { useHydrated } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-
-type GuideMapClient = typeof import("./GuideMap.client").default;
+import { Suspense, lazy } from "react";
 
 type GuideMapProps = {
   selectedItem?: string | null;
@@ -11,41 +9,28 @@ type GuideMapProps = {
   withWrapper?: boolean;
 };
 
+const canUseDOM = typeof window !== "undefined";
+const LazyGuideMap = canUseDOM ? lazy(() => import("./GuideMap.client")) : null;
+
 export const GuideMap = ({
   selectedItem,
   isSelectionActive = true,
   withWrapper = true,
 }: GuideMapProps) => {
   const isHydrated = useHydrated();
-  const [ClientOnlyMap, setClientOnlyMap] = useState<GuideMapClient | null>(
-    null
-  );
+  const loadingContent = <Loading />;
 
-  useEffect(() => {
-    if (!isHydrated) return;
-    let isActive = true;
-
-    import("./GuideMap.client").then((module) => {
-      if (isActive) {
-        setClientOnlyMap(() => module.default);
-      }
-    });
-
-    return () => {
-      isActive = false;
-    };
-  }, [isHydrated]);
-
-  if (!isHydrated || !ClientOnlyMap) {
-    const loadingContent = <Loading />;
+  if (!isHydrated || !LazyGuideMap) {
     return withWrapper ? <SplitMap>{loadingContent}</SplitMap> : loadingContent;
   }
 
   const mapContent = (
-    <ClientOnlyMap
-      selectedItem={selectedItem}
-      isSelectionActive={isSelectionActive}
-    />
+    <Suspense fallback={loadingContent}>
+      <LazyGuideMap
+        selectedItem={selectedItem}
+        isSelectionActive={isSelectionActive}
+      />
+    </Suspense>
   );
 
   return withWrapper ? <SplitMap>{mapContent}</SplitMap> : mapContent;
