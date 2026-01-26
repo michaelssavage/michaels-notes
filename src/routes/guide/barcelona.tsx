@@ -157,7 +157,7 @@ function RouteComponent() {
   const hasActiveFilters =
     searchTerm !== "" || selectedType !== "all" || selectedTags.length > 0;
 
-  const displayedTags = showAll ? uniqueTags : uniqueTags.slice(0, 3);
+  const displayedTags = showAll ? uniqueTags : uniqueTags.slice(0, 5);
 
   const toggleMapDrawer = (open: boolean) => setIsMapDrawerOpen(open);
 
@@ -350,7 +350,7 @@ function RouteComponent() {
               Close
             </MapDrawerClose>
           </MapDrawerHeader>
-          <MapDrawerMapArea>
+          <MapDrawerMapArea data-vaul-no-drag>
             <GuideMap
               selectedItem={selectedItem}
               isSelectionActive={isMapDrawerOpen}

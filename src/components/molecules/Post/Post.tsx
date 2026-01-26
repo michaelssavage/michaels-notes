@@ -34,7 +34,7 @@ const Post = ({
       },
       {
         threshold: 0.1,
-      },
+      }
     );
 
     observer.observe(ref.current);
@@ -78,10 +78,7 @@ const Post = ({
       >
         <CardInfo>
           <Title id={`post-title-${slug}`}>{title}</Title>
-          <PostType>
-            {isExternal && "ext. "}
-            {type}
-          </PostType>
+          <PostType>{isExternal ? "plantbassd.com" : type}</PostType>
         </CardInfo>
 
         <DateText>{date}</DateText>

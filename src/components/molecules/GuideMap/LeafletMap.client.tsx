@@ -4,7 +4,8 @@ import { items } from "@/content/guide/barcelona";
 import { LeafletProvider } from "@/context/LeafletProvider";
 import type { GuideTableItem } from "@/types/Guide";
 import { css } from "@emotion/react";
-import { useEffect, useMemo, useRef } from "react";
+import { Map, Marker } from "leaflet";
+import { RefObject, useEffect, useMemo, useRef } from "react";
 
 type LeafletMapProps = {
   selectedItem?: string | null;
@@ -15,12 +16,11 @@ type MapSelectionProps = {
   selectedItem?: string | null;
   isSelectionActive?: boolean;
   mapItems: GuideTableItem[];
-  markerRefs: React.RefObject<Record<number, unknown | null>>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  useMap: () => any;
+  markerRefs: RefObject<Record<number, Marker | null>>;
+  useMap: () => Map;
 };
 
-const MapSelectionEffect = ({
+const MapMarkerView = ({
   selectedItem,
   isSelectionActive,
   mapItems,
@@ -39,8 +39,16 @@ const MapSelectionEffect = ({
     if (!item.coordinates) return;
 
     const marker = markerRefs.current[itemIndex];
+    if (!marker) return;
+
     map.setView(item.coordinates, map.getZoom(), { animate: true });
-    (marker as unknown as { openPopup: () => void })?.openPopup();
+
+    const open = () => {
+      marker.openPopup();
+      map.off("moveend", open);
+    };
+
+    map.on("moveend", open);
   }, [isSelectionActive, map, mapItems, markerRefs, selectedItem]);
 
   return null;
@@ -50,7 +58,7 @@ const LeafletMap = ({
   selectedItem,
   isSelectionActive = true,
 }: LeafletMapProps) => {
-  const markerRefs = useRef<Record<number, unknown | null>>({});
+  const markerRefs = useRef<Record<number, Marker | null>>({});
   const mapItems = useMemo(() => items, []);
 
   return (
@@ -66,7 +74,7 @@ const LeafletMap = ({
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          <MapSelectionEffect
+          <MapMarkerView
             selectedItem={selectedItem}
             isSelectionActive={isSelectionActive}
             mapItems={mapItems}
@@ -84,7 +92,7 @@ const LeafletMap = ({
                     markerRefs.current[index] = marker;
                   }}
                 >
-                  <Popup className="map-popup">
+                  <Popup autoPan={false} className="map-popup">
                     <GuideHeader>{item.title}</GuideHeader>
                     {item.image && (
                       <a
