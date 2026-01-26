@@ -63,7 +63,7 @@ function Blog() {
     (updates: Partial<FilterState>) => {
       setFilter({ ...filter, ...updates });
     },
-    [filter],
+    [filter]
   );
 
   const data = Route.useLoaderData();
@@ -102,17 +102,17 @@ function Blog() {
 
     const filteredBites = isBite
       ? bites.filter(({ description }) =>
-          description.toLowerCase().includes(searchLowercase),
+          description.toLowerCase().includes(searchLowercase)
         )
       : [];
 
     return [...filteredBlogs, ...filteredReviews, ...filteredBites].sort(
-      sortByDate,
+      sortByDate
     );
   }, [filter, searchQuery, blogs, bites, reviews]);
 
   const activeFilters = Object.keys(filter).filter(
-    (key) => filter[key as keyof FilterState],
+    (key) => filter[key as keyof FilterState]
   );
 
   const dataFilters =
@@ -133,6 +133,51 @@ function Blog() {
             />
           </Heading>
         </Group>
+        <Info data-filter={dataFilters}>
+          Here you can find blog posts about my{" "}
+          <span data-id="onSite">learnings and mishaps</span>,{" "}
+          <span data-id="isReview">reviews of movies and music</span>, previous{" "}
+          <span data-id="isPlantBassd">Plant Bass&apos;d articles</span>, , and{" "}
+          <span data-id="isBite">bite-sized achievements</span>.
+        </Info>
+        <Group wrap="wrap">
+          <p data-id="filter-post-title">Filters posts:</p>
+          <ButtonGroup>
+            <Button
+              icon={<CircleIcon dataId="onSite" />}
+              text="Posts"
+              variant="ghost"
+              onClick={() => handleFilter({ onSite: !filter.onSite })}
+              active={filter.onSite}
+            />
+
+            <Button
+              icon={<CircleIcon dataId="isReview" />}
+              text="Reviews"
+              variant="ghost"
+              onClick={() => handleFilter({ isReview: !filter.isReview })}
+              active={filter.isReview}
+            />
+
+            <Button
+              icon={<CircleIcon dataId="isBite" />}
+              text="Bites"
+              variant="ghost"
+              onClick={() => handleFilter({ isBite: !filter.isBite })}
+              active={filter.isBite}
+            />
+
+            <Button
+              icon={<CircleIcon dataId="isPlantBassd" />}
+              text="Plant Bass'd"
+              variant="ghost"
+              onClick={() =>
+                handleFilter({ isPlantBassd: !filter.isPlantBassd })
+              }
+              active={filter.isPlantBassd}
+            />
+          </ButtonGroup>
+        </Group>
         <Filter>
           <SearchBox
             id="search-item"
@@ -141,52 +186,6 @@ function Blog() {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Spotify..."
           />
-          <Group wrap="wrap">
-            <p data-id="filter-post-title">Filters posts:</p>
-            <ButtonGroup>
-              <Button
-                icon={<CircleIcon dataId="onSite" />}
-                text="Posts"
-                variant="ghost"
-                onClick={() => handleFilter({ onSite: !filter.onSite })}
-                active={filter.onSite}
-              />
-
-              <Button
-                icon={<CircleIcon dataId="isReview" />}
-                text="Reviews"
-                variant="ghost"
-                onClick={() => handleFilter({ isReview: !filter.isReview })}
-                active={filter.isReview}
-              />
-
-              <Button
-                icon={<CircleIcon dataId="isBite" />}
-                text="Bites"
-                variant="ghost"
-                onClick={() => handleFilter({ isBite: !filter.isBite })}
-                active={filter.isBite}
-              />
-
-              <Button
-                icon={<CircleIcon dataId="isPlantBassd" />}
-                text="Plant Bass'd"
-                variant="ghost"
-                onClick={() =>
-                  handleFilter({ isPlantBassd: !filter.isPlantBassd })
-                }
-                active={filter.isPlantBassd}
-              />
-            </ButtonGroup>
-            <Info data-filter={dataFilters}>
-              <span data-id="onSite">Blog posts</span> about learnings and
-              mishaps, movies and music, previous{" "}
-              <span data-id="isPlantBassd">Plant Bass&apos;d articles</span>,{" "}
-              <span data-id="isReview">reviews of films and media</span>, and{" "}
-              <span data-id="isBite">bite-sized achievements</span> along my
-              journey.
-            </Info>
-          </Group>
         </Filter>
 
         <HomeLine />
