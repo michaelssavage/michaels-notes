@@ -44,7 +44,7 @@ function Projects() {
   const [showAll, setShowAll] = useState(false);
   const displayedTechnologies = showAll
     ? TECHNOLOGIES
-    : TECHNOLOGIES.slice(0, 3);
+    : TECHNOLOGIES.slice(0, 5);
 
   const handleShow = () => setShowAll((prev) => !prev);
 

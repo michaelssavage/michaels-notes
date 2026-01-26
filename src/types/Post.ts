@@ -36,23 +36,23 @@ export interface IBite {
 
 export const TECHNOLOGIES = [
   "React.js",
+  "Django",
+  "GenAI",
+  "TypeScript",
+  "React Query",
+  "PostgreSQL",
+  "Python",
   "Express.js",
-  "MDX",
   "MongoDB",
   "Next.js",
   "Nest.js",
-  "PostgreSQL",
-  "TypeScript",
+  "Tailwind",
+  "MDX",
   "BeautifulSoup",
-  "Django",
-  "Firestore",
-  "Python",
   "PYQT5",
-  "React Query",
   "SciKit-Learn",
   "SCSS",
   "SpaCy",
-  "Spring Boot",
 ] as const;
 
 export type ITechnology = (typeof TECHNOLOGIES)[number];
