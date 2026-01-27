@@ -11,10 +11,6 @@ interface CardWrapperProps {
   $shouldDim: boolean | null;
 }
 
-export const Page = styled.section`
-  margin: 2rem 0;
-`;
-
 export const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, minmax(180px, 1fr));
@@ -34,8 +30,8 @@ export const GridContainer = styled.div`
   `)}
 
   ${forPhoneOnly(css`
-    gap: 1rem;
-    grid-template-columns: repeat(1, minmax(180px, 1fr));
+    gap: 0.5rem;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
   `)}
 `;
 
@@ -128,7 +124,7 @@ export const Header = styled.div`
   }
 
   ${forPhoneOnly(css`
-    margin: 0 5% 2rem;
+    margin-bottom: 1rem;
   `)}
 
   p[data-id="filter-projects"] {

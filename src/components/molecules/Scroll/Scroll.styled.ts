@@ -1,4 +1,4 @@
-import type { SerializedStyles } from "@emotion/react";
+import { type SerializedStyles, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const ScrollContainer = styled.div`
@@ -13,18 +13,15 @@ export const ScrollContainer = styled.div`
   svg[aria-label="left icon"],
   svg[aria-label="right icon"] {
     position: absolute;
-    top: 70%;
-    transform: translateY(-70%);
-    color: ${({ theme }) => theme.gray400};
-    border: none;
+    top: calc(0.9rem + 50%); // 0.6rem padding + 50% of ItemContainer
+    transform: translateY(-50%);
+    color: ${({ theme }) => theme.black};
+    background-color: ${({ theme }) => theme.white};
+    border: 1px solid ${({ theme }) => theme.black};
     border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
-
-    &:hover {
-      color: ${({ theme }) => theme.black};
-    }
 
     &:focus {
       outline: none;
@@ -32,17 +29,17 @@ export const ScrollContainer = styled.div`
   }
 
   svg[aria-label="left icon"] {
-    left: calc(-10px - 1.5rem);
+    left: calc(-1rem);
   }
   svg[aria-label="right icon"] {
-    right: calc(-10px - 1.5rem);
+    right: calc(-1rem);
   }
 `;
 
 export const ItemContainer = styled.div`
   display: flex;
   gap: 1rem;
-  padding: 10px;
+  padding: 0.6rem 0;
 `;
 
 export const Title = styled.h3`
@@ -58,7 +55,11 @@ export const Title = styled.h3`
   }
 `;
 
-export const ComponentWrapper = styled.div<{ spacing?: SerializedStyles }>`
+export const ComponentWrapper = styled.div<{ $spacing?: SerializedStyles }>`
   position: relative;
-  ${({ spacing }) => spacing};
+  ${({ $spacing }) =>
+    $spacing ??
+    css`
+      margin: 0 0.5rem;
+    `};
 `;

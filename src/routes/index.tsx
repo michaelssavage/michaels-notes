@@ -141,7 +141,7 @@ function Blog() {
           <span data-id="isBite">bite-sized achievements</span>.
         </Info>
         <Group wrap="wrap">
-          <p data-id="filter-post-title">Filters posts:</p>
+          <p data-id="filter-post-title">Filter:</p>
           <ButtonGroup>
             <Button
               icon={<CircleIcon dataId="onSite" />}
@@ -181,7 +181,7 @@ function Blog() {
         <Filter>
           <SearchBox
             id="search-item"
-            label="Search posts:"
+            label="Search:"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Spotify..."

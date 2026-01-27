@@ -17,7 +17,7 @@ test.describe("Projects Page", () => {
   }) => {
     await expect(page).toHaveTitle(/Projects | Michael Savage/);
     await expect(
-      page.getByText("Personal development through side projects")
+      page.getByText("Personal development & side projects")
     ).toBeVisible();
   });
 

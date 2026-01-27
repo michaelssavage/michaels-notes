@@ -1,3 +1,4 @@
+import { Group } from "@/components/atoms/Group";
 import {
   ExternalLinkIcon,
   MaximiseIcon,
@@ -23,7 +24,6 @@ import {
   FactContent,
   FactLink,
   NowPlaying,
-  Player,
   Title,
 } from "./CurrentPlay.styled";
 
@@ -54,9 +54,14 @@ export const CurrentPlay = () => {
   const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 
   const factColor = useMemo(
-    () => (dominantColor ? getContrastYIQ(dominantColor) : theme.gray400),
-    [dominantColor, theme.gray400],
+    () => (dominantColor ? getContrastYIQ(dominantColor) : theme.gray600),
+    [dominantColor, theme.gray600]
   );
+
+  console.log({
+    dominantColor,
+    factColor,
+  });
 
   const fact = useSanitizedHTML(trackFact?.artist?.bio?.summary ?? "");
   const hasFact = trackFact?.artist?.bio?.content !== "";
@@ -106,7 +111,7 @@ export const CurrentPlay = () => {
       </Title>
       {trackData && (
         <NowPlaying color={dominantColor ?? ""}>
-          <Player color={dominantColor ?? ""}>
+          <Group direction="row" gap="0" align="center">
             <Picture
               src={trackData.albumArtUrl || ""}
               alt="Album Art"
@@ -127,7 +132,7 @@ export const CurrentPlay = () => {
                 />
               )}
             </Content>
-          </Player>
+          </Group>
 
           {hasFact && (
             <>

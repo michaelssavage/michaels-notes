@@ -8,11 +8,10 @@ import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import { sortById } from "@/lib/utils";
 import { getProjects } from "@/server/posts.api";
-import { Container } from "@/styles/abstracts/layout.styled";
+import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   GridContainer,
   Header,
-  Page,
   SpotifyContent,
 } from "@/styles/routes/projects.styled";
 import { type IProject, type ITechnology, TECHNOLOGIES } from "@/types/Post";
@@ -63,10 +62,10 @@ function Projects() {
 
   return (
     <Page>
-      <Container>
+      <Panel>
         <Header>
           <h1 data-testid="projects-description">
-            Personal development through side projects
+            Personal development & side projects
           </h1>
           <Group wrap="wrap" align="center" gap="0.5rem">
             <p data-id="filter-projects">Filters projects:</p>
@@ -102,17 +101,17 @@ function Projects() {
               ))
           )}
         </GridContainer>
-      </Container>
-      <Container margin="2rem 10% 0">
+      </Panel>
+
+      <Panel>
         <Suspense fallback={<Loading />}>
           <SpotifyContent>
             <Header>
-              <h2>Consuming Spotify Music</h2>
+              <h2>What am I listening to?</h2>
               <p>
-                Below you can see the top 10 tracks I&apos;ve listened to
-                recently and my last listened to song. If I&apos;m online it
-                will display what I&apos;m currently listening to. You can read
-                more about how I set up the{" "}
+                Below you can see what I&apos;ve been listening to recently, as
+                well as the top 10 most played tracks. If I&apos;m online, my
+                currently playing track will be displayed. Read more here:
                 <Anchor
                   link="/blog/spotify-developer-api"
                   text="Spotify API here."
@@ -126,7 +125,7 @@ function Projects() {
             <TopTracks />
           </SpotifyContent>
         </Suspense>
-      </Container>
+      </Panel>
     </Page>
   );
 }

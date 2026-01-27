@@ -36,7 +36,7 @@ function About() {
     <Content>
       <SectionInView delay={0}>
         <Paragraph>
-          <Group align="center" gap="2rem" css={breakpoint}>
+          <Group align="center" gap="1rem" css={breakpoint}>
             <Picture
               src="/portrait.jpg"
               alt="Picture of Me"
@@ -59,7 +59,7 @@ function About() {
 
       <SectionInView delay={100}>
         <Paragraph>
-          <Group align="center" gap="2rem" css={reverseBreak}>
+          <Group align="center" gap="1rem" css={reverseBreak}>
             <p>
               I co-created{" "}
               <Anchor
@@ -89,7 +89,13 @@ function About() {
 
       <SectionInView delay={300}>
         <Paragraph>
-          <Group align="center" gap="2rem">
+          <Group align="center" gap="1rem" css={breakpoint}>
+            <Picture
+              src="/gaelic-ball.png"
+              alt="Gaelic Ball"
+              style={selfieStyle}
+            />
+
             <p>
               I&apos;ve played sports like Gaelic Football and rugby growing up
               in Ireland. I represented Ulster Club u18s rugby, and I&apos;ve

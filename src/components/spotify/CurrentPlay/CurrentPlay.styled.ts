@@ -1,4 +1,5 @@
 import { getContrastYIQ } from "@/lib/colors";
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -19,7 +20,7 @@ export const Comp = styled.div`
   flex-direction: column;
 `;
 
-export const NowPlaying = styled.div<{ color: string }>`
+export const NowPlaying = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
@@ -52,6 +53,11 @@ export const NowPlaying = styled.div<{ color: string }>`
     &:hover {
       transform: translateY(-5px);
     }
+
+    ${forPhoneOnly(css`
+      width: 1.5rem;
+      height: 1.5rem;
+    `)}
   }
 `;
 
@@ -78,13 +84,14 @@ export const FactLink = styled.p<FactContentProps>`
 
 export const ExpandButton = styled.button`
   position: absolute;
-  bottom: -0.5rem;
+  bottom: -0.6rem;
   left: 50%;
   transform: translateX(-50%);
   background: none;
   border: none;
   background-color: ${({ theme }) => theme.white};
-  color: ${({ theme }) => theme.gray500};
+  color: ${({ theme }) => theme.black};
+  border: 1px solid ${({ theme }) => theme.black};
   cursor: pointer;
   padding: 0.1rem 0.25rem;
   border-radius: 0.25rem;
@@ -111,10 +118,4 @@ export const ExpandButton = styled.button`
 export const Content = styled.div`
   padding: 1rem 0;
   margin-left: 1rem;
-`;
-
-export const Player = styled.div<{ isPlaying?: boolean; color: string }>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;

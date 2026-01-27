@@ -1,5 +1,5 @@
 import { LeftIcon, RightIcon } from "@/components/icons";
-import { type SerializedStyles, css } from "@emotion/react";
+import { type SerializedStyles } from "@emotion/react";
 import { type ReactNode, useRef } from "react";
 import {
   ComponentWrapper,
@@ -32,12 +32,8 @@ export const Scroll = ({ title, children, spacing, useNav = true }: Props) => {
     }
   };
 
-  const defaultSpace = css`
-    margin: 0 1rem;
-  `;
-
   return (
-    <ComponentWrapper css={spacing ? spacing : defaultSpace}>
+    <ComponentWrapper $spacing={spacing}>
       {title ? <Title>{title}:</Title> : null}
       <ScrollContainer ref={scrollContainerRef}>
         <ItemContainer>{children}</ItemContainer>

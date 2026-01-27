@@ -11,6 +11,13 @@ import { animated } from "@react-spring/web";
 
 export const Content = styled.div`
   position: relative;
+
+  ${forPhoneOnly(css`
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  `)}
 `;
 
 export const anchorStyle = (color: string, hoverColor: string) => css`
