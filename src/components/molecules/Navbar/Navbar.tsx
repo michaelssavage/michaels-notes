@@ -1,7 +1,25 @@
+import { UserIcon } from "@/components/icons/User";
+import { Button } from "@/components/molecules/Button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/molecules/Overlays";
 import { Picture } from "@/components/molecules/Picture";
+import { logoutFn } from "@/server/auth/logout.api";
 import { animated, useScroll } from "@react-spring/web";
-import { Link, useLocation } from "@tanstack/react-router";
-import { Header, StyledLink } from "./Navbar.styled";
+import {
+  Link,
+  useLocation,
+  useRouteContext,
+  useRouter,
+} from "@tanstack/react-router";
+import {
+  AdminContent,
+  AdminUserIcon,
+  Header,
+  StyledLink,
+} from "./Navbar.styled";
 
 interface Props {
   to: string;
@@ -28,9 +46,16 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
 };
 
 export default function Navbar() {
+  const router = useRouter();
+  const { isAdmin } = useRouteContext({ from: "__root__" });
+
+  const logout = async () => {
+    await logoutFn();
+    void router.invalidate();
+  };
   const { scrollY } = useScroll();
 
-  const size = scrollY.to([0, 50], [140, 50], "clamp");
+  const size = scrollY.to([0, 6], [140, 50], "clamp");
 
   return (
     <Header>
@@ -62,6 +87,28 @@ export default function Navbar() {
           ]}
         />
       </div>
+      {isAdmin ? (
+        <Popover placement="bottom">
+          <PopoverTrigger
+            style={{ marginLeft: "auto", backgroundColor: "transparent" }}
+          >
+            <AdminUserIcon>
+              <UserIcon size={28} />
+            </AdminUserIcon>
+          </PopoverTrigger>
+          <PopoverContent
+            style={{
+              zIndex: 20,
+            }}
+          >
+            <AdminContent>
+              <Button text="Logout" variant="ghost" onClick={logout} />
+            </AdminContent>
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <></>
+      )}
     </Header>
   );
 }

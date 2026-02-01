@@ -1,14 +1,16 @@
-import { FormLabel } from "@/components/atoms/FormLabel";
 import { Group } from "@/components/atoms/Group";
+import { FormLabel } from "@/components/form/FormLabel";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
+import { SquarePenIcon } from "@/components/icons/SquarePen";
+import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { Drawer } from "@/components/molecules/Drawer";
 import { GuideMap } from "@/components/molecules/GuideMap/GuideMap";
 import { SearchBox } from "@/components/molecules/SearchBox";
-import { items } from "@/content/guide/barcelona";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";
 import { useMatchMedia } from "@/hooks/use-match-media.hook";
 import { useTheme } from "@/hooks/use-theme.hook";
+import { getGuide } from "@/server/mongo/get-guide.api";
 import { customSelectStyles } from "@/styles/react-select.styled";
 import { Page } from "@/styles/routes/blog.styled";
 import {
@@ -17,6 +19,7 @@ import {
   CardBody,
   CardFooter,
   ClearFiltersButton,
+  EditLink,
   FilterableTag,
   FilterContainer,
   Grid,
@@ -32,45 +35,25 @@ import {
 import { SplitPanel, SplitView } from "@/styles/routes/routes.styled";
 import {
   GUIDE_TAGS,
+  GUIDE_TYPES,
   GuideTableItem,
   GuideTag,
   GuideType,
   TAG_META,
 } from "@/types/Guide";
 import { css } from "@emotion/react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 import Select from "react-select";
 
 type GuideTypeOption = { value: GuideType | "all"; label: string };
 
 const getTagLabel = (tag: GuideTag) => TAG_META[tag]?.label ?? tag;
+
 const isFreeTag = (tag: GuideTag) =>
   getTagLabel(tag).toLowerCase().includes("free");
-
-const { uniqueTypes, uniqueTags } = (() => {
-  const types = new Set<GuideType>();
-  const tags = new Set<GuideTag>();
-
-  items.forEach((item) => {
-    types.add(item.type);
-    item.tags.forEach((tag) => tags.add(tag));
-  });
-
-  return {
-    uniqueTypes: Array.from(types).sort(),
-    uniqueTags: Array.from(tags).sort((tagA, tagB) => {
-      const priorityA = TAG_META[tagA]?.priority ?? Number.POSITIVE_INFINITY;
-      const priorityB = TAG_META[tagB]?.priority ?? Number.POSITIVE_INFINITY;
-
-      if (priorityA !== priorityB) {
-        return priorityA - priorityB;
-      }
-
-      return getTagLabel(tagA).localeCompare(getTagLabel(tagB));
-    }),
-  };
-})();
 
 const INITIAL_COUNT = 12;
 const ITEMS_PER_PAGE = 12;
@@ -79,7 +62,7 @@ const description =
   "Barcelona guide with places to visit, activities, and entertainment options.";
 const url = "https://michaelsavage.com/guide/barcelona";
 
-export const Route = createFileRoute("/guide/barcelona")({
+export const Route = createFileRoute("/guide/barcelona/")({
   component: RouteComponent,
   head: () => ({
     link: [{ rel: "canonical", href: url }],
@@ -94,6 +77,40 @@ export const Route = createFileRoute("/guide/barcelona")({
 });
 
 function RouteComponent() {
+  const { isAdmin } = useRouteContext({ from: "__root__" });
+
+  const fetchGuide = useServerFn(getGuide);
+
+  const { data: items = [] } = useQuery({
+    queryKey: ["guide"],
+    queryFn: () => fetchGuide({ data: { name: "barcelona-guide" } }),
+    refetchOnWindowFocus: false,
+  });
+
+  const { uniqueTypes, uniqueTags } = (() => {
+    const types = new Set<GuideType>();
+    const tags = new Set<GuideTag>();
+
+    items.forEach((item) => {
+      types.add(item.type);
+      item.tags.forEach((tag) => tags.add(tag));
+    });
+
+    return {
+      uniqueTypes: Array.from(types).sort(),
+      uniqueTags: Array.from(tags).sort((tagA, tagB) => {
+        const priorityA = TAG_META[tagA]?.priority ?? Number.POSITIVE_INFINITY;
+        const priorityB = TAG_META[tagB]?.priority ?? Number.POSITIVE_INFINITY;
+
+        if (priorityA !== priorityB) {
+          return priorityA - priorityB;
+        }
+
+        return getTagLabel(tagA).localeCompare(getTagLabel(tagB));
+      }),
+    };
+  })();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<GuideType | "all">("all");
   const [selectedTags, setSelectedTags] = useState<Array<GuideTag>>([]);
@@ -127,7 +144,7 @@ function RouteComponent() {
 
       return matchesSearch && matchesType && matchesTags;
     });
-  }, [searchTerm, selectedType, selectedTags]);
+  }, [searchTerm, selectedType, selectedTags, items]);
 
   const { displayedItems, displayedCount, hasMore, loadMore, loaderRef } =
     useInfiniteScroll<GuideTableItem>({
@@ -170,6 +187,20 @@ function RouteComponent() {
     }
   };
 
+  const selectedValue: GuideTypeOption = uniqueTypes.find(
+    (option) => option === selectedType
+  )
+    ? { value: selectedType, label: selectedType }
+    : { value: "all", label: "All Types" };
+
+  const selectOptions: Array<GuideTypeOption> = [
+    { value: "all", label: "All Types" },
+    ...Object.values(GUIDE_TYPES).map((type) => ({
+      value: type,
+      label: type,
+    })),
+  ];
+
   return (
     <Page>
       <SplitView>
@@ -177,9 +208,18 @@ function RouteComponent() {
           <div data-id="guide-header">
             <h1>Barcelona Guide - Què faré avui?</h1>
 
+            {isAdmin && (
+              <Anchor
+                link="/guide/barcelona/new"
+                text="Create New"
+                variant="button"
+              />
+            )}
+
             <p>
-              Bon dia! There are many resources to find things to do in
-              Barcelona but I wanted to store my own recommendations here.
+              Bon dia! There are many things to do in Barcelona but I always
+              forget about them. This guide is a collection of my own
+              recommendations.
             </p>
 
             <FilterContainer>
@@ -199,24 +239,12 @@ function RouteComponent() {
                 <FormLabel id="type" label="Type">
                   <Select<GuideTypeOption>
                     id="type"
-                    value={
-                      uniqueTypes
-                        .map((type) => ({ value: type, label: type }))
-                        .find((option) => option.value === selectedType) || {
-                        value: "all",
-                        label: "All Types",
-                      }
-                    }
+                    instanceId="type-select"
+                    value={selectedValue}
                     onChange={(option) =>
                       setSelectedType(option?.value ?? "all")
                     }
-                    options={[
-                      { value: "all", label: "All Types" },
-                      ...uniqueTypes.map((type) => ({
-                        value: type,
-                        label: type,
-                      })),
-                    ]}
+                    options={selectOptions}
                     styles={customSelectStyles<GuideTypeOption>(lightTheme)}
                   />
                 </FormLabel>
@@ -302,6 +330,15 @@ function RouteComponent() {
                     >
                       Info <ExternalLinkIcon />
                     </BasicLink>
+
+                    {isAdmin && (
+                      <EditLink
+                        to={`/guide/barcelona/${item.id}`}
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        Edit <SquarePenIcon />
+                      </EditLink>
+                    )}
 
                     <BasicLink
                       href={item.location}

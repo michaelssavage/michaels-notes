@@ -2,7 +2,7 @@ import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import { useTheme } from "@/hooks/use-theme.hook";
-import { getMovies } from "@/server/letterboxd.api";
+import { getMovies } from "@/server/mongo/letterboxd.api";
 import {
   Embla,
   EmblaContainer,

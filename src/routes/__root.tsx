@@ -8,6 +8,7 @@ import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
 import { ThemeProvider } from "@/context/ThemeProvider";
+import { checkAuthFn } from "@/server/auth/check.api";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -23,6 +24,14 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  beforeLoad: async () => {
+    try {
+      await checkAuthFn();
+      return { isAdmin: true };
+    } catch {
+      return { isAdmin: false };
+    }
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },

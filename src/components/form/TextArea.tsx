@@ -31,8 +31,10 @@ const StyledTextarea = styled.textarea<{ styles?: SerializedStyles }>`
 
 type TextAreaProps = {
   id: string;
+  name: string;
   placeholder: string;
   value: string;
+  onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   styles?: SerializedStyles;
   maxLen?: number;
@@ -41,8 +43,10 @@ type TextAreaProps = {
 
 export const TextArea = ({
   id,
+  name,
   placeholder,
   value,
+  onBlur,
   onChange,
   styles,
   maxLen,
@@ -61,9 +65,11 @@ export const TextArea = ({
   return (
     <StyledTextarea
       id={id}
+      name={name}
       ref={textareaRef}
       placeholder={placeholder}
       value={value}
+      onBlur={onBlur}
       onChange={onChange}
       styles={styles}
       maxLength={maxLen}

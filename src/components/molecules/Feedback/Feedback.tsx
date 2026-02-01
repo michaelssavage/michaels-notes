@@ -1,11 +1,11 @@
 import { Group } from "@/components/atoms/Group";
+import { TextArea } from "@/components/form/TextArea";
 import { CheckIcon } from "@/components/icons";
 import { MessageHeartIcon } from "@/components/icons/MessageHeart";
 import { SendIcon } from "@/components/icons/Send";
 import { Button } from "@/components/molecules/Button";
-import { TextArea } from "@/components/molecules/Form/TextArea";
 import { useTheme } from "@/hooks/use-theme.hook";
-import { submitFeedback } from "@/server/feedback.api";
+import { submitFeedback } from "@/server/mongo/feedback.api";
 import { css } from "@emotion/react";
 import { lazy, useState } from "react";
 import {
@@ -19,7 +19,7 @@ import {
 } from "./Feedback.styled";
 
 const LoaderIcon = lazy(() =>
-  import("react-hot-toast").then((mod) => ({ default: mod.LoaderIcon })),
+  import("react-hot-toast").then((mod) => ({ default: mod.LoaderIcon }))
 );
 
 export const Feedback = () => {
@@ -74,6 +74,7 @@ export const Feedback = () => {
             <>
               <TextArea
                 id="feedback"
+                name="feedback"
                 placeholder="Leave feedback or say hello!"
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}

@@ -35,7 +35,7 @@ export interface GuideTableItem {
   link: string;
   price: string;
   image: string;
-  description?: string;
+  description: string;
   tags: Array<GuideTag>;
   type: GuideType;
   coordinates?: { lat: number; lng: number };

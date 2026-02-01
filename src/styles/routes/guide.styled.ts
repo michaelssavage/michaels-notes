@@ -1,6 +1,7 @@
 import { forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Link } from "@tanstack/react-router";
 
 export const BasicLink = styled.a`
   color: ${({ theme }) => theme.green300};
@@ -18,9 +19,28 @@ export const BasicLink = styled.a`
   }
 `;
 
+export const EditLink = styled(Link)`
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  color: ${({ theme }) => theme.blue300};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    color: ${({ theme }) => theme.black};
+  }
+`;
+
 export const LoadMore = styled.div`
   text-align: center;
-  margin: 2rem 0;
+  margin: 2rem auto;
   width: fit-content;
   color: ${({ theme }) => theme.gray500};
 `;
@@ -64,6 +84,7 @@ export const CardBody = styled.div`
 `;
 
 export const CardFooter = styled.div`
+  position: relative;
   padding: 0.5rem 1rem;
   display: flex;
   flex-direction: row;
@@ -231,4 +252,22 @@ export const MapDrawerClose = styled.button`
 export const MapDrawerMapArea = styled.div`
   flex: 1;
   min-height: 0;
+`;
+
+// SLUG STYLES
+
+export const PageSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 100%;
+  align-items: center;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
 `;

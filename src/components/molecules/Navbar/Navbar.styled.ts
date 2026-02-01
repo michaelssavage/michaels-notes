@@ -9,6 +9,7 @@ export const Header = styled.nav`
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -84,4 +85,15 @@ export const StyledLink = styled(Link)`
       color 0.3s cubic-bezier(0.45, 0, 0.55, 1),
       transform 0.3s cubic-bezier(0.45, 0, 0.55, 1);
   }
+`;
+
+export const AdminUserIcon = styled.div`
+  color: ${({ theme }) => theme.black};
+`;
+
+export const AdminContent = styled.div`
+  background-color: ${({ theme }) => theme.yellow};
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid ${({ theme }) => theme.black};
 `;

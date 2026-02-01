@@ -1,5 +1,9 @@
 import { GUIDE_TAGS, GUIDE_TYPES, GuideTableItem } from "@/types/Guide";
 
+/**
+ * No longer used locally.
+ * Date is stored in the database.
+ */
 export const items: GuideTableItem[] = [
   {
     id: "aire-ancient-baths",
@@ -454,6 +458,8 @@ export const items: GuideTableItem[] = [
     coordinates: { lat: 41.4184646, lng: 2.1241919 },
     price: "€81.50 - €128",
     type: GUIDE_TYPES.ACTIVITY,
+    description:
+      "Dinner under the stars at the Fabra Observatory during the summer months.",
     image:
       "https://31m9mhhbv2.ucarecd.net/75a87700-8671-4cc1-bbbf-688eab2730e7/cenarestrellasbarcelona1_2.jpg",
   },
