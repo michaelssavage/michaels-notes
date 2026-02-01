@@ -1,9 +1,9 @@
 import { Group } from "@/components/atoms/Group";
+import { Checkbox } from "@/components/form/Checkbox";
 import { CopyIcon, GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { buttonWithIconStyles } from "@/components/molecules/Button/Button.styled";
-import { Checkbox } from "@/components/molecules/Form/Checkbox";
 import { Picture } from "@/components/molecules/Picture";
 import { useTheme } from "@/hooks/use-theme.hook";
 import { exampleRekordboxText } from "@/lib/utils";

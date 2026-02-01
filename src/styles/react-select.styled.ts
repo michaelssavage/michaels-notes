@@ -1,14 +1,9 @@
 import { type MyTheme } from "@/styles/abstracts/colors.styled";
 import { CSSObjectWithLabel, StylesConfig } from "react-select";
 
-interface TypeOption {
-  value: string;
-  label: string;
-}
-
-export const customSelectStyles = <Option extends TypeOption>(
+export const customSelectStyles = <Option, IsMulti extends boolean = false>(
   theme: MyTheme
-): StylesConfig<Option, false> => ({
+): StylesConfig<Option, IsMulti> => ({
   control: (provided: CSSObjectWithLabel, state) => ({
     ...provided,
     fontSize: "0.875rem",
@@ -45,6 +40,15 @@ export const customSelectStyles = <Option extends TypeOption>(
   singleValue: (provided: CSSObjectWithLabel) => ({
     ...provided,
     color: theme.gray600,
+  }),
+  multiValue: (provided: CSSObjectWithLabel) => ({
+    ...provided,
+    color: theme.white,
+    borderRadius: "0.3rem",
+    backgroundColor: theme.green200,
+    "> div": {
+      color: theme.white,
+    },
   }),
   dropdownIndicator: (provided: CSSObjectWithLabel) => ({
     ...provided,

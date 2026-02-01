@@ -88,7 +88,7 @@ export const submitFeedback = createServerFn({ method: "POST" })
         $inc: { count: 1 },
         $setOnInsert: { createdAt: now },
       },
-      { upsert: true, returnDocument: "after" },
+      { upsert: true, returnDocument: "after" }
     );
 
     if (!result) {
@@ -135,5 +135,5 @@ export const getFeedback = createServerFn({ method: "GET" }).handler(
       console.error("Error fetching feedback from MongoDB:", error);
       throw new Error("Failed to fetch feedback");
     }
-  },
+  }
 );

@@ -25,62 +25,68 @@ function RouteComponent() {
   return (
     <Page>
       <MiscContainer>
-        <h2>Various mini projects</h2>
-        <p>
-          A very incomplete{" "}
+        <h2>Mini projects</h2>
+
+        <div>
           <Anchor
             link="/guide/barcelona"
             text="Barcelona guide"
             variant="header"
-          />{" "}
-          of things to do, see, and experience. I&apos;m always collecting
-          points of interest, activities, live music venues, and other fun
-          things that aren&apos;t so obvious. There are many resources for
-          finding things to do, like{" "}
-          <Anchor
-            link="https://www.atlasobscura.com/things-to-do/barcelona-spain/"
-            text="Atlas Obscura"
-            variant="link"
-            isExternal
           />
-          .
-        </p>
+          <p>
+            A very incomplete Barcelona guide of things to do, see, and
+            experience. I&apos;m always collecting points of interest,
+            activities, live music venues, and other fun things that aren&apos;t
+            so obvious. There are many resources for finding things to do, like{" "}
+            <Anchor
+              link="https://www.atlasobscura.com/things-to-do/barcelona-spain/"
+              text="Atlas Obscura"
+              variant="link"
+              isExternal
+            />
+            .
+          </p>
+        </div>
 
-        <p>
-          Now and again I&apos;ll put pen to paper for tattoo ideas or for
-          really bad jokes. I&apos;ll share some of the{" "}
-          <Anchor link="/doodles" text="doodles" variant="header" /> on this
-          page.
-        </p>
+        <div>
+          <Anchor link="/doodles" text="Doodles" variant="header" />
+          <p>
+            Now and again I&apos;ll put pen to paper for tattoo ideas or for
+            really bad jokes. I&apos;ll share some of the doodles on this page.
+          </p>
+        </div>
 
-        <p>
-          Here are some{" "}
-          <Anchor link="/mixes" text="DJ mixes" variant="header" /> that I
-          recorded and bothered to upload. Many have existed in different
-          freemium platforms, but have been lost to time. These mixes are
-          streamed from Archive.org, with the waveforms generated from
-          audiowaveform, using wavesurfer.js. I created a background visual for
-          a DJ gig using Adobe Illustrator and{" "}
-          <Anchor
-            link="https://www.youtube.com/watch?v=zGB_YubjRN8"
-            text="uploaded it to YouTube"
-            variant="link"
-            isExternal
-          />
-          {". "}
-        </p>
-        <p>
-          I created a utility function,{" "}
+        <div>
+          <Anchor link="/mixes" text="DJ mixes" variant="header" />
+          <p>
+            Here are some DJ mixes that I recorded and bothered to upload. Many
+            have existed in different freemium platforms, but have been lost to
+            time. These mixes are streamed from Archive.org, with the waveforms
+            generated from audiowaveform, using wavesurfer.js. I created a
+            background visual for a DJ gig using Adobe Illustrator and{" "}
+            <Anchor
+              link="https://www.youtube.com/watch?v=zGB_YubjRN8"
+              text="uploaded it to YouTube"
+              variant="link"
+              isExternal
+            />
+            {". "}
+          </p>
+        </div>
+
+        <div>
           <Anchor
             link="/pretty-text"
             text="Rekordbox text prettifier"
             variant="header"
           />
-          {", "}
-          to format exported setlists from the DJ software Rekordbox. This was
-          really useful for adding the songs played to the description of
-          SoundCloud or MixCloud.
-        </p>
+          <p>
+            I created a utility function, Rekordbox text prettifier to format
+            exported setlists from the DJ software Rekordbox. This was really
+            useful for adding the songs played to the description of SoundCloud
+            or MixCloud.
+          </p>
+        </div>
         {/* <BentoCard to="/storybook">
           <BentoHeader>
             <BentoTitle>Storybook</BentoTitle>

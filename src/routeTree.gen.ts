@@ -24,8 +24,10 @@ import { Route as GuideIndexRouteImport } from './routes/guide/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as ReviewSlugRouteImport } from './routes/review/$slug'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
-import { Route as GuideBarcelonaRouteImport } from './routes/guide/barcelona'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as GuideBarcelonaIndexRouteImport } from './routes/guide/barcelona/index'
+import { Route as GuideBarcelonaNewRouteImport } from './routes/guide/barcelona/new'
+import { Route as GuideBarcelonaSlugRouteImport } from './routes/guide/barcelona/$slug'
 
 const PrettyTextRoute = PrettyTextRouteImport.update({
   id: '/pretty-text',
@@ -102,14 +104,24 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/projects/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GuideBarcelonaRoute = GuideBarcelonaRouteImport.update({
-  id: '/guide/barcelona',
-  path: '/guide/barcelona',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideBarcelonaIndexRoute = GuideBarcelonaIndexRouteImport.update({
+  id: '/guide/barcelona/',
+  path: '/guide/barcelona/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideBarcelonaNewRoute = GuideBarcelonaNewRouteImport.update({
+  id: '/guide/barcelona/new',
+  path: '/guide/barcelona/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideBarcelonaSlugRoute = GuideBarcelonaSlugRouteImport.update({
+  id: '/guide/barcelona/$slug',
+  path: '/guide/barcelona/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -124,13 +136,15 @@ export interface FileRoutesByFullPath {
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/guide/barcelona': typeof GuideBarcelonaRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
   '/blog': typeof BlogIndexRoute
   '/guide': typeof GuideIndexRoute
   '/projects': typeof ProjectsIndexRoute
   '/review': typeof ReviewIndexRoute
+  '/guide/barcelona/$slug': typeof GuideBarcelonaSlugRoute
+  '/guide/barcelona/new': typeof GuideBarcelonaNewRoute
+  '/guide/barcelona': typeof GuideBarcelonaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -143,13 +157,15 @@ export interface FileRoutesByTo {
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/guide/barcelona': typeof GuideBarcelonaRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
   '/blog': typeof BlogIndexRoute
   '/guide': typeof GuideIndexRoute
   '/projects': typeof ProjectsIndexRoute
   '/review': typeof ReviewIndexRoute
+  '/guide/barcelona/$slug': typeof GuideBarcelonaSlugRoute
+  '/guide/barcelona/new': typeof GuideBarcelonaNewRoute
+  '/guide/barcelona': typeof GuideBarcelonaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -163,13 +179,15 @@ export interface FileRoutesById {
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/guide/barcelona': typeof GuideBarcelonaRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/guide/': typeof GuideIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/review/': typeof ReviewIndexRoute
+  '/guide/barcelona/$slug': typeof GuideBarcelonaSlugRoute
+  '/guide/barcelona/new': typeof GuideBarcelonaNewRoute
+  '/guide/barcelona/': typeof GuideBarcelonaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -184,13 +202,15 @@ export interface FileRouteTypes {
     | '/playground'
     | '/pretty-text'
     | '/blog/$slug'
-    | '/guide/barcelona'
     | '/projects/$slug'
     | '/review/$slug'
     | '/blog'
     | '/guide'
     | '/projects'
     | '/review'
+    | '/guide/barcelona/$slug'
+    | '/guide/barcelona/new'
+    | '/guide/barcelona'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -203,13 +223,15 @@ export interface FileRouteTypes {
     | '/playground'
     | '/pretty-text'
     | '/blog/$slug'
-    | '/guide/barcelona'
     | '/projects/$slug'
     | '/review/$slug'
     | '/blog'
     | '/guide'
     | '/projects'
     | '/review'
+    | '/guide/barcelona/$slug'
+    | '/guide/barcelona/new'
+    | '/guide/barcelona'
   id:
     | '__root__'
     | '/'
@@ -222,13 +244,15 @@ export interface FileRouteTypes {
     | '/playground'
     | '/pretty-text'
     | '/blog/$slug'
-    | '/guide/barcelona'
     | '/projects/$slug'
     | '/review/$slug'
     | '/blog/'
     | '/guide/'
     | '/projects/'
     | '/review/'
+    | '/guide/barcelona/$slug'
+    | '/guide/barcelona/new'
+    | '/guide/barcelona/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -242,13 +266,15 @@ export interface RootRouteChildren {
   PlaygroundRoute: typeof PlaygroundRoute
   PrettyTextRoute: typeof PrettyTextRoute
   BlogSlugRoute: typeof BlogSlugRoute
-  GuideBarcelonaRoute: typeof GuideBarcelonaRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ReviewSlugRoute: typeof ReviewSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   GuideIndexRoute: typeof GuideIndexRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
   ReviewIndexRoute: typeof ReviewIndexRoute
+  GuideBarcelonaSlugRoute: typeof GuideBarcelonaSlugRoute
+  GuideBarcelonaNewRoute: typeof GuideBarcelonaNewRoute
+  GuideBarcelonaIndexRoute: typeof GuideBarcelonaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -358,18 +384,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/guide/barcelona': {
-      id: '/guide/barcelona'
-      path: '/guide/barcelona'
-      fullPath: '/guide/barcelona'
-      preLoaderRoute: typeof GuideBarcelonaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide/barcelona/': {
+      id: '/guide/barcelona/'
+      path: '/guide/barcelona'
+      fullPath: '/guide/barcelona'
+      preLoaderRoute: typeof GuideBarcelonaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide/barcelona/new': {
+      id: '/guide/barcelona/new'
+      path: '/guide/barcelona/new'
+      fullPath: '/guide/barcelona/new'
+      preLoaderRoute: typeof GuideBarcelonaNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide/barcelona/$slug': {
+      id: '/guide/barcelona/$slug'
+      path: '/guide/barcelona/$slug'
+      fullPath: '/guide/barcelona/$slug'
+      preLoaderRoute: typeof GuideBarcelonaSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -386,13 +426,15 @@ const rootRouteChildren: RootRouteChildren = {
   PlaygroundRoute: PlaygroundRoute,
   PrettyTextRoute: PrettyTextRoute,
   BlogSlugRoute: BlogSlugRoute,
-  GuideBarcelonaRoute: GuideBarcelonaRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   ReviewSlugRoute: ReviewSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   GuideIndexRoute: GuideIndexRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
   ReviewIndexRoute: ReviewIndexRoute,
+  GuideBarcelonaSlugRoute: GuideBarcelonaSlugRoute,
+  GuideBarcelonaNewRoute: GuideBarcelonaNewRoute,
+  GuideBarcelonaIndexRoute: GuideBarcelonaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

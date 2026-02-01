@@ -56,7 +56,7 @@ To generate peaks of an audio waveform, you need to:
 awf -i [FILENAME_HERE] -o waveform.json --pixels-per-second 20
 ```
 
-### Creating an alias in Powershell
+## Creating an alias in Powershell
 
 Need to add a function to the profile file. CHeck if it exists: `Test-Path $PROFILE`  
 If it returns False, create it with: `New-Item -Path $PROFILE -ItemType File -Force`
@@ -72,3 +72,18 @@ function awf {
 ```
 
 Save and close Notepad then either reload the profile or restart PowerShell.
+
+## Running scripts
+
+- import dotenv into the top of the file to get access to env vars.
+- if a ts file, run:
+
+```js
+npx tsx scripts/bulk-guide-insert.ts
+```
+
+- otherwise run with node:
+
+```js
+node scripts/sort-barcelona.ts
+```
