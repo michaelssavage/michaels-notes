@@ -1,8 +1,11 @@
 import { Group } from "@/components/atoms/Group/Group";
-import { Card } from "@/components/molecules/Feedback/Feedback.styled";
+import {
+  Card,
+  IpAddress,
+} from "@/components/molecules/Feedback/Feedback.styled";
 import { formatDate } from "@/lib/utils";
 import { getFeedback } from "@/server/mongo/feedback.api";
-import { Page, Panel } from "@/styles/routes/blog.styled";
+import { Heading, Page, Panel } from "@/styles/routes/blog.styled";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
@@ -30,8 +33,8 @@ function AdminPage() {
   return (
     <Page>
       <Panel>
-        <h1>Feedback</h1>
-        <Group direction="row" wrap="wrap" gap="2rem">
+        <Heading>Feedback</Heading>
+        <Group direction="column" gap="2rem">
           {data?.map(({ createdAt, text, ip }) => (
             <Group key={createdAt} direction="column" gap="0.5rem">
               <p>
@@ -42,8 +45,8 @@ function AdminPage() {
                 })}
               </p>
               <Card>
-                <Group direction="row" align="center" gap="0.5rem">
-                  <p>IP: {ip}</p>
+                <Group direction="column" gap="0.5rem">
+                  <IpAddress>IP: {ip}</IpAddress>
                   <p>{text}</p>
                 </Group>
               </Card>

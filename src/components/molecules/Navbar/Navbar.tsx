@@ -6,14 +6,16 @@ import {
   PopoverTrigger,
 } from "@/components/molecules/Overlays";
 import { Picture } from "@/components/molecules/Picture";
+import { useMatchMedia } from "@/hooks/use-match-media.hook";
 import { logoutFn } from "@/server/auth/logout.api";
+import { animated, useSpringValue } from "@react-spring/web";
 import {
   Link,
   useLocation,
   useRouteContext,
   useRouter,
 } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   AdminContent,
   AdminUserIcon,
@@ -45,52 +47,83 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
   );
 };
 
+const minSize = 48;
+const maxSize = 150;
+const distance = 200;
+
 export default function Navbar() {
   const router = useRouter();
   const { isAdmin } = useRouteContext({ from: "__root__" });
-  const [isScrolled, setIsScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement | null>(null);
+  const logoSize = useSpringValue(150, {
+    config: { tension: 220, friction: 26 },
+  });
 
-  const logout = async () => {
-    await logoutFn();
-    void router.invalidate();
-  };
+  const isCompact = useMatchMedia("(max-width: 768px)");
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+    const element = headerRef.current;
+
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${element.offsetHeight}px`
+      );
+    };
+
+    updateHeaderHeight();
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let frame: number | null = null;
 
-    const updateScrollState = () => {
-      setIsScrolled((prev) => {
-        const next = window.scrollY > 0;
-        return prev === next ? prev : next;
-      });
+    const updateSize = () => {
+      const nextSize = isCompact
+        ? minSize
+        : maxSize -
+          Math.min(window.scrollY / distance, 1) * (maxSize - minSize);
+      logoSize.set(nextSize);
       frame = null;
     };
 
+    updateSize();
     const onScroll = () => {
       if (frame === null) {
-        frame = window.requestAnimationFrame(updateScrollState);
+        frame = window.requestAnimationFrame(updateSize);
       }
     };
 
-    updateScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", updateSize);
 
     return () => {
       if (frame !== null) {
         window.cancelAnimationFrame(frame);
       }
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", updateSize);
     };
-  }, []);
+  }, [isCompact, logoSize]);
+
+  const logout = async () => {
+    await logoutFn();
+    void router.invalidate();
+  };
 
   return (
-    <Header>
-      <Link
-        id="navbar-logo-link"
-        to="/"
-        data-scrolled={isScrolled ? "true" : "false"}
-      >
-        <Picture src="/logo.png" alt="Logo" loading="eager" />
+    <Header ref={headerRef}>
+      <Link to="/">
+        <animated.div
+          id="navbar-logo-link"
+          style={{ width: logoSize, height: logoSize }}
+        >
+          <Picture src="/logo.png" alt="Logo" loading="eager" />
+        </animated.div>
       </Link>
       <div id="navbar-links-container">
         <NavLink
@@ -131,7 +164,9 @@ export default function Navbar() {
             </AdminContent>
           </PopoverContent>
         </Popover>
-      ) : null}
+      ) : (
+        <></>
+      )}
     </Header>
   );
 }

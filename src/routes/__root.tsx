@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import { Layout } from "@/components/atoms/Layout";
 import { NotFound } from "@/components/atoms/NotFound";
 import PostHogProvider from "@/components/atoms/PostHogContainer";
 import { TextBleed } from "@/components/atoms/TextBleed";
@@ -115,7 +116,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Providers>
             <Navbar />
             <TextBleed />
-            {children}
+            <Layout>{children}</Layout>
             <Feedback />
             <Footer />
           </Providers>

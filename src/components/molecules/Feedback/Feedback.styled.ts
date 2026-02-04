@@ -36,6 +36,10 @@ export const Card = styled.div`
   ${slideInAnimation("8px", "vertical")};
 `;
 
+export const IpAddress = styled.p`
+  white-space: nowrap;
+`;
+
 export const ButtonGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

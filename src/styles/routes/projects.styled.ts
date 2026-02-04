@@ -132,18 +132,6 @@ export const Header = styled.div`
   }
 `;
 
-// slug
-export const Article = styled.article<{ height?: string }>`
-  margin: 1rem auto 2rem;
-  width: 60%;
-  min-height: ${({ height }) => height};
-
-  ${forPhoneOnly(css`
-    width: 90%;
-    margin: 3rem auto 2rem;
-  `)}
-`;
-
 export const Tags = styled.p`
   text-align: right;
   font-size: 0.9rem;

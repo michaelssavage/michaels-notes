@@ -14,7 +14,6 @@ export const Heading = styled.h1`
 export const Page = styled.section`
   position: relative;
   min-height: 80vh;
-  padding-top: 1rem;
 `;
 
 export const Panel = styled.div`
@@ -120,12 +119,6 @@ export const Article = styled.article<{ height?: string }>`
     width: 90%;
     margin: 3rem auto 2rem;
   `)}
-`;
-
-export const Tags = styled.p`
-  text-align: right;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.black};
 `;
 
 export const Content = styled.div`

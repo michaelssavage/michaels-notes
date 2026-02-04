@@ -10,7 +10,7 @@ export const Header = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10;
   background-color: ${({ theme }) => theme.yellow};
@@ -29,21 +29,6 @@ export const Header = styled.nav`
       transparent 0%,
       ${({ theme }) => theme.yellow} 100%
     );
-  }
-
-  #navbar-logo-link {
-    width: 150px;
-    height: 150px;
-    display: block;
-    flex: 0 0 auto;
-    transition:
-      width 0.25s cubic-bezier(0.45, 0, 0.55, 1),
-      height 0.25s cubic-bezier(0.45, 0, 0.55, 1);
-  }
-
-  #navbar-logo-link[data-scrolled="true"] {
-    width: 48px;
-    height: 48px;
   }
 
   ${forTabletOnly(css`

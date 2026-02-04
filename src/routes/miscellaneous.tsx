@@ -1,5 +1,5 @@
 import { Anchor } from "@/components/molecules/Anchor";
-import { Page } from "@/styles/routes/blog.styled";
+import { Heading, Page } from "@/styles/routes/blog.styled";
 import { MiscContainer } from "@/styles/routes/routes.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -25,7 +25,7 @@ function RouteComponent() {
   return (
     <Page>
       <MiscContainer>
-        <h2>Mini projects</h2>
+        <Heading>Mini projects</Heading>
 
         <div>
           <Anchor
