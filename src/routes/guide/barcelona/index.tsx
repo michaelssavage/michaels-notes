@@ -10,6 +10,7 @@ import { SearchBox } from "@/components/molecules/SearchBox";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";
 import { useMatchMedia } from "@/hooks/use-match-media.hook";
 import { useTheme } from "@/hooks/use-theme.hook";
+import { shuffleArray } from "@/lib/utils";
 import { getGuide } from "@/server/mongo/get-guide.api";
 import { customSelectStyles } from "@/styles/react-select.styled";
 import { Page } from "@/styles/routes/blog.styled";
@@ -45,7 +46,7 @@ import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 
 type GuideTypeOption = { value: GuideType | "all"; label: string };
@@ -87,11 +88,19 @@ function RouteComponent() {
     refetchOnWindowFocus: false,
   });
 
+  const [shuffledItems, setShuffledItems] = useState<GuideTableItem[]>([]);
+
+  useEffect(() => {
+    if (items.length > 0) {
+      setShuffledItems(shuffleArray(items));
+    }
+  }, [items]);
+
   const { uniqueTypes, uniqueTags } = (() => {
     const types = new Set<GuideType>();
     const tags = new Set<GuideTag>();
 
-    items.forEach((item) => {
+    shuffledItems.forEach((item) => {
       types.add(item.type);
       item.tags.forEach((tag) => tags.add(tag));
     });
@@ -122,7 +131,7 @@ function RouteComponent() {
   const { lightTheme } = useTheme();
 
   const filteredItems = useMemo(() => {
-    return items.filter((item) => {
+    return shuffledItems.filter((item) => {
       const matchesSearch =
         searchTerm === "" ||
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -144,7 +153,7 @@ function RouteComponent() {
 
       return matchesSearch && matchesType && matchesTags;
     });
-  }, [searchTerm, selectedType, selectedTags, items]);
+  }, [searchTerm, selectedType, selectedTags, shuffledItems]);
 
   const { displayedItems, displayedCount, hasMore, loadMore, loaderRef } =
     useInfiniteScroll<GuideTableItem>({
