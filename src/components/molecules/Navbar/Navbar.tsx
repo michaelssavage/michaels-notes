@@ -7,13 +7,13 @@ import {
 } from "@/components/molecules/Overlays";
 import { Picture } from "@/components/molecules/Picture";
 import { logoutFn } from "@/server/auth/logout.api";
-import { animated, useScroll } from "@react-spring/web";
 import {
   Link,
   useLocation,
   useRouteContext,
   useRouter,
 } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   AdminContent,
   AdminUserIcon,
@@ -48,24 +48,49 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
 export default function Navbar() {
   const router = useRouter();
   const { isAdmin } = useRouteContext({ from: "__root__" });
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const logout = async () => {
     await logoutFn();
     void router.invalidate();
   };
-  const { scrollY } = useScroll();
 
-  const size = scrollY.to([0, 6], [140, 50], "clamp");
+  useEffect(() => {
+    let frame: number | null = null;
+
+    const updateScrollState = () => {
+      setIsScrolled((prev) => {
+        const next = window.scrollY > 0;
+        return prev === next ? prev : next;
+      });
+      frame = null;
+    };
+
+    const onScroll = () => {
+      if (frame === null) {
+        frame = window.requestAnimationFrame(updateScrollState);
+      }
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      if (frame !== null) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
     <Header>
-      <Link to="/">
-        <animated.div
-          id="navbar-logo-link"
-          style={{ width: size, height: size }}
-        >
-          <Picture src="/logo.png" alt="Logo" loading="eager" />
-        </animated.div>
+      <Link
+        id="navbar-logo-link"
+        to="/"
+        data-scrolled={isScrolled ? "true" : "false"}
+      >
+        <Picture src="/logo.png" alt="Logo" loading="eager" />
       </Link>
       <div id="navbar-links-container">
         <NavLink
@@ -106,9 +131,7 @@ export default function Navbar() {
             </AdminContent>
           </PopoverContent>
         </Popover>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </Header>
   );
 }

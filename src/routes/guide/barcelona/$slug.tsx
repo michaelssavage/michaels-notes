@@ -75,7 +75,7 @@ function RouteComponent() {
     );
   }
 
-  if (!item) {
+  if (!item && !isLoading) {
     return (
       <Page>
         <Panel>

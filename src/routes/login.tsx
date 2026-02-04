@@ -53,6 +53,7 @@ function LoginPage() {
         <TextInput
           id="password"
           name="password"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"

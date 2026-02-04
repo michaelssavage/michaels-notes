@@ -2,6 +2,12 @@ import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+interface ImageProps {
+  loaded: boolean;
+  ar?: string;
+  fit?: "cover" | "contain";
+}
+
 export const Wrapper = styled.figure`
   display: grid;
   place-items: center;
@@ -30,11 +36,7 @@ export const NotFound = styled.img`
   border-radius: 0.4rem;
 `;
 
-export const ImageStyle = styled.img<{
-  loaded: boolean;
-  ar?: string;
-  fit?: "cover" | "contain";
-}>`
+export const ImageStyle = styled.img<ImageProps>`
   aspect-ratio: ${({ ar }) => ar};
   object-fit: ${({ fit }) => fit};
   width: 100%;

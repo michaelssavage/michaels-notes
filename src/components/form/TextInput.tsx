@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 interface TextInputProps {
   id: string;
   name: string;
+  type?: "text" | "password";
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,6 +25,7 @@ const StyledInput = styled.input<{ styles?: SerializedStyles }>`
 export const TextInput = ({
   id,
   name,
+  type = "text",
   placeholder,
   value,
   onChange,
@@ -33,7 +35,7 @@ export const TextInput = ({
 }: TextInputProps) => {
   return (
     <StyledInput
-      type="text"
+      type={type}
       id={id}
       name={name}
       placeholder={placeholder}
