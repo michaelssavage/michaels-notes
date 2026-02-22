@@ -52,9 +52,9 @@ export const Placeholder = styled.div<{ ar?: string }>`
   grid-area: 1 / 1;
   border-radius: 0.4rem;
   width: 100%;
-  height: auto;
-  aspect-ratio: ${({ ar }) => ar};
-  background: linear-gradient(90deg, #e0e0e0 25%, #c5c5c5 50%, #e0e0e0 75%);
+  aspect-ratio: ${({ ar }) => ar ?? "1 / 1"};
+  height: ${({ ar }) => (ar ? "auto" : "100%")};
+  background: linear-gradient(135deg, #f5f0eb 25%, #e8ddd4 50%, #f5f0eb 75%);
   background-size: 200% 100%;
   ${shimmerAnimation()}
 `;

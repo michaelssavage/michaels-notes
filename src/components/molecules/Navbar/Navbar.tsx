@@ -57,7 +57,7 @@ export default function Navbar() {
     <Header>
       <Link to="/">
         <div id="navbar-logo-link">
-          <Picture src="/logo.png" alt="Logo" loading="eager" />
+          <Picture src="/logo.png" alt="Logo" />
         </div>
       </Link>
       <div id="navbar-links-container">
