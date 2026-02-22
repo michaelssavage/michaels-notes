@@ -138,13 +138,13 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
-  '/blog': typeof BlogIndexRoute
-  '/guide': typeof GuideIndexRoute
-  '/projects': typeof ProjectsIndexRoute
-  '/review': typeof ReviewIndexRoute
+  '/blog/': typeof BlogIndexRoute
+  '/guide/': typeof GuideIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
+  '/review/': typeof ReviewIndexRoute
   '/guide/barcelona/$slug': typeof GuideBarcelonaSlugRoute
   '/guide/barcelona/new': typeof GuideBarcelonaNewRoute
-  '/guide/barcelona': typeof GuideBarcelonaIndexRoute
+  '/guide/barcelona/': typeof GuideBarcelonaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -204,13 +204,13 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/$slug'
     | '/review/$slug'
-    | '/blog'
-    | '/guide'
-    | '/projects'
-    | '/review'
+    | '/blog/'
+    | '/guide/'
+    | '/projects/'
+    | '/review/'
     | '/guide/barcelona/$slug'
     | '/guide/barcelona/new'
-    | '/guide/barcelona'
+    | '/guide/barcelona/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -345,28 +345,28 @@ declare module '@tanstack/react-router' {
     '/review/': {
       id: '/review/'
       path: '/review'
-      fullPath: '/review'
+      fullPath: '/review/'
       preLoaderRoute: typeof ReviewIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/': {
       id: '/projects/'
       path: '/projects'
-      fullPath: '/projects'
+      fullPath: '/projects/'
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guide/': {
       id: '/guide/'
       path: '/guide'
-      fullPath: '/guide'
+      fullPath: '/guide/'
       preLoaderRoute: typeof GuideIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
-      fullPath: '/blog'
+      fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -394,7 +394,7 @@ declare module '@tanstack/react-router' {
     '/guide/barcelona/': {
       id: '/guide/barcelona/'
       path: '/guide/barcelona'
-      fullPath: '/guide/barcelona'
+      fullPath: '/guide/barcelona/'
       preLoaderRoute: typeof GuideBarcelonaIndexRouteImport
       parentRoute: typeof rootRouteImport
     }

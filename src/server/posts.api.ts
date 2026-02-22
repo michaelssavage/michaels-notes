@@ -10,52 +10,30 @@ function filterDrafts<T extends { draft?: boolean }>(items: T[]): T[] {
   return isProd ? items.filter((item) => !item.draft) : items;
 }
 
-async function loadPostsIndex(signal?: AbortSignal): Promise<IPosts> {
-  if (signal?.aborted) {
-    throw new Error("Request aborted");
-  }
-
+async function loadPostsIndex(): Promise<IPosts> {
   const filePath = join(
     process.cwd(),
     "public",
     "compiled-posts",
-    "index.json",
+    "index.json"
   );
   const data = await readFile(filePath, "utf-8");
-
-  if (signal?.aborted) {
-    throw new Error("Request aborted");
-  }
-
   return JSON.parse(data) as IPosts;
 }
 
 export const getMiniPosts = createServerFn({
   method: "GET",
-}).handler(
-  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IPosts> => {
-    try {
-      const posts = await loadPostsIndex(signal);
+}).handler(async (): Promise<IPosts> => {
+  try {
+    const posts = await loadPostsIndex();
 
-      posts.blogs = filterDrafts(posts.blogs);
-      posts.projects = filterDrafts(posts.projects);
-      posts.reviews = filterDrafts(posts.reviews);
+    posts.blogs = filterDrafts(posts.blogs);
+    posts.projects = filterDrafts(posts.projects);
+    posts.reviews = filterDrafts(posts.reviews);
 
-      return posts;
-    } catch (error) {
-      if (
-        signal?.aborted ||
-        (error instanceof Error && error.name === "AbortError")
-      ) {
-        return {
-          projects: [],
-          blogs: [],
-          reviews: [],
-          bites: [],
-        };
-      }
-
-      console.warn("Failed to load posts index:", error);
+    return posts;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
       return {
         projects: [],
         blogs: [],
@@ -63,92 +41,80 @@ export const getMiniPosts = createServerFn({
         bites: [],
       };
     }
-  },
-);
+
+    console.warn("Failed to load posts index:", error);
+    return {
+      projects: [],
+      blogs: [],
+      reviews: [],
+      bites: [],
+    };
+  }
+});
 
 export const getProjects = createServerFn({
   method: "GET",
-}).handler(
-  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IProject[]> => {
-    try {
-      const posts = await loadPostsIndex(signal);
-      return filterDrafts(posts.projects);
-    } catch (error) {
-      if (
-        signal?.aborted ||
-        (error instanceof Error && error.name === "AbortError")
-      ) {
-        return [];
-      }
-
-      console.warn("Failed to load projects:", error);
+}).handler(async (): Promise<IProject[]> => {
+  try {
+    const posts = await loadPostsIndex();
+    return filterDrafts(posts.projects);
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
       return [];
     }
-  },
-);
+
+    console.warn("Failed to load projects:", error);
+    return [];
+  }
+});
 
 export const getBlogs = createServerFn({
   method: "GET",
-}).handler(
-  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IBlog[]> => {
-    try {
-      const posts = await loadPostsIndex(signal);
-      return filterDrafts(posts.blogs);
-    } catch (error) {
-      if (
-        signal?.aborted ||
-        (error instanceof Error && error.name === "AbortError")
-      ) {
-        return [];
-      }
-
-      console.warn("Failed to load blogs:", error);
+}).handler(async (): Promise<IBlog[]> => {
+  try {
+    const posts = await loadPostsIndex();
+    return filterDrafts(posts.blogs);
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
       return [];
     }
-  },
-);
+
+    console.warn("Failed to load blogs:", error);
+    return [];
+  }
+});
 
 export const getReviews = createServerFn({
   method: "GET",
-}).handler(
-  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IReview[]> => {
-    try {
-      const posts = await loadPostsIndex(signal);
-      return filterDrafts(posts.reviews);
-    } catch (error) {
-      if (
-        signal?.aborted ||
-        (error instanceof Error && error.name === "AbortError")
-      ) {
-        return [];
-      }
-
-      console.warn("Failed to load reviews:", error);
+}).handler(async (): Promise<IReview[]> => {
+  try {
+    const posts = await loadPostsIndex();
+    return filterDrafts(posts.reviews);
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
       return [];
     }
-  },
-);
+
+    console.warn("Failed to load reviews:", error);
+    return [];
+  }
+});
 
 export const getBites = createServerFn({
   method: "GET",
-}).handler(
-  async ({ signal }: { signal?: AbortSignal } = {}): Promise<IBite[]> => {
-    try {
-      const posts = await loadPostsIndex(signal);
-      return posts.bites;
-    } catch (error) {
-      if (
-        signal?.aborted ||
-        (error instanceof Error && error.name === "AbortError")
-      ) {
-        return [];
-      }
-
-      console.warn("Failed to load bites:", error);
+}).handler(async (): Promise<IBite[]> => {
+  try {
+    const posts = await loadPostsIndex();
+    return posts.bites;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
       return [];
     }
-  },
-);
+
+    console.warn("Failed to load bites:", error);
+    return [];
+  }
+});
 
 const PostSchema = z.object({
   category: z.string().min(1),
@@ -166,7 +132,7 @@ export const getFullPost = createServerFn({
         "public",
         "compiled-posts",
         data.category,
-        `${data.slug}.json`,
+        `${data.slug}.json`
       );
 
       const fileContent = await readFile(postPath, "utf-8");
@@ -174,7 +140,7 @@ export const getFullPost = createServerFn({
     } catch (error) {
       console.error(
         `Failed to load post ${data.category}/${data.slug}:`,
-        error,
+        error
       );
       throw new Error(`Post not found: ${data.category}/${data.slug}`);
     }
