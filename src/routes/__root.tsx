@@ -43,7 +43,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { name: "author", content: "Michael Savage" },
       { name: "description", content: "Personal website of Michael Savage" },
       { property: "og:site_name", content: "Michael Savage" },
-      { property: "og:image", content: "/images/me.jpg" },
+      { property: "og:image", content: "/portrait.jpg" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://michaelsavage.com" },
       {
