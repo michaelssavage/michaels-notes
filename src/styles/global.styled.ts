@@ -5,9 +5,6 @@ import { forBreakAt } from "@/styles/abstracts/mixins.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
 import { css } from "@emotion/react";
 
-const isInstagram =
-  typeof navigator !== "undefined" && /Instagram/.test(navigator.userAgent);
-
 export const underlineStyles = (color: string, hoverColor?: string) => css`
   background-image: linear-gradient(transparent calc(100% - 1px), ${color} 1px);
   background-position: left bottom;
@@ -87,7 +84,7 @@ export const globalStyles = (theme: MyTheme) => css`
   button,
   span,
   svg {
-    ${!isInstagram && "filter: url(#bleed);"}
+    filter: url(#bleed);
   }
 
   button:active {
