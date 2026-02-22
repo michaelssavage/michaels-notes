@@ -27,8 +27,8 @@ interface MyRouterContext {
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async () => {
     try {
-      await checkAuthFn();
-      return { isAdmin: true };
+      const { authenticated } = await checkAuthFn();
+      return { isAdmin: authenticated };
     } catch {
       return { isAdmin: false };
     }

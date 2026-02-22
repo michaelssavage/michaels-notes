@@ -12,7 +12,7 @@ export const getRouter = () => {
     context: { queryClient },
     defaultPreload: "intent",
     defaultErrorComponent: DefaultErrorComponent,
-    // scrollRestoration: true,
+    scrollRestoration: true,
   });
 
   setupRouterSsrQueryIntegration({ router, queryClient });

@@ -55,7 +55,7 @@ export default function Navbar() {
   const router = useRouter();
   const { isAdmin } = useRouteContext({ from: "__root__" });
   const headerRef = useRef<HTMLElement | null>(null);
-  const logoSize = useSpringValue(150, {
+  const logoSize = useSpringValue(minSize, {
     config: { tension: 220, friction: 26 },
   });
 

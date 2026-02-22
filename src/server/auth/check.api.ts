@@ -21,8 +21,5 @@ export const checkAuthFn = createServerFn({ method: "GET" })
       return { authenticated: true };
     }
 
-    throw new Response(JSON.stringify({ authenticated: false }), {
-      status: 401,
-      headers: { "Content-Type": "application/json" },
-    });
+    return { authenticated: false };
   });
