@@ -73,10 +73,14 @@ export default function Navbar() {
     };
 
     updateHeaderHeight();
-    const observer = new ResizeObserver(updateHeaderHeight);
-    observer.observe(element);
+    if (typeof ResizeObserver === "function") {
+      const observer = new ResizeObserver(updateHeaderHeight);
+      observer.observe(element);
+      return () => observer.disconnect();
+    }
 
-    return () => observer.disconnect();
+    window.addEventListener("resize", updateHeaderHeight);
+    return () => window.removeEventListener("resize", updateHeaderHeight);
   }, []);
 
   useEffect(() => {

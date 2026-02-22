@@ -24,9 +24,6 @@ export const Wrapper = styled.figure`
     width: 100%;
     display: flex;
     justify-content: flex-start;
-    position: absolute;
-    bottom: 0;
-    left: 0;
   }
 `;
 
