@@ -105,66 +105,10 @@ function Providers({ children }: { children: React.ReactNode }) {
   );
 }
 
-const instagramDebugScript = `
-(function () {
-  if (!/Instagram/i.test(navigator.userAgent)) return;
-
-  function renderDebug(message, stack) {
-    var pre = document.createElement("pre");
-    pre.setAttribute(
-      "style",
-      "position:fixed;inset:0;z-index:2147483647;margin:0;padding:20px;background:#111;color:#fff;font-size:12px;line-height:1.4;white-space:pre-wrap;overflow:auto;"
-    );
-    pre.textContent = String(message || "Unknown error") + "\\n\\n" + String(stack || "");
-
-    if (document.body) {
-      document.body.innerHTML = "";
-      document.body.appendChild(pre);
-      return;
-    }
-
-    document.documentElement.appendChild(pre);
-  }
-
-  window.onerror = function (msg, src, line, col, err) {
-    renderDebug(
-      String(msg) + "\\n" + String(src) + ":" + String(line) + ":" + String(col),
-      err && err.stack ? err.stack : ""
-    );
-    return false;
-  };
-
-  window.onunhandledrejection = function (event) {
-    var reason = event && event.reason ? event.reason : "Unhandled promise rejection";
-    var stack = reason && reason.stack ? reason.stack : "";
-    renderDebug(reason, stack);
-  };
-
-  window.addEventListener(
-    "error",
-    function (event) {
-      if (!event || !event.message) return;
-      renderDebug(
-        String(event.message) +
-          "\\n" +
-          String(event.filename || "") +
-          ":" +
-          String(event.lineno || "") +
-          ":" +
-          String(event.colno || ""),
-        event.error && event.error.stack ? event.error.stack : ""
-      );
-    },
-    true
-  );
-})();
-`;
-
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: instagramDebugScript }} />
         <HeadContent />
       </head>
       <body>
