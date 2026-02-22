@@ -18,7 +18,7 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
-import { StrictMode, useEffect } from "react";
+import { StrictMode } from "react";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -98,7 +98,6 @@ function Providers({ children }: { children: React.ReactNode }) {
       <PostHogProvider>
         <ContentProvider>
           <ToastProvider />
-          <InstagramErrorOverlay />
           {children}
         </ContentProvider>
       </PostHogProvider>
@@ -106,30 +105,66 @@ function Providers({ children }: { children: React.ReactNode }) {
   );
 }
 
-function InstagramErrorOverlay() {
-  useEffect(() => {
-    if (typeof window === "undefined" || !/Instagram/.test(navigator.userAgent)) {
+const instagramDebugScript = `
+(function () {
+  if (!/Instagram/i.test(navigator.userAgent)) return;
+
+  function renderDebug(message, stack) {
+    var pre = document.createElement("pre");
+    pre.setAttribute(
+      "style",
+      "position:fixed;inset:0;z-index:2147483647;margin:0;padding:20px;background:#111;color:#fff;font-size:12px;line-height:1.4;white-space:pre-wrap;overflow:auto;"
+    );
+    pre.textContent = String(message || "Unknown error") + "\\n\\n" + String(stack || "");
+
+    if (document.body) {
+      document.body.innerHTML = "";
+      document.body.appendChild(pre);
       return;
     }
 
-    const previousOnError = window.onerror;
-    window.onerror = (msg, src, line, col, err) => {
-      document.body.innerHTML = `<pre style="padding:20px;font-size:12px;white-space:pre-wrap;">${String(msg)}\n${String(src)}:${String(line)}:${String(col)}\n${err?.stack ?? ""}</pre>`;
-      return false;
-    };
+    document.documentElement.appendChild(pre);
+  }
 
-    return () => {
-      window.onerror = previousOnError;
-    };
-  }, []);
+  window.onerror = function (msg, src, line, col, err) {
+    renderDebug(
+      String(msg) + "\\n" + String(src) + ":" + String(line) + ":" + String(col),
+      err && err.stack ? err.stack : ""
+    );
+    return false;
+  };
 
-  return null;
-}
+  window.onunhandledrejection = function (event) {
+    var reason = event && event.reason ? event.reason : "Unhandled promise rejection";
+    var stack = reason && reason.stack ? reason.stack : "";
+    renderDebug(reason, stack);
+  };
+
+  window.addEventListener(
+    "error",
+    function (event) {
+      if (!event || !event.message) return;
+      renderDebug(
+        String(event.message) +
+          "\\n" +
+          String(event.filename || "") +
+          ":" +
+          String(event.lineno || "") +
+          ":" +
+          String(event.colno || ""),
+        event.error && event.error.stack ? event.error.stack : ""
+      );
+    },
+    true
+  );
+})();
+`;
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: instagramDebugScript }} />
         <HeadContent />
       </head>
       <body>
