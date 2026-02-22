@@ -110,6 +110,109 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function () {
+  if (!/Instagram/i.test(navigator.userAgent)) return;
+
+  var logs = [];
+
+  function serialize(val) {
+    if (val === null) return "null";
+    if (val === undefined) return "undefined";
+    var type = typeof val;
+    if (type === "string") return val;
+    if (type === "number" || type === "boolean") return String(val);
+    try {
+      var obj = {
+        type: type,
+        constructor: val && val.constructor && val.constructor.name,
+        message: val && val.message,
+        status: val && val.status,
+        statusText: val && val.statusText,
+        stack: val && val.stack,
+        keys: val ? Object.keys(val) : [],
+        json: JSON.stringify(val, null, 2),
+      };
+      return JSON.stringify(obj, null, 2);
+    } catch (e) {
+      return "serialize failed: " + e.message;
+    }
+  }
+
+  function render() {
+    var existing = document.getElementById("__debug_overlay");
+    if (existing) existing.remove();
+
+    var pre = document.createElement("pre");
+    pre.id = "__debug_overlay";
+    pre.style.cssText = [
+      "position:fixed",
+      "inset:0",
+      "z-index:2147483647",
+      "margin:0",
+      "padding:16px",
+      "background:#0a0a0a",
+      "color:#00ff88",
+      "font-size:11px",
+      "line-height:1.5",
+      "white-space:pre-wrap",
+      "overflow:auto",
+      "font-family:monospace",
+    ].join(";");
+    pre.textContent = logs.join("\\n\\n---\\n\\n");
+    var target = document.body || document.documentElement;
+    if (target) target.appendChild(pre);
+  }
+
+  function log(label, val, stack) {
+    var entry = "[" + label + "]\\n" + serialize(val);
+    if (stack) entry += "\\n\\nSTACK:\\n" + stack;
+    logs.push(entry);
+    render();
+  }
+
+  // Catch sync errors
+  window.onerror = function (msg, src, line, col, err) {
+    log("onerror", {
+      message: msg,
+      source: src,
+      line: line,
+      col: col,
+    }, err && err.stack);
+    return false;
+  };
+
+  // Catch unhandled promise rejections
+  window.addEventListener("unhandledrejection", function (event) {
+    log("unhandledrejection", event.reason, event.reason && event.reason.stack);
+  });
+
+  // Catch all errors in capture phase
+  window.addEventListener("error", function (event) {
+    log("error event", {
+      message: event.message,
+      filename: event.filename,
+      line: event.lineno,
+      col: event.colno,
+    }, event.error && event.error.stack);
+  }, true);
+
+  // Log basic env info immediately
+  log("env", {
+    ua: navigator.userAgent,
+    matchMedia: typeof window.matchMedia,
+    sessionStorage: (function() { try { sessionStorage.setItem("t","1"); sessionStorage.removeItem("t"); return "ok"; } catch(e) { return "blocked: " + e.message; } })(),
+    localStorage: (function() { try { localStorage.setItem("t","1"); localStorage.removeItem("t"); return "ok"; } catch(e) { return "blocked: " + e.message; } })(),
+    performance: typeof window.performance,
+    crypto: typeof window.crypto,
+    fetch: typeof window.fetch,
+  }, null);
+})();
+`,
+          }}
+        />
       </head>
       <body>
         <StrictMode>
