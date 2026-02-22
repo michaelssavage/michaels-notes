@@ -48,7 +48,7 @@ function About() {
                 link="https://careers.jaguarlandrover.com/where-we-are/ireland"
                 text="JLR"
                 variant="link"
-              />
+              />{" "}
               in 2021. I&apos;m currently working as a Product Developer for a
               startup in the heart of Barcelona using tools like React.js,
               JavaScript, TypeScript, Django, Figma, and more!
