@@ -1,10 +1,10 @@
 import { ButtonStyled } from "@/components/molecules/Button/Button.styled";
 import { Wrapper } from "@/components/molecules/Picture/Picture.styled";
+import { slideInAnimation } from "@/styles/abstracts/animations.styled";
 import { Col } from "@/styles/abstracts/layout.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { animated } from "@react-spring/web";
 
 export const Heading = styled.h1`
   margin: 0;
@@ -90,11 +90,11 @@ export const ButtonGroup = styled.div`
   }
 `;
 
-export const Header = styled(animated.h1)`
+export const Header = styled.h1`
   text-transform: uppercase;
   font-weight: bold;
   color: ${({ theme }) => theme.black};
-  will-change: transform;
+  ${slideInAnimation("20px", "vertical", "0.4s", "forwards")}
 `;
 
 export const MovieInfo = styled.p`

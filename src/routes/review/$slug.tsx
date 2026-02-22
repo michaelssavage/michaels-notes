@@ -12,7 +12,6 @@ import {
 } from "@/styles/routes/blog.styled";
 import type { IReview } from "@/types/Post";
 import { css } from "@emotion/react";
-import { useSpring } from "@react-spring/web";
 import { createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
@@ -60,12 +59,6 @@ function Slug() {
   const post = Route.useLoaderData();
   const posts = usePosts("reviews");
 
-  const spring = useSpring({
-    from: { opacity: 0, transform: "translateY(20px)" },
-    to: { opacity: 1, transform: "translateY(0px)" },
-    config: { tension: 300, friction: 30 },
-  });
-
   const sidebar = posts.filter(({ slug }) => slug !== post.slug);
 
   return (
@@ -79,7 +72,7 @@ function Slug() {
         />
         <p className="date">{post.date}</p>
         <Content>
-          <Header style={spring}>{post.title}</Header>
+          <Header>{post.title}</Header>
           <MovieInfo>
             Directed by {post.director} ({post.releaseYear})
           </MovieInfo>

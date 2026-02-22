@@ -31,6 +31,11 @@ export const Header = styled.nav`
     );
   }
 
+  #navbar-logo-link {
+    width: 80px;
+    height: 80px;
+  }
+
   ${forTabletOnly(css`
     padding: 1rem 1rem 0;
 

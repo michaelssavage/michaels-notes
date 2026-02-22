@@ -35,16 +35,16 @@ function RouteComponent() {
           />
           <p>
             A very incomplete Barcelona guide of things to do, see, and
-            experience. I&apos;m always collecting points of interest,
+            experience. I&apos;m always looking for something new to do,
             activities, live music venues, and other fun things that aren&apos;t
-            so obvious. There are many resources for finding things to do, like{" "}
+            so obvious.{" "}
             <Anchor
               link="https://www.atlasobscura.com/things-to-do/barcelona-spain/"
               text="Atlas Obscura"
               variant="link"
               isExternal
-            />
-            .
+            />{" "}
+            is another cool resource .
           </p>
         </div>
 

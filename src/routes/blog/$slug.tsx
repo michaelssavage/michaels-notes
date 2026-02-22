@@ -8,7 +8,6 @@ import { usePosts } from "@/hooks/use-posts.hook";
 import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
-import { useSpring } from "@react-spring/web";
 import { createFileRoute, useHydrated } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
@@ -57,12 +56,6 @@ function Slug() {
   const post = Route.useLoaderData();
   const posts = usePosts("blogs");
 
-  const spring = useSpring({
-    from: { opacity: 0, transform: "translateY(20px)" },
-    to: { opacity: 1, transform: "translateY(0px)" },
-    config: { tension: 300, friction: 30 },
-  });
-
   if (!hydrated) return <Loading />;
 
   const sidebar = posts
@@ -80,9 +73,7 @@ function Slug() {
         />
         <p className="date">{post.date}</p>
         <Content>
-          <Header style={spring} aria-labelledby={`post-title-${slug}`}>
-            {post.title}
-          </Header>
+          <Header aria-labelledby={`post-title-${slug}`}>{post.title}</Header>
           <Markdown content={post} />
           {post.github && (
             <Anchor

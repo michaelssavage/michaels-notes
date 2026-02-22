@@ -1,13 +1,13 @@
 /// <reference types="vite/client" />
 import { Layout } from "@/components/atoms/Layout";
 import { NotFound } from "@/components/atoms/NotFound";
-import PostHogProvider from "@/components/atoms/PostHogContainer";
 import { TextBleed } from "@/components/atoms/TextBleed";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
 import { Feedback } from "@/components/molecules/Feedback/Feedback";
 import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
+import PostHogProvider from "@/context/PostHogContainer";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { checkAuthFn } from "@/server/auth/check.api";
 import type { QueryClient } from "@tanstack/react-query";
