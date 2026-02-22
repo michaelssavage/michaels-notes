@@ -6,13 +6,16 @@ import {
   PopoverTrigger,
 } from "@/components/molecules/Overlays";
 import { Picture } from "@/components/molecules/Picture";
+import { useMatchMedia } from "@/hooks/use-match-media.hook";
 import { logoutFn } from "@/server/auth/logout.api";
+import { animated, useSpringValue } from "@react-spring/web";
 import {
   Link,
   useLocation,
   useRouteContext,
   useRouter,
 } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import {
   AdminContent,
   AdminUserIcon,
@@ -44,68 +47,72 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
   );
 };
 
+const minSize = 48;
+const maxSize = 150;
+const distance = 200;
+
 export default function Navbar() {
   const router = useRouter();
   const { isAdmin } = useRouteContext({ from: "__root__" });
-  // const headerRef = useRef<HTMLElement | null>(null);
-  // const logoSize = useSpringValue(150, {
-  //   config: { tension: 220, friction: 26 },
-  // });
+  const headerRef = useRef<HTMLElement | null>(null);
+  const logoSize = useSpringValue(150, {
+    config: { tension: 220, friction: 26 },
+  });
 
-  // const isCompact = useMatchMedia("(max-width: 768px)");
+  const isCompact = useMatchMedia("(max-width: 768px)");
 
-  // useEffect(() => {
-  //   if (!headerRef.current) return;
-  //   const element = headerRef.current;
+  useEffect(() => {
+    if (!headerRef.current) return;
+    const element = headerRef.current;
 
-  //   const updateHeaderHeight = () => {
-  //     document.documentElement.style.setProperty(
-  //       "--header-height",
-  //       `${element.offsetHeight}px`
-  //     );
-  //   };
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${element.offsetHeight}px`
+      );
+    };
 
-  //   updateHeaderHeight();
-  //   if (typeof ResizeObserver === "function") {
-  //     const observer = new ResizeObserver(updateHeaderHeight);
-  //     observer.observe(element);
-  //     return () => observer.disconnect();
-  //   }
+    updateHeaderHeight();
+    if (typeof ResizeObserver === "function") {
+      const observer = new ResizeObserver(updateHeaderHeight);
+      observer.observe(element);
+      return () => observer.disconnect();
+    }
 
-  //   window.addEventListener("resize", updateHeaderHeight);
-  //   return () => window.removeEventListener("resize", updateHeaderHeight);
-  // }, []);
+    window.addEventListener("resize", updateHeaderHeight);
+    return () => window.removeEventListener("resize", updateHeaderHeight);
+  }, []);
 
-  // useEffect(() => {
-  //   let frame: number | null = null;
+  useEffect(() => {
+    let frame: number | null = null;
 
-  //   const updateSize = () => {
-  //     const nextSize = isCompact
-  //       ? minSize
-  //       : maxSize -
-  //         Math.min(window.scrollY / distance, 1) * (maxSize - minSize);
-  //     logoSize.set(nextSize);
-  //     frame = null;
-  //   };
+    const updateSize = () => {
+      const nextSize = isCompact
+        ? minSize
+        : maxSize -
+          Math.min(window.scrollY / distance, 1) * (maxSize - minSize);
+      logoSize.set(nextSize);
+      frame = null;
+    };
 
-  //   updateSize();
-  //   const onScroll = () => {
-  //     if (frame === null) {
-  //       frame = window.requestAnimationFrame(updateSize);
-  //     }
-  //   };
+    updateSize();
+    const onScroll = () => {
+      if (frame === null) {
+        frame = window.requestAnimationFrame(updateSize);
+      }
+    };
 
-  //   window.addEventListener("scroll", onScroll, { passive: true });
-  //   window.addEventListener("resize", updateSize);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", updateSize);
 
-  //   return () => {
-  //     if (frame !== null) {
-  //       window.cancelAnimationFrame(frame);
-  //     }
-  //     window.removeEventListener("scroll", onScroll);
-  //     window.removeEventListener("resize", updateSize);
-  //   };
-  // }, [isCompact, logoSize]);
+    return () => {
+      if (frame !== null) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", updateSize);
+    };
+  }, [isCompact, logoSize]);
 
   const logout = async () => {
     await logoutFn();
@@ -113,11 +120,14 @@ export default function Navbar() {
   };
 
   return (
-    <Header>
+    <Header ref={headerRef}>
       <Link to="/">
-        <div id="navbar-logo-link">
+        <animated.div
+          id="navbar-logo-link"
+          style={{ width: logoSize, height: logoSize }}
+        >
           <Picture src="/logo.png" alt="Logo" loading="eager" />
-        </div>
+        </animated.div>
       </Link>
       <div id="navbar-links-container">
         <NavLink
