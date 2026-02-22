@@ -98,11 +98,32 @@ function Providers({ children }: { children: React.ReactNode }) {
       <PostHogProvider>
         <ContentProvider>
           <ToastProvider />
+          <InstagramErrorOverlay />
           {children}
         </ContentProvider>
       </PostHogProvider>
     </ThemeProvider>
   );
+}
+
+function InstagramErrorOverlay() {
+  useEffect(() => {
+    if (typeof window === "undefined" || !/Instagram/.test(navigator.userAgent)) {
+      return;
+    }
+
+    const previousOnError = window.onerror;
+    window.onerror = (msg, src, line, col, err) => {
+      document.body.innerHTML = `<pre style="padding:20px;font-size:12px;white-space:pre-wrap;">${String(msg)}\n${String(src)}:${String(line)}:${String(col)}\n${err?.stack ?? ""}</pre>`;
+      return false;
+    };
+
+    return () => {
+      window.onerror = previousOnError;
+    };
+  }, []);
+
+  return null;
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -119,7 +140,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <Layout>{children}</Layout>
             <Feedback />
             <Footer />
-            <DebugErudaLoader />
           </Providers>
         </StrictMode>
 
@@ -128,31 +148,4 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-}
-
-function DebugErudaLoader() {
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const shouldEnable = params.has("debugIg") && /Instagram/i.test(navigator.userAgent);
-    if (!shouldEnable) return;
-
-    if ((window as { eruda?: { init: () => void } }).eruda) {
-      (window as { eruda?: { init: () => void } }).eruda?.init();
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/eruda";
-    script.async = true;
-    script.onload = () => {
-      (window as { eruda?: { init: () => void } }).eruda?.init();
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-    };
-  }, []);
-
-  return null;
 }
