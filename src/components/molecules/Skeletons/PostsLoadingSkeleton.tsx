@@ -1,6 +1,6 @@
 import { memo } from "react";
-import BiteSkeleton from "./Bite/BiteSkeleton";
-import PostSkeleton from "./Post/PostSkeleton";
+import BiteSkeleton from "../Bite/BiteSkeleton";
+import PostSkeleton from "../Post/PostSkeleton";
 
 const PostsLoadingSkeleton = memo(() => {
   return (

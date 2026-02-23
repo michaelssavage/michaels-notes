@@ -7,6 +7,7 @@ import { Button } from "@/components/molecules/Button";
 import { Drawer } from "@/components/molecules/Drawer";
 import { GuideMap } from "@/components/molecules/GuideMap/GuideMap";
 import { SearchBox } from "@/components/molecules/SearchBox";
+import GuideLoadingSkeleton from "@/components/molecules/Skeletons/GuideLoadingSkeleton";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";
 import { useMatchMedia } from "@/hooks/use-match-media.hook";
 import { useTheme } from "@/hooks/use-theme.hook";
@@ -46,7 +47,7 @@ import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Select from "react-select";
 
 type GuideTypeOption = { value: GuideType | "all"; label: string };
@@ -82,19 +83,13 @@ function RouteComponent() {
 
   const fetchGuide = useServerFn(getGuide);
 
-  const { data: items = [] } = useQuery({
+  const { data: items = [], isLoading } = useQuery({
     queryKey: ["guide"],
     queryFn: () => fetchGuide({ data: { name: "barcelona-guide" } }),
     refetchOnWindowFocus: false,
   });
 
-  const [shuffledItems, setShuffledItems] = useState<GuideTableItem[]>([]);
-
-  useEffect(() => {
-    if (items.length > 0) {
-      setShuffledItems(shuffleArray(items));
-    }
-  }, [items]);
+  const shuffledItems = useMemo(() => shuffleArray(items), [items]);
 
   const { uniqueTypes, uniqueTags } = (() => {
     const types = new Set<GuideType>();
@@ -215,7 +210,7 @@ function RouteComponent() {
       <SplitView>
         <SplitPanel>
           <div data-id="guide-header">
-            <h1>Barcelona Guide - Què faré avui?</h1>
+            <h1>Què faré avui?</h1>
 
             {isAdmin && (
               <Anchor
@@ -227,8 +222,7 @@ function RouteComponent() {
 
             <p>
               Bon dia! There are many things to do in Barcelona but I always
-              forget about them. This guide is a collection of my own
-              recommendations.
+              forget about them. This is my Barcelona guide.
             </p>
 
             <FilterContainer>
@@ -296,71 +290,75 @@ function RouteComponent() {
           </div>
 
           <Grid>
-            {displayedItems.map((item, index) => {
-              return (
-                <Card key={index} onClick={handleCardClick(item)}>
-                  {item.image ? (
-                    <img
-                      data-id="image"
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                    />
-                  ) : null}
+            {isLoading ? (
+              <GuideLoadingSkeleton />
+            ) : (
+              displayedItems.map((item, index) => {
+                return (
+                  <Card key={index} onClick={handleCardClick(item)}>
+                    {item.image ? (
+                      <img
+                        data-id="image"
+                        src={item.image}
+                        alt={item.title}
+                        loading="lazy"
+                      />
+                    ) : null}
 
-                  <p data-id="type">{item.type}</p>
-                  <p data-id="price">{item.price}</p>
+                    <p data-id="type">{item.type}</p>
+                    <p data-id="price">{item.price}</p>
 
-                  <CardBody>
-                    <h2>{item.title}</h2>
-                    <p data-id="description">{item.description}</p>
+                    <CardBody>
+                      <h2>{item.title}</h2>
+                      <p data-id="description">{item.description}</p>
 
-                    {item.tags.length > 0 && (
-                      <p data-id="tags">
-                        {item.tags?.map((tag) => (
-                          <FilterableTag
-                            key={tag}
-                            $isActive={isTagActive(tag)}
-                            onClick={() => handleTagClick(tag)}
-                          >
-                            {getTagLabel(tag)}
-                          </FilterableTag>
-                        ))}
-                      </p>
-                    )}
-                  </CardBody>
+                      {item.tags.length > 0 && (
+                        <p data-id="tags">
+                          {item.tags?.map((tag) => (
+                            <FilterableTag
+                              key={tag}
+                              $isActive={isTagActive(tag)}
+                              onClick={() => handleTagClick(tag)}
+                            >
+                              {getTagLabel(tag)}
+                            </FilterableTag>
+                          ))}
+                        </p>
+                      )}
+                    </CardBody>
 
-                  <CardFooter>
-                    <BasicLink
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(event) => event.stopPropagation()}
-                    >
-                      Info <ExternalLinkIcon />
-                    </BasicLink>
-
-                    {isAdmin && (
-                      <EditLink
-                        to={`/guide/barcelona/${item.id}`}
+                    <CardFooter>
+                      <BasicLink
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         onClick={(event) => event.stopPropagation()}
                       >
-                        Edit <SquarePenIcon />
-                      </EditLink>
-                    )}
+                        Info <ExternalLinkIcon />
+                      </BasicLink>
 
-                    <BasicLink
-                      href={item.location}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(event) => event.stopPropagation()}
-                    >
-                      Map <MapIcon />
-                    </BasicLink>
-                  </CardFooter>
-                </Card>
-              );
-            })}
+                      {isAdmin && (
+                        <EditLink
+                          to={`/guide/barcelona/${item.id}`}
+                          onClick={(event) => event.stopPropagation()}
+                        >
+                          Edit <SquarePenIcon />
+                        </EditLink>
+                      )}
+
+                      <BasicLink
+                        href={item.location}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        Map <MapIcon />
+                      </BasicLink>
+                    </CardFooter>
+                  </Card>
+                );
+              })
+            )}
           </Grid>
 
           {hasMore && (
@@ -369,7 +367,7 @@ function RouteComponent() {
             </LoadMore>
           )}
 
-          {filteredItems.length === 0 && (
+          {!isLoading && filteredItems.length === 0 && (
             <LoadMore>
               <h3>No places found</h3>
               <p>Try adjusting your search terms or filters.</p>
