@@ -9,7 +9,6 @@ import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
 import PostHogProvider from "@/context/PostHogContainer";
 import { ThemeProvider } from "@/context/ThemeProvider";
-import { useEruda } from "@/hooks/use-eruda.hook";
 import { checkAuthFn } from "@/server/auth/check.api";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -106,11 +105,6 @@ function Providers({ children }: { children: React.ReactNode }) {
   );
 }
 
-function DevTools() {
-  useEruda();
-  return null;
-}
-
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -129,7 +123,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         </StrictMode>
 
         <ReactQueryDevtools buttonPosition="bottom-left" />
-        <DevTools />
         <Scripts />
       </body>
     </html>
