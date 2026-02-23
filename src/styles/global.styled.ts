@@ -1,33 +1,50 @@
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
 import type { MyTheme } from "@/styles/abstracts/colors.styled";
-import { fonts } from "@/styles/abstracts/fonts.styled";
 import { forBreakAt } from "@/styles/abstracts/mixins.styled";
 import { resetStyles } from "@/styles/abstracts/reset.styled";
 import { css } from "@emotion/react";
 
-export const underlineStyles = (color: string, hoverColor?: string) => css`
-  background-image: linear-gradient(transparent calc(100% - 1px), ${color} 1px);
-  background-position: left bottom;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  transition: background-image 0.25s;
-  font-weight: inherit;
+const underlineCache = new Map<string, ReturnType<typeof css>>();
 
-  ${hoverColor &&
-  css`
-    &:hover {
-      background-image: linear-gradient(
-        transparent calc(100% - 1px),
-        ${hoverColor} 1px
-      );
-    }
-  `}
-`;
+export const underlineStyles = (color: string, hoverColor?: string) => {
+  const key = `${color}|${hoverColor ?? ""}`;
+  if (!underlineCache.has(key)) {
+    underlineCache.set(
+      key,
+      css`
+        background-image: linear-gradient(
+          transparent calc(100% - 1px),
+          ${color} 1px
+        );
+        background-position: left bottom;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        transition: background-image 0.25s;
+        font-weight: inherit;
 
-export const globalStyles = (theme: MyTheme) => css`
-  ${resetStyles}
-  ${pageTransitions}
-  ${fonts}
+        ${hoverColor &&
+        css`
+          &:hover {
+            background-image: linear-gradient(
+              transparent calc(100% - 1px),
+              ${hoverColor} 1px
+            );
+          }
+        `}
+      `
+    );
+  }
+  return underlineCache.get(key)!;
+};
+
+const staticGlobalStyles = css`
+  @font-face {
+    font-family: "Rawest";
+    src: url("/fonts/rawest.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
   body {
     margin: 0;
@@ -37,8 +54,6 @@ export const globalStyles = (theme: MyTheme) => css`
       -apple-system,
       BlinkMacSystemFont,
       sans-serif;
-    background-color: ${theme.yellow};
-    color: ${theme.black};
     overflow-x: hidden;
     min-height: 100vh;
     transition:
@@ -80,13 +95,6 @@ export const globalStyles = (theme: MyTheme) => css`
     font-size: clamp(1rem, 0.9rem + 0.3vw, 1.1rem);
   }
 
-  a,
-  button,
-  span,
-  svg {
-    filter: url(#bleed);
-  }
-
   button:active {
     transform: scale(1.05);
   }
@@ -94,18 +102,10 @@ export const globalStyles = (theme: MyTheme) => css`
   .date {
     font-size: 0.9rem;
     font-style: italic;
-    color: ${theme.gray400};
     font-weight: bold;
   }
 
-  .underline {
-    cursor: pointer;
-    ${underlineStyles(theme.red200, theme.red300)}
-    filter: unset;
-  }
-
   .callout {
-    background-color: ${theme.yellow};
     padding: 1rem;
     font-size: 1.2rem;
     border-radius: 0.5rem;
@@ -114,18 +114,15 @@ export const globalStyles = (theme: MyTheme) => css`
   }
 
   .simple-card {
-    background-color: ${theme.white100};
     padding: 0.25rem;
     border-radius: 0.25rem;
     margin-bottom: 1rem;
   }
 
   .popover-card {
-    background-color: ${theme.yellow};
     max-width: 600px;
     border-radius: 10px;
     padding: 1rem;
-    border: 1px solid ${theme.blue200};
   }
 
   .three-grid-columns {
@@ -166,5 +163,38 @@ export const globalStyles = (theme: MyTheme) => css`
     position: absolute;
     white-space: nowrap;
     width: 1px;
+  }
+`;
+
+export const globalStyles = (theme: MyTheme) => css`
+  ${resetStyles}
+  ${staticGlobalStyles}
+  ${pageTransitions}
+
+  body {
+    background-color: ${theme.yellow};
+    color: ${theme.black};
+  }
+
+  .date {
+    color: ${theme.gray400};
+  }
+
+  .underline {
+    cursor: pointer;
+    ${underlineStyles(theme.red200, theme.red300)}
+  }
+
+  .callout {
+    background-color: ${theme.yellow};
+  }
+
+  .simple-card {
+    background-color: ${theme.white100};
+  }
+
+  .popover-card {
+    background-color: ${theme.yellow};
+    border: 1px solid ${theme.blue200};
   }
 `;

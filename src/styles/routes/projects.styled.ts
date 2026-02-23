@@ -72,7 +72,6 @@ export const Card = styled(Link)`
   border-radius: 0.4rem;
   transition: box-shadow 0.3s ease;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-  filter: url(#bleed);
 
   &:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
@@ -117,10 +116,6 @@ export const Header = styled.div`
 
   h1 {
     margin-bottom: 0.5rem;
-  }
-
-  p {
-    filter: url(#bleed);
   }
 
   ${forPhoneOnly(css`

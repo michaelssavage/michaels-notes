@@ -9,7 +9,7 @@ import { Link } from "@tanstack/react-router";
 const getPostColor = (
   theme: MyTheme,
   isExternal?: string,
-  isReview?: boolean,
+  isReview?: boolean
 ) => {
   if (isReview) return theme.purple;
   return isExternal ? theme.blue200 : theme.red200;
@@ -93,7 +93,6 @@ export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop
   width: 100%;
   box-shadow: ${({ theme }) => theme.blue} 5px 5px;
   z-index: 2;
-  filter: url(#bleed);
 
   &:hover {
     box-shadow: ${({ theme }) => theme.blue200} 5px 5px;

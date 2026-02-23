@@ -15,9 +15,8 @@ import { toast } from "react-hot-toast";
 export const Route = createFileRoute("/guide/barcelona/$slug")({
   component: RouteComponent,
   loader: async () => {
-    try {
-      await checkAuthFn();
-    } catch {
+    const { authenticated } = await checkAuthFn();
+    if (!authenticated) {
       throw redirect({ to: "/login" });
     }
   },

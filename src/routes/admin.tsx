@@ -13,9 +13,8 @@ import { checkAuthFn } from "../server/auth/check.api";
 
 export const Route = createFileRoute("/admin")({
   beforeLoad: async () => {
-    try {
-      await checkAuthFn();
-    } catch {
+    const { authenticated } = await checkAuthFn();
+    if (!authenticated) {
       throw redirect({ to: "/login" });
     }
   },
