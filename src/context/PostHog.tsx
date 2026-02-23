@@ -7,6 +7,18 @@ interface HogProps {
 
 const isDevelopment = import.meta.env.DEV;
 
+const PostHogReact = lazy(() =>
+  import("@posthog/react").then((mod) => ({
+    default: mod.PostHogProvider,
+  }))
+);
+
+const PostHogErrorBoundaryLazy = lazy(() =>
+  import("@posthog/react").then((mod) => ({
+    default: mod.PostHogErrorBoundary,
+  }))
+);
+
 const options = {
   api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
   autocapture: !isDevelopment,
@@ -14,10 +26,6 @@ const options = {
   disable_session_recording: isDevelopment,
   opt_out_capturing_by_default: isDevelopment,
 };
-
-const PostHogProviderLazy = lazy(() =>
-  import("posthog-js/react").then((mod) => ({ default: mod.PostHogProvider })),
-);
 
 export default function PostHogProvider({ children }: HogProps) {
   const hydrated = useHydrated();
@@ -28,12 +36,12 @@ export default function PostHogProvider({ children }: HogProps) {
 
   return (
     <Suspense fallback={null}>
-      <PostHogProviderLazy
+      <PostHogReact
         apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY || ""}
         options={options}
       >
-        {children}
-      </PostHogProviderLazy>
+        <PostHogErrorBoundaryLazy>{children}</PostHogErrorBoundaryLazy>
+      </PostHogReact>
     </Suspense>
   );
 }

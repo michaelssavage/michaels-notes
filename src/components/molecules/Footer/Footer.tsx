@@ -6,15 +6,38 @@ import {
   ResumeIcon,
   SpotifyIcon,
 } from "@/components/icons";
+import { lazy, Suspense } from "react";
 import { Wrapper } from "./Footer.styled";
 
-const Footer = () => {
-  const captureCvClick = async () => {
-    const posthog = (await import("posthog-js")).default;
+const isDevelopment = import.meta.env.DEV;
 
-    posthog.capture("cv_download_clicked", {
-      source: "resume_button",
-    });
+const PostHogCapture = lazy(() =>
+  import("@posthog/react").then((mod) => ({
+    default: function PostHogCapture({
+      children,
+    }: {
+      children: (
+        capture: (event: string, props?: Record<string, unknown>) => void
+      ) => React.ReactNode;
+    }) {
+      const posthog = mod.usePostHog();
+
+      const capture = (event: string, props?: Record<string, unknown>) => {
+        posthog?.capture(event, props);
+      };
+
+      return <>{children(capture)}</>;
+    },
+  }))
+);
+
+const FooterContent = ({
+  capture,
+}: {
+  capture?: (event: string, props?: Record<string, unknown>) => void;
+}) => {
+  const captureCvClick = () => {
+    capture?.("cv_download_clicked", { source: "resume_button" });
   };
 
   return (
@@ -54,6 +77,20 @@ const Footer = () => {
         isExternal
       />
     </Wrapper>
+  );
+};
+
+const Footer = () => {
+  if (isDevelopment) {
+    return <FooterContent />;
+  }
+
+  return (
+    <Suspense fallback={<FooterContent />}>
+      <PostHogCapture>
+        {(capture) => <FooterContent capture={capture} />}
+      </PostHogCapture>
+    </Suspense>
   );
 };
 
