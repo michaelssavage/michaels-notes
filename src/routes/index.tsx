@@ -134,10 +134,10 @@ function Blog() {
           </Heading>
         </Group>
         <Info data-filter={dataFilters}>
-          Here you can find blog posts about my{" "}
+          I write about my{" "}
           <span data-id="onSite">learnings and mishaps</span>,{" "}
           <span data-id="isReview">reviews of movies and music</span>, previous{" "}
-          <span data-id="isPlantBassd">Plant Bass&apos;d articles</span>, , and{" "}
+          <span data-id="isPlantBassd">Plant Bass&apos;d articles</span>, and{" "}
           <span data-id="isBite">bite-sized achievements</span>.
         </Info>
         <Group wrap="wrap">
