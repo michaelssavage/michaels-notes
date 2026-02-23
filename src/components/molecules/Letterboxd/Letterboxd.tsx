@@ -1,7 +1,6 @@
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
-import { useTheme } from "@/hooks/use-theme.hook";
 import { getMovies } from "@/server/mongo/letterboxd.api";
 import {
   Embla,
@@ -26,7 +25,6 @@ import {
 
 export const Letterboxd = () => {
   const fetchMovies = useServerFn(getMovies);
-  const { lightTheme } = useTheme();
 
   const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -142,10 +140,10 @@ export const Letterboxd = () => {
           text="my profile"
           variant="link"
           style={css`
-            color: ${lightTheme.black};
+            color: var(--color-black);
             text-decoration: none;
             &:hover {
-              color: ${lightTheme.green400};
+              color: var(--color-green400);
             }
           `}
         />

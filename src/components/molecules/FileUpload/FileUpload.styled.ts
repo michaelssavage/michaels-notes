@@ -7,14 +7,14 @@ export const UploadContainer = styled.div<{ styles?: SerializedStyles }>`
   gap: 1rem;
 
   > button {
-    background-color: ${({ theme }) => theme.blue200};
-    color: ${({ theme }) => theme.white};
-    border: 1px solid ${({ theme }) => theme.black};
+    background-color: var(--color-blue200);
+    color: var(--color-white);
+    border: 1px solid var(--color-black);
 
     &:hover {
-      background-color: ${({ theme }) => theme.blue300};
-      color: ${({ theme }) => theme.white};
-      border: 1px solid ${({ theme }) => theme.black};
+      background-color: var(--color-blue300);
+      color: var(--color-white);
+      border: 1px solid var(--color-black);
     }
   }
 
@@ -23,14 +23,14 @@ export const UploadContainer = styled.div<{ styles?: SerializedStyles }>`
 
 export const UploadCount = styled.p`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.gray600};
+  color: var(--color-gray600);
 `;
 
 export const UploadError = styled.div`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.red300};
+  color: var(--color-red300);
   padding: 0.75rem;
-  background-color: ${({ theme }) => theme.red};
+  background-color: var(--color-red);
   border-radius: 0.5rem;
 
   p {
@@ -56,19 +56,19 @@ export const UploadFileItem = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.75rem;
-  border: 1px solid ${({ theme }) => theme.gray400};
+  border: 1px solid var(--color-gray400);
   border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.white};
+  background-color: var(--color-white);
   transition: border-color 0.2s;
 
   &:hover {
-    border-color: ${({ theme }) => theme.gray500};
+    border-color: var(--color-gray500);
   }
 `;
 
 export const UploadFileName = styled.p`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.gray600};
+  color: var(--color-gray600);
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -78,7 +78,7 @@ export const UploadFileName = styled.p`
 
 export const UploadFileProgress = styled.p`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.blue300};
+  color: var(--color-blue300);
   font-weight: 600;
   margin: 0;
 `;
@@ -88,7 +88,7 @@ export const ImagePreview = styled.div`
   aspect-ratio: 4 / 3;
   border-radius: 0.375rem;
   overflow: hidden;
-  border: 1px solid ${({ theme }) => theme.gray300};
+  border: 1px solid var(--color-gray300);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,7 +118,7 @@ export const ProgressItem = styled.div`
 export const ProgressBar = styled.div`
   width: 100%;
   height: 4px;
-  background-color: ${({ theme }) => theme.gray300};
+  background-color: var(--color-gray300);
   border-radius: 2px;
   overflow: hidden;
 `;
@@ -126,6 +126,6 @@ export const ProgressBar = styled.div`
 export const ProgressFill = styled.div<{ progress: number }>`
   height: 100%;
   width: ${({ progress }) => progress}%;
-  background-color: ${({ theme }) => theme.blue300};
+  background-color: var(--color-blue300);
   transition: width 0.3s ease;
 `;

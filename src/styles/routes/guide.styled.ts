@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
 export const BasicLink = styled.a`
-  color: ${({ theme }) => theme.green300};
+  color: var(--color-green300);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -15,7 +15,7 @@ export const BasicLink = styled.a`
   width: fit-content;
 
   &:hover {
-    color: ${({ theme }) => theme.green200};
+    color: var(--color-green200);
   }
 `;
 
@@ -25,7 +25,7 @@ export const EditLink = styled(Link)`
   left: 50%;
   transform: translateX(-50%);
 
-  color: ${({ theme }) => theme.blue300};
+  color: var(--color-blue300);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -34,7 +34,7 @@ export const EditLink = styled(Link)`
   font-weight: 500;
 
   &:hover {
-    color: ${({ theme }) => theme.black};
+    color: var(--color-black);
   }
 `;
 
@@ -42,14 +42,14 @@ export const LoadMore = styled.div`
   text-align: center;
   margin: 2rem auto;
   width: fit-content;
-  color: ${({ theme }) => theme.gray500};
+  color: var(--color-gray500);
 `;
 
 export const LinkTitle = styled.a`
   text-decoration: none;
 
   h2 {
-    color: ${({ theme }) => theme.black};
+    color: var(--color-black);
     font-weight: 600;
     font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   }
@@ -94,8 +94,8 @@ export const CardFooter = styled.div`
 
 export const Card = styled.div`
   position: relative;
-  background-color: ${({ theme }) => theme.white};
-  border: 2px solid ${({ theme }) => theme.black};
+  background-color: var(--color-white);
+  border: 2px solid var(--color-black);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -115,19 +115,19 @@ export const Card = styled.div`
     top: 2px;
     font-size: 0.75rem;
     font-weight: 500;
-    background-color: ${({ theme }) => theme.white};
+    background-color: var(--color-white);
     padding: 0.2rem 0.4rem;
     border-radius: 6px;
   }
 
   p[data-id="type"] {
     left: 2px;
-    color: ${({ theme }) => theme.black};
+    color: var(--color-black);
   }
 
   p[data-id="price"] {
     right: 2px;
-    color: ${({ theme }) => theme.black};
+    color: var(--color-black);
   }
 
   p[data-id="tags"] {
@@ -164,30 +164,31 @@ export const SearchInput = styled.input`
 `;
 
 export const FilterableTag = styled.button<{ $isActive: boolean }>`
-  background-color: ${({ $isActive, theme }) =>
-    $isActive ? theme.green : theme.white};
-  color: ${({ $isActive, theme }) => ($isActive ? theme.black : theme.gray600)};
-  border: 2px solid ${({ theme }) => theme.black};
+  background-color: ${({ $isActive }) =>
+    $isActive ? "var(--color-green)" : "var(--color-white)"};
+  color: ${({ $isActive }) =>
+    $isActive ? "var(--color-black)" : "var(--color-gray600)"};
+  border: 2px solid var(--color-black);
   border-radius: 0.5rem;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
 
   &:hover {
-    color: ${({ theme }) => theme.black};
-    background-color: ${({ $isActive, theme }) =>
-      $isActive ? theme.green300 : theme.white};
+    color: var(--color-black);
+    background-color: ${({ $isActive }) =>
+      $isActive ? "var(--color-green300)" : "var(--color-white)"};
   }
 `;
 
 export const ClearFiltersButton = styled.button`
   padding: 0.25rem 0.5rem;
-  background: ${({ theme }) => theme.red};
+  background: var(--color-red);
   color: white;
   border: none;
   border-radius: 5px;
 
   &:hover {
-    background: ${({ theme }) => theme.red200};
+    background: var(--color-red200);
   }
 `;
 
@@ -200,9 +201,9 @@ export const MapDrawerTrigger = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 2px solid ${({ theme }) => theme.black};
-  background: ${({ theme }) => theme.white};
-  color: ${({ theme }) => theme.black};
+  border: 2px solid var(--color-black);
+  background: var(--color-white);
+  color: var(--color-black);
   font-weight: 600;
   border-radius: 999px;
   padding: 0.6rem 1.2rem;
@@ -218,7 +219,7 @@ export const MapDrawerTrigger = styled.button`
 `;
 
 export const MapDrawerContent = styled.div`
-  background: ${({ theme }) => theme.white};
+  background: var(--color-white);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   padding: 0.75rem;
@@ -241,9 +242,9 @@ export const MapDrawerTitle = styled.h2`
 `;
 
 export const MapDrawerClose = styled.button`
-  border: 2px solid ${({ theme }) => theme.black};
-  background: ${({ theme }) => theme.white};
-  color: ${({ theme }) => theme.black};
+  border: 2px solid var(--color-black);
+  background: var(--color-white);
+  color: var(--color-black);
   font-weight: 600;
   border-radius: 999px;
   padding: 0.35rem 0.75rem;

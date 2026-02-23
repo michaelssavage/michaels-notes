@@ -1,4 +1,4 @@
-import { ThemeProvider as EmotionThemeProvider, Global } from "@emotion/react";
+import { Global } from "@emotion/react";
 import type { Decorator, Preview } from "@storybook/react-vite";
 import React from "react";
 
@@ -7,7 +7,6 @@ import {
   createRootRoute,
   createRouter,
 } from "@tanstack/react-router";
-import { lightTheme } from "../src/styles/abstracts/colors.styled";
 import { globalStyles } from "../src/styles/global.styled";
 
 const RouterDecorator: Decorator = (Story) => {
@@ -46,8 +45,8 @@ const preview: Preview = {
     RouterDecorator,
     (Story, context) => {
       return (
-        <EmotionThemeProvider theme={lightTheme}>
-          <Global styles={globalStyles(lightTheme)} />
+        <>
+          <Global styles={globalStyles} />
           <div
             style={{
               maxWidth: "800px",
@@ -61,7 +60,7 @@ const preview: Preview = {
           >
             <Story />
           </div>
-        </EmotionThemeProvider>
+        </>
       );
     },
   ],

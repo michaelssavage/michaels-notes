@@ -3,17 +3,16 @@ import {
   slideInAnimation,
   spinInfinitely,
 } from "@/styles/abstracts/animations.styled";
-import { MyTheme } from "@/styles/abstracts/colors.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const feedbackBtnStyles = (theme: MyTheme) => css`
+export const feedbackBtnStyles = css`
   flex-direction: row-reverse;
   justify-content: center;
   gap: 0.5rem;
   flex: 1;
   svg {
-    stroke: ${theme.white};
+    stroke: var(--color-white);
   }
 `;
 
@@ -26,7 +25,7 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   background: white;
-  border: 1px solid ${({ theme }) => theme.gray400};
+  border: 1px solid var(--color-gray400);
   border-radius: 8px;
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
@@ -50,7 +49,7 @@ export const FloatingButton = styled.button`
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background: ${({ theme }) => theme.green};
+  background: var(--color-green);
   color: white;
   border: none;
   cursor: pointer;
@@ -68,7 +67,7 @@ export const FloatingButton = styled.button`
   }
 
   &:hover {
-    background: ${({ theme }) => theme.green200};
+    background: var(--color-green200);
     svg {
       transform: rotate(15deg);
     }
@@ -87,7 +86,7 @@ export const SuccessMessage = styled.div`
 `;
 
 export const ErrorMessage = styled.p`
-  color: ${({ theme }) => theme.red300};
+  color: var(--color-red300);
   margin: 6px 0;
   font-size: clamp(0.7rem, 0.6rem + 0.3vw, 1rem);
 `;

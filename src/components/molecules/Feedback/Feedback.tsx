@@ -4,7 +4,6 @@ import { CheckIcon } from "@/components/icons";
 import { MessageHeartIcon } from "@/components/icons/MessageHeart";
 import { SendIcon } from "@/components/icons/Send";
 import { Button } from "@/components/molecules/Button";
-import { useTheme } from "@/hooks/use-theme.hook";
 import { submitFeedback } from "@/server/mongo/feedback.api";
 import { css } from "@emotion/react";
 import { lazy, useState } from "react";
@@ -23,7 +22,6 @@ const LoaderIcon = lazy(() =>
 );
 
 export const Feedback = () => {
-  const { lightTheme: theme } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,7 +92,7 @@ export const Feedback = () => {
                 <Button
                   onClick={handleSubmit}
                   disabled={!feedback.trim() || isSubmitting}
-                  styles={feedbackBtnStyles(theme)}
+                  styles={feedbackBtnStyles}
                   text={isSubmitting ? "Sending..." : "Send"}
                   icon={isSubmitting ? <LoaderIcon /> : <SendIcon size={16} />}
                 />

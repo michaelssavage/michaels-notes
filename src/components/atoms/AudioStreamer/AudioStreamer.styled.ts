@@ -5,7 +5,7 @@ export const MixCard = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
-  background: ${({ theme }) => theme.white};
+  background: var(--color-white);
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -22,19 +22,19 @@ export const MixCard = styled.div`
 `;
 
 export const MixDate = styled.p`
-  color: ${({ theme }) => theme.gray400};
+  color: var(--color-gray400);
   font-size: 0.75rem;
 `;
 
 export const Time = styled.div`
-  color: ${({ theme }) => theme.gray400};
+  color: var(--color-gray400);
   font-size: 0.875rem;
   font-family: monospace;
   white-space: nowrap;
 `;
 
 export const Description = styled.p`
-  color: ${({ theme }) => theme.black};
+  color: var(--color-black);
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 `;

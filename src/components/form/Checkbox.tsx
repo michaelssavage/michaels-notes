@@ -19,7 +19,7 @@ const CheckboxStyled = styled.div`
     width: 0;
 
     &:checked ~ span {
-      background-color: ${({ theme }) => theme.green};
+      background-color: var(--color-green);
     }
   }
 
@@ -28,11 +28,11 @@ const CheckboxStyled = styled.div`
   }
 
   label:hover input[type="checkbox"] ~ span {
-    background-color: ${({ theme }) => theme.white100};
+    background-color: var(--color-white100);
   }
 
   label:hover input[type="checkbox"]:checked ~ span {
-    background-color: ${({ theme }) => theme.green};
+    background-color: var(--color-green);
   }
 
   span {
@@ -41,8 +41,8 @@ const CheckboxStyled = styled.div`
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: ${({ theme }) => theme.white100};
-    border: 1px solid ${({ theme }) => theme.gray400};
+    background-color: var(--color-white100);
+    border: 1px solid var(--color-gray400);
     border-radius: 4px;
 
     &::after {
@@ -50,7 +50,7 @@ const CheckboxStyled = styled.div`
       position: absolute;
       width: 5px;
       height: 10px;
-      border: 1px solid ${({ theme }) => theme.white};
+      border: 1px solid var(--color-white);
       border-width: 0 2px 2px 0;
       left: 50%;
       top: 50%;
@@ -61,7 +61,7 @@ const CheckboxStyled = styled.div`
   }
 
   div {
-    color: ${({ theme }) => theme.black};
+    color: var(--color-black);
     line-height: 1.4;
     font-size: 1rem;
   }

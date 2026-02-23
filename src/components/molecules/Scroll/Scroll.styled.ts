@@ -15,9 +15,9 @@ export const ScrollContainer = styled.div`
     position: absolute;
     top: calc(0.9rem + 50%); // 0.6rem padding + 50% of ItemContainer
     transform: translateY(-50%);
-    color: ${({ theme }) => theme.black};
-    background-color: ${({ theme }) => theme.white};
-    border: 1px solid ${({ theme }) => theme.black};
+    color: var(--color-black);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-black);
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
@@ -48,10 +48,10 @@ export const Title = styled.h3`
   font-weight: 500;
   margin: 0 -1rem;
 
-  color: ${({ theme }) => theme.gray400};
+  color: var(--color-gray400);
 
   svg {
-    color: ${({ theme }) => theme.blue};
+    color: var(--color-blue);
   }
 `;
 

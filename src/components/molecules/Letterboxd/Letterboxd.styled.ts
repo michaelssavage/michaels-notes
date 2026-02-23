@@ -13,14 +13,14 @@ export const Text = styled.div`
 `;
 
 export const Movie = styled.span<ICard>`
-  color: ${({ $isActive, theme }) =>
-    $isActive ? theme.green400 : theme.green};
+  color: ${({ $isActive }) =>
+    $isActive ? "var(--color-green400)" : "var(--color-green)"};
   text-decoration: ${({ $isActive }) => ($isActive ? "underline" : "none")};
   cursor: pointer;
 
   &:hover {
-    color: ${({ $isActive, theme }) =>
-      $isActive ? theme.green400 : theme.green400};
+    color: ${({ $isActive }) =>
+      $isActive ? "var(--color-green400)" : "var(--color-green400)"};
   }
 `;
 
@@ -69,9 +69,9 @@ export const Button = styled.button<{ isActive: boolean }>`
   width: 2rem;
   height: 2rem;
   border: none;
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.green300 : theme.gray600};
-  color: ${({ theme }) => theme.white};
+  background-color: ${({ isActive }) =>
+    isActive ? "var(--color-green300)" : "var(--color-gray600)"};
+  color: var(--color-white);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -80,6 +80,6 @@ export const Button = styled.button<{ isActive: boolean }>`
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.green400};
+    background-color: var(--color-green400);
   }
 `;

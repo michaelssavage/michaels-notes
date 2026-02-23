@@ -5,7 +5,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/molecules/Overlays";
-import { Picture } from "@/components/molecules/Picture";
 import { logoutFn } from "@/server/auth/logout.api";
 import {
   Link,
@@ -55,10 +54,12 @@ export default function Navbar() {
 
   return (
     <Header>
-      <Link to="/">
-        <div id="navbar-logo-link">
-          <Picture src="/logo.png" alt="Logo" />
-        </div>
+      <Link
+        id="navbar-logo-link"
+        to="/"
+        style={{ height: 80, width: 80, display: "block" }}
+      >
+        <img src="/logo.png" alt="Logo" loading="eager" />
       </Link>
       <div id="navbar-links-container">
         <NavLink

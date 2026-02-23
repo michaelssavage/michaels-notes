@@ -1,43 +1,29 @@
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
-import type { MyTheme } from "@/styles/abstracts/colors.styled";
 import { forBreakAt } from "@/styles/abstracts/mixins.styled";
-import { resetStyles } from "@/styles/abstracts/reset.styled";
 import { css } from "@emotion/react";
 
-const underlineCache = new Map<string, ReturnType<typeof css>>();
+export const underlineStyles = (color: "blue" | "red") => css`
+  background-image: linear-gradient(
+    transparent calc(100% - 1px),
+    ${color === "blue" ? "var(--color-blue200)" : "var(--color-red200)"} 1px
+  );
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: background-image 0.25s;
+  font-weight: inherit;
 
-export const underlineStyles = (color: string, hoverColor?: string) => {
-  const key = `${color}|${hoverColor ?? ""}`;
-  if (!underlineCache.has(key)) {
-    underlineCache.set(
-      key,
-      css`
-        background-image: linear-gradient(
-          transparent calc(100% - 1px),
-          ${color} 1px
-        );
-        background-position: left bottom;
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        transition: background-image 0.25s;
-        font-weight: inherit;
-
-        ${hoverColor &&
-        css`
-          &:hover {
-            background-image: linear-gradient(
-              transparent calc(100% - 1px),
-              ${hoverColor} 1px
-            );
-          }
-        `}
-      `
+  &:hover {
+    background-image: linear-gradient(
+      transparent calc(100% - 1px),
+      ${color === "blue" ? "var(--color-blue300)" : "var(--color-red300)"} 1px
     );
   }
-  return underlineCache.get(key)!;
-};
+`;
 
-const staticGlobalStyles = css`
+export const globalStyles = css`
+  ${pageTransitions}
+
   @font-face {
     font-family: "Rawest";
     src: url("/fonts/rawest.woff2") format("woff2");
@@ -62,6 +48,8 @@ const staticGlobalStyles = css`
     font-size: 16px;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-yellow);
+    color: var(--color-black);
   }
 
   h1,
@@ -103,6 +91,12 @@ const staticGlobalStyles = css`
     font-size: 0.9rem;
     font-style: italic;
     font-weight: bold;
+    color: var(--color-gray400);
+  }
+
+  .underline {
+    cursor: pointer;
+    ${underlineStyles("red")}
   }
 
   .callout {
@@ -111,18 +105,22 @@ const staticGlobalStyles = css`
     border-radius: 0.5rem;
     width: 100%;
     margin: 0.5rem 0;
+    background-color: var(--color-yellow);
   }
 
   .simple-card {
     padding: 0.25rem;
     border-radius: 0.25rem;
     margin-bottom: 1rem;
+    background-color: var(--color-white100);
   }
 
   .popover-card {
     max-width: 600px;
     border-radius: 10px;
     padding: 1rem;
+    background-color: var(--color-yellow);
+    border: 1px solid var(--color-blue200);
   }
 
   .three-grid-columns {
@@ -163,38 +161,5 @@ const staticGlobalStyles = css`
     position: absolute;
     white-space: nowrap;
     width: 1px;
-  }
-`;
-
-export const globalStyles = (theme: MyTheme) => css`
-  ${resetStyles}
-  ${staticGlobalStyles}
-  ${pageTransitions}
-
-  body {
-    background-color: ${theme.yellow};
-    color: ${theme.black};
-  }
-
-  .date {
-    color: ${theme.gray400};
-  }
-
-  .underline {
-    cursor: pointer;
-    ${underlineStyles(theme.red200, theme.red300)}
-  }
-
-  .callout {
-    background-color: ${theme.yellow};
-  }
-
-  .simple-card {
-    background-color: ${theme.white100};
-  }
-
-  .popover-card {
-    background-color: ${theme.yellow};
-    border: 1px solid ${theme.blue200};
   }
 `;

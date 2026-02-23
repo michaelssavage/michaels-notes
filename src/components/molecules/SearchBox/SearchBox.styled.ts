@@ -7,7 +7,7 @@ export const Panel = styled.div<{ styles?: SerializedStyles }>`
   gap: 0.5rem;
 
   label {
-    color: ${({ theme }) => theme.gray600};
+    color: var(--color-gray600);
   }
 
   ${({ styles }) =>
@@ -26,15 +26,15 @@ export const Box = styled.div`
     font-size: 0.875rem;
     line-height: 1.25rem;
     padding: 0.5rem 1rem 0.5rem 2.5rem;
-    border: 2px solid ${({ theme }) => theme.black};
+    border: 2px solid var(--color-black);
     border-radius: 0.5rem;
     width: 100%;
-    color: ${({ theme }) => theme.black};
-    background-color: ${({ theme }) => theme.white};
+    color: var(--color-black);
+    background-color: var(--color-white);
     outline: none;
 
     &:focus {
-      border: solid 2px ${({ theme }) => theme.green300};
+      border: solid 2px var(--color-green300);
     }
   }
 
@@ -44,6 +44,6 @@ export const Box = styled.div`
     height: 1.5rem;
     width: 1.5rem;
     background-color: transparent;
-    color: ${({ theme }) => theme.gray600};
+    color: var(--color-gray600);
   }
 `;

@@ -23,35 +23,35 @@ export const LinkStyle = styled(Link)<IStyle>`
     height: 1.2rem;
   }
 
-  ${({ variant, theme }) => {
+  ${({ variant }) => {
     switch (variant) {
       case "button":
         return css`
           padding: 4px;
           border: 1px solid;
-          border-color: ${theme.blue200};
-          color: ${theme.blue200};
+          border-color: var(--color-blue200);
+          color: var(--color-blue200);
           &:hover {
-            box-shadow: inset 0 0 0 2rem ${theme.blue200};
-            color: ${theme.white};
+            box-shadow: inset 0 0 0 2rem var(--color-blue200);
+            color: var(--color-white);
           }
         `;
       case "link":
         return css`
           padding: 0;
-          ${underlineStyles(theme.blue200, theme.blue300)}
+          ${underlineStyles("blue")}
           border: none;
           margin-right: 2px;
-          color: ${theme.blue200};
+          color: var(--color-blue200);
           &:hover {
-            color: ${theme.blue300};
+            color: var(--color-blue300);
           }
         `;
       case "header":
         return css`
           display: inline-block;
           font-weight: 600;
-          color: ${theme.black};
+          color: var(--color-black);
           transition: transform 0.15s cubic-bezier(0.26, 0.46, 0.44, 0.94);
           text-decoration: underline;
 
@@ -64,7 +64,7 @@ export const LinkStyle = styled(Link)<IStyle>`
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
-          color: ${theme.gray600};
+          color: var(--color-gray600);
 
           svg {
             width: 3rem;
@@ -78,12 +78,12 @@ export const LinkStyle = styled(Link)<IStyle>`
 
           &:hover {
             transform: scale(1.02);
-            color: ${theme.black};
+            color: var(--color-black);
           }
         `;
       case "text":
         return css`
-          color: ${theme.black};
+          color: var(--color-black);
         `;
       default:
         return null;

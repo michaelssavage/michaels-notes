@@ -10,7 +10,6 @@ import { SearchBox } from "@/components/molecules/SearchBox";
 import GuideLoadingSkeleton from "@/components/molecules/Skeletons/GuideLoadingSkeleton";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";
 import { useMatchMedia } from "@/hooks/use-match-media.hook";
-import { useTheme } from "@/hooks/use-theme.hook";
 import { shuffleArray } from "@/lib/utils";
 import { getGuide } from "@/server/mongo/get-guide.api";
 import { customSelectStyles } from "@/styles/react-select.styled";
@@ -123,7 +122,6 @@ function RouteComponent() {
 
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [isMapDrawerOpen, setIsMapDrawerOpen] = useState(false);
-  const { lightTheme } = useTheme();
 
   const filteredItems = useMemo(() => {
     return shuffledItems.filter((item) => {
@@ -248,7 +246,7 @@ function RouteComponent() {
                       setSelectedType(option?.value ?? "all")
                     }
                     options={selectOptions}
-                    styles={customSelectStyles<GuideTypeOption>(lightTheme)}
+                    styles={customSelectStyles<GuideTypeOption>()}
                   />
                 </FormLabel>
 

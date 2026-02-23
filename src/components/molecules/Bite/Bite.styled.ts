@@ -6,7 +6,7 @@ export const Year = styled.p`
   transition: all 0.3s ease-in-out;
   transform: rotate(90deg);
   margin-right: -1rem;
-  color: ${({ theme }) => theme.yellow300};
+  color: var(--color-yellow300);
 `;
 
 export const Text = styled.div`
@@ -16,13 +16,13 @@ export const Text = styled.div`
   border-radius: 0.25rem;
   font-weight: 500;
   width: 100%;
-  background-color: ${({ theme }) => theme.white};
+  background-color: var(--color-white);
   transition: 0.3s ease-in-out;
-  box-shadow: ${({ theme }) => theme.blue} 5px 5px;
+  box-shadow: var(--color-blue) 5px 5px;
 
   p[data-id="date"] {
     font-style: italic;
-    color: ${({ theme }) => theme.gray500};
+    color: var(--color-gray500);
     font-size: clamp(0.9rem, 0.7rem + 0.3vw, 1rem);
   }
 `;
@@ -40,7 +40,7 @@ export const BiteItem = styled.div`
       margin-left: 0.5rem;
     }
     ${Text} {
-      box-shadow: ${({ theme }) => theme.blue200} 5px 5px;
+      box-shadow: var(--color-blue200) 5px 5px;
     }
   }
 `;

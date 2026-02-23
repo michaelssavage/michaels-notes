@@ -1,4 +1,3 @@
-import { MyTheme } from "@/styles/abstracts/colors.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -40,16 +39,16 @@ export const AboutSection = styled.div`
   }
 `;
 
-export const copyButtonStyles = (theme: MyTheme) => css`
+export const copyButtonStyles = css`
   position: absolute;
   top: 1.75rem;
   right: 0.25rem;
   padding: 0.25rem;
-  background-color: ${theme.white};
-  border: 1px solid ${theme.gray400};
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray400);
 
   &:hover {
-    background-color: ${theme.gray};
+    background-color: var(--color-gray);
   }
 `;
 

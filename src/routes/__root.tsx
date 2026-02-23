@@ -1,4 +1,7 @@
 /// <reference types="vite/client" />
+import "@/styles/abstracts/colors.css";
+import "@/styles/abstracts/reset.css";
+
 import { Layout } from "@/components/atoms/Layout";
 import { NotFound } from "@/components/atoms/NotFound";
 import { TextBleed } from "@/components/atoms/TextBleed";
@@ -7,9 +10,11 @@ import { Feedback } from "@/components/molecules/Feedback/Feedback";
 import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
+import { emotionCache } from "@/context/EmotionCache";
 import PostHogProvider from "@/context/PostHogContainer";
-import { ThemeProvider } from "@/context/ThemeProvider";
 import { checkAuthFn } from "@/server/auth/check.api";
+import { globalStyles } from "@/styles/global.styled";
+import { CacheProvider, Global } from "@emotion/react";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -94,14 +99,14 @@ function RootComponent() {
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider>
+    <CacheProvider value={emotionCache}>
       <PostHogProvider>
         <ContentProvider>
           <ToastProvider />
           {children}
         </ContentProvider>
       </PostHogProvider>
-    </ThemeProvider>
+    </CacheProvider>
   );
 }
 
@@ -116,6 +121,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Providers>
             <Navbar />
             <TextBleed />
+            <Global styles={globalStyles} />
             <Layout>{children}</Layout>
             <Feedback />
             <Footer />

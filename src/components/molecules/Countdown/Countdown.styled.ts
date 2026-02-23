@@ -6,8 +6,8 @@ export const ClockContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.black};
-  color: ${({ theme }) => theme.yellow300};
+  background-color: var(--color-black);
+  color: var(--color-yellow300);
   padding: 1.4rem;
   border-radius: 10px;
   max-width: 100%;

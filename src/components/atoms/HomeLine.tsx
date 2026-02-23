@@ -6,7 +6,7 @@ import { useHydrated } from "@tanstack/react-router";
 const AnimatedLineStyled = styled.div`
   margin-top: 1rem;
   height: 1rem;
-  background-color: ${({ theme }) => theme.blue200};
+  background-color: var(--color-blue200);
   border-radius: 4px;
   z-index: -1;
   margin-right: auto;

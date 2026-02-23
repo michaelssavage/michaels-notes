@@ -10,7 +10,7 @@ interface FactContentProps {
 
 export const Title = styled.h3`
   font-weight: 500;
-  color: ${({ theme }) => theme.gray500};
+  color: var(--color-gray500);
   margin-bottom: 0.5rem;
   transition: color 0.2s ease;
 `;
@@ -29,9 +29,9 @@ export const NowPlaying = styled.div`
   padding: 0.6rem 0.8rem 1.2rem;
   border-radius: 0.4rem;
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
-  ${({ color, theme }) => css`
-    background-color: ${color || theme.white};
-    color: ${getContrastYIQ(color || theme.white)};
+  ${({ color }) => css`
+    background-color: ${color || "var(--color-white)"};
+    color: ${getContrastYIQ(color || "var(--color-white)")};
   `}
 
   a[id="external-track-url"] {
@@ -45,8 +45,8 @@ export const NowPlaying = styled.div`
     svg {
       width: 100%;
       height: 100%;
-      ${({ color, theme }) => css`
-        color: ${getContrastYIQ(color || theme.white)};
+      ${({ color }) => css`
+        color: ${getContrastYIQ(color || "var(--color-white)")};
       `}
     }
 
@@ -89,9 +89,9 @@ export const ExpandButton = styled.button`
   transform: translateX(-50%);
   background: none;
   border: none;
-  background-color: ${({ theme }) => theme.white};
-  color: ${({ theme }) => theme.black};
-  border: 1px solid ${({ theme }) => theme.black};
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border: 1px solid var(--color-black);
   cursor: pointer;
   padding: 0.1rem 0.25rem;
   border-radius: 0.25rem;
@@ -103,7 +103,7 @@ export const ExpandButton = styled.button`
   gap: 0.25rem;
 
   &:hover {
-    color: ${({ theme }) => theme.black};
+    color: var(--color-black);
   }
   &:active {
     transform: translateX(-50%) scale(1.05);

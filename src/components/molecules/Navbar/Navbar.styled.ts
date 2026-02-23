@@ -1,4 +1,8 @@
-import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
+import {
+  forBreakAt,
+  forPhoneOnly,
+  forTabletOnly,
+} from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
@@ -13,9 +17,8 @@ export const Header = styled.nav`
   position: fixed;
   top: 0;
   z-index: 10;
-  background-color: ${({ theme }) => theme.yellow};
+  background-color: var(--color-yellow);
 
-  /* Fade-out mask for content scrolling underneath */
   &::after {
     content: "";
     position: absolute;
@@ -27,21 +30,28 @@ export const Header = styled.nav`
     background: linear-gradient(
       to top,
       transparent 0%,
-      ${({ theme }) => theme.yellow} 100%
+      var(--color-yellow) 100%
     );
   }
 
   #navbar-logo-link {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
+    max-height: 80px;
+    transition: transform 0.2s ease-in-out;
+    flex-shrink: 0;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   ${forTabletOnly(css`
     padding: 1rem 1rem 0;
 
     #navbar-logo-link {
-      width: 48px;
-      height: 48px;
+      width: 48px !important;
+      height: 48px !important;
     }
   `)}
 
@@ -69,14 +79,14 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   padding: 0.5rem 1rem;
   font-family: "Rawest";
-  color: ${({ theme }) => theme.black};
+  color: var(--color-black);
   transition:
     transform 0.15s cubic-bezier(0.45, 0, 0.55, 1),
     color 0.3s cubic-bezier(0.45, 0, 0.55, 1),
     outline-color 0.4s cubic-bezier(0.45, 0, 0.55, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.blue200};
+    color: var(--color-blue200);
     transform: translateY(-5px);
   }
 
@@ -84,8 +94,15 @@ export const StyledLink = styled(Link)`
     padding: 0.4rem 0.75rem;
   `)}
 
+  ${forBreakAt({
+    breakpoint: 350,
+    styles: css`
+      padding: 0.3rem 0.6rem;
+    `,
+  })}
+
   &.active {
-    color: ${({ theme }) => theme.blue200};
+    color: var(--color-blue200);
     transform: scale(1.1);
     transition:
       color 0.3s cubic-bezier(0.45, 0, 0.55, 1),
@@ -94,12 +111,12 @@ export const StyledLink = styled(Link)`
 `;
 
 export const AdminUserIcon = styled.div`
-  color: ${({ theme }) => theme.black};
+  color: var(--color-black);
 `;
 
 export const AdminContent = styled.div`
-  background-color: ${({ theme }) => theme.yellow};
+  background-color: var(--color-yellow);
   padding: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.black};
+  border: 1px solid var(--color-black);
 `;

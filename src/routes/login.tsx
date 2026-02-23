@@ -18,7 +18,7 @@ const FormStyled = styled.form`
   }
 
   p[data-id="error"] {
-    color: ${({ theme }) => theme.red};
+    color: var(--color-red);
   }
 `;
 

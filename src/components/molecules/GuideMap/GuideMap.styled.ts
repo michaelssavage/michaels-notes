@@ -10,7 +10,7 @@ export const GuideHeader = styled.p`
 `;
 
 export const GuidePrice = styled.p`
-  color: ${({ theme }) => theme.green};
+  color: var(--color-green);
   font-weight: bold;
   &&& {
     margin: 0;
@@ -19,7 +19,7 @@ export const GuidePrice = styled.p`
 
 export const GuideType = styled.p`
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.gray600};
+  color: var(--color-gray600);
   &&& {
     margin: 0;
   }

@@ -22,16 +22,16 @@ export const InputWrapper = styled.div<{ isCorrect: boolean | null; chars: numbe
     border: 1px solid transparent;
     transition: all 0.2s ease-in-out;
 
-    ${({ isCorrect, theme }) => {
+    ${({ isCorrect }) => {
       if (isCorrect === true) {
         return css`
-          border: 1px solid ${theme.green300};
-          background-color: ${theme.green};
+          border: 1px solid var(--color-green300);
+          background-color: var(--color-green);
         `;
       } else if (isCorrect === false) {
         return css`
-          border: 1px solid ${theme.red300};
-          background-color: ${theme.red};
+          border: 1px solid var(--color-red300);
+          background-color: var(--color-red);
         `;
       }
     }}
@@ -45,7 +45,7 @@ export const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.white};
+  color: var(--color-white);
   height: 100%;
   padding: 0.25rem;
 

@@ -53,8 +53,8 @@ export const DraftBadge = styled.div`
   top: 1px;
   right: 0;
   z-index: 1;
-  background-color: ${({ theme }) => theme.red300};
-  color: ${({ theme }) => theme.white};
+  background-color: var(--color-red300);
+  color: var(--color-white);
   padding: 0.25rem 0.5rem;
   border-radius: 0.35rem;
 `;
@@ -65,8 +65,8 @@ export const Card = styled(Link)`
   will-change: transform;
   border-radius: 0.2rem;
   text-decoration: none;
-  color: ${({ theme }) => theme.black};
-  background-color: ${({ theme }) => theme.white};
+  color: var(--color-black);
+  background-color: var(--color-white);
   height: 100%;
 
   border-radius: 0.4rem;
@@ -123,14 +123,14 @@ export const Header = styled.div`
   `)}
 
   p[data-id="filter-projects"] {
-    color: ${({ theme }) => theme.gray600};
+    color: var(--color-gray600);
   }
 `;
 
 export const Tags = styled.p`
   text-align: right;
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.black};
+  color: var(--color-black);
 `;
 
 export const Content = styled.div`

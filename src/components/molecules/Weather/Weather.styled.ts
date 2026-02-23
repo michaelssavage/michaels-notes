@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 
 export const SpeechBubble = styled.div`
   position: relative;
-  color: ${({ theme }) => theme.black};
-  background-color: ${({ theme }) => theme.yellow300};
+  color: var(--color-black);
+  background-color: var(--color-yellow300);
   padding: 1rem;
   border-radius: 0.4rem;
   display: flex;
@@ -21,8 +21,8 @@ export const SpeechBubble = styled.div`
     transform: translateX(-50%) rotate(45deg);
     width: 10px;
     height: 10px;
-    color: ${({ theme }) => theme.black};
-    background-color: ${({ theme }) => theme.yellow300};
+    color: var(--color-black);
+    background-color: var(--color-yellow300);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   }
 

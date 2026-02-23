@@ -6,7 +6,6 @@ import {
 } from "@/components/icons";
 import { Picture } from "@/components/molecules/Picture";
 import { useSanitizedHTML } from "@/hooks/use-sanitized-html.hook";
-import { useTheme } from "@/hooks/use-theme.hook";
 import { getContrastYIQ, getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
 import { getLastFmTrack } from "@/server/lastfm-track.api";
@@ -34,8 +33,6 @@ export const CurrentPlay = () => {
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const { lightTheme: theme } = useTheme();
-
   const spotifyFn = useServerFn(getSpotifyTrack);
   const factFn = useServerFn(getLastFmTrack);
 
@@ -54,14 +51,10 @@ export const CurrentPlay = () => {
   const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
 
   const factColor = useMemo(
-    () => (dominantColor ? getContrastYIQ(dominantColor) : theme.gray600),
-    [dominantColor, theme.gray600]
+    () =>
+      dominantColor ? getContrastYIQ(dominantColor) : "var(--color-gray600)",
+    [dominantColor]
   );
-
-  console.log({
-    dominantColor,
-    factColor,
-  });
 
   const fact = useSanitizedHTML(trackFact?.artist?.bio?.summary ?? "");
   const hasFact = trackFact?.artist?.bio?.content !== "";

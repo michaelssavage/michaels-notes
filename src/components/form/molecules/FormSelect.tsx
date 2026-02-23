@@ -1,6 +1,5 @@
 import { FormContainer } from "@/components/form/Form.styled";
 import { Label } from "@/components/form/Label";
-import { useTheme } from "@/hooks/use-theme.hook";
 import { customSelectStyles } from "@/styles/react-select.styled";
 import Select, { type MultiValue, type SingleValue } from "react-select";
 
@@ -30,8 +29,6 @@ export const FormSelect = <T,>({
   meta,
   multiSelect = false,
 }: FormSelectProps<T>) => {
-  const { lightTheme } = useTheme();
-
   const isMulti = Boolean(multiSelect);
   const selectedValue = isMulti
     ? options.filter((opt) => (value as T[]).includes(opt.value))
@@ -70,7 +67,7 @@ export const FormSelect = <T,>({
         onBlur={onBlur}
         isMulti={isMulti}
         onChange={handleChange}
-        styles={customSelectStyles(lightTheme)}
+        styles={customSelectStyles()}
       />
       {!meta.isValid && <em>{meta.errors.filter(Boolean).join(",")}</em>}
     </FormContainer>

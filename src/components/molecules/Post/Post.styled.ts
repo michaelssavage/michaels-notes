@@ -1,4 +1,3 @@
-import { MyTheme } from "@/styles/abstracts/colors.styled";
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import isPropValid from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
@@ -6,13 +5,9 @@ import styled from "@emotion/styled";
 import { animated } from "@react-spring/web";
 import { Link } from "@tanstack/react-router";
 
-const getPostColor = (
-  theme: MyTheme,
-  isExternal?: string,
-  isReview?: boolean
-) => {
-  if (isReview) return theme.purple;
-  return isExternal ? theme.blue200 : theme.red200;
+const getPostColor = (isExternal?: string, isReview?: boolean) => {
+  if (isReview) return "var(--color-purple)";
+  return isExternal ? "var(--color-blue200)" : "var(--color-red200)";
 };
 
 interface CardI {
@@ -49,7 +44,7 @@ export const CardInfo = styled.div`
 `;
 
 export const Title = styled(animated.h2)`
-  color: ${({ theme }) => theme.black};
+  color: var(--color-black);
   text-wrap: initial;
   will-change: transform;
   transition: transform 0.3s cubic-bezier(0.26, 0.46, 0.44, 0.94);
@@ -67,14 +62,14 @@ export const PostType = styled.p`
 
 export const DateText = styled.p`
   font-style: italic;
-  color: ${({ theme }) => theme.gray500};
+  color: var(--color-gray500);
   font-size: clamp(0.9rem, 0.7rem + 0.3vw, 1rem);
 `;
 
 export const DescriptionText = styled.p`
   margin: 0;
   padding: 0;
-  color: ${({ theme }) => theme.black};
+  color: var(--color-black);
   font-weight: 500;
 `;
 
@@ -86,16 +81,16 @@ export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop
   transition: opacity 0.5s ease-in-out;
   position: relative;
   padding: 1rem;
-  background-color: ${({ theme }) => theme.white};
+  background-color: var(--color-white);
   border-radius: 0.4rem;
   display: flex;
   flex-direction: column;
   width: 100%;
-  box-shadow: ${({ theme }) => theme.blue} 5px 5px;
+  box-shadow: var(--color-blue) 5px 5px;
   z-index: 2;
 
   &:hover {
-    box-shadow: ${({ theme }) => theme.blue200} 5px 5px;
+    box-shadow: var(--color-blue200) 5px 5px;
 
     ${Title} {
       transform: translateY(-5px);
@@ -103,8 +98,8 @@ export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop
   }
 
   ${PostType} {
-    color: ${({ isExternal, isReview, theme }) => {
-      return getPostColor(theme, isExternal, isReview);
+    color: ${({ isExternal, isReview }) => {
+      return getPostColor(isExternal, isReview);
     }};
   }
 `;

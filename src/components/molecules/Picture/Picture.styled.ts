@@ -1,12 +1,15 @@
-import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 interface ImageProps {
-  loaded: boolean;
   ar?: string;
   fit?: "cover" | "contain";
 }
+
+export const NotFound = styled.img`
+  background-color: var(--color-white);
+  width: 120px;
+  border-radius: 0.4rem;
+`;
 
 export const Wrapper = styled.figure`
   display: grid;
@@ -19,7 +22,7 @@ export const Wrapper = styled.figure`
   figcaption {
     font-size: 0.9rem;
     opacity: 0.8;
-    background-color: ${({ theme }) => theme.white};
+    background-color: var(--color-white);
     padding: 0 0.25rem;
     width: 100%;
     display: flex;
@@ -27,34 +30,11 @@ export const Wrapper = styled.figure`
   }
 `;
 
-export const NotFound = styled.img`
-  background-color: ${({ theme }) => theme.white};
-  width: 120px;
-  border-radius: 0.4rem;
-`;
-
 export const ImageStyle = styled.img<ImageProps>`
+  grid-area: 1 / 1;
   aspect-ratio: ${({ ar }) => ar};
   object-fit: ${({ fit }) => fit};
   width: 100%;
-  height: auto;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-
-  ${({ loaded }) =>
-    loaded &&
-    css`
-      opacity: 1;
-    `}
-`;
-
-export const Placeholder = styled.div<{ ar?: string }>`
-  grid-area: 1 / 1;
-  border-radius: 0.4rem;
-  width: 100%;
-  aspect-ratio: ${({ ar }) => ar ?? "1 / 1"};
-  height: ${({ ar }) => (ar ? "auto" : "100%")};
-  background: linear-gradient(135deg, #f5f0eb 25%, #e8ddd4 50%, #f5f0eb 75%);
-  background-size: 200% 100%;
-  ${shimmerAnimation()}
+  height: 100%;
+  max-height: inherit;
 `;

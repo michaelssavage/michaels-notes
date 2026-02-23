@@ -5,7 +5,6 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { buttonWithIconStyles } from "@/components/molecules/Button/Button.styled";
 import { Picture } from "@/components/molecules/Picture";
-import { useTheme } from "@/hooks/use-theme.hook";
 import { exampleRekordboxText } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
@@ -71,7 +70,6 @@ const formatText = (text: string, withBPM: boolean) => {
 
 function RekordboxPrettifier() {
   const isHydrated = useHydrated();
-  const { lightTheme: theme } = useTheme();
   const [inputText, setInputText] = useState("");
   const [withBPM, setWithBPM] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -153,7 +151,7 @@ function RekordboxPrettifier() {
             <Button
               onClick={handleCopy}
               icon={<CopyIcon size={20} />}
-              styles={copyButtonStyles(theme)}
+              styles={copyButtonStyles}
             />
 
             <Label htmlFor="output">Formatted Text</Label>

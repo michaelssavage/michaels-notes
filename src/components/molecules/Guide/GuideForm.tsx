@@ -11,7 +11,6 @@ import FileUpload from "@/components/molecules/FileUpload/FileUpload";
 import { withForm } from "@/context/FormProvider";
 import { slugify } from "@/lib/utils";
 import { mapsLinkCache, resolveMapsCoordsFn } from "@/server/resolve-map.api";
-import { lightTheme } from "@/styles/abstracts/colors.styled";
 import { Form } from "@/styles/routes/guide.styled";
 import {
   GUIDE_TAGS,
@@ -272,7 +271,7 @@ const GuideForm = withForm({
             icon={<SaveIcon />}
             styles={css`
               svg {
-                stroke: ${lightTheme.white};
+                stroke: var(--color-white);
               }
             `}
           />

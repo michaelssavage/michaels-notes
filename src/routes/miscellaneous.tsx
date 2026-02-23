@@ -34,8 +34,7 @@ function RouteComponent() {
             variant="header"
           />
           <p>
-            A very incomplete Barcelona guide of things to do, see, and
-            experience. I&apos;m always looking for something new to do,
+            A very incomplete Barcelona guide for myself. Things to do and see,
             activities, live music venues, and other fun things that aren&apos;t
             so obvious.{" "}
             <Anchor
@@ -44,7 +43,7 @@ function RouteComponent() {
               variant="link"
               isExternal
             />{" "}
-            is another cool resource .
+            is another resource I worth looking at.
           </p>
         </div>
 

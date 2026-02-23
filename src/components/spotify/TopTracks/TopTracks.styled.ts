@@ -5,7 +5,7 @@ export const Card = styled(Link, {
   shouldForwardProp: (prop) => prop !== "color" && prop !== "contrastColor",
 })<{ color: string; contrastColor: string }>`
   flex: 0 0 auto;
-  background-color: ${({ color, theme }) => color || theme.white};
+  background-color: ${({ color }) => color || "var(--color-white)"};
   color: ${({ contrastColor }) => contrastColor};
   border-radius: 0.4rem;
   padding: 0.7rem 1.4rem 0.7rem 1rem;

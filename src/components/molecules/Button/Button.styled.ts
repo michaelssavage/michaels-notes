@@ -27,31 +27,31 @@ export const ButtonStyled = styled.button<IStyle>`
   align-items: center;
   text-wrap: nowrap;
 
-  ${({ variant, theme, selected }) => {
+  ${({ variant, selected }) => {
     switch (variant) {
       case "primary":
         return css`
-          color: ${theme.white};
-          background-color: ${theme.green};
+          color: var(--color-white);
+          background-color: var(--color-green);
           &:hover {
-            background-color: ${theme.green200};
+            background-color: var(--color-green200);
           }
         `;
       case "secondary":
         return css`
-          border: 1px solid ${theme.gray400};
-          background-color: ${theme.white};
-          color: ${theme.gray400};
+          border: 1px solid var(--color-gray400);
+          background-color: var(--color-white);
+          color: var(--color-gray400);
           &:hover {
-            border-color: ${theme.black};
-            color: ${theme.black};
+            border-color: var(--color-black);
+            color: var(--color-black);
           }
         `;
       case "ghost":
         return css`
           padding: 0;
           background-color: transparent;
-          color: ${theme.black};
+          color: var(--color-black);
           flex-direction: row-reverse;
           box-shadow: none;
         `;
@@ -64,28 +64,32 @@ export const ButtonStyled = styled.button<IStyle>`
           white-space: normal;
           word-wrap: break-word;
           box-shadow: none;
-          color: ${theme.blue200};
+          color: var(--color-blue200);
           &:hover {
-            color: ${theme.blue300};
+            color: var(--color-blue300);
           }
         `;
       case "pill":
         return css`
-          background-color: ${selected ? theme.green : theme.white};
-          color: ${selected ? theme.black : theme.gray600};
-          border: 2px solid ${theme.black};
+          background-color: ${selected
+            ? "var(--color-green)"
+            : "var(--color-white)"};
+          color: ${selected ? "var(--color-black)" : "var(--color-gray600)"};
+          border: 2px solid var(--color-black);
           padding: 7px 14px;
           border-radius: 8px;
           font-size: 0.8rem;
           &:hover {
-            background-color: ${selected ? theme.green300 : theme.white};
-            color: ${theme.black};
+            background-color: ${selected
+              ? "var(--color-green300)"
+              : "var(--color-white)"};
+            color: var(--color-black);
           }
           &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             &:hover {
-              background-color: ${theme.gray400};
+              background-color: var(--color-gray400);
             }
           }
         `;
