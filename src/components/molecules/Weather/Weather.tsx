@@ -1,5 +1,5 @@
+import { getWeather } from "@/api/weather.api";
 import { Loading } from "@/components/molecules/Loading";
-import { getWeather } from "@/server/weather.api";
 import { WeatherIcon } from "@/types/Weather";
 import { useQuery } from "@tanstack/react-query";
 import { useHydrated } from "@tanstack/react-router";

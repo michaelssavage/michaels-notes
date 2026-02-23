@@ -1,7 +1,7 @@
+import { getTopTracks } from "@/api/top-tracks.api";
 import { ExternalLinkIcon } from "@/components/icons";
 import { Scroll } from "@/components/molecules/Scroll";
 import { getContrastYIQ, getRandomColor } from "@/lib/colors";
-import { getTopTracks } from "@/server/top-tracks.api";
 import type { ITopTrack } from "@/types/Spotify";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -26,7 +26,7 @@ const TopTracks = () => {
       data.map((track) => {
         const color = getRandomColor();
         return [track.name, { color, contrastColor: getContrastYIQ(color) }];
-      }),
+      })
     );
   }, [data]);
 

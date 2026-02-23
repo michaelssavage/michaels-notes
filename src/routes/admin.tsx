@@ -1,15 +1,15 @@
+import { getFeedback } from "@/api/mongo/feedback.api";
 import { Group } from "@/components/atoms/Group/Group";
 import {
   Card,
   IpAddress,
 } from "@/components/molecules/Feedback/Feedback.styled";
 import { formatDate } from "@/lib/utils";
-import { getFeedback } from "@/server/mongo/feedback.api";
 import { Heading, Page, Panel } from "@/styles/routes/blog.styled";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { checkAuthFn } from "../server/auth/check.api";
+import { checkAuthFn } from "../api/auth/check.api";
 
 export const Route = createFileRoute("/admin")({
   beforeLoad: async () => {

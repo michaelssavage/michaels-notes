@@ -1,3 +1,4 @@
+import { getMiniPosts } from "@/api/posts.api";
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
 import { HomeLine } from "@/components/atoms/HomeLine";
@@ -9,7 +10,6 @@ import Post from "@/components/molecules/Post/Post";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { Weather } from "@/components/molecules/Weather/Weather";
 import { sortByDate } from "@/lib/utils";
-import { getMiniPosts } from "@/server/posts.api";
 import {
   ButtonGroup,
   Filter,

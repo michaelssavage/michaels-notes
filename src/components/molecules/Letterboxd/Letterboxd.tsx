@@ -1,13 +1,13 @@
+import { getMovies } from "@/api/mongo/letterboxd.api";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
-import { getMovies } from "@/server/mongo/letterboxd.api";
 import {
   Embla,
   EmblaContainer,
   EmblaSlide,
   EmblaViewport,
-} from "@/styles/embla.styled";
+} from "@/styles/abstracts/embla.styled";
 import { breakpoint } from "@/styles/routes/home.styled";
 import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";

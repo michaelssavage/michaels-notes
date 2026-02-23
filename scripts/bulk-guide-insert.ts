@@ -1,6 +1,6 @@
 import "dotenv/config";
+import { getCollection } from "../src/api/mongo/db";
 import { items } from "../src/content/guide/barcelona";
-import { getCollection } from "../src/server/mongo/db";
 import type { GuideTableItem } from "../src/types/Guide";
 
 async function seed() {

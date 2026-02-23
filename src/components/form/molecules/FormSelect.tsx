@@ -1,6 +1,6 @@
 import { FormContainer } from "@/components/form/Form.styled";
 import { Label } from "@/components/form/Label";
-import { customSelectStyles } from "@/styles/react-select.styled";
+import { customSelectStyles } from "@/styles/abstracts/react-select.styled";
 import Select, { type MultiValue, type SingleValue } from "react-select";
 
 interface FormSelectProps<T> {

@@ -1,3 +1,4 @@
+import { getFullPost } from "@/api/posts.api";
 import { Group } from "@/components/atoms/Group";
 import Markdown from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
@@ -5,7 +6,6 @@ import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePosts } from "@/hooks/use-posts.hook";
 import { joinTags } from "@/lib/utils";
-import { getFullPost } from "@/server/posts.api";
 import { Article } from "@/styles/routes/blog.styled";
 import { Content, Tags, Title } from "@/styles/routes/projects.styled";
 import { createFileRoute, useHydrated } from "@tanstack/react-router";

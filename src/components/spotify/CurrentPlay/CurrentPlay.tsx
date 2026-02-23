@@ -1,3 +1,5 @@
+import { getLastFmTrack } from "@/api/lastfm-track.api";
+import { getSpotifyTrack } from "@/api/spotify-track.api";
 import { Group } from "@/components/atoms/Group";
 import {
   ExternalLinkIcon,
@@ -8,8 +10,6 @@ import { Picture } from "@/components/molecules/Picture";
 import { useSanitizedHTML } from "@/hooks/use-sanitized-html.hook";
 import { getContrastYIQ, getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
-import { getLastFmTrack } from "@/server/lastfm-track.api";
-import { getSpotifyTrack } from "@/server/spotify-track.api";
 import { css } from "@emotion/react";
 import { animated, useSpring } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";

@@ -1,3 +1,4 @@
+import { getGuide } from "@/api/mongo/get-guide.api";
 import { Group } from "@/components/atoms/Group";
 import { FormLabel } from "@/components/form/FormLabel";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
@@ -11,8 +12,7 @@ import GuideLoadingSkeleton from "@/components/molecules/Skeletons/GuideLoadingS
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll.hook";
 import { useMatchMedia } from "@/hooks/use-match-media.hook";
 import { shuffleArray } from "@/lib/utils";
-import { getGuide } from "@/server/mongo/get-guide.api";
-import { customSelectStyles } from "@/styles/react-select.styled";
+import { customSelectStyles } from "@/styles/abstracts/react-select.styled";
 import { Page } from "@/styles/routes/blog.styled";
 import {
   BasicLink,

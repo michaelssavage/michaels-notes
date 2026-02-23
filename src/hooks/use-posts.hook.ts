@@ -1,9 +1,4 @@
-import {
-  getBites,
-  getBlogs,
-  getProjects,
-  getReviews,
-} from "@/server/posts.api";
+import { getBites, getBlogs, getProjects, getReviews } from "@/api/posts.api";
 import type { IBite, IBlog, IProject, IReview } from "@/types/Post";
 import { QueryFunction, useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";

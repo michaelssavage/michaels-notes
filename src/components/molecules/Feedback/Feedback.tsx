@@ -1,10 +1,10 @@
+import { submitFeedback } from "@/api/mongo/feedback.api";
 import { Group } from "@/components/atoms/Group";
 import { TextArea } from "@/components/form/TextArea";
 import { CheckIcon } from "@/components/icons";
 import { MessageHeartIcon } from "@/components/icons/MessageHeart";
 import { SendIcon } from "@/components/icons/Send";
 import { Button } from "@/components/molecules/Button";
-import { submitFeedback } from "@/server/mongo/feedback.api";
 import { css } from "@emotion/react";
 import { lazy, useState } from "react";
 import {

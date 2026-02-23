@@ -1,9 +1,9 @@
+import { checkAuthFn } from "@/api/auth/check.api";
+import { getGuideItem, updateGuideItem } from "@/api/mongo/get-guide.api";
 import { Anchor } from "@/components/molecules/Anchor";
 import GuideForm from "@/components/molecules/Guide/GuideForm";
 import { Loading } from "@/components/molecules/Loading";
 import { useAppForm } from "@/context/FormProvider";
-import { checkAuthFn } from "@/server/auth/check.api";
-import { getGuideItem, updateGuideItem } from "@/server/mongo/get-guide.api";
 import { Header, Page, Panel } from "@/styles/routes/blog.styled";
 import { PageSection } from "@/styles/routes/guide.styled";
 import { GuideTableItem } from "@/types/Guide";

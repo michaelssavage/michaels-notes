@@ -2,7 +2,7 @@ import {
   getCollection,
   serializeMongoDoc,
   serializeMongoDocs,
-} from "@/server/mongo/db";
+} from "@/api/mongo/db";
 import { GUIDE_TAGS, GUIDE_TYPES, GuideTableItem } from "@/types/Guide";
 import { createServerFn } from "@tanstack/react-start";
 import { ObjectId } from "mongodb";

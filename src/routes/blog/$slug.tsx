@@ -1,3 +1,4 @@
+import { getFullPost } from "@/api/posts.api";
 import Markdown from "@/components/atoms/Markdown";
 import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
@@ -5,7 +6,6 @@ import { buttonWithIconStyles } from "@/components/molecules/Button/Button.style
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePosts } from "@/hooks/use-posts.hook";
-import { getFullPost } from "@/server/posts.api";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
 import { createFileRoute, useHydrated } from "@tanstack/react-router";

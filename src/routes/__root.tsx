@@ -2,17 +2,16 @@
 import "@/styles/abstracts/colors.css";
 import "@/styles/abstracts/reset.css";
 
+import { checkAuthFn } from "@/api/auth/check.api";
 import { Layout } from "@/components/atoms/Layout";
 import { NotFound } from "@/components/atoms/NotFound";
-import { TextBleed } from "@/components/atoms/TextBleed";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
 import { Feedback } from "@/components/molecules/Feedback/Feedback";
 import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
 import { emotionCache } from "@/context/EmotionCache";
-import PostHogProvider from "@/context/PostHogContainer";
-import { checkAuthFn } from "@/server/auth/check.api";
+import PostHogProvider from "@/context/PostHog";
 import { globalStyles } from "@/styles/global.styled";
 import { CacheProvider, Global } from "@emotion/react";
 import type { QueryClient } from "@tanstack/react-query";
@@ -60,6 +59,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
     links: [
       {
+        rel: "preload",
+        href: "/fonts/rawest.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap",
       },
@@ -77,12 +88,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         href: "/apple-touch-icon.png",
       },
       { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
     ],
   }),
   notFoundComponent: NotFound,
@@ -92,7 +97,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <StrictMode>
+        <Outlet />
+      </StrictMode>
     </RootDocument>
   );
 }
@@ -117,16 +124,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <StrictMode>
-          <Providers>
-            <Navbar />
-            <TextBleed />
-            <Global styles={globalStyles} />
-            <Layout>{children}</Layout>
-            <Feedback />
-            <Footer />
-          </Providers>
-        </StrictMode>
+        <Global styles={globalStyles} />
+
+        <Providers>
+          <Navbar />
+          <Layout>{children}</Layout>
+          <Feedback />
+          <Footer />
+        </Providers>
 
         <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />

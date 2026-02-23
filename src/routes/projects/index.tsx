@@ -1,3 +1,4 @@
+import { getProjects } from "@/api/posts.api";
 import { Group } from "@/components/atoms/Group";
 import { LoadingProject } from "@/components/atoms/Project/LoadingProject";
 import { Project } from "@/components/atoms/Project/Project";
@@ -7,7 +8,6 @@ import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import { sortById } from "@/lib/utils";
-import { getProjects } from "@/server/posts.api";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   GridContainer,

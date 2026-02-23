@@ -1,3 +1,4 @@
+import { logoutFn } from "@/api/auth/logout.api";
 import { UserIcon } from "@/components/icons/User";
 import { Button } from "@/components/molecules/Button";
 import {
@@ -5,7 +6,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/molecules/Overlays";
-import { logoutFn } from "@/server/auth/logout.api";
 import {
   Link,
   useLocation,

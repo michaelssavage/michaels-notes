@@ -4,7 +4,7 @@ import { Page, Panel } from "@/styles/routes/blog.styled";
 import styled from "@emotion/styled";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { loginFn } from "../server/auth/login.api";
+import { loginFn } from "../api/auth/login.api";
 
 const FormStyled = styled.form`
   display: flex;
