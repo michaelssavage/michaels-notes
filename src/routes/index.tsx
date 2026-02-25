@@ -18,45 +18,26 @@ import {
   Page,
   Panel,
 } from "@/styles/routes/blog.styled";
-import {
-  createFileRoute,
-  stripSearchParams,
-  useNavigate,
-} from "@tanstack/react-router";
-import { zodValidator } from "@tanstack/zod-adapter";
-import { ChangeEvent } from "react";
-import { z } from "zod";
+import { createFileRoute } from "@tanstack/react-router";
+import { useCallback, useMemo, useState } from "react";
 
 export type FilterState = {
   isPlantBassd: boolean;
   onSite: boolean;
   isBite: boolean;
   isReview: boolean;
-  q: string;
 };
 
 const title = "Writings | Michael Savage";
 const description = "Learnings, mishaps, and articles about random things.";
 const url = "https://michaelsavage.com/";
 
-const defaultFilters: FilterState = {
-  onSite: true,
-  isReview: true,
-  isBite: true,
-  isPlantBassd: true,
-  q: "",
-};
-
-const filterSchema = z.object({
-  onSite: z.boolean().default(defaultFilters.onSite),
-  isReview: z.boolean().default(defaultFilters.isReview),
-  isBite: z.boolean().default(defaultFilters.isBite),
-  isPlantBassd: z.boolean().default(defaultFilters.isPlantBassd),
-  q: z.string().default(defaultFilters.q),
-});
-
 export const Route = createFileRoute("/")({
   component: Blog,
+  loader: async () => {
+    const data = await getMiniPosts();
+    return data;
+  },
   head: () => ({
     link: [{ rel: "canonical", href: url }],
     meta: [
@@ -67,13 +48,31 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: description },
     ],
   }),
-  validateSearch: zodValidator(filterSchema),
-  search: { middlewares: [stripSearchParams(defaultFilters)] },
-  loaderDeps: ({ search }) => search,
-  loader: async ({ deps: { onSite, isReview, isBite, isPlantBassd, q } }) => {
-    const data = await getMiniPosts();
-    const { blogs = [], bites = [], reviews = [] } = data || {};
-    const searchLowercase = q.toLowerCase();
+});
+
+function Blog() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState<FilterState>({
+    isPlantBassd: true,
+    onSite: true,
+    isBite: true,
+    isReview: true,
+  });
+
+  const handleFilter = useCallback(
+    (updates: Partial<FilterState>) => {
+      setFilter({ ...filter, ...updates });
+    },
+    [filter]
+  );
+
+  const data = Route.useLoaderData();
+
+  const { blogs = [], bites = [], reviews = [] } = data || {};
+
+  const posts = useMemo(() => {
+    const searchLowercase = searchQuery.toLowerCase();
+    const { onSite, isPlantBassd, isBite, isReview } = filter;
 
     const filteredBlogs = blogs.filter(({ title, description, isExternal }) => {
       const titleMatches = title.toLowerCase().includes(searchLowercase);
@@ -94,7 +93,10 @@ export const Route = createFileRoute("/")({
           const descriptionMatches = description
             .toLowerCase()
             .includes(searchLowercase);
-          return titleMatches || descriptionMatches;
+
+          if (!titleMatches && !descriptionMatches) return false;
+
+          return true;
         })
       : [];
 
@@ -107,37 +109,16 @@ export const Route = createFileRoute("/")({
     return [...filteredBlogs, ...filteredReviews, ...filteredBites].sort(
       sortByDate
     );
-  },
-});
+  }, [filter, searchQuery, blogs, bites, reviews]);
 
-function Blog() {
-  const navigate = useNavigate();
-  const { onSite, isReview, isBite, isPlantBassd, q } = Route.useSearch();
-  const posts = Route.useLoaderData();
+  const activeFilters = Object.keys(filter).filter(
+    (key) => filter[key as keyof FilterState]
+  );
 
-  const handleFilter = (updates: Partial<FilterState>) => {
-    navigate({ to: "/", search: (prev) => ({ ...prev, ...updates }) });
-  };
-
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    navigate({
-      to: "/",
-      search: (prev) => ({ ...prev, q: e.target.value }),
-      replace: true,
-    });
-  };
-
-  const allFiltersActive = onSite && isPlantBassd && isBite && isReview;
-  const dataFilters = allFiltersActive
-    ? ""
-    : [
-        onSite && "onSite",
-        isPlantBassd && "isPlantBassd",
-        isBite && "isBite",
-        isReview && "isReview",
-      ]
-        .filter(Boolean)
-        .join(" ");
+  const dataFilters =
+    activeFilters.length === Object.keys(filter).length
+      ? ""
+      : activeFilters.join(" ");
 
   return (
     <Page>
@@ -165,32 +146,34 @@ function Blog() {
               icon={<CircleIcon dataId="onSite" />}
               text="Posts"
               variant="ghost"
-              onClick={() => handleFilter({ onSite: !onSite })}
-              active={onSite}
+              onClick={() => handleFilter({ onSite: !filter.onSite })}
+              active={filter.onSite}
             />
 
             <Button
               icon={<CircleIcon dataId="isReview" />}
               text="Reviews"
               variant="ghost"
-              onClick={() => handleFilter({ isReview: !isReview })}
-              active={isReview}
+              onClick={() => handleFilter({ isReview: !filter.isReview })}
+              active={filter.isReview}
             />
 
             <Button
               icon={<CircleIcon dataId="isBite" />}
               text="Bites"
               variant="ghost"
-              onClick={() => handleFilter({ isBite: !isBite })}
-              active={isBite}
+              onClick={() => handleFilter({ isBite: !filter.isBite })}
+              active={filter.isBite}
             />
 
             <Button
               icon={<CircleIcon dataId="isPlantBassd" />}
               text="Plant Bass'd"
               variant="ghost"
-              onClick={() => handleFilter({ isPlantBassd: !isPlantBassd })}
-              active={isPlantBassd}
+              onClick={() =>
+                handleFilter({ isPlantBassd: !filter.isPlantBassd })
+              }
+              active={filter.isPlantBassd}
             />
           </ButtonGroup>
         </Group>
@@ -198,8 +181,8 @@ function Blog() {
           <SearchBox
             id="search-item"
             label="Search:"
-            value={q}
-            onChange={handleSearch}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Spotify..."
           />
         </Filter>
