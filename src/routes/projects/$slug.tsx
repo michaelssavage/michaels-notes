@@ -8,7 +8,7 @@ import { usePosts } from "@/hooks/use-posts.hook";
 import { joinTags } from "@/lib/utils";
 import { Article } from "@/styles/routes/blog.styled";
 import { Content, Tags, Title } from "@/styles/routes/projects.styled";
-import { createFileRoute, useHydrated } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
 import type { IProject } from "../../types/Post";
@@ -50,13 +50,10 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function Slug() {
-  const hydrated = useHydrated();
   const [open, setOpen] = useState(false);
 
   const post = Route.useLoaderData();
   const posts = usePosts("projects");
-
-  if (!hydrated) return <Loading />;
 
   return (
     <Article>

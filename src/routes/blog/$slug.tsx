@@ -8,7 +8,7 @@ import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePosts } from "@/hooks/use-posts.hook";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
-import { createFileRoute, useHydrated } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
 
@@ -49,14 +49,11 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function Slug() {
-  const hydrated = useHydrated();
   const [open, setOpen] = useState(false);
 
   const { slug } = Route.useParams();
   const post = Route.useLoaderData();
   const posts = usePosts("blogs");
-
-  if (!hydrated) return <Loading />;
 
   const sidebar = posts
     .filter(({ isExternal }) => !isExternal)

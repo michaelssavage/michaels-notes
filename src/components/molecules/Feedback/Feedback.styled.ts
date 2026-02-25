@@ -1,5 +1,4 @@
 import {
-  expandAndAppear,
   slideInAnimation,
   spinInfinitely,
 } from "@/styles/abstracts/animations.styled";
@@ -16,15 +15,11 @@ export const feedbackBtnStyles = css`
   }
 `;
 
-export const Container = styled.div`
-  position: fixed;
-  bottom: 6px;
-  right: 6px;
-  z-index: 50;
-`;
-
 export const Card = styled.div`
-  background: white;
+  position: fixed;
+  bottom: 24px;
+  z-index: 9999;
+  background: var(--color-white);
   border: 1px solid var(--color-gray400);
   border-radius: 8px;
   box-shadow:
@@ -45,7 +40,7 @@ export const ButtonGrid = styled.div`
   gap: 8px;
 `;
 
-export const FloatingButton = styled.button`
+export const HeartContainer = styled.div`
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -60,10 +55,10 @@ export const FloatingButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s;
-  ${expandAndAppear("0.3s")};
 
   svg {
     transition: transform 0.2s;
+    stroke: var(--color-white);
   }
 
   &:hover {

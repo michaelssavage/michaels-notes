@@ -10,10 +10,9 @@ import { lazy, useState } from "react";
 import {
   ButtonGrid,
   Card,
-  Container,
   ErrorMessage,
   feedbackBtnStyles,
-  FloatingButton,
+  HeartContainer,
   SuccessMessage,
 } from "./Feedback.styled";
 
@@ -58,13 +57,13 @@ export const Feedback = () => {
   };
 
   return (
-    <Container>
+    <>
       {isExpanded ? (
         <Card>
           {isSubmitted ? (
             <SuccessMessage>
               <Group direction="row" align="center" gap="0.5rem">
-                <CheckIcon size={20} />
+                <CheckIcon size={24} />
                 <p>Thanks for your feedback!</p>
               </Group>
             </SuccessMessage>
@@ -100,11 +99,17 @@ export const Feedback = () => {
             </>
           )}
         </Card>
-      ) : (
-        <FloatingButton onClick={() => setIsExpanded(true)}>
-          <MessageHeartIcon size={24} />
-        </FloatingButton>
-      )}
-    </Container>
+      ) : null}
+      <Button
+        onClick={() => setIsExpanded(true)}
+        icon={
+          <HeartContainer>
+            <MessageHeartIcon size={24} />
+          </HeartContainer>
+        }
+        text="Feedback"
+        variant="ghost"
+      />
+    </>
   );
 };

@@ -6,7 +6,6 @@ import { checkAuthFn } from "@/api/auth/check.api";
 import { Layout } from "@/components/atoms/Layout";
 import { NotFound } from "@/components/atoms/NotFound";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
-import { Feedback } from "@/components/molecules/Feedback/Feedback";
 import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
 import { ContentProvider } from "@/context/ContentProvider";
@@ -129,7 +128,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Providers>
           <Navbar />
           <Layout>{children}</Layout>
-          <Feedback />
           <Footer />
         </Providers>
 
