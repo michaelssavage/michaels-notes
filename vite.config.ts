@@ -1,4 +1,4 @@
-import netlify from "@netlify/vite-plugin-tanstack-start";
+import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -17,13 +17,13 @@ export default defineConfig({
     optimizeDeps: {
       include: ["@emotion/styled"],
     },
-    external: ["leaflet", "react-leaflet"],
   },
   plugins: [
+    // Cloudflare plugin must come before tanstackStart
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart(),
     storybookPlugin(),
-    ...(!isDevBuild ? [netlify()] : []),
     ...(!isDevBuild
       ? [
           visualizer({

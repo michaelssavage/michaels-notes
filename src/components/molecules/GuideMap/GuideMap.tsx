@@ -9,7 +9,7 @@ type GuideMapProps = {
   withWrapper?: boolean;
 };
 
-const LeafletMap = lazy(() => import("./GuideMap.lazy.client"));
+const LeafletMap = lazy(() => import("./LeafletMap.client"));
 
 export const GuideMap = ({
   selectedItem,
