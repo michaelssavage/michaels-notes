@@ -1,18 +1,18 @@
 import { createServerFn } from "@tanstack/react-start";
 
-const REFRESH_TOKEN = process.env.VITE_SPOTIFY_REFRESH_TOKEN;
-const CLIENT_ID = process.env.VITE_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.VITE_SPOTIFY_CLIENT_SECRET;
-
 export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
   async () => {
+    const REFRESH_TOKEN = process.env.VITE_SPOTIFY_REFRESH_TOKEN;
+    const CLIENT_ID = process.env.VITE_SPOTIFY_CLIENT_ID;
+    const CLIENT_SECRET = process.env.VITE_SPOTIFY_CLIENT_SECRET;
+
     try {
       if (!REFRESH_TOKEN || !CLIENT_ID || !CLIENT_SECRET) {
         throw new Error("Missing Spotify credentials");
       }
 
       const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
-        "base64",
+        "base64"
       );
 
       const response = await fetch("https://accounts.spotify.com/api/token", {
@@ -45,5 +45,5 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
       console.error("Error refreshing Spotify token:", error);
       throw new Error("Internal server error");
     }
-  },
+  }
 );

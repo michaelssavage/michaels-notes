@@ -1,4 +1,3 @@
-import { checkAuthFn } from "@/api/auth/check.api";
 import { createGuideItem } from "@/api/mongo/get-guide.api";
 import GuideForm from "@/components/molecules/Guide/GuideForm";
 import { useAppForm } from "@/context/FormProvider";
@@ -10,9 +9,8 @@ import toast from "react-hot-toast";
 
 export const Route = createFileRoute("/guide/barcelona/new")({
   component: RouteComponent,
-  loader: async () => {
-    const { authenticated } = await checkAuthFn();
-    if (!authenticated) {
+  beforeLoad: ({ context }) => {
+    if (!context.isAdmin) {
       throw redirect({ to: "/login" });
     }
   },

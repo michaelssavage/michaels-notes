@@ -1,11 +1,7 @@
 import { createMiddleware, createServerFn } from "@tanstack/react-start";
 
 const authMiddleware = createMiddleware().server(async ({ next, request }) => {
-  return next({
-    context: {
-      request,
-    },
-  });
+  return next({ context: { request } });
 });
 
 export const checkAuthFn = createServerFn({ method: "GET" })

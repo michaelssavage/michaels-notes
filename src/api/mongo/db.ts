@@ -1,29 +1,20 @@
 import { Collection, Document, MongoClient, WithId } from "mongodb";
 
-const MONGODB_URI = process.env.VITE_MOVIES_STRING;
 const DB_NAME = "michaels-notes";
+let mongoClientPromise: Promise<MongoClient> | null = null;
 
-type GlobalWithMongoClient = typeof globalThis & {
-  __mongoClientPromise?: Promise<MongoClient>;
-};
-
-const globalForMongo = globalThis as GlobalWithMongoClient;
-
-const createMongoClientPromise = () => {
-  if (!MONGODB_URI) throw new Error("MONGODB_URI not defined");
-  const client = new MongoClient(MONGODB_URI);
-  return client.connect().then(() => client);
-};
-
-const mongoClientPromise =
-  globalForMongo.__mongoClientPromise ?? createMongoClientPromise();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForMongo.__mongoClientPromise = mongoClientPromise;
+function getMongoClientPromise(): Promise<MongoClient> {
+  if (!mongoClientPromise) {
+    const uri = process.env.MONGO_DB_URI;
+    if (!uri) throw new Error("MONGO_DB_URI not defined");
+    const client = new MongoClient(uri);
+    mongoClientPromise = client.connect().then(() => client);
+  }
+  return mongoClientPromise;
 }
 
 async function getMongoClient() {
-  return mongoClientPromise;
+  return getMongoClientPromise();
 }
 
 export async function getCollection<T extends Document>(

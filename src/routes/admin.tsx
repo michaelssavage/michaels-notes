@@ -9,16 +9,14 @@ import { Heading, Page, Panel } from "@/styles/routes/blog.styled";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { checkAuthFn } from "../api/auth/check.api";
 
 export const Route = createFileRoute("/admin")({
-  beforeLoad: async () => {
-    const { authenticated } = await checkAuthFn();
-    if (!authenticated) {
+  component: AdminPage,
+  beforeLoad: ({ context }) => {
+    if (!context.isAdmin) {
       throw redirect({ to: "/login" });
     }
   },
-  component: AdminPage,
 });
 
 function AdminPage() {

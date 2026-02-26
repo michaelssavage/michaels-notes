@@ -6,9 +6,4 @@
   "compatibility_flags": ["nodejs_compat"],
   // TanStack Start's built-in server entry — resolved to dist/server by the build
   "main": "@tanstack/react-start/server-entry",
-  "assets": {
-    // Static client bundle served directly from Cloudflare CDN
-    "directory": "./dist/client",
-    "binding": "ASSETS",
-  },
 }
