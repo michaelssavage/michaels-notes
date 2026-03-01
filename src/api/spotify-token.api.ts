@@ -12,9 +12,8 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
         throw new Error("Missing Spotify credentials");
       }
 
-      const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
-        "base64"
-      );
+      // Use Web API base64 encoding to avoid Node Buffer runtime differences.
+      const auth = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
 
       const response = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
@@ -29,7 +28,10 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
       });
 
       if (!response.ok) {
-        throw new Error("Failed to refresh token");
+        const body = await response.text();
+        throw new Error(
+          `Failed to refresh token (${response.status}): ${body || "empty response"}`
+        );
       }
 
       const data: { access_token: string; expires_in: number } =
