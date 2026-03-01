@@ -3,9 +3,9 @@ import { env } from "cloudflare:workers";
 
 export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
   async () => {
-    const REFRESH_TOKEN = env.VITE_SPOTIFY_REFRESH_TOKEN;
-    const CLIENT_ID = env.VITE_SPOTIFY_CLIENT_ID;
-    const CLIENT_SECRET = env.VITE_SPOTIFY_CLIENT_SECRET;
+    const REFRESH_TOKEN = env.SPOTIFY_REFRESH_TOKEN;
+    const CLIENT_ID = env.SPOTIFY_CLIENT_ID;
+    const CLIENT_SECRET = env.SPOTIFY_CLIENT_SECRET;
 
     try {
       if (!REFRESH_TOKEN || !CLIENT_ID || !CLIENT_SECRET) {

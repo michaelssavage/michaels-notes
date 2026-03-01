@@ -2,14 +2,12 @@ import { IWeather } from "@/types/Weather";
 import { createServerFn } from "@tanstack/react-start";
 import { env } from "cloudflare:workers";
 
-const WEATHER_API = env.VITE_WEATHER_API;
-
 export const getWeather = createServerFn({
   method: "GET",
 }).handler(async (): Promise<IWeather> => {
   const url = new URL("https://api.weatherapi.com/v1/current.json");
   url.searchParams.set("q", "Barcelona");
-  url.searchParams.set("key", WEATHER_API);
+  url.searchParams.set("key", env.WEATHER_API);
 
   const response = await fetch(url.toString(), {
     method: "GET",

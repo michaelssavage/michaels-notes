@@ -1,6 +1,5 @@
 import { SerializedStyles } from "@emotion/react";
-
-const UPLOADCARE_PUBLIC_KEY = import.meta.env.VITE_UPLOADCARE_KEY;
+import { env } from "cloudflare:workers";
 
 export interface FileUploadProps {
   value: string[];
@@ -45,7 +44,7 @@ export const uploadToUploadcare = async (
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
-    formData.append("UPLOADCARE_PUB_KEY", UPLOADCARE_PUBLIC_KEY);
+    formData.append("UPLOADCARE_PUB_KEY", env.UPLOADCARE_KEY);
     formData.append("file", file);
     xhr.open("POST", "https://upload.uploadcare.com/base/");
     xhr.upload.addEventListener("progress", (event) => {
