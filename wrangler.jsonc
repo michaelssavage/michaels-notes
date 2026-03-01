@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "michaels-notes",
+  "compatibility_date": "2026-02-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "enabled": true,
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "michaels-notes",
+      "database_id": "359af62d-0ed8-453f-a0f0-4569bec1e172",
+      "remote": true,
+    },
+  ],
+}

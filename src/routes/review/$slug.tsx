@@ -31,7 +31,7 @@ export const Route = createFileRoute("/review/$slug")({
       },
     });
 
-    return post;
+    return post as IReview;
   },
   head: ({ loaderData: d }) => ({
     link: [{ rel: "canonical", href: `${url}/${d?.slug}` }],

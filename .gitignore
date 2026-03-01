@@ -5,6 +5,7 @@ dist-ssr
 *.local
 count.txt
 .env
+.dev.vars
 .nitro
 .tanstack
 .wrangler
@@ -30,3 +31,4 @@ stats.html
 
 public/compiled-posts/
 plan.md
+.claude

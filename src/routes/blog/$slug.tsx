@@ -26,7 +26,7 @@ export const Route = createFileRoute("/blog/$slug")({
       },
     });
 
-    return post;
+    return post as IBlog;
   },
   head: ({ loaderData: d }) => ({
     link: [{ rel: "canonical", href: `${url}/${d?.slug}` }],

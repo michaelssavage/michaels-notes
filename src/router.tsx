@@ -1,10 +1,22 @@
 import DefaultErrorComponent from "@/components/atoms/ErrorBoundary";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import { routeTree } from "./routeTree.gen";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error) => {
+      if (error.name === "AbortError") return;
+      console.error(error);
+    },
+  }),
+  defaultOptions: {
+    queries: {
+      throwOnError: (error) => error.name !== "AbortError",
+    },
+  },
+});
 
 export const getRouter = () => {
   const router = createRouter({

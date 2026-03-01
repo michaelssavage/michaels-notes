@@ -37,19 +37,4 @@ export const resolveMapsCoordsFn = createServerFn({ method: "GET" })
 
     const coords = extractCoordsFromUrl(finalUrl);
     if (coords) return coords;
-
-    const res = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-        finalUrl
-      )}&key=${process.env.VITE_GOOGLE_MAPS_API_KEY}`
-    );
-    const responseData = await res.json();
-
-    const location = responseData?.results?.[0]?.geometry?.location;
-    if (!location) return null;
-
-    return {
-      lat: location.lat,
-      lng: location.lng,
-    };
   });

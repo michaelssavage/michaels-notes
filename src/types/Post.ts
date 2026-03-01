@@ -80,4 +80,4 @@ export interface IPosts {
   bites: Array<IBite>;
 }
 
-export type IPost = IBlog | IReview | IBite;
+export type IPost = IBlog | IReview | IBite | IProject;

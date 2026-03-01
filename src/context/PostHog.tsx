@@ -20,26 +20,25 @@ const PostHogErrorBoundaryLazy = lazy(() =>
 );
 
 const options = {
-  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+  api_host: "https://eu.i.posthog.com",
   autocapture: !isDevelopment,
   capture_pageview: !isDevelopment,
   disable_session_recording: isDevelopment,
   opt_out_capturing_by_default: isDevelopment,
 };
 
+const apiKey = import.meta.env.VITE_PUBLIC_POSTHOG_KEY || "";
+
 export default function PostHogProvider({ children }: HogProps) {
   const hydrated = useHydrated();
 
-  if (isDevelopment || !hydrated) {
+  if (isDevelopment || !hydrated || !apiKey) {
     return <>{children}</>;
   }
 
   return (
     <Suspense fallback={null}>
-      <PostHogReact
-        apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY || ""}
-        options={options}
-      >
+      <PostHogReact apiKey={apiKey} options={options}>
         <PostHogErrorBoundaryLazy>{children}</PostHogErrorBoundaryLazy>
       </PostHogReact>
     </Suspense>

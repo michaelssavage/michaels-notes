@@ -27,7 +27,7 @@ export const Route = createFileRoute("/projects/$slug")({
         slug: params.slug,
       },
     });
-    return post;
+    return post as IProject;
   },
   head: ({ loaderData: d }) => ({
     link: [{ rel: "canonical", href: `${url}/${d?.slug}` }],

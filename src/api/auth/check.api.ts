@@ -1,11 +1,8 @@
 import { createMiddleware, createServerFn } from "@tanstack/react-start";
+import { env } from "cloudflare:workers";
 
 const authMiddleware = createMiddleware().server(async ({ next, request }) => {
-  return next({
-    context: {
-      request,
-    },
-  });
+  return next({ context: { request } });
 });
 
 export const checkAuthFn = createServerFn({ method: "GET" })
@@ -17,7 +14,7 @@ export const checkAuthFn = createServerFn({ method: "GET" })
       .find((c) => c.startsWith("admin_token="))
       ?.split("=")[1];
 
-    if (token === process.env.ADMIN_SECRET) {
+    if (token === env.ADMIN_SECRET) {
       return { authenticated: true };
     }
 

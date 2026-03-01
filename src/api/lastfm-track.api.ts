@@ -1,4 +1,6 @@
+import { LastFmArtistInfo } from "@/types/Lastfm";
 import { createServerFn } from "@tanstack/react-start";
+import { env } from "cloudflare:workers";
 import { z } from "zod";
 
 const TrackSchema = z.object({
@@ -7,13 +9,16 @@ const TrackSchema = z.object({
 
 export const getLastFmTrack = createServerFn({ method: "GET" })
   .inputValidator(TrackSchema)
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<LastFmArtistInfo> => {
     if (!data.artist) {
       throw new Error("Missing 'artist' query parameter");
     }
 
-    const API_KEY = process.env.VITE_LASTFM_API_KEY;
-    const url = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${data.artist}&api_key=${API_KEY}&format=json`;
+    const url = new URL("https://ws.audioscrobbler.com/2.0/");
+    url.searchParams.set("method", "artist.getinfo");
+    url.searchParams.set("artist", data.artist);
+    url.searchParams.set("api_key", env.LASTFM_API_KEY);
+    url.searchParams.set("format", "json");
 
     try {
       const res = await fetch(url, {
@@ -26,7 +31,7 @@ export const getLastFmTrack = createServerFn({ method: "GET" })
         throw new Error("Failed to fetch from Last.fm");
       }
 
-      const data = await res.json();
+      const data: LastFmArtistInfo = await res.json();
       return data;
     } catch (error) {
       console.error("Error fetching Last.fm track:", error);

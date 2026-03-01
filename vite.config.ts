@@ -1,12 +1,9 @@
-import netlify from "@netlify/vite-plugin-tanstack-start";
+import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
-import { visualizer } from "rollup-plugin-visualizer";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import storybookPlugin from "./src/lib/storybook";
-
-const isDevBuild = !!process.env.VITE_ENV_DEV;
 
 export default defineConfig({
   server: { port: 3000 },
@@ -17,24 +14,13 @@ export default defineConfig({
     optimizeDeps: {
       include: ["@emotion/styled"],
     },
-    external: ["leaflet", "react-leaflet"],
   },
   plugins: [
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart(),
     storybookPlugin(),
-    ...(!isDevBuild ? [netlify()] : []),
-    ...(!isDevBuild
-      ? [
-          visualizer({
-            open: false,
-            filename: "dist/stats.html",
-            gzipSize: true,
-            brotliSize: true,
-          }),
-        ]
-      : []),
-    viteReact({
+    react({
       include: /\.(mdx|tsx|ts)$/,
       jsxImportSource: "@emotion/react",
       babel: {

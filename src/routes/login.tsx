@@ -3,7 +3,7 @@ import { Button } from "@/components/molecules/Button";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import styled from "@emotion/styled";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { SubmitEvent, useState } from "react";
 import { loginFn } from "../api/auth/login.api";
 
 const FormStyled = styled.form`
@@ -31,7 +31,7 @@ function LoginPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
 
     try {

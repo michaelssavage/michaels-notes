@@ -1,7 +1,7 @@
 import { GuideHeader } from "@/components/molecules/GuideMap/GuideMap.styled";
 import { Picture } from "@/components/molecules/Picture";
 import { items } from "@/content/guide/barcelona";
-import { LeafletProvider } from "@/context/LeafletProvider";
+import { LeafletProvider } from "@/context/LeafletProvider.client";
 import type { GuideTableItem } from "@/types/Guide";
 import { css } from "@emotion/react";
 import { Map, Marker } from "leaflet";

@@ -1,19 +1,19 @@
 import { createServerFn } from "@tanstack/react-start";
-
-const REFRESH_TOKEN = process.env.VITE_SPOTIFY_REFRESH_TOKEN;
-const CLIENT_ID = process.env.VITE_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.VITE_SPOTIFY_CLIENT_SECRET;
+import { env } from "cloudflare:workers";
 
 export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
   async () => {
+    const REFRESH_TOKEN = env.SPOTIFY_REFRESH_TOKEN;
+    const CLIENT_ID = env.SPOTIFY_CLIENT_ID;
+    const CLIENT_SECRET = env.SPOTIFY_CLIENT_SECRET;
+
     try {
       if (!REFRESH_TOKEN || !CLIENT_ID || !CLIENT_SECRET) {
         throw new Error("Missing Spotify credentials");
       }
 
-      const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
-        "base64",
-      );
+      // Use Web API base64 encoding to avoid Node Buffer runtime differences.
+      const auth = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
 
       const response = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
@@ -28,10 +28,14 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
       });
 
       if (!response.ok) {
-        throw new Error("Failed to refresh token");
+        const body = await response.text();
+        throw new Error(
+          `Failed to refresh token (${response.status}): ${body || "empty response"}`
+        );
       }
 
-      const data = await response.json();
+      const data: { access_token: string; expires_in: number } =
+        await response.json();
 
       if (!data.access_token) {
         throw new Error("No access token received");
@@ -45,5 +49,5 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
       console.error("Error refreshing Spotify token:", error);
       throw new Error("Internal server error");
     }
-  },
+  }
 );

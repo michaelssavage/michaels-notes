@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
 import type { ErrorComponentProps } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+interface DogResponse {
+  status: string;
+  message: string;
+}
 
 const ErrorContainer = styled.div`
   display: flex;
@@ -18,24 +24,19 @@ const ErrorContainer = styled.div`
   }
 `;
 
+const fetchDogImage = async () => {
+  const response = await fetch("https://dog.ceo/api/breeds/image/random");
+  const data: DogResponse = await response.json();
+  return data.message;
+};
+
 export default function DefaultErrorComponent({ error }: ErrorComponentProps) {
-  const [dogImageUrl, setDogImageUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchDogImage = async () => {
-      try {
-        const response = await fetch("https://dog.ceo/api/breeds/image/random");
-        const data = await response.json();
-        if (data.status === "success") {
-          setDogImageUrl(data.message);
-        }
-      } catch (err) {
-        console.error("Failed to fetch dog image:", err);
-      }
-    };
-
-    fetchDogImage();
-  }, []);
+  const { data: dogImageUrl, isError } = useQuery({
+    queryKey: ["dogImage", error?.message],
+    queryFn: fetchDogImage,
+    retry: 1,
+    staleTime: 60_000,
+  });
 
   useEffect(() => {
     console.error("Error caught by boundary:", error);
@@ -44,7 +45,7 @@ export default function DefaultErrorComponent({ error }: ErrorComponentProps) {
   return (
     <ErrorContainer>
       <h1>There was an error</h1>
-      {dogImageUrl && (
+      {dogImageUrl && !isError && (
         <>
           <img src={dogImageUrl} alt="A cute dog to cheer you up" />
           <p>But here&apos;s a cute dog to cheer you up!</p>

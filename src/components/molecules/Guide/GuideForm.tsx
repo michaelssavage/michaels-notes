@@ -75,11 +75,10 @@ const GuideForm = withForm({
 
       if (link.includes("maps") || link.includes("goo.gl")) {
         const coords = await resolveMapsCoordsFn({ data: { link } });
-        mapsLinkCache.set(link, coords);
+        if (!coords) return;
 
-        if (coords) {
-          form.setFieldValue("coordinates", coords);
-        }
+        mapsLinkCache.set(link, coords);
+        form.setFieldValue("coordinates", coords);
       }
     };
 

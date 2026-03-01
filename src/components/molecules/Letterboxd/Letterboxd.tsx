@@ -1,4 +1,4 @@
-import { getMovies } from "@/api/mongo/letterboxd.api";
+import { getMovies } from "@/api/d1/letterboxd.api";
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
@@ -29,11 +29,16 @@ export const Letterboxd = () => {
   const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["favorites"],
-    queryFn: () => fetchMovies(),
+    queryFn: fetchMovies,
     refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
+
+  if (error) {
+    console.error(error);
+  }
 
   const [active, setActive] = useState(0);
 
@@ -78,7 +83,7 @@ export const Letterboxd = () => {
     }
   }, [emblaApi, data]);
 
-  if (!data || data.length === 0 || !Array.isArray(data)) {
+  if (!Array.isArray(data) || data.length === 0) {
     return (
       <p>
         I love watching, sharing and keeping track of movies on Letterboxd (the
