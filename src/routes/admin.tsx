@@ -1,7 +1,7 @@
-import { getFeedback } from "@/api/mongo/feedback.api";
+import { getFeedback } from "@/api/d1/feedback.api";
 import { Group } from "@/components/atoms/Group/Group";
 import {
-  Card,
+  FeedbackCard,
   IpAddress,
 } from "@/components/molecules/Feedback/Feedback.styled";
 import { formatDate } from "@/lib/utils";
@@ -24,7 +24,7 @@ function AdminPage() {
 
   const { data } = useQuery({
     queryKey: ["feedback"],
-    queryFn: () => fetchFeedback(),
+    queryFn: fetchFeedback,
     refetchOnWindowFocus: false,
   });
   return (
@@ -41,12 +41,12 @@ function AdminPage() {
                   timeStyle: "medium",
                 })}
               </p>
-              <Card>
+              <FeedbackCard>
                 <Group direction="column" gap="0.5rem">
                   <IpAddress>IP: {ip}</IpAddress>
                   <p>{text}</p>
                 </Group>
-              </Card>
+              </FeedbackCard>
             </Group>
           ))}
         </Group>

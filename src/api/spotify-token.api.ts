@@ -1,10 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
+import { env } from "cloudflare:workers";
 
 export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
   async () => {
-    const REFRESH_TOKEN = process.env.VITE_SPOTIFY_REFRESH_TOKEN;
-    const CLIENT_ID = process.env.VITE_SPOTIFY_CLIENT_ID;
-    const CLIENT_SECRET = process.env.VITE_SPOTIFY_CLIENT_SECRET;
+    const REFRESH_TOKEN = env.VITE_SPOTIFY_REFRESH_TOKEN;
+    const CLIENT_ID = env.VITE_SPOTIFY_CLIENT_ID;
+    const CLIENT_SECRET = env.VITE_SPOTIFY_CLIENT_SECRET;
 
     try {
       if (!REFRESH_TOKEN || !CLIENT_ID || !CLIENT_SECRET) {
@@ -31,7 +32,8 @@ export const getSpotifyToken = createServerFn({ method: "GET" }).handler(
         throw new Error("Failed to refresh token");
       }
 
-      const data = await response.json();
+      const data: { access_token: string; expires_in: number } =
+        await response.json();
 
       if (!data.access_token) {
         throw new Error("No access token received");

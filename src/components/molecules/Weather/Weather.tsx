@@ -7,13 +7,13 @@ import { useServerFn } from "@tanstack/react-start";
 import { SpeechBubble } from "./Weather.styled";
 
 export const Weather = () => {
-  const fetchMovies = useServerFn(getWeather);
+  const fetchWeather = useServerFn(getWeather);
 
   const hydrated = useHydrated();
 
   const { data, isLoading } = useQuery({
     queryKey: ["weather"],
-    queryFn: () => fetchMovies(),
+    queryFn: fetchWeather,
     refetchOnMount: false,
     refetchOnWindowFocus: true,
     enabled: hydrated,

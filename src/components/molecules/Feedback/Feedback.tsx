@@ -1,4 +1,4 @@
-import { submitFeedback } from "@/api/mongo/feedback.api";
+import { submitFeedback } from "@/api/d1/feedback.api";
 import { Group } from "@/components/atoms/Group";
 import { TextArea } from "@/components/form/TextArea";
 import { CheckIcon } from "@/components/icons";

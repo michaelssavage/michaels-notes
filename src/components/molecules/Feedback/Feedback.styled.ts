@@ -15,6 +15,18 @@ export const feedbackBtnStyles = css`
   }
 `;
 
+export const FeedbackCard = styled.div`
+  background: var(--color-white);
+  border: 1px solid var(--color-gray400);
+  border-radius: 8px;
+  border-radius: 8px;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  width: 400px;
+  padding: 16px;
+`;
+
 export const Card = styled.div`
   position: fixed;
   bottom: 24px;

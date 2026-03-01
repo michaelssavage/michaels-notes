@@ -1,4 +1,11 @@
-import type { IBite, IBlog, IPosts, IProject, IReview } from "@/types/Post";
+import type {
+  IBite,
+  IBlog,
+  IPost,
+  IPosts,
+  IProject,
+  IReview,
+} from "@/types/Post";
 import { createMiddleware, createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
@@ -126,7 +133,7 @@ const PostSchema = z.object({
 export const getFullPost = createServerFn({ method: "GET" })
   .inputValidator(PostSchema)
   .middleware([requestMiddleware])
-  .handler(async ({ data, context }) => {
+  .handler(async ({ data, context }): Promise<IPost> => {
     try {
       const res = await fetch(
         `${context.origin}/compiled-posts/${data.category}/${data.slug}.json`

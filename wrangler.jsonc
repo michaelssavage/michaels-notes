@@ -7,4 +7,12 @@
   "observability": {
     "enabled": true,
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "michaels-notes",
+      "database_id": "359af62d-0ed8-453f-a0f0-4569bec1e172",
+      "remote": true,
+    },
+  ],
 }

@@ -1,4 +1,4 @@
-import { getGuideItem, updateGuideItem } from "@/api/mongo/get-guide.api";
+import { getGuideItem, updateGuideItem } from "@/api/d1/city-guide.api";
 import { Anchor } from "@/components/molecules/Anchor";
 import GuideForm from "@/components/molecules/Guide/GuideForm";
 import { Loading } from "@/components/molecules/Loading";

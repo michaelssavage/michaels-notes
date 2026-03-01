@@ -1,4 +1,4 @@
-import { getGuide } from "@/api/mongo/get-guide.api";
+import { getGuide } from "@/api/d1/city-guide.api";
 import { Group } from "@/components/atoms/Group";
 import { FormLabel } from "@/components/form/FormLabel";
 import { ExternalLinkIcon, MapIcon } from "@/components/icons";
@@ -86,6 +86,7 @@ function RouteComponent() {
     queryKey: ["guide"],
     queryFn: () => fetchGuide({ data: { name: "barcelona-guide" } }),
     refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
   });
 
   const shuffledItems = useMemo(() => shuffleArray(items), [items]);
@@ -113,6 +114,8 @@ function RouteComponent() {
       }),
     };
   })();
+
+  const isTablet = useMatchMedia("(max-width: 768px)");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<GuideType | "all">("all");
@@ -179,8 +182,6 @@ function RouteComponent() {
   const displayedTags = showAll ? uniqueTags : uniqueTags.slice(0, 5);
 
   const toggleMapDrawer = (open: boolean) => setIsMapDrawerOpen(open);
-
-  const isTablet = useMatchMedia("(max-width: 768px)");
 
   const handleCardClick = (item: GuideTableItem) => () => {
     setSelectedItem(item.id);

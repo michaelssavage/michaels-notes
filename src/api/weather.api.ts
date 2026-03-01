@@ -1,7 +1,8 @@
 import { IWeather } from "@/types/Weather";
 import { createServerFn } from "@tanstack/react-start";
+import { env } from "cloudflare:workers";
 
-const WEATHER_API = process.env.VITE_WEATHER_API!;
+const WEATHER_API = env.VITE_WEATHER_API;
 
 export const getWeather = createServerFn({
   method: "GET",
@@ -14,11 +15,11 @@ export const getWeather = createServerFn({
         key: WEATHER_API,
         accept: "application/json",
       },
-    },
+    }
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-  const data = await response.json();
+  const data: IWeather = await response.json();
   return data;
 });
