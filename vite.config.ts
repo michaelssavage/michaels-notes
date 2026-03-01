@@ -1,6 +1,6 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
@@ -19,7 +19,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    // Cloudflare plugin must come before tanstackStart
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart(),
@@ -34,7 +33,7 @@ export default defineConfig({
           }),
         ]
       : []),
-    viteReact({
+    react({
       include: /\.(mdx|tsx|ts)$/,
       jsxImportSource: "@emotion/react",
       babel: {

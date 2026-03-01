@@ -9,6 +9,7 @@
     "prebuild": "pnpm run build:mdx",
     "build": "vite build",
     "deploy": "pnpm build && wrangler deploy",
+    "cf-typegen": "wrangler types",
     "dev": "vite dev",
     "dev:mdx": "pnpm build:mdx && vite dev",
     "dev:wrangler": "wrangler dev",
