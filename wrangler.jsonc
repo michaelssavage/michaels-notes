@@ -2,8 +2,6 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "michaels-notes",
   "compatibility_date": "2026-02-25",
-  // nodejs_compat is required for MongoDB native driver (TCP socket support)
   "compatibility_flags": ["nodejs_compat"],
-  // TanStack Start's built-in server entry — resolved to dist/server by the build
   "main": "@tanstack/react-start/server-entry",
 }

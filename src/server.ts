@@ -27,7 +27,7 @@ function applySecurityHeaders(headers: Headers): void {
   }
 }
 
-export default createServerEntry({
+const entry = createServerEntry({
   async fetch(request) {
     const response = await handler.fetch(request);
 
@@ -56,3 +56,10 @@ export default createServerEntry({
     });
   },
 });
+
+export default {
+  async fetch(request: Request, env: Record<string, string>) {
+    Object.assign(process.env, env);
+    return entry.fetch(request);
+  },
+};
