@@ -6,149 +6,107 @@ import type {
   IProject,
   IReview,
 } from "@/types/Post";
-import { createMiddleware, createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 const isProd = process.env.NODE_ENV === "production";
-type CloudflareAssetBinding = { fetch: typeof fetch };
-type AssetRequest = Request & {
-  cloudflare?: { env?: { ASSETS?: CloudflareAssetBinding } };
-};
+
+interface CloudflareEnv {
+  ASSETS: { fetch: typeof fetch };
+}
 
 function filterDrafts<T extends { draft?: boolean }>(items: T[]): T[] {
   return isProd ? items.filter((item) => !item.draft) : items;
 }
 
-// Exposes the request origin so server functions can fetch static assets
-// via HTTP — required for Cloudflare Workers (no fs access).
-// In local dev the origin is http://localhost:3000, Vite serves public/ there.
-const requestMiddleware = createMiddleware().server(
-  async ({ next, request }) => {
-    return next({ context: { origin: new URL(request.url).origin, request } });
+async function fetchAssetJson<T>(path: string): Promise<T> {
+  try {
+    const { env } = await import("cloudflare:workers");
+
+    return await (env as unknown as CloudflareEnv).ASSETS.fetch(
+      new Request(`http://assets.internal${path}`)
+    ).then((r) => r.json());
+  } catch {
+    const request = getRequest();
+    if (!request) throw new Error("No request context available");
+
+    const origin = new URL(request.url).origin;
+    const res = await fetch(`${origin}${path}`);
+
+    if (!res.ok)
+      throw new Error(`Failed to fetch asset ${path}: ${res.status}`);
+
+    return res.json();
   }
-);
-
-async function fetchAssetJson<T>(
-  request: Request,
-  origin: string,
-  path: string
-): Promise<T> {
-  const req = request as AssetRequest;
-  const assetFetcher = req.cloudflare?.env?.ASSETS?.fetch;
-  const assetRequest = new Request(new URL(path, origin).toString(), {
-    method: "GET",
-    headers: { accept: "application/json" },
-  });
-
-  // Prefer ASSETS binding in production to avoid self-fetch loops.
-  const res = assetFetcher
-    ? await assetFetcher(assetRequest)
-    : await fetch(assetRequest);
-  if (!res.ok) throw new Error(`Failed to fetch asset ${path}: ${res.status}`);
-  return res.json() as Promise<T>;
 }
 
-async function loadPostsIndex(
-  request: Request,
-  origin: string
-): Promise<IPosts> {
-  return fetchAssetJson<IPosts>(request, origin, "/compiled-posts/index.json");
+async function loadPostsIndex(): Promise<IPosts> {
+  return fetchAssetJson<IPosts>("/compiled-posts/index.json");
 }
 
-export const getMiniPosts = createServerFn({ method: "GET" })
-  .middleware([requestMiddleware])
-  .handler(async ({ context }): Promise<IPosts> => {
+export const getMiniPosts = createServerFn({ method: "GET" }).handler(
+  async (): Promise<IPosts> => {
     try {
-      const posts = await loadPostsIndex(context.request, context.origin);
-
+      const posts = await loadPostsIndex();
       posts.blogs = filterDrafts(posts.blogs);
       posts.projects = filterDrafts(posts.projects);
       posts.reviews = filterDrafts(posts.reviews);
-
       return posts;
     } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return {
-          projects: [],
-          blogs: [],
-          reviews: [],
-          bites: [],
-        };
-      }
-
       console.warn("Failed to load posts index:", error);
-      return {
-        projects: [],
-        blogs: [],
-        reviews: [],
-        bites: [],
-      };
+      return { projects: [], blogs: [], reviews: [], bites: [] };
     }
-  });
+  }
+);
 
-export const getProjects = createServerFn({ method: "GET" })
-  .middleware([requestMiddleware])
-  .handler(async ({ context }): Promise<IProject[]> => {
+export const getProjects = createServerFn({ method: "GET" }).handler(
+  async (): Promise<IProject[]> => {
     try {
-      const posts = await loadPostsIndex(context.request, context.origin);
+      const posts = await loadPostsIndex();
       return filterDrafts(posts.projects);
     } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return [];
-      }
-
       console.warn("Failed to load projects:", error);
       return [];
     }
-  });
+  }
+);
 
-export const getBlogs = createServerFn({ method: "GET" })
-  .middleware([requestMiddleware])
-  .handler(async ({ context }): Promise<IBlog[]> => {
+export const getBlogs = createServerFn({ method: "GET" }).handler(
+  async (): Promise<IBlog[]> => {
     try {
-      const posts = await loadPostsIndex(context.request, context.origin);
+      const posts = await loadPostsIndex();
       return filterDrafts(posts.blogs);
     } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return [];
-      }
-
       console.warn("Failed to load blogs:", error);
       return [];
     }
-  });
+  }
+);
 
-export const getReviews = createServerFn({ method: "GET" })
-  .middleware([requestMiddleware])
-  .handler(async ({ context }): Promise<IReview[]> => {
+export const getReviews = createServerFn({ method: "GET" }).handler(
+  async (): Promise<IReview[]> => {
     try {
-      const posts = await loadPostsIndex(context.request, context.origin);
+      const posts = await loadPostsIndex();
       return filterDrafts(posts.reviews);
     } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return [];
-      }
-
       console.warn("Failed to load reviews:", error);
       return [];
     }
-  });
+  }
+);
 
-export const getBites = createServerFn({ method: "GET" })
-  .middleware([requestMiddleware])
-  .handler(async ({ context }): Promise<IBite[]> => {
+export const getBites = createServerFn({ method: "GET" }).handler(
+  async (): Promise<IBite[]> => {
     try {
-      const posts = await loadPostsIndex(context.request, context.origin);
+      const posts = await loadPostsIndex();
       return posts.bites;
     } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return [];
-      }
-
       console.warn("Failed to load bites:", error);
       return [];
     }
-  });
+  }
+);
 
 const PostSchema = z.object({
   category: z.string().min(1),
@@ -157,14 +115,12 @@ const PostSchema = z.object({
 
 export const getFullPost = createServerFn({ method: "GET" })
   .inputValidator(PostSchema)
-  .middleware([requestMiddleware])
-  .handler(async ({ data, context }): Promise<IPost> => {
+  .handler(async ({ data }): Promise<IPost> => {
     try {
-      return fetchAssetJson<IPost>(
-        context.request,
-        context.origin,
+      const post = await fetchAssetJson<IPost>(
         `/compiled-posts/${data.category}/${data.slug}.json`
       );
+      return post;
     } catch (error) {
       console.error(
         `Failed to load post ${data.category}/${data.slug}:`,
