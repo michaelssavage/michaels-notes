@@ -1,5 +1,5 @@
 import { getFullPost } from "@/api/posts.api";
-import Markdown from "@/components/atoms/Markdown";
+import { Markdown } from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
@@ -12,7 +12,7 @@ import {
 } from "@/styles/routes/blog.styled";
 import type { IReview } from "@/types/Post";
 import { css } from "@emotion/react";
-import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
 
@@ -77,7 +77,9 @@ function Slug() {
             Directed by {post.director} ({post.releaseYear})
           </MovieInfo>
           <section>
-            <Markdown content={post} />
+            <ClientOnly>
+              <Markdown content={post} />
+            </ClientOnly>
           </section>
           <Anchor
             text="Letterboxd Link"

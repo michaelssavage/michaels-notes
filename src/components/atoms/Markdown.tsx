@@ -14,7 +14,7 @@ import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import { ImgPositioner } from "@/styles/routes/blog.styled";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
 import { getMDXComponent } from "mdx-bundler/client";
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { Board } from "./Board";
 import { Floating } from "./Floating";
 import { Group } from "./Group";
@@ -55,7 +55,7 @@ interface MarkdownProps {
   };
 }
 
-const Markdown = memo(({ content }: MarkdownProps) => {
+export const Markdown = ({ content }: MarkdownProps) => {
   const Component = useMemo(() => {
     try {
       return getMDXComponent(content.code, MDX_GLOBAL_CONFIG);
@@ -72,7 +72,4 @@ const Markdown = memo(({ content }: MarkdownProps) => {
       <Component title={content.title} description={content.description} />
     </MDXProvider>
   );
-});
-
-Markdown.displayName = "Markdown";
-export default Markdown;
+};

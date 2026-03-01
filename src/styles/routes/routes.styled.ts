@@ -37,6 +37,7 @@ export const SplitPanel = styled.div`
   gap: 1rem;
 
   & > [data-id="guide-header"] {
+    margin-top: 1rem;
     padding: 0 1rem;
     display: flex;
     flex-direction: column;

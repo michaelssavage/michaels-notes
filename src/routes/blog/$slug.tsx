@@ -1,5 +1,5 @@
 import { getFullPost } from "@/api/posts.api";
-import Markdown from "@/components/atoms/Markdown";
+import { Markdown } from "@/components/atoms/Markdown";
 import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
 import { buttonWithIconStyles } from "@/components/molecules/Button/Button.styled";
@@ -8,7 +8,7 @@ import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePosts } from "@/hooks/use-posts.hook";
 import { Article, Content, Header } from "@/styles/routes/blog.styled";
 import type { IBlog } from "@/types/Post";
-import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
 
@@ -71,7 +71,9 @@ function Slug() {
         <p className="date">{post.date}</p>
         <Content>
           <Header aria-labelledby={`post-title-${slug}`}>{post.title}</Header>
-          <Markdown content={post} />
+          <ClientOnly>
+            <Markdown content={post} />
+          </ClientOnly>
           {post.github && (
             <Anchor
               text="Project Link"

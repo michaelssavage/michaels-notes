@@ -1,6 +1,6 @@
 import { getFullPost } from "@/api/posts.api";
 import { Group } from "@/components/atoms/Group";
-import Markdown from "@/components/atoms/Markdown";
+import { Markdown } from "@/components/atoms/Markdown";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
@@ -8,7 +8,7 @@ import { usePosts } from "@/hooks/use-posts.hook";
 import { joinTags } from "@/lib/utils";
 import { Article } from "@/styles/routes/blog.styled";
 import { Content, Tags, Title } from "@/styles/routes/projects.styled";
-import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import "highlight.js/styles/monokai.css";
 import { Suspense, useState } from "react";
 import type { IProject } from "../../types/Post";
@@ -68,7 +68,9 @@ function Slug() {
           <Title>{post.title}</Title>
           <p className="date">{post.date}</p>
 
-          <Markdown content={post} />
+          <ClientOnly>
+            <Markdown content={post} />
+          </ClientOnly>
           <Tags>{joinTags(post.technology)}</Tags>
           <Group justify="flex-end">
             {post.github && (
