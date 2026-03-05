@@ -43,7 +43,7 @@ function RouteComponent() {
               variant="link"
               isExternal
             />{" "}
-            is another resource I worth looking at.
+            is another resource worth looking at.
           </p>
         </div>
 
@@ -58,11 +58,9 @@ function RouteComponent() {
         <div>
           <Anchor link="/mixes" text="DJ mixes" variant="header" />
           <p>
-            Here are some DJ mixes that I recorded and bothered to upload. Many
-            have existed in different freemium platforms, but have been lost to
-            time. These mixes are streamed from Archive.org, with the waveforms
-            generated from audiowaveform, using wavesurfer.js. I created a
-            background visual for a DJ gig using Adobe Illustrator and{" "}
+            Some DJ mixes streamed from Archive.org, with waveforms generated
+            using wavesurfer.js. I created a background visual for a DJ gig
+            using Adobe Illustrator and{" "}
             <Anchor
               link="https://www.youtube.com/watch?v=zGB_YubjRN8"
               text="uploaded it to YouTube"
@@ -86,15 +84,6 @@ function RouteComponent() {
             or MixCloud.
           </p>
         </div>
-        {/* <BentoCard to="/storybook">
-          <BentoHeader>
-            <BentoTitle>Storybook</BentoTitle>
-            <BentoDescription>
-              A basic implementation of Storybook.js to show how my components
-              can be reused.
-            </BentoDescription>
-          </BentoHeader>
-        </BentoCard> */}
       </MiscContainer>
     </Page>
   );
