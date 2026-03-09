@@ -20,7 +20,7 @@ export default function PostHogProvider({ children }: HogProps) {
     <PostHogProviderReact
       apiKey={apiKey}
       options={{
-        api_host: "https://eu.i.posthog.com",
+        api_host: "https://e.michaelsavage.ie",
         defaults: "2026-01-30",
         capture_exceptions: true,
       }}
