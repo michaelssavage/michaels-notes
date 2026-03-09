@@ -16,6 +16,7 @@ export default function PostHogProvider({ children }: HogProps) {
       apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
       options={{
         api_host: "https://e.michaelsavage.ie",
+        ui_host: "https://eu.posthog.com",
         defaults: "2026-01-30",
         capture_exceptions: true,
       }}
