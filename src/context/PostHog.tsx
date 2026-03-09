@@ -7,7 +7,7 @@ interface HogProps {
 const isDevelopment = import.meta.env.DEV;
 
 export default function PostHogProvider({ children }: HogProps) {
-  if (isDevelopment) {
+  if (isDevelopment || typeof window === "undefined") {
     return <>{children}</>;
   }
 
