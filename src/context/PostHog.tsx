@@ -5,6 +5,8 @@ interface HogProps {
 }
 
 const isDevelopment = import.meta.env.DEV;
+const VITE_PUBLIC_POSTHOG_KEY =
+  "phc_LfqrRjpFLLYlfzOFSENrOUqDYFtXWwJwKpc6mzszh3q";
 
 export default function PostHogProvider({ children }: HogProps) {
   if (isDevelopment || typeof window === "undefined") {
@@ -13,7 +15,7 @@ export default function PostHogProvider({ children }: HogProps) {
 
   return (
     <PostHogProviderReact
-      apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
+      apiKey={VITE_PUBLIC_POSTHOG_KEY}
       options={{
         api_host: "https://e.michaelsavage.ie",
         ui_host: "https://eu.posthog.com",
