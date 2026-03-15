@@ -8,9 +8,7 @@
     "directory": "./public",
     "binding": "ASSETS",
   },
-  "observability": {
-    "enabled": true,
-  },
+  "observability": { "enabled": true },
   "d1_databases": [
     {
       "binding": "DB",

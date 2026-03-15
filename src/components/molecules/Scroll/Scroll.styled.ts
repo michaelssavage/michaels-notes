@@ -1,4 +1,3 @@
-import { type SerializedStyles, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const ScrollContainer = styled.div`
@@ -9,12 +8,26 @@ export const ScrollContainer = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+`;
+
+export const Navigation = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-black);
+  }
 
   svg[aria-label="left icon"],
   svg[aria-label="right icon"] {
-    position: absolute;
-    top: calc(0.9rem + 50%); // 0.6rem padding + 50% of ItemContainer
-    transform: translateY(-50%);
     color: var(--color-black);
     background-color: var(--color-white);
     border: 1px solid var(--color-black);
@@ -40,26 +53,4 @@ export const ItemContainer = styled.div`
   display: flex;
   gap: 1rem;
   padding: 0.6rem 0;
-`;
-
-export const Title = styled.h3`
-  display: flex;
-  flex-direction: row;
-  font-weight: 500;
-  margin: 0 -1rem;
-
-  color: var(--color-gray400);
-
-  svg {
-    color: var(--color-blue);
-  }
-`;
-
-export const ComponentWrapper = styled.div<{ $spacing?: SerializedStyles }>`
-  position: relative;
-  ${({ $spacing }) =>
-    $spacing ??
-    css`
-      margin: 0 0.5rem;
-    `};
 `;

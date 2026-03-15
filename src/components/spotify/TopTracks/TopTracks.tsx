@@ -1,19 +1,27 @@
 import { getTopTracks } from "@/api/top-tracks.api";
 import { ExternalLinkIcon } from "@/components/icons";
-import { Scroll } from "@/components/molecules/Scroll";
+import { Scroll } from "@/components/molecules/Scroll/Scroll";
 import { getContrastYIQ, getRandomColor } from "@/lib/colors";
-import type { ITopTrack } from "@/types/Spotify";
+import type { ITopTrack, TimeRange } from "@/types/Spotify";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo } from "react";
-import { ArtistName, Card, TrackName } from "./TopTracks.styled";
+import { useMemo, useState } from "react";
+import {
+  ArtistName,
+  Card,
+  ComponentWrapper,
+  Title,
+  TrackName,
+} from "./TopTracks.styled";
+import { TopTrackSkeleton } from "./TopTrackSkeleton";
 
 const TopTracks = () => {
+  const [term, setTerm] = useState<TimeRange>("short_term");
   const topTracksFn = useServerFn(getTopTracks);
 
   const { data, isLoading } = useQuery<Array<ITopTrack>>({
-    queryKey: ["top-tracks"],
-    queryFn: topTracksFn,
+    queryKey: ["top-tracks", term],
+    queryFn: () => topTracksFn({ data: { time_range: term } }),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
@@ -26,35 +34,40 @@ const TopTracks = () => {
       data.map((track) => {
         const color = getRandomColor();
         return [track.name, { color, contrastColor: getContrastYIQ(color) }];
-      })
+      }),
     );
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (!data || data.length === 0 || !Array.isArray(data)) {
+  if (!isLoading && (!data || data.length === 0 || !Array.isArray(data))) {
     return <div>No tracks available</div>;
   }
 
   return (
-    <Scroll title="Most played tracks">
-      {data.map((track) => {
-        const { color, contrastColor } = trackColors.get(track.name)!;
+    <ComponentWrapper>
+      <Title>Most played tracks:</Title>
+      <Scroll term={term} setTerm={setTerm}>
+        {isLoading || !data ? (
+          <TopTrackSkeleton />
+        ) : (
+          data.map((track) => {
+            const { color, contrastColor } = trackColors.get(track.name)!;
 
-        return (
-          <Card
-            key={track.name}
-            to={track.url}
-            color={color}
-            contrastColor={contrastColor}
-          >
-            <ExternalLinkIcon />
-            <TrackName>{track.name}</TrackName>
-            <ArtistName>{track.artists}</ArtistName>
-          </Card>
-        );
-      })}
-    </Scroll>
+            return (
+              <Card
+                key={track.name}
+                to={track.url}
+                color={color}
+                contrastColor={contrastColor}
+              >
+                <ExternalLinkIcon />
+                <TrackName>{track.name}</TrackName>
+                <ArtistName>{track.artists}</ArtistName>
+              </Card>
+            );
+          })
+        )}
+      </Scroll>
+    </ComponentWrapper>
   );
 };
 

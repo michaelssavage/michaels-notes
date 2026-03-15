@@ -1,6 +1,16 @@
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
+export const Title = styled.h3`
+  font-weight: 500;
+  color: var(--color-gray500);
+`;
+
+export const ComponentWrapper = styled.div`
+  position: relative;
+  margin: 1rem 0;
+`;
+
 export const Card = styled(Link, {
   shouldForwardProp: (prop) => prop !== "color" && prop !== "contrastColor",
 })<{ color: string; contrastColor: string }>`

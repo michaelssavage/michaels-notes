@@ -1,17 +1,23 @@
 import { getSpotifyToken } from "@/api/spotify-token.api";
 import { ITopTrack, ITopTrackResponse } from "@/types/Spotify";
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 
-export const getTopTracks = createServerFn({ method: "GET" }).handler(
-  async (): Promise<Array<ITopTrack>> => {
+export const getTopTracks = createServerFn({ method: "POST" })
+  .inputValidator(
+    z.object({
+      time_range: z.enum(["long_term", "medium_term", "short_term"]),
+    }),
+  )
+  .handler(async (ctx): Promise<Array<ITopTrack>> => {
     try {
       const { access_token } = await getSpotifyToken();
 
       const res = await fetch(
-        "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10",
+        `https://api.spotify.com/v1/me/top/tracks?time_range=${ctx.data.time_range}&limit=10`,
         {
           headers: { Authorization: `Bearer ${access_token}` },
-        }
+        },
       );
 
       if (!res.ok) {
@@ -32,5 +38,4 @@ export const getTopTracks = createServerFn({ method: "GET" }).handler(
       console.error("Error fetching favourite tracks:", err);
       throw new Error("Internal server error");
     }
-  }
-);
+  });

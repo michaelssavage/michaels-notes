@@ -111,7 +111,7 @@ function Projects() {
               <p>
                 Below you can see what I&apos;ve been listening to recently, as
                 well as the top 10 most played tracks. If I&apos;m online, my
-                currently playing track will be displayed. Read more here:
+                currently playing track will be displayed. Read more about the
                 <Anchor
                   link="/blog/spotify-developer-api"
                   text="Spotify API here."

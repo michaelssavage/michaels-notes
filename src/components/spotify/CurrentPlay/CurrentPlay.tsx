@@ -7,6 +7,7 @@ import {
   MinimiseIcon,
 } from "@/components/icons";
 import { Picture } from "@/components/molecules/Picture";
+import { CurrentPlaySkeleton } from "@/components/spotify/CurrentPlay/CurrentPlaySkeleton";
 import { useSanitizedHTML } from "@/hooks/use-sanitized-html.hook";
 import { getContrastYIQ, getRandomColor } from "@/lib/colors";
 import useExtractColor from "@/lib/extractColor";
@@ -53,7 +54,7 @@ export const CurrentPlay = () => {
   const factColor = useMemo(
     () =>
       dominantColor ? getContrastYIQ(dominantColor) : "var(--color-gray600)",
-    [dominantColor]
+    [dominantColor],
   );
 
   const fact = useSanitizedHTML(trackFact?.artist?.bio?.summary ?? "");
@@ -95,7 +96,7 @@ export const CurrentPlay = () => {
     console.log("Last fm error: ", trackFactError);
   }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <CurrentPlaySkeleton />;
 
   return (
     <Comp>
