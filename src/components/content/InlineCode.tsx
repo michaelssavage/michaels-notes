@@ -5,7 +5,7 @@ const Inline = styled.code`
   font-family: monospace;
   color: var(--color-code);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
 
   pre & {
     color: var(--color-white);

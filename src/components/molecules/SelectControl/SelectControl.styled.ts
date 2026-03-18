@@ -12,8 +12,8 @@ export const Track = styled.div`
   position: relative;
   display: flex;
   background: var(--color-white);
-  border: 0.5px solid var(--color-gray600);
-  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+  border-radius: 0.4rem;
   padding: 3px;
   gap: 0;
 `;
@@ -22,7 +22,7 @@ export const Thumb = styled.div`
   position: absolute;
   top: 3px;
   bottom: 3px;
-  border-radius: 8px;
+  border-radius: calc(0.4rem - 1.5px);
   background: var(--color-green);
   border: 0.5px solid var(--color-black);
   transition:
@@ -37,7 +37,7 @@ export const Segment = styled.button<{ $active: boolean }>`
   z-index: 1;
   border: none;
   background: transparent;
-  border-radius: 8px;
+  border-radius: calc(0.4rem - 1.5px);
   padding: 6px 16px;
   font-size: 13px;
   font-weight: ${(p) => (p.$active ? "500" : "400")};

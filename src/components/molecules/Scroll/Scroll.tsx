@@ -10,12 +10,6 @@ interface Props {
   setTerm: (term: TimeRange) => void;
 }
 
-const options = [
-  { value: "long_term", label: "Last Year" },
-  { value: "medium_term", label: "Last 6 Months" },
-  { value: "short_term", label: "Last Month" },
-];
-
 export const Scroll = ({ children, term, setTerm }: Props) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -35,11 +29,7 @@ export const Scroll = ({ children, term, setTerm }: Props) => {
 
   return (
     <>
-      <SelectControl
-        value={term}
-        options={options}
-        onChange={(v) => setTerm(v as TimeRange)}
-      />
+      <SelectControl value={term} onChange={(v) => setTerm(v as TimeRange)} />
       <ScrollContainer ref={scrollContainerRef}>
         <ItemContainer>{children}</ItemContainer>
       </ScrollContainer>

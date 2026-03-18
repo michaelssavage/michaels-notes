@@ -93,9 +93,9 @@ export const ExpandButton = styled.button`
   color: var(--color-black);
   border: 1px solid var(--color-black);
   cursor: pointer;
-  padding: 0.1rem 0.25rem;
-  border-radius: 0.25rem;
-  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
 
   display: flex;
   flex-direction: row;
@@ -113,6 +113,11 @@ export const ExpandButton = styled.button`
     width: 1.2rem;
     height: 1.2rem;
   }
+
+  ${forPhoneOnly(css`
+    font-size: 0.8rem;
+    padding: 0.1rem 0.25rem;
+  `)}
 `;
 
 export const Content = styled.div`

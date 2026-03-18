@@ -4,13 +4,17 @@ import { Segment, Track, Wrapper } from "./SelectControl.styled";
 
 interface SelectControlProps {
   value: string;
-  options: { value: string; label: string }[];
   onChange: (value: string) => void;
 }
 
+const options = [
+  { value: "short_term", label: "Last Month" },
+  { value: "medium_term", label: "Last 6 Months" },
+  { value: "long_term", label: "Last Year" },
+];
+
 export const SelectControl = ({
   value: controlledValue,
-  options,
   onChange,
 }: SelectControlProps) => {
   const [internal, setInternal] = useState("short_term");
