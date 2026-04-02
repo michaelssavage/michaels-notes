@@ -1,11 +1,11 @@
 ---
-id: 4
+id: 6
 title: "Cafe Fiend"
 date: July 31, 2025
 description: "A React Vite app for finding cafes and espresso bars nearby."
 github: "https://github.com/michaelssavage/cafe-fiend"
 technology:
-  - React
+  - React.js
   - Tanstack Start
   - TypeScript
   - Tailwind
@@ -15,18 +15,34 @@ colors:
   bg: "#D64161FF"
 ---
 
-## A Cafe Discovery App
+### Overview
 
-I'd consider myself a coffee enthusiast, and I found myself constantly searching for new cafes and espresso bars, kind of like collecting new Pokemon. Google Maps is great for basic searches; what's open now? what's near me? what's the ratings? but I wanted a way to filter out coffee shops that I had already seen and didn't want to visit. I also wanted a way to save favorites and maintain a wishlist like Google Maps does already. More importantly, as a developer, I wanted to experiment with <Anchor link="https://tanstack.com/start/latest" text="TanStack Start" variant="link" isExternal /> and eventually add an AI search feature to the app.
+A personal app for finding cafes without repeating the same searches. It builds on what Google Maps already does, but adds control over what shows up: filtering out places you've already seen, saving favorites, keeping a wishlist, and hiding spots you never want to revisit.
 
-I'm not a big fan of using Next.js these days, so seeing **TanStack Start** appear with server functions was a big reason to develop this app. I was curious about Tanner Linsley's full-stack React framework because his other offerings have been so immense. Start boasts having:
+The project also doubles as a playground for <Anchor link="https://tanstack.com/start/latest" text="TanStack Start" variant="link" isExternal /> and some AI-assisted UI tooling, with plans to layer in AI search later.
 
-- **Type-safe server functions** to reduce API route boilerplate
-- **File-based routing** to improve layout nesting and authentication
-- **Built-in data fetching** to improve TanStack Query integration
-- **SSR/SSG flexibility** to improve without the complexity
+### Key Features
 
-It's only in BETA as-of-now but it's a great piece of kit. For example, creating server functions is as simple as defining a function and decorating it with `createServerFn`.
+1. **Flexible location input**  
+  Use current location, search via autocomplete, or drag a map marker.
+2. **Custom place states**  
+  Favorites and wishlist (like Google Maps)
+  Hidden places (excluded from results entirely)
+3. **Smart filtering**  
+  Filters by rating, review count, radius, and open status
+  Deduplicates results against saved places
+4. **Realtime data handling**  
+  Cached queries and background updates using TanStack Query
+  Optimistic updates for instant UI feedback
+5. **Authentication**  
+  Cookie-based sessions via Supabase
+  Route-level protection for authenticated pages
+
+### Implementation
+
+The app is built with TanStack Start, mainly for its server functions and the ability to keep everything in TypeScript without splitting logic across API routes. Server functions handle data access directly, including authenticated queries against Supabase.
+
+Example of a `createServerFn` for getting favorites.
 
 ```typescript
 export const getFavorites = createServerFn({ method: "GET" }).handler(async () => {
@@ -42,11 +58,7 @@ export const getFavorites = createServerFn({ method: "GET" }).handler(async () =
 });
 ```
 
-It is a joy not having to deal with separate API routes or manual type definitions. It's just pure TypeScript functions that can be placed just about anywhere. On top of the decision to use Start, I deliberately chose to accelerate development with AI-First Tooling. I used Tailwind CSS, Radix UI, and Lucide React. These choices allowed me to spend less time fighting with the AI and more time building the app. I prefer styled components for styling and I don't really know the ins-and-outs of **Tailwind CSS** yet, but I'm moving quicker.
-
-I used <Anchor link="https://v0.dev" text="v0.dev" variant="link" isExternal /> and similar AI-powered UI builders to get a rough idea of how I wanted things to look. I described what I needed, got production-ready React components, and reduced my overall UI development time.
-
-Another great thing with the framework is the that authentication is handled entirely through Supabase with cookie-based sessions. The route protection pattern is simple and pretty much picked from the docs.
+Authentication is managed through Supabase with cookie-based sessions. Protected routes live under a shared layout that checks for a user before loading, so anything inside that route tree requires login by default.
 
 ```typescript
 // _authed.tsx - Layout route for protected pages
@@ -59,82 +71,11 @@ export const Route = createFileRoute("/_authed")({
 });
 ```
 
-Any route under `_authed/` automatically requires authentication. The user context is populated at the root level and flows down through the route tree.
+Location and discovery rely on Google Maps APIs. Autocomplete handles search input, while map interaction (including draggable markers) controls the coordinates used for fetching nearby cafes. This is the most expensive part of the app — API usage ramps up quickly.
 
-## Core Features
+User preferences are stored in a single Supabase table. Each place is tied to a user and a status (favorite, wishlist, or hidden). A unique constraint on (place_id, user_id) prevents duplicates, and upsert operations make switching states simple and atomic.
 
-The app uses Google Maps for autocomplete and location services. Which may be the death of the app before I even start.... I am eating through the Google Maps credits rapidly and I don't plan to pay for using my own app. Oh well!
-
-The core features of the app is the location and preferences. The user can either:
-1. Use their current location (with permission)
-2. Search for a specific address via autocomplete, or
-3. Drag a marker to any position on the map
-
-```typescript
-const { location, setLocation, getCurrentLocation } = useGeolocation();
-
-// Auto-complete for manual location entry
-<AutoComplete onPlaceSelect={setLocation} isLoading={isLoading} />
-
-// Draggable marker for precise positioning
-<DraggableAdvancedMarker position={location} setLocation={setLocation} />
-```
-
-I use Google Maps lists daily and already have a favorites and wishlist in use. So I wanted to support a third state that Google Maps doesn't have. **Hidden Places**: the places you never want to see again!!!
-
-So on top of fetching nearby results, I combine the saved preferences, deduplicate by place ID, and respect the user's filters.
-
-
-```typescript
-const { data: displayData } = useCafeFinder({
-  lat: location?.lat,
-  long: location?.lng,
-  filters: {
-    rating: 4.0,
-    radius: 2000,
-    reviews: 20,
-    options: new Set(["nearby", "favorites", "wishlist", "open now"])
-  }
-});
-```
-
-The Supabase schema is super minimal. I had to update the schema a few times, having learned from trial and error what I wanted to add and remove. It was a learning experience... I had never used Row Level Security policies before so it took a while to get it right. 
-
-```sql
-CREATE TABLE saved (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES auth.users(id),
-  place_id TEXT NOT NULL,
-  status TEXT NOT NULL, -- 'favorite', 'wishlist', 'hidden'
-  name TEXT,
-  latitude DECIMAL,
-  longitude DECIMAL,
-  rating DECIMAL,
-  user_rating_count INT,
-  price_level TEXT,
-  business_status TEXT,
-  created_at TIMESTAMP DEFAULT NOW(),
-  UNIQUE(place_id, user_id)
-);
-```
-
-The `UNIQUE(place_id, user_id)` constraint ensures users can't duplicate entries, while the `status` field handles all three interaction types. Using `UPSERT` operations makes status changes atomic:
-
-```typescript
-await supabase
-  .from("saved")
-  .upsert({
-    user_id: user.id,
-    place_id: shop.id,
-    status: CafeStatus.FAVORITE,
-    // ... other fields
-  }, {
-    onConflict: "place_id,user_id",
-    ignoreDuplicates: false
-  });
-```
-
-Every API call is wrapped in TanStack Query for caching and background updates. The query key includes location and filters, so moving the map or changing preferences automatically triggers fresh data while maintaining cache efficiency. The favorite/unfavorite actions use optimistic updates for instant feedback then too!
+All remote data is wrapped in TanStack Query. Query keys include location and filters, so moving the map or changing preferences triggers fresh fetches automatically. Mutations (like favoriting a place) use optimistic updates, so the UI responds instantly before the server confirms the change.
 
 ```typescript
 const { data, isLoading } = useQuery({
@@ -145,4 +86,14 @@ const { data, isLoading } = useQuery({
 });
 ```
 
-The next steps are to add an AI search feature to the app. I better move quick before I run out of credits! 
+UI development leans on AI-generated components. Tools like <Anchor link="https://v0.dev" text="v0.dev" variant="link" isExternal /> were used to sketch layouts quickly, then refined with Tailwind CSS, Radix UI, and Lucide icons.
+
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| App stack | TanStack Start, TypeScript, Tailwind CSS, Radix UI, Lucide React |
+| Data & State | TanStack Query |
+| Backend / Services | Supabase |
+| Maps | Google Maps APIs |
+| AI tooling | v0.dev |

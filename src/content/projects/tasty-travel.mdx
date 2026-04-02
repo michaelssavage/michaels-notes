@@ -10,11 +10,28 @@ technology:
   - Google Maps API
   - Firebase
 colors:
-  main: "#42EADDFF"
-  bg: "#CDB599FF"
+  main: "#CDB599FF"
+  bg: "#42EADDFF"
 ---
 
+### Overview
+
 This Android app was created so that users could search for meeting places between two locations based on equitravelling time. It was a pair programmed third year project that I was extremely proud of.
+
+### Key Features
+1. **Equitable meeting point calculation**  
+  Uses Mapbox isochrones and Google's SphericalUtil to determine midpoints
+  Accounts for transport mode, weighting walking, cycling, and driving differently
+2. **Search and results**  
+  Returns a filtered list of 20 or fewer locations
+  Includes bars, cafes, and restaurants
+3. **User account integration**  
+  Stores search history and saved places in Firebase Realtime Database
+  Allows users to view and delete saved searches and favorites
+4. **Map visualization**  
+  Interactive Google Map shows recommended meeting points
+
+### Implementation
 
 TastyTravel is an Android app built with Android Studio 3.6.1. The app allows one person to search for places for two parties to meet and the given results depend on their chosen mode of transport. The aim of the app is to return locations on an interactive Google Map that each party can arrive at roughly at the same time. They can choose to search for either Bars, Cafes, or Restaurants.
 
@@ -23,3 +40,13 @@ When users of the app successfully search using all the parameters, they can loo
 The app finds recommended locations by using Mapbox isochrones and the SphericalUtil class from Google. When the user presses search, the app builds a URL that takes in the mode of transport (Walk, Car, or Bike) and requests the JSONObject from MapBox. The JSONObject contains information on the properties and geometry of the isochrone, but most importantly we parse the coordinates from the URL into a list and use our algorithm to find suitable meeting places. We do this by iterating through the coordinates list of your location and finding the shortest distance to their location. Then we do the vice versa until we end up with two locations. We then use interpolation to get a midpoint between those locations where the midpoint is a given score that is influenced by the modes of transport. The score is a fraction between 0 and 1. The score favours people who walk, then cycle, and finally driving. If the modes of transport are the same then the fraction will be neutral at 0.5.
 
 By default, the app does not draw the isochrone onto the app but a toggle can be switched on. This switch will add a Google GeoJsonLayer to the map using the coordinates list.
+
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Platform | Android Studio 3.6.1 |
+| Language | Java (Android) |
+| Mapping & Geolocation | Google Maps API, SphericalUtil |
+| Isochrones | Mapbox Isochrones API |
+| Database | Firebase Realtime Database |

@@ -160,7 +160,7 @@ export const SpotifyContent = styled.div`
 
 export const Title = styled.h1`
   font-size: 2rem;
-  margin-bottom: -1rem;
+  margin-top: -1rem;
   font-weight: bold;
 
   display: flex;

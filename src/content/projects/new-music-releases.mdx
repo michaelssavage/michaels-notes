@@ -1,14 +1,15 @@
 ---
 id: 2
-title: New Music Releases
+title: New Music
 date: jan 19, 2025
 description: Full stack app that updates a Spotify playlist with new music releases
+live: https://new-music-releases-production.up.railway.app/
 github: https://github.com/michaelssavage/new-music-releases
 technology:
   - React.js
   - Express.js
   - TypeScript
-  - React Query
+  - Tanstack Query
   - MongoDB
   - Spotify API
 colors:
@@ -16,47 +17,75 @@ colors:
   bg: "#2A004E"
 ---
 
-<Anchor link="https://new-music-releases-production.up.railway.app/" text="New Music Releases" variant="button" />
+### Overview
 
-A full-stack TypeScript application that automatically creates a Spotify playlist and updates it with new releases from user-saved artists. Built with React and Express using a monorepo architecture and Clean Code principles. 
+A full-stack TypeScript application that automatically creates a Spotify playlist and populates it with new releases from your saved artists. Built with React and Express in a monorepo architecture, it runs a daily sync via GitHub Actions and exposes a dashboard for managing tracked artists, browsing liked songs, and reviewing playlist updates.
 
-## Frontend
 
-I chose Vite as the underlying build tool for the frontend, as it provides a 'faster and leaner development experience' with hot module reloading and a lightning-fast production build. It takes 4-5 seconds to build the frontend for production, which is served sas static assets on the backend. The GUI is built with TypeScript and React, using Tanstack Query for server state management and 
-<Anchor link="https://tanstack.com/" text="Tanstack Router" variant="link" isExternal /> for secure Spotify OAuth integration.
+### Key Features
 
-<Picture src="/project/nmr_tanstack.png" alt="tan stack apps" />
+#### Playlist automation
 
-I created my endpoints using Axios, and Tanstack Query helped to manage server state, caching, and automatic data synchronization using mutations.
+A GitHub Actions workflow fires daily at midnight UTC, calling a JWT-protected `/api/trigger-schedule` endpoint on the server. The scheduler fetches every user's tracked artists, checks the Spotify API for albums released that day, and appends any new tracks to the user's "New Music Releases" playlist. A manual trigger with a custom `fromDate` param is also supported for backfills.
 
-## Backend
+#### Saved artists
 
-<Anchor link="https://expressjs.com/" text="Express.js" variant="link" isExternal /> is minimal and flexible compared to Nest.js, so I chose the simplest option for myself. I wanted to focus more on the backend, so this Node.js web app framework was the right choice with all the help and documentation online. I used TypeScript and MongoDB for data persistence. I focused on a Clean Architecture pattern and my layers were separated into Router, Controller, Service, and Repository.
+Users can search the Spotify catalogue and pin artists for tracking. The table is built with TanStack React Table and supports column sorting and fuzzy text filtering. Clicking an artist opens a side panel with follower count, genres, and a direct Spotify link.
 
-The router defined endpoints. The controller validated requests and formatted responses. The service contained core business logic and Spotify API integration. The repository handled MongoDB data access and persistence.
+<Picture src="/project/saved-artists.png" alt="Saved artists table" />
 
-I never really grasped Inversion of Control when I used Spring Boot, so it was a great opportunity to learn more about it. I used <Anchor link="https://en.wikipedia.org/wiki/Dependency_injection" text="dependency injection" variant="link" isExternal /> to manage the lifecycle of my services and repositories which was all managed from the index.ts file.
+#### Playlist updates
 
-The core feature I wanted was adding a daily cron job to scan and process new releases from tracked artists on MongoDB. The persistent data stores the ids of the Spotify artists, checks their releases daily, and adds them to the playlist if they are new.
+Displays the tracks currently in the "New Music Releases" playlist with album art, release date, and a deep link back to Spotify. Admins can manually trigger a sync from the UI.
 
-## Infrastructure
+<Picture src="/project/playlist-updates.png" alt="Playlist updates table" />
 
-I used Railway for deployment, as it was a simple and easy way to deploy my app. I used a monorepo structure for the project, which allowed me to share configurations and models across the frontend and backend. The Express server handled both API requests and static asset serving, and the app was end-to-end TypeScript with shared type definitions.
+#### Liked songs
 
-### Liked songs
-
-The app displays a table of the users liked songs from Spotify, which they can add to their favourites.
+Renders all of the user's liked tracks with infinite scrolling powered by the Intersection Observer API, so the full library loads progressively without pagination controls.
 
 <Picture src="/project/liked-songs.png" alt="Liked songs table" />
 
-### Playlist updates
+### Implementation
 
-The app displays a table of the new music releases from Spotify from their favourite artists.
+#### Backend architecture
 
-<Picture src="/project/playlist-updates.png" alt="Liked songs table" />
+<Anchor link="https://expressjs.com/" text="Express.js" variant="link" isExternal /> handles all API routes, serves the compiled frontend as static assets, and manages Spotify OAuth. The codebase follows a Clean Architecture split across four layers — Router, Controller, Service, and Repository — with <Anchor link="https://en.wikipedia.org/wiki/Dependency_injection" text="dependency injection" variant="link" isExternal /> wiring them together via factory functions. A `ServiceContainer` composes the dependencies at startup, making each layer independently testable.
 
-### Saved artists
+> Router → Controller → Service → Repository → MongoDB
 
-The app displays a table of the users favourited artists from Spotify.
+The `SpotifyService` is the core domain layer. It handles OAuth token exchange and refresh, manages the tracked-artists list, and owns the full release-sync pipeline: fetching albums per artist, filtering by release date, creating the playlist if it doesn't exist yet, and appending tracks. `p-limit` caps concurrent Spotify API calls at five to stay within rate limits when a user tracks hundreds of artists.
 
-<Picture src="/project/saved-artists.png" alt="Liked songs table" />
+The `SchedulerService` wraps job execution with safeguards — it skips a run if the previous one is still in progress or ran within the last 20 hours, unless the trigger is flagged as manual. Each execution is logged to MongoDB with its status, duration, and any error.
+
+#### Frontend
+
+<Anchor link="https://vite.dev/" text="Vite" variant="link" isExternal /> builds the frontend in 4-5 seconds and outputs static assets that Express serves directly, keeping the deployment a single process. The UI is TypeScript and React, styled with Emotion CSS-in-JS.
+
+<Picture src="/project/nmr_tanstack.png" alt="TanStack apps" />
+
+<Anchor link="https://tanstack.com/router" text="TanStack Router" variant="link" isExternal /> handles file-based routing with built-in auth guards (`requireAuth` / `requireUnauth`) that run before each route renders. <Anchor link="https://tanstack.com/query" text="TanStack Query" variant="link" isExternal /> manages all server state — caching, background refetches, and mutations — while <Anchor link="https://zustand.pmnd.rs/" text="Zustand" variant="link" isExternal /> holds lightweight client-only state like the authenticated user and the saved artists list.
+
+#### Authentication
+
+Spotify OAuth 2.0 uses the authorisation code flow. After consent, the server exchanges the code for tokens and redirects to the frontend callback route with the tokens as query params. Tokens are stored in secure, HTTP-only cookies (1-hour access, 7-day refresh). The client sets up a 4-minute interval to silently refresh the access token before it expires.
+
+#### Deployment
+
+The app runs on <Anchor link="https://render.com/" text="Render" variant="link" isExternal /> as a single service — the Express server handles both the API and static file serving. The daily playlist sync is driven by a GitHub Actions scheduled workflow that POSTs to the `/api/trigger-schedule` endpoint using a JWT stored as a GitHub Secret.
+
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, TanStack Router, TanStack Query, Zustand, Emotion |
+| Tables | TanStack React Table |
+| Build tool | Vite |
+| Backend | Express 4, Node.js |
+| Language | TypeScript 5 (shared across client, server, and models) |
+| Database | MongoDB |
+| External API | Spotify Web API |
+| Concurrency | p-limit |
+| Auth | Spotify OAuth 2.0, JWT |
+| Deployment | Render |
+| Scheduling | GitHub Actions (daily cron) |

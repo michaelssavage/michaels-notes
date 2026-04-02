@@ -1,7 +1,9 @@
 import { getFullPost } from "@/api/posts.api";
 import { Group } from "@/components/atoms/Group";
 import { Markdown } from "@/components/atoms/Markdown";
+import { GithubIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
+import { applyButtonColors } from "@/components/molecules/Button/Button.styled";
 import { Loading } from "@/components/molecules/Loading";
 import { Menu } from "@/components/molecules/Menu/Menu";
 import { usePosts } from "@/hooks/use-posts.hook";
@@ -65,23 +67,58 @@ function Slug() {
           setOpen={setOpen}
         />
         <Content>
-          <Title>{post.title}</Title>
           <p className="date">{post.date}</p>
+          <Title>{post.title}</Title>
+          {post.description}
 
-          <ClientOnly>
-            <Markdown content={post} />
-          </ClientOnly>
-          <Tags>{joinTags(post.technology)}</Tags>
-          <Group justify="flex-end">
+          <Group justify="flex-start">
+            {post.live && (
+              <Anchor
+                text="Live Link"
+                variant="button"
+                style={applyButtonColors({
+                  color: post.colors.main,
+                })}
+                link={post.live}
+                isExternal
+              />
+            )}
+
             {post.github && (
               <Anchor
-                text="Project Link"
-                variant="header"
+                text="Github Link"
+                variant="outline"
+                style={applyButtonColors({
+                  backgroundColor: post.colors.bg,
+                })}
                 link={post.github}
+                icon={<GithubIcon />}
                 isExternal
               />
             )}
           </Group>
+          <Tags>{joinTags(post.technology)}</Tags>
+
+          <div
+            style={{
+              backgroundColor: post.colors.bg,
+              height: "4px",
+              width: "100%",
+              marginBottom: "-1rem",
+            }}
+          />
+
+          <div
+            style={{
+              backgroundColor: post.colors.main,
+              height: "4px",
+              width: "100%",
+            }}
+          />
+
+          <ClientOnly>
+            <Markdown content={post} />
+          </ClientOnly>
         </Content>
       </Suspense>
     </Article>

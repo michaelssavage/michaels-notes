@@ -12,8 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrettyTextRouteImport } from './routes/pretty-text'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as MixesRouteImport } from './routes/mixes'
-import { Route as MiscellaneousRouteImport } from './routes/miscellaneous'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ExtrasRouteImport } from './routes/extras'
 import { Route as DoodlesRouteImport } from './routes/doodles'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -44,14 +44,14 @@ const MixesRoute = MixesRouteImport.update({
   path: '/mixes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MiscellaneousRoute = MiscellaneousRouteImport.update({
-  id: '/miscellaneous',
-  path: '/miscellaneous',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExtrasRoute = ExtrasRouteImport.update({
+  id: '/extras',
+  path: '/extras',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DoodlesRoute = DoodlesRouteImport.update({
@@ -130,8 +130,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
+  '/extras': typeof ExtrasRoute
   '/login': typeof LoginRoute
-  '/miscellaneous': typeof MiscellaneousRoute
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
@@ -151,8 +151,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
+  '/extras': typeof ExtrasRoute
   '/login': typeof LoginRoute
-  '/miscellaneous': typeof MiscellaneousRoute
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
@@ -173,8 +173,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
+  '/extras': typeof ExtrasRoute
   '/login': typeof LoginRoute
-  '/miscellaneous': typeof MiscellaneousRoute
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
@@ -196,8 +196,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/doodles'
+    | '/extras'
     | '/login'
-    | '/miscellaneous'
     | '/mixes'
     | '/playground'
     | '/pretty-text'
@@ -217,8 +217,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/doodles'
+    | '/extras'
     | '/login'
-    | '/miscellaneous'
     | '/mixes'
     | '/playground'
     | '/pretty-text'
@@ -238,8 +238,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/doodles'
+    | '/extras'
     | '/login'
-    | '/miscellaneous'
     | '/mixes'
     | '/playground'
     | '/pretty-text'
@@ -260,8 +260,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
   DoodlesRoute: typeof DoodlesRoute
+  ExtrasRoute: typeof ExtrasRoute
   LoginRoute: typeof LoginRoute
-  MiscellaneousRoute: typeof MiscellaneousRoute
   MixesRoute: typeof MixesRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PrettyTextRoute: typeof PrettyTextRoute
@@ -300,18 +300,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MixesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/miscellaneous': {
-      id: '/miscellaneous'
-      path: '/miscellaneous'
-      fullPath: '/miscellaneous'
-      preLoaderRoute: typeof MiscellaneousRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/extras': {
+      id: '/extras'
+      path: '/extras'
+      fullPath: '/extras'
+      preLoaderRoute: typeof ExtrasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/doodles': {
@@ -420,8 +420,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   DoodlesRoute: DoodlesRoute,
+  ExtrasRoute: ExtrasRoute,
   LoginRoute: LoginRoute,
-  MiscellaneousRoute: MiscellaneousRoute,
   MixesRoute: MixesRoute,
   PlaygroundRoute: PlaygroundRoute,
   PrettyTextRoute: PrettyTextRoute,

@@ -1,5 +1,6 @@
 ---
-id: 10
+id: 13
+draft: true
 title: Coffee Site
 date: march 5, 2024
 description: "A coding challenge using PostgreSQL, Nest.js, and Next.js."
@@ -9,25 +10,35 @@ technology:
   - Nest.js
   - PostgreSQL
   - TypeScript
-  - React Query
+  - Tanstack Query
 colors:
   main: "#435E55FF"
   bg: "#D64161FF"
 ---
 
-This project was completed for a coding challenge. It used PostgreSQL, a Nest.js backend, and a Next.js frontend. I used SCSS for styling and I learned how to use Nest.js and the new app router in Next.js for the first time.
+### Overview
 
-## Features
+A small full-stack project built for a coding challenge. The stack combines <Anchor link="https://nestjs.com/" text="NestJS" variant="link" isExternal /> on the backend with <Anchor link="https://nextjs.org/" text="Next.js" variant="link" isExternal /> on the frontend, with PostgreSQL serving as the database.
 
-- On starting the backend, the backend will seed the coffee items for you.
-- I created a form that appeared in a modal for creating new coffee items that saved to the backend.
-- I added nice animations to the navbar as you scroll and animations for displaying the modal.
-- I added a filter so that you could change between the different coffee types; Robusta and Arabic.
+It was mainly an exercise in getting familiar with NestJS and the App Router in Next.js, while building a simple product-style interface for managing coffee items.
 
-## Landing Page
+### Key Features
+
+1. **Automatic data seeding**  
+  The backend seeds coffee items on startup, so the app is usable immediately.
+2. **Create flow via modal**  
+  New coffee items are created through a modal form.
+  Data is sent to the backend and persisted in the database.
+3. **UI animations**  
+  Navbar reacts to scroll
+  Modal includes entry/exit animations
+4. **Filtering**  
+  Filter coffee items by type (Robusta or Arabica)
+
+### Landing Page
 
 <Picture src="/project/coffee-home.png" alt="Home page of the coffee app" />
 
-## Filterable Products
+### Filterable Products
 
 <Picture src="/project/coffee-list.png" alt="A list of coffee cards" />

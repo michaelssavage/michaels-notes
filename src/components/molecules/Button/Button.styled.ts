@@ -1,3 +1,4 @@
+import { getContrastYIQ } from "@/lib/colors";
 import { css, type SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { ButtonVariants } from "./Button";
@@ -8,6 +9,26 @@ interface IStyle {
   selected?: boolean;
   styles?: SerializedStyles;
 }
+
+interface IBtnColors {
+  color?: string;
+  backgroundColor?: string;
+}
+
+export const applyButtonColors = ({ color, backgroundColor }: IBtnColors) => {
+  const text = color ?? getContrastYIQ(backgroundColor ?? "var(--color-black)");
+  const bg =
+    backgroundColor ?? getContrastYIQ(backgroundColor ?? "var(--color-green)");
+
+  return css`
+    color: ${text};
+    background-color: ${bg};
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+  `;
+};
 
 export const buttonWithIconStyles = css`
   display: inline-flex;

@@ -3,13 +3,14 @@ id: 3
 title: Athlos Travel
 date: August 25, 2025
 description: "A TanStack Start app with complete i18n support in English, Spanish, and Catalan."
+live: https://athlostravel.com/
 technology:
   - TanStack Start
   - React.js
+  - TypeScript
   - Django
   - Python
   - PostgreSQL
-  - React Query
   - Tailwind
   - i18n
   - MDX
@@ -18,13 +19,33 @@ colors:
   bg: "#D6ED17FF"
 ---
 
-I developed the Version Two website for the public-facing side of <Anchor link="https://www.athlostravel.com/en" text="Athlos Travel" variant="link" isExternal />. It's a TanStack Start site with SSR, server functions, and i18n support. The i18n is path-based with server-side language selection in English, Spanish, and Catalan. The site has success stories, a blog, a contact form with n8n automations, and trip offerings.
+### Overview
 
+<Picture src="/blog/athlos.png" alt="Athlos Travel site" />
+
+Version 2 of the Athlos Travel website is built with <Anchor link="https://tanstack.com/start/latest" text="TanStack Start" variant="link" isExternal /> using SSR, server functions, and path-based i18n. Language selection happens on the server, supporting English, Spanish, and Catalan.
+
+The site includes success stories, a blog, trip listings, and a contact flow tied into backend automations. It sits on top of a larger platform application that handles content and operations.
+
+### Key Features
+
+1. **Server-side rendering with i18n**  
+  Path-based routing with server-side language resolution.  
+  Translated metadata improves SEO and page consistency.
+2. **Content-driven pages**  
+  Trip offerings and blog posts are pulled from an internal platform.  
+  Content is managed by the operations team through a Markdown CMS.
+3. **Automation-backed contact form**  
+  Form submissions trigger an n8n workflow.  
+  Data is stored in Notion and shared with the team via Slack notifications.
+4. **TanStack ecosystem**  
+  Uses TanStack Router and TanStack Query for routing and data handling.  
+  Avoids directive-based patterns in favor of explicit APIs and configuration.
+
+### Implementation
 
 Choosing TanStack Start was a no-brainer over something like Next.js or React on its own. Next.js forces a rigid idea of working with directives like "use client" and "use server", while TanStack Start opts for clear tooling and configurable API patterns. They have published blogs with their strong opinions against directives that you can read here: <Anchor link="https://TanStack.com/blog/directives-and-the-platform-boundary" text="Directives and the Platform Boundary" variant="link" isExternal />. The whole TanStack ecosystem is great, with TanStack Query and TanStack Router being reliable tools in the public-facing site and platform application. The SEO experience of TanStack Start has been a joy to work with too. Server-side rendered, translated document metadata makes for a great user experience.
 
 The contact page sends data to an n8n automation, which saves the data to a basic Notion DB, and then notifies the team with a slack channel message.
 
 The site displays trip offerings and blog posts from the platform application, This content is maintained by our operations team, who use our internal Markdown CMS in the back-office platform application. The site is the tip of the iceberg compared to the platform application which is a full-stack application with a React frontend, a Django backend, and a PostgreSQL database.
-
-<Picture src="/blog/athlos.png" alt="Athlos Travel site" />

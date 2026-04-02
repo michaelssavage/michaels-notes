@@ -6,6 +6,7 @@ import { InlineCode } from "@/components/content/InlineCode";
 import { OrderedList } from "@/components/content/OrderedList";
 import { Paragraph } from "@/components/content/Paragraph";
 import { Pre } from "@/components/content/Pre";
+import { Table, Tbody, Td, Th, Thead, Tr } from "@/components/content/Table";
 import { UnorderedList } from "@/components/content/UnorderedList";
 import { Anchor } from "@/components/molecules/Anchor";
 import { FillInTheBlank } from "@/components/molecules/FillTheBlank/FillTheBlank";
@@ -30,6 +31,12 @@ const components = {
   Picture,
   Anchor,
   Board,
+  table: Table,
+  thead: Thead,
+  tbody: Tbody,
+  tr: Tr,
+  th: Th,
+  td: Td,
   p: Paragraph,
   ol: OrderedList,
   ul: UnorderedList,

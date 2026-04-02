@@ -48,6 +48,14 @@ export const Sidebar = styled.ol`
   font-size: 1rem;
   list-style: decimal inside none;
   margin-top: 0.5rem;
+  max-height: min(60vh, 24rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+
+  > a {
+    margin-bottom: 0.4rem;
+  }
 
   li {
     margin-bottom: 0.2rem;

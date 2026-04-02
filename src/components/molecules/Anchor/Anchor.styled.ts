@@ -27,24 +27,38 @@ export const LinkStyle = styled(Link)<IStyle>`
     switch (variant) {
       case "button":
         return css`
-          padding: 4px;
+          padding: 4px 10px;
+          border: 1px solid;
+          background-color: var(--color-blue200);
+          color: var(--color-white);
+          font-weight: 500;
+          &:hover {
+            box-shadow: inset 0 0 0 2rem var(--color-blue300);
+            color: var(--color-white);
+          }
+        `;
+      case "outline":
+        return css`
+          padding: 4px 10px;
           border: 1px solid;
           border-color: var(--color-blue200);
           color: var(--color-blue200);
+          font-weight: 500;
           &:hover {
-            box-shadow: inset 0 0 0 2rem var(--color-blue200);
+            box-shadow: inset 0 0 0 2rem var(--color-blue300);
             color: var(--color-white);
           }
         `;
       case "link":
         return css`
           padding: 0;
-          ${underlineStyles("blue")}
+          ${underlineStyles("purple")}
           border: none;
           margin-right: 2px;
-          color: var(--color-blue200);
+          color: var(--color-purple);
+          font-weight: 500;
           &:hover {
-            color: var(--color-blue300);
+            color: var(--color-purple200);
           }
         `;
       case "header":

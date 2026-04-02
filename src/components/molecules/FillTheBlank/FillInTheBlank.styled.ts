@@ -15,12 +15,16 @@ export const InputWrapper = styled.div<{ isCorrect: boolean | null; chars: numbe
     min-width: 12ch;
     width: ${({ chars }) => `${chars}ch`};
     height: 100%;
-    padding: 0rem 1.5rem 0 0.5rem;
+    padding: 0rem 0.5rem;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 0.2rem;
     border: 1px solid transparent;
     transition: all 0.2s ease-in-out;
+
+    ::placeholder {
+      text-align: center; 
+    }
 
     ${({ isCorrect }) => {
       if (isCorrect === true) {

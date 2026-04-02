@@ -3,9 +3,11 @@ id: 1
 title: Plant Bass'd
 date: february 3, 2024
 description: "Next.js SSG app for blogging about underground dance music."
+live: "https://plantbassd.com"
 github: "https://github.com/michaelssavage/plantbassd"
 technology:
   - Next.js
+  - React.js
   - TypeScript
   - SCSS
   - MDX
@@ -14,33 +16,65 @@ colors:
   bg: "#5B84B1FF"
 ---
 
-## Technologies
+### Overview
 
-<Anchor link="https://plantbassd.com" text="Plantbassd.com" variant="link" /> was created using <Anchor link="https://nextjs.org/" text="Next.js" variant="link" isExternal /> and TypeScript. In it's early days the app used JavaScript, CSS, and the blogs were written in markdown. But the site was constantly being refactored and I stored a list of 'to-dos' on Trello as I learned more about the technologies I was using.
+<Picture src="/project/plantbassd-landing.png" alt="Home page of the app" />
 
-The site gave me many mini victories and learning lessons over the three years I built it.
+Plantbassd.com is a personal project built with <Anchor link="https://nextjs.org/" text="Next.js" variant="link" isExternal /> and TypeScript. It started as a simpler setup using JavaScript, CSS, and markdown-based blog posts, then evolved steadily over three years through continuous refactoring.
 
-1. Adding TypeScript was essential and squashed a lot of bugs. I'd add it to any project I get my hands on.
-2. The lack of flexibility in markdown was a major hindrance until I successfully added MDX. It worked well with <Anchor link="https://www.npmjs.com/package/gray-matter" text="gray-matter" variant="link" isExternal /> and marked, and allowed me to add JSX components into the blog posts.
-3. Vercel, on the free tier, optimized images by using Webp and sped up my SSG app noticeably. But the limited allowance was creeping up very quickly and I had to take action. I moved all the images out of the repository into <Anchor link="https://cloudinary.com/" text="Cloudinary" variant="link" isExternal />, while still keeping the optimization in place. A key benefit to doing this was being able to swap images in and out without having to rebuild the whole Plant Bass'd site on Github.
-4. Directory structure was not a fully thought out plan in the early days. I didn't know how long Plant Bass'd would be used for really, so being mindful of how it would expand over time wasn't planned well enough. After a certain while, it became too obvious to ignore and I had to sit down to reorganise the repository.
-5. To get the ball rolling, the app was styled with Bootstrap 5 and CSS. I eventually swapped the styling for SCSS and have gained a large understanding of its benefits. It's more flexible, more readable, more reusable, and the use of mixins and functions are amazing!
+The project doubled as a learning space. Changes weren't planned upfront, and they came from experimenting, hitting limitations, and fixing them. A running list of improvements lived in Trello and drove most updates.
 
-Plant Bass'd has allowed me to access my 'creative side' by gaining an understanding in Adobe Photoshop and Adobe Illustrator. I created cover images for articles and tried to keep consistency in the colours and shapes used. I'm in no means a good graphic designer but I get a lot of satisfaction from making these images.
+<Anchor
+  link="/blog/what-is-plant-bassd"
+  text="Blog - What is Plant Bass'd?"
+  variant="outline"
+/>
+
+### Key Features
+
+1. **Typed codebase**  
+  Migrated from JavaScript to TypeScript to reduce bugs and improve reliability.
+
+2. **MDX-powered blog**  
+  Replaced markdown with MDX to allow JSX components inside posts.  
+
+3. **Image handling and optimization**  
+  Initially relied on Vercel's free-tier image optimization (WebP, SSG performance gains). Later moved assets to <Anchor link="https://cloudinary.com/" text="Cloudinary" variant="link" isExternal /> to avoid rebuilds and reduce repo size.
+
+4. **Styling evolution**  
+  Started with Bootstrap 5 + CSS. Transitioned to SCSS for better structure, reuse, and maintainability (mixins, functions).
+
+5. **Design and media**  
+  Custom article cover images created using Adobe Photoshop and Illustrator.  Event visuals produced with Adobe Premiere Pro (including a 20-minute themed video compiled from ~200 films).
 
 <Picture src="/project/plantbassd_home-page.png" alt="Home page of the app" />
 
-I also learned how to use Adobe Premiere Pro to create videos to display on the projectors at some of the events. By far the most time consuming hobby, I created a 20 minute video for a Valentine's themed party consisting of colourful and romantic movie snippets. I searched in close to 200 movies for clips ranging in 2 to 8 seconds long.
+### Implementation
+
+The development of Plantbassd.com followed a gradual, incremental approach rather than a full rewrite. Each change was introduced as new challenges or limitations emerged, allowing the project to evolve organically over time.
+
+The content system underwent a significant upgrade when the limitations of markdown became apparent. Markdown's rigid formatting prevented embedding interactive or UI components, so the project transitioned to MDX. This allowed JSX components to be used directly within blog posts, providing greater flexibility and functionality.
+
+Image handling was another area of focus. Originally stored within the repository, images were moved to Cloudinary. This decoupling allowed media to be updated or swapped without triggering a full rebuild of the site on GitHub, improving maintainability and deployment efficiency.
+
+Performance was addressed through a combination of Static Site Generation (SSG) and Vercel's built-in optimizations, including WebP image handling. Offloading images externally further reduced the load on the platform and helped stay within service limits.
+
+Finally, the repository structure was revisited. The early layout had not been designed for long-term scalability, so a reorganization was carried out to make the project easier to navigate, extend, and maintain as it grew.
+
+
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js, TypeScript, SCSS, Bootstrap 5 (initially) |
+| Content & Parsing | MDX, gray-matter, marked |
+| Hosting & Performance | Vercel (SSG + image optimization) |
+| Media Management | Cloudinary |
+| Design & Video | Adobe Photoshop, Adobe Illustrator, Adobe Premiere Pro |
+
+<br />
 
 <Player
   videoId="zGB_YubjRN8?si=KcQIgf39cIy1UFI7"
   title="Valentine's movie snippets"
 />
-
-<Anchor
-  link="/blog/what-is-plant-bassd"
-  text="Blog - What is Plant Bass'd?"
-  variant="header"
-/>
-
-<br />

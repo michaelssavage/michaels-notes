@@ -8,83 +8,88 @@ technology:
   - Python
   - Django
   - PostgreSQL
+  - Redis
   - GenAI
 colors:
   main: "#1A1A2E"
   bg: "#6CA116"
 ---
 
-Homework straight to your inbox.
+## Overview
 
-A Django app deployed to Railway with a Github Action CRON job. The CRON runs every second day and generates Spanish homework via an LLM, and then sends an email of the homework via Mailgun's API.
+A Django REST API deployed to Railway that automatically generates Spanish homework worksheets and delivers them by email every two days. A GitHub Actions CRON job authenticates with the API, triggers worksheet generation via DeepSeek's LLM, and sends the result through Mailgun — no manual intervention required.
 
-<hr />
-## Models
-
-### User
-
-Stores user account information. Each user has:
-
-- Email address (used for login)
-- Active status (whether they should receive worksheets)
-- Next delivery date (when their next worksheet should be sent)
-- Standard account fields (staff status, permissions, join date)
-
-### Worksheet
-
-Tracks generated worksheets for each user. Contains:
-
-- Link to the user who received it
-- Creation timestamp
-- Content hash (prevents duplicate worksheets)
-- Topics covered (stored as JSON)
-
-### Config
-
-Simple key-value storage for app settings. Currently used to track which topic pool to use next in the rotation.
-
-### User Recipient
-
-Stores additional email recipients for each user. Allows users to send worksheets to multiple email addresses. Each recipient has:
-
-- Link to the user
-- Email address
-- Optional name
-- Creation timestamp
+Worksheets are scoped to work and technology contexts (debugging, pull requests, client negotiations) and cover four exercise sections: Past Tense, Present Tense, Future Tense, and Translation.
 
 <hr />
-## Email Delivery
+## Key Features
 
-When a worksheet is generated and sent, emails are delivered via Mailgun to:
+- **Automated delivery** — GitHub Actions CRON runs every two days, wakes the Railway service, and calls the generate endpoint
+- **LLM-generated exercises** — DeepSeek (`deepseek-chat`) produces 7 exercises per section, emphasising irregular verbs and real work contexts
+- **Topic rotation** — 10 theme pools (bugs, deploys, client negotiations, etc.) rotate automatically via a `Config` key-value store
+- **Async generation** — Worksheet creation is queued via Redis + RQ so the API responds immediately with a job ID
+- **Duplicate prevention** — Content is SHA-256 hashed before saving; duplicate worksheets are rejected
+- **Multi-recipient email** — Each user can add extra email recipients; all receive the same worksheet via Mailgun
 
-- The user's own email address
-- All additional recipients associated with that user (from the UserRecipient model)
+## Implementation
 
-The email contains the worksheet formatted as HTML with four sections: Past Tense, Present Tense, Future Tense, and Vocabulary Expansion.
+### Models
 
-<hr />
-## Endpoints
+**User** — Custom `AbstractBaseUser` using email as the login field. Tracks `active` status and `next_delivery` date.
 
-### `/api/token/`
+**Worksheet** — One record per user (replaced on each generation). Stores the raw `content` JSON, a `content_hash` for deduplication, the `topics` covered, and the `themes` used.
 
-Generates an authentication token. Users provide their email and password to get a token for accessing other endpoints.
+**Config** — Simple key-value table. Currently holds `topic_index`, an integer that advances on each generation to cycle through the theme pools.
 
-### `/api/worksheet/generate-content/`
+**UserRecipient** — Additional email addresses per user. Enforces uniqueness on `(user, email)`.
 
-Generates worksheet content using Deepseek's API. Accepts optional themes in the request body. If no themes are provided, it picks from a rotating pool of topics. Returns the generated content directly without saving or emailing.
+### Async Job Queue
 
-### `/api/worksheet/generate-worksheet/`
+`/api/worksheet/generate-worksheet/` enqueues a Redis RQ job (`generate_worksheet_job`) and returns a `job_id` immediately. The job handles LLM generation, deduplication, database persistence, and email delivery. Job status can be polled at `/api/worksheet/worksheet-job-status/<job_id>/`.
 
-Creates a complete worksheet for the authenticated user. Generates content, saves it to the database, and emails it to the recipients that the user has added. Prevents duplicates by checking content hashes. Returns the worksheet content.
+### Content Generation
 
-<hr />
-## GitHub Action
+1. Resolve themes — use the topic rotator or fall back to caller-supplied themes
+2. Build a system + user prompt and call the DeepSeek API
+3. Extract JSON from the response (tries direct parse → markdown code block → raw object extraction)
+4. Attempt one-shot LLM repair if extraction fails
+5. Validate structure — exactly 4 sections, 7 exercises each, with non-empty `prompt` and `answer` fields
+6. Hash the content and reject if a duplicate already exists for the user
 
-I generate a Spanish worksheet using a Github Action that runs automatically every two days at 8 PM. It can also be triggered manually.
+### Endpoints
 
-The workflow:
+| Endpoint | Method | Auth | Purpose |
+|---|---|---|---|
+| `/api/token/` | POST | ❌ | Exchange email + password for a token |
+| `/api/worksheet/generate-content/` | POST | ✅ | Generate worksheet content only (no save, no email) |
+| `/api/worksheet/generate-worksheet/` | POST | ✅ | Queue full generation + email, return `job_id` |
+| `/api/worksheet/send-worksheet-email/` | POST | ✅ | Resend the user's latest worksheet by email |
+| `/api/worksheet/latest/` | GET | ✅ | Fetch the user's most recent worksheet |
+| `/api/worksheet/worksheet-job-status/<job_id>/` | GET | ✅ | Poll the status of a queued generation job |
 
-1. Authenticates with the API using stored credentials
-2. Calls the generate-worksheet endpoint to create and send a worksheet
+### Email Delivery
 
-This automates the regular delivery of Spanish worksheets to users without manual intervention.
+Mailgun (EU endpoint) sends both HTML and plain-text versions to the user's primary address and any additional `UserRecipient` addresses. The four exercise sections are shuffled before rendering for variety.
+
+### GitHub Action
+
+The workflow runs on `cron: '0 14 */2 * *'` (every two days at 14:00 UTC) and can be triggered manually.
+
+1. Poll the Railway service until it responds (up to 24 attempts)
+2. Request an auth token with retries
+3. Call `/api/worksheet/generate-worksheet/`
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Django 5.2, Django REST Framework 3.16 |
+| Language | Python 3.13 |
+| Database | PostgreSQL (production), SQLite (development) |
+| Queue | Redis + RQ + django-rq |
+| LLM | DeepSeek API via OpenAI-compatible SDK |
+| Email | Mailgun REST API |
+| API Docs | drf-spectacular (OpenAPI / Swagger UI) |
+| Static Files | WhiteNoise |
+| Deployment | Railway |
+| CI / Automation | GitHub Actions |

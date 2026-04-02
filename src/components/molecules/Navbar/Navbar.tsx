@@ -32,7 +32,7 @@ const NavLink = ({ to, text, activeRoutes }: Props) => {
     ? activeRoutes.some(
         (route) =>
           location.pathname === route ||
-          location.pathname.startsWith(route + "/")
+          location.pathname.startsWith(route + "/"),
       )
     : location.pathname === to;
 
@@ -70,10 +70,10 @@ export default function Navbar() {
         <NavLink to="/projects" text="Projects" />
         <NavLink to="/about" text="About" />
         <NavLink
-          to="/miscellaneous"
-          text="Miscellaneous"
+          to="/extras"
+          text="Extras"
           activeRoutes={[
-            "/miscellaneous",
+            "/extras",
             "/guide",
             "/doodles",
             "/mixes",

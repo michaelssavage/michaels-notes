@@ -1,0 +1,65 @@
+---
+id: 4
+title: Let's Give Back
+date: April 2, 2026
+description: "Let's Give Back CLG is a community-driven social enterprise founded in Co. Monaghan."
+live: "https://www.letsgiveback.ie/"
+github: "https://github.com/michaelssavage/lets-give-back"
+technology:
+  - Tanstack Start
+  - Cloudflare workers
+  - Tailwind
+  - React.js
+  - TypeScript
+colors:
+  main: "#a44a3f"
+  bg: "#d4e09b"
+---
+
+## Overview
+
+<Picture src="/project/lets-give-back.png" alt="Home page of the app" />
+
+Let's Give Back CLG is a real Irish community social enterprise based in Co. Monaghan that provides free small maintenance and outdoor improvement services for vulnerable groups — elderly residents, nursing homes, disability residential services, addiction services, youth care settings, and community centres. Their tagline is "Building Skills, Building Community."
+
+The website serves two audiences: the public, who want to learn about the organisation, browse completed projects, and get in contact or donate; and admins, the organisation's team, who need a simple CMS to manage projects, services, and the media gallery without touching code.
+
+The entire application runs as a single <Anchor link="https://workers.cloudflare.com/" text="Cloudflare Worker" variant="link" isExternal />: SSR rendering, server functions, image storage, and the SQLite database all live at the edge with no separate backend service.
+
+## Key Features
+
+- **Public pages**  
+  homepage with parallax tool icons and a fireworks easter egg, project listing and detail pages with full SSR, services showcase with alternating zig-zag image/text layout, contact form with live phone formatting and Resend email delivery, and a Google Maps embed for Co. Monaghan.
+- **Admin dashboard**  
+  a tabbed, auth-protected interface for managing projects (drag-and-drop reorder, Tiptap rich text descriptions, image upload), services (paired image/text rows), and the R2 media gallery (multi-select batch delete).
+- **Image management**  
+  three upload modes in a single component: drag and drop, URL paste (fetched server-side to avoid CORS), and a media library dialog browsing existing R2 objects by folder.
+- **Authentication**  
+  cookie-based encrypted sessions (bcrypt password verification, 14-day max age) with route-level guards via TanStack Router's `beforeLoad` context.
+- **Rich text editor**  
+  Tiptap v3 with headings, lists, tables, links, images, and YouTube embeds stored as ProseMirror JSON in Cloudflare D1.
+
+### Implementation
+
+The app uses TanStack Start server functions via createServerFn for all data mutations. These act like type-safe RPC calls from React components and compile to /_serverFn POST requests at runtime. There's no separate REST layer. SSR and mutations run in the same worker process.
+
+Data fetching is split depending on the page. The project detail route (/projects/$slug) uses a route loader for full SSR, ensuring correct `<head>` metadata and returning notFound() when needed. List pages use TanStack Query on the client to avoid blocking navigation, showing a loading state instead.
+
+Authentication flows through the router context. The root loader calls a server function to fetch the current user on every navigation. Protected routes check context.user in beforeLoad and redirect to /login if missing. After login, invalidating the router re-runs loaders so the session is available across the app.
+
+The services page uses a simple data structure: a flat ordered list of alternating image and text entries stored in Cloudflare D1. The frontend pairs these entries at render time and alternates layout direction (image left / right), avoiding the need for a more complex schema.
+
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | TanStack Start |
+| Routing | TanStack Router |
+| Data Fetching | TanStack Query |
+| Runtime / Hosting | Cloudflare (Workers via Vite plugin) |
+| Database | Cloudflare D1 |
+| Storage | Cloudflare R2 |
+| Editor | Tiptap |
+| Drag & Drop | dnd-kit |
+| Styling | Tailwind CSS |
+| Animation | Framer Motion |

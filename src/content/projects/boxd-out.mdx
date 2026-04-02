@@ -1,5 +1,5 @@
 ---
-id: 6
+id: 8
 title: Boxd Out
 date: March 25, 2025
 description: "A Django REST Framework app to scrape movies from Letterboxd and save them to a PostgreSQL database"
@@ -10,35 +10,53 @@ technology:
   - BeautifulSoup
   - PostgreSQL
 colors:
-  main: "#7f1a75"
-  bg: "#fbfece"
+  main: "#1b1814"
+  bg: "#185f48"
 ---
 
-I created a Django REST Framework app to scrape movies from Letterboxd and save them to a PostgreSQL database. Initially built with Go in March 2025, I moved to Python to take advantage of the Django ecosystem as my new job role would use this stack. I previously wrote about it here <Anchor link="/blog/rest-api-with-go" text="REST API with Go" variant="link" />.
+### Overview
 
-The previous stack used Gin (Go web framework), saved results to MongoDB, and was deployed to fly.io. I would then fetch the results using a Netlify function to show on my About page. Although I preferred the structure in that setup; a controller, service, repository, and model for each entity, I do enjoy the opioniated way of Django.
+A Django REST Framework app that scrapes movie data from Letterboxd and stores it in PostgreSQL. The project started in Go (Gin + MongoDB, deployed on fly.io), then moved to Python to match day-to-day work and make use of Django’s tooling.
 
-The Core Functionality is extracting favorite movies from Letterboxd and storing the data in a PostgreSQL database. The API has 4 main endpoints:
+It still does the same job: pull favorite films, clean the data, and expose it through an API that can be consumed elsewhere.
 
-1. Health check endpoint
-2. Scrape Letterboxd favorites
-3. Retrieve Letterboxd favorites
-4. Save favorites
+### Key Features
 
-There is some image processing going on during the process too, as the extracted images are too small and have query strings attached. I clean them up, resize them, and save the image url to the DB. The final model structure is very simple:
+1. **Letterboxd scraping**  
+  Extracts favorite movies and related metadata
+  Handles pagination and repeated fetches
+2. **Image processing**  
+  Cleans image URLs (removes query params)
+  Resizes images to usable resolutions
+  Stores final URLs in the database
+3. **REST API endpoints**  
+  Health check
+  Scrape favorites
+  Retrieve saved movies
+  Save movies manually
+4. **Extended endpoint**  
+  Save a movie by title via POST request (/movies/save/)
+  Example: `{"movie_title":"apocalypse-now"}`
+5. **Simple data model**  
+  Title, year, status, image URL, link URL
+  Timestamps for tracking changes
 
-```javascript
-{
-  title: string;
-  year: string;
-  status: "FAVORITE" | "SAVED";
-  image_url: string;
-  link_url: string;
-  created_at: string;
-  updated_at: string;
-}
-```
+### Implementation
 
-The Djano REST Framework API provides 8 main endpoints. I added a new one to fetch individual movies by title and save them to the DB. Doing a **POST** `/movies/save/` with a JSON body of `{"movie_title": "apocalypse-now"}` will save the movie to the DB.
+The project was rebuilt using Django REST Framework after an initial version in Go. I moved to Python to take advantage of the Django ecosystem as my new job role would use this stack. I previously wrote about it here <Anchor link="/blog/rest-api-with-go" text="REST API with Go" variant="link" />. The earlier setup used Gin, MongoDB, and fly.io, with a Netlify function acting as a bridge to display results. The structure there followed a clean separation (controller, service, repository), which worked well, but the switch to Django introduced a more opinionated approach with less setup overhead.
 
-One new technology I have been exposed to is <Anchor link='https://github.com/astral-sh/uv' text='uv' variant='link' isExternal /> for Python management. It is so handy for managing Python dependencies and virtual environments. Like completely changed how much I despised Python management. The project is deployed to Railway using a simple Procfile and has a couple of security headers to only work on HTTPS.
+Scraping focuses on extracting movie data from Letterboxd and normalizing it before storage. Image URLs are cleaned to remove unnecessary query strings, then adjusted to point to higher-resolution versions. This step avoids storing low-quality assets while keeping the dataset small and consistent.
+
+The API exposes a set of endpoints for scraping, retrieving, and saving movies. On top of the base endpoints, a dedicated route allows saving individual movies by title. This makes it possible to extend the dataset without re-running full scraping jobs.
+
+Data is stored in PostgreSQL with a minimal schema. Each movie is tied to a status (FAVORITE or SAVED), and a unique entry is maintained per record. Timestamps track when entries are created and updated.
+
+Dependency and environment management is handled with <Anchor link='https://github.com/astral-sh/uv' text='uv' variant='link' isExternal />, which simplifies virtual environments and dependency installation. The app is deployed on Railway using a Procfile-based setup, with basic security headers enforcing HTTPS access.
+
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Current | Django REST Framework (API layer), Python, PostgreSQL |
+| Previous | Go (Gin), MongoDB, fly.io, Netlify Functions |
+| Tooling & Deployment | uv, Railway |

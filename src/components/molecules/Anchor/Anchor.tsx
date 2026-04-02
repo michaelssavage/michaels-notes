@@ -2,7 +2,13 @@ import type { SerializedStyles } from "@emotion/react";
 import { memo, type ReactElement } from "react";
 import { LinkStyle } from "./Anchor.styled";
 
-export type AnchorVariants = "button" | "link" | "text" | "header" | "footer";
+export type AnchorVariants =
+  | "button"
+  | "outline"
+  | "link"
+  | "text"
+  | "header"
+  | "footer";
 
 interface Props {
   id?: string;

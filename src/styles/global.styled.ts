@@ -1,11 +1,11 @@
 import { pageTransitions } from "@/styles/abstracts/animations.styled";
-import { forBreakAt } from "@/styles/abstracts/mixins.styled";
+import { forBreakAt, forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 
-export const underlineStyles = (color: "blue" | "red") => css`
+export const underlineStyles = (color: "purple" | "red") => css`
   background-image: linear-gradient(
-    transparent calc(100% - 1px),
-    ${color === "blue" ? "var(--color-blue200)" : "var(--color-red200)"} 1px
+    transparent calc(100% - 2px),
+    ${color === "purple" ? "var(--color-purple)" : "var(--color-red200)"} 2px
   );
   background-position: left bottom;
   background-repeat: no-repeat;
@@ -15,8 +15,9 @@ export const underlineStyles = (color: "blue" | "red") => css`
 
   &:hover {
     background-image: linear-gradient(
-      transparent calc(100% - 1px),
-      ${color === "blue" ? "var(--color-blue300)" : "var(--color-red300)"} 1px
+      transparent calc(100% - 2px),
+      ${color === "purple" ? "var(--color-purple200)" : "var(--color-red300)"}
+        2px
     );
   }
 `;
@@ -109,11 +110,17 @@ export const globalStyles = css`
   }
 
   .simple-card {
-    padding: 0.25rem;
+    padding: 0.5rem;
     border-radius: 0.25rem;
     margin-bottom: 1rem;
-    background-color: var(--color-white100);
+    background-color: var(--color-white);
   }
+
+  ${forPhoneOnly(css`
+    .simple-card {
+      padding: 0.25rem;
+    }
+  `)}
 
   .popover-card {
     max-width: 600px;

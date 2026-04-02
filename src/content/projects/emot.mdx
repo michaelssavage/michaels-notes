@@ -15,12 +15,44 @@ colors:
   bg: "#ADEFD1FF"
 ---
 
-My final year project was a customisable client based emotion classifier built using PYQT5 and QT Designer. The Python GUI application used data extraction, natural language processing, emotion classification, and machine learning to judge the sentiment of textual material being read online by a user.
+### Overview
 
-## Technical Steps
+A final year project focused on building a desktop emotion classifier that analyzes text a user reads online. The app is a Python GUI built with <Anchor link="https://www.pythonguis.com/pyqt5-tutorial/" text="PyQt5" variant="link" isExternal /> and <Anchor link="https://doc.qt.io/qt-6/index.html" text="Qt Designer" variant="link" isExternal />, combining web scraping, NLP, and machine learning to classify emotional tone in real time.
 
-We obtained text data by using BeautifulSoup, a text scraper, on the user's browser. Most modern web browsers store their browsing history in a SQLite database so we used scrapinghub/splash, a lightweight stateless JavaScript service, to access content on rendered sites.
+### Key Features
 
-We initally used sentiment analysis to determine whether data was positive, negative, or neutral before moving on to emotion classification with SciKit-Learn. We parsed and lemmatized text with SpaCy and then classified an emotion dataset with NLTK. We trained the classifier locally. We classified six basic emotions for our project; anger, fear, joy, surprise, happiness, and sadness. To prevent over or underfitting certain emotions when training the sentiment classifier we used the Pandas library to ensure that the data used to train the classifiers had an equal balance of each emotion.
+1. **Live text analysis**  
+  Extracts text from web pages the user is viewing
+  Processes and classifies content in near real-time
+2. **Emotion classification**  
+  Classifies six emotions: anger, fear, joy, surprise, happiness, sadness
+  Moves beyond basic sentiment (positive/negative/neutral)
+3. **Balanced model training**  
+  Ensures equal representation of emotions during training
+  Reduces bias in classification results
+4. **Data visualization**  
+  Displays results using charts and histograms
+  Updates dynamically as new data is processed
+5. **Desktop GUI**  
+  Built with PyQt5 and Qt Designer
+  Uses thread pools to keep the interface responsive
 
-Using PYQT5 and Plotly, we could display emotion data graphically using a selection of bar charts and histograms. The data displayed in real-time as you used the app thanks to thread pools in the PYQT program.
+### Implementation
+
+Text extraction starts by scraping content from pages the user visits. <Anchor link="https://beautiful-soup-4.readthedocs.io/en/latest/" text="BeautifulSoup" variant="link" isExternal /> is used to parse page content, while <Anchor link="https://github.com/scrapinghub/splash" text="Splash" variant="link" isExternal /> helps render JavaScript-heavy sites before extraction. Browser history, stored in SQLite databases, provides a source of URLs to process.
+
+The NLP pipeline begins with basic sentiment analysis before moving into deeper emotion classification. Text is parsed and lemmatized using spaCy, then processed with NLTK for working with emotion datasets.
+
+The classifier is trained locally using <Anchor link="https://scikit-learn.org/stable/" text="scikit-learn" variant="link" isExternal />. To avoid skewed predictions, pandas is used to balance the dataset so each emotion class is equally represented during training.
+
+The GUI layer is handled by PyQt5, with background processing managed through thread pools so classification runs without freezing the interface. Results are visualized using Plotly, updating charts in real time as new text is analyzed.
+
+### Tech Stack
+
+| Layer | Technology |
+|---|---|
+| GUI | PyQt5 + Qt Designer |
+| Language | Python |
+| NLP & ML | spaCy, NLTK, scikit-learn, pandas |
+| Data Extraction | BeautifulSoup, Splash |
+| Visualization | Plotly |

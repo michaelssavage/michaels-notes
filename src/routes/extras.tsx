@@ -3,11 +3,11 @@ import { Heading, Page } from "@/styles/routes/blog.styled";
 import { MiscContainer } from "@/styles/routes/routes.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
-const title = "Miscellaneous | Michael Savage";
+const title = "Extras | Michael Savage";
 const description = "Miscellaneous links, small projects, and lists.";
-const url = "https://michaelsavage.com/miscellaneous";
+const url = "https://michaelsavage.com/extras";
 
-export const Route = createFileRoute("/miscellaneous")({
+export const Route = createFileRoute("/extras")({
   component: RouteComponent,
   head: () => ({
     link: [{ rel: "canonical", href: url }],
@@ -25,7 +25,7 @@ function RouteComponent() {
   return (
     <Page>
       <MiscContainer>
-        <Heading>Mini projects</Heading>
+        <Heading>Miscellaneous projects</Heading>
 
         <div>
           <Anchor

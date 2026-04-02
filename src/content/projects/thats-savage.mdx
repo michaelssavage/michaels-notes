@@ -1,24 +1,64 @@
 ---
-id: 8
+id: 10
 title: That's Savage
 date: march 3, 2023
-description: "A static site for a small printing business"
+description: "A static site for a clothing print business in Co. Monaghan."
 github: "https://github.com/LiLiSav/thatssavage"
 technology:
   - React.js
   - TypeScript
   - SCSS
+  - Vite
+  - Bootstrap
 colors:
-  main: "#5F4B8BFF"
-  bg: "#E69A8DFF"
+  main: "#472d30"
+  bg: "#ffe1a8"
 ---
 
-## About
+### Overview
+
+<Picture src="/project/thatssavage-landing.png" alt="Home page of the app" />
 
 That's Savage specialise in high quality, custom print garments and logo design. With over 10 years experience in design and garment printing, there are no minimum order requirements meaning that we can print special one off garments while also catering for much larger orders.
 
-This static site was a collaborative effort between me and my brother. We used React.js to build a simple site for hosting.
+### Key Features
 
-## Technologies Used
+1. **Responsive design**  
+  Built with React and Bootstrap's grid system, with a custom SCSS mobile menu that slides in at breakpoints below 600px.
+2. **Contact form**  
+  Validated client-side with Yup and React Hook Form, submitted serverlessly via Web3Forms — no backend required.
+3. **Print gallery**  
+  Image grid with Bootstrap modals, driven by typed data arrays so adding new work is a one-line change.
+4. **Parallax & animation**  
+  Alternating parallax speeds on the job showcase cards via `react-scroll-parallax`, giving the home page depth without heavy libraries.
 
-This site was a plain JavaScript React app bundled with Create-React-App, but has been refactored over time to use TypeScript and Vite. It used many different dependencies but these were cut down over time leading to the site being much more responsive and faster to set up.
+### Implementation
+
+This site was a collaborative effort between me and my brother for his garment printing business in Co. Monaghan. The goal was a lightweight, deployable static site with zero backend infrastructure.
+
+The app is built on **Vite** rather than Create React App for faster local development and leaner production bundles. All routing is handled client-side with React Router v6, and the entire codebase is strictly typed with TypeScript — `strict: true` in tsconfig catches issues at build time before they reach the browser.
+
+We used **React Hook Form** with a **Yup** validation schema to give real-time feedback as users type — field borders change colour on valid/invalid state, the submit button stays disabled until the form is clean, and a loading spinner replaces it during the async POST to Web3Forms. On success a toast notification confirms submission without a page reload.
+
+The prints gallery uses a custom `useModal` hook that wraps Bootstrap's imperative `Modal` API into a clean React interface. Image data for each category (clothes, workwear, fitness, etc.) lives in typed arrays under `src/components/Prints/Arrays/`, making it easy to extend the gallery without touching component logic.
+
+Styling is a combination of **Bootstrap** for structural components (grid, modals, form controls) and **CSS Modules + SCSS** for component-scoped custom styles. A small set of global utility classes (`page-container`, `headerText`, `yellow-dark`) keeps shared patterns consistent without a full design-system overhead.
+
+The site deploys to GitHub Pages via `gh-pages` with a custom domain, using a `predeploy` script that runs `tsc && vite build` to enforce type-safety before any bundle is published.
+
+### Tech Stack
+
+| Category | Technology | Purpose |
+| -------- | ---------- | ------- |
+| Framework | React 18 + TypeScript | Component model and static typing |
+| Build tool | Vite 4 | Fast dev server and optimised production bundles |
+| Routing | React Router v6 | Client-side page navigation |
+| Styling | SCSS + CSS Modules | Scoped component styles with shared variables |
+| UI components | Bootstrap 5 | Grid, modals, form controls |
+| Forms | React Hook Form + Yup | Validation schema and form state management |
+| Form submission | Web3Forms | Serverless email delivery, no backend needed |
+| Carousel | Embla Carousel | Lightweight image slider with autoplay |
+| Animation | react-scroll-parallax | Scroll-driven parallax on home page cards |
+| Notifications | react-toastify | Non-blocking success/error feedback |
+| Icons | Custom SVG components | Inline, stylable icons via vite-plugin-svgr |
+| Deployment | gh-pages | Automated deploy to GitHub Pages |

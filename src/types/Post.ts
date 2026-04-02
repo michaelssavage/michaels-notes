@@ -39,7 +39,10 @@ export const TECHNOLOGIES = [
   "Django",
   "GenAI",
   "TypeScript",
-  "React Query",
+  "Tanstack Query",
+  "Tanstack Start",
+  "Cloudflare workers",
+  "Firebase",
   "PostgreSQL",
   "Python",
   "Express.js",
@@ -70,6 +73,7 @@ export interface IProject {
     bg: string;
   };
   github?: string;
+  live?: string;
   draft?: boolean;
 }
 

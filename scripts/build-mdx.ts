@@ -3,6 +3,7 @@ import type { IBite, IBlog, IPosts, IProject, IReview } from "@/types/Post";
 import matter from "gray-matter";
 import fs from "node:fs";
 import path from "node:path";
+import remarkGfm from "remark-gfm";
 
 interface MdxOptions {
   rehypePlugins?: unknown[];
@@ -33,6 +34,7 @@ async function compilePost(category: string, slug: string, filePath: string) {
       cwd: path.resolve(process.cwd()),
       globals,
       mdxOptions(options: MdxOptions) {
+        options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm];
         options.rehypePlugins = [
           ...(options.rehypePlugins ?? []),
           rehypeMdxImportMedia.default,
@@ -95,22 +97,22 @@ async function compileAllPosts(contentDir: string) {
 
   const postsIndex: IPosts = {
     projects: extractFrontmatter<IProject>(
-      path.join(contentDir, "projects")
+      path.join(contentDir, "projects"),
     ).sort(sortByDate),
     blogs: extractFrontmatter<IBlog>(path.join(contentDir, "blogs")).sort(
-      sortByDate
+      sortByDate,
     ),
     reviews: extractFrontmatter<IReview>(path.join(contentDir, "reviews")).sort(
-      sortByDate
+      sortByDate,
     ),
     bites: extractFrontmatter<IBite>(path.join(contentDir, "bites")).sort(
-      sortByDate
+      sortByDate,
     ),
   };
 
   fs.writeFileSync(
     path.join(outputDir, "index.json"),
-    JSON.stringify(postsIndex, null, 2)
+    JSON.stringify(postsIndex, null, 2),
   );
 
   console.log("Posts index compiled successfully");
@@ -140,7 +142,7 @@ async function compileAllPosts(contentDir: string) {
 
         fs.writeFileSync(
           path.join(categoryOutputDir, `${slug}.json`),
-          JSON.stringify(compiledPost, null, 2)
+          JSON.stringify(compiledPost, null, 2),
         );
 
         console.log(`✓ ${category}/${slug}`);
