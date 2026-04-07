@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorksheetsRouteImport } from './routes/worksheets'
 import { Route as PrettyTextRouteImport } from './routes/pretty-text'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as MixesRouteImport } from './routes/mixes'
@@ -29,6 +30,11 @@ import { Route as GuideBarcelonaIndexRouteImport } from './routes/guide/barcelon
 import { Route as GuideBarcelonaNewRouteImport } from './routes/guide/barcelona/new'
 import { Route as GuideBarcelonaSlugRouteImport } from './routes/guide/barcelona/$slug'
 
+const WorksheetsRoute = WorksheetsRouteImport.update({
+  id: '/worksheets',
+  path: '/worksheets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrettyTextRoute = PrettyTextRouteImport.update({
   id: '/pretty-text',
   path: '/pretty-text',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
+  '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
+  '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
@@ -178,6 +186,7 @@ export interface FileRoutesById {
   '/mixes': typeof MixesRoute
   '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
+  '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
     | '/mixes'
     | '/playground'
     | '/pretty-text'
+    | '/worksheets'
     | '/blog/$slug'
     | '/projects/$slug'
     | '/review/$slug'
@@ -222,6 +232,7 @@ export interface FileRouteTypes {
     | '/mixes'
     | '/playground'
     | '/pretty-text'
+    | '/worksheets'
     | '/blog/$slug'
     | '/projects/$slug'
     | '/review/$slug'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/mixes'
     | '/playground'
     | '/pretty-text'
+    | '/worksheets'
     | '/blog/$slug'
     | '/projects/$slug'
     | '/review/$slug'
@@ -265,6 +277,7 @@ export interface RootRouteChildren {
   MixesRoute: typeof MixesRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PrettyTextRoute: typeof PrettyTextRoute
+  WorksheetsRoute: typeof WorksheetsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ReviewSlugRoute: typeof ReviewSlugRoute
@@ -279,6 +292,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/worksheets': {
+      id: '/worksheets'
+      path: '/worksheets'
+      fullPath: '/worksheets'
+      preLoaderRoute: typeof WorksheetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pretty-text': {
       id: '/pretty-text'
       path: '/pretty-text'
@@ -425,6 +445,7 @@ const rootRouteChildren: RootRouteChildren = {
   MixesRoute: MixesRoute,
   PlaygroundRoute: PlaygroundRoute,
   PrettyTextRoute: PrettyTextRoute,
+  WorksheetsRoute: WorksheetsRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   ReviewSlugRoute: ReviewSlugRoute,

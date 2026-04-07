@@ -1,11 +1,12 @@
 import { CheckIcon, XIcon } from "@/components/icons";
+import { ChangeEvent, useState } from "react";
 import {
+  AnswerButton,
   BlankContainer,
   IconWrapper,
   InputWrapper,
-} from "@/components/molecules/FillTheBlank/FillInTheBlank.styled";
-
-import { ChangeEvent, useState } from "react";
+} from "./FillInTheBlank.styled";
+import { normalizeText } from "./fillInTheBlank.util";
 
 interface FillInTheBlankProps {
   beforeText: string;
@@ -22,23 +23,44 @@ export const FillInTheBlank = ({
 }: FillInTheBlankProps) => {
   const [userAnswer, setUserAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isPartiallyCorrect, setIsPartiallyCorrect] = useState(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setUserAnswer(value);
 
-    if (value.trim().toLowerCase() === correctAnswer.trim().toLowerCase()) {
+    const trimmedUser = value.trim();
+    const trimmedCorrect = correctAnswer.trim();
+
+    if (trimmedUser.toLowerCase() === trimmedCorrect.toLowerCase()) {
       setIsCorrect(true);
-    } else if (value.length > 1) {
-      setIsCorrect(false);
+      setIsPartiallyCorrect(false);
+    } else if (trimmedUser.length > 1) {
+      const userBase = normalizeText(trimmedUser);
+      const correctBase = normalizeText(trimmedCorrect);
+      if (userBase === correctBase) {
+        setIsCorrect(false);
+        setIsPartiallyCorrect(true);
+      } else {
+        setIsCorrect(false);
+        setIsPartiallyCorrect(false);
+      }
     } else {
       setIsCorrect(null);
+      setIsPartiallyCorrect(false);
     }
   };
 
   const clearAnswer = () => {
     setUserAnswer("");
     setIsCorrect(null);
+    setIsPartiallyCorrect(false);
+  };
+
+  const showAnswer = () => {
+    setUserAnswer(correctAnswer);
+    setIsCorrect(true);
+    setIsPartiallyCorrect(false);
   };
 
   return (
@@ -49,6 +71,7 @@ export const FillInTheBlank = ({
 
         <InputWrapper
           isCorrect={isCorrect}
+          isPartiallyCorrect={isPartiallyCorrect}
           chars={Math.max(userAnswer.length, 12)}
         >
           <input
@@ -66,7 +89,7 @@ export const FillInTheBlank = ({
             </IconWrapper>
           )}
 
-          {isCorrect === false && (
+          {isCorrect === false && !isPartiallyCorrect && (
             <IconWrapper onClick={clearAnswer}>
               <XIcon />
             </IconWrapper>
@@ -74,6 +97,10 @@ export const FillInTheBlank = ({
         </InputWrapper>
 
         <span>{afterText}</span>
+
+        {!isCorrect && userAnswer.length > 0 && (
+          <AnswerButton onClick={showAnswer}>Show Answer</AnswerButton>
+        )}
       </BlankContainer>
     </>
   );

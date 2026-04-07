@@ -48,10 +48,20 @@ function RouteComponent() {
         </div>
 
         <div>
-          <Anchor link="/doodles" text="Doodles" variant="header" />
+          <Anchor
+            link="/worksheets"
+            text="Spanish Worksheets"
+            variant="header"
+          />
           <p>
-            Now and again I&apos;ll put pen to paper for tattoo ideas or for
-            really bad jokes. I&apos;ll share some of the doodles on this page.
+            Spanish homework generated every two days via AI, then delivered by
+            email. Read the{" "}
+            <Anchor
+              link="/blog/learning-spanish"
+              text="blog post here"
+              variant="link"
+            />{" "}
+            about it.
           </p>
         </div>
 

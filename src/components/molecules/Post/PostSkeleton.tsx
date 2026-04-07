@@ -1,6 +1,5 @@
 import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 import styled from "@emotion/styled";
-import { memo } from "react";
 import { Card, CardInfo, DescriptionWrapper } from "./Post.styled";
 
 const SkeletonElement = styled.div<{ width?: string; height?: string }>`
@@ -12,7 +11,7 @@ const SkeletonElement = styled.div<{ width?: string; height?: string }>`
   height: ${({ height }) => height || "1rem"};
 `;
 
-const PostSkeleton = memo(() => {
+export default function PostSkeleton() {
   return (
     <article>
       <Card
@@ -51,8 +50,4 @@ const PostSkeleton = memo(() => {
       </Card>
     </article>
   );
-});
-
-PostSkeleton.displayName = "PostSkeleton";
-
-export default PostSkeleton;
+}

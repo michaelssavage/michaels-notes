@@ -1,9 +1,8 @@
-import { memo } from "react";
 import { Container, Dot } from "./Loading.styled";
 
 const DOTS = [0, 1, 2];
 
-export const Loading = memo(() => {
+export function Loading() {
   return (
     <Container data-testid="loading">
       <div>
@@ -13,6 +12,4 @@ export const Loading = memo(() => {
       </div>
     </Container>
   );
-});
-
-Loading.displayName = "Loading";
+}

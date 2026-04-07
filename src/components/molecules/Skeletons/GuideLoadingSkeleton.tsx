@@ -3,7 +3,6 @@ import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
 import { Card } from "@/styles/routes/guide.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { memo } from "react";
 
 const SkeletonElement = styled.div<{ width?: string; height?: string }>`
   background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
@@ -14,7 +13,7 @@ const SkeletonElement = styled.div<{ width?: string; height?: string }>`
   height: ${({ height }) => height || "1rem"};
 `;
 
-const GuideLoadingSkeleton = memo(() => {
+export default function GuideLoadingSkeleton() {
   return (
     <>
       {Array.from({ length: 2 }).map((_, index) => (
@@ -38,8 +37,4 @@ const GuideLoadingSkeleton = memo(() => {
       ))}
     </>
   );
-});
-
-GuideLoadingSkeleton.displayName = "GuideLoadingSkeleton";
-
-export default GuideLoadingSkeleton;
+}

@@ -1,6 +1,5 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { memo } from "react";
 import { BiteItem, Text } from "./Bite.styled";
 
 const shimmer = keyframes`
@@ -21,7 +20,7 @@ const SkeletonElement = styled.div<{ width?: string; height?: string }>`
   height: ${({ height }) => height || "1rem"};
 `;
 
-const BiteSkeleton = memo(() => {
+export default function BiteSkeleton() {
   return (
     <BiteItem style={{ pointerEvents: "none" }}>
       <Text>
@@ -49,8 +48,4 @@ const BiteSkeleton = memo(() => {
       </div>
     </BiteItem>
   );
-});
-
-BiteSkeleton.displayName = "BiteSkeleton";
-
-export default BiteSkeleton;
+}

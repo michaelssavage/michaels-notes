@@ -60,3 +60,15 @@ export const SplitMap = styled.div`
     display: none;
   `)}
 `;
+
+export const WorksheetDate = styled.p`
+  font-size: 0.8rem;
+  color: var(--color-gray600);
+  font-weight: 500;
+`;
+
+export const WorksheetHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+`;

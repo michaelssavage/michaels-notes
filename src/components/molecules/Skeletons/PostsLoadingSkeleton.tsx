@@ -1,8 +1,7 @@
-import { memo } from "react";
 import BiteSkeleton from "../Bite/BiteSkeleton";
 import PostSkeleton from "../Post/PostSkeleton";
 
-const PostsLoadingSkeleton = memo(() => {
+export default function PostsLoadingSkeleton() {
   return (
     <>
       <PostSkeleton />
@@ -13,8 +12,4 @@ const PostsLoadingSkeleton = memo(() => {
       <PostSkeleton />
     </>
   );
-});
-
-PostsLoadingSkeleton.displayName = "PostsLoadingSkeleton";
-
-export default PostsLoadingSkeleton;
+}

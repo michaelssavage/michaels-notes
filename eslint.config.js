@@ -16,6 +16,7 @@ export default defineConfig([
     ".git/**",
     "playwright-report/**",
     "vite.config.ts",
+    "routeTree.gen.ts",
   ]),
 
   eslint.configs.recommended,
