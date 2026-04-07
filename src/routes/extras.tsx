@@ -54,8 +54,8 @@ function RouteComponent() {
             variant="header"
           />
           <p>
-            Spanish homework generated every two days via AI, then delivered by
-            email. Read the{" "}
+            Interactive Spanish homework generated every two days with AI, then
+            delivered by email. Read the{" "}
             <Anchor
               link="/blog/learning-spanish"
               text="blog post here"
