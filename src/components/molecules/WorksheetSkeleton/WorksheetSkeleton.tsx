@@ -1,50 +1,62 @@
 import { Group } from "@/components/atoms/Group";
-import { shimmerAnimation } from "@/styles/abstracts/animations.styled";
+import { Anchor } from "@/components/molecules/Anchor";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
-const SkeletonBar = styled.div<{ width?: string; height?: string }>`
-  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
-  background-size: 200px 100%;
-  ${shimmerAnimation()};
-  border-radius: 4px;
-  width: ${({ width }) => width || "30%"};
-  height: ${({ height }) => height || "3rem"};
+const l10Animation = keyframes`
+  100% {background-size:120% 120%}
+`;
+
+const Loader = styled.div<{ width?: string; height?: string }>`
+  width: 120px;
+  height: 60px;
+  border-radius: 200px 200px 0 0;
+  mask: repeating-radial-gradient(
+    farthest-side at bottom,
+    #0000 0,
+    #000 1px 12%,
+    #0000 calc(12% + 1px) 20%
+  );
+
+  -webkit-mask: repeating-radial-gradient(
+    farthest-side at bottom,
+    #0000 0,
+    #000 1px 12%,
+    #0000 calc(12% + 1px) 20%
+  );
+  background: radial-gradient(
+      farthest-side at bottom,
+      var(--color-purple) 0 95%,
+      #0000 0
+    )
+    bottom/0% 0% no-repeat var(--color-gray);
+  animation: ${l10Animation} 2s infinite steps(6);
 `;
 
 const WakeNotice = styled.p`
-  margin: 0 0 1rem;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   line-height: 1.45;
   color: var(--color-gray600);
   max-width: 36rem;
 `;
 
-const SectionBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 0.65rem;
-`;
-
 export function WorksheetSkeleton() {
   return (
     <div aria-busy="true" aria-live="polite">
-      <Group direction="column" gap="1.5rem">
+      <Group direction="row" gap="2rem" align="center" wrap="wrap">
+        <Loader />
         <WakeNotice>
-          The worksheet service sleeps when not in use, so it may be waking up
-          after idle time. The first load can take up to a minute and the page
-          will update when the data is ready.
+          This service uses the free tier of{" "}
+          <Anchor
+            link="https://railway.com"
+            text="Railway.com"
+            variant="link"
+            isExternal
+          />
+          , so it sleeps when not in use. Wait for it to wake up before
+          refreshing the page. The first load can take up to a minute and the
+          page will update when the data is ready.
         </WakeNotice>
-
-        <SectionBlock>
-          <SkeletonBar />
-
-          <SectionBlock>
-            {Array.from({ length: 10 }, (_, i) => (
-              <SkeletonBar key={i} width="90%" height="2rem" />
-            ))}
-          </SectionBlock>
-        </SectionBlock>
       </Group>
     </div>
   );

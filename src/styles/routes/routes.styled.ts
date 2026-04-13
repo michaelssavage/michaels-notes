@@ -7,7 +7,6 @@ export const MiscContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
   margin: 1rem 10% 2rem;
-  max-width: 50rem;
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
 `;
 
