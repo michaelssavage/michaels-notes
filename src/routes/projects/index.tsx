@@ -1,10 +1,10 @@
 import { getProjects } from "@/api/posts.api";
+import { ErrorBoundary } from "@/components/atoms/ErrorBoundary";
 import { Group } from "@/components/atoms/Group";
 import { LoadingProject } from "@/components/atoms/Project/LoadingProject";
 import { Project } from "@/components/atoms/Project/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
-import { Loading } from "@/components/molecules/Loading";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import { sortById } from "@/lib/utils";
@@ -18,7 +18,7 @@ import { type IProject, type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 
 const title = "Projects | Michael Savage";
 const description =
@@ -104,7 +104,7 @@ function Projects() {
       </Panel>
 
       <Panel>
-        <Suspense fallback={<Loading />}>
+        <ErrorBoundary fallback={<p>Spotify unavailable</p>}>
           <SpotifyContent>
             <Header>
               <h2>What am I listening to?</h2>
@@ -124,7 +124,7 @@ function Projects() {
             <CurrentPlay />
             <TopTracks />
           </SpotifyContent>
-        </Suspense>
+        </ErrorBoundary>
       </Panel>
     </Page>
   );

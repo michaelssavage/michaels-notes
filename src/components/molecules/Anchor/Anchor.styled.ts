@@ -67,7 +67,6 @@ export const LinkStyle = styled(Link)<IStyle>`
           font-weight: 600;
           color: var(--color-black);
           transition: transform 0.15s cubic-bezier(0.26, 0.46, 0.44, 0.94);
-          text-decoration: underline;
 
           &:hover {
             transform: scale(1.02);

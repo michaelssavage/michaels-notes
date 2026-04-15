@@ -1,6 +1,7 @@
 import { Group } from "@/components/atoms/Group";
 import { Anchor } from "@/components/molecules/Anchor";
-import { keyframes } from "@emotion/react";
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
 const l10Animation = keyframes`
@@ -31,6 +32,10 @@ const Loader = styled.div<{ width?: string; height?: string }>`
     )
     bottom/0% 0% no-repeat var(--color-gray);
   animation: ${l10Animation} 2s infinite steps(6);
+
+  ${forPhoneOnly(css`
+    margin: 0 auto;
+  `)}
 `;
 
 const WakeNotice = styled.p`

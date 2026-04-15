@@ -25,9 +25,9 @@ export const Route = createFileRoute("/doodles")({
 
 const doodles = import.meta.glob(
   "/src/content/doodles/*.{png,jpg,jpeg,webp,svg}",
-  { eager: true, as: "url" }
+  { eager: true, query: "?url", import: "default" }
 );
-const doodleEntries = Object.entries(doodles);
+const doodleEntries = Object.entries(doodles) as [string, string][];
 
 const MasonryImg = ({ data: [path, src] }: { data: [string, string] }) => (
   <Picture

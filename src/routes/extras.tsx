@@ -3,6 +3,7 @@ import { Player } from "@/components/atoms/Player";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Heading, Page } from "@/styles/routes/blog.styled";
 import { MiscContainer } from "@/styles/routes/routes.styled";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -19,7 +20,7 @@ interface ContentItem {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   border: 1px solid var(--color-gray);
   background-color: var(--color-white);
   padding: 1rem;
@@ -98,22 +99,6 @@ const content: ContentItem[] = [
       </p>
     ),
   },
-
-  {
-    id: "dj-background",
-    title: (
-      <Player
-        videoId="zGB_YubjRN8?si=uzfBT05mcp_fz5-4"
-        title="Valentine's movie snippets"
-      />
-    ),
-    description: (
-      <p>
-        A background visual I created for Valentine&apos;s themed gig using
-        Adobe Illustrator.
-      </p>
-    ),
-  },
   {
     id: "rekordbox-text-prettifier",
     title: (
@@ -128,6 +113,26 @@ const content: ContentItem[] = [
         A utility function for formatting exported setlists from the DJ software
         Rekordbox. Useful for adding the played tracks to the description of
         SoundCloud, MixCloud, etc.
+      </p>
+    ),
+  },
+  {
+    id: "dj-background",
+    title: (
+      <Player
+        videoId="zGB_YubjRN8?si=uzfBT05mcp_fz5-4"
+        title="Valentine's movie snippets"
+        styles={css`
+          iframe {
+            border-radius: 8px;
+          }
+        `}
+      />
+    ),
+    description: (
+      <p className="date">
+        A background visual for Valentine&apos;s themed gig using Adobe
+        Illustrator.
       </p>
     ),
   },
