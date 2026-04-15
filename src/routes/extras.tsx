@@ -21,11 +21,19 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  border: 1px solid var(--color-gray);
-  background-color: var(--color-white);
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
+  background-color: var(--color-white);
+  box-shadow: var(--color-green) 5px 3px;
   max-width: 20rem;
+
+  &:hover {
+    box-shadow: var(--color-green200) 5px 5px;
+
+    first-child {
+      transform: translateY(-5px);
+    }
+  }
 `;
 
 export const Route = createFileRoute("/extras")({

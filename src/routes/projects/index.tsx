@@ -104,7 +104,6 @@ function Projects() {
       </Panel>
 
       <Panel>
-        <ErrorBoundary fallback={<p>Spotify unavailable</p>}>
           <SpotifyContent>
             <Header>
               <h2>What am I listening to?</h2>
@@ -121,10 +120,13 @@ function Projects() {
             </Header>
 
             {/* spotify components */}
-            <CurrentPlay />
-            <TopTracks />
+            <ErrorBoundary fallback={<p>Now playing unavailable</p>}>
+              <CurrentPlay />
+            </ErrorBoundary>
+            <ErrorBoundary fallback={<p>Top tracks unavailable</p>}>
+              <TopTracks />
+            </ErrorBoundary>
           </SpotifyContent>
-        </ErrorBoundary>
       </Panel>
     </Page>
   );

@@ -27,5 +27,5 @@ export function usePosts(category: "projects" | "blogs" | "reviews" | "bites") {
     retry: false,
   });
 
-  return data || [];
+  return data;
 }

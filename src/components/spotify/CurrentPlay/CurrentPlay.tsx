@@ -47,6 +47,7 @@ export const CurrentPlay = () => {
     queryKey: ["trackFact", trackData?.artist],
     queryFn: () => factFn({ data: { artist: trackData?.artist ?? "" } }),
     enabled: Boolean(trackData?.artist),
+    throwOnError: false,
   });
 
   const { dominantColor } = useExtractColor(trackData?.albumArtUrl || "");
