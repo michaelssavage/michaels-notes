@@ -36,25 +36,23 @@ export interface IBite {
 
 export const TECHNOLOGIES = [
   "React.js",
+  "TypeScript",
+  "Python",
   "Django",
   "GenAI",
-  "TypeScript",
   "Tanstack Query",
   "Tanstack Start",
   "Cloudflare workers",
-  "Firebase",
   "PostgreSQL",
-  "Python",
   "Express.js",
   "MongoDB",
   "Next.js",
-  "Nest.js",
   "Tailwind",
+  "SCSS",
   "MDX",
   "BeautifulSoup",
   "PYQT5",
   "SciKit-Learn",
-  "SCSS",
   "SpaCy",
 ] as const;
 

@@ -35,13 +35,13 @@ export const Scroll = ({ children, term, setTerm }: Props) => {
       </ScrollContainer>
 
       <Navigation>
-        <button onClick={() => handleScroll("left")}>
+        <button id="scroll-left" onClick={() => handleScroll("left")}>
           <LeftIcon />
           Scroll Left
         </button>
-        <button onClick={() => handleScroll("right")}>
-          <RightIcon />
+        <button id="scroll-right" onClick={() => handleScroll("right")}>
           Scroll Right
+          <RightIcon />
         </button>
       </Navigation>
     </>

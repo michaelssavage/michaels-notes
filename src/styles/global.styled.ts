@@ -12,6 +12,7 @@ export const underlineStyles = (color: "purple" | "red") => css`
   background-size: 100% 100%;
   transition: background-image 0.25s;
   font-weight: inherit;
+  border-radius: 0;
 
   &:hover {
     background-image: linear-gradient(
@@ -46,7 +47,7 @@ export const globalStyles = css`
     transition:
       color 0.5s,
       background-color 0.5s;
-    font-size: 16px;
+    font-size: 15px;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--color-yellow);
@@ -81,7 +82,7 @@ export const globalStyles = css`
   }
 
   p {
-    font-size: clamp(1rem, 0.9rem + 0.3vw, 1.1rem);
+    font-size: clamp(1rem, 0.9rem + 0.2vw, 1.1rem);
   }
 
   button:active {
