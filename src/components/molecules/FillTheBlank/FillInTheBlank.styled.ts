@@ -20,14 +20,14 @@ export const InputWrapper = styled.div<InputWrapperProps>`
 
   input {
     min-width: 12ch;
-    width: ${({ chars }) => `${chars}ch`};
+    width: ${({ chars }) => `calc(${chars}ch + 1.5rem)`};
     height: 100%;
     padding: 0rem 1.5rem 0 0.5rem;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 0.2rem;
     border: 1px solid transparent;
-    transition: all 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
     ::placeholder {
       text-align: center; 
@@ -54,6 +54,14 @@ export const InputWrapper = styled.div<InputWrapperProps>`
       }
     }}
   }
+`;
+
+export const AnswerRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.25rem;
+  row-gap: 0.25rem;
 `;
 
 export const AnswerButton = styled.button`
@@ -85,5 +93,15 @@ export const IconWrapper = styled.div`
 `;
 
 export const AnswerText = styled.p`
-  color: var(--color-blue300);
+  margin: 0;
+  color: var(--color-green);
+  min-width: 0;
+  flex: 1 1 auto;
+  margin-bottom: 0.25rem;
+
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
 `;

@@ -63,6 +63,8 @@ export const FillInTheBlank = ({
     setIsPartiallyCorrect(false);
   };
 
+  const inputCharWidth = Math.max(userAnswer.length, 12);
+
   return (
     <>
       {heading && <h3>{heading}</h3>}
@@ -72,7 +74,7 @@ export const FillInTheBlank = ({
         <InputWrapper
           isCorrect={isCorrect}
           isPartiallyCorrect={isPartiallyCorrect}
-          chars={Math.max(userAnswer.length, 12)}
+          chars={inputCharWidth}
         >
           <input
             type="text"
