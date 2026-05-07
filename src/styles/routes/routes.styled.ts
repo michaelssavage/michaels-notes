@@ -1,4 +1,4 @@
-import { forTabletOnly } from "@/styles/abstracts/mixins.styled";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -8,6 +8,16 @@ export const MiscContainer = styled.div`
   gap: 2rem;
   margin: 1rem 10% 2rem;
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
+`;
+
+export const PostList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  ${forPhoneOnly(css`
+    grid-template-columns: repeat(1, 1fr);
+  `)}
 `;
 
 export const masonryImgStyles = css`

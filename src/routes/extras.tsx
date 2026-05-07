@@ -1,8 +1,8 @@
-import { Group } from "@/components/atoms/Group";
 import { Player } from "@/components/atoms/Player";
 import { Anchor } from "@/components/molecules/Anchor";
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { Heading, Page } from "@/styles/routes/blog.styled";
-import { MiscContainer } from "@/styles/routes/routes.styled";
+import { MiscContainer, PostList } from "@/styles/routes/routes.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { createFileRoute } from "@tanstack/react-router";
@@ -20,17 +20,27 @@ interface ContentItem {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 0.5rem;
   padding: 1rem;
   border-radius: 0.4rem;
   background-color: var(--color-white);
   box-shadow: var(--color-green) 5px 3px;
-  max-width: 20rem;
+  transition: transform 0.3s ease;
+
+  :first-child,
+  :last-child {
+    grid-column: span 2;
+
+    ${forPhoneOnly(css`
+      grid-column: span 1;
+    `)}
+  }
 
   &:hover {
     box-shadow: var(--color-green200) 5px 5px;
 
-    first-child {
+    :first-child {
       transform: translateY(-5px);
     }
   }
@@ -152,14 +162,14 @@ function RouteComponent() {
       <MiscContainer>
         <Heading>Miscellaneous projects</Heading>
 
-        <Group direction="row" gap="1rem" wrap="wrap">
+        <PostList>
           {content.map((item) => (
             <Container key={item.id}>
               {item.title}
               {item.description}
             </Container>
           ))}
-        </Group>
+        </PostList>
       </MiscContainer>
     </Page>
   );
