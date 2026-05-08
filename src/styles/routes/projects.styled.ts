@@ -11,9 +11,16 @@ interface CardWrapperProps {
   $shouldDim: boolean | null;
 }
 
+interface TechProps {
+  bg: string;
+  bodyContrast: string;
+  main: string;
+  contrast: string;
+}
+
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   align-items: stretch;
   gap: 4px;
 
@@ -31,7 +38,7 @@ export const GridContainer = styled.div`
 
   ${forPhoneOnly(css`
     gap: 0.5rem;
-    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    grid-template-columns: repeat(1, 1fr);
   `)}
 `;
 
@@ -61,54 +68,69 @@ export const DraftBadge = styled.div`
 
 export const Card = styled(Link)`
   display: grid;
+  grid-template-rows: 1fr auto;
   overflow: hidden;
   will-change: transform;
-  border-radius: 0.2rem;
+  border-radius: 0.4rem;
   text-decoration: none;
   color: var(--color-black);
   background-color: var(--color-white);
   height: 100%;
-
-  border-radius: 0.4rem;
-  transition: box-shadow 0.3s ease;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-
-  &:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-  }
-`;
-
-export const CardTitle = styled.h3<{ main: string; contrast: string }>`
-  padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
-  font-size: clamp(0.8rem, 1.4vi + 0.1rem, 1rem);
-  background-color: ${({ main }) => main};
-  color: ${({ contrast }) => contrast};
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-
-  ${forTabletOnly(css`
-    font-size: clamp(0.8rem, 1vi + 0.31rem, 0.95rem);
-  `)}
-
-  ${forPhoneOnly(css`
-    font-size: 1rem;
-  `)}
 `;
 
 export const CardBody = styled.div<{ bg: string; contrast: string }>`
   padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
-  font-size: clamp(0.8rem, 0.8vi + 0.1rem, 1rem);
   background-color: ${({ bg }) => bg};
   color: ${({ contrast }) => contrast};
+`;
 
-  ${forTabletOnly(css`
-    font-size: clamp(0.72rem, 0.5vi + 0.45rem, 0.9rem);
-  `)}
+export const CardTitle = styled.h3`
+  font-size: clamp(1.2rem, 1.8vi + 0.3rem, 1.7rem);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.05em;
+  font-style: italic;
+`;
 
-  ${forPhoneOnly(css`
-    font-size: 0.9rem;
-  `)}
+export const CardDescription = styled.p`
+  margin-top: 0.5rem;
+  font-size: clamp(1rem, 0.8vi + 0.1rem, 1rem);
+`;
+
+export const CardTechnology = styled.p<TechProps>`
+  font-size: 0.8rem;
+  background-color: ${({ bg }) => bg};
+  color: ${({ bodyContrast }) => bodyContrast};
+  font-style: italic;
+  overflow: hidden;
+  margin-left: -1rem;
+
+  ${CardWrapper}:hover & {
+    background-color: ${({ main }) => main};
+    color: ${({ contrast }) => contrast};
+  }
+`;
+
+export const TechTrack = styled.span`
+  display: inline-flex;
+  white-space: nowrap;
+
+  @keyframes scrollRight {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  animation: scrollRight 10s linear infinite;
+  animation-play-state: paused;
+
+  ${CardWrapper}:hover & {
+    animation-play-state: running;
+  }
 `;
 
 export const Header = styled.div`

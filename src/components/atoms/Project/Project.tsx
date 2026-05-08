@@ -2,9 +2,12 @@ import { getContrastYIQ } from "@/lib/colors";
 import {
   Card,
   CardBody,
+  CardDescription,
+  CardTechnology,
   CardTitle,
   CardWrapper,
   DraftBadge,
+  TechTrack,
 } from "@/styles/routes/projects.styled";
 import type { IProject, ITechnology } from "@/types/Post";
 import { useMemo } from "react";
@@ -24,16 +27,29 @@ export const Project = ({ data, selectedTech }: Props) => {
     [colors.main],
   );
 
+  const singleTech = data.technology.join(" / ");
+
   return (
     <CardWrapper $shouldDim={shouldDim} data-testid="project-card">
       {draft && <DraftBadge>Draft</DraftBadge>}
       <Card key={id} to={slug}>
-        <CardTitle main={colors.main} contrast={titleContrast}>
-          {title}
-        </CardTitle>
         <CardBody bg={colors.bg} contrast={textContrast}>
-          {description}
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
         </CardBody>
+        <CardTechnology
+          bg={colors.bg}
+          bodyContrast={textContrast}
+          main={colors.main}
+          contrast={titleContrast}
+        >
+          <TechTrack>
+            <span>{singleTech}&nbsp;/&nbsp;</span>
+            <span>{singleTech}&nbsp;/&nbsp;</span>
+            <span>{singleTech}&nbsp;/&nbsp;</span>
+            <span>{singleTech}&nbsp;/&nbsp;</span>
+          </TechTrack>
+        </CardTechnology>
       </Card>
     </CardWrapper>
   );
