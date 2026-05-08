@@ -27,6 +27,7 @@ function AdminPage() {
     queryFn: fetchFeedback,
     refetchOnWindowFocus: false,
   });
+
   return (
     <Page>
       <Panel>

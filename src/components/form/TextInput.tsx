@@ -11,6 +11,7 @@ interface TextInputProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onPaste?: (e: React.ClipboardEvent<HTMLInputElement>) => void;
   styles?: SerializedStyles;
+  autoComplete?: HTMLInputElement["autocomplete"];
 }
 
 const StyledInput = styled.input<{ styles?: SerializedStyles }>`
@@ -20,6 +21,8 @@ const StyledInput = styled.input<{ styles?: SerializedStyles }>`
   border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
+
+  ${({ styles }) => styles}
 `;
 
 export const TextInput = ({
@@ -31,6 +34,7 @@ export const TextInput = ({
   onChange,
   onBlur,
   onPaste,
+  autoComplete = "off",
   styles,
 }: TextInputProps) => {
   return (
@@ -43,6 +47,7 @@ export const TextInput = ({
       onChange={onChange}
       onBlur={onBlur}
       onPaste={onPaste}
+      autoComplete={autoComplete}
       styles={styles}
     />
   );

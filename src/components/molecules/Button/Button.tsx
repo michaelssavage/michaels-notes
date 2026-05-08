@@ -13,6 +13,7 @@ export interface ButtonProps {
   id?: string;
   text?: string;
   disabled?: boolean;
+  ariaBusy?: boolean;
   type?: "submit" | "button";
   icon?: ReactElement;
   variant?: ButtonVariants;
@@ -26,6 +27,7 @@ export const Button = ({
   id,
   text,
   disabled,
+  ariaBusy,
   type = "button",
   variant = "primary",
   icon,
@@ -37,6 +39,7 @@ export const Button = ({
   return (
     <ButtonStyled
       {...(id ? { id } : {})}
+      aria-busy={ariaBusy || undefined}
       disabled={disabled}
       type={type}
       onClick={onClick}

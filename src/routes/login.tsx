@@ -2,7 +2,7 @@ import { TextInput } from "@/components/form/TextInput";
 import { Button } from "@/components/molecules/Button";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import styled from "@emotion/styled";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { SubmitEvent, useState } from "react";
 import { loginFn } from "../api/auth/login.api";
 
@@ -23,6 +23,11 @@ const FormStyled = styled.form`
 `;
 
 export const Route = createFileRoute("/login")({
+  beforeLoad: ({ context }) => {
+    if (context.isAdmin) {
+      throw redirect({ to: "/admin" });
+    }
+  },
   component: LoginPage,
 });
 
@@ -58,6 +63,7 @@ function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
+            autoComplete="new-password"
           />
           <Button type="submit" text="Login" disabled={!password} />
           {error && <p data-id="error">{error}</p>}

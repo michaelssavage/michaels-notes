@@ -24,10 +24,11 @@ function getDB(): D1Database {
 }
 
 export type Row = object;
+export type D1Param = string | number | boolean | null;
 
 export async function queryAll<T extends Row>(
   sql: string,
-  params: unknown[] = []
+  params: D1Param[] = []
 ): Promise<T[]> {
   const db = getDB();
   const { results } = await db
@@ -39,7 +40,7 @@ export async function queryAll<T extends Row>(
 
 export async function queryOne<T extends Row>(
   sql: string,
-  params: unknown[] = []
+  params: D1Param[] = []
 ): Promise<T | null> {
   const db = getDB();
   return db
@@ -50,7 +51,7 @@ export async function queryOne<T extends Row>(
 
 export async function execute(
   sql: string,
-  params: unknown[] = []
+  params: D1Param[] = []
 ): Promise<D1Result> {
   const db = getDB();
   return db

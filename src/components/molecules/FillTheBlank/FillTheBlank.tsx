@@ -11,7 +11,7 @@ import { normalizeText } from "./fillInTheBlank.util";
 interface FillInTheBlankProps {
   beforeText: string;
   afterText: string;
-  correctAnswer: string;
+  correctAnswer: string | string[];
   heading?: string;
 }
 
@@ -24,21 +24,31 @@ export const FillInTheBlank = ({
   const [userAnswer, setUserAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isPartiallyCorrect, setIsPartiallyCorrect] = useState(false);
+  const correctAnswers = Array.isArray(correctAnswer)
+    ? correctAnswer
+    : [correctAnswer];
+  const firstCorrectAnswer = correctAnswers[0] ?? "";
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setUserAnswer(value);
 
     const trimmedUser = value.trim();
-    const trimmedCorrect = correctAnswer.trim();
+    const trimmedCorrectAnswers = correctAnswers.map((answer) => answer.trim());
 
-    if (trimmedUser.toLowerCase() === trimmedCorrect.toLowerCase()) {
+    if (
+      trimmedCorrectAnswers.some(
+        (answer) => trimmedUser.toLowerCase() === answer.toLowerCase(),
+      )
+    ) {
       setIsCorrect(true);
       setIsPartiallyCorrect(false);
     } else if (trimmedUser.length > 1) {
       const userBase = normalizeText(trimmedUser);
-      const correctBase = normalizeText(trimmedCorrect);
-      if (userBase === correctBase) {
+      const hasPartiallyCorrectAnswer = trimmedCorrectAnswers.some(
+        (answer) => userBase === normalizeText(answer),
+      );
+      if (hasPartiallyCorrectAnswer) {
         setIsCorrect(false);
         setIsPartiallyCorrect(true);
       } else {
@@ -58,7 +68,7 @@ export const FillInTheBlank = ({
   };
 
   const showAnswer = () => {
-    setUserAnswer(correctAnswer);
+    setUserAnswer(firstCorrectAnswer);
     setIsCorrect(true);
     setIsPartiallyCorrect(false);
   };

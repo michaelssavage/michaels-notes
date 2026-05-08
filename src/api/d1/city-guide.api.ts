@@ -1,4 +1,4 @@
-import { execute, queryAll, queryOne } from "@/api/d1/api";
+import { D1Param, execute, queryAll, queryOne } from "@/api/d1/api";
 import { GUIDE_TAGS, GUIDE_TYPES, GuideTableItem } from "@/types/Guide";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
@@ -27,7 +27,7 @@ export const getGuide = createServerFn({ method: "GET" })
   .inputValidator(GuideSchema)
   .handler(async ({ data }) => {
     const rows = await queryAll<GuideRow>(
-      `SELECT id, title, location, link, price, image, description, tags, type, coord_lat, coord_lng FROM "${data.name}"`
+      `SELECT id, title, location, link, price, image, description, tags, type, coord_lat, coord_lng FROM "${data.name}"`,
     );
     return rows.map(deserializeGuide);
   });
@@ -42,7 +42,7 @@ export const getGuideItem = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     const row = await queryOne<GuideRow>(
       `SELECT id, title, location, link, price, image, description, tags, type, coord_lat, coord_lng FROM "${data.name}" WHERE id = ?`,
-      [data.slug]
+      [data.slug],
     );
     if (!row) throw new Error("Item not found");
     return deserializeGuide(row);
@@ -69,7 +69,7 @@ export const updateGuideItem = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { updates, name, slug } = data;
     const setClauses: string[] = [];
-    const params: unknown[] = [];
+    const params: D1Param[] = [];
 
     if (updates.title !== undefined) {
       setClauses.push("title = ?");
@@ -113,12 +113,12 @@ export const updateGuideItem = createServerFn({ method: "POST" })
     params.push(slug);
     await execute(
       `UPDATE "${name}" SET ${setClauses.join(", ")} WHERE id = ?`,
-      params
+      params,
     );
 
     const row = await queryOne<GuideRow>(
       `SELECT id, title, location, link, price, image, description, tags, type, coord_lat, coord_lng FROM "${name}" WHERE id = ?`,
-      [slug]
+      [slug],
     );
     if (!row) throw new Error("Item not found");
     return deserializeGuide(row);
@@ -158,7 +158,7 @@ export const createGuideItem = createServerFn({ method: "POST" })
         item.type ?? "",
         item.coordinates?.lat ?? null,
         item.coordinates?.lng ?? null,
-      ]
+      ],
     );
     return item.id;
   });

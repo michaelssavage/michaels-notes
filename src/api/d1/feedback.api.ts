@@ -26,7 +26,7 @@ const getClientIp = (headers: Headers): string => {
 };
 
 const authMiddleware = createMiddleware().server(async ({ next, request }) =>
-  next({ context: { request } })
+  next({ context: { request } }),
 );
 
 export const submitFeedback = createServerFn({ method: "POST" })
@@ -48,7 +48,7 @@ export const submitFeedback = createServerFn({ method: "POST" })
     // Check minimum interval
     const last = await queryOne<{ created_at: string }>(
       "SELECT created_at FROM feedback WHERE ip = ? ORDER BY created_at DESC LIMIT 1",
-      [ip]
+      [ip],
     );
     if (
       last &&
@@ -58,29 +58,24 @@ export const submitFeedback = createServerFn({ method: "POST" })
     }
 
     // Rate limiting via feedback_tracking
-    const trackingKey = `${ip}:${now.getUTCHours()}`;
+    const trackingKey = `${ip}|${now.getUTCHours()}`;
     const existing = await queryOne<{ count: number }>(
       "SELECT count FROM feedback_tracking WHERE key = ?",
-      [trackingKey]
+      [trackingKey],
     );
 
-    if (existing) {
-      if (existing.count >= MAX_PER_HOUR)
-        throw new Response("Rate limited", { status: 429 });
-      await execute(
-        "UPDATE feedback_tracking SET count = count + 1 WHERE key = ?",
-        [trackingKey]
-      );
-    } else {
-      await execute(
-        "INSERT INTO feedback_tracking (key, count, created_at) VALUES (?, 1, ?)",
-        [trackingKey, nowIso]
-      );
-    }
+    if (existing && existing.count >= MAX_PER_HOUR)
+      throw new Response("Rate limited", { status: 429 });
+
+    await execute(
+      `INSERT INTO feedback_tracking (key, count, created_at) VALUES (?, 1, ?)
+       ON CONFLICT(key) DO UPDATE SET count = count + 1`,
+      [trackingKey, nowIso],
+    );
 
     await execute(
       "INSERT INTO feedback (text, ip, created_at) VALUES (?, ?, ?)",
-      [text, ip, nowIso]
+      [text, ip, nowIso],
     );
 
     return { ok: true };
@@ -105,5 +100,5 @@ export const getFeedback = createServerFn({ method: "GET" }).handler(
       ip: r.ip,
       createdAt: r.created_at,
     }));
-  }
+  },
 );
