@@ -2,6 +2,16 @@ import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const Homework = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-blue200);
+  background-color: var(--color-white);
+  border-radius: 0.5rem;
+  padding: 1rem;
+`;
+
 export const MiscContainer = styled.div`
   display: flex;
   flex-direction: column;

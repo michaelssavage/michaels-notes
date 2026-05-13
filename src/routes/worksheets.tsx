@@ -15,8 +15,8 @@ import {
   getLatestSpanishWorksheet,
 } from "@/api/spanish-homework.api";
 import { Group } from "@/components/atoms/Group";
-import { FormLabel } from "@/components/form/FormLabel";
 import { TextInput } from "@/components/form/TextInput";
+import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { FillInTheBlank } from "@/components/molecules/FillTheBlank/FillTheBlank";
 import { splitFillInTheBlankPrompt } from "@/components/molecules/FillTheBlank/fillInTheBlank.util";
@@ -24,7 +24,11 @@ import { TranslateTheSentence } from "@/components/molecules/TranslateTheSentenc
 import { WorksheetSkeleton } from "@/components/molecules/WorksheetSkeleton/WorksheetSkeleton";
 import { formatDate } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
-import { WorksheetDate, WorksheetHeader } from "@/styles/routes/routes.styled";
+import {
+  Homework,
+  WorksheetDate,
+  WorksheetHeader,
+} from "@/styles/routes/routes.styled";
 import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -54,7 +58,7 @@ function getLatestSection(worksheet?: SpanishWorksheet): SectionEntry[] {
 
 function WorksheetItems({ items }: { items: WorksheetItem[] }) {
   return (
-    <Group direction="column">
+    <Homework>
       {items.map((item, i) => {
         const prompt = splitFillInTheBlankPrompt(item.prompt);
 
@@ -77,7 +81,7 @@ function WorksheetItems({ items }: { items: WorksheetItem[] }) {
           />
         );
       })}
-    </Group>
+    </Homework>
   );
 }
 
@@ -133,23 +137,45 @@ function RouteComponent() {
           )}
           <h1>Spanish Worksheets</h1>
 
+          <Group margin="2rem 0" gap="0.5rem" align="flex-end">
+            <p>
+              A project that generates Spanish worksheets with AI. It gets
+              updated every two days.
+            </p>
+            <Anchor
+              link="https://michaelsavage.ie/projects/spanish-worksheets"
+              text="Read about the project here."
+              variant="link"
+            />
+          </Group>
+
           {isAdmin ? (
-            <Group direction="row" gap="1rem" align="flex-end" wrap="wrap">
-              <FormLabel
-                id={REQUEST_INPUT_ID}
-                label="Custom worksheet request"
-                styles={css`
+            <Group
+              direction="row"
+              gap="0.25rem"
+              wrap="wrap"
+              css={css`
+                max-width: 560px;
+
+                input {
+                  flex: 3;
+                  width: auto;
+                  padding: 6px 10px;
+                }
+                button {
                   flex: 1;
-                `}
-              >
-                <TextInput
-                  id={REQUEST_INPUT_ID}
-                  name="request"
-                  placeholder="Enter request... e.g. 'Subjunctive present tense about movies'"
-                  value={request}
-                  onChange={(e) => setRequest(e.target.value)}
-                />
-              </FormLabel>
+                  max-width: fit-content;
+                  justify-content: center;
+                }
+              `}
+            >
+              <TextInput
+                id={REQUEST_INPUT_ID}
+                name="request"
+                placeholder="Enter request... e.g. 'Subjunctive present tense about movies'"
+                value={request}
+                onChange={(e) => setRequest(e.target.value)}
+              />
               <Button
                 id="spanish-worksheet-create"
                 text={customIsLoading ? "Creating…" : "Create worksheet"}
@@ -165,11 +191,12 @@ function RouteComponent() {
           <WorksheetSkeleton />
         ) : customData ? (
           <Group
-            direction="column"
+            direction="row"
             gap="1.5rem"
             css={css`
               margin-top: 1.5rem;
             `}
+            wrap="wrap"
           >
             <p>
               <strong>Request:</strong> {customData.request}
@@ -195,7 +222,7 @@ function RouteComponent() {
         {isLoading ? (
           <WorksheetSkeleton />
         ) : data ? (
-          <Group direction="column" gap="1.5rem">
+          <Group direction="row" gap="1.5rem" wrap="wrap">
             {latestSections.map(({ key, title, items }) => (
               <Group key={key} direction="column" gap="0.75rem">
                 <h2>{title}</h2>

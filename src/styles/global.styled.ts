@@ -81,7 +81,8 @@ export const globalStyles = css`
     font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   }
 
-  p {
+  p,
+  a {
     font-size: clamp(1rem, 0.9rem + 0.2vw, 1.1rem);
   }
 
