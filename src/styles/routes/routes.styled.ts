@@ -2,14 +2,30 @@ import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const Div = styled.div`
+  display: block;
+`;
+
 export const Homework = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border: 1px solid var(--color-blue200);
-  background-color: var(--color-white);
+  box-shadow: var(--color-blue200) 5px 5px;
+  background-color: var(--color-blue50);
   border-radius: 0.5rem;
+  width: 100%;
   padding: 1rem;
+
+  & > div {
+    border-bottom: 1px solid var(--color-blue200);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+  }
 `;
 
 export const MiscContainer = styled.div`
@@ -89,5 +105,4 @@ export const WorksheetDate = styled.p`
 export const WorksheetHeader = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
 `;

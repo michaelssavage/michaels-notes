@@ -22,7 +22,7 @@ export type SpanishWorksheet = {
     past: SWItem[];
     present: SWItem[];
     future: SWItem[];
-    translation: TranslationItem[];
+    subjunctive: SWItem[];
   };
 };
 

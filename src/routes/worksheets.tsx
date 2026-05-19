@@ -42,7 +42,7 @@ function getFirstAnswer(answer: WorksheetItem["answer"]): string {
 }
 
 const REQUEST_INPUT_ID = "spanish-worksheet-request";
-const keys = ["past", "present", "future", "translation"] as const;
+const keys = ["past", "present", "future", "subjunctive"] as const;
 
 function getLatestSection(worksheet?: SpanishWorksheet): SectionEntry[] {
   if (!worksheet) return [];
@@ -137,17 +137,15 @@ function RouteComponent() {
           )}
           <h1>Spanish Worksheets</h1>
 
-          <Group margin="2rem 0" gap="0.5rem" align="flex-end">
-            <p>
-              A project that generates Spanish worksheets with AI. It gets
-              updated every two days.
-            </p>
+          <p>
+            A project that generates Spanish worksheets with AI. It gets updated
+            every two days.{" "}
             <Anchor
               link="https://michaelsavage.ie/projects/spanish-worksheets"
               text="Read about the project here."
               variant="link"
             />
-          </Group>
+          </p>
 
           {isAdmin ? (
             <Group
@@ -202,7 +200,7 @@ function RouteComponent() {
               <strong>Request:</strong> {customData.request}
             </p>
 
-            <Group direction="column" gap="0.75rem">
+            <Group direction="column" gap="0.75rem" width="100%">
               <h3>Exercises</h3>
               <WorksheetItems items={customData.content.exercises} />
             </Group>
@@ -224,7 +222,7 @@ function RouteComponent() {
         ) : data ? (
           <Group direction="row" gap="1.5rem" wrap="wrap">
             {latestSections.map(({ key, title, items }) => (
-              <Group key={key} direction="column" gap="0.75rem">
+              <Group key={key} direction="column" gap="0.75rem" width="100%">
                 <h2>{title}</h2>
                 <WorksheetItems items={items} />
               </Group>
