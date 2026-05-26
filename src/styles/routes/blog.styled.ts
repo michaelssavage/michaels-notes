@@ -6,6 +6,12 @@ import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const PostsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+`;
+
 export const Heading = styled.h1`
   margin: 0;
   color: var(--color-black);
@@ -16,11 +22,21 @@ export const Page = styled.section`
   min-height: 80vh;
 `;
 
+export const Filters = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+`;
+
 export const Panel = styled.div`
   margin: 1rem 10% 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.25rem;
 
   ${Col}:first-of-type {
     display: flex;
@@ -48,25 +64,11 @@ export const RowStyle = css`
   `)}
 `;
 
-export const Filter = styled.div`
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
-  p[data-id="filter-post-title"] {
-    color: var(--color-gray600);
-  }
-
-  ${forPhoneOnly(css`
-    width: 100%;
-  `)}
-`;
-
 export const ButtonGroup = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
+  margin-right: auto;
 
   ${ButtonStyled} {
     white-space: nowrap;

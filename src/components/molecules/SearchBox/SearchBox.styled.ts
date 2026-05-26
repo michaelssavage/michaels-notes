@@ -3,12 +3,9 @@ import styled from "@emotion/styled";
 
 export const Panel = styled.div<{ styles?: SerializedStyles }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: 0.5rem;
-
-  label {
-    color: var(--color-gray600);
-  }
 
   ${({ styles }) =>
     styles &&
@@ -27,7 +24,6 @@ export const Box = styled.div`
     line-height: 1.25rem;
     padding: 0.5rem 1rem 0.5rem 2.5rem;
     border: 2px solid var(--color-black);
-    border-radius: 0.5rem;
     width: 100%;
     color: var(--color-black);
     background-color: var(--color-white);

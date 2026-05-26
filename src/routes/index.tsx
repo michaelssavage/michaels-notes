@@ -12,11 +12,12 @@ import { Weather } from "@/components/molecules/Weather/Weather";
 import { sortByDate } from "@/lib/utils";
 import {
   ButtonGroup,
-  Filter,
+  Filters,
   Heading,
   Info,
   Page,
   Panel,
+  PostsList,
 } from "@/styles/routes/blog.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useMemo, useState } from "react";
@@ -125,7 +126,7 @@ function Blog() {
       <Panel>
         <Group direction="column" gap="0">
           <Heading>
-            Michael - Irish Software Developer based in{" "}
+            I&apos;m Michael - an Irish Software Developer based in{" "}
             <Floating
               type="tooltip"
               trigger={<span className="underline">Barcelona.</span>}
@@ -133,14 +134,16 @@ function Blog() {
             />
           </Heading>
         </Group>
+
         <Info data-filter={dataFilters}>
           I write about my <span data-id="onSite">learnings and mishaps</span>,{" "}
           <span data-id="isReview">reviews of movies and music</span>, previous{" "}
           <span data-id="isPlantBassd">Plant Bass&apos;d articles</span>, and{" "}
           <span data-id="isBite">bite-sized achievements</span>.
         </Info>
-        <Group wrap="wrap">
-          <p data-id="filter-post-title">Filter:</p>
+
+        <Filters>
+          <p>Filters:</p>
           <ButtonGroup>
             <Button
               icon={<CircleIcon dataId="onSite" />}
@@ -176,27 +179,26 @@ function Blog() {
               active={filter.isPlantBassd}
             />
           </ButtonGroup>
-        </Group>
-        <Filter>
           <SearchBox
             id="search-item"
-            label="Search:"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Spotify..."
           />
-        </Filter>
+        </Filters>
 
         <HomeLine />
 
         {posts.length > 0 ? (
-          posts.map((post, index) => {
-            return post.type === "bite" ? (
-              <Bite key={post.slug} {...post} />
-            ) : (
-              <Post key={post.slug} {...post} isFirst={index === 0} />
-            );
-          })
+          <PostsList>
+            {posts.map((post, index) => {
+              return post.type === "bite" ? (
+                <Bite key={post.slug} {...post} />
+              ) : (
+                <Post key={post.slug} {...post} isFirst={index === 0} />
+              );
+            })}
+          </PostsList>
         ) : (
           <NoPost />
         )}
