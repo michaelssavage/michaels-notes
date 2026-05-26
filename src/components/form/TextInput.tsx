@@ -18,7 +18,6 @@ const StyledInput = styled.input<{ styles?: SerializedStyles }>`
   width: 100%;
   padding: 8px 12px;
   border: 1px solid var(--color-gray400);
-  border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
 

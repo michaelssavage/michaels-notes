@@ -2,7 +2,14 @@ import type { IBlog, IReview } from "@/types/Post";
 import { useHydrated } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Description } from "./Description";
-import { Card, CardInfo, DateText, PostType, Title } from "./Post.styled";
+import {
+  Card,
+  CardInfo,
+  DateText,
+  getPostColor,
+  PostType,
+  Title,
+} from "./Post.styled";
 import PostSkeleton from "./PostSkeleton";
 
 const Post = ({
@@ -34,7 +41,7 @@ const Post = ({
       },
       {
         threshold: 0.1,
-      }
+      },
     );
 
     observer.observe(ref.current);
@@ -54,6 +61,10 @@ const Post = ({
 
   const isExpanded = useMemo(() => isFirst || isHovered, [isFirst, isHovered]);
 
+  const postColor = useMemo(() => {
+    return getPostColor(isExternal, type === "review");
+  }, [isExternal, type]);
+
   if (hydrated && !inView) {
     return (
       <article ref={ref}>
@@ -71,17 +82,15 @@ const Post = ({
     >
       <Card
         to={isExternal ? isExternal : `/${type}/${slug}`}
-        inView={hydrated ? inView : true}
         aria-label={`Read post: ${title}`}
-        isExternal={isExternal}
-        isReview={type === "review"}
+        inView={hydrated ? inView : true}
+        color={postColor}
       >
         <CardInfo>
-          <Title id={`post-title-${slug}`}>{title}</Title>
           <PostType>{isExternal ? "plantbassd.com" : type}</PostType>
+          <DateText>{date}</DateText>
         </CardInfo>
-
-        <DateText>{date}</DateText>
+        <Title id={`post-title-${slug}`}>{title}</Title>
 
         <Description
           description={description}

@@ -105,7 +105,6 @@ export const globalStyles = css`
   .callout {
     padding: 1rem;
     font-size: 1.2rem;
-    border-radius: 0.5rem;
     width: 100%;
     margin: 0.5rem 0;
     background-color: var(--color-yellow);
@@ -113,7 +112,6 @@ export const globalStyles = css`
 
   .simple-card {
     padding: 0.5rem;
-    border-radius: 0.25rem;
     margin-bottom: 1rem;
     background-color: var(--color-white);
   }
@@ -126,7 +124,6 @@ export const globalStyles = css`
 
   .popover-card {
     max-width: 600px;
-    border-radius: 10px;
     padding: 1rem;
     background-color: var(--color-yellow);
     border: 1px solid var(--color-blue200);

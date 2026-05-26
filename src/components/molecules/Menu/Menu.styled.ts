@@ -15,7 +15,6 @@ export const MenuContainer = styled.div<{ open: boolean }>`
   background-color: var(--color-white);
   padding: 1rem;
   border: 1px solid var(--color-black);
-  border-radius: 0.5rem;
   cursor: ${({ open }) => (open ? "default" : "pointer")};
 
   #back-to-target {

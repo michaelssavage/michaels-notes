@@ -5,14 +5,13 @@ import styled from "@emotion/styled";
 import { animated } from "@react-spring/web";
 import { Link } from "@tanstack/react-router";
 
-const getPostColor = (isExternal?: string, isReview?: boolean) => {
+export const getPostColor = (isExternal?: string, isReview?: boolean) => {
   if (isReview) return "var(--color-purple)";
   return isExternal ? "var(--color-blue200)" : "var(--color-red200)";
 };
 
 interface CardI {
-  isExternal?: string;
-  isReview?: boolean;
+  color: string;
   inView: boolean;
 }
 
@@ -62,6 +61,7 @@ export const PostType = styled.p`
 
 export const DateText = styled.p`
   font-style: italic;
+  font-weight: 500;
   color: var(--color-gray500);
   font-size: clamp(0.9rem, 0.7rem + 0.3vw, 1rem);
 `;
@@ -82,7 +82,6 @@ export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop
   position: relative;
   padding: 1rem;
   background-color: var(--color-white);
-  border-radius: 0.4rem;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -98,9 +97,7 @@ export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop
   }
 
   ${PostType} {
-    color: ${({ isExternal, isReview }) => {
-      return getPostColor(isExternal, isReview);
-    }};
+    color: ${({ color }) => color};
   }
 `;
 

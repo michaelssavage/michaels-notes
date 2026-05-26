@@ -25,7 +25,6 @@ export const Navigation = styled.div`
     color: var(--color-black);
     background-color: var(--color-white);
     border: 1px solid var(--color-black);
-    border-radius: 10px;
   }
 
   #scroll-left {

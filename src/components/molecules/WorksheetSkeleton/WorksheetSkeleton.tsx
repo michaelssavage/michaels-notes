@@ -11,7 +11,6 @@ const l10Animation = keyframes`
 const Loader = styled.div<{ width?: string; height?: string }>`
   width: 120px;
   height: 60px;
-  border-radius: 200px 200px 0 0;
   mask: repeating-radial-gradient(
     farthest-side at bottom,
     #0000 0,

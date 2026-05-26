@@ -17,7 +17,6 @@ export const Card = styled(Link, {
   flex: 0 0 auto;
   background-color: ${({ color }) => color || "var(--color-white)"};
   color: ${({ contrastColor }) => contrastColor};
-  border-radius: 0.4rem;
   padding: 0.7rem 1.4rem 0.7rem 1rem;
   display: flex;
   flex-direction: column;

@@ -3,7 +3,7 @@ import { Card, EmptyCard, Title } from "./Post.styled";
 
 export const NoPost = () => {
   return (
-    <Card inView>
+    <Card inView color="var(--color-gray)">
       <EmptyCard>
         <NotFound src="/not-found.png" alt="src not found" />
         <Title>No posts found</Title>

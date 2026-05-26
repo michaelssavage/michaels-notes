@@ -40,7 +40,6 @@ interface PopoverOptions {
 const DefaultButton = styled.button`
   color: blue;
   padding: 0;
-  border-radius: 4px;
 `;
 
 export function usePopover({

@@ -43,7 +43,6 @@ const CheckboxStyled = styled.div`
     width: 20px;
     background-color: var(--color-white100);
     border: 1px solid var(--color-gray400);
-    border-radius: 4px;
 
     &::after {
       content: "";

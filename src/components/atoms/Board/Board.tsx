@@ -15,7 +15,6 @@ const BoardStyle = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  border-radius: 5px;
   padding: 1em;
   box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.5);
 `;

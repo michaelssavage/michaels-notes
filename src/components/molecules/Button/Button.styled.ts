@@ -40,7 +40,6 @@ export const buttonWithIconStyles = css`
 export const ButtonStyled = styled.button<IStyle>`
   padding: 6px 10px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -98,7 +97,6 @@ export const ButtonStyled = styled.button<IStyle>`
           color: ${selected ? "var(--color-black)" : "var(--color-gray600)"};
           border: 2px solid var(--color-black);
           padding: 7px 14px;
-          border-radius: 8px;
           font-size: 0.8rem;
           &:hover {
             background-color: ${selected

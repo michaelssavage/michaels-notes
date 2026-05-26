@@ -12,7 +12,6 @@ export const Homework = styled.div`
   gap: 1rem;
   box-shadow: var(--color-blue200) 5px 5px;
   background-color: var(--color-blue50);
-  border-radius: 0.5rem;
   width: 100%;
   padding: 1rem;
 
@@ -105,4 +104,12 @@ export const WorksheetDate = styled.p`
 export const WorksheetHeader = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const MixedViewToggle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
 `;

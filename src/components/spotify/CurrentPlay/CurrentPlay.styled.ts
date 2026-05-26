@@ -27,7 +27,6 @@ export const NowPlaying = styled.div`
 
   gap: 0.75rem;
   padding: 0.6rem 0.8rem 1.2rem;
-  border-radius: 0.4rem;
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
   ${({ color }) => css`
     background-color: ${color || "var(--color-white)"};
@@ -94,7 +93,6 @@ export const ExpandButton = styled.button`
   border: 1px solid var(--color-black);
   cursor: pointer;
   padding: 0.2rem 0.4rem;
-  border-radius: 0.4rem;
   font-size: 0.9rem;
 
   display: flex;

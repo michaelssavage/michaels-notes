@@ -8,7 +8,6 @@ interface ImageProps {
 export const NotFound = styled.img`
   background-color: var(--color-white);
   width: 120px;
-  border-radius: 0.4rem;
 `;
 
 export const Wrapper = styled.figure`

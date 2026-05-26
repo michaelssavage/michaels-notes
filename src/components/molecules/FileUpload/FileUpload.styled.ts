@@ -31,7 +31,6 @@ export const UploadError = styled.div`
   color: var(--color-red300);
   padding: 0.75rem;
   background-color: var(--color-red);
-  border-radius: 0.5rem;
 
   p {
     margin: 0;
@@ -57,7 +56,6 @@ export const UploadFileItem = styled.div`
   gap: 0.5rem;
   padding: 0.75rem;
   border: 1px solid var(--color-gray400);
-  border-radius: 0.5rem;
   background-color: var(--color-white);
   transition: border-color 0.2s;
 
@@ -86,7 +84,6 @@ export const UploadFileProgress = styled.p`
 export const ImagePreview = styled.div`
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 0.375rem;
   overflow: hidden;
   border: 1px solid var(--color-gray300);
   display: flex;
@@ -119,7 +116,6 @@ export const ProgressBar = styled.div`
   width: 100%;
   height: 4px;
   background-color: var(--color-gray300);
-  border-radius: 2px;
   overflow: hidden;
 `;
 

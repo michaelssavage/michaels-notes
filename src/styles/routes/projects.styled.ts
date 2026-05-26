@@ -63,7 +63,6 @@ export const DraftBadge = styled.div`
   background-color: var(--color-red300);
   color: var(--color-white);
   padding: 0.25rem 0.5rem;
-  border-radius: 0.35rem;
 `;
 
 export const Card = styled(Link)`
@@ -71,7 +70,6 @@ export const Card = styled(Link)`
   grid-template-rows: 1fr auto;
   overflow: hidden;
   will-change: transform;
-  border-radius: 0.4rem;
   text-decoration: none;
   color: var(--color-black);
   background-color: var(--color-white);

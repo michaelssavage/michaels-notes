@@ -5,7 +5,6 @@ export const SpeechBubble = styled.div`
   color: var(--color-black);
   background-color: var(--color-yellow300);
   padding: 1rem;
-  border-radius: 0.4rem;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -6,7 +6,6 @@ export const MixCard = styled.div`
   margin: 0 auto;
   padding: 1rem;
   background: var(--color-white);
-  border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 1200px) {
@@ -17,7 +16,6 @@ export const MixCard = styled.div`
   @media (max-width: 480px) {
     margin: 0 0.25rem;
     padding: 0.5rem;
-    border-radius: 0.25rem;
   }
 `;
 

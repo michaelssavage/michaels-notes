@@ -9,7 +9,6 @@ export const ClockContainer = styled.div`
   background-color: var(--color-black);
   color: var(--color-yellow300);
   padding: 1.4rem;
-  border-radius: 10px;
   max-width: 100%;
 `;
 

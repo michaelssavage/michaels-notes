@@ -96,7 +96,6 @@ export const Card = styled.div`
   position: relative;
   background-color: var(--color-white);
   border: 2px solid var(--color-black);
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -117,7 +116,6 @@ export const Card = styled.div`
     font-weight: 500;
     background-color: var(--color-white);
     padding: 0.2rem 0.4rem;
-    border-radius: 6px;
   }
 
   p[data-id="type"] {
@@ -152,7 +150,6 @@ export const FilterContainer = styled.div`
 export const SearchInput = styled.input`
   padding: 0.5rem 1rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
   font-size: 1rem;
   min-width: 200px;
 
@@ -169,7 +166,6 @@ export const FilterableTag = styled.button<{ $isActive: boolean }>`
   color: ${({ $isActive }) =>
     $isActive ? "var(--color-black)" : "var(--color-gray600)"};
   border: 2px solid var(--color-black);
-  border-radius: 0.5rem;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
 
@@ -185,7 +181,6 @@ export const ClearFiltersButton = styled.button`
   background: var(--color-red);
   color: white;
   border: none;
-  border-radius: 5px;
 
   &:hover {
     background: var(--color-red200);
@@ -205,7 +200,7 @@ export const MapDrawerTrigger = styled.button`
   background: var(--color-white);
   color: var(--color-black);
   font-weight: 600;
-  border-radius: 999px;
+  border-radius: 50%;
   padding: 0.6rem 1.2rem;
   z-index: 40;
 
@@ -246,7 +241,7 @@ export const MapDrawerClose = styled.button`
   background: var(--color-white);
   color: var(--color-black);
   font-weight: 600;
-  border-radius: 999px;
+  border-radius: 50%;
   padding: 0.35rem 0.75rem;
 `;
 

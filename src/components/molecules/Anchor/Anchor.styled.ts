@@ -14,7 +14,6 @@ interface IStyle {
 export const LinkStyle = styled(Link)<IStyle>`
   text-decoration: none;
   transition: all 0.25s;
-  border-radius: 5px;
   width: fit-content;
   position: relative;
 

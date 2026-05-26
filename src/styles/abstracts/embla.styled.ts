@@ -43,7 +43,6 @@ const EmblaSlide = styled.div`
 
 const SlideInner = styled.div`
   box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-  border-radius: 1.8rem;
   font-size: 4rem;
   font-weight: 600;
   display: flex;

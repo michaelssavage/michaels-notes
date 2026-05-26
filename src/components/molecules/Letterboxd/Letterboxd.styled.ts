@@ -9,6 +9,10 @@ interface ICard {
 
 export const Text = styled.div`
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+
+  a {
+    font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+  }
   flex: 1;
 `;
 
@@ -25,13 +29,11 @@ export const Movie = styled.span<ICard>`
 `;
 
 export const MovieContainer = styled.div`
-  border-radius: 1rem;
   overflow: hidden;
 `;
 
 export const Card = styled(Link)`
   position: relative;
-  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;

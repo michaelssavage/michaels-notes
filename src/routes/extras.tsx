@@ -23,7 +23,6 @@ const Container = styled.div`
   flex: 1;
   gap: 0.5rem;
   padding: 1rem;
-  border-radius: 0.4rem;
   background-color: var(--color-white);
   box-shadow: var(--color-green) 5px 3px;
   transition: transform 0.3s ease;
@@ -140,11 +139,6 @@ const content: ContentItem[] = [
       <Player
         videoId="zGB_YubjRN8?si=uzfBT05mcp_fz5-4"
         title="Valentine's movie snippets"
-        styles={css`
-          iframe {
-            border-radius: 8px;
-          }
-        `}
       />
     ),
     description: (

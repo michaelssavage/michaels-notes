@@ -6,7 +6,6 @@ const Inline = styled.code`
   color: var(--color-white);
   background-color: var(--color-black);
   font-size: clamp(1rem, 0.9rem + 0.2vw, 1.1rem);
-  border-radius: 0.3em;
   padding: 2px 5px 3px;
   white-space: nowrap;
   font-weight: 600;

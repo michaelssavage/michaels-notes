@@ -15,14 +15,12 @@ const SkeletonBase = styled.div`
   );
   background-size: 800px 100%;
   animation: ${shimmer} 1.4s infinite linear;
-  border-radius: 0.2rem;
 `;
 
 const SkeletonCard = styled.div`
   flex: 0 0 auto;
   width: 10rem;
   background-color: var(--color-white100);
-  border-radius: 0.4rem;
   padding: 0.7rem 1.4rem 0.7rem 1rem;
   display: flex;
   flex-direction: column;

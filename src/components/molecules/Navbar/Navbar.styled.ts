@@ -117,6 +117,5 @@ export const AdminUserIcon = styled.div`
 export const AdminContent = styled.div`
   background-color: var(--color-yellow);
   padding: 1rem;
-  border-radius: 0.5rem;
   border: 1px solid var(--color-black);
 `;

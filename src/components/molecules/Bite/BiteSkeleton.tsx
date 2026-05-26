@@ -15,7 +15,6 @@ const SkeletonElement = styled.div<{ width?: string; height?: string }>`
   background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
   background-size: 200px 100%;
   animation: ${shimmer} 2s infinite ease-in-out;
-  border-radius: 4px;
   width: ${({ width }) => width || "100%"};
   height: ${({ height }) => height || "1rem"};
 `;

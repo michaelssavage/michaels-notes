@@ -15,7 +15,6 @@ const SkeletonBase = styled.div`
   );
   background-size: 800px 100%;
   animation: ${shimmer} 1.4s infinite linear;
-  border-radius: 0.2rem;
 `;
 
 const SkeletonContainer = styled.div`

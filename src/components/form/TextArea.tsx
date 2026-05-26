@@ -9,7 +9,6 @@ const StyledTextarea = styled.textarea<{ styles?: SerializedStyles }>`
   min-height: 2rem;
   padding: 8px 12px;
   border: 1px solid var(--color-gray400);
-  border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
   resize: vertical;

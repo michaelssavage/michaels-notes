@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 const TableContainer = styled.div`
   overflow-x: auto;
-  border-radius: 10px;
   border: 1px solid var(--color-black);
 `;
 

@@ -5,7 +5,6 @@ const StyledSlider = styled.input`
   appearance: none;
   width: 100%;
   height: 6px;
-  border-radius: 3px;
   background: #dddddd;
   outline: none;
   cursor: pointer;

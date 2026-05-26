@@ -48,7 +48,8 @@ export const Section = styled(animated.section)`
 export const Paragraph = styled.div<{ text?: string }>`
   width: 70%;
 
-  p {
+  p,
+  a {
     font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
   }
 
@@ -62,7 +63,6 @@ export const Paragraph = styled.div<{ text?: string }>`
 `;
 
 export const selfieStyle = css`
-  border-radius: 1rem;
   max-width: 300px;
   transition:
     transform 0.3s ease,
@@ -70,7 +70,7 @@ export const selfieStyle = css`
 
   &:hover {
     transform: rotate(-15deg);
-    border-radius: 0;
+    border-radius: 1rem;
   }
 
   img {
@@ -86,7 +86,6 @@ export const selfieStyle = css`
 `;
 
 export const plantbassdStyle = css`
-  border-radius: 1rem;
   max-width: 300px;
   transition:
     transform 0.3s ease,
@@ -101,7 +100,7 @@ export const plantbassdStyle = css`
 
   &:hover {
     transform: rotate(15deg);
-    border-radius: 0;
+    border-radius: 1rem;
   }
 `;
 
