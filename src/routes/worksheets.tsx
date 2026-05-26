@@ -1,9 +1,3 @@
-import { createFileRoute, useRouteContext } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/worksheets")({
-  component: RouteComponent,
-});
-
 import type {
   CustomWorksheet,
   SpanishWorksheet,
@@ -15,6 +9,7 @@ import {
   getLatestSpanishWorksheet,
 } from "@/api/spanish-homework.api";
 import { Group } from "@/components/atoms/Group";
+import { Toggle } from "@/components/atoms/Toggle";
 import { TextInput } from "@/components/form/TextInput";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
@@ -26,13 +21,15 @@ import { formatDate } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   Homework,
+  MixedViewToggle,
   WorksheetDate,
   WorksheetHeader,
 } from "@/styles/routes/routes.styled";
 import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 type WorksheetItem = SWItem | TranslationItem;
 type SectionEntry = { key: string; title: string; items: WorksheetItem[] };
@@ -77,6 +74,7 @@ function WorksheetItems({ items }: { items: WorksheetItem[] }) {
             key={`${i}-${prompt.beforeText.slice(0, 24)}`}
             beforeText={`${i + 1}. ${prompt.beforeText}`}
             afterText={prompt.afterText}
+            promptText={item.prompt}
             correctAnswer={item.answer}
           />
         );
@@ -84,12 +82,16 @@ function WorksheetItems({ items }: { items: WorksheetItem[] }) {
     </Homework>
   );
 }
+export const Route = createFileRoute("/worksheets")({
+  component: WorksheetsPage,
+});
 
-function RouteComponent() {
+function WorksheetsPage() {
   const { isAdmin } = useRouteContext({ from: "__root__" });
   const fetchWorksheet = useServerFn(getLatestSpanishWorksheet);
   const createWorksheet = useServerFn(getCustomWorksheet);
 
+  const [mixedSections, setMixedSections] = useState(true);
   const [request, setRequest] = useState("");
 
   const { data, isLoading } = useQuery<SpanishWorksheet>({
@@ -113,7 +115,16 @@ function RouteComponent() {
     enabled: false,
   });
 
-  const latestSections = getLatestSection(data);
+  const latestSections = useMemo(() => getLatestSection(data), [data]);
+
+  const mixedItems = useMemo(() => {
+    const all = latestSections.flatMap((s) => s.items);
+    for (let i = all.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [all[i], all[j]] = [all[j]!, all[i]!];
+    }
+    return all;
+  }, [latestSections]);
 
   function handleCustom() {
     const trimmed = request.trim();
@@ -137,15 +148,30 @@ function RouteComponent() {
           )}
           <h1>Spanish Worksheets</h1>
 
-          <p>
-            A project that generates Spanish worksheets with AI. It gets updated
-            every two days.{" "}
-            <Anchor
-              link="https://michaelsavage.ie/projects/spanish-worksheets"
-              text="Read about the project here."
-              variant="link"
-            />
-          </p>
+          {data?.themes ? (
+            <Group direction="column" gap="0" width="100%">
+              <p>
+                This project generates Spanish homework using AI and gets
+                updated every two days.{" "}
+                <Anchor
+                  link="https://michaelsavage.ie/projects/spanish-worksheets"
+                  text="Read about the project here."
+                  variant="link"
+                />
+              </p>
+
+              <p>Current theme: {data.themes.join(", ")}</p>
+
+              <MixedViewToggle>
+                <p>Split Tenses</p>
+                <Toggle
+                  on={mixedSections}
+                  handleChange={() => setMixedSections(!mixedSections)}
+                />
+                <p>Mixed Tenses</p>
+              </MixedViewToggle>
+            </Group>
+          ) : null}
 
           {isAdmin ? (
             <Group
@@ -207,8 +233,6 @@ function RouteComponent() {
           </Group>
         ) : null}
 
-        {data?.themes ? <p>Themes: {data.themes.join(", ")}</p> : null}
-
         {customError ? (
           <p role="alert">
             {customError instanceof Error
@@ -221,12 +245,16 @@ function RouteComponent() {
           <WorksheetSkeleton />
         ) : data ? (
           <Group direction="row" gap="1.5rem" wrap="wrap">
-            {latestSections.map(({ key, title, items }) => (
-              <Group key={key} direction="column" gap="0.75rem" width="100%">
-                <h2>{title}</h2>
-                <WorksheetItems items={items} />
-              </Group>
-            ))}
+            {mixedSections ? (
+              <WorksheetItems items={mixedItems} />
+            ) : (
+              latestSections.map(({ key, title, items }) => (
+                <Group key={key} direction="column" gap="0.75rem" width="100%">
+                  <h2>{title}</h2>
+                  <WorksheetItems items={items} />
+                </Group>
+              ))
+            )}
           </Group>
         ) : null}
       </Panel>

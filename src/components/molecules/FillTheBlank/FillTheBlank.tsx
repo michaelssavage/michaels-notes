@@ -1,17 +1,23 @@
 import { CheckIcon, XIcon } from "@/components/icons";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
+import toast from "react-hot-toast";
 import {
   AnswerButton,
   BlankContainer,
   IconWrapper,
   InputWrapper,
 } from "./FillInTheBlank.styled";
-import { normalizeText } from "./fillInTheBlank.util";
+import {
+  buildFillInTheBlankSentence,
+  normalizeText,
+  stripParentheticalVerbHints,
+} from "./fillInTheBlank.util";
 
 interface FillInTheBlankProps {
   beforeText: string;
   afterText: string;
   correctAnswer: string | string[];
+  promptText?: string;
   heading?: string;
 }
 
@@ -20,6 +26,7 @@ export const FillInTheBlank = ({
   beforeText,
   afterText,
   correctAnswer,
+  promptText,
 }: FillInTheBlankProps) => {
   const [userAnswer, setUserAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -73,12 +80,35 @@ export const FillInTheBlank = ({
     setIsPartiallyCorrect(false);
   };
 
+  const getSentenceText = () => {
+    const filled = promptText
+      ? buildFillInTheBlankSentence(promptText, userAnswer)
+      : `${beforeText}${userAnswer}${afterText}`;
+    if (promptText || !userAnswer.trim()) return filled;
+    return stripParentheticalVerbHints(filled);
+  };
+
+  const handleSentenceClick = async (e: MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.closest("input, button, [data-fill-blank-action]")) return;
+
+    try {
+      await navigator.clipboard.writeText(getSentenceText());
+      toast.success("Sentence copied to clipboard");
+    } catch {
+      toast.error("Could not copy sentence");
+    }
+  };
+
   const inputCharWidth = Math.max(userAnswer.length, 12);
 
   return (
     <>
       {heading && <h3>{heading}</h3>}
-      <BlankContainer>
+      <BlankContainer
+        onClick={handleSentenceClick}
+        title="Click to copy sentence"
+      >
         <span>{beforeText}</span>
 
         <InputWrapper
@@ -96,13 +126,13 @@ export const FillInTheBlank = ({
           />
 
           {isCorrect === true && (
-            <IconWrapper onClick={clearAnswer}>
+            <IconWrapper data-fill-blank-action onClick={clearAnswer}>
               <CheckIcon />
             </IconWrapper>
           )}
 
           {isCorrect === false && !isPartiallyCorrect && (
-            <IconWrapper onClick={clearAnswer}>
+            <IconWrapper data-fill-blank-action onClick={clearAnswer}>
               <XIcon />
             </IconWrapper>
           )}

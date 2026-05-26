@@ -10,6 +10,7 @@ interface InputWrapperProps {
 export const BlankContainer = styled.div`
   margin-bottom: 1rem;
   position: relative;
+  cursor: pointer;
 `;
 
 // prettier-ignore
@@ -25,7 +26,6 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     padding: 0rem 1.5rem 0 0.5rem;
     font-size: 1rem;
     font-weight: 500;
-    border-radius: 0.2rem;
     border: 1px solid transparent;
     transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
