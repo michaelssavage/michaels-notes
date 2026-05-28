@@ -1,3 +1,4 @@
+import { forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css, type SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -42,4 +43,14 @@ export const Box = styled.div`
     background-color: transparent;
     color: var(--color-gray600);
   }
+`;
+
+export const mainSearchStyled = css`
+  ${forTabletOnly(css`
+    width: 100%;
+
+    ${Box} {
+      width: 100%;
+    }
+  `)}
 `;

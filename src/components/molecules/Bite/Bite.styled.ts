@@ -1,3 +1,5 @@
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Year = styled.p`
@@ -27,6 +29,11 @@ export const Text = styled.div`
     margin-left: auto;
     white-space: nowrap;
   }
+
+  ${forPhoneOnly(css`
+    gap: 0.2rem;
+    flex-direction: column-reverse;
+  `)}
 `;
 
 export const BiteItem = styled.div`

@@ -29,12 +29,10 @@ export const CardInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
+  gap: 0.2rem;
 
   ${forPhoneOnly(css`
-    flex-direction: column;
-    gap: 0.5rem;
+    margin-bottom: 0.2rem;
   `)}
 
   a {

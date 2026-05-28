@@ -15,6 +15,11 @@ export const PostsList = styled.div`
 export const Heading = styled.h1`
   margin: 0;
   color: var(--color-black);
+  text-wrap: pretty;
+
+  ${forPhoneOnly(css`
+    font-size: clamp(1.2rem, 1rem + 0.9vw, 1.6rem);
+  `)}
 `;
 
 export const Page = styled.section`
@@ -29,7 +34,6 @@ export const Filters = styled.div`
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-bottom: 1rem;
-  padding: 0.5rem;
 `;
 
 export const Panel = styled.div`
@@ -94,6 +98,18 @@ export const ButtonGroup = styled.div`
       fill: var(--color-yellow300);
     }
   }
+
+  ${forPhoneOnly(css`
+    gap: 0.5rem 0.25rem;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    ${ButtonStyled} {
+      font-size: 0.8rem;
+    }
+  `)}
 `;
 
 export const Header = styled.h1`

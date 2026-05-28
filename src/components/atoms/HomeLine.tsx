@@ -19,7 +19,7 @@ export const HomeLine = () => {
   const width = scrollY
     .to({
       range: [0, 500],
-      output: [50, 100],
+      output: [100, 0],
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     })

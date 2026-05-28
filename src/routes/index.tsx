@@ -8,6 +8,7 @@ import { Button } from "@/components/molecules/Button";
 import { NoPost } from "@/components/molecules/Post/NoPost";
 import Post from "@/components/molecules/Post/Post";
 import { SearchBox } from "@/components/molecules/SearchBox";
+import { mainSearchStyled } from "@/components/molecules/SearchBox/SearchBox.styled";
 import { Weather } from "@/components/molecules/Weather/Weather";
 import { sortByDate } from "@/lib/utils";
 import {
@@ -147,7 +148,7 @@ function Blog() {
           <ButtonGroup>
             <Button
               icon={<CircleIcon dataId="onSite" />}
-              text="Posts"
+              text="Blog"
               variant="ghost"
               onClick={() => handleFilter({ onSite: !filter.onSite })}
               active={filter.onSite}
@@ -155,7 +156,7 @@ function Blog() {
 
             <Button
               icon={<CircleIcon dataId="isReview" />}
-              text="Reviews"
+              text="Review"
               variant="ghost"
               onClick={() => handleFilter({ isReview: !filter.isReview })}
               active={filter.isReview}
@@ -163,7 +164,7 @@ function Blog() {
 
             <Button
               icon={<CircleIcon dataId="isBite" />}
-              text="Bites"
+              text="Bite"
               variant="ghost"
               onClick={() => handleFilter({ isBite: !filter.isBite })}
               active={filter.isBite}
@@ -184,6 +185,7 @@ function Blog() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Spotify..."
+            styles={mainSearchStyled}
           />
         </Filters>
 
