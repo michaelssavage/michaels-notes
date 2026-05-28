@@ -3,6 +3,7 @@ export interface IBlog {
   code: string;
   title: string;
   date: string;
+  lastUpdated?: string;
   description: string;
   github?: string;
   draft?: boolean;
