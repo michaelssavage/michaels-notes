@@ -111,7 +111,7 @@ const content: ContentItem[] = [
     title: <Anchor link="/mixes" text="DJ mixes" variant="header" />,
     description: (
       <p>
-        Some DJ mixes streamed from Archive.org, with waveforms generated using
+        DJ mixes streamed from Archive.org, with waveforms generated using
         wavesurfer.js.
       </p>
     ),

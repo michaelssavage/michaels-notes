@@ -26,10 +26,10 @@ export const Route = createFileRoute("/mixes")({
 
 const mixes = [
   {
-    title: "House & Bass Mix",
+    title: "B2B House Party Mix",
     date: "29 Aug 2025",
     description:
-      "Recorded a b2b mix of house, hard house, uk bass, and more. Nearly 3 hours in the 120bpm - 140bpm range with tracks from the likes of Pangaea, Mall grab, and more.",
+      "A 3 hour B2B mix of house, hard house, uk bass, and more. In the 120bpm - 140bpm range with tracks from the likes of Pangaea, Mall grab, and more.",
     audioUrl:
       "https://ia600907.us.archive.org/10/items/29-aug-b-2b-mix_202508/29-aug-b2b-mix.mp3",
     waveFormData: "/mixes/29-aug-b2b-mix.json",
@@ -46,6 +46,17 @@ const mixes = [
     waveFormData: "/mixes/7-oct-23-mix.json",
     externalUrl:
       "https://www.mixcloud.com/michaelsaverage/organica-71023-lushed-b2b-michael-average/",
+  },
+  {
+    title: "Exceptional Dance Music",
+    date: "31 May 2026",
+    description:
+      "An at-home Sunday afternoon mix of bassy music I've been enjoying lately. Jumping from 120bpm up to 174bpm, with tracks from the likes of O'Flynn, Joy Orbison, and more.",
+    audioUrl:
+      "https://ia601905.us.archive.org/33/items/exceptional-dance-music-mix-31-may-2026/01%20exceptional%20dance%20music%20mix%2031%20may%202026.wav",
+    waveFormData: "/mixes/31-may-2026.json",
+    externalUrl:
+      "https://www.mixcloud.com/michaelsaverage/exceptional-dance-music/",
   },
 ];
 
@@ -106,8 +117,10 @@ function RouteComponent() {
           />
         </Group>
 
-        {mixes
-          .sort((a, b) => (a.date > b.date ? 1 : -1))
+        {[...mixes]
+          .sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+          )
           .map((mix) => (
             <AudioStreamer key={mix.audioUrl} {...mix} />
           ))}
