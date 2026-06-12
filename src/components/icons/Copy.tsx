@@ -1,4 +1,4 @@
-export const CopyIcon = ({ size = 16, color = "000000" }) => {
+export const CopyIcon = ({ size = 16, color = "#000000" }) => {
   return (
     <svg
       role="img"

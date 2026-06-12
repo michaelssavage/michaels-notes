@@ -1,5 +1,5 @@
-import { CheckIcon, XIcon } from "@/components/icons";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { CheckIcon, CopyIcon, XIcon } from "@/components/icons";
+import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import {
   AnswerButton,
@@ -19,6 +19,37 @@ interface FillInTheBlankProps {
   correctAnswer: string | string[];
   promptText?: string;
   heading?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
+}
+
+function getAnswerValidation(
+  userAnswer: string,
+  correctAnswers: string[],
+): { isCorrect: boolean | null; isPartiallyCorrect: boolean } {
+  const trimmedUser = userAnswer.trim();
+  const trimmedCorrectAnswers = correctAnswers.map((answer) => answer.trim());
+
+  if (
+    trimmedCorrectAnswers.some(
+      (answer) => trimmedUser.toLowerCase() === answer.toLowerCase(),
+    )
+  ) {
+    return { isCorrect: true, isPartiallyCorrect: false };
+  }
+
+  if (trimmedUser.length > 1) {
+    const userBase = normalizeText(trimmedUser);
+    const hasPartiallyCorrectAnswer = trimmedCorrectAnswers.some(
+      (answer) => userBase === normalizeText(answer),
+    );
+    return {
+      isCorrect: false,
+      isPartiallyCorrect: hasPartiallyCorrectAnswer,
+    };
+  }
+
+  return { isCorrect: null, isPartiallyCorrect: false };
 }
 
 export const FillInTheBlank = ({
@@ -27,57 +58,40 @@ export const FillInTheBlank = ({
   afterText,
   correctAnswer,
   promptText,
+  value,
+  onValueChange,
 }: FillInTheBlankProps) => {
-  const [userAnswer, setUserAnswer] = useState("");
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [isPartiallyCorrect, setIsPartiallyCorrect] = useState(false);
-  const correctAnswers = Array.isArray(correctAnswer)
-    ? correctAnswer
-    : [correctAnswer];
+  const [internalAnswer, setInternalAnswer] = useState("");
+  const isControlled = value !== undefined;
+  const userAnswer = isControlled ? value : internalAnswer;
+  const correctAnswers = useMemo(
+    () => (Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer]),
+    [correctAnswer],
+  );
   const firstCorrectAnswer = correctAnswers[0] ?? "";
+  const { isCorrect, isPartiallyCorrect } = useMemo(
+    () => getAnswerValidation(userAnswer, correctAnswers),
+    [userAnswer, correctAnswers],
+  );
+
+  const setUserAnswer = (next: string) => {
+    if (isControlled) {
+      onValueChange?.(next);
+    } else {
+      setInternalAnswer(next);
+    }
+  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setUserAnswer(value);
-
-    const trimmedUser = value.trim();
-    const trimmedCorrectAnswers = correctAnswers.map((answer) => answer.trim());
-
-    if (
-      trimmedCorrectAnswers.some(
-        (answer) => trimmedUser.toLowerCase() === answer.toLowerCase(),
-      )
-    ) {
-      setIsCorrect(true);
-      setIsPartiallyCorrect(false);
-    } else if (trimmedUser.length > 1) {
-      const userBase = normalizeText(trimmedUser);
-      const hasPartiallyCorrectAnswer = trimmedCorrectAnswers.some(
-        (answer) => userBase === normalizeText(answer),
-      );
-      if (hasPartiallyCorrectAnswer) {
-        setIsCorrect(false);
-        setIsPartiallyCorrect(true);
-      } else {
-        setIsCorrect(false);
-        setIsPartiallyCorrect(false);
-      }
-    } else {
-      setIsCorrect(null);
-      setIsPartiallyCorrect(false);
-    }
+    setUserAnswer(e.target.value);
   };
 
   const clearAnswer = () => {
     setUserAnswer("");
-    setIsCorrect(null);
-    setIsPartiallyCorrect(false);
   };
 
   const showAnswer = () => {
     setUserAnswer(firstCorrectAnswer);
-    setIsCorrect(true);
-    setIsPartiallyCorrect(false);
   };
 
   const getSentenceText = () => {
@@ -105,10 +119,7 @@ export const FillInTheBlank = ({
   return (
     <>
       {heading && <h3>{heading}</h3>}
-      <BlankContainer
-        onClick={handleSentenceClick}
-        title="Click to copy sentence"
-      >
+      <BlankContainer>
         <span>{beforeText}</span>
 
         <InputWrapper
@@ -139,6 +150,15 @@ export const FillInTheBlank = ({
         </InputWrapper>
 
         <span>{afterText}</span>
+
+        <IconWrapper
+          inline
+          title="Click to copy sentence"
+          data-fill-blank-action
+          onClick={handleSentenceClick}
+        >
+          <CopyIcon />
+        </IconWrapper>
 
         {!isCorrect && userAnswer.length > 0 && (
           <AnswerButton onClick={showAnswer}>Show Answer</AnswerButton>

@@ -37,11 +37,11 @@ export const MiscContainer = styled.div`
 
 export const PostList = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
 
   ${forPhoneOnly(css`
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
   `)}
 `;
 
@@ -109,7 +109,9 @@ export const WorksheetHeader = styled.div`
 export const MixedViewToggle = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  width: 100%;
   align-items: center;
   gap: 0.5rem;
-  margin: 1rem 0;
+  margin: 1.5rem 0 1rem;
 `;

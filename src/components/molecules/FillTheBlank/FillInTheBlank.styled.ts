@@ -10,7 +10,6 @@ interface InputWrapperProps {
 export const BlankContainer = styled.div`
   margin-bottom: 1rem;
   position: relative;
-  cursor: pointer;
 `;
 
 // prettier-ignore
@@ -72,15 +71,24 @@ export const AnswerButton = styled.button`
   background-color: transparent;
 `;
 
-export const IconWrapper = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: flex;
+export const IconWrapper = styled.div<{ inline?: boolean }>`
+  ${({ inline }) =>
+    inline
+      ? css`
+          display: inline-flex;
+          vertical-align: middle;
+          margin-left: 0.3rem;
+        `
+      : css`
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 100%;
+        `}
+  display: ${({ inline }) => (inline ? "inline-flex" : "flex")};
   align-items: center;
   justify-content: center;
   color: var(--color-white);
-  height: 100%;
   padding: 0.25rem;
   cursor: pointer;
 

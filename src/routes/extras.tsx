@@ -5,7 +5,7 @@ import { Heading, Page } from "@/styles/routes/blog.styled";
 import { MiscContainer, PostList } from "@/styles/routes/routes.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 
 const title = "Extras | Michael Savage";
 const description = "Miscellaneous links, small projects, and lists.";
@@ -13,35 +13,58 @@ const url = "https://michaelsavage.com/extras";
 
 interface ContentItem {
   id: string;
-  title: React.ReactNode;
+  title: string | React.ReactNode;
+  link?: string;
   description: React.ReactNode;
 }
 
+const BlockLink = styled(Link)`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+`;
+
 const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 0.5rem;
   padding: 1rem;
   background-color: var(--color-white);
-  box-shadow: var(--color-green) 5px 3px;
+  filter: drop-shadow(5px 5px 0 var(--color-green));
   transition: transform 0.3s ease;
 
-  :first-child,
-  :last-child {
-    grid-column: span 2;
-
-    ${forPhoneOnly(css`
-      grid-column: span 1;
-    `)}
+  h3 {
+    font-weight: 600;
+    color: var(--color-black);
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   }
 
-  &:hover {
-    box-shadow: var(--color-green200) 5px 5px;
+  &:nth-child(1),
+  &:nth-child(2) {
+    grid-column: span 3;
+  }
 
-    :first-child {
-      transform: translateY(-5px);
+  &:nth-child(3),
+  &:nth-child(4),
+  &:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  &:nth-child(6) {
+    grid-column: span 6;
+  }
+
+  ${forPhoneOnly(css`
+    &:nth-child(n) {
+      grid-column: span 1;
     }
+  `)}
+
+  &:hover {
+    filter: drop-shadow(5px 5px 0 var(--color-green200));
+    transform: translateY(-2px);
   }
 `;
 
@@ -62,9 +85,8 @@ export const Route = createFileRoute("/extras")({
 const content: ContentItem[] = [
   {
     id: "barcelona-guide",
-    title: (
-      <Anchor link="/guide/barcelona" text="Barcelona guide" variant="header" />
-    ),
+    title: "Barcelona guide",
+    link: "/guide/barcelona",
     description: (
       <p>
         Things to do and see, activities, live music venues, and other fun
@@ -82,9 +104,8 @@ const content: ContentItem[] = [
 
   {
     id: "spanish-worksheets",
-    title: (
-      <Anchor link="/worksheets" text="Spanish Worksheets" variant="header" />
-    ),
+    title: "Spanish Worksheets",
+    link: "/worksheets",
     description: (
       <p>
         Interactive Spanish homework generated every two days with AI, then
@@ -97,7 +118,8 @@ const content: ContentItem[] = [
 
   {
     id: "doodles",
-    title: <Anchor link="/doodles" text="Doodles" variant="header" />,
+    title: "Doodles",
+    link: "/doodles",
     description: (
       <p>
         Now and again I&apos;ll put pen to paper for tattoo ideas or for really
@@ -108,7 +130,8 @@ const content: ContentItem[] = [
 
   {
     id: "dj-mixes",
-    title: <Anchor link="/mixes" text="DJ mixes" variant="header" />,
+    title: "DJ mixes",
+    link: "/mixes",
     description: (
       <p>
         DJ mixes streamed from Archive.org, with waveforms generated using
@@ -118,13 +141,8 @@ const content: ContentItem[] = [
   },
   {
     id: "rekordbox-text-prettifier",
-    title: (
-      <Anchor
-        link="/pretty-text"
-        text="Rekordbox text prettifier"
-        variant="header"
-      />
-    ),
+    title: "Rekordbox text prettifier",
+    link: "/pretty-text",
     description: (
       <p>
         A utility function for formatting exported setlists from the DJ software
@@ -159,7 +177,8 @@ function RouteComponent() {
         <PostList>
           {content.map((item) => (
             <Container key={item.id}>
-              {item.title}
+              {item.link && <BlockLink to={item.link} />}
+              <h3>{item.title}</h3>
               {item.description}
             </Container>
           ))}

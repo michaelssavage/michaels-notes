@@ -53,7 +53,15 @@ function getLatestSection(worksheet?: SpanishWorksheet): SectionEntry[] {
     }));
 }
 
-function WorksheetItems({ items }: { items: WorksheetItem[] }) {
+function WorksheetItems({
+  items,
+  answers,
+  onAnswerChange,
+}: {
+  items: WorksheetItem[];
+  answers: Record<string, string>;
+  onAnswerChange: (prompt: string, value: string) => void;
+}) {
   return (
     <Homework>
       {items.map((item, i) => {
@@ -62,7 +70,7 @@ function WorksheetItems({ items }: { items: WorksheetItem[] }) {
         if (prompt.type === "translation") {
           return (
             <TranslateTheSentence
-              key={`${i}-${item.prompt.slice(0, 24)}`}
+              key={item.prompt}
               sentence={`${i + 1}. ${prompt.text}`}
               correctAnswer={getFirstAnswer(item.answer)}
             />
@@ -71,11 +79,13 @@ function WorksheetItems({ items }: { items: WorksheetItem[] }) {
 
         return (
           <FillInTheBlank
-            key={`${i}-${prompt.beforeText.slice(0, 24)}`}
+            key={item.prompt}
             beforeText={`${i + 1}. ${prompt.beforeText}`}
             afterText={prompt.afterText}
             promptText={item.prompt}
             correctAnswer={item.answer}
+            value={answers[item.prompt] ?? ""}
+            onValueChange={(value) => onAnswerChange(item.prompt, value)}
           />
         );
       })}
@@ -91,8 +101,19 @@ function WorksheetsPage() {
   const fetchWorksheet = useServerFn(getLatestSpanishWorksheet);
   const createWorksheet = useServerFn(getCustomWorksheet);
 
-  const [mixedSections, setMixedSections] = useState(true);
+  const [mixedSections, setMixedSections] = useState(false);
   const [request, setRequest] = useState("");
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+
+  function handleAnswerChange(prompt: string, value: string) {
+    setAnswers((prev) => {
+      if (!value) {
+        const { [prompt]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [prompt]: value };
+    });
+  }
 
   const { data, isLoading } = useQuery<SpanishWorksheet>({
     queryKey: ["spanish-worksheet", "latest"],
@@ -149,18 +170,19 @@ function WorksheetsPage() {
           <h1>Spanish Worksheets</h1>
 
           {data?.themes ? (
-            <Group direction="column" gap="0" width="100%">
+            <Group direction="column" gap="0.5rem" width="100%">
               <p>
                 This project generates Spanish homework using AI and gets
-                updated every two days.{" "}
+                updated every two days.
+                <br />
                 <Anchor
                   link="https://michaelsavage.ie/projects/spanish-worksheets"
                   text="Read about the project here."
                   variant="link"
                 />
+                <br />
+                Current theme: {data.themes.join(", ")}
               </p>
-
-              <p>Current theme: {data.themes.join(", ")}</p>
 
               <MixedViewToggle>
                 <p>Split Tenses</p>
@@ -228,7 +250,11 @@ function WorksheetsPage() {
 
             <Group direction="column" gap="0.75rem" width="100%">
               <h3>Exercises</h3>
-              <WorksheetItems items={customData.content.exercises} />
+              <WorksheetItems
+                items={customData.content.exercises}
+                answers={answers}
+                onAnswerChange={handleAnswerChange}
+              />
             </Group>
           </Group>
         ) : null}
@@ -246,12 +272,20 @@ function WorksheetsPage() {
         ) : data ? (
           <Group direction="row" gap="1.5rem" wrap="wrap">
             {mixedSections ? (
-              <WorksheetItems items={mixedItems} />
+              <WorksheetItems
+                items={mixedItems}
+                answers={answers}
+                onAnswerChange={handleAnswerChange}
+              />
             ) : (
               latestSections.map(({ key, title, items }) => (
                 <Group key={key} direction="column" gap="0.75rem" width="100%">
                   <h2>{title}</h2>
-                  <WorksheetItems items={items} />
+                  <WorksheetItems
+                    items={items}
+                    answers={answers}
+                    onAnswerChange={handleAnswerChange}
+                  />
                 </Group>
               ))
             )}
