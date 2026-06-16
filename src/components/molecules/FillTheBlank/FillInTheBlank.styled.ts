@@ -71,26 +71,29 @@ export const AnswerButton = styled.button`
   background-color: transparent;
 `;
 
-export const IconWrapper = styled.div<{ inline?: boolean }>`
+export const IconButton = styled.button<{ inline?: boolean }>`
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: var(--color-white);
+
   ${({ inline }) =>
     inline
       ? css`
           display: inline-flex;
           vertical-align: middle;
-          margin-left: 0.3rem;
+          margin-left: 0.2rem;
         `
       : css`
           position: absolute;
           right: 0;
           top: 0;
           height: 100%;
+          display: flex;
         `}
-  display: ${({ inline }) => (inline ? "inline-flex" : "flex")};
   align-items: center;
   justify-content: center;
-  color: var(--color-white);
-  padding: 0.25rem;
-  cursor: pointer;
 
   svg {
     flex-shrink: 0;

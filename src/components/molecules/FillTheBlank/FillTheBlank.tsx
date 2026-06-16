@@ -1,10 +1,10 @@
 import { CheckIcon, CopyIcon, XIcon } from "@/components/icons";
-import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import {
   AnswerButton,
   BlankContainer,
-  IconWrapper,
+  IconButton,
   InputWrapper,
 } from "./FillInTheBlank.styled";
 import {
@@ -102,10 +102,7 @@ export const FillInTheBlank = ({
     return stripParentheticalVerbHints(filled);
   };
 
-  const handleSentenceClick = async (e: MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLElement;
-    if (target.closest("input, button, [data-fill-blank-action]")) return;
-
+  const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(getSentenceText());
       toast.success("Sentence copied to clipboard");
@@ -137,28 +134,37 @@ export const FillInTheBlank = ({
           />
 
           {isCorrect === true && (
-            <IconWrapper data-fill-blank-action onClick={clearAnswer}>
+            <IconButton
+              type="button"
+              aria-label="Clear answer"
+              onClick={clearAnswer}
+            >
               <CheckIcon />
-            </IconWrapper>
+            </IconButton>
           )}
 
           {isCorrect === false && !isPartiallyCorrect && (
-            <IconWrapper data-fill-blank-action onClick={clearAnswer}>
+            <IconButton
+              type="button"
+              aria-label="Clear answer"
+              onClick={clearAnswer}
+            >
               <XIcon />
-            </IconWrapper>
+            </IconButton>
           )}
         </InputWrapper>
 
         <span>{afterText}</span>
 
-        <IconWrapper
+        <IconButton
+          type="button"
+          title="Copy sentence"
+          aria-label="Copy sentence"
+          onClick={handleCopy}
           inline
-          title="Click to copy sentence"
-          data-fill-blank-action
-          onClick={handleSentenceClick}
         >
           <CopyIcon />
-        </IconWrapper>
+        </IconButton>
 
         {!isCorrect && userAnswer.length > 0 && (
           <AnswerButton onClick={showAnswer}>Show Answer</AnswerButton>
