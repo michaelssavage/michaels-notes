@@ -18,6 +18,7 @@ export interface IReview {
   releaseYear: number;
   title: string;
   date: string;
+  lastUpdated?: string;
   description: string;
   director: string;
   draft?: boolean;
@@ -30,6 +31,7 @@ export interface IBite {
   id: string;
   slug: string;
   date: string;
+  lastUpdated?: string;
   description: string;
   link?: string;
   type: "bite";

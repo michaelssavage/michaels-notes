@@ -6,18 +6,18 @@ description: "Managing dependencies across multiple repositories can be challeng
 type: blog
 ---
 
-Managing dependencies across multiple repositories can be challenging and so so time-consuming. In our project, we have four private Github repositories, with one of these serving as a shared package, called "shared-components". This package is published to NPM and installed as a dependency in the other projects.
+Managing dependencies across multiple repositories was challenging and time-consuming. In a project at a previous job, we had four private GitHub repositories, with one serving as a shared package called "shared-components". This package was published to NPM and installed as a dependency in the other projects.
 
-Having one centralized place for the code to exist is beneficial for consistency and reducing duplicated code. But it's slow... and tedious. Each time we push a new version to NPM, we need to create three separate merge requests for the other repos, which can take up to ten minutes per update.
+Having one centralized place for the code was beneficial for consistency and reducing duplicated code. But the process was slow. Each time we published a new version to NPM, we had to create three separate merge requests for the other repositories, which could take up to ten minutes per update.
 
 ## Github Action
 
-To streamline this process, we've implemented a GitHub Action that automates the update procedure. This action:
+To improve this process, we implemented a GitHub Action that automated the update procedure. This action:
 
-1. Retrieves the current version of "shared-components" from NPM
-2. Installs the new version
-3. Commits the changes to a new branch
-4. Creates a merge request against the main branch, if there are differences
+1. Retrieved the current version of "shared-components" from NPM
+2. Installed the new version
+3. Committed the changes to a new branch
+4. Created a merge request against the main branch if there were differences
 
 ```yaml
 name: Update Shared Components
@@ -78,23 +78,23 @@ jobs:
           base: main
 ```
 
-This automation significantly reduces the time and effort required to keep all repositories up-to-date with the latest shared components.
+This automation significantly reduced the time and effort required to keep all repositories up to date with the latest shared components.
 
-To implement this solution, create a new file in the `.github/workflows` directory of your project, naming it appropriately (e.g., `create-merge-request.yml`).
+To implement this solution, created a new workflow file in the `.github/workflows` directory of each project, naming it appropriately (e.g., `create-merge-request.yml`).
 
-One key component of our GitHub Action is the use of `peter-evans/create-pull-request`. This powerful action automates the process of creating pull requests, making it an ideal tool for our use case. It allows us to programmatically create a pull request with the updated shared components, saving time and reducing the potential for human error.
+One key component of the GitHub Action was the use of `peter-evans/create-pull-request`. This action automated the process of creating pull requests, making it well suited to our use case. It allowed us to programmatically create pull requests with the updated shared components, saving time and reducing the potential for human error.
 
-Here's a breakdown of the workflow:
+Here's a breakdown of how the workflow worked:
 
-1. **Trigger**: The workflow is set to run on workflow_dispatch, meaning it can be manually triggered when needed.
-2. **Node.js Setup**: We're using Node.js version 18.20.4, which ensures compatibility with our project requirements.
-3. **Version Fetching**: The action fetches the latest version of the shared components package from NPM.
-4. **Package Update**: It updates the package.json and package-lock.json files with the new version of shared components.
-5. **Git Configuration**: The action sets up a Git user for the commit, using the github-actions[bot] identity.
-6. **Branch Naming**: A unique branch name is generated using the new version number and a timestamp, ensuring no conflicts with existing branches.
-7. **Pull Request Creation**: The peter-evans/create-pull-request action is used to create a pull request with a descriptive title and body, targeting the main branch.
-8. **Security**: The workflow uses GitHub secrets (GITHUB_TOKEN and NPM_TOKEN) to securely handle authentication for both GitHub and NPM operations.
+1. Trigger: The workflow was configured to run via workflow_dispatch, allowing it to be triggered manually when needed.
+2. Node.js Setup: We used Node.js version 18.20.4 to ensure compatibility with our project requirements.
+3. Version Fetching: The workflow fetched the latest version of the shared-components package from NPM.
+4. Package Update: It updated the package.json and package-lock.json files with the new version.
+5. Git Configuration: The workflow configured Git using the github-actions[bot] identity.
+6. Branch Naming: A unique branch name was generated using the version number and a timestamp to avoid naming conflicts.
+7. Pull Request Creation: The peter-evans/create-pull-request action created a pull request with a descriptive title and body targeting the main branch.
+8. Security: The workflow used GitHub secrets (GITHUB_TOKEN and NPM_TOKEN) to securely authenticate with GitHub and NPM.
 
-> 💡 Note: If your NPM package is private, you'll need to set up an NPM_TOKEN secret in your GitHub repository to allow the action to access the private registry.
+> 💡 Note: Because our NPM package was private, we had to configure an NPM_TOKEN secret in each repository so the workflow could access the private registry.
 
-By leveraging this GitHub Action, you can maintain consistency across your repositories more efficiently, allowing your team to focus on developing features rather than managing dependencies manually.
+By automating dependency updates with GitHub Actions, we reduced repetitive maintenance work and spent less time manually synchronizing repositories.

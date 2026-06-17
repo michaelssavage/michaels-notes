@@ -2,29 +2,34 @@
 id: 15
 title: Spite Driven Programming
 date: January 20, 2025
+lastUpdated: June 17, 2026
 description: "A music discovery application I used became a paid service. I was annoyed but understood the developer's decision. I decided, out of spite more than anything, to build my own version of the using the Spotify API."
 type: blog
 ---
+
+<Picture src="/blog/angry-programmer.jpg" alt="angry programmer" />
+
+<br />
 
 <Group>
 <Anchor link="https://new-music-releases.onrender.com/" text="New Music Releases" variant="button" />
 <Anchor text="Project write-up" link="/projects/new-music-releases" variant="button" /> 
 </Group>
 
-<Picture src="/blog/angry-programmer.jpg" alt="angry programmer" />
+<br />
 
-I was (am) a big fan of a music discovery application called <Anchor link="https://www.crabhands.com" text="crabhands" variant="link" isExternal />. It was an excellent mobile and web app built by a generous developer that used the Spotify API to notify users of new music releases. It was a great way for me to find new artists and songs that I wouldn't have come across otherwise.
+I was a big fan of a music discovery application called <Anchor link="https://www.crabhands.com" text="crabhands" variant="link" isExternal />. It was an excellent mobile and web app built by a generous developer that used the Spotify API to notify users of new music releases. It was a great way for me to find new artists and songs that I wouldn't have come across otherwise.
 
-As with many good things, it became a paid service. I was annoyed but understood the developer's decision. It had to be costly! I decided, out of spite more than anything, to build my own version of the basic services using the Spotify API. I wanted to see if I could replicate the functionality of updating a playlist daily and learn more about the Spotify API in the process. The documentation is great, so why not give it a go.
+As with many good things, the good times didn't last andit became a paid service. I was pretty pissed-off but I also understood the developer's decision. It had to be costly! I decided, out of spite more than anything, to build my own version of the basic services using the Spotify API. I wanted to see if I could replicate the functionality of updating a playlist daily and learn more about the Spotify API in the process. The Spotify documentation is great, so why not give it a go.
 
-I set about creating a full-stack app using React.js, Typescript, and Vite for my the frontend, and choosing Express.js, and MongoDB on the backend. I focused mostly on the backend, using a well-structured code architecture to guide me. My end goal was to let me sign in with my Spotify account, and then have the app automatically update a playlist with new releases from my saved artists using a CRON job.
+I created a full-stack app using React.js, Typescript, and Vite for my frontend, choosing Express.js for the backend, and MongoDB as the database. I focused mostly on the backend, using a well-structured code architecture to guide me. My end goal was to authenticate with my Spotify account, and ultimately have the app update a playlist with new releases from my saved artists automatically.
 
 <p className="callout">
 🏆 End goal achieved!
 </p>
 
-Right now, I have a working application deployed to Railway which hosts my server and the static frontend files, and updates a playlist if any of my saved artists release new tracks that day. I have a lot of ideas for this project, including adding notifications of new releases, but I'm happy with what I have so far.
+With lots of tinkering here and there, I developed a working serverless application deployed to Railway which wakes up and runs daily, and updates the "New Music Releases" playlist if any of my saved artists released new tracks, albums, or mixes that day. It may be an inferior service to the paid one at the moment, but damn it,I can call it mine! "Why did you build this?" I asked myself. "Because I was annoyed".
 
-So even though I could get a superior service for a small fee, I have my own version that I can tinker with and improve. That's pretty cool. I'm also happy that I have a new project to add to my portfolio. "Why did you build this?" "Because I was annoyed at a paid service and wanted to see if I could do it myself."
+June 17, 2026 Update: I added a new basic feature that means I don't really have to use the app at all anymore. I have a new playlist called "Artist Tracker" that I add artists to, that I want to start tracking. The app will monitor the playlist for updates, and pickup the artists' names and add them to the database that don't exist there yet. 
 
 <Anchor text="Github Link" link="https://github.com/michaelssavage/new-music-releases" variant="button" isExternal /> 

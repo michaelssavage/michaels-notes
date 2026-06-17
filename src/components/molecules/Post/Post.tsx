@@ -15,6 +15,7 @@ import PostSkeleton from "./PostSkeleton";
 const Post = ({
   title,
   date,
+  lastUpdated,
   description,
   isExternal,
   slug,
@@ -88,7 +89,12 @@ const Post = ({
       >
         <CardInfo>
           <PostType>{isExternal ? "plantbassd.com" : type}</PostType>
-          <DateText>{date}</DateText>
+          <DateText>
+            {date}
+            <span className="last-updated">
+              {lastUpdated ? ` (Updated ${lastUpdated})` : ""}
+            </span>
+          </DateText>
         </CardInfo>
         <Title id={`post-title-${slug}`}>{title}</Title>
 

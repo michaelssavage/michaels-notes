@@ -62,6 +62,12 @@ export const DateText = styled.p`
   font-weight: 500;
   color: var(--color-gray500);
   font-size: clamp(0.9rem, 0.7rem + 0.3vw, 1rem);
+
+  ${forPhoneOnly(css`
+    .last-updated {
+      display: none;
+    }
+  `)}
 `;
 
 export const DescriptionText = styled.p`

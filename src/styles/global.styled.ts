@@ -107,7 +107,11 @@ export const globalStyles = css`
     font-size: 1.2rem;
     width: 100%;
     margin: 0.5rem 0;
-    background-color: var(--color-yellow);
+    background-color: var(--color-yellow200);
+
+    > p {
+      margin: 0;
+    }
   }
 
   .simple-card {
