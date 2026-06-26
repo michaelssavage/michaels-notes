@@ -1,3 +1,4 @@
+import { DraftBadge } from "@/styles/routes/projects.styled";
 import type { IBlog, IReview } from "@/types/Post";
 import { useHydrated } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -18,6 +19,7 @@ const Post = ({
   lastUpdated,
   description,
   isExternal,
+  draft,
   slug,
   isFirst,
   type,
@@ -87,6 +89,7 @@ const Post = ({
         inView={hydrated ? inView : true}
         color={postColor}
       >
+        {draft && <DraftBadge>Draft</DraftBadge>}
         <CardInfo>
           <PostType>{isExternal ? "plantbassd.com" : type}</PostType>
           <DateText>
