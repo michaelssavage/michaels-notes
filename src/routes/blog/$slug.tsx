@@ -72,7 +72,9 @@ function Slug() {
           {post.date} {post.lastUpdated ? `(Updated ${post.lastUpdated})` : ""}
         </p>
         <Content>
-          <Header aria-labelledby={`post-title-${slug}`}>{post.title}</Header>
+          {post.header !== false && (
+            <Header aria-labelledby={`post-title-${slug}`}>{post.title}</Header>
+          )}
           <ClientOnly>
             <Markdown content={post} />
           </ClientOnly>

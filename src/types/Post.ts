@@ -8,6 +8,7 @@ export interface IBlog {
   github?: string;
   draft?: boolean;
   isExternal?: string;
+  header?: boolean;
   isFirst: boolean;
   type: "blog";
 }
