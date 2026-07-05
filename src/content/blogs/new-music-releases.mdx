@@ -1,0 +1,39 @@
+---
+id: 15
+title: New Music Releases
+date: January 20, 2025
+lastUpdated: July 5, 2026
+description: "A music discovery application I used became a paid service. I was annoyed but understood the developer's decision. I applied Spite Driven Programming to build my own version of the using the Spotify API."
+type: blog
+---
+
+<Picture src="/blog/angry-programmer.jpg" alt="angry programmer" />
+
+<br />
+
+<Group>
+<Anchor link="https://new-music-releases.onrender.com/" text="New Music Releases" variant="button" />
+<Anchor text="Project write-up" link="/projects/new-music-releases" variant="button" /> 
+</Group>
+
+<br />
+
+I was a big fan of the music discovery application Crabhands, which I used on mobile and desktop, to get notifications of music releases, events based on my saved artists, and more. It was a great way for me to find new artists and songs that I wouldn't have come across otherwise. The good times didn't last when it became a paid service. I understood the developer's decision. It had to be costly and it was a lot of work to maintain no doubt! But I decided, out of spite more than anything, to build my own basic version using the Spotify API. I wanted to see how far I could get updating a playlist daily and learning about the Spotify API in the process, and I had the Spotify documentation and chatbots at my disposal.
+
+## Spite-driven programming
+I created a full-stack app with an uncontroversial tech stack: React.js, Typescript, Express.js, and MongoDB for the database. I would have usually fired ahead with the frontend, but I wanted to focus on the backend first for this project. I tried to have a well-structured code architecture based on online advice. I added dependency injection to wire the repositories, services, and controllers together, I added retry and backoff logic in case I hit the Spotify API rate limit, which I did a few times early on, and I added concurrency logic so one call didn't fail the entire process.
+
+My target was to log in with my Spotify account, authenticate with the Spotify API, and ultimately have the app update a playlist with new releases from my saved artists automatically. End goal achieved! I have automatic token refresh every 4 minutes in the background with route guards for login state. The application is deployed to Render which gets triggered by a webhook to wake up and run checks for new tracks, albums, or mixes from any of my saved artists that day. Any successful hits are then added to the "New Music Releases" playlist on Spotify.
+
+With lots of tinkering here and there, I have been working on these features:
+
+## Artist Tracker
+I created a new playlist called "Artist Tracker" that I add artists to from the Spotify application. These are the artists that I want to hear new music from. My app will monitor this playlist for updates, pick up the artists' names and add them to the database that don't exist there yet. So the daily job now does two syncs, not one (releases + artist-tracker), with a 20-hour debounce guard to prevent overlapping runs.
+
+## Search Modal
+I can search Spotify's catalog directly for artists, albums, and tracks, and save/remove artists straight from the results.
+
+## Listen Later
+From the playlist updates tab, I can push any new-release track into a separate playlist called "Listen Later" that I use daily to clear progress of new and old music.
+
+<Anchor text="Github Link" link="https://github.com/michaelssavage/new-music-releases" variant="button" isExternal /> 
