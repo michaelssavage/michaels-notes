@@ -23,8 +23,10 @@ export const Box = styled.div`
   input {
     font-size: 0.875rem;
     line-height: 1.25rem;
-    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    padding: 0.375rem 1rem 0.375rem 2.5rem;
     border: 2px solid var(--color-black);
+    border-radius: 4px;
+
     width: 100%;
     color: var(--color-black);
     background-color: var(--color-white);

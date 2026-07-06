@@ -7,11 +7,7 @@ description: "A music discovery application I used became a paid service. I was 
 type: blog
 ---
 
-<Picture src="/blog/angry-programmer.jpg" alt="angry programmer" />
-
-<br />
-
-<Group>
+<Group wrap="wrap" gap="0.25rem 0.5rem">
 <Anchor link="https://new-music-releases.onrender.com/" text="New Music Releases" variant="button" />
 <Anchor text="Project write-up" link="/projects/new-music-releases" variant="button" /> 
 </Group>
@@ -19,6 +15,9 @@ type: blog
 <br />
 
 I was a big fan of the music discovery application Crabhands, which I used on mobile and desktop, to get notifications of music releases, events based on my saved artists, and more. It was a great way for me to find new artists and songs that I wouldn't have come across otherwise. The good times didn't last when it became a paid service. I understood the developer's decision. It had to be costly and it was a lot of work to maintain no doubt! But I decided, out of spite more than anything, to build my own basic version using the Spotify API. I wanted to see how far I could get updating a playlist daily and learning about the Spotify API in the process, and I had the Spotify documentation and chatbots at my disposal.
+
+
+<Picture src="/blog/angry-programmer.jpg" alt="angry programmer" />
 
 ## Spite-driven programming
 I created a full-stack app with an uncontroversial tech stack: React.js, Typescript, Express.js, and MongoDB for the database. I would have usually fired ahead with the frontend, but I wanted to focus on the backend first for this project. I tried to have a well-structured code architecture based on online advice. I added dependency injection to wire the repositories, services, and controllers together, I added retry and backoff logic in case I hit the Spotify API rate limit, which I did a few times early on, and I added concurrency logic so one call didn't fail the entire process.

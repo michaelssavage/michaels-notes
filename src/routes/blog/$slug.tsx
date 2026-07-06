@@ -86,7 +86,7 @@ function Slug() {
           setOpen={setOpen}
         />
 
-        <Group justify="space-between" align="center">
+        <Group justify="space-between" align="flex-start" wrap="wrap">
           <p className="date">
             {post.date}{" "}
             {post.lastUpdated ? `(Updated ${post.lastUpdated})` : ""}

@@ -106,11 +106,13 @@ export const globalStyles = css`
     align-items: center;
     gap: 0.25rem;
     flex-direction: row;
+    white-space: nowrap;
 
     svg {
       display: inline-block;
       width: 1.25rem;
       height: 1.25rem;
+      flex-shrink: 0;
     }
   }
 

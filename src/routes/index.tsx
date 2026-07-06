@@ -1,8 +1,11 @@
+import { getAllViews } from "@/api/d1/views.api";
 import { getMiniPosts } from "@/api/posts.api";
 import { Floating } from "@/components/atoms/Floating";
 import { Group } from "@/components/atoms/Group";
 import { HomeLine } from "@/components/atoms/HomeLine";
 import { CircleIcon } from "@/components/icons";
+import { FilterIcon } from "@/components/icons/Filter";
+import { SortIcon } from "@/components/icons/Sort";
 import { Bite } from "@/components/molecules/Bite";
 import { Button } from "@/components/molecules/Button";
 import { NoPost } from "@/components/molecules/Post/NoPost";
@@ -10,7 +13,8 @@ import Post from "@/components/molecules/Post/Post";
 import { SearchBox } from "@/components/molecules/SearchBox";
 import { mainSearchStyled } from "@/components/molecules/SearchBox/SearchBox.styled";
 import { Weather } from "@/components/molecules/Weather/Weather";
-import { sortByDate } from "@/lib/utils";
+import { sortByDate, sortByViews } from "@/lib/utils";
+import { customSelectStyles } from "@/styles/abstracts/react-select.styled";
 import {
   ButtonGroup,
   Filters,
@@ -22,6 +26,7 @@ import {
 } from "@/styles/routes/blog.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useMemo, useState } from "react";
+import Select from "react-select";
 
 export type FilterState = {
   isPlantBassd: boolean;
@@ -30,6 +35,19 @@ export type FilterState = {
   isReview: boolean;
 };
 
+type SortValue = "newest" | "oldest" | "most_views";
+
+type SortOption = {
+  value: SortValue;
+  label: string;
+};
+
+const sortOptions: SortOption[] = [
+  { value: "newest", label: "Newest" },
+  { value: "oldest", label: "Oldest" },
+  { value: "most_views", label: "Most Views" },
+];
+
 const title = "Writings | Michael Savage";
 const description = "Learnings, mishaps, and articles about random things.";
 const url = "https://michaelsavage.com/";
@@ -37,8 +55,23 @@ const url = "https://michaelsavage.com/";
 export const Route = createFileRoute("/")({
   component: Blog,
   loader: async () => {
-    const data = await getMiniPosts();
-    return data;
+    const [data, views] = await Promise.all([getMiniPosts(), getAllViews()]);
+
+    const viewsBySlug = new Map(
+      views.map(({ category, slug, count }) => [`${category}:${slug}`, count]),
+    );
+
+    return {
+      ...data,
+      blogs: data.blogs.map((blog) => ({
+        ...blog,
+        views: viewsBySlug.get(`blogs:${blog.slug}`) ?? 0,
+      })),
+      reviews: data.reviews.map((review) => ({
+        ...review,
+        views: viewsBySlug.get(`reviews:${review.slug}`) ?? 0,
+      })),
+    };
   },
   head: () => ({
     link: [{ rel: "canonical", href: url }],
@@ -54,6 +87,7 @@ export const Route = createFileRoute("/")({
 
 function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortValue, setSortValue] = useState<SortValue>("newest");
   const [filter, setFilter] = useState<FilterState>({
     isPlantBassd: true,
     onSite: true,
@@ -108,10 +142,17 @@ function Blog() {
         )
       : [];
 
-    return [...filteredBlogs, ...filteredReviews, ...filteredBites].sort(
-      sortByDate,
-    );
-  }, [filter, searchQuery, blogs, bites, reviews]);
+    const combined = [...filteredBlogs, ...filteredReviews, ...filteredBites];
+
+    switch (sortValue) {
+      case "most_views":
+        return combined.sort(sortByViews);
+      case "oldest":
+        return combined.sort((a, b) => sortByDate(b, a));
+      default:
+        return combined.sort(sortByDate);
+    }
+  }, [filter, searchQuery, sortValue, blogs, bites, reviews]);
 
   const activeFilters = Object.keys(filter).filter(
     (key) => filter[key as keyof FilterState],
@@ -144,8 +185,9 @@ function Blog() {
         </Info>
 
         <Filters>
-          <p>Filters:</p>
           <ButtonGroup>
+            <FilterIcon />
+
             <Button
               icon={<CircleIcon dataId="onSite" />}
               text="Blog"
@@ -180,6 +222,19 @@ function Blog() {
               active={filter.isPlantBassd}
             />
           </ButtonGroup>
+
+          <Group align="center">
+            <SortIcon />
+            <Select<SortOption>
+              instanceId="sort-select"
+              options={sortOptions}
+              value={sortOptions.find((option) => option.value === sortValue)}
+              onChange={(option) => option && setSortValue(option.value)}
+              isSearchable={false}
+              styles={customSelectStyles<SortOption>()}
+            />
+          </Group>
+
           <SearchBox
             id="search-item"
             value={searchQuery}
@@ -197,7 +252,12 @@ function Blog() {
               return post.type === "bite" ? (
                 <Bite key={post.slug} {...post} />
               ) : (
-                <Post key={post.slug} {...post} isFirst={index === 0} />
+                <Post
+                  key={post.slug}
+                  {...post}
+                  isFirst={index === 0}
+                  views={post.views}
+                />
               );
             })}
           </PostsList>

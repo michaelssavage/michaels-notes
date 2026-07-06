@@ -6,6 +6,13 @@ export const sortById = <T extends { id: number }>(a: T, b: T): number => {
   return a.id - b.id;
 };
 
+export const sortByViews = <T extends { views?: number }>(
+  a: T,
+  b: T,
+): number => {
+  return (b.views ?? 0) - (a.views ?? 0);
+};
+
 export const joinTags = (tags: Array<string>) => {
   return tags.map((tag) => `#${tag}`).join(" ");
 };

@@ -11,6 +11,7 @@ export interface IBlog {
   header?: boolean;
   isFirst: boolean;
   type: "blog";
+  views?: number;
 }
 
 export interface IReview {
@@ -26,6 +27,7 @@ export interface IReview {
   isExternal?: string;
   isFirst: boolean;
   type: "review";
+  views?: number;
 }
 
 export interface IBite {
@@ -36,6 +38,7 @@ export interface IBite {
   description: string;
   link?: string;
   type: "bite";
+  views?: number;
 }
 
 export const TECHNOLOGIES = [
@@ -77,6 +80,7 @@ export interface IProject {
   github?: string;
   live?: string;
   draft?: boolean;
+  lastUpdated?: string;
 }
 
 export interface IPosts {

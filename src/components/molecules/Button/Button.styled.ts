@@ -44,6 +44,8 @@ export const ButtonStyled = styled.button<IStyle>`
   display: flex;
   flex-direction: row;
   gap: 4px;
+  border-radius: 8px;
+
   align-items: center;
   text-wrap: nowrap;
 

@@ -1,4 +1,4 @@
-import { execute, queryOne } from "@/api/d1/api";
+import { execute, queryAll, queryOne } from "@/api/d1/api";
 import { createMiddleware, createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
@@ -29,6 +29,21 @@ export const getViews = createServerFn({ method: "GET" })
     );
     return { count: row?.count ?? 0 };
   });
+
+export type ViewCount = { slug: string; category: string; count: number };
+
+export const getAllViews = createServerFn({ method: "GET" }).handler(
+  async (): Promise<ViewCount[]> => {
+    try {
+      return await queryAll<ViewCount>(
+        "SELECT slug, category, count FROM page_views",
+      );
+    } catch (error) {
+      console.warn("Failed to load page views:", error);
+      return [];
+    }
+  },
+);
 
 export const recordView = createServerFn({ method: "POST" })
   .inputValidator(ViewsSchema)

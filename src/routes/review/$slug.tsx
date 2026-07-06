@@ -40,7 +40,10 @@ export const Route = createFileRoute("/review/$slug")({
       { property: "og:title", content: d?.post?.title || title },
       { property: "og:url", content: `${url}/${d?.post?.slug}` },
       { name: "description", content: d?.post?.description || description },
-      { property: "og:description", content: d?.post?.description || description },
+      {
+        property: "og:description",
+        content: d?.post?.description || description,
+      },
       { property: "og:type", content: "article" },
       { property: "article:published_time", content: d?.post?.date || "" },
       { property: "article:author", content: "Michael Savage" },
@@ -75,8 +78,12 @@ function Slug() {
           open={open}
           setOpen={setOpen}
         />
-        <Group justify="space-between" align="center">
-          <p className="date">{post.date}</p>
+
+        <Group justify="space-between" align="flex-start" wrap="wrap">
+          <p className="date">
+            {post.date}{" "}
+            {post.lastUpdated ? `(Updated ${post.lastUpdated})` : ""}
+          </p>
           <p className="views">
             <EyeIcon /> {views} {views === 1 ? "view" : "views"}
           </p>
