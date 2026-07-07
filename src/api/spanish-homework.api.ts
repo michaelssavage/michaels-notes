@@ -18,12 +18,7 @@ export type TranslationItem = {
 export type SpanishWorksheet = {
   created_at: Date;
   themes: string[];
-  content: {
-    past: SWItem[];
-    present: SWItem[];
-    future: SWItem[];
-    subjunctive: SWItem[];
-  };
+  content: Record<string, SWItem[]>;
 };
 
 export type CustomWorksheet = {
