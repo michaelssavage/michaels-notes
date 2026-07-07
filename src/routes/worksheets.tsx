@@ -2,7 +2,6 @@ import type {
   CustomWorksheet,
   SpanishWorksheet,
   SWItem,
-  TranslationItem,
 } from "@/api/spanish-homework.api";
 import {
   getCustomWorksheet,
@@ -31,17 +30,16 @@ import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 
-type WorksheetItem = SWItem | TranslationItem;
+type WorksheetItem = SWItem;
 type SectionEntry = { key: string; title: string; items: WorksheetItem[] };
-
-function getFirstAnswer(answer: WorksheetItem["answer"]): string {
-  return Array.isArray(answer) ? (answer[0] ?? "") : answer;
-}
 
 const REQUEST_INPUT_ID = "spanish-worksheet-request";
 
 function titleCase(text: string): string {
-  return text.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1));
+  return text.replace(
+    /\w\S*/g,
+    (word) => word.charAt(0).toUpperCase() + word.slice(1),
+  );
 }
 
 function getLatestSection(worksheet?: SpanishWorksheet): SectionEntry[] {
@@ -75,7 +73,9 @@ function WorksheetItems({
             <TranslateTheSentence
               key={item.prompt}
               sentence={`${i + 1}. ${prompt.text}`}
-              correctAnswer={getFirstAnswer(item.answer)}
+              correctAnswer={item.answer}
+              value={answers[item.prompt] ?? ""}
+              onValueChange={(value) => onAnswerChange(item.prompt, value)}
             />
           );
         }

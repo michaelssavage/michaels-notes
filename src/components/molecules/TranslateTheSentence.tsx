@@ -1,76 +1,104 @@
+import { CheckIcon, XIcon } from "@/components/icons";
 import {
   AnswerButton,
-  AnswerRow,
-  AnswerText,
+  BlankContainer,
+  IconButton,
+  InputWrapper,
 } from "@/components/molecules/FillTheBlank/FillInTheBlank.styled";
-import { animated, useTransition } from "@react-spring/web";
-import { useState } from "react";
-
-const AnimatedAnswerText = animated(AnswerText);
+import { getAnswerValidation } from "@/components/molecules/FillTheBlank/fillInTheBlank.util";
+import { ChangeEvent, useMemo, useState } from "react";
 
 interface TranslateTheSentenceProps {
   sentence: string;
-  correctAnswer: string;
-}
-
-/** Trailing `(…)` at end of string, e.g. grammar hints; inner parens not supported. */
-function splitTrailingParenthetical(sentence: string): {
-  main: string;
-  helper: string | null;
-} {
-  const m = sentence.match(/\s*(\([^)]+\))\s*$/);
-  if (!m || m.index === undefined) return { main: sentence, helper: null };
-  return {
-    main: sentence.slice(0, m.index).trimEnd(),
-    helper: m[1] ?? null,
-  };
+  correctAnswer: string | string[];
+  value?: string;
+  onValueChange?: (value: string) => void;
 }
 
 export const TranslateTheSentence = ({
   sentence,
   correctAnswer,
+  value,
+  onValueChange,
 }: TranslateTheSentenceProps) => {
-  const [showAnswer, setShowAnswer] = useState(false);
-  const { main, helper } = splitTrailingParenthetical(sentence);
+  const [internalAnswer, setInternalAnswer] = useState("");
+  const isControlled = value !== undefined;
+  const userAnswer = isControlled ? value : internalAnswer;
 
-  const handleShowAnswer = () => {
-    setShowAnswer((prev) => !prev);
+  const correctAnswers = useMemo(
+    () => (Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer]),
+    [correctAnswer],
+  );
+  const firstCorrectAnswer = correctAnswers[0] ?? "";
+  const { isCorrect, isPartiallyCorrect } = useMemo(
+    () => getAnswerValidation(userAnswer, correctAnswers),
+    [userAnswer, correctAnswers],
+  );
+
+  const setUserAnswer = (next: string) => {
+    if (isControlled) {
+      onValueChange?.(next);
+    } else {
+      setInternalAnswer(next);
+    }
   };
 
-  const answerTransitions = useTransition(showAnswer, {
-    from: { opacity: 0, transform: "translateY(-6px)" },
-    enter: { opacity: 1, transform: "translateY(0px)" },
-    leave: { opacity: 0, transform: "translateY(-6px)" },
-    config: { duration: 200 },
-  });
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserAnswer(e.target.value);
+  };
+
+  const clearAnswer = () => {
+    setUserAnswer("");
+  };
+
+  const showAnswer = () => {
+    setUserAnswer(firstCorrectAnswer);
+  };
+
+  const inputCharWidth = Math.max(userAnswer.length, 30);
 
   return (
-    <div>
-      <p>
-        {helper ? (
-          <>
-            {main}{" "}
-            <strong>
-              <em>{helper}</em>
-            </strong>
-            <AnswerButton onClick={handleShowAnswer}>
-              {showAnswer ? "Hide Answer" : "Show Answer"}
-            </AnswerButton>
-          </>
-        ) : (
-          main
-        )}
-      </p>
+    <BlankContainer>
+      <p>{sentence}</p>
 
-      <AnswerRow>
-        {answerTransitions((styles, item) =>
-          item ? (
-            <AnimatedAnswerText style={styles}>
-              {correctAnswer}
-            </AnimatedAnswerText>
-          ) : null,
+      <InputWrapper
+        isCorrect={isCorrect}
+        isPartiallyCorrect={isPartiallyCorrect}
+        chars={inputCharWidth}
+      >
+        <input
+          type="text"
+          name="translate-the-sentence"
+          value={userAnswer}
+          onChange={handleInputChange}
+          placeholder="Escribe la traducción..."
+          autoComplete="off"
+        />
+
+        {isCorrect === true && (
+          <IconButton
+            type="button"
+            aria-label="Clear answer"
+            onClick={clearAnswer}
+          >
+            <CheckIcon />
+          </IconButton>
         )}
-      </AnswerRow>
-    </div>
+
+        {isCorrect === false && !isPartiallyCorrect && (
+          <IconButton
+            type="button"
+            aria-label="Clear answer"
+            onClick={clearAnswer}
+          >
+            <XIcon />
+          </IconButton>
+        )}
+      </InputWrapper>
+
+      {!isCorrect && userAnswer.length > 0 && (
+        <AnswerButton onClick={showAnswer}>Show Answer</AnswerButton>
+      )}
+    </BlankContainer>
   );
 };

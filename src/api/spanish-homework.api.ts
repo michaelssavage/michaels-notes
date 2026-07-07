@@ -10,11 +10,6 @@ export type SWItem = {
   answer: Array<string>;
 };
 
-export type TranslationItem = {
-  prompt: string;
-  answer: string;
-};
-
 export type SpanishWorksheet = {
   created_at: Date;
   themes: string[];
