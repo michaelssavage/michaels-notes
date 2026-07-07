@@ -3,7 +3,7 @@ import {
   AnswerButton,
   BlankContainer,
   IconButton,
-  InputWrapper,
+  TranslateTextArea,
 } from "@/components/molecules/FillTheBlank/FillInTheBlank.styled";
 import { getAnswerValidation } from "@/components/molecules/FillTheBlank/fillInTheBlank.util";
 import { ChangeEvent, useMemo, useState } from "react";
@@ -43,7 +43,7 @@ export const TranslateTheSentence = ({
     }
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUserAnswer(e.target.value);
   };
 
@@ -55,24 +55,20 @@ export const TranslateTheSentence = ({
     setUserAnswer(firstCorrectAnswer);
   };
 
-  const inputCharWidth = Math.max(userAnswer.length, 30);
-
   return (
     <BlankContainer>
       <p>{sentence}</p>
-
-      <InputWrapper
+      <TranslateTextArea
         isCorrect={isCorrect}
         isPartiallyCorrect={isPartiallyCorrect}
-        chars={inputCharWidth}
       >
-        <input
-          type="text"
+        <textarea
           name="translate-the-sentence"
           value={userAnswer}
           onChange={handleInputChange}
           placeholder="Escribe la traducción..."
           autoComplete="off"
+          rows={1}
         />
 
         {isCorrect === true && (
@@ -80,6 +76,7 @@ export const TranslateTheSentence = ({
             type="button"
             aria-label="Clear answer"
             onClick={clearAnswer}
+            height="auto"
           >
             <CheckIcon />
           </IconButton>
@@ -90,11 +87,12 @@ export const TranslateTheSentence = ({
             type="button"
             aria-label="Clear answer"
             onClick={clearAnswer}
+            height="auto"
           >
             <XIcon />
           </IconButton>
         )}
-      </InputWrapper>
+      </TranslateTextArea>
 
       {!isCorrect && userAnswer.length > 0 && (
         <AnswerButton onClick={showAnswer}>Show Answer</AnswerButton>
