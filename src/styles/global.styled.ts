@@ -97,6 +97,25 @@ export const globalStyles = css`
     color: var(--color-gray400);
   }
 
+  .views {
+    font-size: 0.9rem;
+    font-style: italic;
+    font-weight: bold;
+    color: var(--color-gray500);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-direction: row;
+    white-space: nowrap;
+
+    svg {
+      display: inline-block;
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+    }
+  }
+
   .underline {
     cursor: pointer;
     ${underlineStyles("red")}

@@ -57,6 +57,11 @@ export const PostType = styled.p`
   align-items: center;
 `;
 
+export const Views = styled.p`
+  font-size: 0.875rem;
+  color: var(--color-gray500);
+`;
+
 export const DateText = styled.p`
   font-style: italic;
   font-weight: 500;

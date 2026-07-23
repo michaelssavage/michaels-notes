@@ -1,5 +1,6 @@
+import { expandAndAppear } from "@/styles/abstracts/animations.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Div = styled.div`
@@ -46,11 +47,39 @@ export const PostList = styled.div`
 `;
 
 export const masonryImgStyles = css`
+  cursor: pointer;
   transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
   }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+export const LightboxOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-white);
+  cursor: zoom-out;
+  animation: ${fadeIn} 0.2s ease-out;
+`;
+
+export const LightboxImage = styled.img`
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  ${expandAndAppear("0.2s")}
 `;
 
 export const SplitView = styled.div`

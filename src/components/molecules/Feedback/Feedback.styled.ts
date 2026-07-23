@@ -1,7 +1,5 @@
-import {
-  slideInAnimation,
-  spinInfinitely,
-} from "@/styles/abstracts/animations.styled";
+import { spinInfinitely } from "@/styles/abstracts/animations.styled";
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -26,27 +24,20 @@ export const FeedbackCard = styled.div`
 `;
 
 export const Card = styled.div`
-  position: fixed;
-  bottom: 24px;
-  z-index: 9999;
   background: var(--color-white);
   border: 1px solid var(--color-gray400);
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  width: 320px;
-  padding: 16px;
-  ${slideInAnimation("8px", "vertical")};
+  min-width: 320px;
+  padding: 12px 8px;
+  ${forPhoneOnly(css`
+    min-width: 100%;
+  `)}
 `;
 
 export const IpAddress = styled.p`
   white-space: nowrap;
-`;
-
-export const ButtonGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
 `;
 
 export const HeartContainer = styled.div`

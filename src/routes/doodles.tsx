@@ -1,8 +1,13 @@
 import { Picture } from "@/components/molecules/Picture";
 import { Page, Panel } from "@/styles/routes/blog.styled";
-import { masonryImgStyles } from "@/styles/routes/routes.styled";
+import {
+  LightboxImage,
+  LightboxOverlay,
+  masonryImgStyles,
+} from "@/styles/routes/routes.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { Masonry } from "masonic";
+import { useEffect, useState } from "react";
 
 const title = "Doodles | Michael Savage";
 const description =
@@ -25,20 +30,45 @@ export const Route = createFileRoute("/doodles")({
 
 const doodles = import.meta.glob(
   "/src/content/doodles/*.{png,jpg,jpeg,webp,svg}",
-  { eager: true, query: "?url", import: "default" }
+  { eager: true, query: "?url", import: "default" },
 );
 const doodleEntries = Object.entries(doodles) as [string, string][];
 
-const MasonryImg = ({ data: [path, src] }: { data: [string, string] }) => (
+const MasonryImg = ({
+  data: [path, src],
+  onClick,
+}: {
+  data: [string, string];
+  onClick: (src: string) => void;
+}) => (
   <Picture
     src={src}
     alt={path.split("/").pop()?.replace(/\..+$/, "") || ""}
     fit="contain"
     style={masonryImgStyles}
+    onClick={() => onClick(src)}
   />
 );
 
 function RouteComponent() {
+  const [selected, setSelected] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!selected) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
+
   return (
     <Page>
       <Panel>
@@ -47,10 +77,16 @@ function RouteComponent() {
 
       <Masonry
         items={doodleEntries}
-        render={MasonryImg}
+        render={(props) => <MasonryImg {...props} onClick={setSelected} />}
         columnGutter={8}
         columnWidth={250}
       />
+
+      {selected && (
+        <LightboxOverlay onClick={() => setSelected(null)}>
+          <LightboxImage src={selected} alt="" />
+        </LightboxOverlay>
+      )}
     </Page>
   );
 }

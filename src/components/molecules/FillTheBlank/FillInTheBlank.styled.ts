@@ -55,12 +55,56 @@ export const InputWrapper = styled.div<InputWrapperProps>`
   }
 `;
 
-export const AnswerRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: 0.25rem;
-  row-gap: 0.25rem;
+interface TranslateTextAreaProps {
+  isCorrect: boolean | null;
+  isPartiallyCorrect: boolean;
+}
+
+export const TranslateTextArea = styled.div<TranslateTextAreaProps>`
+  margin-top: 0.5rem;
+  width: 100%;
+  position: relative;
+
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.4rem 1.5rem 0.4rem 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    line-height: 1.4;
+    border: 1px solid transparent;
+    resize: vertical;
+    transition:
+      border-color 0.2s ease-in-out,
+      background-color 0.2s ease-in-out;
+
+    ::placeholder {
+      text-align: left;
+    }
+
+    ${({ isCorrect, isPartiallyCorrect }) => {
+      if (isCorrect === true) {
+        return css`
+          border: 1px solid var(--color-green300);
+          background-color: var(--color-green);
+        `;
+      }
+      if (isPartiallyCorrect) {
+        return css`
+          border: 1px solid var(--color-yellow300);
+          background-color: var(--color-yellow300);
+        `;
+      }
+      if (isCorrect === false) {
+        return css`
+          border: 1px solid var(--color-red300);
+          background-color: var(--color-red);
+        `;
+      }
+    }}
+  }
 `;
 
 export const AnswerButton = styled.button`
@@ -71,25 +115,26 @@ export const AnswerButton = styled.button`
   background-color: transparent;
 `;
 
-export const IconButton = styled.button<{ inline?: boolean }>`
+export const IconButton = styled.button<{ inline?: boolean; height?: string }>`
   background: none;
   border: none;
   padding: 0.25rem;
   cursor: pointer;
-  color: var(--color-white);
 
-  ${({ inline }) =>
+  ${({ inline, height }) =>
     inline
       ? css`
+          color: var(--color-black);
           display: inline-flex;
           vertical-align: middle;
           margin-left: 0.2rem;
         `
       : css`
+          color: var(--color-white);
           position: absolute;
           right: 0;
           top: 0;
-          height: 100%;
+          height: ${height || "auto"};
           display: flex;
         `}
   align-items: center;

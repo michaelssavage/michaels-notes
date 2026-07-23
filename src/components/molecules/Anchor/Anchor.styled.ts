@@ -28,6 +28,8 @@ export const LinkStyle = styled(Link)<IStyle>`
         return css`
           padding: 4px 10px;
           border: 1px solid;
+          border-radius: 8px;
+
           background-color: var(--color-blue200);
           color: var(--color-white);
           font-weight: 500;

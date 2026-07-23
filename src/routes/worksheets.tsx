@@ -2,7 +2,6 @@ import type {
   CustomWorksheet,
   SpanishWorksheet,
   SWItem,
-  TranslationItem,
 } from "@/api/spanish-homework.api";
 import {
   getCustomWorksheet,
@@ -31,24 +30,26 @@ import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 
-type WorksheetItem = SWItem | TranslationItem;
+type WorksheetItem = SWItem;
 type SectionEntry = { key: string; title: string; items: WorksheetItem[] };
 
-function getFirstAnswer(answer: WorksheetItem["answer"]): string {
-  return Array.isArray(answer) ? (answer[0] ?? "") : answer;
-}
-
 const REQUEST_INPUT_ID = "spanish-worksheet-request";
-const keys = ["past", "present", "future", "subjunctive"] as const;
+
+function titleCase(text: string): string {
+  return text.replace(
+    /\w\S*/g,
+    (word) => word.charAt(0).toUpperCase() + word.slice(1),
+  );
+}
 
 function getLatestSection(worksheet?: SpanishWorksheet): SectionEntry[] {
   if (!worksheet) return [];
 
-  return keys
+  return Object.keys(worksheet.content)
     .filter((k) => worksheet.content[k]?.length)
     .map((k) => ({
       key: k,
-      title: k.charAt(0).toUpperCase() + k.slice(1),
+      title: titleCase(k),
       items: worksheet.content[k]!,
     }));
 }
@@ -72,7 +73,9 @@ function WorksheetItems({
             <TranslateTheSentence
               key={item.prompt}
               sentence={`${i + 1}. ${prompt.text}`}
-              correctAnswer={getFirstAnswer(item.answer)}
+              correctAnswer={item.answer}
+              value={answers[item.prompt] ?? ""}
+              onValueChange={(value) => onAnswerChange(item.prompt, value)}
             />
           );
         }
@@ -185,12 +188,12 @@ function WorksheetsPage() {
               </p>
 
               <MixedViewToggle>
-                <p>Split Tenses</p>
+                <p>By Format</p>
                 <Toggle
                   on={mixedSections}
                   handleChange={() => setMixedSections(!mixedSections)}
                 />
-                <p>Mixed Tenses</p>
+                <p>Fully Mixed</p>
               </MixedViewToggle>
             </Group>
           ) : null}

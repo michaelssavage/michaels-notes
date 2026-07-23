@@ -9,7 +9,7 @@ import {
 } from "./FillInTheBlank.styled";
 import {
   buildFillInTheBlankSentence,
-  normalizeText,
+  getAnswerValidation,
   stripParentheticalVerbHints,
 } from "./fillInTheBlank.util";
 
@@ -21,35 +21,6 @@ interface FillInTheBlankProps {
   heading?: string;
   value?: string;
   onValueChange?: (value: string) => void;
-}
-
-function getAnswerValidation(
-  userAnswer: string,
-  correctAnswers: string[],
-): { isCorrect: boolean | null; isPartiallyCorrect: boolean } {
-  const trimmedUser = userAnswer.trim();
-  const trimmedCorrectAnswers = correctAnswers.map((answer) => answer.trim());
-
-  if (
-    trimmedCorrectAnswers.some(
-      (answer) => trimmedUser.toLowerCase() === answer.toLowerCase(),
-    )
-  ) {
-    return { isCorrect: true, isPartiallyCorrect: false };
-  }
-
-  if (trimmedUser.length > 1) {
-    const userBase = normalizeText(trimmedUser);
-    const hasPartiallyCorrectAnswer = trimmedCorrectAnswers.some(
-      (answer) => userBase === normalizeText(answer),
-    );
-    return {
-      isCorrect: false,
-      isPartiallyCorrect: hasPartiallyCorrectAnswer,
-    };
-  }
-
-  return { isCorrect: null, isPartiallyCorrect: false };
 }
 
 export const FillInTheBlank = ({

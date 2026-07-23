@@ -8,7 +8,7 @@ import {
 } from "@/components/icons";
 import { Feedback } from "@/components/molecules/Feedback/Feedback";
 import { lazy, Suspense } from "react";
-import { Wrapper } from "./Footer.styled";
+import { FooterWrapper, Wrapper } from "./Footer.styled";
 
 const isDevelopment = import.meta.env.DEV;
 
@@ -18,7 +18,7 @@ const PostHogCapture = lazy(() =>
       children,
     }: {
       children: (
-        capture: (event: string, props?: Record<string, unknown>) => void
+        capture: (event: string, props?: Record<string, unknown>) => void,
       ) => React.ReactNode;
     }) {
       const posthog = mod.usePostHog();
@@ -29,7 +29,7 @@ const PostHogCapture = lazy(() =>
 
       return <>{children(capture)}</>;
     },
-  }))
+  })),
 );
 
 const FooterContent = ({
@@ -42,43 +42,45 @@ const FooterContent = ({
   };
 
   return (
-    <Wrapper>
-      <Icon
-        label="Email"
-        link="mailto:michaelsavage940@gmail.com"
-        icon={<MailIcon />}
-        isExternal
-      />
+    <FooterWrapper>
+      <Wrapper>
+        <Icon
+          label="Email"
+          link="mailto:michaelsavage940@gmail.com"
+          icon={<MailIcon />}
+          isExternal
+        />
 
-      <Icon
-        label="GitHub"
-        link="https://github.com/michaelssavage"
-        icon={<GithubIcon />}
-        isExternal
-      />
+        <Icon
+          label="GitHub"
+          link="https://github.com/michaelssavage"
+          icon={<GithubIcon />}
+          isExternal
+        />
 
-      <Icon
-        label="LinkedIn"
-        link="https://www.linkedin.com/in/michaelssavage"
-        icon={<LinkedInIcon />}
-        isExternal
-      />
+        <Icon
+          label="LinkedIn"
+          link="https://www.linkedin.com/in/michaelssavage"
+          icon={<LinkedInIcon />}
+          isExternal
+        />
 
-      <Icon
-        label="Spotify"
-        link="https://open.spotify.com/user/1156402021"
-        icon={<SpotifyIcon />}
-        isExternal
-      />
+        <Icon
+          label="Spotify"
+          link="https://open.spotify.com/user/1156402021"
+          icon={<SpotifyIcon />}
+          isExternal
+        />
 
-      <Icon
-        label="My CV"
-        link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
-        icon={<ResumeIcon onClick={captureCvClick} />}
-        isExternal
-      />
+        <Icon
+          label="My CV"
+          link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
+          icon={<ResumeIcon onClick={captureCvClick} />}
+          isExternal
+        />
+      </Wrapper>
       <Feedback />
-    </Wrapper>
+    </FooterWrapper>
   );
 };
 

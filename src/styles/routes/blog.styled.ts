@@ -74,6 +74,10 @@ export const ButtonGroup = styled.div`
   flex-wrap: wrap;
   margin-right: auto;
 
+  svg[data-icon="filter"] {
+    display: inline-block;
+  }
+
   ${ButtonStyled} {
     white-space: nowrap;
     color: var(--color-gray600);
@@ -102,7 +106,7 @@ export const ButtonGroup = styled.div`
   ${forPhoneOnly(css`
     gap: 0.5rem 0.25rem;
 
-    svg {
+    svg:not([data-icon="filter"]) {
       width: 1rem;
       height: 1rem;
     }

@@ -10,20 +10,10 @@ export type SWItem = {
   answer: Array<string>;
 };
 
-export type TranslationItem = {
-  prompt: string;
-  answer: string;
-};
-
 export type SpanishWorksheet = {
   created_at: Date;
   themes: string[];
-  content: {
-    past: SWItem[];
-    present: SWItem[];
-    future: SWItem[];
-    subjunctive: SWItem[];
-  };
+  content: Record<string, SWItem[]>;
 };
 
 export type CustomWorksheet = {

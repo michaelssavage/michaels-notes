@@ -10,6 +10,7 @@ import {
   getPostColor,
   PostType,
   Title,
+  Views,
 } from "./Post.styled";
 import PostSkeleton from "./PostSkeleton";
 
@@ -23,6 +24,7 @@ const Post = ({
   slug,
   isFirst,
   type,
+  views,
 }: IBlog | IReview) => {
   const [isHovered, setIsHovered] = useState(false);
   const [inView, setInView] = useState(true);
@@ -100,6 +102,9 @@ const Post = ({
           </DateText>
         </CardInfo>
         <Title id={`post-title-${slug}`}>{title}</Title>
+        <Views>
+          {views ?? 0} {views === 1 ? "view" : "views"}
+        </Views>
 
         <Description
           description={description}

@@ -6,6 +6,7 @@ export { CheckIcon } from "./Check";
 export { CircleIcon } from "./Circle";
 export { CopyIcon } from "./Copy";
 export { ExternalLinkIcon } from "./ExternalLink";
+export { EyeIcon } from "./Eye";
 export { GithubIcon } from "./Github";
 export { HandIcon } from "./Hand";
 export { InfoIcon } from "./Info";
