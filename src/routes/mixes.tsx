@@ -58,6 +58,17 @@ const mixes = [
     externalUrl:
       "https://www.mixcloud.com/michaelsaverage/exceptional-dance-music/",
   },
+  {
+    title: "Bcombinator Terrace Sunset Mix",
+    date: "23 July 2026",
+    description:
+      "Post-work terrace house mix for Bcombinator Networking. Corporate friendly house music, e.g. ANOTR, Fred Again..., MAKEZ.",
+    audioUrl:
+      "https://ia601904.us.archive.org/18/items/bcombinato_terrace_23_7_26/bcombinato_terrace_23_7_26.wav",
+    waveFormData: "/mixes/23-july-2026.json",
+    externalUrl:
+      "https://www.mixcloud.com/michaelsaverage/bcombs-terrace-sunset-vibe/",
+  },
 ];
 
 const linkStyle = css`
