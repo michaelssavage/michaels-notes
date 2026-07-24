@@ -11,6 +11,7 @@ import { UnorderedList } from "@/components/content/UnorderedList";
 import { Anchor } from "@/components/molecules/Anchor";
 import { FillInTheBlank } from "@/components/molecules/FillTheBlank/FillTheBlank";
 import { Picture } from "@/components/molecules/Picture";
+import { TranslateTheSentence } from "@/components/molecules/TranslateTheSentence";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import { ImgPositioner } from "@/styles/routes/blog.styled";
 import { MDXProvider, useMDXComponents } from "@mdx-js/react";
@@ -52,6 +53,7 @@ const components = {
   Group,
   Floating,
   FillInTheBlank,
+  TranslateTheSentence,
 };
 
 interface MarkdownProps {
