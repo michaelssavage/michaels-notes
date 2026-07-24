@@ -53,7 +53,7 @@ export function WorksheetSkeleton() {
           This service uses the free tier of{" "}
           <Anchor
             link="https://railway.com"
-            text="Railway.com"
+            text="railway.com"
             variant="link"
             isExternal
           />
