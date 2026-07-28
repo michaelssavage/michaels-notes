@@ -40,13 +40,13 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { to: "/", text: "Writing", activeRoutes: ["/", "/blog", "/review"] },
   { to: "/projects", text: "Projects" },
-  { to: "/about", text: "About", count: 4 },
   {
     to: "/extras",
     text: "Extras",
     activeRoutes: ["/extras", "/guide", "/doodles", "/mixes", "/pretty-text"],
     count: 6,
   },
+  { to: "/about", text: "About", count: 4 },
 ];
 
 const useIsActive = ({ to, activeRoutes }: NavItem) => {

@@ -33,6 +33,7 @@ const Container = styled.div`
   padding: 1rem;
   background-color: var(--color-white);
   border: 1px solid var(--color-black);
+  box-shadow: var(--color-black) 5px 5px;
   transition: transform 0.3s ease;
 
   h3 {
@@ -63,7 +64,6 @@ const Container = styled.div`
   `)}
 
   &:hover {
-    filter: drop-shadow(5px 5px 0 var(--color-green200));
     transform: translateY(-2px);
   }
 `;

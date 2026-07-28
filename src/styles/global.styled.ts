@@ -122,7 +122,7 @@ export const globalStyles = css`
 
   .underline {
     cursor: pointer;
-    ${underlineStyles("red")}
+    ${underlineStyles("purple")}
   }
 
   .callout {

@@ -43,6 +43,7 @@ export const Section = styled(animated.section)`
   align-items: center;
   justify-content: center;
   scroll-snap-align: center;
+  border: 1px solid var(--color-black);
 `;
 
 export const Paragraph = styled.div<{ text?: string }>`

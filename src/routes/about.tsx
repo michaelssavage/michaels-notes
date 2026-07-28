@@ -43,15 +43,17 @@ function About() {
               style={selfieStyle}
             />
             <p>
-              Studied Computer Applications in DCU and started working with{" "}
+              I studied Computer Applications in DCU and started working
+              professionally in 2021 with{" "}
               <Anchor
                 link="https://careers.jaguarlandrover.com/where-we-are/ireland"
-                text="JLR"
+                text="JLR."
                 variant="link"
               />{" "}
-              in 2021. I&apos;m currently working as a Product Developer for a
-              startup in the heart of Barcelona using tools like React.js,
-              JavaScript, TypeScript, Django, Figma, and more!
+              I&apos;m currently working as a Product Developer for a Sports
+              Travel startup in Barcelona using tools like TypeScript, Django,
+              Figma, PostHog, Cloudflare, and more to build the best travel
+              experience!
             </p>
           </Group>
         </Paragraph>
@@ -61,16 +63,15 @@ function About() {
         <Paragraph>
           <Group align="center" gap="1rem" css={reverseBreak}>
             <p>
-              I co-created{" "}
+              From 2020 to 2023, I co-ran{" "}
               <Anchor
                 variant="link"
                 text="Plant Bass'd"
                 link="/blog/what-is-plant-bassd"
               />
-              , an electronic music blog and underground club night that that
-              took hold in Ireland and Scotland. I learned to DJ, create events,
-              design posters, and I&apos;m always trying my hand at producing
-              music on Ableton.
+              , an electronic music blog and underground club night that took
+              hold in Ireland and Scotland. I learned to DJ, create events,
+              design posters, and produce music on Ableton.
             </p>
             <Picture
               src="/blog/plantbassd.png"
@@ -100,8 +101,8 @@ function About() {
               I&apos;ve played sports like Gaelic Football and rugby growing up
               in Ireland. I represented Ulster Club u18s rugby, and I&apos;ve
               played for Monaghan RFC, Ennis RFC, and Corinthians RFC. I
-              completed the 2025 Barcelona Half Marathon in 1 hour and 44
-              minutes. Looking forward to the next challenge!
+              completed the 2025 Barcelona Half Marathon in 1:44:00. Always
+              looking forward to the next challenge!
             </p>
           </Group>
         </Paragraph>

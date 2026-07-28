@@ -3,7 +3,6 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
-import storybookPlugin from "./src/lib/storybook";
 
 export default defineConfig({
   server: { port: 3000 },
@@ -19,7 +18,6 @@ export default defineConfig({
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart(),
-    storybookPlugin(),
     react({
       include: /\.(mdx|tsx|ts)$/,
       jsxImportSource: "@emotion/react",

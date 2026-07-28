@@ -95,10 +95,10 @@ export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop
   flex-direction: column;
   width: 100%;
   border: 1px solid var(--color-black);
+  box-shadow: var(--color-black) 5px 5px;
   z-index: 2;
 
   &:hover {
-    box-shadow: var(--color-black) 5px 5px;
 
     ${Title} {
       transform: translateY(-5px);

@@ -6,8 +6,8 @@ export const Year = styled.p`
   font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease-in-out;
-  transform: rotate(-90deg);
-  margin-left: -1rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
   color: var(--color-yellow300);
 `;
 
@@ -18,6 +18,7 @@ export const Text = styled.div`
   background-color: var(--color-white);
   transition: 0.3s ease-in-out;
   border: 1px solid var(--color-black);
+  box-shadow: var(--color-black) 5px 5px;
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -43,12 +44,7 @@ export const BiteItem = styled.div`
 
   &:hover {
     ${Year} {
-      transform: rotate(0deg);
-      margin-left: 0;
-      margin-right: 0.5rem;
-    }
-    ${Text} {
-      box-shadow: var(--color-black) 5px 5px;
+      transform: translateY(-5px);
     }
   }
 `;
