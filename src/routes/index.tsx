@@ -168,7 +168,7 @@ function Blog() {
       <Panel>
         <Group direction="column" gap="0">
           <Heading>
-            I&apos;m Michael - an Irish Software Developer based in{" "}
+            Irish Software Developer based in{" "}
             <Floating
               type="tooltip"
               trigger={<span className="underline">Barcelona.</span>}
@@ -178,7 +178,8 @@ function Blog() {
         </Group>
 
         <Info data-filter={dataFilters}>
-          I write about my <span data-id="onSite">learnings and mishaps</span>,{" "}
+          Hi I&apos;m Michael, and I share{" "}
+          <span data-id="onSite">learnings and mishaps</span>,{" "}
           <span data-id="isReview">reviews of movies and music</span>, previous{" "}
           <span data-id="isPlantBassd">Plant Bass&apos;d articles</span>, and{" "}
           <span data-id="isBite">bite-sized achievements</span>.

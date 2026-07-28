@@ -1,5 +1,6 @@
 import { IWeather } from "@/types/Weather";
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseStatus } from "@tanstack/react-start/server";
 import { env } from "cloudflare:workers";
 
 export const getWeather = createServerFn({
@@ -15,8 +16,9 @@ export const getWeather = createServerFn({
   });
   if (!response.ok) {
     const body = await response.text();
+    setResponseStatus(response.status);
     throw new Error(
-      `Weather API error (${response.status}): ${body || "empty response"}`
+      `Weather API error (${response.status}): ${body || "empty response"}`,
     );
   }
   const data: IWeather = await response.json();

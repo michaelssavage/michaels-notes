@@ -13,17 +13,15 @@ type: blog
   />
 </ImgPositioner>
 
-On the projects page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was an interesting project to implement, helped by this blog <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" variant="link" />. Setting up the API, retrieving data via Postman requests, and then calling the Spotify API using fetch requests gave me good insight to OAuth.
+On the projects page, you can see what I'm currently listening to and what my top tracks are on Spotify. It was an interesting project to implement, helped by this blog <Anchor link="https://navidanindya.info/writing/spotify-now-playing-nuxt/" variant="link" />. Setting up the API, retrieving data via Bruno requests, and then calling the Spotify API using fetch requests gave me good insight to OAuth.
 
-## Create an app on the Spotify developer dashboard
+1. Create an app on the Spotify developer dashboard
 
-I first needed to visit the <Anchor link="https://developer.spotify.com/dashboard/" text="Spotify Developer Dashboard" variant="link" /> and log in with my Spotify credentials to create a new app.
-
-This generated a `Client ID` and `Client Secret` which I saved somewhere safe. I set the redirect URI to the local version of my site, which was `http:localhost:3000`.
+I first needed to visit the <Anchor link="https://developer.spotify.com/dashboard/" text="Spotify Developer Dashboard" variant="link" /> and log in with my Spotify credentials to create a new app. This generated a *Client ID* and *Client Secret* which I saved somewhere safe. I set the redirect URI to the local version of my site, which was `http:localhost:3000`.
 
 When I later deployed the site later, I had to update the redirect URI to match the deployed site's URL.
 
-## Get an auth code
+2. Get an auth code
 
 To authorize my account, I needed to create a URL that logs into Spotify and grants permission to the required scopes. Here's what I needed to construct the URL:
 
@@ -41,20 +39,16 @@ After authorization, I was redirected back to my site with a code query paramete
 http://localhost:3000/callback?code=AQC7P..gBoDU..
 ```
 
-## Get a refresh token
+3. Get a refresh token
 
-The `client_id:client_secret` combination needs to be encoded in Base64 format. I could have used a site like <Anchor link="https://www.base64encode.org/." variant="link" /> or print the result to the console:
-
-```js
-const encoded = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-```
+The `client_id:client_secret` combination needs to be encoded in Base64 format. Use a site like <Anchor link="https://www.base64encode.org/." variant="link" /> to get the encoded string.
 
 <Picture
   src="/blog/base64.png"
   alt="base64 of client id and client secret"
 />
 
-I used Postman for sending the requests. I set the endpoint, the headers and the body as x-www-form-urlencoded fields.
+I used Bruno for sending the POST requests. I set the endpoint, the headers and the body as x-www-form-urlencoded fields.
 
 ```shell
 curl --location 'https://accounts.spotify.com/api/token' \
@@ -65,9 +59,11 @@ curl --location 'https://accounts.spotify.com/api/token' \
 --data-urlencode 'redirect_uri=<MY_REDIRECT_URI>'
 ```
 
-The response from the endpoint has some fields but the important field I wanted was the `refresh_token`. This token doesn't expire, so I needed to keep it really safe.
+The response from the endpoint has some fields but the important field I wanted was the `refresh_token`. This token doesn't expire, so it must be kept safe and not shared with anyone.
 
-## Get an access token
+**Update (Jul 2026):** this used to be true, but Spotify now caps refresh tokens to a fixed lifetime — check the "Refresh Token Lifetime" field in your app's dashboard (currently 180 days). Once it expires, the refresh call starts failing with `invalid_grant: Refresh token revoked`, and you have to redo this whole authorization flow to mint a new one.
+
+4. Get an access token
 
 Obtaining the access token follows the same process as getting the refresh token. Isimply replaced the code with the `refresh_token`.
 
@@ -79,7 +75,7 @@ curl --location 'https://accounts.spotify.com/api/token' \
 --data-urlencode 'grant_type=refresh_token'
 ```
 
-The important field this time is the `access_token` which is used to retrieve my data and expires in one hour from the request time. Below is the JSON response returned from Postman.
+The important field this time is the `access_token` which is used to retrieve my data and expires in one hour from the request time. Below is the JSON response returned from Bruno.
 
 ```json
 {
@@ -90,7 +86,7 @@ The important field this time is the `access_token` which is used to retrieve my
 }
 ```
 
-## Get Spotify now playing
+5. Get Spotify now playing
 
 To get my currently playing track, I sent a GET request using the `access_token` I received.
 
@@ -118,7 +114,7 @@ The response from Spotify is a large JSON object with extensive information abou
 }
 ```
 
-## Get Spotify top tracks
+6. Get Spotify top tracks
 
 To get the top tracks I've been listening to, I sent a GET request using the same `access_token` I received. There are two optional query parameters I've included. The long term `time_range` looks at listening history over the past year and the `limit` is set to return 5 items only.
 
@@ -161,9 +157,9 @@ And when all my scopes are set up correctly and my tokens are correct, Spotify r
 }
 ```
 
-### Setting it all up
+7. Setting it all up
 
-Once I had everything working in Postman, I could finally move my work over to my React site and show some data. Here is how the fetch request looked:
+Once I had everything working in Bruno, I could finally move my work over to my React site and show some data. Here is how the fetch request looked:
 
 ```js
 // api/fetch-current-track.js
@@ -228,10 +224,10 @@ export const CurrentPlay = () => {
 
 <CurrentPlay />
 
-### Going forward
+8. Going forward
 
 I will continue to improve this Spotify implementation and have added the following:
 
-- a music preview that you can play and pause
-- dynamic colours based on the album art
-- showing most recently played if I'm not listening to anything right now
+- ~~a music preview that you can play and pause~~ Not possible due to API limitations.
+- dynamic colours based on the album art ✅
+- showing most recently played if I'm not listening to anything right now ✅

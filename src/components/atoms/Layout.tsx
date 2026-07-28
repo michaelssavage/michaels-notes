@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 const Container = styled.div`
-  padding-top: 110px;
+  padding-top: 1rem;
 
   ${forTabletOnly(css`
     padding-top: 80px;

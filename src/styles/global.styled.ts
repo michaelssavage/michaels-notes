@@ -34,6 +34,10 @@ export const globalStyles = css`
     font-display: swap;
   }
 
+  html {
+    overscroll-behavior: none;
+  }
+
   body {
     margin: 0;
     padding: 0;

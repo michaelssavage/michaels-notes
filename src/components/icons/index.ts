@@ -14,6 +14,7 @@ export { LeftIcon } from "./Left";
 export { LinkedInIcon } from "./LinkedIn";
 export { MailIcon } from "./Mail";
 export { MaximiseIcon } from "./Maximise";
+export { MenuIcon } from "./Menu";
 export { MinimiseIcon } from "./Minimise";
 export { MoonIcon } from "./Moon";
 export { PauseIcon } from "./Pause";

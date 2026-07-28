@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseStatus } from "@tanstack/react-start/server";
 import { env } from "cloudflare:workers";
 import { z } from "zod";
 
@@ -33,6 +34,7 @@ export const getLatestSpanishWorksheet = createServerFn({
   const token = env.SPANISH_API_TOKEN;
 
   if (!token) {
+    setResponseStatus(500);
     throw new Error("Missing SPANISH_API_TOKEN");
   }
 
@@ -46,6 +48,7 @@ export const getLatestSpanishWorksheet = createServerFn({
   });
 
   if (!response.ok) {
+    setResponseStatus(response.status);
     const body = await response.text();
     throw new Error(
       `Spanish worksheet API error (${response.status}): ${body || "empty response"}`,
@@ -63,6 +66,7 @@ export const getCustomWorksheet = createServerFn({
     const token = env.SPANISH_API_TOKEN;
 
     if (!token) {
+      setResponseStatus(500);
       throw new Error("Missing SPANISH_API_TOKEN");
     }
 
@@ -79,6 +83,7 @@ export const getCustomWorksheet = createServerFn({
     });
 
     if (!response.ok) {
+      setResponseStatus(response.status);
       const body = await response.text();
       throw new Error(
         `Spanish worksheet API error (${response.status}): ${body || "empty response"}`,

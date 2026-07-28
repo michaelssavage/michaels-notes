@@ -1,5 +1,4 @@
 import { spinInfinitely } from "@/styles/abstracts/animations.styled";
-import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -29,11 +28,7 @@ export const Card = styled.div`
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  min-width: 320px;
   padding: 12px 8px;
-  ${forPhoneOnly(css`
-    min-width: 100%;
-  `)}
 `;
 
 export const IpAddress = styled.p`

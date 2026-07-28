@@ -5,6 +5,7 @@ import type {
   IRecentTrackResponse,
 } from "@/types/Spotify";
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseStatus } from "@tanstack/react-start/server";
 
 export const getSpotifyTrack = createServerFn({ method: "GET" }).handler(
   async () => {
@@ -26,6 +27,7 @@ export const getSpotifyTrack = createServerFn({ method: "GET" }).handler(
         );
 
         if (!recentRes.ok) {
+          setResponseStatus(recentRes.status);
           throw new Error(
             `Failed to fetch recent track: ${await recentRes.text()}`,
           );
@@ -59,6 +61,7 @@ export const getSpotifyTrack = createServerFn({ method: "GET" }).handler(
       } as IPlayTrack;
     } catch (err) {
       console.error("Error fetching Spotify track:", err);
+      setResponseStatus(500);
       throw new Error("Internal server error");
     }
   },

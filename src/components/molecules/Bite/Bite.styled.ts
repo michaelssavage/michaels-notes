@@ -17,7 +17,7 @@ export const Text = styled.div`
   width: 100%;
   background-color: var(--color-white);
   transition: 0.3s ease-in-out;
-  box-shadow: var(--color-blue) 5px 5px;
+  border: 1px solid var(--color-black);
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -48,7 +48,7 @@ export const BiteItem = styled.div`
       margin-right: 0.5rem;
     }
     ${Text} {
-      box-shadow: var(--color-blue200) 5px 5px;
+      box-shadow: var(--color-black) 5px 5px;
     }
   }
 `;

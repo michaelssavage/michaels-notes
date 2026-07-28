@@ -1,6 +1,7 @@
 import { getSpotifyToken } from "@/api/spotify-token.api";
 import { ITopTrack, ITopTrackResponse } from "@/types/Spotify";
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseStatus } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 export const getTopTracks = createServerFn({ method: "POST" })
@@ -21,6 +22,7 @@ export const getTopTracks = createServerFn({ method: "POST" })
       );
 
       if (!res.ok) {
+        setResponseStatus(res.status);
         throw new Error("Failed to fetch top tracks");
       }
 
@@ -36,6 +38,7 @@ export const getTopTracks = createServerFn({ method: "POST" })
       return transformedTracks;
     } catch (err) {
       console.error("Error fetching favourite tracks:", err);
+      setResponseStatus(500);
       throw new Error("Internal server error");
     }
   });

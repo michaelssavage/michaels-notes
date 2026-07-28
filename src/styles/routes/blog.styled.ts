@@ -177,7 +177,7 @@ export const ImgPositioner = styled.div`
 
 export const Info = styled.p`
   color: var(--color-gray600);
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 2rem;
 
   span {
     color: var(--color-gray600);

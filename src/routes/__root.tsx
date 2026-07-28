@@ -3,6 +3,7 @@ import "@/styles/abstracts/colors.css";
 import "@/styles/abstracts/reset.css";
 
 import { checkAuthFn } from "@/api/auth/check.api";
+import { getMiniPosts, getProjects } from "@/api/posts.api";
 import { Layout } from "@/components/atoms/Layout";
 import { NotFound } from "@/components/atoms/NotFound";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
@@ -35,6 +36,20 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     } catch {
       return { isAdmin: false };
     }
+  },
+  loader: async () => {
+    const [miniPosts, projects] = await Promise.all([
+      getMiniPosts(),
+      getProjects(),
+    ]);
+
+    return {
+      writingCount:
+        miniPosts.blogs.length +
+        miniPosts.reviews.length +
+        miniPosts.bites.length,
+      projectsCount: projects.length,
+    };
   },
   head: () => ({
     meta: [

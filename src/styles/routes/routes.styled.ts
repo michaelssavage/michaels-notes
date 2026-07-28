@@ -111,10 +111,10 @@ export const SplitPanel = styled.div`
 export const SplitMap = styled.div`
   flex: 1 1 50%;
   width: 100%;
-  height: min(calc(100vh - 110px), 900px);
+  height: min(calc(100vh - 16rem - 1rem), 900px);
   min-height: 320px;
   position: sticky;
-  top: 70px;
+  top: calc(16rem + 1rem);
 
   ${forTabletOnly(css`
     position: static;

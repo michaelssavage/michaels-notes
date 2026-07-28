@@ -1,5 +1,6 @@
 import { LastFmArtistInfo } from "@/types/Lastfm";
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseStatus } from "@tanstack/react-start/server";
 import { env } from "cloudflare:workers";
 import { z } from "zod";
 
@@ -28,6 +29,7 @@ export const getLastFmTrack = createServerFn({ method: "GET" })
       });
 
       if (!res.ok) {
+        setResponseStatus(res.status);
         throw new Error("Failed to fetch from Last.fm");
       }
 
@@ -35,6 +37,7 @@ export const getLastFmTrack = createServerFn({ method: "GET" })
       return data;
     } catch (error) {
       console.error("Error fetching Last.fm track:", error);
+      setResponseStatus(500);
       const errorMessage =
         error instanceof Error ? error.message : "Internal server error";
       throw new Error(errorMessage);

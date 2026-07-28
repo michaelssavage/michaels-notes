@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const SpeechBubble = styled.div`
   position: relative;
   color: var(--color-black);
-  background-color: var(--color-yellow300);
+  background-color: var(--color-yellow200);
   padding: 1rem;
   display: flex;
   flex-direction: row;
@@ -21,7 +21,7 @@ export const SpeechBubble = styled.div`
     width: 10px;
     height: 10px;
     color: var(--color-black);
-    background-color: var(--color-yellow300);
+    background-color: var(--color-yellow200);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   }
 

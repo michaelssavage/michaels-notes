@@ -32,7 +32,7 @@ const Container = styled.div`
   gap: 0.5rem;
   padding: 1rem;
   background-color: var(--color-white);
-  filter: drop-shadow(5px 5px 0 var(--color-green));
+  border: 1px solid var(--color-black);
   transition: transform 0.3s ease;
 
   h3 {
