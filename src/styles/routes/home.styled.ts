@@ -44,6 +44,8 @@ export const Section = styled(animated.section)`
   justify-content: center;
   scroll-snap-align: center;
   border: 1px solid var(--color-black);
+  padding-bottom: 1rem;
+  border-top: none;
 `;
 
 export const Paragraph = styled.div<{ text?: string }>`

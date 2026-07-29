@@ -39,7 +39,9 @@ export const MiscContainer = styled.div`
 export const PostList = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 1rem;
+  gap: 4px;
+  background-color: var(--color-black);
+  box-shadow: var(--color-black) 5px 5px;
 
   ${forPhoneOnly(css`
     grid-template-columns: 1fr;

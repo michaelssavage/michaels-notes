@@ -3,10 +3,10 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 const Container = styled.div`
-  margin-top: 2rem;
+  margin-top: 5rem;
 
   ${forTabletOnly(css`
-    padding-top: 80px;
+    margin-top: 8rem;
   `)}
 `;
 

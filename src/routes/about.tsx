@@ -44,16 +44,9 @@ function About() {
             />
             <p>
               I studied Computer Applications in DCU and started working
-              professionally in 2021 with{" "}
-              <Anchor
-                link="https://careers.jaguarlandrover.com/where-we-are/ireland"
-                text="JLR."
-                variant="link"
-              />{" "}
-              I&apos;m currently working as a Product Developer for a Sports
-              Travel startup in Barcelona using tools like TypeScript, Django,
-              Figma, PostHog, Cloudflare, and more to build the best travel
-              experience!
+              professionally as a Software Developer in 2021 with JLR. I moved
+              to Barcelona in 2024, and I&apos;m currently working as a Product
+              Developer for a Sports Travel startup in Barcelona.
             </p>
           </Group>
         </Paragraph>
@@ -69,9 +62,10 @@ function About() {
                 text="Plant Bass'd"
                 link="/blog/what-is-plant-bassd"
               />
-              , an electronic music blog and underground club night that took
-              hold in Ireland and Scotland. I learned to DJ, create events,
-              design posters, and produce music on Ableton.
+              , an electronic music blog and helped organise club nights in
+              Galway, Dublin, Scotland, and Edinburgh. In these times, I learned
+              to DJ, create events, design posters, and produce music on
+              Ableton.
             </p>
             <Picture
               src="/blog/plantbassd.png"
@@ -79,12 +73,6 @@ function About() {
               style={plantbassdStyle}
             />
           </Group>
-        </Paragraph>
-      </SectionInView>
-
-      <SectionInView delay={200}>
-        <Paragraph>
-          <Letterboxd />
         </Paragraph>
       </SectionInView>
 
@@ -98,13 +86,20 @@ function About() {
             />
 
             <p>
-              I&apos;ve played sports like Gaelic Football and rugby growing up
-              in Ireland. I represented Ulster Club u18s rugby, and I&apos;ve
-              played for Monaghan RFC, Ennis RFC, and Corinthians RFC. I
-              completed the 2025 Barcelona Half Marathon in 1:44:00. Always
-              looking forward to the next challenge!
+              I played Gaelic football and rugby growing up in Monaghan. In
+              2017, I played for Armagh RFC and represented Ulster Club u18s
+              rugby in the inter-provincial series. I also played for Monaghan
+              RFC, Ennis RFC, Corinthians RFC, and Barcelona GAA. In 2025, I
+              completed the Barcelona Half Marathon in 1:44:00. Always looking
+              forward to the next challenge!
             </p>
           </Group>
+        </Paragraph>
+      </SectionInView>
+
+      <SectionInView delay={200}>
+        <Paragraph>
+          <Letterboxd />
         </Paragraph>
       </SectionInView>
     </Content>

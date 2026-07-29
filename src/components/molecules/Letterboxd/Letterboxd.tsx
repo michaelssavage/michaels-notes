@@ -1,6 +1,5 @@
 import { getMovies } from "@/api/d1/letterboxd.api";
 import { Group } from "@/components/atoms/Group";
-import { Anchor } from "@/components/molecules/Anchor";
 import { Picture } from "@/components/molecules/Picture";
 import {
   Embla,
@@ -9,7 +8,6 @@ import {
   EmblaViewport,
 } from "@/styles/abstracts/embla.styled";
 import { breakpoint } from "@/styles/routes/home.styled";
-import { css } from "@emotion/react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import useEmblaCarousel from "embla-carousel-react";
@@ -95,6 +93,23 @@ export const Letterboxd = () => {
 
   return (
     <Group align="center" gap="2rem" css={breakpoint} data-testid="group">
+      <Text>
+        I love watching, tracking, and sharing my thoughts about films on
+        Letterboxd. Some of my favourites include{" "}
+        {data.map((movie, index) => (
+          <span key={movie.title}>
+            <Movie
+              $isActive={index === active}
+              onKeyDown={() => handleButtonClick(index)}
+              onClick={() => handleButtonClick(index)}
+            >
+              {movie.title}
+            </Movie>
+            <span>{index < data.length - 1 ? ", " : "."}</span>
+          </span>
+        ))}
+      </Text>
+
       <MovieContainer>
         <Embla>
           <EmblaViewport ref={emblaRef}>
@@ -123,37 +138,6 @@ export const Letterboxd = () => {
           ))}
         </ButtonContainer>
       </MovieContainer>
-
-      <Text>
-        I love watching, tracking, and sharing my thoughts about films on
-        Letterboxd. Some of my favourites include{" "}
-        {data.map((movie, index) => (
-          <span key={movie.title}>
-            <Movie
-              $isActive={index === active}
-              onKeyDown={() => handleButtonClick(index)}
-              onClick={() => handleButtonClick(index)}
-            >
-              {movie.title}
-            </Movie>
-            <span>{index < data.length - 1 ? ", " : "."}</span>
-          </span>
-        ))}{" "}
-        and more on{" "}
-        <Anchor
-          link="https://letterboxd.com/ottobio/"
-          text="my profile"
-          variant="link"
-          style={css`
-            color: var(--color-black);
-            text-decoration: none;
-            &:hover {
-              color: var(--color-green400);
-            }
-          `}
-        />
-        .
-      </Text>
     </Group>
   );
 };
