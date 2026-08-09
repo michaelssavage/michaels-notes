@@ -37,8 +37,7 @@ const Loader = styled.div<{ width?: string; height?: string }>`
   `)}
 `;
 
-const WakeNotice = styled.p`
-  font-size: 1.2rem;
+const Notice = styled.p`
   line-height: 1.45;
   color: var(--color-gray600);
   max-width: 36rem;
@@ -49,7 +48,7 @@ export function WorksheetSkeleton() {
     <div aria-busy="true" aria-live="polite">
       <Group direction="row" gap="2rem" align="center" wrap="wrap">
         <Loader />
-        <WakeNotice>
+        <Notice>
           This service uses the free tier of{" "}
           <Anchor
             link="https://railway.com"
@@ -60,7 +59,7 @@ export function WorksheetSkeleton() {
           , so it sleeps when not in use. Wait for it to wake up before
           refreshing the page. The first load can take up to a minute and the
           page will update when the data is ready.
-        </WakeNotice>
+        </Notice>
       </Group>
     </div>
   );

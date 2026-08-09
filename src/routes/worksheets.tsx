@@ -175,8 +175,8 @@ function WorksheetsPage() {
           {data?.themes ? (
             <Group direction="column" gap="0.5rem" width="100%">
               <p>
-                This project generates Spanish homework using AI and gets
-                updated every two days.
+                This project AI-generates Spanish homework and gets updated
+                every two days.
                 <br />
                 <Anchor
                   link="https://michaelsavage.ie/projects/spanish-worksheets"

@@ -1,3 +1,4 @@
+import { popOutInfinitely } from "@/styles/abstracts/animations.styled";
 import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -27,10 +28,9 @@ export const ServicesPage = styled.section`
   isolation: isolate;
   background-color: var(--color-yellow);
   padding-top: 2rem;
-  margin-top: -5rem;
 
   ${forTabletOnly(css`
-    margin-top: -0;
+    margin-top: 5rem;
   `)}
 
   &::before {
@@ -95,6 +95,10 @@ export const Lede = styled.p`
   max-width: 70vw;
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
 
+  && a {
+    font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
+  }
+
   ${forPhoneOnly(css`
     max-width: 100%;
   `)}
@@ -137,7 +141,8 @@ export const PriceCallout = styled.div`
 const Sticker = styled.div`
   width: 180px;
 
-  img {
+  img,
+  video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -149,6 +154,8 @@ export const Xtra = styled(Sticker)`
   position: absolute;
   top: -8rem;
   right: -2rem;
+
+  ${popOutInfinitely()}
 
   ${forTabletOnly(css`
     top: -6rem;

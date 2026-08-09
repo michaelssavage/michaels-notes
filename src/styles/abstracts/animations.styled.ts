@@ -58,7 +58,7 @@ export const slideInAnimation = (
   from: string,
   direction = "vertical",
   duration = "0.25s",
-  fillMode = "none"
+  fillMode = "none",
 ) => {
   const transform = direction === "horizontal" ? "translateX" : "translateY";
 
@@ -106,6 +106,22 @@ export const shimmerAnimation = () => {
 
   return css`
     animation: ${shimmerKeyframes} 2s infinite ease-in-out;
+  `;
+};
+
+export const popOutInfinitely = (scale = 1.08, duration = "1.2s") => {
+  const pop = keyframes`
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(${scale});
+    }
+  `;
+
+  return css`
+    animation: ${pop} ${duration} ease-in-out infinite;
   `;
 };
 
