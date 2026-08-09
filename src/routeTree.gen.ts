@@ -10,13 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorksheetsRouteImport } from './routes/worksheets'
+import { Route as ThingsRouteImport } from './routes/things'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrettyTextRouteImport } from './routes/pretty-text'
-import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as MixesRouteImport } from './routes/mixes'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as ExtrasRouteImport } from './routes/extras'
 import { Route as DoodlesRouteImport } from './routes/doodles'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReviewIndexRouteImport } from './routes/review/index'
@@ -35,14 +34,19 @@ const WorksheetsRoute = WorksheetsRouteImport.update({
   path: '/worksheets',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThingsRoute = ThingsRouteImport.update({
+  id: '/things',
+  path: '/things',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrettyTextRoute = PrettyTextRouteImport.update({
   id: '/pretty-text',
   path: '/pretty-text',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlaygroundRoute = PlaygroundRouteImport.update({
-  id: '/playground',
-  path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MixesRoute = MixesRouteImport.update({
@@ -55,19 +59,9 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExtrasRoute = ExtrasRouteImport.update({
-  id: '/extras',
-  path: '/extras',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DoodlesRoute = DoodlesRouteImport.update({
   id: '/doodles',
   path: '/doodles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -134,13 +128,12 @@ const GuideBarcelonaSlugRoute = GuideBarcelonaSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
-  '/extras': typeof ExtrasRoute
   '/login': typeof LoginRoute
   '/mixes': typeof MixesRoute
-  '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
+  '/services': typeof ServicesRoute
+  '/things': typeof ThingsRoute
   '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -156,13 +149,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
-  '/extras': typeof ExtrasRoute
   '/login': typeof LoginRoute
   '/mixes': typeof MixesRoute
-  '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
+  '/services': typeof ServicesRoute
+  '/things': typeof ThingsRoute
   '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -179,13 +171,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
   '/doodles': typeof DoodlesRoute
-  '/extras': typeof ExtrasRoute
   '/login': typeof LoginRoute
   '/mixes': typeof MixesRoute
-  '/playground': typeof PlaygroundRoute
   '/pretty-text': typeof PrettyTextRoute
+  '/services': typeof ServicesRoute
+  '/things': typeof ThingsRoute
   '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -203,13 +194,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/admin'
     | '/doodles'
-    | '/extras'
     | '/login'
     | '/mixes'
-    | '/playground'
     | '/pretty-text'
+    | '/services'
+    | '/things'
     | '/worksheets'
     | '/blog/$slug'
     | '/projects/$slug'
@@ -225,13 +215,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/admin'
     | '/doodles'
-    | '/extras'
     | '/login'
     | '/mixes'
-    | '/playground'
     | '/pretty-text'
+    | '/services'
+    | '/things'
     | '/worksheets'
     | '/blog/$slug'
     | '/projects/$slug'
@@ -247,13 +236,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/admin'
     | '/doodles'
-    | '/extras'
     | '/login'
     | '/mixes'
-    | '/playground'
     | '/pretty-text'
+    | '/services'
+    | '/things'
     | '/worksheets'
     | '/blog/$slug'
     | '/projects/$slug'
@@ -270,13 +258,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AdminRoute: typeof AdminRoute
   DoodlesRoute: typeof DoodlesRoute
-  ExtrasRoute: typeof ExtrasRoute
   LoginRoute: typeof LoginRoute
   MixesRoute: typeof MixesRoute
-  PlaygroundRoute: typeof PlaygroundRoute
   PrettyTextRoute: typeof PrettyTextRoute
+  ServicesRoute: typeof ServicesRoute
+  ThingsRoute: typeof ThingsRoute
   WorksheetsRoute: typeof WorksheetsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
@@ -299,18 +286,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorksheetsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/things': {
+      id: '/things'
+      path: '/things'
+      fullPath: '/things'
+      preLoaderRoute: typeof ThingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pretty-text': {
       id: '/pretty-text'
       path: '/pretty-text'
       fullPath: '/pretty-text'
       preLoaderRoute: typeof PrettyTextRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/playground': {
-      id: '/playground'
-      path: '/playground'
-      fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mixes': {
@@ -327,25 +321,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/extras': {
-      id: '/extras'
-      path: '/extras'
-      fullPath: '/extras'
-      preLoaderRoute: typeof ExtrasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/doodles': {
       id: '/doodles'
       path: '/doodles'
       fullPath: '/doodles'
       preLoaderRoute: typeof DoodlesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -438,13 +418,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AdminRoute: AdminRoute,
   DoodlesRoute: DoodlesRoute,
-  ExtrasRoute: ExtrasRoute,
   LoginRoute: LoginRoute,
   MixesRoute: MixesRoute,
-  PlaygroundRoute: PlaygroundRoute,
   PrettyTextRoute: PrettyTextRoute,
+  ServicesRoute: ServicesRoute,
+  ThingsRoute: ThingsRoute,
   WorksheetsRoute: WorksheetsRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,

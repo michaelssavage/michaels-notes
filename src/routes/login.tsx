@@ -25,7 +25,7 @@ const FormStyled = styled.form`
 export const Route = createFileRoute("/login")({
   beforeLoad: ({ context }) => {
     if (context.isAdmin) {
-      throw redirect({ to: "/admin" });
+      throw redirect({ to: "/" });
     }
   },
   component: LoginPage,
@@ -41,7 +41,7 @@ function LoginPage() {
 
     try {
       await loginFn({ data: { password } });
-      navigate({ to: "/admin" });
+      navigate({ to: "/" });
     } catch (error) {
       console.error(error);
       setError("Invalid password");
