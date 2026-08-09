@@ -102,9 +102,12 @@ const Post = ({
           </DateText>
         </CardInfo>
         <Title id={`post-title-${slug}`}>{title}</Title>
-        <Views>
-          {views ?? 0} {views === 1 ? "view" : "views"}
-        </Views>
+
+        {!isExternal && (
+          <Views>
+            {views ?? 0} {views === 1 ? "view" : "views"}
+          </Views>
+        )}
 
         <Description
           description={description}
