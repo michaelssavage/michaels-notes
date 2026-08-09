@@ -38,7 +38,7 @@ function About() {
         <Paragraph>
           <Group align="center" gap="1rem" css={breakpoint}>
             <Picture
-              src="/portrait.jpg"
+              src="/media/portrait.jpg"
               alt="Picture of Me"
               style={selfieStyle}
             />
@@ -80,7 +80,7 @@ function About() {
         <Paragraph>
           <Group align="center" gap="1rem" css={breakpoint}>
             <Picture
-              src="/gaelic-ball.png"
+              src="/media/gaelic-ball.png"
               alt="Gaelic Ball"
               style={selfieStyle}
             />
@@ -100,6 +100,17 @@ function About() {
       <SectionInView delay={200}>
         <Paragraph>
           <Letterboxd />
+        </Paragraph>
+      </SectionInView>
+
+      <SectionInView delay={400}>
+        <Paragraph>
+          <p>
+            I&apos;m also open to building custom sites for people, including
+            portfolios, blogs, event pages, and business sites. Take a look at
+            my <Anchor link="/services" text="services" variant="link" /> page
+            for details.
+          </p>
         </Paragraph>
       </SectionInView>
     </Content>

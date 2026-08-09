@@ -26,9 +26,12 @@ export const LinkStyle = styled(Link)<IStyle>`
     switch (variant) {
       case "button":
         return css`
-          padding: 4px 10px;
+          padding: 6px 10px;
           border: 1px solid;
           border-radius: 8px;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
 
           background-color: var(--color-blue200);
           color: var(--color-white);
@@ -40,7 +43,7 @@ export const LinkStyle = styled(Link)<IStyle>`
         `;
       case "outline":
         return css`
-          padding: 4px 10px;
+          padding: 6px 10px;
           border: 1px solid;
           border-color: var(--color-blue200);
           color: var(--color-blue200);

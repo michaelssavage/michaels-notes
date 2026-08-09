@@ -110,7 +110,6 @@ export const StyledLink = styled(Link)`
 
   &.active {
     color: var(--color-yellow);
-    pointer-events: none;
   }
 
   &.active::before {

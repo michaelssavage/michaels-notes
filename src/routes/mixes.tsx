@@ -112,7 +112,7 @@ function RouteComponent() {
           <Anchor
             variant="text"
             link="https://www.mixcloud.com/michaelsaverage/"
-            icon={<img src="/mixcloud.svg" alt="Mixcloud" />}
+            icon={<img src="/media/mixcloud.svg" alt="Mixcloud" />}
             text="Mixcloud"
             style={linkStyle}
             isExternal
@@ -121,7 +121,7 @@ function RouteComponent() {
           <Anchor
             variant="text"
             link="https://soundcloud.com/plantbassdworld"
-            icon={<img src="/soundcloud.svg" alt="SoundCloud" />}
+            icon={<img src="/media/soundcloud.svg" alt="SoundCloud" />}
             text="SoundCloud"
             style={linkStyle}
             isExternal

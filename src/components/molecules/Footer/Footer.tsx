@@ -6,7 +6,6 @@ import {
   ResumeIcon,
   SpotifyIcon,
 } from "@/components/icons";
-import { Feedback } from "@/components/molecules/Feedback/Feedback";
 import { lazy, Suspense } from "react";
 import { FooterWrapper, Wrapper } from "./Footer.styled";
 
@@ -79,7 +78,6 @@ const FooterContent = ({
           isExternal
         />
       </Wrapper>
-      <Feedback />
     </FooterWrapper>
   );
 };

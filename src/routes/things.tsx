@@ -7,9 +7,9 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link, createFileRoute } from "@tanstack/react-router";
 
-const title = "Extras | Michael Savage";
-const description = "Miscellaneous links, small projects, and lists.";
-const url = "https://michaelsavage.com/extras";
+const title = "Things | Michael Savage";
+const description = "A collection of things I've made, used, or found useful.";
+const url = "https://michaelsavage.com/things";
 
 interface ContentItem {
   id: string;
@@ -42,23 +42,23 @@ const Container = styled.div`
     font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
   }
 
-  &:nth-child(1),
-  &:nth-child(2) {
+  &:nth-of-type(1),
+  &:nth-of-type(2) {
     grid-column: span 3;
   }
 
-  &:nth-child(3),
-  &:nth-child(4),
-  &:nth-child(5) {
+  &:nth-of-type(3),
+  &:nth-of-type(4),
+  &:nth-of-type(5) {
     grid-column: span 2;
   }
 
-  &:nth-child(6) {
+  &:nth-of-type(6) {
     grid-column: span 6;
   }
 
   ${forPhoneOnly(css`
-    &:nth-child(n) {
+    &:nth-of-type(n) {
       grid-column: span 1;
     }
   `)}
@@ -68,7 +68,7 @@ const Container = styled.div`
   }
 `;
 
-export const Route = createFileRoute("/extras")({
+export const Route = createFileRoute("/things")({
   component: RouteComponent,
   head: () => ({
     link: [{ rel: "canonical", href: url }],
@@ -172,7 +172,12 @@ function RouteComponent() {
   return (
     <Page>
       <MiscContainer>
-        <Heading>Miscellaneous projects</Heading>
+        <Heading>Things I&apos;ve Made</Heading>
+
+        <p>
+          Want something built for you? See my{" "}
+          <Anchor link="/services" text="services" variant="link" /> page.
+        </p>
 
         <PostList>
           {content.map((item) => (

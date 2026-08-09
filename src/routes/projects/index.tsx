@@ -104,29 +104,34 @@ function Projects() {
       </Panel>
 
       <Panel>
-          <SpotifyContent>
-            <Header>
-              <h2>What am I listening to?</h2>
-              <p>
-                Below you can see what I&apos;ve been listening to recently, as
-                well as the top 10 most played tracks. If I&apos;m online, my
-                currently playing track will be displayed. Read more about the
-                <Anchor
-                  link="/blog/spotify-developer-api"
-                  text="Spotify API here."
-                  variant="link"
-                />
-              </p>
-            </Header>
+        <SpotifyContent>
+          <Header>
+            <h2>What am I listening to?</h2>
+            <p>
+              Below you can see what I&apos;ve been listening to recently, as
+              well as the top 10 most played tracks. If I&apos;m online, my
+              currently playing track will be displayed. Read more about the
+              <Anchor
+                link="/blog/spotify-developer-api"
+                text="Spotify API here."
+                variant="link"
+              />
+            </p>
+          </Header>
 
-            {/* spotify components */}
-            <ErrorBoundary fallback={<p>Now playing unavailable</p>}>
-              <CurrentPlay />
-            </ErrorBoundary>
-            <ErrorBoundary fallback={<p>Top tracks unavailable</p>}>
-              <TopTracks />
-            </ErrorBoundary>
-          </SpotifyContent>
+          {/* spotify components */}
+          <ErrorBoundary fallback={<p>Now playing unavailable</p>}>
+            <CurrentPlay />
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<p>Top tracks unavailable</p>}>
+            <TopTracks />
+          </ErrorBoundary>
+        </SpotifyContent>
+
+        <p>
+          Looking to get something like this built for you? Check out my{" "}
+          <Anchor link="/services" text="services" variant="link" /> page.
+        </p>
       </Panel>
     </Page>
   );

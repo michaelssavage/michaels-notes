@@ -31,7 +31,7 @@ export const Homework = styled.div`
 export const MiscContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   margin: 1rem 10% 2rem;
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
 `;
@@ -116,7 +116,7 @@ export const SplitMap = styled.div`
   height: min(calc(100vh - 16rem - 1rem), 900px);
   min-height: 320px;
   position: sticky;
-  top: calc(16rem + 1rem);
+  top: 1rem;
 
   ${forTabletOnly(css`
     position: static;
