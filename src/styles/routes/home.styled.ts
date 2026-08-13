@@ -50,6 +50,7 @@ export const Section = styled(animated.section)`
 
 export const Paragraph = styled.div<{ text?: string }>`
   width: 70%;
+  text-wrap: balance;
 
   p,
   a {
@@ -58,11 +59,32 @@ export const Paragraph = styled.div<{ text?: string }>`
 
   ${forTabletOnly(css`
     width: 85%;
+
+    p {
+      text-align: center;
+    }
   `)}
 
   ${forPhoneOnly(css`
     width: 95%;
   `)}
+`;
+
+export const Opening = styled.p`
+  margin-left: -2rem;
+  z-index: 1;
+
+  ${forBreakAt({
+    breakpoint: 900,
+    styles: css`
+      margin-left: 0;
+      margin-top: 1rem;
+    `,
+  })}
+`;
+
+export const CustomSites = styled.p`
+  text-align: center;
 `;
 
 export const selfieStyle = css`
@@ -84,6 +106,34 @@ export const selfieStyle = css`
     breakpoint: 900,
     styles: css`
       width: 60%;
+    `,
+  })}
+`;
+
+export const videoStyle = css`
+  min-width: 250px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    border-radius 0.3s ease;
+
+  &:hover {
+    transform: rotate(-15deg);
+    border-radius: 1rem;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  ${forBreakAt({
+    breakpoint: 900,
+    styles: css`
+      max-width: 60%;
+      min-width: unset;
     `,
   })}
 `;

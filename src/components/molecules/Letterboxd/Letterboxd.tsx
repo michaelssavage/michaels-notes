@@ -7,7 +7,7 @@ import {
   EmblaSlide,
   EmblaViewport,
 } from "@/styles/abstracts/embla.styled";
-import { breakpoint } from "@/styles/routes/home.styled";
+import { reverseBreak } from "@/styles/routes/home.styled";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import useEmblaCarousel from "embla-carousel-react";
@@ -92,7 +92,12 @@ export const Letterboxd = () => {
   }
 
   return (
-    <Group align="center" gap="2rem" css={breakpoint} data-testid="group">
+    <Group
+      align="center"
+      gap="1rem 2rem"
+      css={reverseBreak}
+      data-testid="group"
+    >
       <Text>
         I love watching, tracking, and sharing my thoughts about films on
         Letterboxd. Some of my favourites include{" "}

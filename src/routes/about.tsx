@@ -6,10 +6,13 @@ import { Picture } from "@/components/molecules/Picture";
 import {
   breakpoint,
   Content,
+  CustomSites,
+  Opening,
   Paragraph,
   plantbassdStyle,
   reverseBreak,
   selfieStyle,
+  videoStyle,
 } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -36,18 +39,18 @@ function About() {
     <Content>
       <SectionInView delay={0}>
         <Paragraph>
-          <Group align="center" gap="1rem" css={breakpoint}>
+          <Group align="center" gap="0" css={breakpoint}>
             <Picture
-              src="/media/portrait.jpg"
+              src="/media/portrait.png"
               alt="Picture of Me"
               style={selfieStyle}
             />
-            <p>
-              I studied Computer Applications in DCU and started working
-              professionally as a Software Developer in 2021 with JLR. I moved
-              to Barcelona in 2024, and I&apos;m currently working as a Product
-              Developer for a Sports Travel startup in Barcelona.
-            </p>
+            <Opening>
+              Started my career as a Software Developer in 2021 with JLR after
+              studying Computer Applications in Dublin. I moved to Barcelona in
+              2024, where I&apos;m currently working as a Product Developer for
+              a Sports Travel startup.
+            </Opening>
           </Group>
         </Paragraph>
       </SectionInView>
@@ -78,12 +81,20 @@ function About() {
 
       <SectionInView delay={300}>
         <Paragraph>
-          <Group align="center" gap="1rem" css={breakpoint}>
-            <Picture
-              src="/media/gaelic-ball.png"
-              alt="Gaelic Ball"
-              style={selfieStyle}
-            />
+          <Group align="center" gap="1rem 2rem" css={breakpoint}>
+            <Group css={videoStyle}>
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                poster="/media/gaelic-ball.png"
+              >
+                <source src="/media/gaelic-ball.webm" type="video/webm" />
+                <source src="/media/gaelic-ball.mp4" type="video/mp4" />
+              </video>
+            </Group>
 
             <p>
               I played Gaelic football and rugby growing up in Monaghan. In
@@ -105,12 +116,12 @@ function About() {
 
       <SectionInView delay={400}>
         <Paragraph>
-          <p>
+          <CustomSites>
             I&apos;m also open to building custom sites for people, including
             portfolios, blogs, event pages, and business sites. Take a look at
             my <Anchor link="/services" text="services" variant="link" /> page
             for details.
-          </p>
+          </CustomSites>
         </Paragraph>
       </SectionInView>
     </Content>
