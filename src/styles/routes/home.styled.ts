@@ -110,34 +110,6 @@ export const selfieStyle = css`
   })}
 `;
 
-export const videoStyle = css`
-  min-width: 250px;
-  overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    border-radius 0.3s ease;
-
-  &:hover {
-    transform: rotate(-15deg);
-    border-radius: 1rem;
-  }
-
-  video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-  }
-
-  ${forBreakAt({
-    breakpoint: 900,
-    styles: css`
-      max-width: 60%;
-      min-width: unset;
-    `,
-  })}
-`;
-
 export const plantbassdStyle = css`
   max-width: 300px;
   transition:

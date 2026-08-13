@@ -12,7 +12,6 @@ import {
   plantbassdStyle,
   reverseBreak,
   selfieStyle,
-  videoStyle,
 } from "@/styles/routes/home.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -82,27 +81,24 @@ function About() {
       <SectionInView delay={300}>
         <Paragraph>
           <Group align="center" gap="1rem 2rem" css={breakpoint}>
-            <Group css={videoStyle}>
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                poster="/media/gaelic-ball.png"
-              >
-                <source src="/media/gaelic-ball.webm" type="video/webm" />
-                <source src="/media/gaelic-ball.mp4" type="video/mp4" />
-              </video>
-            </Group>
+            <Picture
+              src="/media/gaelic-ball.png"
+              alt="Gaelic Ball"
+              style={selfieStyle}
+            />
 
             <p>
-              I played Gaelic football and rugby growing up in Monaghan. In
-              2017, I played for Armagh RFC and represented Ulster Club u18s
-              rugby in the inter-provincial series. I also played for Monaghan
-              RFC, Ennis RFC, Corinthians RFC, and Barcelona GAA. In 2025, I
-              completed the Barcelona Half Marathon in 1:44:00. Always looking
-              forward to the next challenge!
+              I played{" "}
+              <Anchor
+                link="https://en.wikipedia.org/wiki/Gaelic_football"
+                text="Gaelic football"
+                variant="link"
+              />{" "}
+              and rugby growing up in Monaghan. In 2017, I played for Armagh RFC
+              and represented Ulster Club u18s rugby in the inter-provincial
+              series. I also played for Monaghan RFC, Ennis RFC, Corinthians
+              RFC, and Barcelona GAA. In 2025, I completed the Barcelona Half
+              Marathon in 1:44:00. Always looking forward to the next challenge!
             </p>
           </Group>
         </Paragraph>
