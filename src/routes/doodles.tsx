@@ -1,13 +1,14 @@
 import { Picture } from "@/components/molecules/Picture";
+import { shuffleArray } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   LightboxImage,
   LightboxOverlay,
   masonryImgStyles,
 } from "@/styles/routes/routes.styled";
-import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import { Masonry } from "masonic";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const title = "Doodles | Michael Savage";
 const description =
@@ -52,6 +53,7 @@ const MasonryImg = ({
 
 function RouteComponent() {
   const [selected, setSelected] = useState<string | null>(null);
+  const shuffledDoodleEntries = useMemo(() => shuffleArray(doodleEntries), []);
 
   useEffect(() => {
     if (!selected) return;
@@ -75,12 +77,14 @@ function RouteComponent() {
         <h1>Doodles</h1>
       </Panel>
 
-      <Masonry
-        items={doodleEntries}
-        render={(props) => <MasonryImg {...props} onClick={setSelected} />}
-        columnGutter={8}
-        columnWidth={250}
-      />
+      <ClientOnly>
+        <Masonry
+          items={shuffledDoodleEntries}
+          render={(props) => <MasonryImg {...props} onClick={setSelected} />}
+          columnGutter={8}
+          columnWidth={250}
+        />
+      </ClientOnly>
 
       {selected && (
         <LightboxOverlay onClick={() => setSelected(null)}>
