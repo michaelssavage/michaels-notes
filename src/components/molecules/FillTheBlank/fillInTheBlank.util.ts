@@ -3,17 +3,52 @@ export function normalizeText(s: string): string {
   return s.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
 }
 
+/** Spanish subject pronouns (with and without accents) that verb-form answers may optionally include. */
+const SPANISH_SUBJECT_PRONOUNS = new Set([
+  "yo",
+  "tu",
+  "tú",
+  "vos",
+  "usted",
+  "el",
+  "él",
+  "ella",
+  "nosotros",
+  "nosotras",
+  "vosotros",
+  "vosotras",
+  "ustedes",
+  "ellos",
+  "ellas",
+]);
+
+/** Strips periods and, when requested, standalone Spanish subject pronouns. */
+function normalizeForComparison(s: string, ignorePronouns: boolean): string {
+  const withoutDots = s.replace(/\./g, "").trim();
+  if (!ignorePronouns) return withoutDots;
+  const words = withoutDots
+    .split(/\s+/)
+    .filter(
+      (word) => word && !SPANISH_SUBJECT_PRONOUNS.has(word.toLowerCase()),
+    );
+  return words.join(" ");
+}
+
 /**
  * Compares a typed answer against one or more correct answers: exact match (after
- * trim/case-fold) is correct; an accent/case-insensitive match is "partially correct";
- * anything else is incorrect once the user has typed more than one character.
+ * trim/case-fold, ignoring periods and, when `ignorePronouns` is set, subject pronouns)
+ * is correct; an accent/case-insensitive match is "partially correct"; anything else is
+ * incorrect once the user has typed more than one character.
  */
 export function getAnswerValidation(
   userAnswer: string,
   correctAnswers: string[],
+  ignorePronouns = false,
 ): { isCorrect: boolean | null; isPartiallyCorrect: boolean } {
-  const trimmedUser = userAnswer.trim();
-  const trimmedCorrectAnswers = correctAnswers.map((answer) => answer.trim());
+  const trimmedUser = normalizeForComparison(userAnswer.trim(), ignorePronouns);
+  const trimmedCorrectAnswers = correctAnswers.map((answer) =>
+    normalizeForComparison(answer.trim(), ignorePronouns),
+  );
 
   if (
     trimmedCorrectAnswers.some(

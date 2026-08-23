@@ -41,7 +41,7 @@ export const FillInTheBlank = ({
   );
   const firstCorrectAnswer = correctAnswers[0] ?? "";
   const { isCorrect, isPartiallyCorrect } = useMemo(
-    () => getAnswerValidation(userAnswer, correctAnswers),
+    () => getAnswerValidation(userAnswer, correctAnswers, true),
     [userAnswer, correctAnswers],
   );
 
