@@ -76,7 +76,11 @@ const MobileNavLink = (item: NavItem) => {
   const isActive = useIsActive(item);
 
   return (
-    <MobileStyledLink to={item.to} className={isActive ? "active" : ""}>
+    <MobileStyledLink
+      to={item.to}
+      className={isActive ? "active" : ""}
+      onClick={(event) => event.stopPropagation()}
+    >
       <span>{item.text}</span>
 
       {item.count !== undefined && (
