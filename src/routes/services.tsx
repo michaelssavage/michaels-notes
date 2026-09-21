@@ -1,20 +1,39 @@
-import { Group } from "@/components/atoms/Group";
 import { MailIcon } from "@/components/icons";
 import { Anchor } from "@/components/molecules/Anchor";
+import { Picture } from "@/components/molecules/Picture";
 import { AutoTextSize } from "@/lib/auto-text-size";
 import {
+  CardGrid,
   Content,
-  From500,
-  groupStyles,
   Heading,
   Lede,
   List,
   PriceCallout,
   ServicesContainer,
   ServicesPage,
+  SiteCard,
+  SiteTitle,
   Xtra,
 } from "@/styles/routes/services.styled";
 import { createFileRoute } from "@tanstack/react-router";
+
+const featuredSites = [
+  {
+    title: "Plantbassd",
+    src: "/project/plantbassd-landing.png",
+    href: "https://plantbassd.com",
+  },
+  {
+    title: "Let's Give Back",
+    src: "/project/lets-give-back.png",
+    href: "https://letsgiveback.ie",
+  },
+  {
+    title: "Athlos Travel",
+    src: "/project/athlos-landing.png",
+    href: "https://athlostravel.com",
+  },
+];
 
 const title = "Services | Michael Savage";
 const description =
@@ -52,29 +71,23 @@ function RouteComponent() {
             I design and build custom websites from scratch, end to end. I like
             to be creative with websites, preferring lighthearted designs that
             catch the eye. You can see my playful development process in the
-            following sites,{" "}
-            <Anchor
-              link="https://plantbassd.com"
-              text="https://plantbassd.com"
-              variant="link"
-              isExternal
-            />
-            ,{" "}
-            <Anchor
-              link="https://letsgiveback.ie"
-              text="https://letsgiveback.ie"
-              variant="link"
-              isExternal
-            />
-            ,
-            <Anchor
-              link="https://athlostravel.com"
-              text="https://athlostravel.com"
-              variant="link"
-              isExternal
-            />
-            and more in my projects page.
+            following sites, and more in{" "}
+            <Anchor link="/projects" text="my projects" variant="link" /> page.
           </Lede>
+
+          <CardGrid>
+            {featuredSites.map((site) => (
+              <SiteCard
+                key={site.href}
+                href={site.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Picture src={site.src} alt={site.title} ar="16 / 10" />
+                <SiteTitle>{site.title}</SiteTitle>
+              </SiteCard>
+            ))}
+          </CardGrid>
 
           <Lede>
             If you need a site built, redesigned, or maintained, I would love to
@@ -82,26 +95,12 @@ function RouteComponent() {
             and small business sites. I can help with the following:
           </Lede>
 
-          <Group css={groupStyles}>
-            <From500>
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                aria-label="spectacular offer sticker"
-              >
-                <source src="/media/blitz-price.webm" type="video/webm" />
-                <source src="/media/blitz-price.mp4" type="video/mp4" />
-              </video>
-            </From500>
-            <List>
-              <li>Pitching brand kits, typography, copywriting</li>
-              <li>Adjusting SEO, ads, mobile-responsive sites</li>
-              <li>Setting up domain names, deployment, hosting</li>
-              <li>Supporting updates after launch</li>
-            </List>
-          </Group>
+          <List>
+            <li>Pitching brand kits, typography, copywriting</li>
+            <li>Adjusting SEO, ads, mobile-responsive sites</li>
+            <li>Setting up domain names, deployment, hosting</li>
+            <li>Supporting updates after launch</li>
+          </List>
 
           <PriceCallout>
             <p>

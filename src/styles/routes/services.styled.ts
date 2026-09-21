@@ -33,26 +33,6 @@ export const ServicesPage = styled.section`
     margin-top: 5rem;
   `)}
 
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image: radial-gradient(
-      circle,
-      rgba(45, 36, 31, 0.18) 1.5px,
-      transparent 1.6px
-    );
-    background-size: 16px 16px;
-  }
-
-  &::after {
-    ${grainOverlay}
-    z-index: 0;
-    opacity: 0.15;
-  }
-
   > * {
     position: relative;
     z-index: 1;
@@ -117,7 +97,6 @@ export const PriceCallout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
   width: 100%;
   border: 2px dashed var(--color-black);
   padding: 1rem;
@@ -127,6 +106,10 @@ export const PriceCallout = styled.div`
   p {
     margin: 0;
     font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
+  }
+
+  a {
+    margin-left: auto;
   }
 
   strong {
@@ -150,7 +133,7 @@ const Sticker = styled.div`
 `;
 
 export const Xtra = styled(Sticker)`
-  width: 180px;
+  width: 160px;
   position: absolute;
   top: -8rem;
   right: -2rem;
@@ -160,18 +143,6 @@ export const Xtra = styled(Sticker)`
   ${forTabletOnly(css`
     top: -6rem;
     right: 0;
-    width: 120px;
-  `)}
-
-  ${forPhoneOnly(css`
-    width: 100px;
-  `)}
-`;
-
-export const From500 = styled(Sticker)`
-  width: 180px;
-
-  ${forPhoneOnly(css`
     width: 100px;
   `)}
 `;
@@ -185,14 +156,47 @@ export const Content = styled.div`
   position: relative;
 `;
 
-export const groupStyles = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+export const CardGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
 
   ${forTabletOnly(css`
-    flex-direction: column;
+    grid-template-columns: 1fr;
   `)}
+`;
+
+export const SiteCard = styled.a`
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray400);
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--color-black);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    border: 1px solid var(--color-black);
+  }
+
+  figure {
+    margin: 0;
+    height: auto;
+  }
+
+  img {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+`;
+
+export const SiteTitle = styled.p`
+  margin: 0;
+  padding: 0.75rem 0.5rem 1rem;
+  text-align: center;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
 `;
