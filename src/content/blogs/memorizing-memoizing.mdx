@@ -8,11 +8,11 @@ type: blog
 
 Scrolling on LinkedIn, I came across a simple question asking how to implement a caching function similar enough to lodash.memoize. What is memoizing again?
 
-Memoization means storing a result so someone can reuse it the next time instead of calculating the same thing again and again and again..
+Memoization means storing a result so someone can reuse it the next time instead of calculating the same thing again and again and again...
 
-Spamming some functionality that involves calculations could be expensive. So instead, we can store a version the first time its calculated, and check ensuing requests to see if we can simply return the same result. We can create this using a **closure**, a function where the inner function has access to the outer function's scope.
+Spamming some functionality that involves calculations could be expensive. So instead, we can store a version the first time it's calculated, and check ensuing requests to see if we can simply return the same result. We can create this using a **closure**, a function where the inner function has access to the outer function's scope.
 
-Here's a barebones example using Javascript. We store our results in a map, and if its the first time we use the function, we add the result to it, otherwise just return the result from the map. memoize is the outer function *closure*, which wraps the innner function and the the cache variable.
+Here's a barebones example using JavaScript. We store our results in a map, and if it's the first time we use the function, we add the result to it. Otherwise, we just return the result from the map. memoize is the outer function *closure*, which wraps the inner function and the cache variable.
 
 ```javascript
 function memoize(fn) {
@@ -53,10 +53,10 @@ fastFunction(4);
 fastFunction(4);
 ```
 
-So using a Map for caching is good! Great, is that it then? Do we need to improve it or alter it? Here's 2 edge cases to consider.
+So using a Map for caching is good! Great, is that it then? Do we need to improve it or alter it? Here are 2 edge cases to consider.
 
 1. Unbounded Memory - The cache map could grow to huge sizes if the arguments were changing every single time (Memoizing probably wasn't the right call to add in the first place) but we can implement size limits.  
-Adding a size limit is a really basic cache called LRU (Least Recently Used). It stores a fixed number of items and discards the least recently used item when it is full and a new item needs to be added.
+Adding a size limit turns it into a really basic LRU (Least Recently Used) cache. It stores a fixed number of items, and when it's full, it discards the item that hasn't been used for the longest time. A Map remembers the order keys were added, so on every cache hit we delete the key and set it again to move it to the end. That way, the first key in the Map is always the least recently used one.
 
 ```javascript
 function memoize(fn, options = {}) {
@@ -68,7 +68,11 @@ function memoize(fn, options = {}) {
     
     if (cache.has(key)) {
       console.log("Fetching from cache:", key);
-      return cache.get(key);
+      const value = cache.get(key);
+      // Delete and reinsert so this key becomes the most recently used
+      cache.delete(key);
+      cache.set(key, value);
+      return value;
     }
     
     console.log("Computing result for:", key);
@@ -87,7 +91,7 @@ function memoize(fn, options = {}) {
 }
 ```
 
-Now with this basic LRU, we remove the oldest entries if maxSize is specified and the cache size has grown too big.
+Now, if maxSize is set and the cache grows past it, we remove the least recently used entry.
 
 2. Similar keys - Using `JSON.stringify` in Javascript doesn't distinguish between objects with the same properties but different structures. For example, these different structures would previously have generated the same key:
     - `new Date()` vs `{time: [date timestamp]}`
@@ -145,13 +149,13 @@ function memoize(fn) {
 
 Now there's a bunch of checks going on here. This approach ensures that different combinations of arguments will always produce unique cache keys, preventing false cache hits that would return incorrect results.
 
-- We create keys with object type information by using `constructor.name` .
+- We create keys with object type information by using `constructor.name`.
 - We treat arrays differently than plain objects.
 - We preserve the structure of different object types by including their constructor.
 - We still handle primitive values appropriately.
 - Finally, we join all arguments with a separator to prevent potential collisions.
 
-Here's some examples of what the keys would end up looking like:
+Here are some examples of what the keys would end up looking like:
 
 ```javascript
 memoizedFunc(5, "hello");
@@ -161,14 +165,14 @@ memoizedFunc(new Person("John", 30));
 // Key: "Object:Person:{age:30,name:"John"}"
 ```
 
-So memoization is pretty great for optimization. It can improve performance but don't be silly! It isn't always the best choice and can actually lead to bugs and more overhead than benefit, some examples:
+So memoization is pretty great for optimization. It can improve performance but don't be silly! It isn't always the best choice and can actually lead to bugs and more overhead than benefit. Some examples:
 
-- Simple, fast operations like like multiplication → `number * number`
+- Simple, fast operations like multiplication → `number * number`
 - Functions with unique inputs
 - Massive input objects
 - Functions with mutable input references
 
-React is my primary driver, so using memo and useMemo can end up being obsolete in cases too. For example, a useState in an internal state will always force re-renders or if the Parent component has a useState either.
+React is my primary driver, and React.memo and useMemo can end up being pointless there too. React.memo only skips a re-render when a component's props haven't changed, and it doesn't stop re-renders caused by the component's own useState. In the example below, the memo does its job: clicking Increment re-renders Parent, but Child doesn't re-render because `value` is the same string every time.
 
 ```javascript
 const Child = React.memo(({ value }) => {
@@ -187,7 +191,7 @@ const Parent = () => {
 };
 ```
 
-Or if you pass functions as props, it will trigger re-renders. Below, the `() => console.log("Clicked")` will cause re-renders. It should be wrapped in a useCallback.
+But if you pass a function as a prop, Child re-renders anyway. Below, `() => console.log("Clicked")` creates a new function every time Parent renders, so Child's props are never the same and the memo never helps. Wrapping the function in a useCallback keeps the same reference between renders.
 
 ```javascript
 const Child = React.memo(({ onClick }) => {

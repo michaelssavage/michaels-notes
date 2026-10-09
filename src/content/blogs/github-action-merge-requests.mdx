@@ -1,18 +1,18 @@
 ---
 id: 12
-title: Merge requests with Github Actions
+title: Merge requests with GitHub Actions
 date: august 9, 2024
 description: "Managing dependencies across multiple repositories can be challenging and so so time-consuming. How did I speed up 'shared-components' between packages?"
 type: blog
 ---
 
-Managing dependencies across multiple repositories was challenging and time-consuming. In a project at a previous job, we had four private GitHub repositories, with one serving as a shared package called "shared-components". This package was published to NPM and installed as a dependency in the other projects.
+In a project at a previous job, we had four private GitHub repositories. One of them, "shared-components", was published to NPM and installed as a dependency in the other three.
 
-Having one centralized place for the code was beneficial for consistency and reducing duplicated code. But the process was slow. Each time we published a new version to NPM, we had to create three separate merge requests for the other repositories, which could take up to ten minutes per update.
+Keeping the shared code in one place helped with consistency and cut down on duplication, but updates were slow. Each time we published a new version, we had to open three separate merge requests, one for each repository, which could take up to ten minutes per update.
 
-## Github Action
+## GitHub Action
 
-To improve this process, we implemented a GitHub Action that automated the update procedure. This action:
+We automated this with a GitHub Action that:
 
 1. Retrieved the current version of "shared-components" from NPM
 2. Installed the new version
@@ -78,23 +78,8 @@ jobs:
           base: main
 ```
 
-This automation significantly reduced the time and effort required to keep all repositories up to date with the latest shared components.
-
-To implement this solution, created a new workflow file in the `.github/workflows` directory of each project, naming it appropriately (e.g., `create-merge-request.yml`).
-
-One key component of the GitHub Action was the use of `peter-evans/create-pull-request`. This action automated the process of creating pull requests, making it well suited to our use case. It allowed us to programmatically create pull requests with the updated shared components, saving time and reducing the potential for human error.
-
-Here's a breakdown of how the workflow worked:
-
-1. Trigger: The workflow was configured to run via workflow_dispatch, allowing it to be triggered manually when needed.
-2. Node.js Setup: We used Node.js version 18.20.4 to ensure compatibility with our project requirements.
-3. Version Fetching: The workflow fetched the latest version of the shared-components package from NPM.
-4. Package Update: It updated the package.json and package-lock.json files with the new version.
-5. Git Configuration: The workflow configured Git using the github-actions[bot] identity.
-6. Branch Naming: A unique branch name was generated using the version number and a timestamp to avoid naming conflicts.
-7. Pull Request Creation: The peter-evans/create-pull-request action created a pull request with a descriptive title and body targeting the main branch.
-8. Security: The workflow used GitHub secrets (GITHUB_TOKEN and NPM_TOKEN) to securely authenticate with GitHub and NPM.
+We added the workflow file in the `.github/workflows` directory of each project (e.g., `create-merge-request.yml`). It runs manually through `workflow_dispatch`. The branch name combines the version number with a timestamp so runs don't clash, and `peter-evans/create-pull-request` opens the pull request against `main`.
 
 > 💡 Note: Because our NPM package was private, we had to configure an NPM_TOKEN secret in each repository so the workflow could access the private registry.
 
-By automating dependency updates with GitHub Actions, we reduced repetitive maintenance work and spent less time manually synchronizing repositories.
+Automating the merge requests saved us time, cut down on human error, and took the repetitive work out of keeping the repositories in sync.

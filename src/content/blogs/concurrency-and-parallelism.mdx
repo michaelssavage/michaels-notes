@@ -6,19 +6,19 @@ description: "Exploring how to execute multiple tasks with concurrency, parallel
 type: blog
 ---
 
-I wanted to explore the differences between concurrency and parallelism. I know Concurrency ≠ parallelism but I wanted to refresh my memory and visualize each term. They refer to executing multiple tasks, but they represent different approaches.
+I wanted to explore the differences between concurrency and parallelism. I know concurrency ≠ parallelism, but I wanted to refresh my memory and visualize each term. They refer to executing multiple tasks, but they represent different approaches.
 
 - **Concurrency** is about managing multiple tasks by interleaving their execution.
 - **Parallelism** is the ability to execute independent tasks of a program in the same instant of time. 
 
-Tasks communicate with each other by using a shared memory or by message passing. It's about switching between tasks really quicky. Concurrent tasks (or modules) come in two different kinds: processes and threads.
+Tasks communicate with each other by using a shared memory or by message passing. It's about switching between tasks really quickly. Concurrent tasks (or modules) come in two different kinds: processes and threads.
 
 - **Threads** are the smallest units of execution within a process. They share the same memory space and can communicate with each other.
 - **Processes** are independent execution units within their own memory space. Each process has its own memory. A process can contain one or more threads.
 
 <p className="callout">
 💡Example of concurrency
-- a chef preparing multiple dishes by switching between chopping, stirring, and plating.
+- A chef preparing multiple dishes by switching between chopping, stirring, and plating.
 - A distributed system processing emails while handling database requests.
 </p>
 
@@ -31,7 +31,7 @@ There are three main ways to achieve concurrency:
   />
   <Board
     title="Multi-Threaded"
-    text="Multiple threads share memory, so require locks. Generally, a single process can have multiple threads."
+    text="Multiple threads share memory, so they require locks. Generally, a single process can have multiple threads."
   />
   <Board
     title="Event Queue"
@@ -54,20 +54,20 @@ Unlike concurrency, parallelism is about separating tasks into smaller parts to 
 
 <p className="callout">
 💡Example of parallelism
-- multiple chefs each working on different dishes.
+- Multiple chefs each working on different dishes.
 - Streaming music and texting a friend at the same time on your phone.
 </p>
 
-JavaScript, and anything built on it, like React, is single-threaded. This means that it can only execute one task at a time. However, JavaScript can simulate concurrency by using **non-blocking asynchronous operations** using an <Floating type="popover" trigger="event loop" content={<div className="popover-card">
-The event loop is like a `while` loop in Javascript. It's a way of synchronously processing asynchronous events one at a time until the queue is empty. A network request could be an async operation that is encountered in the call stack. It's sent to the Web APIs (handled outside the main thread) and once the async task is complete, the Callback Queue holds the result. The Event Loop checks if the Call Stack is empty and moves the next task from the Callback Queue into the Call Stack.
+JavaScript, and anything built on it, like React, is single-threaded. This means that it can only execute one task at a time. However, JavaScript can simulate concurrency by using **non-blocking asynchronous operations** through an <Floating type="popover" trigger="event loop" content={<div className="popover-card">
+The event loop is like a `while` loop in JavaScript. It's a way of synchronously processing asynchronous events one at a time until the queue is empty. A network request could be an async operation that is encountered in the call stack. It's sent to the Web APIs (handled outside the main thread) and once the async task is complete, the Callback Queue holds the result. The Event Loop checks if the Call Stack is empty and moves the next task from the Callback Queue into the Call Stack.
 </div>} />. This is done by using callbacks, promises, and async/await.
 
 - Multiprogramming refers to running multiple programs concurrently on a single computer.
 - Multithreading refers to a single program executing multiple threads concurrently. 
 
-Parallelism speeds up tasks by leveraging multiple processors to improve performance. Concurrency keeps systems responsive by managing multiple tasks efficiently. Distributed systems rely on concurrency to handle thousands of requests and scale.
+Parallelism speeds up tasks by using multiple processors to improve performance. Concurrency keeps systems responsive by managing multiple tasks efficiently. Distributed systems rely on concurrency to handle thousands of requests and scale.
 
-I/O bound tasks like reading files, network requests, and database queries can be parallelized and can benefit from multithreading. They benefit more from concurrency than parallelism, while CPU-bound tasks like image processing, video encoding, and data analysis can be parallelized and benefit more from true parallelism.
+I/O-bound tasks like reading files, network requests, and database queries can benefit from multithreading, but they benefit more from concurrency than parallelism. CPU-bound tasks like image processing, video encoding, and data analysis can be parallelized and benefit more from true parallelism.
 
 - In `React`, Web Workers can be used for CPU-intensive tasks. Web Workers run scripts in background threads. Promise/async/await can be used for asynchronous tasks.
 - `Java` has built-in support for multithreading using the Thread class or ExecutorService.

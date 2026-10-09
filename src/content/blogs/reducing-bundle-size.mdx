@@ -2,32 +2,32 @@
 id: 21
 title: "Reducing bundle size"
 date: July 29, 2025
-description: "I finally sat down to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building but I knew who the culprit was."
+description: "I finally sat down to tackle the huge bundle size of this site. Embarrassingly, it was 23MB after building, but I knew who the culprit was."
 type: blog
 ---
 
-I finally sat down to tackle the huge bundle size of this site. Embarrassingly it was 23mb after building. I hadn't looked into reducing it before, but I knew that the culprit was how the blog posts were being rendered. After addressing some of the biggest issues, I've managed to bring the bundle size down to 1mb. That's still considered a large bundle size but my goal is to get it down to between 200kb and 500kb. Here are some of the first steps I took:
+I finally sat down to tackle the huge bundle size of this site. Embarrassingly, it was 23MB after building. I hadn't looked into reducing it before, but I knew that the culprit was how the blog posts were being rendered. After addressing some of the biggest issues, I've managed to bring the bundle size down to 1MB. That's still considered a large bundle size, but my goal is to get it down to between 200KB and 500KB. Here are some of the first steps I took:
 
-- Previously, I was processing all MDX files at build time. I was embedding all the blog post content directly into the JavaScript bundle but now I moved the processing to Netlify Server functions so that the content is requested when needed.
+- Previously, I was processing all MDX files at build time. I was embedding all the blog post content directly into the JavaScript bundle. Now I've moved the processing to Netlify Server functions so that the content is requested when needed.
 - I removed unnecessary packages, including some heavier packages like `masonic` and `@mdx-js/rollup`.
-- I moved some others packages so that they only lived in the dev dependencies.
-- Also simply updating packages like `@tanstack/router-plugin` improved build output.
+- I moved some other packages so that they only lived in the dev dependencies.
+- Simply updating packages like `@tanstack/router-plugin` also improved the build output.
 
-The build time for blog posts only extracts FrontMatter (metadata) content and now at runtime, I process the full MDX content on-demand when someone visits a post. The bundle size dropped by 90%.
+At build time, I now only extract the frontmatter (metadata) from blog posts, and at runtime I process the full MDX content on demand when someone visits a post. The bundle size dropped by 90%.
 
-I used `rollup-plugin-visualizer` to visualize the remaining output (view the below screenshot), and I could see that framer motion was taking up 25% of the build!!! 
+I used `rollup-plugin-visualizer` to visualize the remaining output (view the below screenshot), and I could see that framer-motion was taking up 25% of the build!!! 
 
 <Picture src="/blog/rollup-size.png" alt="Roll-up size" />
 
 ## Animations
 
-After a quick look around at alternatives I decided to replace <Anchor link="https://motion.dev/" text="framer-motion" variant="link" isExternal /> with <Anchor link="https://react-spring.dev/" text="react-spring" variant="link" isExternal />. Framer-motion is 2.9x larger than react-spring and again, and added no huge benefits over react-spring. I could view the sizes on bundlephobia.com for extra visual help:
+After a quick look around at alternatives, I decided to replace <Anchor link="https://motion.dev/" text="framer-motion" variant="link" isExternal /> with <Anchor link="https://react-spring.dev/" text="react-spring" variant="link" isExternal />. framer-motion is 2.9x larger than react-spring and added no huge benefits over it. I could view the sizes on bundlephobia.com for extra visual help:
 
 - <Anchor link="https://bundlephobia.com/package/react-spring@10.0.1" variant="link" isExternal />
 - <Anchor link="https://bundlephobia.com/package/framer-motion@12.23.11" variant="link" isExternal />
 
 <Picture src="/blog/bundle-comparer.png" alt="comparing sizes of react-spring and framer-motion" />
 
-After replacing framer-motion, the bundle size dropped a significant amount. The full rendered amount comes out at 1mb, and gzipped at 332kb. React-spring takes up around 5% of the bundle size now so it will be the next target for reduction. Although Framer-motion wasn't the biggest offender, it was good to get an additional reduction in size. 
+After replacing framer-motion, the bundle size dropped a significant amount. The full rendered amount comes out at 1MB, and gzipped at 332KB. react-spring takes up around 5% of the bundle size now, so it will be the next target for reduction. Although framer-motion wasn't the biggest offender, it was good to get an additional reduction in size. 
 
-Overall, the 95% smaller size will lead to faster loading times, much less data consumed by visitors, and better performance on all devices. 
+Overall, the bundle is 95% smaller, which means faster loading times and much less data for visitors to download.
