@@ -1,0 +1,53 @@
+name: Deploy Storybook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/components/atoms/**"
+      - "src/components/molecules/**"
+      - "src/components/icons/**"
+      - "src/styles/**"
+      - ".storybook/**"
+      - "wrangler.storybook.jsonc"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/storybook.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: storybook-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Test stories
+        run: pnpm test:storybook
+
+      - name: Build Storybook
+        run: pnpm build:storybook
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy --config wrangler.storybook.jsonc

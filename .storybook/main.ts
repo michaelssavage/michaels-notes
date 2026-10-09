@@ -1,7 +1,17 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: [
+    "../src/components/atoms/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../src/components/molecules/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../src/components/icons/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+  ],
+  // Only the public assets the stories use, not the whole site's public/ folder.
+  staticDirs: [
+    { from: "../public/fonts", to: "/fonts" },
+    { from: "../public/favicon.svg", to: "/favicon.svg" },
+    { from: "../public/not-found.png", to: "/not-found.png" },
+  ],
   addons: [
     "@chromatic-com/storybook",
     "@storybook/addon-docs",
@@ -12,13 +22,15 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
-  // Configure base path for deployment at /storybook
-  // This ensures assets are loaded correctly when served from a subdirectory
+  // vite.config.ts is shared with the app. Its Cloudflare and TanStack Start
+  // plugins build a Worker and SSR bundle, which Storybook doesn't need.
   viteFinal: async (config) => {
-    // Set base path for production builds
-    if (process.env.NODE_ENV === "production") {
-      config.base = "/storybook/";
-    }
+    const plugins = await Promise.all((config.plugins ?? []).flat(Infinity));
+    config.plugins = plugins.flat(Infinity).filter((plugin) => {
+      const name = plugin && "name" in plugin ? plugin.name : "";
+      return !/cloudflare|tanstack/i.test(name);
+    });
+    config.publicDir = false;
     return config;
   },
 };

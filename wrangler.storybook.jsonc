@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "michaels-notes-storybook",
+  "compatibility_date": "2026-02-25",
+  "assets": {
+    "directory": "./storybook-static",
+    "not_found_handling": "404-page",
+  },
+  "routes": [
+    { "pattern": "storybook.michaelsavage.ie", "custom_domain": true },
+  ],
+}

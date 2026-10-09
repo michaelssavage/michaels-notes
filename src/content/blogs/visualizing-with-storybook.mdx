@@ -2,6 +2,7 @@
 id: 20
 title: "Visualizing components with Storybook"
 date: July 17, 2025
+lastUpdated: October 9, 2026
 description: "I added Storybook to my personal site, not because I needed it, but because it's a great way to test and visualize components. Overkill for one dev, but perfect for experimentation."
 type: blog
 ---
@@ -20,13 +21,13 @@ For the well-defined components, I created a folder to house the main component,
 	📃 Button.tsx
 ```
 
-## The deployment dilemma
+## Deployment
 
-I wanted to deploy it as a subdomain at `storybook.michaelsavage.ie`, but I scratched that plan in favour of a quicker outcome. Instead, I configured the site to serve Storybook at `/storybook` inside the main site deployment.
+I originally wanted Storybook on its own subdomain, but I took the quicker route and served it at `/storybook` inside the main site deployment. That meant Storybook was rebuilt on every deploy, which slowed my builds down.
 
-Does it slow down my build? Yea…
+It now lives at [storybook.michaelsavage.ie](https://storybook.michaelsavage.ie). The site has since moved to Cloudflare Workers, and Storybook is deployed as its own small Worker that only serves the static build. A GitHub Action rebuilds and deploys it whenever I push changes to my atoms, molecules, or icons folders, so the main site build doesn't touch Storybook at all.
 
-Vite builds the app into `dist`, and Storybook builds separately into `dist/storybook` so that the two outputs are deployed together. For now, Storybook is built on every deploy, but eventually I imagine I will move it to a separate Netlify site to speed things up and avoid bundling it unless I need it.
+Before deploying, the action runs every story as a browser test using Storybook's Vitest addon, so a broken component doesn't make it onto the subdomain.
 
 ## Learning curve
 
