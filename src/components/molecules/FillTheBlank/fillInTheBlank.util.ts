@@ -3,8 +3,9 @@ export function normalizeText(s: string): string {
   return s.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
 }
 
-/** Spanish subject pronouns (with and without accents) that verb-form answers may optionally include. */
-const SPANISH_SUBJECT_PRONOUNS = new Set([
+/** Spanish and Catalan subject pronouns (with and without accents) that verb-form answers may optionally include. */
+const SUBJECT_PRONOUNS = new Set([
+  // Spanish
   "yo",
   "tu",
   "tú",
@@ -20,16 +21,27 @@ const SPANISH_SUBJECT_PRONOUNS = new Set([
   "ustedes",
   "ellos",
   "ellas",
+  // Catalan ("tu" is shared with Spanish)
+  "jo",
+  "ell",
+  "ells",
+  "elles",
+  "nosaltres",
+  "vosaltres",
+  "vostè",
+  "voste",
+  "vostès",
+  "vostes",
 ]);
 
-/** Strips periods and, when requested, standalone Spanish subject pronouns. */
+/** Strips periods and, when requested, standalone subject pronouns. */
 function normalizeForComparison(s: string, ignorePronouns: boolean): string {
   const withoutDots = s.replace(/\./g, "").trim();
   if (!ignorePronouns) return withoutDots;
   const words = withoutDots
     .split(/\s+/)
     .filter(
-      (word) => word && !SPANISH_SUBJECT_PRONOUNS.has(word.toLowerCase()),
+      (word) => word && !SUBJECT_PRONOUNS.has(word.toLowerCase()),
     );
   return words.join(" ");
 }

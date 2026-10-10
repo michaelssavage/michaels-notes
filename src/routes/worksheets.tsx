@@ -1,12 +1,15 @@
 import type {
   CustomWorksheet,
-  SpanishWorksheet,
-  SWItem,
-} from "@/api/spanish-homework.api";
+  Worksheet,
+  WorksheetItem,
+  WorksheetLanguage,
+} from "@/api/homework.api";
 import {
   getCustomWorksheet,
-  getLatestSpanishWorksheet,
-} from "@/api/spanish-homework.api";
+  getLatestWorksheet,
+  LANGUAGE_LABELS,
+  LanguageSchema,
+} from "@/api/homework.api";
 import { Group } from "@/components/atoms/Group";
 import { Toggle } from "@/components/atoms/Toggle";
 import { TextInput } from "@/components/form/TextInput";
@@ -20,7 +23,7 @@ import { formatDate } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   Homework,
-  MixedViewToggle,
+  LanguageToggle,
   WorksheetDate,
   WorksheetHeader,
 } from "@/styles/routes/routes.styled";
@@ -29,8 +32,8 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
+import { z } from "zod";
 
-type WorksheetItem = SWItem;
 type SectionEntry = { key: string; title: string; items: WorksheetItem[] };
 
 const REQUEST_INPUT_ID = "spanish-worksheet-request";
@@ -42,7 +45,7 @@ function titleCase(text: string): string {
   );
 }
 
-function getLatestSection(worksheet?: SpanishWorksheet): SectionEntry[] {
+function getLatestSection(worksheet?: Worksheet | null): SectionEntry[] {
   if (!worksheet) return [];
 
   return Object.keys(worksheet.content)
@@ -95,16 +98,32 @@ function WorksheetItems({
     </Homework>
   );
 }
+
+const WorksheetsSearchSchema = z.object({
+  lang: LanguageSchema.optional().catch(undefined),
+});
+
 export const Route = createFileRoute("/worksheets")({
+  validateSearch: WorksheetsSearchSchema,
   component: WorksheetsPage,
 });
 
 function WorksheetsPage() {
   const { isAdmin } = useRouteContext({ from: "__root__" });
-  const fetchWorksheet = useServerFn(getLatestSpanishWorksheet);
+  const fetchWorksheet = useServerFn(getLatestWorksheet);
   const createWorksheet = useServerFn(getCustomWorksheet);
+  const navigate = Route.useNavigate();
+  const lang: WorksheetLanguage = Route.useSearch().lang ?? "es";
+  const languageLabel = LANGUAGE_LABELS[lang];
 
-  const [mixedSections, setMixedSections] = useState(false);
+  function handleLanguageToggle() {
+    const next: WorksheetLanguage = lang === "es" ? "ca" : "es";
+    navigate({
+      search: { lang: next === "es" ? undefined : next },
+      replace: true,
+    });
+  }
+
   const [request, setRequest] = useState("");
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -118,9 +137,9 @@ function WorksheetsPage() {
     });
   }
 
-  const { data, isLoading } = useQuery<SpanishWorksheet>({
-    queryKey: ["spanish-worksheet", "latest"],
-    queryFn: fetchWorksheet,
+  const { data, isLoading } = useQuery<Worksheet | null>({
+    queryKey: ["worksheet", "latest", lang],
+    queryFn: () => fetchWorksheet({ data: { language: lang } }),
     staleTime: 1000 * 60 * 60 * 48, // 48 hours
     gcTime: 1000 * 60 * 60 * 24 * 7, // 7 days
     refetchOnMount: false,
@@ -134,21 +153,12 @@ function WorksheetsPage() {
     error: customError,
     refetch,
   } = useQuery<CustomWorksheet>({
-    queryKey: ["spanish-worksheet", "custom", request],
-    queryFn: () => createWorksheet({ data: { request } }),
+    queryKey: ["worksheet", "custom", lang, request],
+    queryFn: () => createWorksheet({ data: { request, language: lang } }),
     enabled: false,
   });
 
   const latestSections = useMemo(() => getLatestSection(data), [data]);
-
-  const mixedItems = useMemo(() => {
-    const all = latestSections.flatMap((s) => s.items);
-    for (let i = all.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [all[i], all[j]] = [all[j]!, all[i]!];
-    }
-    return all;
-  }, [latestSections]);
 
   function handleCustom() {
     const trimmed = request.trim();
@@ -170,33 +180,32 @@ function WorksheetsPage() {
               })}
             </WorksheetDate>
           )}
-          <h1>Spanish Worksheets</h1>
+          <h1>{languageLabel} Worksheets</h1>
 
-          {data?.themes ? (
-            <Group direction="column" gap="0.5rem" width="100%">
-              <p>
-                This project AI-generates Spanish homework and gets updated
-                every two days.
-                <br />
-                <Anchor
-                  link="https://michaelsavage.ie/projects/spanish-worksheets"
-                  text="Read about the project here."
-                  variant="link"
-                />
-                <br />
-                Current theme: {data.themes.join(", ")}
-              </p>
+          <Group direction="column" gap="0.5rem" width="100%">
+            <p>
+              This project AI-generates {languageLabel} homework and gets
+              updated every two days.
+              <br />
+              <Anchor
+                link="https://michaelsavage.ie/projects/spanish-worksheets"
+                text="Read about the project here."
+                variant="link"
+              />
+              {data?.themes ? (
+                <>
+                  <br />
+                  Current theme: {data.themes.join(", ")}
+                </>
+              ) : null}
+            </p>
 
-              <MixedViewToggle>
-                <p>By Format</p>
-                <Toggle
-                  on={mixedSections}
-                  handleChange={() => setMixedSections(!mixedSections)}
-                />
-                <p>Fully Mixed</p>
-              </MixedViewToggle>
-            </Group>
-          ) : null}
+            <LanguageToggle>
+              <p>Español</p>
+              <Toggle on={lang === "ca"} handleChange={handleLanguageToggle} />
+              <p>Català</p>
+            </LanguageToggle>
+          </Group>
 
           {isAdmin ? (
             <Group
@@ -274,25 +283,21 @@ function WorksheetsPage() {
           <WorksheetSkeleton />
         ) : data ? (
           <Group direction="row" gap="1.5rem" wrap="wrap">
-            {mixedSections ? (
-              <WorksheetItems
-                items={mixedItems}
-                answers={answers}
-                onAnswerChange={handleAnswerChange}
-              />
-            ) : (
-              latestSections.map(({ key, title, items }) => (
-                <Group key={key} direction="column" gap="0.75rem" width="100%">
-                  <h2>{title}</h2>
-                  <WorksheetItems
-                    items={items}
-                    answers={answers}
-                    onAnswerChange={handleAnswerChange}
-                  />
-                </Group>
-              ))
-            )}
+            {latestSections.map(({ key, title, items }) => (
+              <Group key={key} direction="column" gap="0.75rem" width="100%">
+                <h2>{title}</h2>
+                <WorksheetItems
+                  items={items}
+                  answers={answers}
+                  onAnswerChange={handleAnswerChange}
+                />
+              </Group>
+            ))}
           </Group>
+        ) : data === null ? (
+          <p>
+            No {languageLabel} worksheet yet. Check back after the next update.
+          </p>
         ) : null}
       </Panel>
     </Page>

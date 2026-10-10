@@ -33,6 +33,7 @@ export const FillInTheBlank = ({
   onValueChange,
 }: FillInTheBlankProps) => {
   const [internalAnswer, setInternalAnswer] = useState("");
+  const [isRevealed, setIsRevealed] = useState(false);
   const isControlled = value !== undefined;
   const userAnswer = isControlled ? value : internalAnswer;
   const correctAnswers = useMemo(
@@ -54,14 +55,17 @@ export const FillInTheBlank = ({
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsRevealed(false);
     setUserAnswer(e.target.value);
   };
 
   const clearAnswer = () => {
+    setIsRevealed(false);
     setUserAnswer("");
   };
 
   const showAnswer = () => {
+    setIsRevealed(true);
     setUserAnswer(firstCorrectAnswer);
   };
 
@@ -93,6 +97,7 @@ export const FillInTheBlank = ({
         <InputWrapper
           isCorrect={isCorrect}
           isPartiallyCorrect={isPartiallyCorrect}
+          isRevealed={isRevealed}
           chars={inputCharWidth}
         >
           <input

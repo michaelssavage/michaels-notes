@@ -137,7 +137,7 @@ export const WorksheetHeader = styled.div`
   flex-direction: column;
 `;
 
-export const MixedViewToggle = styled.div`
+export const LanguageToggle = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;

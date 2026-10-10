@@ -22,6 +22,7 @@ export const TranslateTheSentence = ({
   onValueChange,
 }: TranslateTheSentenceProps) => {
   const [internalAnswer, setInternalAnswer] = useState("");
+  const [isRevealed, setIsRevealed] = useState(false);
   const isControlled = value !== undefined;
   const userAnswer = isControlled ? value : internalAnswer;
 
@@ -44,14 +45,17 @@ export const TranslateTheSentence = ({
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setIsRevealed(false);
     setUserAnswer(e.target.value);
   };
 
   const clearAnswer = () => {
+    setIsRevealed(false);
     setUserAnswer("");
   };
 
   const showAnswer = () => {
+    setIsRevealed(true);
     setUserAnswer(firstCorrectAnswer);
   };
 
@@ -61,6 +65,7 @@ export const TranslateTheSentence = ({
       <TranslateTextArea
         isCorrect={isCorrect}
         isPartiallyCorrect={isPartiallyCorrect}
+        isRevealed={isRevealed}
       >
         <textarea
           name="translate-the-sentence"

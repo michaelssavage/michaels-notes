@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 interface InputWrapperProps {
   isCorrect: boolean | null;
   isPartiallyCorrect: boolean;
+  isRevealed?: boolean;
   chars: number;
 }
 
@@ -32,7 +33,13 @@ export const InputWrapper = styled.div<InputWrapperProps>`
       text-align: center; 
     }
 
-    ${({ isCorrect, isPartiallyCorrect }) => {
+    ${({ isCorrect, isPartiallyCorrect, isRevealed }) => {
+      if (isRevealed) {
+        return css`
+          border: 1px solid var(--color-teal300);
+          background-color: var(--color-teal);
+        `;
+      }
       if (isCorrect === true) {
         return css`
           border: 1px solid var(--color-green300);
@@ -53,11 +60,20 @@ export const InputWrapper = styled.div<InputWrapperProps>`
       }
     }}
   }
+
+  ${({ isRevealed }) =>
+    isRevealed &&
+    css`
+      button {
+        color: var(--color-blue300);
+      }
+    `}
 `;
 
 interface TranslateTextAreaProps {
   isCorrect: boolean | null;
   isPartiallyCorrect: boolean;
+  isRevealed?: boolean;
 }
 
 export const TranslateTextArea = styled.div<TranslateTextAreaProps>`
@@ -84,7 +100,13 @@ export const TranslateTextArea = styled.div<TranslateTextAreaProps>`
       text-align: left;
     }
 
-    ${({ isCorrect, isPartiallyCorrect }) => {
+    ${({ isCorrect, isPartiallyCorrect, isRevealed }) => {
+      if (isRevealed) {
+        return css`
+          border: 1px solid var(--color-teal300);
+          background-color: var(--color-teal);
+        `;
+      }
       if (isCorrect === true) {
         return css`
           border: 1px solid var(--color-green300);
@@ -105,6 +127,14 @@ export const TranslateTextArea = styled.div<TranslateTextAreaProps>`
       }
     }}
   }
+
+  ${({ isRevealed }) =>
+    isRevealed &&
+    css`
+      button {
+        color: var(--color-blue300);
+      }
+    `}
 `;
 
 export const AnswerButton = styled.button`
