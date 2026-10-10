@@ -206,21 +206,26 @@ function WorksheetsPage() {
           {isAdmin ? (
             <Group
               direction="row"
-              gap="0.25rem"
+              gap="0"
               wrap="wrap"
               css={css`
                 max-width: 560px;
+                margin: 1rem auto;
 
                 input {
                   flex: 3;
                   width: 100%;
-                  margin: 0 auto;
+                  min-width: 250px;
                   padding: 6px 10px;
+                  border-top-left-radius: 8px;
+                  border-bottom-left-radius: 8px;
                 }
                 button {
                   flex: 1;
                   max-width: fit-content;
                   justify-content: center;
+                  border-top-left-radius: 0;
+                  border-bottom-left-radius: 0;
                 }
               `}
             >
