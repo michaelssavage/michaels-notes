@@ -185,18 +185,14 @@ function WorksheetsPage() {
           <Group direction="column" gap="0.5rem" width="100%">
             <p>
               This project AI-generates {languageLabel} homework and gets
-              updated every two days.
-              <br />
+              updated every two days.{" "}
               <Anchor
                 link="https://michaelsavage.ie/projects/spanish-worksheets"
                 text="Read about the project here."
                 variant="link"
-              />
+              />{" "}
               {data?.themes ? (
-                <>
-                  <br />
-                  Current theme: {data.themes.join(", ")}
-                </>
+                <>Current themes: {data.themes.join(", ")}</>
               ) : null}
             </p>
 
@@ -217,7 +213,8 @@ function WorksheetsPage() {
 
                 input {
                   flex: 3;
-                  width: auto;
+                  width: 100%;
+                  margin: 0 auto;
                   padding: 6px 10px;
                 }
                 button {

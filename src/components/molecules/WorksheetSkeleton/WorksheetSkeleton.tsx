@@ -49,16 +49,14 @@ export function WorksheetSkeleton() {
       <Group direction="row" gap="2rem" align="center" wrap="wrap">
         <Loader />
         <Notice>
-          This service uses the free tier of{" "}
+          Page is loading content from{" "}
           <Anchor
             link="https://railway.com"
             text="railway.com"
             variant="link"
             isExternal
           />
-          , so it sleeps when not in use. Wait for it to wake up before
-          refreshing the page. The first load can take up to a minute and the
-          page will update when the data is ready.
+          . This may take up to a minute to finish loading.
         </Notice>
       </Group>
     </div>
