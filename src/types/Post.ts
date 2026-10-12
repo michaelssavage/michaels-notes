@@ -77,6 +77,7 @@ export interface IProject {
     main: string;
     bg: string;
   };
+  image?: string;
   github?: string;
   live?: string;
   draft?: boolean;

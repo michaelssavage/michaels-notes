@@ -1,14 +1,12 @@
-import {
-  forBreakAt,
-  forPhoneOnly,
-  forTabletOnly,
-} from "@/styles/abstracts/mixins.styled";
+import { forPhoneOnly, forTabletOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "@tanstack/react-router";
 
-interface CardWrapperProps {
-  $shouldDim: boolean | null;
+interface CoverProps {
+  bg: string;
+  main: string;
+  contrast: string;
 }
 
 interface TechProps {
@@ -18,93 +16,77 @@ interface TechProps {
   contrast: string;
 }
 
-export const GridContainer = styled.div`
+export const ProjectList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+export const ProjectRow = styled(Link)`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: stretch;
-  gap: 4px;
-
-  ${forBreakAt({
-    breakpoint: 1000,
-    styles: css`
-      grid-template-columns: repeat(3, minmax(180px, 1fr));
-    `,
-  })}
-
-  ${forTabletOnly(css`
-    gap: 1rem;
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
-  `)}
-
-  ${forPhoneOnly(css`
-    gap: 0.5rem;
-    grid-template-columns: repeat(1, 1fr);
-  `)}
-`;
-
-export const CardWrapper = styled.div<CardWrapperProps>`
-  position: relative;
-  transition: transform 0.3s ease;
-  height: 100%;
-
-  ${({ $shouldDim }) =>
-    $shouldDim &&
-    css`
-      opacity: 0.5;
-      filter: blur(3px);
-    `};
-`;
-
-export const DraftBadge = styled.div`
-  position: absolute;
-  top: 1px;
-  right: 0;
-  z-index: 1;
-  background-color: var(--color-red300);
-  color: var(--color-white);
-  padding: 0.25rem 0.5rem;
-`;
-
-export const Card = styled(Link)`
-  display: grid;
-  grid-template-rows: 1fr auto;
-  overflow: hidden;
-  will-change: transform;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: center;
+  gap: 1.5rem;
   text-decoration: none;
   color: var(--color-black);
-  background-color: var(--color-white);
-  height: 100%;
+  ${forPhoneOnly(css`
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  `)}
 `;
 
-export const CardBody = styled.div<{ bg: string; contrast: string }>`
-  padding: clamp(1rem, 1.2vi + 0.15rem, 1.6rem) 0.5rem;
-  background-color: ${({ bg }) => bg};
-  color: ${({ contrast }) => contrast};
-`;
-
-export const CardTitle = styled.h3`
-  font-size: clamp(1.2rem, 1.8vi + 0.3rem, 1.7rem);
-  font-weight: 600;
+export const ProjectCover = styled.div<CoverProps>`
+  position: relative;
+  max-width: 30vw;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  letter-spacing: -0.05em;
-  font-style: italic;
+  flex-direction: column;
+  background-color: ${({ bg }) => bg};
+
+  div[data-id="cover-media"] {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    box-shadow: 6px 6px 0 ${({ main }) => main};
+    transition: transform 0.3s ease;
+  }
+
+  span[data-id="cover-title"] {
+    font-size: clamp(1.6rem, 3vi + 0.4rem, 2.6rem);
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: -0.05em;
+    text-align: center;
+    color: ${({ contrast }) => contrast};
+  }
+
+  ${ProjectRow}:hover & img {
+    transform: translateY(-4px);
+  }
 `;
 
-export const CardDescription = styled.p`
-  margin-top: 0.5rem;
-  font-size: clamp(1rem, 0.8vi + 0.1rem, 1rem);
-`;
-
-export const CardTechnology = styled.p<TechProps>`
+export const CoverTechnology = styled.p<TechProps>`
   font-size: 0.8rem;
+  font-style: italic;
+  padding: 0.2rem 0;
+  overflow: hidden;
   background-color: ${({ bg }) => bg};
   color: ${({ bodyContrast }) => bodyContrast};
-  font-style: italic;
-  overflow: hidden;
-  margin-left: -1rem;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 
-  ${CardWrapper}:hover & {
+  ${ProjectRow}:hover & {
     background-color: ${({ main }) => main};
     color: ${({ contrast }) => contrast};
   }
@@ -126,9 +108,51 @@ export const TechTrack = styled.span`
   animation: scrollRight 10s linear infinite;
   animation-play-state: paused;
 
-  ${CardWrapper}:hover & {
+  ${ProjectRow}:hover & {
     animation-play-state: running;
   }
+`;
+
+export const ProjectInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .date {
+    font-size: 0.85rem;
+    color: var(--color-gray600);
+    margin-left: 0.5rem;
+  }
+`;
+
+export const ProjectTitle = styled.h3<{ main: string }>`
+  font-size: clamp(1.4rem, 1.8vi + 0.4rem, 2rem);
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: -0.05em;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.3s ease;
+
+  ${ProjectRow}:hover & {
+    text-decoration-color: ${({ main }) => main};
+  }
+`;
+
+export const ProjectDescription = styled.p`
+  font-size: 1rem;
+`;
+
+export const DraftBadge = styled.div`
+  position: absolute;
+  top: 1px;
+  right: 0;
+  z-index: 1;
+  background-color: var(--color-red300);
+  color: var(--color-white);
+  padding: 0.25rem 0.5rem;
 `;
 
 export const Header = styled.div`
@@ -136,6 +160,7 @@ export const Header = styled.div`
 
   h1 {
     margin-bottom: 0.5rem;
+    text-align: center;
   }
 
   ${forPhoneOnly(css`

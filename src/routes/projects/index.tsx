@@ -7,18 +7,17 @@ import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
 import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
 import TopTracks from "@/components/spotify/TopTracks/TopTracks";
-import { sortById } from "@/lib/utils";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
-  GridContainer,
   Header,
+  ProjectList,
   SpotifyContent,
 } from "@/styles/routes/projects.styled";
 import { type IProject, type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const title = "Projects | Michael Savage";
 const description =
@@ -41,13 +40,19 @@ export const Route = createFileRoute("/projects/")({
 
 function Projects() {
   const [showAll, setShowAll] = useState(false);
-  const displayedTechnologies = showAll
-    ? TECHNOLOGIES
-    : TECHNOLOGIES.slice(0, 5);
+  const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
+
+  const displayedTechnologies = useMemo(() => {
+    if (showAll) return TECHNOLOGIES;
+    const visible = TECHNOLOGIES.slice(0, 5);
+    // keep the active filter visible when collapsing the list
+    return selectedTech && !visible.includes(selectedTech)
+      ? [...visible, selectedTech]
+      : visible;
+  }, [showAll, selectedTech]);
 
   const handleShow = () => setShowAll((prev) => !prev);
 
-  const [selectedTech, setSelectedTech] = useState<ITechnology | null>(null);
   const handleTechClick = (tech: ITechnology) => {
     setSelectedTech(tech === selectedTech ? null : tech);
   };
@@ -60,6 +65,14 @@ function Projects() {
     retry: false,
   });
 
+  const filteredProjects = useMemo(
+    () =>
+      selectedTech
+        ? data.filter((project) => project.technology.includes(selectedTech))
+        : data,
+    [data, selectedTech],
+  );
+
   return (
     <Page>
       <Panel>
@@ -67,15 +80,20 @@ function Projects() {
           <h1 data-testid="projects-description">
             Personal development & side projects
           </h1>
-          <Group wrap="wrap" align="center" gap="0.5rem">
-            <p data-id="filter-projects">Filters projects:</p>
+          <Group wrap="wrap" justify="center" align="center" gap="0.5rem">
+            <p data-id="filter-projects">Filter projects:</p>
+            <Button
+              text="All"
+              variant="pill"
+              onClick={() => setSelectedTech(null)}
+              selected={selectedTech === null}
+            />
             {displayedTechnologies.map((tech) => (
               <Button
                 key={tech}
                 text={tech}
                 variant="pill"
                 onClick={() => handleTechClick(tech)}
-                disabled={selectedTech !== null && selectedTech !== tech}
                 selected={selectedTech === tech}
               />
             ))}
@@ -86,21 +104,19 @@ function Projects() {
             />
           </Group>
         </Header>
-        <GridContainer>
+        <ProjectList>
           {isLoading ? (
             <LoadingProject />
+          ) : filteredProjects.length > 0 ? (
+            filteredProjects.map((project) => (
+              <Project key={project.id} data={project} />
+            ))
           ) : (
-            data
-              .sort(sortById)
-              .map((project) => (
-                <Project
-                  key={project.id}
-                  data={project}
-                  selectedTech={selectedTech}
-                />
-              ))
+            <p data-testid="projects-empty">
+              No projects using {selectedTech} yet.
+            </p>
           )}
-        </GridContainer>
+        </ProjectList>
       </Panel>
 
       <Panel>

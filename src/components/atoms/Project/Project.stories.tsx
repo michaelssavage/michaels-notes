@@ -21,12 +21,12 @@ const meta: Meta<typeof Project> = {
   parameters: { backgroundColor: "transparent" },
   decorators: [
     (Story) => (
-      <div style={{ width: "320px" }}>
+      <div style={{ width: "720px" }}>
         <Story />
       </div>
     ),
   ],
-  args: { data: project, selectedTech: null },
+  args: { data: project },
 };
 
 export default meta;
@@ -49,8 +49,8 @@ export const Draft: Story = {
   },
 };
 
-export const DimmedByTechFilter: Story = {
-  args: { selectedTech: "TypeScript" },
+export const WithImage: Story = {
+  args: { data: { ...project, image: "/project/emot.png" } },
 };
 
 export const Loading: StoryObj = {

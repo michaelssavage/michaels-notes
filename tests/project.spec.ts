@@ -45,14 +45,22 @@ test.describe("Projects Page", () => {
       exact: false,
     });
 
+    const projectCards = page.locator('[data-testid="project-card"]');
+    const totalCount = await projectCards.count();
+
     await expect(firstTechButton).toHaveAttribute("data-selected", "false");
 
     await firstTechButton.click();
 
     await expect(firstTechButton).toHaveAttribute("data-selected", "true");
+    for (const card of await projectCards.all()) {
+      await expect(card).toContainText(reactTech);
+    }
+    expect(await projectCards.count()).toBeLessThanOrEqual(totalCount);
 
     await firstTechButton.click();
     await expect(firstTechButton).toHaveAttribute("data-selected", "false");
+    await expect(projectCards).toHaveCount(totalCount);
   });
 
   test("should display Spotify content section", async ({ page }) => {

@@ -1,28 +1,26 @@
 import { getContrastYIQ } from "@/lib/colors";
 import {
-  Card,
-  CardBody,
-  CardDescription,
-  CardTechnology,
-  CardTitle,
-  CardWrapper,
+  CoverTechnology,
   DraftBadge,
+  ProjectCover,
+  ProjectDescription,
+  ProjectInfo,
+  ProjectRow,
+  ProjectTitle,
   TechTrack,
 } from "@/styles/routes/projects.styled";
-import type { IProject, ITechnology } from "@/types/Post";
+import type { IProject } from "@/types/Post";
 import { useMemo } from "react";
 
 interface Props {
   data: IProject;
-  selectedTech: ITechnology | null;
 }
 
-export const Project = ({ data, selectedTech }: Props) => {
-  const { id, slug, title, description, colors, draft } = data;
-  const shouldDim = selectedTech && !data.technology.includes(selectedTech);
+export const Project = ({ data }: Props) => {
+  const { slug, title, date, description, colors, draft, image } = data;
 
-  const textContrast = useMemo(() => getContrastYIQ(colors.bg), [colors.bg]);
-  const titleContrast = useMemo(
+  const coverContrast = useMemo(() => getContrastYIQ(colors.bg), [colors.bg]);
+  const mainContrast = useMemo(
     () => getContrastYIQ(colors.main),
     [colors.main],
   );
@@ -30,18 +28,21 @@ export const Project = ({ data, selectedTech }: Props) => {
   const singleTech = data.technology.join(" / ");
 
   return (
-    <CardWrapper $shouldDim={shouldDim} data-testid="project-card">
-      {draft && <DraftBadge>Draft</DraftBadge>}
-      <Card key={id} to={slug}>
-        <CardBody bg={colors.bg} contrast={textContrast}>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardBody>
-        <CardTechnology
+    <ProjectRow to={slug} data-testid="project-card">
+      <ProjectCover bg={colors.bg} main={colors.main} contrast={coverContrast}>
+        {draft && <DraftBadge>Draft</DraftBadge>}
+        <div data-id="cover-media">
+          {image ? (
+            <img src={image} alt={`${title} screenshot`} loading="lazy" />
+          ) : (
+            <span data-id="cover-title">{title}</span>
+          )}
+        </div>
+        <CoverTechnology
           bg={colors.bg}
-          bodyContrast={textContrast}
+          bodyContrast={coverContrast}
           main={colors.main}
-          contrast={titleContrast}
+          contrast={mainContrast}
         >
           <TechTrack>
             <span>{singleTech}&nbsp;/&nbsp;</span>
@@ -49,8 +50,13 @@ export const Project = ({ data, selectedTech }: Props) => {
             <span>{singleTech}&nbsp;/&nbsp;</span>
             <span>{singleTech}&nbsp;/&nbsp;</span>
           </TechTrack>
-        </CardTechnology>
-      </Card>
-    </CardWrapper>
+        </CoverTechnology>
+      </ProjectCover>
+      <ProjectInfo>
+        <p className="date">{date}</p>
+        <ProjectTitle main={colors.main}>{title}</ProjectTitle>
+        <ProjectDescription>{description}</ProjectDescription>
+      </ProjectInfo>
+    </ProjectRow>
   );
 };

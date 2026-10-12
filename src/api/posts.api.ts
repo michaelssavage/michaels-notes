@@ -6,6 +6,7 @@ import type {
   IProject,
   IReview,
 } from "@/types/Post";
+import { sortById } from "@/lib/utils";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest, setResponseStatus } from "@tanstack/react-start/server";
 import { z } from "zod";
@@ -68,7 +69,7 @@ export const getProjects = createServerFn({ method: "GET" }).handler(
   async (): Promise<IProject[]> => {
     try {
       const posts = await loadPostsIndex();
-      return filterDrafts(posts.projects);
+      return filterDrafts(posts.projects).sort(sortById);
     } catch (error) {
       console.warn("Failed to load projects:", error);
       return [];
