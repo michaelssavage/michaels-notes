@@ -45,6 +45,10 @@ export const ProjectCover = styled.div<CoverProps>`
   flex-direction: column;
   background-color: ${({ bg }) => bg};
 
+  ${forPhoneOnly(css`
+    max-width: unset;
+  `)}
+
   div[data-id="cover-media"] {
     flex: 1;
     min-height: 0;
