@@ -55,6 +55,15 @@ A Django REST API deployed to Railway that automatically generates Spanish homew
 
 Worksheets are scoped to work and technology contexts (debugging, pull requests, client negotiations) and cover four exercise sections: Past Tense, Present Tense, Future Tense, and Translation.
 
+Each answer box uses a colour scheme to show how you did:
+
+- **Green**: correct
+- **Orange**: nearly correct, with the right word but a missing or wrong accent
+- **Red**: not correct
+- **Teal**: the answer was revealed with Show Answer
+
+Worksheets are also generated in Catalan. Every run creates a Catalan worksheet alongside the Spanish one, using the same themes.
+
 <hr />
 ## Key Features
 
@@ -64,6 +73,7 @@ Worksheets are scoped to work and technology contexts (debugging, pull requests,
 - **Async generation** — Worksheet creation is queued via Redis + RQ so the API responds immediately with a job ID
 - **Duplicate prevention** — Content is SHA-256 hashed before saving; duplicate worksheets are rejected
 - **Multi-recipient email** — Each user can add extra email recipients; all receive the same worksheet via Mailgun
+- **Catalan support** — Spanish and Catalan worksheets are generated as separate jobs, so a slow or failed language can't block the other. Each language has its own prompts, theme pools and grammar pools. Only the Spanish worksheet is emailed; `/api/worksheet/latest/?language=ca` returns the Catalan one
 
 ## Implementation
 
