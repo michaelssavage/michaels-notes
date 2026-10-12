@@ -3,7 +3,8 @@ id: 2
 title: New Music
 date: jan 19, 2025
 description: Full stack app that updates a Spotify playlist with new music releases
-live: https://new-music-releases-production.up.railway.app/
+live: https://new-music-releases.onrender.com/
+image: "/project/new-music/updates.png"
 github: https://github.com/michaelssavage/new-music-releases
 technology:
   - React.js
@@ -32,19 +33,19 @@ A GitHub Actions workflow fires daily at midnight UTC, calling a JWT-protected `
 
 Users can search the Spotify catalogue and pin artists for tracking. The table is built with TanStack React Table and supports column sorting and fuzzy text filtering. Clicking an artist opens a side panel with follower count, genres, and a direct Spotify link.
 
-<Picture src="/project/saved-artists.png" alt="Saved artists table" />
+<Picture src="/project/new-music/saved-artist.png" alt="Saved artists table" />
 
 #### Playlist updates
 
 Displays the tracks currently in the "New Music Releases" playlist with album art, release date, and a deep link back to Spotify. Admins can manually trigger a sync from the UI.
 
-<Picture src="/project/playlist-updates.png" alt="Playlist updates table" />
+<Picture src="/project/new-music/updates.png" alt="Playlist updates table" />
 
 #### Liked songs
 
 Renders all of the user's liked tracks with infinite scrolling powered by the Intersection Observer API, so the full library loads progressively without pagination controls.
 
-<Picture src="/project/liked-songs.png" alt="Liked songs table" />
+<Picture src="/project/new-music/liked.png" alt="Liked songs table" />
 
 ### Implementation
 
@@ -62,7 +63,7 @@ The `SchedulerService` wraps job execution with safeguards — it skips a run if
 
 <Anchor link="https://vite.dev/" text="Vite" variant="link" isExternal /> builds the frontend in 4-5 seconds and outputs static assets that Express serves directly, keeping the deployment a single process. The UI is TypeScript and React, styled with Emotion CSS-in-JS.
 
-<Picture src="/project/nmr_tanstack.png" alt="TanStack apps" />
+<Picture src="/project/new-music/tanstack.png" alt="TanStack apps" />
 
 <Anchor link="https://tanstack.com/router" text="TanStack Router" variant="link" isExternal /> handles file-based routing with built-in auth guards (`requireAuth` / `requireUnauth`) that run before each route renders. <Anchor link="https://tanstack.com/query" text="TanStack Query" variant="link" isExternal /> manages all server state — caching, background refetches, and mutations — while <Anchor link="https://zustand.pmnd.rs/" text="Zustand" variant="link" isExternal /> holds lightweight client-only state like the authenticated user and the saved artists list.
 
