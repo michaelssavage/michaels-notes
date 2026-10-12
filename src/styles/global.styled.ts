@@ -138,14 +138,15 @@ export const globalStyles = css`
   }
 
   .simple-card {
-    padding: 0.5rem;
+    padding: 1rem;
     margin-bottom: 1rem;
-    background-color: var(--color-white);
+    box-shadow: var(--color-blue200) 5px 5px;
+    background-color: var(--color-blue50);
   }
 
   ${forPhoneOnly(css`
     .simple-card {
-      padding: 0.25rem;
+      padding: 0.5rem;
     }
   `)}
 

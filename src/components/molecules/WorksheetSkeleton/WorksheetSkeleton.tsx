@@ -49,14 +49,14 @@ export function WorksheetSkeleton() {
       <Group direction="row" gap="2rem" align="center" wrap="wrap">
         <Loader />
         <Notice>
-          Page is loading content from{" "}
+          Content is loading from the{" "}
           <Anchor
             link="https://railway.com"
             text="railway.com"
             variant="link"
             isExternal
           />
-          . This may take up to a minute to finish loading.
+          server. Give it a few seconds to wake up.
         </Notice>
       </Group>
     </div>

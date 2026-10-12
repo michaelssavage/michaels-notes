@@ -1,18 +1,11 @@
 import { getProjects } from "@/api/posts.api";
-import { ErrorBoundary } from "@/components/atoms/ErrorBoundary";
 import { Group } from "@/components/atoms/Group";
 import { LoadingProject } from "@/components/atoms/Project/LoadingProject";
 import { Project } from "@/components/atoms/Project/Project";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
-import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
-import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import { Page, Panel } from "@/styles/routes/blog.styled";
-import {
-  Header,
-  ProjectList,
-  SpotifyContent,
-} from "@/styles/routes/projects.styled";
+import { Header, ProjectList } from "@/styles/routes/projects.styled";
 import { type IProject, type ITechnology, TECHNOLOGIES } from "@/types/Post";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -80,7 +73,7 @@ function Projects() {
           <h1 data-testid="projects-description">
             Personal development & side projects
           </h1>
-          <Group wrap="wrap" justify="center" align="center" gap="0.5rem">
+          <Group wrap="wrap" align="center" gap="0.5rem">
             <p data-id="filter-projects">Filter projects:</p>
             <Button
               text="All"
@@ -119,36 +112,10 @@ function Projects() {
         </ProjectList>
       </Panel>
 
-      <Panel>
-        <SpotifyContent>
-          <Header>
-            <h2>What am I listening to?</h2>
-            <p>
-              Below you can see what I&apos;ve been listening to recently, as
-              well as the top 10 most played tracks. If I&apos;m online, my
-              currently playing track will be displayed. Read more about the
-              <Anchor
-                link="/blog/spotify-developer-api"
-                text="Spotify API here."
-                variant="link"
-              />
-            </p>
-          </Header>
-
-          {/* spotify components */}
-          <ErrorBoundary fallback={<p>Now playing unavailable</p>}>
-            <CurrentPlay />
-          </ErrorBoundary>
-          <ErrorBoundary fallback={<p>Top tracks unavailable</p>}>
-            <TopTracks />
-          </ErrorBoundary>
-        </SpotifyContent>
-
-        <p>
-          Looking to get something like this built for you? Check out my{" "}
-          <Anchor link="/services" text="services" variant="link" /> page.
-        </p>
-      </Panel>
+      <p>
+        Looking to get something like this built for you? Check out my{" "}
+        <Anchor link="/services" text="services" variant="link" /> page.
+      </p>
     </Page>
   );
 }

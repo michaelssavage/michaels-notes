@@ -11,6 +11,14 @@ export const ComponentWrapper = styled.div`
   margin: 1rem 0;
 `;
 
+export const TrackName = styled.h4`
+  font-weight: 500;
+`;
+
+export const ArtistName = styled.p`
+  font-size: 0.8rem;
+`;
+
 export const Card = styled(Link, {
   shouldForwardProp: (prop) => prop !== "color" && prop !== "contrastColor",
 })<{ color: string; contrastColor: string }>`
@@ -37,12 +45,4 @@ export const Card = styled(Link, {
   &:hover {
     transform: translateY(-5px);
   }
-`;
-
-export const TrackName = styled.h4`
-  font-weight: 500;
-`;
-
-export const ArtistName = styled.p`
-  font-size: 0.8rem;
 `;

@@ -160,7 +160,6 @@ export const Header = styled.div`
 
   h1 {
     margin-bottom: 0.5rem;
-    text-align: center;
   }
 
   ${forPhoneOnly(css`
@@ -197,7 +196,6 @@ export const Paths = styled.div`
 `;
 
 export const SpotifyContent = styled.div`
-  margin: 1rem 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;

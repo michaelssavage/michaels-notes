@@ -1,7 +1,12 @@
+import { ErrorBoundary } from "@/components/atoms/ErrorBoundary";
 import { Player } from "@/components/atoms/Player";
 import { Anchor } from "@/components/molecules/Anchor";
+import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
+import TopTracks from "@/components/spotify/TopTracks/TopTracks";
+import { Title } from "@/components/spotify/TopTracks/TopTracks.styled";
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { Heading, Page } from "@/styles/routes/blog.styled";
+import { Header, SpotifyContent } from "@/styles/routes/projects.styled";
 import { MiscContainer, PostList } from "@/styles/routes/routes.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -120,12 +125,7 @@ const content: ContentItem[] = [
     id: "doodles",
     title: "Doodles",
     link: "/doodles",
-    description: (
-      <p>
-        Now and again I&apos;ll put pen to paper for tattoo ideas or for really
-        bad jokes. I&apos;ll share some of the doodles on this page.
-      </p>
-    ),
+    description: <p>Tattoo ideas and really bad jokes.</p>,
   },
 
   {
@@ -145,9 +145,8 @@ const content: ContentItem[] = [
     link: "/pretty-text",
     description: (
       <p>
-        A utility function for formatting exported setlists from the DJ software
-        Rekordbox. Useful for adding the played tracks to the description of
-        SoundCloud, MixCloud, etc.
+        A utility function for formatting exported setlists from Rekordbox.
+        Useful for adding the tracklist to a SoundCloud description, etc.
       </p>
     ),
   },
@@ -174,10 +173,30 @@ function RouteComponent() {
       <MiscContainer>
         <Heading>Things I&apos;ve Made</Heading>
 
-        <p>
-          Want something built for you? See my{" "}
-          <Anchor link="/services" text="services" variant="link" /> page.
-        </p>
+        <SpotifyContent>
+          <Header>
+            <p>
+              Below you can see what I&apos;ve been listening to recently, as
+              well as the top 10 most played tracks. If I&apos;m online, my
+              currently playing track will be displayed. Read more about the
+              <Anchor
+                link="/blog/spotify-developer-api"
+                text="Spotify API here."
+                variant="link"
+              />
+            </p>
+          </Header>
+
+          {/* spotify components */}
+          <ErrorBoundary fallback={<p>Now playing unavailable</p>}>
+            <CurrentPlay />
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<p>Top tracks unavailable</p>}>
+            <TopTracks />
+          </ErrorBoundary>
+        </SpotifyContent>
+
+        <Title>More things:</Title>
 
         <PostList>
           {content.map((item) => (
@@ -188,6 +207,11 @@ function RouteComponent() {
             </Container>
           ))}
         </PostList>
+
+        <p>
+          Want something built for you? See my{" "}
+          <Anchor link="/services" text="services" variant="link" /> page.
+        </p>
       </MiscContainer>
     </Page>
   );

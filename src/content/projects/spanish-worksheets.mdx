@@ -4,6 +4,7 @@ title: "Spanish Worksheets"
 date: December 14, 2025
 description: "A Python app that generates Spanish worksheets for users."
 live: "https://michaelsavage.ie/worksheets"
+image: "/project/worksheets/homework.png"
 github: "https://github.com/michaelssavage/spanish-worksheets"
 technology:
   - Python
@@ -17,6 +18,38 @@ colors:
 ---
 
 ## Overview
+
+<div className="simple-card">
+<FillInTheBlank
+    heading="Past"
+    beforeText="¿Tú"
+    afterText="(hacer) el check-in en línea ayer?"
+    correctAnswer="hiciste"
+/> 
+
+<FillInTheBlank
+    heading="Present"
+    beforeText="Los huéspedes"
+    afterText="(disfrutar) del desayuno buffet en el comedor."
+    correctAnswer="disfrutan"
+/>  
+ 
+
+<FillInTheBlank
+    heading="Future"
+    beforeText="El tren"
+    afterText="(partir) a las ocho en punto de la mañana."
+    correctAnswer="partirá"
+/> 
+
+<h3>Translation</h3>
+<TranslateTheSentence
+    sentence="The waiter closed the door."
+    correctAnswer="El camarero cerró la puerta."
+/>
+ 
+</div>
+
 
 A Django REST API deployed to Railway that automatically generates Spanish homework worksheets and delivers them by email every two days. A GitHub Actions CRON job authenticates with the API, triggers worksheet generation via DeepSeek's LLM, and sends the result through Mailgun — no manual intervention required.
 
@@ -56,6 +89,8 @@ Worksheets are scoped to work and technology contexts (debugging, pull requests,
 4. Attempt one-shot LLM repair if extraction fails
 5. Validate structure — exactly 4 sections, 7 exercises each, with non-empty `prompt` and `answer` fields
 6. Hash the content and reject if a duplicate already exists for the user
+
+<Picture src="/project/worksheets/railway.png" alt="Setup on Railway app" />
 
 ### Endpoints
 
