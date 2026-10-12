@@ -44,7 +44,7 @@ const NAV_ITEMS: NavItem[] = [
     to: "/things",
     text: "Things",
     activeRoutes: ["/things", "/guide", "/doodles", "/mixes", "/pretty-text"],
-    count: 6,
+    count: 7,
   },
   { to: "/about", text: "About", count: 4 },
 ];
