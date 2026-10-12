@@ -44,17 +44,27 @@ const Container = styled.div`
 
   &:nth-of-type(1),
   &:nth-of-type(2) {
-    grid-column: span 3;
+    grid-column: span 6;
   }
 
-  &:nth-of-type(3),
-  &:nth-of-type(4),
+  &:nth-of-type(3) {
+    grid-column: span 5;
+  }
+
+  &:nth-of-type(4) {
+    grid-column: span 7;
+  }
+
   &:nth-of-type(5) {
-    grid-column: span 2;
+    grid-column: span 7;
   }
 
   &:nth-of-type(6) {
-    grid-column: span 6;
+    grid-column: span 5;
+  }
+
+  &:nth-of-type(7) {
+    grid-column: span 12;
   }
 
   ${forPhoneOnly(css`
@@ -84,7 +94,21 @@ export const Route = createFileRoute("/things")({
 
 const content: ContentItem[] = [
   {
-    id: "barcelona-guide",
+    id: "1-spanish-worksheets",
+    title: "Spanish Worksheets",
+    link: "/worksheets",
+    description: (
+      <p>
+        Interactive Spanish & Catalan homework generated every two days. Read
+        more in my{" "}
+        <Anchor link="/blog/learning-spanish" text="blog post" variant="link" />
+        .
+      </p>
+    ),
+  },
+
+  {
+    id: "2-barcelona-guide",
     title: "Barcelona guide",
     link: "/guide/barcelona",
     description: (
@@ -103,28 +127,26 @@ const content: ContentItem[] = [
   },
 
   {
-    id: "spanish-worksheets",
-    title: "Spanish Worksheets",
-    link: "/worksheets",
-    description: (
-      <p>
-        Interactive Spanish homework generated every two days with AI, then
-        delivered by email. Read more in my{" "}
-        <Anchor link="/blog/learning-spanish" text="blog post" variant="link" />
-        .
-      </p>
-    ),
-  },
-
-  {
-    id: "doodles",
+    id: "3-doodles",
     title: "Doodles",
     link: "/doodles",
     description: <p>Tattoo ideas and really bad jokes.</p>,
   },
 
   {
-    id: "dj-mixes",
+    id: "4-gifts",
+    title: "Gift Guide",
+    link: "/gifts",
+    description: (
+      <p>
+        I&apos;m trying to be better at giving gifts! Maybe you&apos;ll find
+        something useful here.
+      </p>
+    ),
+  },
+
+  {
+    id: "5-dj-mixes",
     title: "DJ mixes",
     link: "/mixes",
     description: (
@@ -135,7 +157,7 @@ const content: ContentItem[] = [
     ),
   },
   {
-    id: "rekordbox-text-prettifier",
+    id: "6-rekordbox-text-prettifier",
     title: "Rekordbox text prettifier",
     link: "/pretty-text",
     description: (
@@ -146,7 +168,7 @@ const content: ContentItem[] = [
     ),
   },
   {
-    id: "dj-background",
+    id: "7-dj-background",
     title: (
       <Player
         videoId="zGB_YubjRN8?si=uzfBT05mcp_fz5-4"

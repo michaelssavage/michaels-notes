@@ -39,7 +39,7 @@ export const Anchor = memo(
         target={isExternal ? "_blank" : undefined}
         style={style}
       >
-        {icon} {text ? text : link}
+        {icon} <span>{text ? text : link}</span>
       </LinkStyle>
     );
   },

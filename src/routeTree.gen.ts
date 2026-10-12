@@ -15,6 +15,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrettyTextRouteImport } from './routes/pretty-text'
 import { Route as MixesRouteImport } from './routes/mixes'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as GiftsRouteImport } from './routes/gifts'
 import { Route as DoodlesRouteImport } from './routes/doodles'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -57,6 +58,11 @@ const MixesRoute = MixesRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GiftsRoute = GiftsRouteImport.update({
+  id: '/gifts',
+  path: '/gifts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DoodlesRoute = DoodlesRouteImport.update({
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/doodles': typeof DoodlesRoute
+  '/gifts': typeof GiftsRoute
   '/login': typeof LoginRoute
   '/mixes': typeof MixesRoute
   '/pretty-text': typeof PrettyTextRoute
@@ -150,6 +157,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/doodles': typeof DoodlesRoute
+  '/gifts': typeof GiftsRoute
   '/login': typeof LoginRoute
   '/mixes': typeof MixesRoute
   '/pretty-text': typeof PrettyTextRoute
@@ -172,6 +180,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/doodles': typeof DoodlesRoute
+  '/gifts': typeof GiftsRoute
   '/login': typeof LoginRoute
   '/mixes': typeof MixesRoute
   '/pretty-text': typeof PrettyTextRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/doodles'
+    | '/gifts'
     | '/login'
     | '/mixes'
     | '/pretty-text'
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/doodles'
+    | '/gifts'
     | '/login'
     | '/mixes'
     | '/pretty-text'
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/doodles'
+    | '/gifts'
     | '/login'
     | '/mixes'
     | '/pretty-text'
@@ -259,6 +271,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   DoodlesRoute: typeof DoodlesRoute
+  GiftsRoute: typeof GiftsRoute
   LoginRoute: typeof LoginRoute
   MixesRoute: typeof MixesRoute
   PrettyTextRoute: typeof PrettyTextRoute
@@ -319,6 +332,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gifts': {
+      id: '/gifts'
+      path: '/gifts'
+      fullPath: '/gifts'
+      preLoaderRoute: typeof GiftsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/doodles': {
@@ -419,6 +439,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   DoodlesRoute: DoodlesRoute,
+  GiftsRoute: GiftsRoute,
   LoginRoute: LoginRoute,
   MixesRoute: MixesRoute,
   PrettyTextRoute: PrettyTextRoute,

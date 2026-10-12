@@ -38,7 +38,7 @@ export const MiscContainer = styled.div`
 
 export const PostList = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   gap: 4px;
   background-color: var(--color-black);
   box-shadow: var(--color-black) 5px 5px;

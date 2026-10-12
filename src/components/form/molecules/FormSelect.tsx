@@ -9,9 +9,9 @@ interface FormSelectProps<T> {
   value: T | T[];
   options: Array<{ value: T; label: string }>;
   placeholder: string;
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onChange: (newValue: T | T[]) => void;
-  meta: {
+  meta?: {
     isValid: boolean;
     errors: Array<string | undefined>;
   };
@@ -69,7 +69,7 @@ export const FormSelect = <T,>({
         onChange={handleChange}
         styles={customSelectStyles()}
       />
-      {!meta.isValid && <em>{meta.errors.filter(Boolean).join(",")}</em>}
+      {meta && !meta.isValid && <em>{meta.errors.filter(Boolean).join(",")}</em>}
     </FormContainer>
   );
 };

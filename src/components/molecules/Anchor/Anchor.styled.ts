@@ -56,11 +56,17 @@ export const LinkStyle = styled(Link)<IStyle>`
       case "link":
         return css`
           padding: 0;
-          ${underlineStyles("purple")}
           border: none;
           margin-right: 2px;
           color: var(--color-purple);
           font-weight: 500;
+
+          /* Underline lives on an inline span so it wraps with each line,
+             even when the anchor itself is laid out as a block (e.g. flex item). */
+          > span {
+            ${underlineStyles("purple")}
+          }
+
           &:hover {
             color: var(--color-purple200);
           }
