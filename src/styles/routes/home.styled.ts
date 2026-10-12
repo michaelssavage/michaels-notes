@@ -49,7 +49,7 @@ export const Section = styled(animated.section)`
 `;
 
 export const Paragraph = styled.div<{ text?: string }>`
-  width: 70%;
+  width: 75%;
   text-wrap: balance;
 
   p,

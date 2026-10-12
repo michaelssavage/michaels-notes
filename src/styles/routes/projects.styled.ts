@@ -198,7 +198,8 @@ export const Paths = styled.div`
 export const SpotifyContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
+  padding: 1.5rem 0 1rem;
 `;
 
 export const Title = styled.h1`

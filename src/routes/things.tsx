@@ -1,12 +1,7 @@
-import { ErrorBoundary } from "@/components/atoms/ErrorBoundary";
 import { Player } from "@/components/atoms/Player";
 import { Anchor } from "@/components/molecules/Anchor";
-import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
-import TopTracks from "@/components/spotify/TopTracks/TopTracks";
-import { Title } from "@/components/spotify/TopTracks/TopTracks.styled";
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { Heading, Page } from "@/styles/routes/blog.styled";
-import { Header, SpotifyContent } from "@/styles/routes/projects.styled";
 import { MiscContainer, PostList } from "@/styles/routes/routes.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -173,30 +168,10 @@ function RouteComponent() {
       <MiscContainer>
         <Heading>Things I&apos;ve Made</Heading>
 
-        <SpotifyContent>
-          <Header>
-            <p>
-              Below you can see what I&apos;ve been listening to recently, as
-              well as the top 10 most played tracks. If I&apos;m online, my
-              currently playing track will be displayed. Read more about the
-              <Anchor
-                link="/blog/spotify-developer-api"
-                text="Spotify API here."
-                variant="link"
-              />
-            </p>
-          </Header>
-
-          {/* spotify components */}
-          <ErrorBoundary fallback={<p>Now playing unavailable</p>}>
-            <CurrentPlay />
-          </ErrorBoundary>
-          <ErrorBoundary fallback={<p>Top tracks unavailable</p>}>
-            <TopTracks />
-          </ErrorBoundary>
-        </SpotifyContent>
-
-        <Title>More things:</Title>
+        <p>
+          Want something built for you? See my{" "}
+          <Anchor link="/services" text="services" variant="link" /> page.
+        </p>
 
         <PostList>
           {content.map((item) => (
@@ -207,11 +182,6 @@ function RouteComponent() {
             </Container>
           ))}
         </PostList>
-
-        <p>
-          Want something built for you? See my{" "}
-          <Anchor link="/services" text="services" variant="link" /> page.
-        </p>
       </MiscContainer>
     </Page>
   );

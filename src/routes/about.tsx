@@ -1,18 +1,21 @@
+import { ErrorBoundary } from "@/components/atoms/ErrorBoundary";
 import { Group } from "@/components/atoms/Group";
 import { SectionInView } from "@/components/atoms/SectionInView";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Letterboxd } from "@/components/molecules/Letterboxd";
 import { Picture } from "@/components/molecules/Picture";
+import { CurrentPlay } from "@/components/spotify/CurrentPlay/CurrentPlay";
+import TopTracks from "@/components/spotify/TopTracks/TopTracks";
 import {
   breakpoint,
   Content,
   CustomSites,
   Opening,
-  Paragraph,
   plantbassdStyle,
   reverseBreak,
   selfieStyle,
 } from "@/styles/routes/home.styled";
+import { Header, SpotifyContent } from "@/styles/routes/projects.styled";
 import { createFileRoute } from "@tanstack/react-router";
 
 const title = "About Me | Michael Savage";
@@ -37,88 +40,102 @@ function About() {
   return (
     <Content>
       <SectionInView delay={0}>
-        <Paragraph>
-          <Group align="center" gap="0" css={breakpoint}>
-            <Picture
-              src="/media/portrait.png"
-              alt="Picture of Me"
-              style={selfieStyle}
-            />
-            <Opening>
-              Started my career as a Software Developer in 2021 with JLR after
-              studying Computer Applications in Dublin. I moved to Barcelona in
-              2024, where I&apos;m currently working as a Product Developer for
-              a Sports Travel startup.
-            </Opening>
-          </Group>
-        </Paragraph>
-      </SectionInView>
-
-      <SectionInView delay={100}>
-        <Paragraph>
-          <Group align="center" gap="1rem" css={reverseBreak}>
-            <p>
-              From 2020 to 2023, I co-ran{" "}
-              <Anchor
-                variant="link"
-                text="Plant Bass'd"
-                link="/blog/what-is-plant-bassd"
-              />
-              , an electronic music blog and helped organise club nights in
-              Galway, Dublin, Scotland, and Edinburgh. In these times, I learned
-              to DJ, create events, design posters, and produce music on
-              Ableton.
-            </p>
-            <Picture
-              src="/blog/plantbassd.png"
-              alt="Plant bass'd logo"
-              style={plantbassdStyle}
-            />
-          </Group>
-        </Paragraph>
+        <Group align="center" gap="0" css={breakpoint}>
+          <Picture
+            src="/media/portrait.png"
+            alt="Picture of Me"
+            style={selfieStyle}
+          />
+          <Opening>
+            Started my career as a Software Developer in 2021 with JLR after
+            studying Computer Applications in Dublin. I moved to Barcelona in
+            2024, where I&apos;m currently working as a Product Developer for a
+            Sports Travel startup.
+          </Opening>
+        </Group>
       </SectionInView>
 
       <SectionInView delay={300}>
-        <Paragraph>
-          <Group align="center" gap="1rem 2rem" css={breakpoint}>
-            <Picture
-              src="/media/gaelic-ball.png"
-              alt="Gaelic Ball"
-              style={selfieStyle}
-            />
-
+        <SpotifyContent>
+          <Header>
             <p>
-              I played{" "}
+              See what I&apos;m listening to, as well as my top 10 most played
+              tracks. If I&apos;m online, my currently playing track will be
+              displayed. Read more about the
               <Anchor
-                link="https://en.wikipedia.org/wiki/Gaelic_football"
-                text="Gaelic football"
+                link="/blog/spotify-developer-api"
+                text="Spotify API here."
                 variant="link"
-              />{" "}
-              and rugby growing up in Monaghan. In 2017, I played for Armagh RFC
-              and represented Ulster Club u18s rugby in the inter-provincial
-              series. I also played for Monaghan RFC, Ennis RFC, Corinthians
-              RFC, and Barcelona GAA. In 2025, I completed the Barcelona Half
-              Marathon in 1:44:00. Always looking forward to the next challenge!
+              />
             </p>
-          </Group>
-        </Paragraph>
+          </Header>
+
+          {/* spotify components */}
+          <ErrorBoundary fallback={<p>Now playing unavailable</p>}>
+            <CurrentPlay />
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<p>Top tracks unavailable</p>}>
+            <TopTracks />
+          </ErrorBoundary>
+        </SpotifyContent>
       </SectionInView>
 
       <SectionInView delay={200}>
-        <Paragraph>
-          <Letterboxd />
-        </Paragraph>
+        <Letterboxd />
+      </SectionInView>
+
+      <SectionInView delay={300}>
+        <Group align="center" gap="1rem 2rem" css={breakpoint}>
+          <Picture
+            src="/media/gaelic-ball.png"
+            alt="Gaelic Ball"
+            style={selfieStyle}
+          />
+
+          <p>
+            I played{" "}
+            <Anchor
+              link="https://en.wikipedia.org/wiki/Gaelic_football"
+              text="Gaelic football"
+              variant="link"
+            />{" "}
+            and rugby growing up in Monaghan. In 2017, I played for Armagh RFC
+            and represented Ulster Club u18s rugby in the inter-provincial
+            series. I also played for Monaghan RFC, Ennis RFC, Corinthians RFC,
+            and Barcelona GAA. In 2025, I completed the Barcelona Half Marathon
+            in 1:44:00. Always looking forward to the next challenge!
+          </p>
+        </Group>
+      </SectionInView>
+
+      <SectionInView delay={100}>
+        <Group align="center" gap="1rem" css={reverseBreak}>
+          <p>
+            From 2020 to 2023, I co-ran{" "}
+            <Anchor
+              variant="link"
+              text="Plant Bass'd"
+              link="/blog/what-is-plant-bassd"
+            />
+            , an electronic music blog and helped organise club nights in
+            Galway, Dublin, Scotland, and Edinburgh. In these times, I learned
+            to DJ, create events, design posters, and produce music on Ableton.
+          </p>
+          <Picture
+            src="/blog/plantbassd.png"
+            alt="Plant bass'd logo"
+            style={plantbassdStyle}
+          />
+        </Group>
       </SectionInView>
 
       <SectionInView delay={400}>
-        <Paragraph>
-          <CustomSites>
-            I&apos;m also open to building custom sites for people, including
-            portfolios, blogs, event pages, and business sites. Take a look at
-            my <Anchor link="/services" text="services" variant="link" /> page
-            for details.
-          </CustomSites>
-        </Paragraph>
+        <CustomSites>
+          I&apos;m also open to building custom sites for people, including
+          portfolios, blogs, event pages, and business sites. Take a look at my{" "}
+          <Anchor link="/services" text="services" variant="link" /> page for
+          details.
+        </CustomSites>
       </SectionInView>
     </Content>
   );

@@ -1,4 +1,4 @@
-import { Section } from "@/styles/routes/home.styled";
+import { Paragraph, Section } from "@/styles/routes/home.styled";
 import { useSpring } from "@react-spring/web";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -48,7 +48,7 @@ export const SectionInView = ({ children, delay = 0 }: SectionI) => {
 
   return (
     <Section ref={ref} style={spring}>
-      {children}
+      <Paragraph>{children}</Paragraph>
     </Section>
   );
 };
