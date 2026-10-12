@@ -11,8 +11,11 @@ const Inline = styled.code`
   font-weight: 600;
 
   pre & {
+    display: block;
     color: var(--color-white);
     font-size: 0.9rem;
+    white-space: pre;
+    overflow-x: auto;
   }
 `;
 

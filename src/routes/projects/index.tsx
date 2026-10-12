@@ -110,12 +110,12 @@ function Projects() {
             </p>
           )}
         </ProjectList>
-      </Panel>
 
-      <p>
-        Looking to get something like this built for you? Check out my{" "}
-        <Anchor link="/services" text="services" variant="link" /> page.
-      </p>
+        <p>
+          Looking to get something like this built for you? Check out my{" "}
+          <Anchor link="/services" text="services" variant="link" /> page.
+        </p>
+      </Panel>
     </Page>
   );
 }

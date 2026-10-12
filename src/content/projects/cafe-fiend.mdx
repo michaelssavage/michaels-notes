@@ -1,5 +1,5 @@
 ---
-id: 6
+id: 9
 title: "Cafe Fiend"
 date: July 31, 2025
 description: "A React Vite app for finding cafes and espresso bars nearby."
@@ -46,29 +46,29 @@ The app is built with TanStack Start, mainly for its server functions and the ab
 Example of a `createServerFn` for getting favorites.
 
 ```typescript
-export const getFavorites = createServerFn({ method: "GET" }).handler(async () => {
-  const supabase = getSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
+export const getFavorites = createServerFn({ method: "GET" }).handler(async () => {  
+  const supabase = getSupabaseServerClient();  
+  const { data: { user } } = await supabase.auth.getUser();  
   
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error("Unauthorized");  
   
-  return await supabase
-    .from("saved")
-    .select("*")
-    .eq("user_id", user.id);
+  return await supabase  
+    .from("saved")  
+    .select("*")  
+    .eq("user_id", user.id);  
 });
 ```
 
 Authentication is managed through Supabase with cookie-based sessions. Protected routes live under a shared layout that checks for a user before loading, so anything inside that route tree requires login by default.
 
 ```typescript
-// _authed.tsx - Layout route for protected pages
-export const Route = createFileRoute("/_authed")({
-  beforeLoad: ({ context }) => {
-    if (!context.user) {
-      throw redirect({ to: "/login" });
-    }
-  },
+// _authed.tsx - Layout route for protected pages  
+export const Route = createFileRoute("/_authed")({  
+  beforeLoad: ({ context }) => {  
+    if (!context.user) {  
+      throw redirect({ to: "/login" });  
+    }  
+  },  
 });
 ```
 
@@ -79,11 +79,11 @@ User preferences are stored in a single Supabase table. Each place is tied to a 
 All remote data is wrapped in TanStack Query. Query keys include location and filters, so moving the map or changing preferences triggers fresh fetches automatically. Mutations (like favoriting a place) use optimistic updates, so the UI responds instantly before the server confirms the change.
 
 ```typescript
-const { data, isLoading } = useQuery({
-  queryKey: ["coffeeShops", lat, long, filters, favorites],
-  queryFn: () => findNearbyCafes({ lat, long, filters }),
-  enabled: !!(lat && long),
-  refetchOnWindowFocus: false,
+const { data, isLoading } = useQuery({  
+  queryKey: ["coffeeShops", lat, long, filters, favorites],  
+  queryFn: () => findNearbyCafes({ lat, long, filters }),  
+  enabled: !!(lat && long),  
+  refetchOnWindowFocus: false,  
 });
 ```
 

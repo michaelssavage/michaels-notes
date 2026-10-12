@@ -20,6 +20,7 @@ export const ProjectList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 export const ProjectRow = styled(Link)`
