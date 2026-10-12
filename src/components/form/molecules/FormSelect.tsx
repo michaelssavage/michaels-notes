@@ -1,7 +1,12 @@
-import { FormContainer } from "@/components/form/Form.styled";
+import { FormContainer, MoreCount } from "@/components/form/Form.styled";
 import { Label } from "@/components/form/Label";
 import { customSelectStyles } from "@/styles/abstracts/react-select.styled";
-import Select, { type MultiValue, type SingleValue } from "react-select";
+import Select, {
+  components,
+  type MultiValue,
+  type MultiValueProps,
+  type SingleValue,
+} from "react-select";
 
 interface FormSelectProps<T> {
   id: string;
@@ -17,6 +22,22 @@ interface FormSelectProps<T> {
   };
   multiSelect?: boolean;
 }
+
+// Only render the first selected badge, followed by "+N" for the rest,
+// so the control never grows in height.
+const CollapsedMultiValue = <T,>(
+  props: MultiValueProps<{ value: T; label: string }, boolean>
+) => {
+  if (props.index > 0) return null;
+
+  const hiddenCount = props.getValue().length - 1;
+  return (
+    <>
+      <components.MultiValue {...props} />
+      {hiddenCount > 0 && <MoreCount>+{hiddenCount}</MoreCount>}
+    </>
+  );
+};
 
 export const FormSelect = <T,>({
   id,
@@ -66,6 +87,8 @@ export const FormSelect = <T,>({
         placeholder={placeholder}
         onBlur={onBlur}
         isMulti={isMulti}
+        hideSelectedOptions={false}
+        components={{ MultiValue: CollapsedMultiValue }}
         onChange={handleChange}
         styles={customSelectStyles()}
       />

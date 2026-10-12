@@ -605,14 +605,21 @@ const websites: Website[] = [
     name: "G Adventures",
     category: "travel",
     url: "https://www.gadventures.com/",
-    description: "travel",
+    description: "travel groups",
   },
 
   {
     name: "Last Minute",
     category: "travel",
     url: "https://www.lastminute.com/",
-    description: "travel",
+    description: "cheap travel packages",
+  },
+
+  {
+    name: "Sunny Souls",
+    category: "clothes",
+    url: "https://sunnysouls.ie/",
+    description: "Marino wool gilets",
   },
 ];
 

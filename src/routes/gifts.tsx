@@ -1,4 +1,3 @@
-import { Group } from "@/components/atoms/Group";
 import { FormSelect } from "@/components/form/molecules/FormSelect";
 import { Anchor } from "@/components/molecules/Anchor";
 import {
@@ -7,19 +6,22 @@ import {
   ideas,
   websites,
 } from "@/content/gifts/ideas";
-import { Page, Panel } from "@/styles/routes/blog.styled";
+import { MovieInfo, Page, Panel } from "@/styles/routes/blog.styled";
 import {
   IdeaCard,
   IdeaCategory,
   IdeaImage,
   IdeaPrice,
   IdeasGrid,
+  SelectsItems,
   WebsitesList,
 } from "@/styles/routes/gifts.styled";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/gifts")({
+  // shuffled in the loader so the server and client render the same order
+  loader: () => ({ order: shuffledIndexes(ideas.length) }),
   component: GiftComponent,
 });
 
@@ -38,6 +40,16 @@ const sortOptions: Array<{ value: SortOrder; label: string }> = [
   { value: "category-desc", label: "Category: Z to A" },
 ];
 
+// Fisher-Yates shuffle of [0, 1, ..., length - 1]
+function shuffledIndexes(length: number) {
+  const indexes = Array.from({ length }, (_, i) => i);
+  for (let i = length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
+  }
+  return indexes;
+}
+
 // "From €35" / "€90 each" -> 35 / 90
 const parsePrice = (price: string) => {
   const match = price.match(/\d+(\.\d+)?/);
@@ -45,14 +57,17 @@ const parsePrice = (price: string) => {
 };
 
 function GiftComponent() {
+  const { order } = Route.useLoaderData();
   const [categories, setCategories] = useState<Category[]>([]);
   const [sortOrder, setSortOrder] = useState<SortOrder>("default");
+
+  const shuffledIdeas = useMemo(() => order.map((i) => ideas[i]), [order]);
 
   const visibleIdeas = useMemo(() => {
     const filtered =
       categories.length === 0
-        ? ideas
-        : ideas.filter((idea) => categories.includes(idea.category));
+        ? shuffledIdeas
+        : shuffledIdeas.filter((idea) => categories.includes(idea.category));
 
     if (sortOrder === "default") return filtered;
 
@@ -67,21 +82,25 @@ function GiftComponent() {
     return [...filtered].sort(
       (a, b) => direction * (parsePrice(a.price) - parsePrice(b.price)),
     );
-  }, [categories, sortOrder]);
+  }, [shuffledIdeas, categories, sortOrder]);
 
   return (
     <Page>
       <Panel>
-        <h1>Gift Guide</h1>
+        <h1>Gift Ideas</h1>
 
-        <h2>Ideas</h2>
+        <MovieInfo>
+          No referral links. Just a list of ideas that I&apos;ve been collecting
+          over the years from an Irish person in Catalonia. Some things may be
+          too specific!
+        </MovieInfo>
 
-        <Group gap="1rem" margin="0 0 1rem">
+        <SelectsItems>
           <FormSelect<Category>
             id="category"
             name="Category"
             options={categoryOptions}
-            placeholder="All categories"
+            placeholder="All"
             value={categories}
             onChange={(value) => setCategories(value as Category[])}
             multiSelect
@@ -94,7 +113,7 @@ function GiftComponent() {
             value={sortOrder}
             onChange={(value) => setSortOrder(value as SortOrder)}
           />
-        </Group>
+        </SelectsItems>
 
         <IdeasGrid>
           {visibleIdeas.map((idea) => (

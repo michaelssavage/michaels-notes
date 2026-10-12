@@ -10,6 +10,8 @@ export const customSelectStyles = <
     lineHeight: "1.25rem",
     borderRadius: "4px",
     minHeight: "36px",
+    height: "36px",
+    alignItems: "center",
     minWidth: "150px",
     border: `2px solid ${state.isFocused ? "var(--color-green200)" : "var(--color-black)"}`,
     color: "var(--color-gray600)",
@@ -22,7 +24,9 @@ export const customSelectStyles = <
   }),
   valueContainer: (provided: CSSObjectWithLabel) => ({
     ...provided,
-    padding: "0.375rem 1rem",
+    padding: "0 1rem",
+    flexWrap: "nowrap",
+    overflow: "hidden",
   }),
   input: (provided: CSSObjectWithLabel) => ({
     ...provided,
@@ -56,8 +60,13 @@ export const customSelectStyles = <
     ...provided,
     padding: "0",
   }),
+  placeholder: (provided: CSSObjectWithLabel) => ({
+    ...provided,
+    margin: 0,
+  }),
   singleValue: (provided: CSSObjectWithLabel) => ({
     ...provided,
+    margin: 0,
     color: "var(--color-gray600)",
   }),
   multiValue: (provided: CSSObjectWithLabel) => ({
@@ -65,6 +74,10 @@ export const customSelectStyles = <
     color: "var(--color-white)",
     borderRadius: "0.3rem",
     backgroundColor: "var(--color-green200)",
+    minWidth: 0,
+    flexShrink: 1,
+    margin: 0,
+    alignItems: "center",
     "> div": {
       color: "var(--color-white)",
     },
@@ -72,6 +85,10 @@ export const customSelectStyles = <
   dropdownIndicator: (provided: CSSObjectWithLabel) => ({
     ...provided,
     color: "var(--color-gray600)",
+    padding: "0 0.5rem",
+  }),
+  clearIndicator: (provided: CSSObjectWithLabel) => ({
+    ...provided,
     padding: "0 0.5rem",
   }),
   indicatorSeparator: () => ({

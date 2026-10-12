@@ -9,3 +9,10 @@ export const FormContainer = styled.div<{ styles?: SerializedStyles }>`
 
   ${({ styles }) => styles}
 `;
+
+export const MoreCount = styled.span`
+  flex-shrink: 0;
+  margin-left: 0.25rem;
+  color: var(--color-gray600);
+  white-space: nowrap;
+`;

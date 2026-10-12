@@ -1,3 +1,5 @@
+import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const WebsitesList = styled.div`
@@ -5,6 +7,17 @@ export const WebsitesList = styled.div`
   flex-direction: row;
   gap: 1rem;
   flex-wrap: wrap;
+`;
+
+export const SelectsItems = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  ${forPhoneOnly(css`
+    grid-template-columns: 1.5fr 1fr;
+  `)}
 `;
 
 export const IdeasGrid = styled.ul`
