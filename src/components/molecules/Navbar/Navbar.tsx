@@ -46,7 +46,7 @@ const NAV_ITEMS: NavItem[] = [
     activeRoutes: ["/things", "/guide", "/doodles", "/mixes", "/pretty-text"],
     count: 7,
   },
-  { to: "/about", text: "About", count: 4 },
+  { to: "/about", text: "About", count: 5 },
 ];
 
 const useIsActive = ({ to, activeRoutes }: NavItem) => {
