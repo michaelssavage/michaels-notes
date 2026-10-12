@@ -20,7 +20,7 @@ import { createFileRoute } from "@tanstack/react-router";
 const featuredSites = [
   {
     title: "Plantbassd",
-    src: "/project/plantbassd-landing.png",
+    src: "/project/plantbassd/landing.png",
     href: "https://plantbassd.com",
   },
   {
@@ -90,9 +90,10 @@ function RouteComponent() {
           </CardGrid>
 
           <Lede>
-            If you need a site built, redesigned, or maintained, I would love to
-            help. I have experience developing portfolios, blogs, event pages,
-            and small business sites. I can help with the following:
+            If you need a site built, redesigned, or maintained, I can help. I
+            don&apos;t use WordPress or any site builder, so all you have to pay
+            is the cost of the domain name and my work. No monthly hosting or
+            subscription fees. I can help with the following:
           </Lede>
 
           <List>
@@ -104,9 +105,9 @@ function RouteComponent() {
 
           <PriceCallout>
             <p>
-              Pricing starts at €500, but really depends on the scope and
-              complexity of your project. Get in touch to discuss the next
-              steps.
+              Pricing depends on the scope and complexity of the project. You
+              pay in instalments or all at once, and then its all yours! Get in
+              touch to discuss the next steps.
             </p>
             <Anchor
               variant="button"
