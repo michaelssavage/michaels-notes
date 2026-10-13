@@ -19,10 +19,25 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
+const title = "Gift Ideas | Michael Savage";
+const description =
+  "A curated list of gift ideas collected over the years by an Irish person living in Barcelona.";
+const url = "https://michaelsavage.com/gifts";
+
 export const Route = createFileRoute("/gifts")({
   // shuffled in the loader so the server and client render the same order
   loader: () => ({ order: shuffledIndexes(ideas.length) }),
   component: GiftComponent,
+  head: () => ({
+    link: [{ rel: "canonical", href: url }],
+    meta: [
+      { title },
+      { property: "og:title", content: title },
+      { property: "og:url", content: url },
+      { name: "description", content: description },
+      { property: "og:description", content: description },
+    ],
+  }),
 });
 
 type SortOrder =
