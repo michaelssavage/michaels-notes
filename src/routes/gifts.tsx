@@ -90,9 +90,7 @@ function GiftComponent() {
         <h1>Gift Ideas</h1>
 
         <MovieInfo>
-          No referral links. Just a list of ideas that I&apos;ve been collecting
-          over the years from an Irish person in Catalonia. Some things may be
-          too specific!
+          A list of ideas that I&apos;ve been collecting over the years as an Irish person living in Barcelona. Some things may be too niche, but this isn’t targeted at Gen Z or a North American audience, and there are no affiliate links.
         </MovieInfo>
 
         <SelectsItems>
