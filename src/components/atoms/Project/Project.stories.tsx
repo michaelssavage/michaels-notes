@@ -36,7 +36,9 @@ type Story = StoryObj<typeof Project>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("B2B Order System")).toBeVisible();
+    await expect(
+      canvas.getByRole("heading", { name: "B2B Order System" }),
+    ).toBeVisible();
     await expect(canvas.queryByText("Draft")).not.toBeInTheDocument();
   },
 };
