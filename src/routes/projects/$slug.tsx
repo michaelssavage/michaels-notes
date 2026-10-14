@@ -44,6 +44,10 @@ export const Route = createFileRoute("/projects/$slug")({
       { property: "og:type", content: "article" },
       { property: "article:published_time", content: d?.post?.date || "" },
       { property: "article:author", content: "Michael Savage" },
+      {
+        property: "og:image",
+        content: d?.post?.image || "/media/portrait.png",
+      },
     ],
   }),
   pendingComponent: () => (

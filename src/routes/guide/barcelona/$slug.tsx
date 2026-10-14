@@ -11,6 +11,11 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "react-hot-toast";
 
+const title = "Barcelona Guide | Michael Savage";
+const description =
+  "Barcelona guide with places to visit, activities, and entertainment options.";
+const url = "https://michaelsavage.com/guide/barcelona";
+
 export const Route = createFileRoute("/guide/barcelona/$slug")({
   component: RouteComponent,
   beforeLoad: ({ context }) => {
@@ -18,6 +23,36 @@ export const Route = createFileRoute("/guide/barcelona/$slug")({
       throw redirect({ to: "/login" });
     }
   },
+  // same query key as the component so useQuery reads from the cache
+  loader: async ({ context, params }) => {
+    const item = await context.queryClient
+      .ensureQueryData({
+        queryKey: ["guide-item", params.slug],
+        queryFn: () =>
+          getGuideItem({
+            data: { name: "barcelona-guide", slug: params.slug },
+          }),
+      })
+      .catch(() => undefined);
+    return { item };
+  },
+  head: ({ loaderData: d, params }) => ({
+    link: [{ rel: "canonical", href: `${url}/${params.slug}` }],
+    meta: [
+      { title: d?.item?.title || title },
+      { property: "og:title", content: d?.item?.title || title },
+      { property: "og:url", content: `${url}/${params.slug}` },
+      { name: "description", content: d?.item?.description || description },
+      {
+        property: "og:description",
+        content: d?.item?.description || description,
+      },
+      {
+        property: "og:image",
+        content: d?.item?.image || "/media/portrait.png",
+      },
+    ],
+  }),
 });
 
 const defaultValues: GuideTableItem = {
