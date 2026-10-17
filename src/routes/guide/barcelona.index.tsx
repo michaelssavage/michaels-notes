@@ -1,7 +1,7 @@
 import { getGuide } from "@/api/d1/city-guide.api";
 import { Group } from "@/components/atoms/Group";
 import { FormLabel } from "@/components/form/FormLabel";
-import { ExternalLinkIcon, MapIcon } from "@/components/icons";
+import { GoogleMapsIcon } from "@/components/icons/GoogleMaps";
 import { SquarePenIcon } from "@/components/icons/SquarePen";
 import { Anchor } from "@/components/molecules/Anchor";
 import { Button } from "@/components/molecules/Button";
@@ -133,7 +133,7 @@ function RouteComponent() {
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item?.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.tags.some((tag) =>
-          getTagLabel(tag).toLowerCase().includes(searchTerm.toLowerCase())
+          getTagLabel(tag).toLowerCase().includes(searchTerm.toLowerCase()),
         );
 
       const matchesType = selectedType === "all" || item.type === selectedType;
@@ -164,7 +164,7 @@ function RouteComponent() {
 
   const handleTagClick = (tag: GuideTag) => {
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
@@ -191,7 +191,7 @@ function RouteComponent() {
   };
 
   const selectedValue: GuideTypeOption = uniqueTypes.find(
-    (option) => option === selectedType
+    (option) => option === selectedType,
   )
     ? { value: selectedType, label: selectedType }
     : { value: "all", label: "All Types" };
@@ -296,19 +296,31 @@ function RouteComponent() {
                 return (
                   <Card key={index} onClick={handleCardClick(item)}>
                     {item.image ? (
-                      <img
-                        data-id="image"
-                        src={item.image}
-                        alt={item.title}
-                        loading="lazy"
-                      />
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          data-id="image"
+                          src={item.image}
+                          alt={item.title}
+                          loading="lazy"
+                        />
+                      </a>
                     ) : null}
 
                     <p data-id="type">{item.type}</p>
                     <p data-id="price">{item.price}</p>
 
                     <CardBody>
-                      <h2>{item.title}</h2>
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <h2>{item.title}</h2>
+                      </a>
                       <p data-id="description">{item.description}</p>
 
                       {item.tags.length > 0 && (
@@ -333,7 +345,7 @@ function RouteComponent() {
                         rel="noopener noreferrer"
                         onClick={(event) => event.stopPropagation()}
                       >
-                        Info <ExternalLinkIcon />
+                        Open
                       </BasicLink>
 
                       {isAdmin && (
@@ -351,7 +363,7 @@ function RouteComponent() {
                         rel="noopener noreferrer"
                         onClick={(event) => event.stopPropagation()}
                       >
-                        Map <MapIcon />
+                        <GoogleMapsIcon />
                       </BasicLink>
                     </CardFooter>
                   </Card>

@@ -76,7 +76,16 @@ export const CardBody = styled.div`
   gap: 0.25rem;
   flex: 1;
 
-  > h2 {
+  > a {
+    text-decoration: none;
+    display: inline-flex;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  > a > h2 {
     color: #2d241f;
     font-weight: 600;
     font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);

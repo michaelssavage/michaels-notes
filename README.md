@@ -19,6 +19,14 @@ Wrangler type generation for env typing. 📣 Remember to rerun 'wrangler types'
 pnpm cf-typegen
 ```
 
+## Database migrations
+
+Add a new `.sql` file to `migrations/`, then apply it to the remote D1 database:
+
+```bash
+npx wrangler d1 migrations apply michaels-notes --remote
+```
+
 # Building For Production
 
 To build this application for production:

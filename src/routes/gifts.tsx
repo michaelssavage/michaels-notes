@@ -1,14 +1,14 @@
+import { getGifts } from "@/api/d1/gifts.api";
+import { Group } from "@/components/atoms/Group";
 import { FormSelect } from "@/components/form/molecules/FormSelect";
+import { SquarePenIcon } from "@/components/icons/SquarePen";
 import { Anchor } from "@/components/molecules/Anchor";
-import {
-  Category,
-  categoryOptions,
-  ideas,
-  websites,
-} from "@/content/gifts/ideas";
+import { websites } from "@/content/gifts/ideas";
 import { shuffleArray } from "@/lib/utils";
 import { MovieInfo, Page, Panel } from "@/styles/routes/blog.styled";
 import {
+  CategoryHeading,
+  EditGiftLink,
   IdeaCard,
   IdeaCategory,
   IdeaImage,
@@ -17,7 +17,9 @@ import {
   SelectsItems,
   WebsitesList,
 } from "@/styles/routes/gifts.styled";
-import { createFileRoute } from "@tanstack/react-router";
+import { Gift, GiftCategory, giftCategoryOptions } from "@/types/Gift";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
 const title = "Gift Ideas | Michael Savage";
@@ -46,9 +48,18 @@ const parsePrice = (price: string) => {
   return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
 };
 
+const giftsQuery = queryOptions({
+  queryKey: ["gifts"],
+  queryFn: () => getGifts(),
+  staleTime: 5 * 60 * 1000,
+});
+
 export const Route = createFileRoute("/gifts")({
   // shuffled in the loader so the server and client render the same order
-  loader: () => ({ order: shuffleArray(ideas.map((_, i) => i)) }),
+  loader: async ({ context }) => {
+    const gifts = await context.queryClient.ensureQueryData(giftsQuery);
+    return { order: shuffleArray(gifts.map((gift) => gift.id)) };
+  },
   component: GiftComponent,
   head: () => ({
     link: [{ rel: "canonical", href: url }],
@@ -64,10 +75,18 @@ export const Route = createFileRoute("/gifts")({
 
 function GiftComponent() {
   const { order } = Route.useLoaderData();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<GiftCategory[]>([]);
   const [sortOrder, setSortOrder] = useState<SortOrder>("default");
+  const { isAdmin } = useRouteContext({ from: "__root__" });
 
-  const shuffledIdeas = useMemo(() => order.map((i) => ideas[i]), [order]);
+  const { data: gifts = [] } = useQuery(giftsQuery);
+
+  // gifts added since the loader ran aren't in `order`, so they go last
+  const shuffledIdeas = useMemo(() => {
+    const position = new Map(order.map((id, i) => [id, i]));
+    const rank = (gift: Gift) => position.get(gift.id) ?? Infinity;
+    return [...gifts].sort((a, b) => rank(a) - rank(b));
+  }, [gifts, order]);
 
   const visibleIdeas = useMemo(() => {
     const filtered =
@@ -90,25 +109,65 @@ function GiftComponent() {
     );
   }, [shuffledIdeas, categories, sortOrder]);
 
+  // ideas are already sorted by category, so consecutive runs form the groups
+  const categoryGroups = useMemo(() => {
+    if (!sortOrder.startsWith("category")) return null;
+
+    const groups: Array<{ category: GiftCategory; items: Gift[] }> = [];
+    for (const idea of visibleIdeas) {
+      const last = groups[groups.length - 1];
+      if (last?.category === idea.category) last.items.push(idea);
+      else groups.push({ category: idea.category, items: [idea] });
+    }
+    return groups;
+  }, [visibleIdeas, sortOrder]);
+
+  const renderIdea = (idea: Gift, showCategory = true) => (
+    <IdeaCard key={idea.id} href={idea.link}>
+      {idea.image ? (
+        <IdeaImage>
+          <img src={idea.image} alt={idea.name} />
+          {idea.price && <IdeaPrice>{idea.price}</IdeaPrice>}
+        </IdeaImage>
+      ) : (
+        idea.price && <IdeaPrice>{idea.price}</IdeaPrice>
+      )}
+      {showCategory && <IdeaCategory>{idea.category}</IdeaCategory>}
+      <h3>{idea.name}</h3>
+      {idea.description && <p>{idea.description}</p>}
+
+      {isAdmin && (
+        <EditGiftLink to={`/gifts/${idea.id}`}>
+          Edit <SquarePenIcon />
+        </EditGiftLink>
+      )}
+    </IdeaCard>
+  );
+
   return (
     <Page>
       <Panel>
-        <h1>Gift Ideas</h1>
+        <Group align="center" justify="space-between">
+          <h1>Gift Ideas</h1>
+          {isAdmin && (
+            <Anchor link="/gifts/new" text="Add gift" variant="button" />
+          )}
+        </Group>
 
         <MovieInfo>
           A list of ideas that I&apos;ve been collecting over the years as an
           Irish person living in Barcelona. Some things may be niche, but there
-          are no affiliate links and it&apos;s not all trendy stuff.
+          are no affiliate links and it&apos;s not all trendy stuff.{" "}
         </MovieInfo>
 
         <SelectsItems>
-          <FormSelect<Category>
+          <FormSelect<GiftCategory>
             id="category"
             name="Category"
-            options={categoryOptions}
+            options={giftCategoryOptions}
             placeholder="All"
             value={categories}
-            onChange={(value) => setCategories(value as Category[])}
+            onChange={(value) => setCategories(value as GiftCategory[])}
             multiSelect
           />
           <FormSelect<SortOrder>
@@ -121,23 +180,18 @@ function GiftComponent() {
           />
         </SelectsItems>
 
-        <IdeasGrid>
-          {visibleIdeas.map((idea) => (
-            <IdeaCard key={idea.name} href={idea.link}>
-              {idea.image ? (
-                <IdeaImage>
-                  <img src={idea.image} alt={idea.name} />
-                  {idea.price && <IdeaPrice>{idea.price}</IdeaPrice>}
-                </IdeaImage>
-              ) : (
-                idea.price && <IdeaPrice>{idea.price}</IdeaPrice>
-              )}
-              <IdeaCategory>{idea.category}</IdeaCategory>
-              <h3>{idea.name}</h3>
-              {idea.description && <p>{idea.description}</p>}
-            </IdeaCard>
-          ))}
-        </IdeasGrid>
+        {categoryGroups ? (
+          categoryGroups.map((group) => (
+            <section key={group.category}>
+              <CategoryHeading>{group.category}</CategoryHeading>
+              <IdeasGrid>
+                {group.items.map((idea) => renderIdea(idea, false))}
+              </IdeasGrid>
+            </section>
+          ))
+        ) : (
+          <IdeasGrid>{visibleIdeas.map((idea) => renderIdea(idea))}</IdeasGrid>
+        )}
 
         <h2>Websites</h2>
         <WebsitesList>

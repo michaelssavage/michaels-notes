@@ -1,4 +1,10 @@
-export const UserIcon = ({ size = 24 }: { size?: number }) => (
+export const UserIcon = ({
+  size = 24,
+  strokeWidth = 2,
+}: {
+  size?: number;
+  strokeWidth?: number;
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -6,7 +12,7 @@ export const UserIcon = ({ size = 24 }: { size?: number }) => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth={strokeWidth}
     strokeLinecap="round"
     strokeLinejoin="round"
   >

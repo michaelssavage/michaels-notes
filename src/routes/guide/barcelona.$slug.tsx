@@ -7,7 +7,7 @@ import { Header, Page, Panel } from "@/styles/routes/blog.styled";
 import { PageSection } from "@/styles/routes/guide.styled";
 import { GuideTableItem } from "@/types/Guide";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "react-hot-toast";
 
@@ -72,6 +72,7 @@ function RouteComponent() {
   const { slug } = Route.useParams();
   const getItem = useServerFn(getGuideItem);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: item, isLoading } = useQuery({
     queryKey: ["guide-item", slug],
@@ -91,6 +92,8 @@ function RouteComponent() {
       if (result) {
         toast.success("Guide updated successfully");
         queryClient.invalidateQueries({ queryKey: ["guide-item", slug] });
+        await queryClient.invalidateQueries({ queryKey: ["guide"] });
+        navigate({ to: "/guide/barcelona" });
       } else {
         toast.error("Failed to update guide");
       }

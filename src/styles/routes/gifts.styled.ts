@@ -1,6 +1,7 @@
 import { forPhoneOnly } from "@/styles/abstracts/mixins.styled";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Link } from "@tanstack/react-router";
 
 export const WebsitesList = styled.div`
   display: flex;
@@ -27,6 +28,30 @@ export const IdeasGrid = styled.ul`
   padding: 0;
   margin: 0 0 2rem;
   list-style: none;
+`;
+
+export const CategoryHeading = styled.h2`
+  margin-bottom: 0.75rem;
+  text-transform: capitalize;
+`;
+
+export const EditGiftLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  background-color: var(--color-white);
+  color: var(--color-blue300);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: auto;
+
+  &:hover {
+    color: var(--color-black);
+  }
 `;
 
 export const IdeaCard = styled.a`

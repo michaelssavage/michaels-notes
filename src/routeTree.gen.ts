@@ -25,10 +25,12 @@ import { Route as GuideIndexRouteImport } from './routes/guide/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as ReviewSlugRouteImport } from './routes/review/$slug'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
+import { Route as GiftsNewRouteImport } from './routes/gifts_.new'
+import { Route as GiftsIdRouteImport } from './routes/gifts_.$id'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
-import { Route as GuideBarcelonaIndexRouteImport } from './routes/guide/barcelona/index'
-import { Route as GuideBarcelonaNewRouteImport } from './routes/guide/barcelona/new'
-import { Route as GuideBarcelonaSlugRouteImport } from './routes/guide/barcelona/$slug'
+import { Route as GuideBarcelonaIndexRouteImport } from './routes/guide/barcelona.index'
+import { Route as GuideBarcelonaNewRouteImport } from './routes/guide/barcelona.new'
+import { Route as GuideBarcelonaSlugRouteImport } from './routes/guide/barcelona.$slug'
 
 const WorksheetsRoute = WorksheetsRouteImport.update({
   id: '/worksheets',
@@ -110,6 +112,16 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/projects/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GiftsNewRoute = GiftsNewRouteImport.update({
+  id: '/gifts_/new',
+  path: '/gifts/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GiftsIdRoute = GiftsIdRouteImport.update({
+  id: '/gifts_/$id',
+  path: '/gifts/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
@@ -143,6 +155,8 @@ export interface FileRoutesByFullPath {
   '/things': typeof ThingsRoute
   '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/gifts/$id': typeof GiftsIdRoute
+  '/gifts/new': typeof GiftsNewRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -165,6 +179,8 @@ export interface FileRoutesByTo {
   '/things': typeof ThingsRoute
   '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/gifts/$id': typeof GiftsIdRoute
+  '/gifts/new': typeof GiftsNewRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
   '/blog': typeof BlogIndexRoute
@@ -188,6 +204,8 @@ export interface FileRoutesById {
   '/things': typeof ThingsRoute
   '/worksheets': typeof WorksheetsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/gifts_/$id': typeof GiftsIdRoute
+  '/gifts_/new': typeof GiftsNewRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/review/$slug': typeof ReviewSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -212,6 +230,8 @@ export interface FileRouteTypes {
     | '/things'
     | '/worksheets'
     | '/blog/$slug'
+    | '/gifts/$id'
+    | '/gifts/new'
     | '/projects/$slug'
     | '/review/$slug'
     | '/blog/'
@@ -234,6 +254,8 @@ export interface FileRouteTypes {
     | '/things'
     | '/worksheets'
     | '/blog/$slug'
+    | '/gifts/$id'
+    | '/gifts/new'
     | '/projects/$slug'
     | '/review/$slug'
     | '/blog'
@@ -256,6 +278,8 @@ export interface FileRouteTypes {
     | '/things'
     | '/worksheets'
     | '/blog/$slug'
+    | '/gifts_/$id'
+    | '/gifts_/new'
     | '/projects/$slug'
     | '/review/$slug'
     | '/blog/'
@@ -279,6 +303,8 @@ export interface RootRouteChildren {
   ThingsRoute: typeof ThingsRoute
   WorksheetsRoute: typeof WorksheetsRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  GiftsIdRoute: typeof GiftsIdRoute
+  GiftsNewRoute: typeof GiftsNewRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ReviewSlugRoute: typeof ReviewSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -404,6 +430,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gifts_/new': {
+      id: '/gifts_/new'
+      path: '/gifts/new'
+      fullPath: '/gifts/new'
+      preLoaderRoute: typeof GiftsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gifts_/$id': {
+      id: '/gifts_/$id'
+      path: '/gifts/$id'
+      fullPath: '/gifts/$id'
+      preLoaderRoute: typeof GiftsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
@@ -447,6 +487,8 @@ const rootRouteChildren: RootRouteChildren = {
   ThingsRoute: ThingsRoute,
   WorksheetsRoute: WorksheetsRoute,
   BlogSlugRoute: BlogSlugRoute,
+  GiftsIdRoute: GiftsIdRoute,
+  GiftsNewRoute: GiftsNewRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   ReviewSlugRoute: ReviewSlugRoute,
   BlogIndexRoute: BlogIndexRoute,

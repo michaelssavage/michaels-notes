@@ -5,6 +5,7 @@ import {
   MailIcon,
   ResumeIcon,
   SpotifyIcon,
+  UserIcon,
 } from "@/components/icons";
 import { lazy, Suspense } from "react";
 import { FooterWrapper, Wrapper } from "./Footer.styled";
@@ -75,6 +76,13 @@ const FooterContent = ({
           label="My CV"
           link="https://www.canva.com/design/DAF5SupMjfo/kbopYKhI2C20XYOTIRJTaQ/view"
           icon={<ResumeIcon onClick={captureCvClick} />}
+          isExternal
+        />
+
+        <Icon
+          label="Admin"
+          link="https://michaelsavage.com/login"
+          icon={<UserIcon strokeWidth={1} />}
           isExternal
         />
       </Wrapper>
