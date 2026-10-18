@@ -82,9 +82,9 @@ const websites: Website[] = [
   },
   {
     name: "Casa Pampa",
-    category: "clothes",
-    url: "https://casapampa.com",
-    description: "portuguese tops",
+    category: "home",
+    url: "https://casapampa.net",
+    description: "creative plants",
   },
   {
     name: "Posthog",

@@ -6,9 +6,8 @@ export const SpeechBubble = styled.div`
   background-color: var(--color-yellow200);
   padding: 1rem;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-weight: 600;
 
@@ -26,7 +25,7 @@ export const SpeechBubble = styled.div`
   }
 
   img {
-    height: 1.2rem;
-    width: 1.2rem;
+    height: 25px;
+    width: 25px;
   }
 `;

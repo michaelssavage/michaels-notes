@@ -1,6 +1,6 @@
 import { getWeather } from "@/api/weather.api";
+import { Group } from "@/components/atoms/Group";
 import { Loading } from "@/components/molecules/Loading";
-import { WeatherIcon } from "@/types/Weather";
 import { useQuery } from "@tanstack/react-query";
 import { useHydrated } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
@@ -27,12 +27,16 @@ export const Weather = () => {
     return null;
   }
 
-  const icon = WeatherIcon[data.current.condition?.code];
-
   return (
     <SpeechBubble>
-      {icon ? <img src={`/weather/${icon}.svg`} alt="" /> : null}
-      <p>It&apos;s {data.current.temp_c}°C</p>
+      <Group direction="row" gap="4px" justify="center">
+        {data.current.condition?.icon ? (
+          <img src={data.current.condition?.icon} alt="" />
+        ) : null}
+
+        <p>It&apos;s {data.current.temp_c}°C</p>
+      </Group>
+      <p>{data.current.condition?.text}</p>
     </SpeechBubble>
   );
 };

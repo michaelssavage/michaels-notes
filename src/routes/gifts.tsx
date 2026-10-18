@@ -157,7 +157,7 @@ function GiftComponent() {
         <MovieInfo>
           A list of ideas that I&apos;ve been collecting over the years as an
           Irish person living in Barcelona. Some things may be niche, but there
-          are no affiliate links and it&apos;s not all trendy stuff.{" "}
+          are no affiliate links and it might help you find something.
         </MovieInfo>
 
         <SelectsItems>

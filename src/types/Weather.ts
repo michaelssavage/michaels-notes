@@ -13,6 +13,7 @@ export interface IWeather {
     condition: {
       text: WeatherCondition;
       code: keyof typeof WeatherIcon;
+      icon: string;
     };
   };
 }
