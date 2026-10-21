@@ -75,6 +75,12 @@ const websites: Website[] = [
     description: "portuguese tops",
   },
   {
+    name: "Els Ximplets",
+    category: "clothes",
+    url: "https://elsximplets.com/",
+    description: "Funny Catalan tops",
+  },
+  {
     name: "Vasha",
     category: "clothes",
     url: "https://vasha.live",
