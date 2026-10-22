@@ -38,13 +38,13 @@ export const buttonWithIconStyles = css`
 `;
 
 export const ButtonStyled = styled.button<IStyle>`
-  padding: 6px 10px;
+  padding: 4px 10px;
   border: none;
   cursor: pointer;
   display: flex;
   flex-direction: row;
   gap: 4px;
-  border-radius: 8px;
+  border-radius: 4px;
 
   align-items: center;
   text-wrap: nowrap;
@@ -98,7 +98,6 @@ export const ButtonStyled = styled.button<IStyle>`
             : "var(--color-white)"};
           color: ${selected ? "var(--color-black)" : "var(--color-gray600)"};
           border: 2px solid var(--color-black);
-          padding: 7px 14px;
           font-size: 0.8rem;
           &:hover {
             background-color: ${selected

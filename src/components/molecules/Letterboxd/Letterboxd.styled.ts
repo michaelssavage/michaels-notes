@@ -7,6 +7,20 @@ interface ICard {
   $isActive: boolean;
 }
 
+export const editBtnStyle = css`
+  border: 1px solid var(--color-gray600);
+  background-color: transparent;
+  color: var(--color-black);
+
+  &:hover {
+    background-color: var(--color-white);
+  }
+
+  svg {
+    stroke: var(--color-black);
+  }
+`;
+
 export const Text = styled.div`
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
 
@@ -37,7 +51,8 @@ export const Card = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--slide-height);
+  width: 100%;
+  aspect-ratio: 2 / 3;
   user-select: none;
   flex-shrink: 0;
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
@@ -84,4 +99,12 @@ export const Button = styled.button<{ isActive: boolean }>`
   &:hover {
     background-color: var(--color-green400);
   }
+`;
+
+export const TextColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  flex: 1;
 `;

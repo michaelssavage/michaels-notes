@@ -59,3 +59,13 @@ export async function execute(
     .bind(...params)
     .run();
 }
+
+// Runs every statement in a single transaction: all succeed or none apply
+export async function executeBatch(
+  statements: Array<{ sql: string; params?: D1Param[] }>
+): Promise<D1Result[]> {
+  const db = getDB();
+  return db.batch(
+    statements.map(({ sql, params = [] }) => db.prepare(sql).bind(...params))
+  );
+}

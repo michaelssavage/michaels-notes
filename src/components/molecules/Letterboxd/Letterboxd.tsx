@@ -1,6 +1,9 @@
-import { getMovies } from "@/api/d1/letterboxd.api";
+import { getMovies, updateMovies } from "@/api/d1/letterboxd.api";
 import { Group } from "@/components/atoms/Group";
+import { SquarePenIcon } from "@/components/icons/SquarePen";
+import { Button as ActionButton } from "@/components/molecules/Button";
 import { Picture } from "@/components/molecules/Picture";
+import { useAppForm } from "@/context/FormProvider";
 import {
   Embla,
   EmblaContainer,
@@ -8,21 +11,30 @@ import {
   EmblaViewport,
 } from "@/styles/abstracts/embla.styled";
 import { reverseBreak } from "@/styles/routes/home.styled";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 import {
   Button,
   ButtonContainer,
   Card,
+  editBtnStyle,
   Movie,
   MovieContainer,
   Text,
+  TextColumn,
 } from "./Letterboxd.styled";
+import MoviesForm from "./MoviesForm";
 
 export const Letterboxd = () => {
   const fetchMovies = useServerFn(getMovies);
+  const saveMovies = useServerFn(updateMovies);
+  const queryClient = useQueryClient();
+  const { isAdmin } = useRouteContext({ from: "__root__" });
+  const [isEditing, setIsEditing] = useState(false);
 
   const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -39,6 +51,29 @@ export const Letterboxd = () => {
   }
 
   const [active, setActive] = useState(0);
+
+  const form = useAppForm({
+    defaultValues: {
+      movies: (data ?? []).map(({ id: _, ...movie }) => movie),
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        const movies = await saveMovies({ data: value });
+        queryClient.setQueryData(["favorites"], movies);
+        toast.success("Movies updated");
+        setIsEditing(false);
+      } catch {
+        toast.error("Failed to update movies");
+      }
+    },
+  });
+
+  const handleEdit = () => {
+    form.reset({
+      movies: (data ?? []).map(({ id: _, ...movie }) => movie),
+    });
+    setIsEditing(true);
+  };
 
   const handleButtonClick = (index: number) => {
     if (!emblaApi) return;
@@ -98,22 +133,40 @@ export const Letterboxd = () => {
       css={reverseBreak}
       data-testid="group"
     >
-      <Text>
-        I love watching, tracking, and sharing my thoughts about films on
-        Letterboxd. Some of my favourites include{" "}
-        {data.map((movie, index) => (
-          <span key={movie.title}>
-            <Movie
-              $isActive={index === active}
-              onKeyDown={() => handleButtonClick(index)}
-              onClick={() => handleButtonClick(index)}
-            >
-              {movie.title}
-            </Movie>
-            <span>{index < data.length - 1 ? ", " : "."}</span>
-          </span>
-        ))}
-      </Text>
+      <TextColumn>
+        <Text>
+          I love watching, tracking, and sharing my thoughts about films on
+          Letterboxd. Some of my favourites include{" "}
+          {data.map((movie, index) => (
+            <span key={movie.title}>
+              <Movie
+                $isActive={index === active}
+                onKeyDown={() => handleButtonClick(index)}
+                onClick={() => handleButtonClick(index)}
+              >
+                {movie.title}
+              </Movie>
+              <span>{index < data.length - 1 ? ", " : "."}</span>
+            </span>
+          ))}
+        </Text>
+
+        {isAdmin && (
+          <>
+            <ActionButton
+              text="Edit"
+              icon={<SquarePenIcon />}
+              onClick={handleEdit}
+              styles={editBtnStyle}
+            />
+            <MoviesForm
+              form={form}
+              isOpen={isEditing}
+              onClose={() => setIsEditing(false)}
+            />
+          </>
+        )}
+      </TextColumn>
 
       <MovieContainer>
         <Embla>
