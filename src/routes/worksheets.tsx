@@ -226,6 +226,7 @@ function WorksheetsPage() {
                   justify-content: center;
                   border-top-left-radius: 0;
                   border-bottom-left-radius: 0;
+                  height: 35px;
                 }
               `}
             >

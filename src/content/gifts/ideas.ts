@@ -150,6 +150,12 @@ const websites: Website[] = [
     url: "https://sunnysouls.ie/",
     description: "Marino wool gilets",
   },
+  {
+    name: "Bikila",
+    category: "clothes",
+    url: "https://bikila.com/",
+    description: "Running and trekking shoes",
+  },
 ];
 
 export { websites };
