@@ -9,7 +9,6 @@ import { NotFound } from "@/components/atoms/NotFound";
 import { ToastProvider } from "@/components/atoms/ToastContainer";
 import Footer from "@/components/molecules/Footer/Footer";
 import Navbar from "@/components/molecules/Navbar/Navbar";
-import { ContentProvider } from "@/context/ContentProvider";
 import { emotionCache } from "@/context/EmotionCache";
 import PostHogProvider from "@/context/PostHog";
 import { globalStyles } from "@/styles/global.styled";
@@ -122,10 +121,8 @@ function Providers({ children }: { children: React.ReactNode }) {
   return (
     <CacheProvider value={emotionCache}>
       <PostHogProvider>
-        <ContentProvider>
-          <ToastProvider />
-          {children}
-        </ContentProvider>
+        <ToastProvider />
+        {children}
       </PostHogProvider>
     </CacheProvider>
   );

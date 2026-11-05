@@ -16,7 +16,6 @@ export default function PostSkeleton() {
       <Card
         to="#"
         color="var(--color-gray)"
-        inView={true}
         aria-label="Loading post..."
         style={{
           pointerEvents: "none",

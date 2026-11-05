@@ -12,7 +12,6 @@ export const getPostColor = (isExternal?: string, isReview?: boolean) => {
 
 interface CardI {
   color: string;
-  inView: boolean;
 }
 
 export const EmptyCard = styled.div`
@@ -83,11 +82,8 @@ export const DescriptionText = styled.p`
 `;
 
 // prettier-ignore
-export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop) && prop !== "inView" })<CardI>`
-  opacity: ${({ inView }) => (inView ? 1 : 0)};
-  transform: translateY(${({ inView }) => (inView ? 0 : "20px")});
+export const Card = styled(Link, { shouldForwardProp: (prop) => isPropValid(prop) })<CardI>`
   text-decoration: none;
-  transition: opacity 0.5s ease-in-out;
   position: relative;
   padding: 1rem;
   background-color: var(--color-white);

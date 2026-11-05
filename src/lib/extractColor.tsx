@@ -19,59 +19,68 @@ const defaultOptions: ColorOptions = {
   maxSize: 10,
 };
 
+/** The outcome of extracting colours from one specific image URL. */
+type Settled =
+  | { url: string; status: "success"; result: ColorResult }
+  | { url: string; status: "error"; error: Error };
+
+const emptyResult: ColorResult = {
+  dominantColor: null,
+  darkerColor: null,
+  lighterColor: null,
+  colors: [],
+};
+
 function useExtractColor(
   imageUrl: string,
   optionsCustom: Partial<ColorOptions> = {},
 ) {
   const options: ColorOptions = { ...defaultOptions, ...optionsCustom };
 
-  const [colors, setColors] = useState<string[]>([]);
-  const [dominantColor, setDominantColor] = useState<string | null>(null);
-  const [darkerColor, setDarkerColor] = useState<string | null>(null);
-  const [lighterColor, setLighterColor] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [settled, setSettled] = useState<Settled | null>(null);
 
   useEffect(() => {
+    if (!imageUrl) return;
     let isMounted = true;
 
-    async function fetchDominantColor() {
-      try {
-        const colors = await extractDominantColors(imageUrl, options.maxSize);
-        if (isMounted) {
-          const formattedColors = formatColors(
-            colors,
-            options.format,
-            options.maxColors,
-          );
-          setDominantColor(formattedColors.dominantColor);
-          setDarkerColor(formattedColors.darkerColor);
-          setLighterColor(formattedColors.lighterColor);
-          setColors(formattedColors.colors);
-        }
-      } catch (error) {
-        if (isMounted) {
-          setError(
+    extractDominantColors(imageUrl, options.maxSize)
+      .then((colors) => {
+        if (!isMounted) return;
+        setSettled({
+          url: imageUrl,
+          status: "success",
+          result: formatColors(colors, options.format, options.maxColors),
+        });
+      })
+      .catch((error: unknown) => {
+        if (!isMounted) return;
+        setSettled({
+          url: imageUrl,
+          status: "error",
+          error:
             error instanceof Error
               ? error
               : new Error("An unknown error occurred"),
-          );
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
-      }
-    }
-
-    fetchDominantColor();
+        });
+      });
 
     return () => {
       isMounted = false;
     };
   }, [imageUrl, options.format, options.maxColors, options.maxSize]);
 
-  return { dominantColor, darkerColor, lighterColor, loading, error, colors };
+  // Only a result for the current URL counts. Anything else is from a previous
+  // image, so we're still loading (or idle when there's no image at all).
+  const current = settled?.url === imageUrl ? settled : null;
+  const status = !imageUrl ? "idle" : (current?.status ?? "loading");
+  const result = current?.status === "success" ? current.result : emptyResult;
+
+  return {
+    ...result,
+    status,
+    loading: status === "loading",
+    error: current?.status === "error" ? current.error : null,
+  };
 }
 
 async function extractDominantColors(

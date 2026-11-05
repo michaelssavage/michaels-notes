@@ -1,5 +1,5 @@
 import { CheckIcon, CopyIcon, XIcon } from "@/components/icons";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent } from "react";
 import toast from "react-hot-toast";
 import {
   AnswerButton,
@@ -9,9 +9,9 @@ import {
 } from "./FillInTheBlank.styled";
 import {
   buildFillInTheBlankSentence,
-  getAnswerValidation,
   stripParentheticalVerbHints,
 } from "./fillInTheBlank.util";
+import { useAnswerState } from "./useAnswerState";
 
 interface FillInTheBlankProps {
   beforeText: string;
@@ -32,42 +32,15 @@ export const FillInTheBlank = ({
   value,
   onValueChange,
 }: FillInTheBlankProps) => {
-  const [internalAnswer, setInternalAnswer] = useState("");
-  const [isRevealed, setIsRevealed] = useState(false);
-  const isControlled = value !== undefined;
-  const userAnswer = isControlled ? value : internalAnswer;
-  const correctAnswers = useMemo(
-    () => (Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer]),
-    [correctAnswer],
-  );
-  const firstCorrectAnswer = correctAnswers[0] ?? "";
-  const { isCorrect, isPartiallyCorrect } = useMemo(
-    () => getAnswerValidation(userAnswer, correctAnswers, true),
-    [userAnswer, correctAnswers],
-  );
+  const { userAnswer, status, change, clear, reveal } = useAnswerState({
+    correctAnswer,
+    value,
+    onValueChange,
+    ignorePronouns: true,
+  });
 
-  const setUserAnswer = (next: string) => {
-    if (isControlled) {
-      onValueChange?.(next);
-    } else {
-      setInternalAnswer(next);
-    }
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsRevealed(false);
-    setUserAnswer(e.target.value);
-  };
-
-  const clearAnswer = () => {
-    setIsRevealed(false);
-    setUserAnswer("");
-  };
-
-  const showAnswer = () => {
-    setIsRevealed(true);
-    setUserAnswer(firstCorrectAnswer);
-  };
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) =>
+    change(e.target.value);
 
   const getSentenceText = () => {
     const filled = promptText
@@ -94,12 +67,7 @@ export const FillInTheBlank = ({
       <BlankContainer>
         <span>{beforeText}</span>
 
-        <InputWrapper
-          isCorrect={isCorrect}
-          isPartiallyCorrect={isPartiallyCorrect}
-          isRevealed={isRevealed}
-          chars={inputCharWidth}
-        >
+        <InputWrapper $status={status} chars={inputCharWidth}>
           <input
             type="text"
             name="fill-in-the-blank"
@@ -109,22 +77,14 @@ export const FillInTheBlank = ({
             autoComplete="off"
           />
 
-          {isCorrect === true && (
-            <IconButton
-              type="button"
-              aria-label="Clear answer"
-              onClick={clearAnswer}
-            >
+          {(status === "correct" || status === "revealed") && (
+            <IconButton type="button" aria-label="Clear answer" onClick={clear}>
               <CheckIcon />
             </IconButton>
           )}
 
-          {isCorrect === false && !isPartiallyCorrect && (
-            <IconButton
-              type="button"
-              aria-label="Clear answer"
-              onClick={clearAnswer}
-            >
+          {status === "incorrect" && (
+            <IconButton type="button" aria-label="Clear answer" onClick={clear}>
               <XIcon />
             </IconButton>
           )}
@@ -142,9 +102,11 @@ export const FillInTheBlank = ({
           <CopyIcon />
         </IconButton>
 
-        {!isCorrect && userAnswer.length > 0 && (
-          <AnswerButton onClick={showAnswer}>Show Answer</AnswerButton>
-        )}
+        {status !== "correct" &&
+          status !== "revealed" &&
+          userAnswer.length > 0 && (
+            <AnswerButton onClick={reveal}>Show Answer</AnswerButton>
+          )}
       </BlankContainer>
     </>
   );

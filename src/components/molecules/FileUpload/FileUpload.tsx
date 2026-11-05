@@ -19,9 +19,12 @@ import {
 import {
   filenameFromUrl,
   formatFileSize,
-  stripTempPrefix,
   uploadToUploadcare,
 } from "./FileUpload.util";
+
+type PendingFile =
+  | { name: string; status: "uploading"; progress: number }
+  | { name: string; status: "failed"; message: string };
 
 interface FileUploadProps {
   name: string;
@@ -44,65 +47,88 @@ export default function FileUpload({
   acceptImages = true,
   showCount = true,
 }: FileUploadProps) {
-  const [uploading, setUploading] = useState<Record<string, number>>({});
-  const [errors, setErrors] = useState<string[]>([]);
+  // Files that aren't in `value` yet: either in flight or rejected/failed.
+  const [pending, setPending] = useState<Record<string, PendingFile>>({});
+  const [limitError, setLimitError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files?.length) return;
+  const setFile = (id: string, file: PendingFile) =>
+    setPending((prev) => ({ ...prev, [id]: file }));
 
-    setErrors([]);
+  const removePending = (id: string) =>
+    setPending((prev) => {
+      const { [id]: _, ...rest } = prev;
+      return rest;
+    });
+
+  const uploadingEntries = Object.entries(pending).filter(
+    (entry): entry is [string, Extract<PendingFile, { status: "uploading" }>] =>
+      entry[1].status === "uploading",
+  );
+  const failedEntries = Object.entries(pending).filter(
+    (entry): entry is [string, Extract<PendingFile, { status: "failed" }>] =>
+      entry[1].status === "failed",
+  );
+  const isUploading = uploadingEntries.length > 0;
+
+  const uploadFile = async (id: string, file: File) => {
+    setFile(id, { name: file.name, status: "uploading", progress: 0 });
+    try {
+      const response = await uploadToUploadcare(file, (progress) => {
+        setFile(id, { name: file.name, status: "uploading", progress });
+      });
+      removePending(id);
+      return `https://31m9mhhbv2.ucarecd.net/${response.uuid}/${response.original_filename}`;
+    } catch {
+      setFile(id, {
+        name: file.name,
+        status: "failed",
+        message: `Failed to upload ${file.name}`,
+      });
+      return null;
+    }
+  };
+
+  const handleFileSelect = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    // Clear the input so selecting the same file again still fires onChange.
+    e.target.value = "";
+    if (!files.length) return;
+
+    // A new selection starts fresh.
+    setLimitError(null);
+    setPending({});
 
     if (value.length + files.length > maxFiles) {
-      setErrors([`You can only upload a maximum of ${maxFiles} files`]);
+      setLimitError(`You can only upload a maximum of ${maxFiles} files`);
       return;
     }
 
-    Array.from(files).forEach(async (file) => {
+    const toUpload: Array<{ id: string; file: File }> = [];
+    for (const file of files) {
+      const id = crypto.randomUUID();
       if (file.size > maxFileSize) {
-        setErrors((prev) => [
-          ...prev,
-          `${file.name} exceeds ${formatFileSize(maxFileSize)}`,
-        ]);
-        return;
-      }
-
-      if (acceptImages && !file.type.startsWith("image/")) {
-        setErrors((prev) => [...prev, `${file.name} is not an image file`]);
-        return;
-      }
-
-      const tempId = `temp-${Date.now()}-${file.name}`;
-      setUploading((prev) => ({ ...prev, [tempId]: 0 }));
-
-      try {
-        const response = await uploadToUploadcare(file, (progress) => {
-          setUploading((prev) => ({ ...prev, [tempId]: progress }));
+        setFile(id, {
+          name: file.name,
+          status: "failed",
+          message: `${file.name} exceeds ${formatFileSize(maxFileSize)}`,
         });
-
-        const url = `https://31m9mhhbv2.ucarecd.net/${response.uuid}/${response.original_filename}`;
-
-        setUploading((prev) => {
-          const next = { ...prev };
-          delete next[tempId];
-          return next;
+      } else if (acceptImages && !file.type.startsWith("image/")) {
+        setFile(id, {
+          name: file.name,
+          status: "failed",
+          message: `${file.name} is not an image file`,
         });
-
-        onChange([...value, url]);
-      } catch {
-        setErrors((prev) => [...prev, `Failed to upload ${file.name}`]);
-        setUploading((prev) => {
-          const next = { ...prev };
-          delete next[tempId];
-          return next;
-        });
+      } else {
+        toUpload.push({ id, file });
       }
-    });
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
     }
+
+    const urls = await Promise.all(
+      toUpload.map(({ id, file }) => uploadFile(id, file)),
+    );
+    const uploaded = urls.filter((url): url is string => url !== null);
+    if (uploaded.length) onChange([...value, ...uploaded]);
   };
 
   const handleRemoveFile = (url: string) => {
@@ -116,9 +142,7 @@ export default function FileUpload({
           type="button"
           variant="secondary"
           onClick={() => fileInputRef.current?.click()}
-          disabled={
-            value.length >= maxFiles || Object.keys(uploading).length > 0
-          }
+          disabled={value.length >= maxFiles || isUploading}
           text={acceptImages ? "Upload images" : "Upload files"}
         />
 
@@ -130,6 +154,7 @@ export default function FileUpload({
           onChange={(e) => {
             onChange([e.target.value]);
           }}
+          disabled={isUploading}
         />
       </Group>
 
@@ -150,20 +175,21 @@ export default function FileUpload({
         `}
       />
 
-      {errors.length > 0 && (
+      {(limitError || failedEntries.length > 0) && (
         <UploadError>
-          {errors.map((e, i) => (
-            <p key={i}>{e}</p>
+          {limitError && <p>{limitError}</p>}
+          {failedEntries.map(([id, f]) => (
+            <p key={id}>{f.message}</p>
           ))}
         </UploadError>
       )}
 
       <UploadFileList>
-        {Object.entries(uploading).map(([id, progress]) => (
+        {uploadingEntries.map(([id, f]) => (
           <UploadFileItem key={id}>
             <Group direction="row" align="center" gap="0.5rem">
-              <UploadFileName>{stripTempPrefix(id)}</UploadFileName>
-              <UploadFileProgress>{progress}%</UploadFileProgress>
+              <UploadFileName>{f.name}</UploadFileName>
+              <UploadFileProgress>{f.progress}%</UploadFileProgress>
             </Group>
           </UploadFileItem>
         ))}
@@ -187,6 +213,7 @@ export default function FileUpload({
                   type="button"
                   variant="ghost"
                   onClick={() => handleRemoveFile(url)}
+                  disabled={isUploading}
                   icon={<XIcon className="size-4" />}
                   text="Remove"
                 />

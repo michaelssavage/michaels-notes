@@ -1,12 +1,32 @@
-import { css } from "@emotion/react";
+import { css, type SerializedStyles } from "@emotion/react";
+import type { AnswerStatus } from "./useAnswerState";
 import styled from "@emotion/styled";
 
 interface InputWrapperProps {
-  isCorrect: boolean | null;
-  isPartiallyCorrect: boolean;
-  isRevealed?: boolean;
+  $status: AnswerStatus;
   chars: number;
 }
+
+// Border/background of the answer field for each status.
+const answerFieldStyles: Record<AnswerStatus, SerializedStyles | undefined> = {
+  unanswered: undefined,
+  revealed: css`
+    border: 1px solid var(--color-teal300);
+    background-color: var(--color-teal);
+  `,
+  correct: css`
+    border: 1px solid var(--color-green300);
+    background-color: var(--color-green);
+  `,
+  partial: css`
+    border: 1px solid var(--color-yellow300);
+    background-color: var(--color-yellow300);
+  `,
+  incorrect: css`
+    border: 1px solid var(--color-red300);
+    background-color: var(--color-red);
+  `,
+};
 
 export const BlankContainer = styled.div`
   margin-bottom: 1rem;
@@ -33,36 +53,11 @@ export const InputWrapper = styled.div<InputWrapperProps>`
       text-align: center; 
     }
 
-    ${({ isCorrect, isPartiallyCorrect, isRevealed }) => {
-      if (isRevealed) {
-        return css`
-          border: 1px solid var(--color-teal300);
-          background-color: var(--color-teal);
-        `;
-      }
-      if (isCorrect === true) {
-        return css`
-          border: 1px solid var(--color-green300);
-          background-color: var(--color-green);
-        `;
-      }
-      if (isPartiallyCorrect) {
-        return css`
-          border: 1px solid var(--color-yellow300);
-          background-color: var(--color-yellow300);
-        `;
-      }
-      if (isCorrect === false) {
-        return css`
-          border: 1px solid var(--color-red300);
-          background-color: var(--color-red);
-        `;
-      }
-    }}
+    ${({ $status }) => answerFieldStyles[$status]}
   }
 
-  ${({ isRevealed }) =>
-    isRevealed &&
+  ${({ $status }) =>
+    $status === "revealed" &&
     css`
       button {
         color: var(--color-blue300);
@@ -71,9 +66,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
 `;
 
 interface TranslateTextAreaProps {
-  isCorrect: boolean | null;
-  isPartiallyCorrect: boolean;
-  isRevealed?: boolean;
+  $status: AnswerStatus;
 }
 
 export const TranslateTextArea = styled.div<TranslateTextAreaProps>`
@@ -100,36 +93,11 @@ export const TranslateTextArea = styled.div<TranslateTextAreaProps>`
       text-align: left;
     }
 
-    ${({ isCorrect, isPartiallyCorrect, isRevealed }) => {
-      if (isRevealed) {
-        return css`
-          border: 1px solid var(--color-teal300);
-          background-color: var(--color-teal);
-        `;
-      }
-      if (isCorrect === true) {
-        return css`
-          border: 1px solid var(--color-green300);
-          background-color: var(--color-green);
-        `;
-      }
-      if (isPartiallyCorrect) {
-        return css`
-          border: 1px solid var(--color-yellow300);
-          background-color: var(--color-yellow300);
-        `;
-      }
-      if (isCorrect === false) {
-        return css`
-          border: 1px solid var(--color-red300);
-          background-color: var(--color-red);
-        `;
-      }
-    }}
+    ${({ $status }) => answerFieldStyles[$status]}
   }
 
-  ${({ isRevealed }) =>
-    isRevealed &&
+  ${({ $status }) =>
+    $status === "revealed" &&
     css`
       button {
         color: var(--color-blue300);

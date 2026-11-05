@@ -2,6 +2,7 @@ import { TextInput } from "@/components/form/TextInput";
 import { Button } from "@/components/molecules/Button";
 import { Page, Panel } from "@/styles/routes/blog.styled";
 import styled from "@emotion/styled";
+import { useMutation } from "@tanstack/react-query";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { SubmitEvent, useState } from "react";
 import { loginFn } from "../api/auth/login.api";
@@ -33,20 +34,27 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: SubmitEvent) => {
-    e.preventDefault();
-
-    try {
-      await loginFn({ data: { password } });
-      navigate({ to: "/" });
-    } catch (error) {
+  const login = useMutation({
+    mutationFn: (password: string) => loginFn({ data: { password } }),
+    onSuccess: () => navigate({ to: "/" }),
+    onError: (error) => {
       console.error(error);
-      setError("Invalid password");
       setPassword("");
-    }
+    },
+  });
+
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    if (!password || login.isPending) return;
+    login.mutate(password);
+  };
+
+  const handlePasswordChange = (value: string) => {
+    // Typing again means the last attempt's error no longer applies.
+    if (login.isError) login.reset();
+    setPassword(value);
   };
 
   return (
@@ -61,12 +69,17 @@ function LoginPage() {
             name="password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => handlePasswordChange(e.target.value)}
             placeholder="Password"
             autoComplete="new-password"
           />
-          <Button type="submit" text="Login" disabled={!password} />
-          {error && <p data-id="error">{error}</p>}
+          <Button
+            type="submit"
+            text={login.isPending ? "Logging in…" : "Login"}
+            disabled={!password || login.isPending}
+            ariaBusy={login.isPending}
+          />
+          {login.isError && <p data-id="error">Invalid password</p>}
         </FormStyled>
       </Panel>
     </Page>

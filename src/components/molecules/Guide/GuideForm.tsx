@@ -39,14 +39,14 @@ const GuideForm = withForm({
   defaultValues,
   render: function Render({ form }) {
     const options: Array<{ value: GuideType; label: string }> = Object.values(
-      GUIDE_TYPES
+      GUIDE_TYPES,
     ).map((type) => ({
       value: type,
       label: type,
     }));
 
     const tagOptions: Array<{ value: GuideTag; label: string }> = Object.values(
-      GUIDE_TAGS
+      GUIDE_TAGS,
     ).map((tag) => ({
       value: tag,
       label: tag,
@@ -264,16 +264,22 @@ const GuideForm = withForm({
         </form.Field>
 
         <Group direction="row" gap="0.5rem" justify="flex-end">
-          <Button
-            type="submit"
-            text="Save"
-            icon={<SaveIcon />}
-            styles={css`
-              svg {
-                stroke: var(--color-white);
-              }
-            `}
-          />
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
+              <Button
+                type="submit"
+                text={isSubmitting ? "Saving…" : "Save"}
+                icon={<SaveIcon />}
+                disabled={isSubmitting}
+                ariaBusy={isSubmitting}
+                styles={css`
+                  svg {
+                    stroke: var(--color-white);
+                  }
+                `}
+              />
+            )}
+          </form.Subscribe>
         </Group>
       </Form>
     );

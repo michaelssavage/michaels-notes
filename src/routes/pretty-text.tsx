@@ -72,7 +72,8 @@ function RekordboxPrettifier() {
   const isHydrated = useHydrated();
   const [inputText, setInputText] = useState("");
   const [withBPM, setWithBPM] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
+  const [dragDepth, setDragDepth] = useState(0);
+  const isDragging = dragDepth > 0;
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(formatText(inputText, withBPM));
@@ -84,23 +85,23 @@ function RekordboxPrettifier() {
   const clearText = useCallback(() => setInputText(""), []);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    // Required for the drop event to fire.
     e.preventDefault();
-    setIsDragging(true);
   };
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setIsDragging(true);
+    setDragDepth((depth) => depth + 1);
   };
 
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setIsDragging(false);
+    setDragDepth((depth) => Math.max(0, depth - 1));
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setIsDragging(false);
+    setDragDepth(0);
 
     const file = e.dataTransfer.files[0];
     if (file && file.type === "text/plain") {

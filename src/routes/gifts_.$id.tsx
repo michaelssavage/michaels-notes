@@ -5,7 +5,7 @@ import { Loading } from "@/components/molecules/Loading";
 import { useAppForm } from "@/context/FormProvider";
 import { Header, Page, Panel } from "@/styles/routes/blog.styled";
 import { PageSection } from "@/styles/routes/guide.styled";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "react-hot-toast";
@@ -34,10 +34,11 @@ function RouteComponent() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: gift, isLoading } = useQuery({
+  const giftQuery = useQuery({
     queryKey: ["gift", id],
     queryFn: () => fetchGift({ data: { id } }),
   });
+  const gift = giftQuery.data;
 
   const form = useAppForm({
     defaultValues: { ...defaultGift, ...gift },
@@ -55,24 +56,38 @@ function RouteComponent() {
     },
   });
 
-  const handleDelete = async () => {
-    if (!window.confirm(`Delete "${gift?.name}"?`)) return;
-    try {
-      await deleteGift({ data: { id } });
+  const deletion = useMutation({
+    mutationFn: () => deleteGift({ data: { id } }),
+    onSuccess: async () => {
       toast.success("Gift deleted");
       queryClient.removeQueries({ queryKey: ["gift", id] });
       await queryClient.invalidateQueries({ queryKey: ["gifts"] });
       navigate({ to: "/gifts" });
-    } catch {
-      toast.error("Failed to delete gift");
-    }
+    },
+    onError: () => toast.error("Failed to delete gift"),
+  });
+
+  const handleDelete = () => {
+    if (deletion.isPending) return;
+    if (!window.confirm(`Delete "${gift?.name}"?`)) return;
+    deletion.mutate();
   };
 
-  if (isLoading) {
+  if (giftQuery.status === "pending") {
     return (
       <Page>
         <Panel>
           <Loading />
+        </Panel>
+      </Page>
+    );
+  }
+
+  if (giftQuery.status === "error") {
+    return (
+      <Page>
+        <Panel>
+          <p role="alert">Could not load this gift. Please try again.</p>
         </Panel>
       </Page>
     );
@@ -95,7 +110,12 @@ function RouteComponent() {
         <Anchor link="/gifts/new" text="Create New" variant="button" />
 
         <PageSection>
-          <GiftForm form={form} isEditing onDelete={handleDelete} />
+          <GiftForm
+            form={form}
+            isEditing
+            onDelete={handleDelete}
+            isDeleting={deletion.isPending}
+          />
         </PageSection>
       </Panel>
     </Page>

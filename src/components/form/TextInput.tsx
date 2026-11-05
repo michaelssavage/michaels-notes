@@ -12,6 +12,7 @@ interface TextInputProps {
   onPaste?: (e: React.ClipboardEvent<HTMLInputElement>) => void;
   styles?: SerializedStyles;
   autoComplete?: HTMLInputElement["autocomplete"];
+  disabled?: boolean;
 }
 
 const StyledInput = styled.input<{ styles?: SerializedStyles }>`
@@ -35,6 +36,7 @@ export const TextInput = ({
   onPaste,
   autoComplete = "off",
   styles,
+  disabled,
 }: TextInputProps) => {
   return (
     <StyledInput
@@ -48,6 +50,7 @@ export const TextInput = ({
       onPaste={onPaste}
       autoComplete={autoComplete}
       styles={styles}
+      disabled={disabled}
     />
   );
 };

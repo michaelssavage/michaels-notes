@@ -50,119 +50,140 @@ const MoviesForm = withForm({
     };
 
     return (
-      <Drawer
-        title="Edit favourite movies"
-        description="Edit, reorder, add or remove the movies in the Letterboxd carousel."
-        isOpen={isOpen}
-        onOpenChange={(open) => !open && onClose()}
-      >
-        <DrawerContent onSubmit={handleSubmit}>
-          <DrawerHeader>
-            <h2>Edit favourite movies</h2>
-            <IconButton type="button" aria-label="Close" onClick={onClose}>
-              <XIcon />
-            </IconButton>
-          </DrawerHeader>
+      <form.Subscribe selector={(state) => state.isSubmitting}>
+        {(isSubmitting) => (
+          <Drawer
+            title="Edit favourite movies"
+            description="Edit, reorder, add or remove the movies in the Letterboxd carousel."
+            isOpen={isOpen}
+            // Stay open while saving; the save closes the drawer when it succeeds.
+            onOpenChange={(open) => !open && !isSubmitting && onClose()}
+          >
+            <DrawerContent onSubmit={handleSubmit}>
+              <DrawerHeader>
+                <h2>Edit favourite movies</h2>
+                <IconButton
+                  type="button"
+                  aria-label="Close"
+                  onClick={onClose}
+                  disabled={isSubmitting}
+                >
+                  <XIcon />
+                </IconButton>
+              </DrawerHeader>
 
-          <form.Field name="movies" mode="array">
-            {(moviesField) => {
-              const movies = moviesField.state.value;
+              <form.Field name="movies" mode="array">
+                {(moviesField) => {
+                  const movies = moviesField.state.value;
 
-              return (
-                <>
-                  {/* no-drag so selecting text and scrolling don't move the drawer */}
-                  <TableArea data-vaul-no-drag>
-                    <MoviesTable>
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          {columns.map(({ key, name }) => (
-                            <th key={key} scope="col" id={`movies-col-${key}`}>
-                              {name}
-                            </th>
-                          ))}
-                          <th scope="col">
-                            <span className="visually-hidden">Actions</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {movies.map((movie, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            {columns.map(({ key, placeholder }) => (
-                              <td key={key}>
-                                <form.Field name={`movies[${index}].${key}`}>
-                                  {(field) => (
-                                    <TextInput
-                                      id={`${key}-${index}`}
-                                      name={`${key}-${index}`}
-                                      value={field.state.value}
-                                      placeholder={placeholder}
-                                      onBlur={field.handleBlur}
-                                      onChange={(e) =>
-                                        field.handleChange(e.target.value)
+                  return (
+                    <>
+                      {/* no-drag so selecting text and scrolling don't move the drawer */}
+                      <TableArea data-vaul-no-drag>
+                        <MoviesTable>
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              {columns.map(({ key, name }) => (
+                                <th
+                                  key={key}
+                                  scope="col"
+                                  id={`movies-col-${key}`}
+                                >
+                                  {name}
+                                </th>
+                              ))}
+                              <th scope="col">
+                                <span className="visually-hidden">Actions</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {movies.map((movie, index) => (
+                              <tr key={index}>
+                                <td>{index + 1}</td>
+                                {columns.map(({ key, placeholder }) => (
+                                  <td key={key}>
+                                    <form.Field
+                                      name={`movies[${index}].${key}`}
+                                    >
+                                      {(field) => (
+                                        <TextInput
+                                          id={`${key}-${index}`}
+                                          name={`${key}-${index}`}
+                                          value={field.state.value}
+                                          placeholder={placeholder}
+                                          onBlur={field.handleBlur}
+                                          onChange={(e) =>
+                                            field.handleChange(e.target.value)
+                                          }
+                                        />
+                                      )}
+                                    </form.Field>
+                                  </td>
+                                ))}
+                                <td>
+                                  <Group direction="row" gap="0.25rem">
+                                    <IconButton
+                                      type="button"
+                                      aria-label={`Move ${movie.title || `movie ${index + 1}`} up`}
+                                      disabled={index === 0}
+                                      onClick={() =>
+                                        moviesField.moveValue(index, index - 1)
                                       }
-                                    />
-                                  )}
-                                </form.Field>
-                              </td>
+                                    >
+                                      <ArrowUpIcon size={18} />
+                                    </IconButton>
+                                    <IconButton
+                                      type="button"
+                                      aria-label={`Move ${movie.title || `movie ${index + 1}`} down`}
+                                      disabled={index === movies.length - 1}
+                                      onClick={() =>
+                                        moviesField.moveValue(index, index + 1)
+                                      }
+                                    >
+                                      <ArrowDown size={18} />
+                                    </IconButton>
+                                    <IconButton
+                                      type="button"
+                                      aria-label={`Remove ${movie.title || `movie ${index + 1}`}`}
+                                      disabled={movies.length === 1}
+                                      onClick={() =>
+                                        moviesField.removeValue(index)
+                                      }
+                                    >
+                                      <XIcon size={18} />
+                                    </IconButton>
+                                  </Group>
+                                </td>
+                              </tr>
                             ))}
-                            <td>
-                              <Group direction="row" gap="0.25rem">
-                                <IconButton
-                                  type="button"
-                                  aria-label={`Move ${movie.title || `movie ${index + 1}`} up`}
-                                  disabled={index === 0}
-                                  onClick={() =>
-                                    moviesField.moveValue(index, index - 1)
-                                  }
-                                >
-                                  <ArrowUpIcon size={18} />
-                                </IconButton>
-                                <IconButton
-                                  type="button"
-                                  aria-label={`Move ${movie.title || `movie ${index + 1}`} down`}
-                                  disabled={index === movies.length - 1}
-                                  onClick={() =>
-                                    moviesField.moveValue(index, index + 1)
-                                  }
-                                >
-                                  <ArrowDown size={18} />
-                                </IconButton>
-                                <IconButton
-                                  type="button"
-                                  aria-label={`Remove ${movie.title || `movie ${index + 1}`}`}
-                                  disabled={movies.length === 1}
-                                  onClick={() => moviesField.removeValue(index)}
-                                >
-                                  <XIcon size={18} />
-                                </IconButton>
-                              </Group>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </MoviesTable>
-                  </TableArea>
+                          </tbody>
+                        </MoviesTable>
+                      </TableArea>
 
-                  <Group direction="row" gap="0.5rem" justify="space-between">
-                    <Button
-                      text="Add movie"
-                      variant="secondary"
-                      onClick={() => moviesField.pushValue({ ...defaultMovie })}
-                    />
-                    <Group direction="row" gap="0.5rem">
-                      <Button
-                        text="Cancel"
-                        variant="secondary"
-                        onClick={onClose}
-                      />
-                      <form.Subscribe selector={(state) => state.isSubmitting}>
-                        {(isSubmitting) => (
+                      <Group
+                        direction="row"
+                        gap="0.5rem"
+                        justify="space-between"
+                      >
+                        <Button
+                          text="Add movie"
+                          variant="secondary"
+                          onClick={() =>
+                            moviesField.pushValue({ ...defaultMovie })
+                          }
+                        />
+                        <Group direction="row" gap="0.5rem">
+                          <Button
+                            text="Cancel"
+                            variant="secondary"
+                            onClick={onClose}
+                            disabled={isSubmitting}
+                          />
                           <Button
                             type="submit"
-                            text="Save"
+                            text={isSubmitting ? "Saving…" : "Save"}
                             icon={<SaveIcon />}
                             disabled={isSubmitting}
                             ariaBusy={isSubmitting}
@@ -172,16 +193,16 @@ const MoviesForm = withForm({
                               }
                             `}
                           />
-                        )}
-                      </form.Subscribe>
-                    </Group>
-                  </Group>
-                </>
-              );
-            }}
-          </form.Field>
-        </DrawerContent>
-      </Drawer>
+                        </Group>
+                      </Group>
+                    </>
+                  );
+                }}
+              </form.Field>
+            </DrawerContent>
+          </Drawer>
+        )}
+      </form.Subscribe>
     );
   },
 });

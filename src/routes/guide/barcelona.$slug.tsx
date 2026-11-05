@@ -74,10 +74,11 @@ function RouteComponent() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: item, isLoading } = useQuery({
+  const itemQuery = useQuery({
     queryKey: ["guide-item", slug],
     queryFn: () => getItem({ data: { name: "barcelona-guide", slug } }),
   });
+  const item = itemQuery.data;
 
   const form = useAppForm({
     defaultValues: {
@@ -100,7 +101,7 @@ function RouteComponent() {
     },
   });
 
-  if (isLoading) {
+  if (itemQuery.status === "pending") {
     return (
       <Page>
         <Panel>
@@ -110,7 +111,17 @@ function RouteComponent() {
     );
   }
 
-  if (!item && !isLoading) {
+  if (itemQuery.status === "error") {
+    return (
+      <Page>
+        <Panel>
+          <p role="alert">Could not load this item. Please try again.</p>
+        </Panel>
+      </Page>
+    );
+  }
+
+  if (!item) {
     return (
       <Page>
         <Panel>
@@ -123,7 +134,7 @@ function RouteComponent() {
   return (
     <Page>
       <Panel>
-        <Header>Edit: {item?.title}</Header>
+        <Header>Edit: {item.title}</Header>
         <Anchor
           link="/guide/barcelona/new"
           text="Create New"

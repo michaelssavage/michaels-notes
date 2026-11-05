@@ -1,5 +1,4 @@
 import type {
-  CustomWorksheet,
   Worksheet,
   WorksheetItem,
   WorksheetLanguage,
@@ -24,11 +23,12 @@ import { Page, Panel } from "@/styles/routes/blog.styled";
 import {
   Homework,
   LanguageToggle,
+  textInputStyles,
   WorksheetDate,
   WorksheetHeader,
 } from "@/styles/routes/routes.styled";
 import { css } from "@emotion/react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
@@ -116,14 +116,6 @@ function WorksheetsPage() {
   const lang: WorksheetLanguage = Route.useSearch().lang ?? "es";
   const languageLabel = LANGUAGE_LABELS[lang];
 
-  function handleLanguageToggle() {
-    const next: WorksheetLanguage = lang === "es" ? "ca" : "es";
-    navigate({
-      search: { lang: next === "es" ? undefined : next },
-      replace: true,
-    });
-  }
-
   const [request, setRequest] = useState("");
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -137,7 +129,7 @@ function WorksheetsPage() {
     });
   }
 
-  const { data, isLoading } = useQuery<Worksheet | null>({
+  const latest = useQuery<Worksheet | null>({
     queryKey: ["worksheet", "latest", lang],
     queryFn: () => fetchWorksheet({ data: { language: lang } }),
     staleTime: 1000 * 60 * 60 * 48, // 48 hours
@@ -146,24 +138,35 @@ function WorksheetsPage() {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   });
+  const data = latest.data;
 
-  const {
-    data: customData,
-    isLoading: customIsLoading,
-    error: customError,
-    refetch,
-  } = useQuery<CustomWorksheet>({
-    queryKey: ["worksheet", "custom", lang, request],
-    queryFn: () => createWorksheet({ data: { request, language: lang } }),
-    enabled: false,
+  const custom = useMutation({
+    mutationFn: (vars: { request: string; language: WorksheetLanguage }) =>
+      createWorksheet({ data: vars }),
   });
+
+  const customStatus =
+    custom.variables && custom.variables.language !== lang
+      ? "idle"
+      : custom.status;
+  const isCreating = customStatus === "pending";
+
+  function handleLanguageToggle() {
+    const next: WorksheetLanguage = lang === "es" ? "ca" : "es";
+    setAnswers({});
+    custom.reset();
+    navigate({
+      search: { lang: next === "es" ? undefined : next },
+      replace: true,
+    });
+  }
 
   const latestSections = useMemo(() => getLatestSection(data), [data]);
 
   function handleCustom() {
     const trimmed = request.trim();
-    if (!trimmed || customIsLoading) return;
-    refetch();
+    if (!trimmed || isCreating) return;
+    custom.mutate({ request: trimmed, language: lang });
   }
 
   return (
@@ -204,32 +207,7 @@ function WorksheetsPage() {
           </Group>
 
           {isAdmin ? (
-            <Group
-              direction="row"
-              gap="0"
-              wrap="wrap"
-              css={css`
-                max-width: 560px;
-                margin: 1rem auto;
-
-                input {
-                  flex: 3;
-                  width: 100%;
-                  min-width: 250px;
-                  padding: 6px 10px;
-                  border-top-left-radius: 8px;
-                  border-bottom-left-radius: 8px;
-                }
-                button {
-                  flex: 1;
-                  max-width: fit-content;
-                  justify-content: center;
-                  border-top-left-radius: 0;
-                  border-bottom-left-radius: 0;
-                  height: 35px;
-                }
-              `}
-            >
+            <Group direction="row" gap="0" wrap="wrap" css={textInputStyles}>
               <TextInput
                 id={REQUEST_INPUT_ID}
                 name="request"
@@ -239,18 +217,18 @@ function WorksheetsPage() {
               />
               <Button
                 id="spanish-worksheet-create"
-                text={customIsLoading ? "Creating…" : "Create worksheet"}
-                disabled={customIsLoading || request.trim().length === 0}
-                ariaBusy={customIsLoading}
+                text={isCreating ? "Creating…" : "Create worksheet"}
+                disabled={isCreating || request.trim().length === 0}
+                ariaBusy={isCreating}
                 onClick={handleCustom}
               />
             </Group>
           ) : null}
         </WorksheetHeader>
 
-        {customIsLoading ? (
-          <WorksheetSkeleton />
-        ) : customData ? (
+        {customStatus === "pending" && <WorksheetSkeleton />}
+
+        {customStatus === "success" && custom.data ? (
           <Group
             direction="row"
             gap="1.5rem"
@@ -260,13 +238,13 @@ function WorksheetsPage() {
             wrap="wrap"
           >
             <p>
-              <strong>Request:</strong> {customData.request}
+              <strong>Request:</strong> {custom.data.request}
             </p>
 
             <Group direction="column" gap="0.75rem" width="100%">
               <h3>Exercises</h3>
               <WorksheetItems
-                items={customData.content.exercises}
+                items={custom.data.content.exercises}
                 answers={answers}
                 onAnswerChange={handleAnswerChange}
               />
@@ -274,16 +252,21 @@ function WorksheetsPage() {
           </Group>
         ) : null}
 
-        {customError ? (
+        {customStatus === "error" && (
           <p role="alert">
-            {customError instanceof Error
-              ? customError.message
+            {custom.error instanceof Error
+              ? custom.error.message
               : "Could not create worksheet."}
           </p>
-        ) : null}
+        )}
 
-        {isLoading ? (
+        {latest.status === "pending" ? (
           <WorksheetSkeleton />
+        ) : latest.status === "error" ? (
+          <p role="alert">
+            Could not load the latest {languageLabel} worksheet. Please try
+            again later.
+          </p>
         ) : data ? (
           <Group direction="row" gap="1.5rem" wrap="wrap">
             {latestSections.map(({ key, title, items }) => (
@@ -297,11 +280,11 @@ function WorksheetsPage() {
               </Group>
             ))}
           </Group>
-        ) : data === null ? (
+        ) : (
           <p>
             No {languageLabel} worksheet yet. Check back after the next update.
           </p>
-        ) : null}
+        )}
       </Panel>
     </Page>
   );

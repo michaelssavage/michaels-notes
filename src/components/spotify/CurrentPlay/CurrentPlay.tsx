@@ -30,18 +30,20 @@ import {
 const COLLAPSED_HEIGHT = 15;
 
 export const CurrentPlay = () => {
-  const [expanded, setExpanded] = useState(false);
+  // Which artist's bio is expanded; a new artist starts collapsed.
+  const [expandedArtist, setExpandedArtist] = useState<string | null>(null);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const spotifyFn = useServerFn(getSpotifyTrack);
   const factFn = useServerFn(getLastFmTrack);
 
-  const { data: trackData, isLoading } = useQuery({
+  const trackQuery = useQuery({
     queryKey: ["spotifyTrack"],
     queryFn: spotifyFn,
     refetchInterval: 10000,
   });
+  const trackData = trackQuery.data;
 
   const { data: trackFact, error: trackFactError } = useQuery({
     queryKey: ["trackFact", trackData?.artist],
@@ -58,17 +60,20 @@ export const CurrentPlay = () => {
     [dominantColor],
   );
 
-  const fact = useSanitizedHTML(trackFact?.artist?.bio?.summary ?? "");
-  const hasFact = trackFact?.artist?.bio?.content !== "";
+  const bio = trackFact?.artist?.bio;
+  const fact = useSanitizedHTML(bio?.summary ?? "");
+  const factDisplay: "none" | "summary" | "expandable" =
+    !bio || !fact ? "none" : bio.content === "" ? "summary" : "expandable";
 
-  // Initial measurement
+  const expanded =
+    Boolean(trackData?.artist) && expandedArtist === trackData?.artist;
+
   useEffect(() => {
     if (contentRef.current && fact) {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, [fact]);
 
-  // Continuous observation
   useEffect(() => {
     const element = contentRef.current;
     if (!element) return;
@@ -83,7 +88,7 @@ export const CurrentPlay = () => {
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [factDisplay]);
 
   const randomColor = useMemo(() => getRandomColor(), []);
 
@@ -97,64 +102,63 @@ export const CurrentPlay = () => {
     console.log("Last fm error: ", trackFactError);
   }
 
-  if (isLoading) return <CurrentPlaySkeleton />;
+  if (trackQuery.status === "pending") return <CurrentPlaySkeleton />;
+  if (!trackData?.trackTitle) return null;
 
   return (
     <Comp>
-      <Title>
-        {trackData?.isPlaying ? "Now Playing:" : "Recently Played:"}
-      </Title>
-      {trackData && (
-        <NowPlaying color={dominantColor ?? ""}>
-          <Group direction="row" gap="0" align="center">
-            <Picture
-              src={trackData.albumArtUrl || ""}
-              alt="Album Art"
-              ar="1"
-              style={css`
-                width: 120px;
-                flex-shrink: 0;
-              `}
-            />
-            <Content>
-              <h3>{trackData.trackTitle}</h3>
-              <p id="artist-name">{trackData.artist}</p>
-              {!hasFact && (
-                <FactLink
-                  ref={contentRef}
-                  factColor={factColor}
-                  dangerouslySetInnerHTML={{ __html: fact }}
-                />
-              )}
-            </Content>
-          </Group>
+      <Title>{trackData.isPlaying ? "Now Playing:" : "Recently Played:"}</Title>
+      <NowPlaying color={dominantColor ?? ""}>
+        <Group direction="row" gap="0" align="center">
+          <Picture
+            src={trackData.albumArtUrl || ""}
+            alt="Album Art"
+            ar="1"
+            style={css`
+              width: 120px;
+              flex-shrink: 0;
+            `}
+          />
+          <Content>
+            <h3>{trackData.trackTitle}</h3>
+            <p id="artist-name">{trackData.artist}</p>
+            {factDisplay === "summary" && (
+              <FactLink
+                ref={contentRef}
+                factColor={factColor}
+                dangerouslySetInnerHTML={{ __html: fact }}
+              />
+            )}
+          </Content>
+        </Group>
 
-          {hasFact && (
-            <>
-              <animated.div style={{ ...springs, overflow: "hidden" }}>
-                <FactContent
-                  ref={contentRef}
-                  color={dominantColor ?? ""}
-                  factColor={factColor}
-                  dangerouslySetInnerHTML={{ __html: fact }}
-                />
-              </animated.div>
+        {factDisplay === "expandable" && (
+          <>
+            <animated.div style={{ ...springs, overflow: "hidden" }}>
+              <FactContent
+                ref={contentRef}
+                color={dominantColor ?? ""}
+                factColor={factColor}
+                dangerouslySetInnerHTML={{ __html: fact }}
+              />
+            </animated.div>
 
-              <ExpandButton
-                onClick={() => setExpanded((prev) => !prev)}
-                color={randomColor}
-              >
-                {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
-                {expanded ? "minimise" : "read more"}
-              </ExpandButton>
-            </>
-          )}
+            <ExpandButton
+              onClick={() =>
+                setExpandedArtist(expanded ? null : (trackData.artist ?? null))
+              }
+              color={randomColor}
+            >
+              {expanded ? <MinimiseIcon /> : <MaximiseIcon />}
+              {expanded ? "minimise" : "read more"}
+            </ExpandButton>
+          </>
+        )}
 
-          <Link id="external-track-url" to={trackData?.trackUrl}>
-            <ExternalLinkIcon />
-          </Link>
-        </NowPlaying>
-      )}
+        <Link id="external-track-url" to={trackData.trackUrl}>
+          <ExternalLinkIcon />
+        </Link>
+      </NowPlaying>
     </Comp>
   );
 };

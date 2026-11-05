@@ -44,8 +44,8 @@ export const getGuideItem = createServerFn({ method: "GET" })
       `SELECT id, title, location, link, price, image, description, tags, type, coord_lat, coord_lng FROM "${data.name}" WHERE id = ?`,
       [data.slug],
     );
-    if (!row) throw new Error("Item not found");
-    return deserializeGuide(row);
+    // null = no such item, so callers can tell it apart from a failed query
+    return row ? deserializeGuide(row) : null;
   });
 
 const UpdateGuideItemSchema = z.object({
@@ -120,8 +120,8 @@ export const updateGuideItem = createServerFn({ method: "POST" })
       `SELECT id, title, location, link, price, image, description, tags, type, coord_lat, coord_lng FROM "${name}" WHERE id = ?`,
       [slug],
     );
-    if (!row) throw new Error("Item not found");
-    return deserializeGuide(row);
+    // null = no such item, so callers can tell it apart from a failed query
+    return row ? deserializeGuide(row) : null;
   });
 
 const CreateGuideItemSchema = z.object({

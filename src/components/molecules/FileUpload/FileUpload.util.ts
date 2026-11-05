@@ -19,10 +19,6 @@ export const filenameFromUrl = (url: string) => {
   }
 };
 
-export const stripTempPrefix = (id: string) => {
-  return id.replace(/^temp-\d+-/, "");
-};
-
 export const formatFileSize = (bytes: number): string => {
   if (bytes < 1024) return bytes + " bytes";
   else if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";

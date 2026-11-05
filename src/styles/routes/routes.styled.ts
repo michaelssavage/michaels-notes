@@ -135,14 +135,40 @@ export const WorksheetDate = styled.p`
 export const WorksheetHeader = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 export const LanguageToggle = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   width: 100%;
   align-items: center;
   gap: 0.5rem;
   margin: 1.5rem 0 1rem;
+`;
+
+export const textInputStyles = css`
+  max-width: 560px;
+  margin: 1rem 0;
+
+  input {
+    flex: 3;
+    width: 100%;
+    min-width: 400px;
+    padding: 6px 10px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    ${forPhoneOnly(css`
+      min-width: 250px;
+    `)}
+  }
+  button {
+    flex: 1;
+    max-width: fit-content;
+    justify-content: center;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 35px;
+  }
 `;

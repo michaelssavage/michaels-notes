@@ -1,7 +1,6 @@
 import { DraftBadge } from "@/styles/routes/projects.styled";
 import type { IBlog, IReview } from "@/types/Post";
-import { useHydrated } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useState } from "react";
 import { Description } from "./Description";
 import {
   Card,
@@ -12,7 +11,6 @@ import {
   Title,
   Views,
 } from "./Post.styled";
-import PostSkeleton from "./PostSkeleton";
 
 const Post = ({
   title,
@@ -27,68 +25,20 @@ const Post = ({
   views,
 }: IBlog | IReview) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [inView, setInView] = useState(true);
-  const ref = useRef<HTMLElement | null>(null);
 
-  const hydrated = useHydrated();
-
-  useEffect(() => {
-    if (!ref.current || !hydrated) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setInView(true);
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-      },
-    );
-
-    observer.observe(ref.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hydrated]);
-
-  const handleMouseEnter = useCallback(() => {
-    if (hydrated) setIsHovered(true);
-  }, [hydrated]);
-
-  const handleMouseLeave = useCallback(() => {
-    if (hydrated) setIsHovered(false);
-  }, [hydrated]);
-
-  const isExpanded = useMemo(() => isFirst || isHovered, [isFirst, isHovered]);
-
-  const postColor = useMemo(() => {
-    return getPostColor(isExternal, type === "review");
-  }, [isExternal, type]);
-
-  if (hydrated && !inView) {
-    return (
-      <article ref={ref}>
-        <PostSkeleton />
-      </article>
-    );
-  }
+  // The first post is always expanded; the others expand on hover.
+  const isExpanded = isFirst || isHovered;
+  const postColor = getPostColor(isExternal, type === "review");
 
   return (
     <article
-      ref={ref}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       aria-labelledby={`post-title-${slug}`}
     >
       <Card
         to={isExternal ? isExternal : `/${type}/${slug}`}
         aria-label={`Read post: ${title}`}
-        inView={hydrated ? inView : true}
         color={postColor}
       >
         {draft && <DraftBadge>Draft</DraftBadge>}

@@ -29,8 +29,8 @@ export const getGift = createServerFn({ method: "GET" })
       `SELECT ${COLUMNS} FROM gifts WHERE id = ?`,
       [data.id],
     );
-    if (!row) throw new Error("Gift not found");
-    return row;
+    // null = no such gift, so callers can tell it apart from a failed query
+    return row ?? null;
   });
 
 export const createGift = createServerFn({ method: "POST" })

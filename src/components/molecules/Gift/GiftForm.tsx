@@ -23,8 +23,12 @@ export const defaultGift: Gift = {
 
 const GiftForm = withForm({
   defaultValues: defaultGift,
-  props: {} as { isEditing?: boolean; onDelete?: () => void },
-  render: function Render({ form, isEditing, onDelete }) {
+  props: {} as {
+    isEditing?: boolean;
+    onDelete?: () => void;
+    isDeleting?: boolean;
+  },
+  render: function Render({ form, isEditing, onDelete, isDeleting = false }) {
     const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
       form.setFieldValue("name", e.target.value);
       // the id is the primary key, so keep it stable once the gift exists
@@ -140,26 +144,39 @@ const GiftForm = withForm({
           </form.Field>
         </Group>
 
-        <Group direction="row" gap="0.5rem" justify="flex-end">
-          {onDelete && (
-            <Button
-              type="button"
-              text="Delete"
-              variant="secondary"
-              onClick={onDelete}
-            />
-          )}
-          <Button
-            type="submit"
-            text="Save"
-            icon={<SaveIcon />}
-            styles={css`
-              svg {
-                stroke: var(--color-white);
-              }
-            `}
-          />
-        </Group>
+        <form.Subscribe selector={(state) => state.isSubmitting}>
+          {(isSubmitting) => {
+            // Saving and deleting are mutually exclusive: lock both while
+            // either is in flight.
+            const isBusy = isSubmitting || isDeleting;
+            return (
+              <Group direction="row" gap="0.5rem" justify="flex-end">
+                {onDelete && (
+                  <Button
+                    type="button"
+                    text={isDeleting ? "Deleting…" : "Delete"}
+                    variant="secondary"
+                    onClick={onDelete}
+                    disabled={isBusy}
+                    ariaBusy={isDeleting}
+                  />
+                )}
+                <Button
+                  type="submit"
+                  text={isSubmitting ? "Saving…" : "Save"}
+                  icon={<SaveIcon />}
+                  disabled={isBusy}
+                  ariaBusy={isSubmitting}
+                  styles={css`
+                    svg {
+                      stroke: var(--color-white);
+                    }
+                  `}
+                />
+              </Group>
+            );
+          }}
+        </form.Subscribe>
       </Form>
     );
   },

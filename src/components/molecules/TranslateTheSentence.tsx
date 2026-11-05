@@ -5,8 +5,8 @@ import {
   IconButton,
   TranslateTextArea,
 } from "@/components/molecules/FillTheBlank/FillInTheBlank.styled";
-import { getAnswerValidation } from "@/components/molecules/FillTheBlank/fillInTheBlank.util";
-import { ChangeEvent, useMemo, useState } from "react";
+import { useAnswerState } from "@/components/molecules/FillTheBlank/useAnswerState";
+import { ChangeEvent } from "react";
 
 interface TranslateTheSentenceProps {
   sentence: string;
@@ -21,52 +21,19 @@ export const TranslateTheSentence = ({
   value,
   onValueChange,
 }: TranslateTheSentenceProps) => {
-  const [internalAnswer, setInternalAnswer] = useState("");
-  const [isRevealed, setIsRevealed] = useState(false);
-  const isControlled = value !== undefined;
-  const userAnswer = isControlled ? value : internalAnswer;
+  const { userAnswer, status, change, clear, reveal } = useAnswerState({
+    correctAnswer,
+    value,
+    onValueChange,
+  });
 
-  const correctAnswers = useMemo(
-    () => (Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer]),
-    [correctAnswer],
-  );
-  const firstCorrectAnswer = correctAnswers[0] ?? "";
-  const { isCorrect, isPartiallyCorrect } = useMemo(
-    () => getAnswerValidation(userAnswer, correctAnswers),
-    [userAnswer, correctAnswers],
-  );
-
-  const setUserAnswer = (next: string) => {
-    if (isControlled) {
-      onValueChange?.(next);
-    } else {
-      setInternalAnswer(next);
-    }
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setIsRevealed(false);
-    setUserAnswer(e.target.value);
-  };
-
-  const clearAnswer = () => {
-    setIsRevealed(false);
-    setUserAnswer("");
-  };
-
-  const showAnswer = () => {
-    setIsRevealed(true);
-    setUserAnswer(firstCorrectAnswer);
-  };
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    change(e.target.value);
 
   return (
     <BlankContainer>
       <p>{sentence}</p>
-      <TranslateTextArea
-        isCorrect={isCorrect}
-        isPartiallyCorrect={isPartiallyCorrect}
-        isRevealed={isRevealed}
-      >
+      <TranslateTextArea $status={status}>
         <textarea
           name="translate-the-sentence"
           value={userAnswer}
@@ -76,22 +43,22 @@ export const TranslateTheSentence = ({
           rows={1}
         />
 
-        {isCorrect === true && (
+        {(status === "correct" || status === "revealed") && (
           <IconButton
             type="button"
             aria-label="Clear answer"
-            onClick={clearAnswer}
+            onClick={clear}
             height="auto"
           >
             <CheckIcon />
           </IconButton>
         )}
 
-        {isCorrect === false && !isPartiallyCorrect && (
+        {status === "incorrect" && (
           <IconButton
             type="button"
             aria-label="Clear answer"
-            onClick={clearAnswer}
+            onClick={clear}
             height="auto"
           >
             <XIcon />
@@ -99,9 +66,11 @@ export const TranslateTheSentence = ({
         )}
       </TranslateTextArea>
 
-      {!isCorrect && userAnswer.length > 0 && (
-        <AnswerButton onClick={showAnswer}>Show Answer</AnswerButton>
-      )}
+      {status !== "correct" &&
+        status !== "revealed" &&
+        userAnswer.length > 0 && (
+          <AnswerButton onClick={reveal}>Show Answer</AnswerButton>
+        )}
     </BlankContainer>
   );
 };
